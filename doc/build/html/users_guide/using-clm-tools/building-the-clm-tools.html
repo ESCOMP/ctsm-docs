@@ -1,0 +1,270 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.2. Building the CLM tools &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3.3. Creating input for surface dataset generation" href="creating-input-for-surface-dataset-generation.html" />
+    <link rel="prev" title="3.1. What are the CLM tools" href="what-are-the-clm-tools.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="creating-input-for-surface-dataset-generation.html" title="3.3. Creating input for surface dataset generation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="what-are-the-clm-tools.html" title="3.1. What are the CLM tools"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">3. Using CLM tools</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="what-are-the-clm-tools.html"
+                        title="previous chapter">3.1. What are the CLM tools</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="creating-input-for-surface-dataset-generation.html"
+                        title="next chapter">3.3. Creating input for surface dataset generation</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/users_guide/using-clm-tools/building-the-clm-tools.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="building-the-clm-tools">
+<h1>3.2. Building the CLM tools<a class="headerlink" href="#building-the-clm-tools" title="Permalink to this headline">¶</a></h1>
+<p>The FORTRAN tools all have similar makefiles, and similar options for building.
+All of the Makefiles use GNU Make extensions and thus require that you use GNU make to use them.
+They also auto detect the type of platform you are on, using &#8220;uname -s&#8221; and set the compiler, compiler flags and such accordingly.
+There are also environment variables that can be set to set things that must be customized.
+All the tools use NetCDF and hence require the path to the NetCDF libraries and include files.
+On some platforms (such as Linux) multiple compilers can be used, and hence there are env variables that can be set to change the FORTRAN and/or &#8220;C&#8221; compilers used.
+The tools other than cprnc also allow finer control, by also allowing the user to add compiler flags they choose, for both FORTRAN and &#8220;C&#8221;, as well as picking the compiler, linker and and add linker options.
+Finally the tools other than <strong>cprnc</strong> allow you to turn optimization on (which is off by default but on for the <strong>mksurfdata_map</strong> and <strong>interpinic</strong> programs) with the OPT flag so that the tool will run faster.
+To get even faster performance, the <strong>interpinic</strong>, program allows you to also use the SMP to turn on multiple shared memory processors.
+When <code class="docutils literal"><span class="pre">SMP=TRUE</span></code> you set the number of threads used by the program with the <code class="docutils literal"><span class="pre">OMP_NUM_THREADS</span></code> environment variable.</p>
+<p>Options used by all: <strong>cprnc</strong>, <strong>interpinic</strong>, and <strong>mksurfdata_map</strong></p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">LIB_NETCDF</span></code> &#8211; sets the location of the NetCDF library.</li>
+<li><code class="docutils literal"><span class="pre">INC_NETCDF</span></code> &#8211; sets the location of the NetCDF include files.</li>
+<li><code class="docutils literal"><span class="pre">USER_FC</span></code> &#8211; sets the name of the FORTRAN compiler.</li>
+</ul>
+<p>Options used by: <strong>interpinic</strong>, <strong>mkprocdata_map</strong>, <strong>mkmapgrids</strong>, and <strong>mksurfdata_map</strong></p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">MOD_NETCDF</span></code> &#8211; sets the location of the NetCDF FORTRAN module.</li>
+<li><code class="docutils literal"><span class="pre">USER_LINKER</span></code> &#8211; sets the name of the linker to use.</li>
+<li><code class="docutils literal"><span class="pre">USER_CPPDEFS</span></code> &#8211; adds any CPP defines to use.</li>
+<li><code class="docutils literal"><span class="pre">USER_CFLAGS</span></code> &#8211; add any &#8220;C&#8221; compiler flags to use.</li>
+<li><code class="docutils literal"><span class="pre">USER_FFLAGS</span></code> &#8211; add any FORTRAN compiler flags to use.</li>
+<li><code class="docutils literal"><span class="pre">USER_LDFLAGS</span></code> &#8211; add any linker flags to use.</li>
+<li><code class="docutils literal"><span class="pre">USER_CC</span></code> &#8211; sets the name of the &#8220;C&#8221; compiler to use.</li>
+<li><code class="docutils literal"><span class="pre">OPT</span></code> &#8211; set to TRUE to compile the code optimized (TRUE or FALSE)</li>
+<li><code class="docutils literal"><span class="pre">SMP</span></code> &#8211; set to TRUE to turn on shared memory parallelism (i.e. OpenMP) (TRUE or FALSE)</li>
+<li><code class="docutils literal"><span class="pre">Filepath</span></code> &#8211; list of directories to build source code from.</li>
+<li><code class="docutils literal"><span class="pre">Srcfiles</span></code> &#8211; list of source code filenames to build executable from.</li>
+<li><code class="docutils literal"><span class="pre">Makefile</span></code> &#8211; customized makefile options for this particular tool.</li>
+<li><code class="docutils literal"><span class="pre">mkDepends</span></code> &#8211; figure out dependencies between source files, so make can compile in order..</li>
+<li><code class="docutils literal"><span class="pre">Makefile.common</span></code> &#8211; General tool Makefile that should be the same between all tools.</li>
+</ul>
+<p>Options used only by <strong>cprnc</strong>:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">EXEDIR</span></code> &#8211; sets the location where the executable will be built.</li>
+<li><code class="docutils literal"><span class="pre">VPATH</span></code> &#8211; colon delimited path list to find the source files.</li>
+</ul>
+<p>More details on each environment variable.</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">LIB_NETCDF</span></code></dt>
+<dd>This variable sets the path to the NetCDF library file (<code class="docutils literal"><span class="pre">libnetcdf.a</span></code>). If not set it defaults to <code class="docutils literal"><span class="pre">/usr/local/lib</span></code>. In order to use the tools you need to build the NetCDF library and be able to link to it. In order to build the model with a particular compiler you may have to compile the NetCDF library with the same compiler (or at least a compatible one).</dd>
+<dt><code class="docutils literal"><span class="pre">INC_NETCDF</span></code></dt>
+<dd>This variable sets the path to the NetCDF include directory (in order to find the include file <code class="docutils literal"><span class="pre">netcdf.inc</span></code>). if not set it defaults to <code class="docutils literal"><span class="pre">/usr/local/include</span></code>.</dd>
+<dt><code class="docutils literal"><span class="pre">MOD_NETCDF</span></code></dt>
+<dd>This variable sets the path to the NetCDF module directory (in order to find the NetCDF FORTRAN-90 module file when NetCDF is used with a FORTRAN-90 <strong>use statement</strong>. When not set it defaults to the <code class="docutils literal"><span class="pre">LIB_NETCDF</span></code> value.</dd>
+<dt><code class="docutils literal"><span class="pre">USER_FC</span></code></dt>
+<dd>This variable sets the command name to the FORTRAN-90 compiler to use when compiling the tool. The default compiler to use depends on the platform. And for example, on the AIX platform this variable is NOT used</dd>
+<dt><code class="docutils literal"><span class="pre">USER_LINKER</span></code></dt>
+<dd>This variable sets the command name to the linker to use when linking the object files from the compiler together to build the executable. By default this is set to the value of the FORTRAN-90 compiler used to compile the source code.</dd>
+<dt><code class="docutils literal"><span class="pre">USER_CPPDEFS</span></code></dt>
+<dd>This variable adds additional optional values to define for the C preprocessor. Normally, there is no reason to do this as there are very few CPP tokens in the CLM tools. However, if you modify the tools there may be a reason to define new CPP tokens.</dd>
+<dt><code class="docutils literal"><span class="pre">USER_CC</span></code></dt>
+<dd>This variable sets the command name to the &#8220;C&#8221; compiler to use when compiling the tool. The default compiler to use depends on the platform. And for example, on the AIX platform this variable is NOT used</dd>
+<dt><code class="docutils literal"><span class="pre">USER_CFLAGS</span></code></dt>
+<dd>This variable adds additional compiler options for the &#8220;C&#8221; compiler to use when compiling the tool. By default the compiler options are picked according to the platform and compiler that will be used.</dd>
+<dt><code class="docutils literal"><span class="pre">USER_FFLAGS</span></code></dt>
+<dd>This variable adds additional compiler options for the FORTRAN-90 compiler to use when compiling the tool. By default the compiler options are picked according to the platform and compiler that will be used.</dd>
+<dt><code class="docutils literal"><span class="pre">USER_LDFLAGS</span></code></dt>
+<dd>This variable adds additional options to the linker that will be used when linking the object files into the executable. By default the linker options are picked according to the platform and compiler that is used.</dd>
+<dt><code class="docutils literal"><span class="pre">SMP</span></code></dt>
+<dd>This variable flags if shared memory parallelism (using OpenMP) should be used when compiling the tool. It can be set to either TRUE or FALSE, by default it is set to FALSE, so shared memory parallelism is NOT used. When set to TRUE you can set the number of threads by using the OMP_NUM_THREADS environment variable. Normally, the most you would set this to would be to the number of on-node CPU processors. Turning this on should make the tool run much faster.</dd>
+</dl>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Note, that depending on the compiler answers may be different when SMP is activated.</p>
+</div>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">OPT</span></code></dt>
+<dd>This variable flags if compiler optimization should be used when compiling the tool. It can be set to either <code class="docutils literal"><span class="pre">TRUE</span></code> or <code class="docutils literal"><span class="pre">FALSE</span></code>, by default it is set to <code class="docutils literal"><span class="pre">FALSE</span></code> for <strong>mkmapgrids</strong> and <code class="docutils literal"><span class="pre">TRUE</span></code> for <strong>mksurfdata_map</strong>, <strong>mkprocdata_map</strong> and <strong>interpinic</strong>. Turning this on should make the tool run much faster.</dd>
+</dl>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Note, you should expect that answers will be different when <code class="docutils literal"><span class="pre">OPT</span></code> is activated.</p>
+</div>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">Filepath</span></code></dt>
+<dd>All of the tools are stand-alone and don&#8217;t need any outside code to operate. The Filepath is the list of directories needed to compile and hence is always simply &#8221;.&#8221; the current directory. Several tools use copies of code outside their directory that is in the CESM distribution (either <code class="docutils literal"><span class="pre">csm_share</span></code> code or CLM source code).</dd>
+<dt><code class="docutils literal"><span class="pre">Srcfiles</span></code></dt>
+<dd>The <code class="docutils literal"><span class="pre">Srcfiles</span></code> lists the filenames of the source code to use when building the tool.</dd>
+<dt><code class="docutils literal"><span class="pre">Makefile</span></code></dt>
+<dd>The <code class="docutils literal"><span class="pre">Makefile</span></code> is the custom GNU Makefile for this particular tool. It will customize the <code class="docutils literal"><span class="pre">EXENAME</span></code> and the optimization settings for this particular tool.</dd>
+<dt><code class="docutils literal"><span class="pre">Makefile.common</span></code></dt>
+<dd>The <code class="docutils literal"><span class="pre">Makefile.common</span></code> is the copy of the general GNU Makefile for all the CLM tools. This file should be identical between the different tools. This file has different sections of compiler options for different Operating Systems and compilers.</dd>
+<dt><code class="docutils literal"><span class="pre">mkDepends</span></code></dt>
+<dd>The <code class="docutils literal"><span class="pre">mkDepends</span></code> is the copy of the perl script used by the <code class="docutils literal"><span class="pre">Makefile.common</span></code> to figure out the dependencies between the source files so that it can compile in the necessary order. This file should be identical between the different tools.</dd>
+<dt><code class="docutils literal"><span class="pre">EXEDIR</span></code></dt>
+<dd>The cprnc tool uses this variable to set the location of where the executable will be built. The default is the current directory.</dd>
+<dt><code class="docutils literal"><span class="pre">VPATH</span></code></dt>
+<dd>The <strong>cprnc</strong> tool uses this variable to set the colon delimited pathnames of where the source code exists. The default is the current directory.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There are several files that are copies of the original files from either models``/lnd/clm/src/util_share``, <code class="docutils literal"><span class="pre">models/csm_share/shr</span></code>, or copies from other tool directories. By having copies the tools can all be made stand-alone, but any changes to the originals will have to be put into the tool directories as well.</p>
+</div>
+<p>The <em>README.filecopies</em> (which can be found in <code class="docutils literal"><span class="pre">models/lnd/clm/tools</span></code>) is repeated here.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>   <span class="n">models</span><span class="o">/</span><span class="n">lnd</span><span class="o">/</span><span class="n">clm</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">README</span><span class="o">.</span><span class="n">filecopies</span>                          <span class="n">Jun</span><span class="o">/</span><span class="mi">04</span><span class="o">/</span><span class="mi">2013</span>
+
+<span class="n">There</span> <span class="n">are</span> <span class="n">several</span> <span class="n">files</span> <span class="n">that</span> <span class="n">are</span> <span class="n">copies</span> <span class="n">of</span> <span class="n">the</span> <span class="n">original</span> <span class="n">files</span> <span class="kn">from</span>
+<span class="nn">either</span> <span class="n">models</span><span class="o">/</span><span class="n">lnd</span><span class="o">/</span><span class="n">clm</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="p">,</span> <span class="n">models</span><span class="o">/</span><span class="n">csm_share</span><span class="o">/</span><span class="n">shr</span><span class="p">,</span>
+<span class="n">models</span><span class="o">/</span><span class="n">csm_share</span><span class="o">/</span><span class="n">unit_testers</span><span class="p">,</span> <span class="ow">or</span> <span class="n">copies</span> <span class="kn">from</span> <span class="nn">other</span> <span class="n">tool</span>
+<span class="n">directories</span><span class="o">.</span> <span class="n">By</span> <span class="n">having</span> <span class="n">copies</span> <span class="n">the</span> <span class="n">tools</span> <span class="n">can</span> <span class="nb">all</span> <span class="n">be</span> <span class="n">made</span> <span class="n">stand</span><span class="o">-</span><span class="n">alone</span><span class="p">,</span>
+<span class="n">but</span> <span class="nb">any</span> <span class="n">changes</span> <span class="n">to</span> <span class="n">the</span> <span class="n">originals</span> <span class="n">will</span> <span class="n">have</span> <span class="n">to</span> <span class="n">be</span> <span class="n">put</span> <span class="n">into</span> <span class="n">the</span> <span class="n">tool</span>
+<span class="n">directories</span> <span class="k">as</span> <span class="n">well</span><span class="o">.</span>
+
+<span class="n">I</span><span class="o">.</span> <span class="n">Files</span> <span class="n">that</span> <span class="n">are</span> <span class="n">IDENTICAL</span><span class="p">:</span>
+
+   <span class="mf">1.</span> <span class="n">csm_share</span> <span class="n">files</span> <span class="n">copied</span> <span class="n">that</span> <span class="n">should</span> <span class="n">be</span> <span class="n">identical</span> <span class="n">to</span> <span class="n">models</span><span class="o">/</span><span class="n">csm_share</span><span class="o">/</span><span class="n">shr</span><span class="p">:</span>
+
+       <span class="n">shr_const_mod</span><span class="o">.</span><span class="n">F90</span>
+       <span class="n">shr_log_mod</span><span class="o">.</span><span class="n">F90</span>
+       <span class="n">shr_timer_mod</span><span class="o">.</span><span class="n">F90</span>
+
+   <span class="mf">2.</span> <span class="n">csm_share</span> <span class="n">files</span> <span class="n">copied</span> <span class="n">that</span> <span class="n">should</span> <span class="n">be</span> <span class="n">identical</span> <span class="n">to</span> <span class="n">models</span><span class="o">/</span><span class="n">csm_share</span><span class="o">/</span><span class="n">unit_testers</span><span class="p">:</span>
+
+       <span class="n">test_mod</span><span class="o">.</span><span class="n">F90</span>
+
+   <span class="mf">3.</span> <span class="n">clm</span><span class="o">/</span><span class="n">src</span> <span class="n">files</span> <span class="n">copied</span> <span class="n">that</span> <span class="n">should</span> <span class="n">be</span> <span class="n">identical</span> <span class="n">to</span> <span class="n">models</span><span class="o">/</span><span class="n">lnd</span><span class="o">/</span><span class="n">clm</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">util_share</span><span class="p">:</span>
+
+       <span class="n">nanMod</span><span class="o">.</span><span class="n">F90</span>
+
+<span class="n">II</span><span class="o">.</span> <span class="n">Files</span> <span class="k">with</span> <span class="n">differences</span>
+
+   <span class="mf">1.</span> <span class="n">csm_share</span> <span class="n">files</span> <span class="n">copied</span> <span class="k">with</span> <span class="n">differences</span><span class="p">:</span>
+
+       <span class="n">shr_kind_mod</span><span class="o">.</span><span class="n">F90</span> <span class="o">---</span> <span class="n">SHR_KIND_CXX</span> <span class="ow">is</span> <span class="n">new</span>
+       <span class="n">shr_sys_mod</span><span class="o">.</span><span class="n">F90</span> <span class="o">----</span> <span class="n">Remove</span> <span class="n">mpi</span> <span class="n">abort</span> <span class="ow">and</span> <span class="n">reference</span> <span class="n">to</span> <span class="n">shr_mpi_mod</span><span class="o">.</span><span class="n">F90</span><span class="o">.</span>
+       <span class="n">shr_infnan_mod</span><span class="o">.</span><span class="n">F90</span> <span class="o">-</span> <span class="n">Earlier</span> <span class="n">version</span>
+       <span class="n">shr_string_mod</span><span class="o">.</span><span class="n">F90</span> <span class="o">-</span> <span class="n">Earlier</span> <span class="n">version</span>
+       <span class="n">shr_file_mod</span><span class="o">.</span><span class="n">F90</span> <span class="o">---</span> <span class="n">mkprocdata_map</span> <span class="n">version</span> <span class="ow">is</span> <span class="n">stripped</span> <span class="n">down</span>
+       <span class="n">clm_varctl</span><span class="o">.</span><span class="n">F90</span> <span class="o">-----</span> <span class="n">Earlier</span> <span class="n">version</span>
+
+   <span class="mf">2.</span> <span class="n">clm</span><span class="o">/</span><span class="n">src</span> <span class="n">files</span> <span class="k">with</span> <span class="n">differences</span><span class="p">:</span>
+
+       <span class="n">fileutils</span><span class="o">.</span><span class="n">F90</span> <span class="o">---</span> <span class="n">Remove</span> <span class="n">use</span> <span class="n">of</span> <span class="n">masterproc</span> <span class="ow">and</span> <span class="n">spmdMod</span> <span class="ow">and</span> <span class="n">endrun</span> <span class="ow">in</span> <span class="n">abortutils</span><span class="o">.</span>
+
+   <span class="mf">4.</span> <span class="n">Files</span> <span class="ow">in</span> <span class="n">mkmapgrids</span>
+
+      <span class="n">domainMod</span><span class="o">.</span><span class="n">F90</span> <span class="o">----</span> <span class="n">Highly</span> <span class="n">customized</span> <span class="n">based</span> <span class="n">off</span> <span class="n">an</span> <span class="n">earlier</span> <span class="n">version</span> <span class="n">of</span> <span class="n">clm</span> <span class="n">code</span><span class="o">.</span>
+                         <span class="n">Remove</span> <span class="n">use</span> <span class="n">of</span> <span class="n">abortutils</span><span class="p">,</span> <span class="n">spmdMod</span><span class="o">.</span> <span class="n">clm</span> <span class="n">version</span> <span class="n">uses</span> <span class="n">latlon</span>
+                         <span class="n">this</span> <span class="n">version</span> <span class="n">uses</span> <span class="n">domain</span> <span class="ow">in</span> <span class="n">names</span><span class="o">.</span> <span class="n">Distributed</span> <span class="n">memory</span>
+                         <span class="n">parallelism</span> <span class="ow">is</span> <span class="n">removed</span><span class="o">.</span>
+
+   <span class="mf">5.</span> <span class="n">Files</span> <span class="ow">in</span> <span class="n">mksurfdata_map</span>
+
+       <span class="n">mkvarpar</span><span class="o">.</span><span class="n">F90</span> <span class="o">---</span> <span class="n">clm4_0</span> <span class="ow">and</span> <span class="n">clm4_5</span> <span class="n">versions</span> <span class="n">are</span> <span class="n">different</span> <span class="ow">and</span> <span class="n">different</span> <span class="kn">from</span> <span class="nn">main</span> <span class="n">clm</span> <span class="n">versions</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="creating-input-for-surface-dataset-generation.html" title="3.3. Creating input for surface dataset generation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="what-are-the-clm-tools.html" title="3.1. What are the CLM tools"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >3. Using CLM tools</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+    </div>
+  </body>
+</html>

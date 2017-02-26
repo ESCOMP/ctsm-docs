@@ -1,0 +1,494 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>8.1. Trouble Shooting &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="8. Troubleshooting" href="index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="8. Troubleshooting"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">8. Troubleshooting</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">8.1. Trouble Shooting</a><ul>
+<li><a class="reference internal" href="#setup-problems">8.1.1. Setup Problems</a><ul>
+<li><a class="reference internal" href="#example-missing-datasets">8.1.1.1. Example: Missing datasets</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#build-problems">8.1.2. Build problems</a></li>
+<li><a class="reference internal" href="#run-time-problems">8.1.3. Run Time Problems</a><ul>
+<li><a class="reference internal" href="#tracking-problems-by-querying-log-files">8.1.3.1. Tracking Problems by Querying Log Files</a></li>
+<li><a class="reference internal" href="#the-coupler-log-file">8.1.3.2. The coupler log file</a></li>
+<li><a class="reference internal" href="#the-cesm-log-file">8.1.3.3. The cesm log file</a></li>
+<li><a class="reference internal" href="#the-clm-log-file">8.1.3.4. The CLM log file</a></li>
+<li><a class="reference internal" href="#the-datm-log-file">8.1.3.5. The DATM log file</a></li>
+<li><a class="reference internal" href="#the-batch-log-files">8.1.3.6. The batch log files</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#general-advice-on-debugging-run-time-problems">8.1.4. General Advice on Debugging Run time Problems</a><ul>
+<li><a class="reference internal" href="#run-in-debug-mode">8.1.4.1. Run in DEBUG mode</a></li>
+<li><a class="reference internal" href="#run-with-a-smaller-set-of-processors">8.1.4.2. Run with a smaller set of processors</a></li>
+<li><a class="reference internal" href="#run-in-serial-mode-with-a-single-processor">8.1.4.3. Run in serial mode with a single processor</a></li>
+<li><a class="reference internal" href="#run-at-a-lower-resolution">8.1.4.4. Run at a lower resolution</a></li>
+<li><a class="reference internal" href="#run-a-simpler-case">8.1.4.5. Run a simpler case</a></li>
+<li><a class="reference internal" href="#run-with-a-debugger">8.1.4.6. Run with a debugger</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">8. Troubleshooting</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/users_guide/trouble-shooting/trouble-shooting.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="trouble-shooting">
+<span id="id1"></span><h1>8.1. Trouble Shooting<a class="headerlink" href="#trouble-shooting" title="Permalink to this headline">¶</a></h1>
+<p>In this chapter we give some guidance on what to do when you encounter some of the most common problems. We can&#8217;t cover all the problems that a user could potentially have, but we will try to help you recognize some of the most common situations. And we&#8217;ll give you some suggestions on how to approach the problem to come up with a solution.</p>
+<p>In general you will run into one of three type of problems:</p>
+<ol class="arabic simple">
+<li><em>setup-time</em></li>
+<li><em>build-time</em></li>
+<li><em>run-time</em></li>
+</ol>
+<div class="section" id="setup-problems">
+<h2>8.1.1. Setup Problems<a class="headerlink" href="#setup-problems" title="Permalink to this headline">¶</a></h2>
+<p>The first type of problem happens when you invoke the <strong>case.setup</strong> command.
+This indicates there is something wrong with your input datasets, or the details of what you are trying to setup the model to do.
+There&#8217;s also a trouble-shooting chapter in the <a class="reference external" href="CLM-URL">CESM1.2.0 Scripts User&#8217;s Guide</a>.
+Many of the problems with configuration can be resolved with the guidelines given there.
+Here we will restrict ourselves to problems from the input files.</p>
+<div class="section" id="example-missing-datasets">
+<h3>8.1.1.1. Example: Missing datasets<a class="headerlink" href="#example-missing-datasets" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">create_newcase</span> <span class="o">-</span><span class="n">case</span> <span class="n">ne60rcp6</span> <span class="o">-</span><span class="n">res</span> <span class="n">ne60_g16</span> <span class="o">-</span><span class="n">compset</span> <span class="n">IRCP60CN</span> \
+<span class="o">-</span><span class="n">mach</span> <span class="n">yellowstone_intel</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span>
+</pre></div>
+</div>
+<p>The following is what is displayed to the screen.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>.
+.
+.
+Running preview_namelist script
+CLM configure done.
+CLM adding use_case 1850-2100_rcp6_transient defaults for var clm_demand with val fpftdyn
+CLM adding use_case 1850-2100_rcp6_transient defaults for var clm_start_type with val startup
+CLM adding use_case 1850-2100_rcp6_transient defaults for var model_year_align_ndep with val 1850
+CLM adding use_case 1850-2100_rcp6_transient defaults for var rcp with val 6
+CLM adding use_case 1850-2100_rcp6_transient defaults for var sim_year with val 1850
+CLM adding use_case 1850-2100_rcp6_transient defaults for var sim_year_range with val 1850-2100
+CLM adding use_case 1850-2100_rcp6_transient defaults for var stream_year_first_ndep with val 1850
+CLM adding use_case 1850-2100_rcp6_transient defaults for var stream_year_last_ndep with val 2100
+CLM adding use_case 1850-2100_rcp6_transient defaults for var use_case_desc with val Simulate transient land-use, aerosol and Nitrogen deposition changes
+with historical data from 1850 to 2005 and then with the RCP6 scenario from AIM
+
+build-namelist - No default value found for fpftdyn.
+            Are defaults provided for this resolution and land mask?
+ERROR: clm.buildnml.csh failed
+ERROR: /Users/erik/clm_cesm1_1_1_rel/scripts/ne60rcp6/preview_namelists failed: 25344
+</pre></div>
+</div>
+<p>The important thing to note here is the line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ERROR</span><span class="p">:</span> <span class="n">clm</span><span class="o">.</span><span class="n">buildnml</span><span class="o">.</span><span class="n">csh</span> <span class="n">failed</span>
+</pre></div>
+</div>
+<p>which tells us that the problem is in the land <strong>clm.buildnml.csh</strong>. It may also indicate problems in one of the other buildnml.csh files (atm, cesm, cpl, glc, ice, or ocn), in which case you should consult the appropriate model user&#8217;s guide.</p>
+<p>In the example, the error is that the CLM XML database does NOT have a <code class="docutils literal"><span class="pre">finidat</span></code> for the given resolution, rcp scenario and ocean mask. That means you will need to create the file and then supply the file into your case. See <a class="reference external" href="CLM-URL">Chapter 2</a> for more information on creating files, and see <a class="reference external" href="CLM-URL">Chapter 3</a> for more information on adding files to the XML database. Alternatively, you can provide the file to your case by creating a user namelist as shown in <a class="reference external" href="CLM-URL">the Section called User Namelist in Chapter 1</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The two most common problems from your <strong>clm.buildnml.csh</strong> will be errors from the CLM <strong>configure</strong> or <strong>build-namelist</strong>. For more information on these scripts see: <a class="reference external" href="CLM-URL">the Section called More information on the CLM configure script in Chapter 1</a> and <a class="reference external" href="CLM-URL">the section on CLM_BLDNML_OPTS</a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="build-problems">
+<h2>8.1.2. Build problems<a class="headerlink" href="#build-problems" title="Permalink to this headline">¶</a></h2>
+<p>The following is an example of running the build for a case and having it fail in the land model build.
+As you can see it lists which model component is being built and the build log for that component.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CCSM</span> <span class="n">BUILDEXE</span> <span class="n">SCRIPT</span> <span class="n">STARTING</span>
+<span class="o">-</span> <span class="n">Build</span> <span class="n">Libraries</span><span class="p">:</span> <span class="n">mct</span> <span class="n">pio</span> <span class="n">csm_share</span>
+  <span class="n">Sat</span> <span class="n">Jun</span> <span class="mi">19</span> <span class="mi">21</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">19</span> <span class="n">MDT</span> <span class="mi">2010</span> <span class="o">/</span><span class="n">ptmp</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">test_build</span><span class="o">/</span><span class="n">mct</span><span class="o">/</span><span class="n">mct</span><span class="o">.</span><span class="n">bldlog</span><span class="o">.</span><span class="mi">100619</span><span class="o">-</span><span class="mi">212107</span>
+  <span class="n">Sat</span> <span class="n">Jun</span> <span class="mi">19</span> <span class="mi">21</span><span class="p">:</span><span class="mi">22</span><span class="p">:</span><span class="mi">18</span> <span class="n">MDT</span> <span class="mi">2010</span> <span class="o">/</span><span class="n">ptmp</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">test_build</span><span class="o">/</span><span class="n">pio</span><span class="o">/</span><span class="n">pio</span><span class="o">.</span><span class="n">bldlog</span><span class="o">.</span><span class="mi">100619</span><span class="o">-</span><span class="mi">212107</span>
+  <span class="n">Sat</span> <span class="n">Jun</span> <span class="mi">19</span> <span class="mi">21</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">18</span> <span class="n">MDT</span> <span class="mi">2010</span>
+  <span class="o">/</span><span class="n">ptmp</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">test_build</span><span class="o">/</span><span class="n">csm_share</span><span class="o">/</span><span class="n">csm_share</span><span class="o">.</span><span class="n">bldlog</span><span class="o">.</span><span class="mi">100619</span><span class="o">-</span><span class="mi">212107</span>
+  <span class="n">Sat</span> <span class="n">Jun</span> <span class="mi">19</span> <span class="mi">21</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">00</span> <span class="n">MDT</span> <span class="mi">2010</span> <span class="o">/</span><span class="n">ptmp</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">test_build</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">cpl</span><span class="o">.</span><span class="n">bldlog</span><span class="o">.</span><span class="mi">100619</span><span class="o">-</span><span class="mi">212107</span>
+  <span class="n">Sat</span> <span class="n">Jun</span> <span class="mi">19</span> <span class="mi">21</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">00</span> <span class="n">MDT</span> <span class="mi">2010</span> <span class="o">/</span><span class="n">ptmp</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">test_build</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">atm</span><span class="o">.</span><span class="n">bldlog</span><span class="o">.</span><span class="mi">100619</span><span class="o">-</span><span class="mi">212107</span>
+  <span class="n">Sat</span> <span class="n">Jun</span> <span class="mi">19</span> <span class="mi">21</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">06</span> <span class="n">MDT</span> <span class="mi">2010</span> <span class="o">/</span><span class="n">ptmp</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">test_build</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">lnd</span><span class="o">.</span><span class="n">bldlog</span><span class="o">.</span><span class="mi">100619</span><span class="o">-</span><span class="mi">212107</span>
+  <span class="n">ERROR</span><span class="p">:</span> <span class="n">clm</span><span class="o">.</span><span class="n">buildexe</span><span class="o">.</span><span class="n">csh</span> <span class="n">failed</span><span class="p">,</span> <span class="n">see</span> <span class="o">/</span><span class="n">ptmp</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">test_build</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">lnd</span><span class="o">.</span><span class="n">bldlog</span><span class="o">.</span><span class="mi">100619</span><span class="o">-</span><span class="mi">212107</span>
+  <span class="n">ERROR</span><span class="p">:</span> <span class="n">cat</span> <span class="o">/</span><span class="n">ptmp</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">test_build</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">lnd</span><span class="o">.</span><span class="n">bldlog</span><span class="o">.</span><span class="mi">100619</span><span class="o">-</span><span class="mi">212107</span>
+</pre></div>
+</div>
+<p>You can then examine the build log that failed and see what went wrong. Most compilers will give the full filepath and line number for the file that filed to compile.</p>
+</div>
+<div class="section" id="run-time-problems">
+<h2>8.1.3. Run Time Problems<a class="headerlink" href="#run-time-problems" title="Permalink to this headline">¶</a></h2>
+<p>Tracking down problems while the model is running is much more difficult to do than setup or build problems.
+In this section we will give some suggestions on how to find run time problems.
+Below we show the log file results of a job that aborted while running.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CCSM</span> <span class="n">PRESTAGE</span> <span class="n">SCRIPT</span> <span class="n">HAS</span> <span class="n">FINISHED</span> <span class="n">SUCCESSFULLY</span>
+<span class="n">Sun</span> <span class="n">Jun</span> <span class="mi">20</span> <span class="mi">18</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">06</span> <span class="n">MDT</span> <span class="mi">2010</span> <span class="o">--</span> <span class="n">CSM</span> <span class="n">EXECUTION</span> <span class="n">BEGINS</span> <span class="n">HERE</span>
+<span class="n">Sun</span> <span class="n">Jun</span> <span class="mi">20</span> <span class="mi">18</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">35</span> <span class="n">MDT</span> <span class="mi">2010</span> <span class="o">--</span> <span class="n">CSM</span> <span class="n">EXECUTION</span> <span class="n">HAS</span> <span class="n">FINISHED</span>
+<span class="n">Model</span> <span class="n">did</span> <span class="ow">not</span> <span class="n">complete</span> <span class="o">-</span> <span class="n">see</span> <span class="o">/</span><span class="n">ptmp</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">test_run</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">cpl</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="mi">100620</span><span class="o">-</span><span class="mi">182358</span>
+</pre></div>
+</div>
+<p>In the next section we will talk about using the different log files to track down problems, and find out where the problem is coming from. In the section after that we give some general advice on debugging problems and some suggestions on ideas that may be helpful to track the problem down. Some of the examples below are from the <a class="reference external" href="CLM-URL">models/lnd/clm/doc/KnownBugs</a> file.</p>
+<div class="section" id="tracking-problems-by-querying-log-files">
+<h3>8.1.3.1. Tracking Problems by Querying Log Files<a class="headerlink" href="#tracking-problems-by-querying-log-files" title="Permalink to this headline">¶</a></h3>
+<p>The first thing to do when tracking down problems is to query the different log files to see if you can discover where the problem occurs, and any error messages about it.
+It&#8217;s important to figure out if the problem comes in at initialization or in the run phase of the model, and in which model component the problem happens.
+There are different log files for the different major components, and they all end with the date and time in YYMMDD-HHMMSS format (2-digit: year, month, day, hour minute and second).
+When the model runs to completion the log files will be copied to the logs directory in the script directory, but when the model fails they will remain in the run directory.
+Here&#8217;s an example list of log files from an &#8220;I&#8221; case where the model dies in the land model initialization.
+For &#8220;I&#8221; cases the sea-ice and ocean components are just stubs and don&#8217;t create log files (and unless running with the active land-ice model &#8220;glc&#8221; log files won&#8217;t be created either).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">atm</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="mi">100620</span><span class="o">-</span><span class="mi">182358</span>
+<span class="n">cesm</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="mi">100620</span><span class="o">-</span><span class="mi">182358</span>
+<span class="n">cpl</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="mi">100620</span><span class="o">-</span><span class="mi">182358</span>
+<span class="n">lnd</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="mi">100620</span><span class="o">-</span><span class="mi">182358</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-coupler-log-file">
+<h3>8.1.3.2. The coupler log file<a class="headerlink" href="#the-coupler-log-file" title="Permalink to this headline">¶</a></h3>
+<p>The first log file to check is the coupler log file so that you can see where the model dies and which model component it fails in. When the model dies at initialization the last model component listed is the component that failed.</p>
+<p>Example of a case that fails in the CLM land model initialization.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">seq_timemgr_clockPrint</span><span class="p">)</span>     <span class="n">Prev</span> <span class="n">Time</span>   <span class="o">=</span> <span class="mi">00001201</span>   <span class="mi">00000</span>
+<span class="p">(</span><span class="n">seq_timemgr_clockPrint</span><span class="p">)</span>     <span class="n">Next</span> <span class="n">Time</span>   <span class="o">=</span> <span class="mi">99991201</span>   <span class="mi">00000</span>
+<span class="p">(</span><span class="n">seq_timemgr_clockPrint</span><span class="p">)</span>     <span class="n">Intervl</span> <span class="n">yms</span> <span class="o">=</span>     <span class="mi">9999</span>       <span class="mi">0</span>           <span class="mi">0</span>
+
+<span class="p">(</span><span class="n">seq_mct_drv</span><span class="p">)</span> <span class="p">:</span> <span class="n">Initialize</span> <span class="n">each</span> <span class="n">component</span><span class="p">:</span> <span class="n">atm</span><span class="p">,</span> <span class="n">lnd</span><span class="p">,</span> <span class="n">ocn</span><span class="p">,</span> <span class="ow">and</span> <span class="n">ice</span>
+<span class="p">(</span><span class="n">seq_mct_drv</span><span class="p">)</span> <span class="p">:</span> <span class="n">Initialize</span> <span class="n">atm</span> <span class="n">component</span>
+<span class="p">(</span><span class="n">seq_mct_drv</span><span class="p">)</span> <span class="p">:</span> <span class="n">Initialize</span> <span class="n">lnd</span> <span class="n">component</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-cesm-log-file">
+<h3>8.1.3.3. The cesm log file<a class="headerlink" href="#the-cesm-log-file" title="Permalink to this headline">¶</a></h3>
+<p>The cesm log files are to some extent the &#8220;garbage collection&#8221; of log output.
+The CLM sends it&#8217;s output from it&#8217;s master processor, but sends other output and possibly errors to the cesm log file.
+Because, of this, often error messages are somewhere in the cesm log file.
+However, since there is so much other output it may be difficult to find.
+For example, here is some output from an older version of CESM (CESM1.0.2) where the RTM river routing file (before it was converted to NetCDF) was not provided and the error on the open statement for the file was embedded near the end of the cesm log file.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">NODE</span><span class="c1">#  NAME</span>
+<span class="p">(</span>    <span class="mi">0</span><span class="p">)</span>  <span class="n">be1105en</span><span class="o">.</span><span class="n">ucar</span><span class="o">.</span><span class="n">edu</span>
+<span class="s2">&quot;/gpfs/proj2/fis/cgd/home/erik/clm_trunk/models/lnd/clm/src/riverroute/RtmMod.F90&quot;</span><span class="p">,</span> <span class="n">line</span>
+<span class="mi">239</span><span class="p">:</span> <span class="mi">1525</span><span class="o">-</span><span class="mi">155</span> <span class="n">The</span> <span class="n">file</span> <span class="n">name</span> <span class="n">provided</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">OPEN</span> <span class="n">statement</span> <span class="k">for</span> <span class="n">unit</span> <span class="mi">1</span> <span class="n">has</span> <span class="n">zero</span> <span class="n">length</span> <span class="ow">or</span>
+<span class="n">contains</span> <span class="nb">all</span> <span class="n">blanks</span><span class="o">.</span>  <span class="n">The</span> <span class="n">program</span> <span class="n">will</span> <span class="n">recover</span> <span class="n">by</span> <span class="n">ignoring</span> <span class="n">the</span> <span class="n">OPEN</span> <span class="n">statement</span><span class="o">.</span>
+<span class="s2">&quot;/gpfs/proj2/fis/cgd/home/erik/clm_trunk/models/lnd/clm/src/riverroute/RtmMod.F90&quot;</span><span class="p">,</span> <span class="n">line</span>
+<span class="mi">241</span><span class="p">:</span> <span class="mi">1525</span><span class="o">-</span><span class="mi">001</span> <span class="n">The</span> <span class="n">READ</span> <span class="n">statement</span> <span class="n">on</span> <span class="n">the</span> <span class="n">file</span> <span class="n">fort</span><span class="o">.</span><span class="mi">1</span> <span class="n">cannot</span> <span class="n">be</span> <span class="n">completed</span> <span class="n">because</span> <span class="n">the</span> <span class="n">end</span>
+<span class="n">of</span> <span class="n">the</span> <span class="n">file</span> <span class="n">was</span> <span class="n">reached</span><span class="o">.</span>  <span class="n">The</span> <span class="n">program</span> <span class="n">will</span> <span class="n">stop</span><span class="o">.</span>
+
+<span class="n">Running</span><span class="p">:</span> <span class="o">./</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>
+<span class="n">Please</span> <span class="n">wait</span><span class="o">...</span>
+
+<span class="n">Memory</span> <span class="n">usage</span> <span class="k">for</span>   <span class="o">./</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span> <span class="p">(</span><span class="n">task</span> <span class="c1">#   0) is:      51696 KB. Exit status: 1. Signal: 0</span>
+</pre></div>
+</div>
+<p>Although the example is from an earlier version of the model it still serves to illustrate finding problems from the cesm log file.</p>
+<p>When working with the cesm log file, for a run-time problem, you will need to be able to separate it&#8217;s output into three categories: pre-crash, crash, and post-crash.
+The pre-crash section is everything that is normal output for good operation of the model.
+The crash section is the section where the model dies and reports on the actual problem.
+the post-crash section is the cleanup and finalization after the model dies.
+The most important part of this of course is the crash section.
+The tricky part is distinguishing it from the other sections.
+Also because the cesm log file most likely has duplicated output from multiple processors it is even more difficult to distinguish the different sections and to some extent the sections may be intertwined, as different processors reach the different sections at different times.
+Because, of this reducing the number of processors for your simulation may help you sort out the output in the file (see <a class="reference external" href="CLM-URL">the Section called Run with a smaller set of processors</a>).
+Also much of the output from the cesm log file are system level information having to do with MPI multiprocessing.
+Usually you can ignore this information, but it makes it more difficult to trudge through.</p>
+<p>Sometimes the cesm log file is the ONLY file available, because the model terminates early in initialization.
+In this case understanding the output in the cesm log file becomes even more important.
+This also indicates the model did NOT advance far enough to reach the initialization of the individual model components.
+This may mean that the initialization of the multiprocessing for MPI and/or OpenMP failed, or that the reading of the driver namelist file &#8220;drv_in&#8221; failed.</p>
+<p>Here we show those three sections for a cesm log file where a two task job failed on reading the namelist file.
+For a typical job with many tasks similar sections of this will be repeated not just twice but for each task and hence make it harder to read.</p>
+<p><em>Pre-crash section of the cesm log file</em></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ATTENTION</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">386</span>  <span class="n">MP_INSTANCES</span> <span class="n">setting</span> <span class="n">ignored</span> <span class="n">when</span> <span class="n">LoadLeveler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">being</span> <span class="n">used</span><span class="o">.</span>
+
+<span class="n">ATTENTION</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">386</span>  <span class="n">MP_INSTANCES</span> <span class="n">setting</span> <span class="n">ignored</span> <span class="n">when</span> <span class="n">LoadLeveler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">being</span> <span class="n">used</span><span class="o">.</span>
+<span class="n">ATTENTION</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">378</span> <span class="n">MP_EUIDEVICE</span> <span class="n">setting</span> <span class="n">ignored</span> <span class="n">when</span> <span class="n">LoadLeveler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">being</span> <span class="n">used</span><span class="o">.</span>
+<span class="n">ATTENTION</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">386</span>  <span class="n">MP_INSTANCES</span> <span class="n">setting</span> <span class="n">ignored</span> <span class="n">when</span> <span class="n">LoadLeveler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">being</span> <span class="n">used</span><span class="o">.</span>
+   <span class="mi">0</span><span class="p">:</span><span class="n">INFO</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">724</span>  <span class="n">Executing</span> <span class="n">program</span><span class="p">:</span> <span class="o">&lt;/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lsf</span><span class="o">/</span><span class="mf">7.0</span><span class="o">/</span><span class="n">aix5</span><span class="o">-</span><span class="mi">64</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">lsnrt_run</span><span class="o">&gt;</span>
+   <span class="mi">1</span><span class="p">:</span><span class="n">INFO</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">724</span>  <span class="n">Executing</span> <span class="n">program</span><span class="p">:</span> <span class="o">&lt;/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lsf</span><span class="o">/</span><span class="mf">7.0</span><span class="o">/</span><span class="n">aix5</span><span class="o">-</span><span class="mi">64</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">lsnrt_run</span><span class="o">&gt;</span>
+   <span class="mi">0</span><span class="p">:</span><span class="o">/</span><span class="n">contrib</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">cesm_launch</span><span class="p">:</span> <span class="n">process</span> <span class="mi">401894</span> <span class="n">bound</span> <span class="n">to</span> <span class="n">logical</span> <span class="n">CPU</span> <span class="mi">0</span> <span class="n">on</span> <span class="n">host</span> <span class="n">be0310en</span><span class="o">.</span><span class="n">ucar</span><span class="o">.</span><span class="n">edu</span> <span class="o">...</span>
+   <span class="mi">1</span><span class="p">:</span><span class="o">/</span><span class="n">contrib</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">cesm_launch</span><span class="p">:</span> <span class="n">process</span> <span class="mi">439264</span> <span class="n">bound</span> <span class="n">to</span> <span class="n">logical</span> <span class="n">CPU</span> <span class="mi">1</span> <span class="n">on</span> <span class="n">host</span> <span class="n">be0310en</span><span class="o">.</span><span class="n">ucar</span><span class="o">.</span><span class="n">edu</span> <span class="o">...</span>
+   <span class="mi">0</span><span class="p">:</span><span class="n">INFO</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">619</span>  <span class="mi">64</span><span class="n">bit</span><span class="p">(</span><span class="n">us</span><span class="p">,</span> <span class="n">Packet</span> <span class="n">striping</span> <span class="n">on</span><span class="p">)</span>  <span class="n">ppe_rmas</span> <span class="n">MPCI_MSG</span><span class="p">:</span> <span class="n">MPI</span><span class="o">/</span><span class="n">MPCI</span> <span class="n">library</span> <span class="n">was</span> <span class="n">compiled</span> <span class="n">on</span>   <span class="n">Wed</span> <span class="n">Aug</span>  <span class="mi">5</span> <span class="mi">13</span><span class="p">:</span><span class="mi">36</span><span class="p">:</span><span class="mi">06</span> <span class="mi">2009</span>
+   <span class="mi">0</span><span class="p">:</span>
+   <span class="mi">1</span><span class="p">:</span><span class="n">LAPI</span> <span class="n">version</span> <span class="c1">#14.26 2008/11/23 11:02:30 1.296 src/rsct/lapi/lapi.c, lapi, rsct_rpt53, rpt53s004a 09/04/29 64bit(us)  library compiled on Wed Apr 29 15:30:42 2009</span>
+   <span class="mi">1</span><span class="p">:</span><span class="o">.</span>
+   <span class="mi">1</span><span class="p">:</span><span class="n">LAPI</span> <span class="ow">is</span> <span class="n">using</span> <span class="n">lightweight</span> <span class="n">lock</span><span class="o">.</span>
+   <span class="mi">0</span><span class="p">:</span><span class="n">LAPI</span> <span class="n">version</span> <span class="c1">#14.26 2008/11/23 11:02:30 1.296 src/rsct/lapi/lapi.c, lapi, rsct_rpt53, rpt53s004a 09/04/29 64bit(us)  library compiled on Wed Apr 29 15:30:42 2009</span>
+   <span class="mi">0</span><span class="p">:</span><span class="o">.</span>
+   <span class="mi">0</span><span class="p">:</span><span class="n">LAPI</span> <span class="ow">is</span> <span class="n">using</span> <span class="n">lightweight</span> <span class="n">lock</span><span class="o">.</span>
+   <span class="mi">0</span><span class="p">:</span><span class="n">Use</span> <span class="n">health</span> <span class="n">ping</span> <span class="k">for</span> <span class="n">failover</span><span class="o">/</span><span class="n">recovery</span>
+   <span class="mi">1</span><span class="p">:</span><span class="n">Use</span> <span class="n">health</span> <span class="n">ping</span> <span class="k">for</span> <span class="n">failover</span><span class="o">/</span><span class="n">recovery</span>
+   <span class="mi">0</span><span class="p">:</span><span class="n">Initial</span> <span class="n">communication</span> <span class="n">over</span> <span class="n">instance</span> <span class="mf">2.</span>
+   <span class="mi">1</span><span class="p">:</span><span class="n">Initial</span> <span class="n">communication</span> <span class="n">over</span> <span class="n">instance</span> <span class="mf">0.</span>
+   <span class="mi">1</span><span class="p">:</span><span class="n">IB</span> <span class="n">RDMA</span> <span class="n">initialization</span> <span class="n">completed</span> <span class="n">successfully</span>
+   <span class="mi">1</span><span class="p">:</span><span class="n">The</span> <span class="n">MPI</span> <span class="n">shared</span> <span class="n">memory</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">used</span> <span class="k">for</span> <span class="n">the</span> <span class="n">job</span>
+   <span class="mi">0</span><span class="p">:</span><span class="n">IB</span> <span class="n">RDMA</span> <span class="n">initialization</span> <span class="n">completed</span> <span class="n">successfully</span>
+   <span class="mi">0</span><span class="p">:</span><span class="n">LAPI</span> <span class="n">job</span> <span class="n">ID</span> <span class="k">for</span> <span class="n">this</span> <span class="n">job</span> <span class="ow">is</span><span class="p">:</span> <span class="mi">1684890719</span>
+   <span class="mi">0</span><span class="p">:</span><span class="n">The</span> <span class="n">MPI</span> <span class="n">shared</span> <span class="n">memory</span> <span class="n">protocol</span> <span class="ow">is</span> <span class="n">used</span> <span class="k">for</span> <span class="n">the</span> <span class="n">job</span>
+   <span class="mi">0</span><span class="p">:(</span><span class="n">seq_comm_setcomm</span><span class="p">)</span>  <span class="n">initialize</span> <span class="n">ID</span> <span class="p">(</span>  <span class="mi">7</span> <span class="n">GLOBAL</span> <span class="p">)</span> <span class="n">pelist</span>   <span class="o">=</span>     <span class="mi">0</span>     <span class="mi">1</span>     <span class="mi">1</span> <span class="p">(</span> <span class="n">npes</span> <span class="o">=</span>     <span class="mi">2</span><span class="p">)</span> <span class="p">(</span> <span class="n">nthreads</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">)</span>
+   <span class="mi">0</span><span class="p">:(</span><span class="n">seq_comm_setcomm</span><span class="p">)</span>  <span class="n">initialize</span> <span class="n">ID</span> <span class="p">(</span>  <span class="mi">2</span>   <span class="n">ATM</span>  <span class="p">)</span> <span class="n">pelist</span>   <span class="o">=</span>     <span class="mi">0</span>     <span class="mi">1</span>     <span class="mi">1</span> <span class="p">(</span> <span class="n">npes</span> <span class="o">=</span>     <span class="mi">2</span><span class="p">)</span> <span class="p">(</span> <span class="n">nthreads</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">)</span>
+   <span class="mi">0</span><span class="p">:(</span><span class="n">seq_comm_setcomm</span><span class="p">)</span>  <span class="n">initialize</span> <span class="n">ID</span> <span class="p">(</span>  <span class="mi">1</span>   <span class="n">LND</span>  <span class="p">)</span> <span class="n">pelist</span>   <span class="o">=</span>     <span class="mi">0</span>     <span class="mi">1</span>     <span class="mi">1</span> <span class="p">(</span> <span class="n">npes</span> <span class="o">=</span>     <span class="mi">2</span><span class="p">)</span> <span class="p">(</span> <span class="n">nthreads</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">)</span>
+   <span class="mi">0</span><span class="p">:(</span><span class="n">seq_comm_setcomm</span><span class="p">)</span>  <span class="n">initialize</span> <span class="n">ID</span> <span class="p">(</span>  <span class="mi">4</span>   <span class="n">ICE</span>  <span class="p">)</span> <span class="n">pelist</span>   <span class="o">=</span>     <span class="mi">0</span>     <span class="mi">1</span>     <span class="mi">1</span> <span class="p">(</span> <span class="n">npes</span> <span class="o">=</span>     <span class="mi">2</span><span class="p">)</span> <span class="p">(</span> <span class="n">nthreads</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">)</span>
+   <span class="mi">0</span><span class="p">:(</span><span class="n">seq_comm_setcomm</span><span class="p">)</span>  <span class="n">initialize</span> <span class="n">ID</span> <span class="p">(</span>  <span class="mi">5</span>   <span class="n">GLC</span>  <span class="p">)</span> <span class="n">pelist</span>   <span class="o">=</span>     <span class="mi">0</span>     <span class="mi">1</span>     <span class="mi">1</span> <span class="p">(</span> <span class="n">npes</span> <span class="o">=</span>     <span class="mi">2</span><span class="p">)</span> <span class="p">(</span> <span class="n">nthreads</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">)</span>
+   <span class="mi">0</span><span class="p">:(</span><span class="n">seq_comm_setcomm</span><span class="p">)</span>  <span class="n">initialize</span> <span class="n">ID</span> <span class="p">(</span>  <span class="mi">3</span>   <span class="n">OCN</span>  <span class="p">)</span> <span class="n">pelist</span>   <span class="o">=</span>     <span class="mi">0</span>     <span class="mi">1</span>     <span class="mi">1</span> <span class="p">(</span> <span class="n">npes</span> <span class="o">=</span>     <span class="mi">2</span><span class="p">)</span> <span class="p">(</span> <span class="n">nthreads</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">)</span>
+   <span class="mi">0</span><span class="p">:(</span><span class="n">seq_comm_setcomm</span><span class="p">)</span>  <span class="n">initialize</span> <span class="n">ID</span> <span class="p">(</span>  <span class="mi">6</span>   <span class="n">CPL</span>  <span class="p">)</span> <span class="n">pelist</span>   <span class="o">=</span>     <span class="mi">0</span>     <span class="mi">1</span>     <span class="mi">1</span> <span class="p">(</span> <span class="n">npes</span> <span class="o">=</span>     <span class="mi">2</span><span class="p">)</span> <span class="p">(</span> <span class="n">nthreads</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">)</span>
+   <span class="mi">0</span><span class="p">:(</span><span class="n">seq_comm_joincomm</span><span class="p">)</span> <span class="n">initialize</span> <span class="n">ID</span> <span class="p">(</span>  <span class="mi">8</span> <span class="n">CPLATM</span> <span class="p">)</span> <span class="n">join</span> <span class="n">IDs</span> <span class="o">=</span>     <span class="mi">6</span>     <span class="mi">2</span>       <span class="p">(</span> <span class="n">npes</span> <span class="o">=</span>     <span class="mi">2</span><span class="p">)</span> <span class="p">(</span> <span class="n">nthreads</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">)</span>
+   <span class="mi">0</span><span class="p">:(</span><span class="n">seq_comm_joincomm</span><span class="p">)</span> <span class="n">initialize</span> <span class="n">ID</span> <span class="p">(</span>  <span class="mi">9</span> <span class="n">CPLLND</span> <span class="p">)</span> <span class="n">join</span> <span class="n">IDs</span> <span class="o">=</span>     <span class="mi">6</span>     <span class="mi">1</span>       <span class="p">(</span> <span class="n">npes</span> <span class="o">=</span>     <span class="mi">2</span><span class="p">)</span> <span class="p">(</span> <span class="n">nthreads</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">)</span>
+   <span class="mi">0</span><span class="p">:(</span><span class="n">seq_comm_joincomm</span><span class="p">)</span> <span class="n">initialize</span> <span class="n">ID</span> <span class="p">(</span> <span class="mi">10</span> <span class="n">CPLICE</span> <span class="p">)</span> <span class="n">join</span> <span class="n">IDs</span> <span class="o">=</span>     <span class="mi">6</span>     <span class="mi">4</span>       <span class="p">(</span> <span class="n">npes</span> <span class="o">=</span>     <span class="mi">2</span><span class="p">)</span> <span class="p">(</span> <span class="n">nthreads</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">)</span>
+   <span class="mi">0</span><span class="p">:(</span><span class="n">seq_comm_joincomm</span><span class="p">)</span> <span class="n">initialize</span> <span class="n">ID</span> <span class="p">(</span> <span class="mi">11</span> <span class="n">CPLOCN</span> <span class="p">)</span> <span class="n">join</span> <span class="n">IDs</span> <span class="o">=</span>     <span class="mi">6</span>     <span class="mi">3</span>       <span class="p">(</span> <span class="n">npes</span> <span class="o">=</span>     <span class="mi">2</span><span class="p">)</span> <span class="p">(</span> <span class="n">nthreads</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">)</span>
+   <span class="mi">0</span><span class="p">:(</span><span class="n">seq_comm_joincomm</span><span class="p">)</span> <span class="n">initialize</span> <span class="n">ID</span> <span class="p">(</span> <span class="mi">12</span> <span class="n">CPLGLC</span> <span class="p">)</span> <span class="n">join</span> <span class="n">IDs</span> <span class="o">=</span>     <span class="mi">6</span>     <span class="mi">5</span>       <span class="p">(</span> <span class="n">npes</span> <span class="o">=</span>     <span class="mi">2</span><span class="p">)</span> <span class="p">(</span> <span class="n">nthreads</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">)</span>
+   <span class="mi">0</span><span class="p">:</span>
+   <span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="n">seq_comm_printcomms</span><span class="p">)</span> <span class="n">ID</span> <span class="n">layout</span> <span class="p">:</span> <span class="k">global</span> <span class="n">pes</span> <span class="n">vs</span> <span class="n">local</span> <span class="n">pe</span> <span class="k">for</span> <span class="n">each</span> <span class="n">ID</span>
+   <span class="mi">0</span><span class="p">:</span>     <span class="n">gpe</span>        <span class="n">LND</span>      <span class="n">ATM</span>      <span class="n">OCN</span>      <span class="n">ICE</span>      <span class="n">GLC</span>      <span class="n">CPL</span>    <span class="n">GLOBAL</span>   <span class="n">CPLATM</span>   <span class="n">CPLLND</span>   <span class="n">CPLICE</span>   <span class="n">CPLOCN</span>   <span class="n">CPLGLC</span>    <span class="n">nthrds</span>
+   <span class="mi">0</span><span class="p">:</span>     <span class="o">---</span>      <span class="o">------</span>   <span class="o">------</span>   <span class="o">------</span>   <span class="o">------</span>   <span class="o">------</span>   <span class="o">------</span>   <span class="o">------</span>   <span class="o">------</span>   <span class="o">------</span>   <span class="o">------</span>   <span class="o">------</span>   <span class="o">------</span>    <span class="o">------</span>
+   <span class="mi">0</span><span class="p">:</span>       <span class="mi">0</span>   <span class="p">:</span>       <span class="mi">0</span>        <span class="mi">0</span>        <span class="mi">0</span>        <span class="mi">0</span>        <span class="mi">0</span>        <span class="mi">0</span>        <span class="mi">0</span>        <span class="mi">0</span>        <span class="mi">0</span>        <span class="mi">0</span>        <span class="mi">0</span>        <span class="mi">0</span>        <span class="mi">1</span>
+   <span class="mi">1</span><span class="p">:</span>       <span class="mi">1</span>   <span class="p">:</span>       <span class="mi">1</span>        <span class="mi">1</span>        <span class="mi">1</span>        <span class="mi">1</span>        <span class="mi">1</span>        <span class="mi">1</span>        <span class="mi">1</span>        <span class="mi">1</span>        <span class="mi">1</span>        <span class="mi">1</span>        <span class="mi">1</span>        <span class="mi">1</span>        <span class="mi">1</span>
+   <span class="mi">1</span><span class="p">:</span>
+   <span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="n">t_initf</span><span class="p">)</span> <span class="n">Read</span> <span class="ow">in</span> <span class="n">prof_inparm</span> <span class="n">namelist</span> <span class="n">from</span><span class="p">:</span> <span class="n">drv_in</span>
+   <span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="n">seq_io_init</span><span class="p">)</span> <span class="n">cpl_io_stride</span><span class="p">,</span> <span class="n">iotasks</span> <span class="ow">or</span> <span class="n">root</span> <span class="n">out</span> <span class="n">of</span> <span class="n">bounds</span> <span class="o">-</span> <span class="n">resetting</span> <span class="n">to</span> <span class="n">defaults</span>  <span class="mi">4</span> <span class="mi">0</span> <span class="mi">1</span>
+   <span class="mi">0</span><span class="p">:</span> <span class="n">piolib_mod</span><span class="o">.</span><span class="n">f90</span> <span class="mi">1353</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">2</span>
+   <span class="mi">1</span><span class="p">:</span> <span class="n">piolib_mod</span><span class="o">.</span><span class="n">f90</span> <span class="mi">1353</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">1</span> <span class="mi">2</span>
+   <span class="mi">0</span><span class="p">:</span> <span class="n">pio_support</span><span class="p">::</span><span class="n">pio_die</span><span class="p">::</span> <span class="n">myrank</span><span class="o">=</span> <span class="mi">0</span> <span class="p">:</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">piolib_mod</span><span class="o">.</span><span class="n">f90</span><span class="p">:</span> <span class="mi">1354</span> <span class="p">:</span> <span class="ow">not</span> <span class="n">enough</span> <span class="n">procs</span> <span class="k">for</span> <span class="n">the</span> <span class="n">stride</span>
+   <span class="mi">1</span><span class="p">:</span> <span class="n">pio_support</span><span class="p">::</span><span class="n">pio_die</span><span class="p">::</span> <span class="n">myrank</span><span class="o">=</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">piolib_mod</span><span class="o">.</span><span class="n">f90</span><span class="p">:</span> <span class="mi">1354</span> <span class="p">:</span> <span class="ow">not</span> <span class="n">enough</span> <span class="n">procs</span> <span class="k">for</span> <span class="n">the</span> <span class="n">stride</span>
+</pre></div>
+</div>
+<p><em>Crash section of the cesm log file</em></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">0</span><span class="p">:</span>
+<span class="mi">0</span><span class="p">:</span>  <span class="n">Traceback</span><span class="p">:</span>
+<span class="mi">1</span><span class="p">:</span>
+<span class="mi">1</span><span class="p">:</span>  <span class="n">Traceback</span><span class="p">:</span>
+<span class="mi">0</span><span class="p">:</span>    <span class="n">Offset</span> <span class="mh">0x00000c4c</span> <span class="ow">in</span> <span class="n">procedure</span> <span class="n">__pio_support_NMOD_piodie</span><span class="p">,</span> <span class="n">near</span> <span class="n">line</span> <span class="mi">88</span> <span class="ow">in</span> <span class="n">file</span> <span class="n">pio_support</span><span class="o">.</span><span class="n">F90</span><span class="o">.</span><span class="ow">in</span>
+<span class="mi">1</span><span class="p">:</span>    <span class="n">Offset</span> <span class="mh">0x00000c4c</span> <span class="ow">in</span> <span class="n">procedure</span> <span class="n">__pio_support_NMOD_piodie</span><span class="p">,</span> <span class="n">near</span> <span class="n">line</span> <span class="mi">88</span> <span class="ow">in</span> <span class="n">file</span> <span class="n">pio_support</span><span class="o">.</span><span class="n">F90</span><span class="o">.</span><span class="ow">in</span>
+<span class="mi">0</span><span class="p">:</span>    <span class="n">Offset</span> <span class="mh">0x00000fd0</span> <span class="ow">in</span> <span class="n">procedure</span> <span class="n">__piolib_mod_NMOD_init</span><span class="p">,</span> <span class="n">near</span> <span class="n">line</span> <span class="mi">1354</span> <span class="ow">in</span> <span class="n">file</span> <span class="n">piolib_mod</span><span class="o">.</span><span class="n">F90</span>
+<span class="mi">1</span><span class="p">:</span>    <span class="n">Offset</span> <span class="mh">0x00000fd0</span> <span class="ow">in</span> <span class="n">procedure</span> <span class="n">__piolib_mod_NMOD_init</span><span class="p">,</span> <span class="n">near</span> <span class="n">line</span> <span class="mi">1354</span> <span class="ow">in</span> <span class="n">file</span> <span class="n">piolib_mod</span><span class="o">.</span><span class="n">F90</span>
+<span class="mi">1</span><span class="p">:</span>    <span class="n">Offset</span> <span class="mh">0x00000398</span> <span class="ow">in</span> <span class="n">procedure</span> <span class="n">__seq_io_mod_NMOD_seq_io_init</span><span class="p">,</span> <span class="n">near</span> <span class="n">line</span> <span class="mi">247</span> <span class="ow">in</span> <span class="n">file</span> <span class="o">/</span><span class="n">gpfs</span><span class="o">/</span><span class="n">proj2</span><span class="o">/</span><span class="n">fis</span><span class="o">/</span><span class="n">cgd</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">clm_trunk</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">drv</span><span class="o">/</span><span class="n">shr</span><span class="o">/</span><span class="n">seq_io_mod</span><span class="o">.</span><span class="n">F90</span>
+<span class="mi">0</span><span class="p">:</span>    <span class="n">Offset</span> <span class="mh">0x00000398</span> <span class="ow">in</span> <span class="n">procedure</span> <span class="n">__seq_io_mod_NMOD_seq_io_init</span><span class="p">,</span> <span class="n">near</span> <span class="n">line</span> <span class="mi">247</span> <span class="ow">in</span> <span class="n">file</span> <span class="o">/</span><span class="n">gpfs</span><span class="o">/</span><span class="n">proj2</span><span class="o">/</span><span class="n">fis</span><span class="o">/</span><span class="n">cgd</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">clm_trunk</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">drv</span><span class="o">/</span><span class="n">shr</span><span class="o">/</span><span class="n">seq_io_mod</span><span class="o">.</span><span class="n">F90</span>
+<span class="mi">0</span><span class="p">:</span>    <span class="n">Offset</span> <span class="mh">0x0001aa88</span> <span class="ow">in</span> <span class="n">procedure</span> <span class="n">ccsm_driver</span><span class="p">,</span> <span class="n">near</span> <span class="n">line</span> <span class="mi">465</span> <span class="ow">in</span> <span class="n">file</span> <span class="o">/</span><span class="n">gpfs</span><span class="o">/</span><span class="n">proj2</span><span class="o">/</span><span class="n">fis</span><span class="o">/</span><span class="n">cgd</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">clm_trunk</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">drv</span><span class="o">/</span><span class="n">driver</span><span class="o">/</span><span class="n">ccsm_driver</span><span class="o">.</span><span class="n">F90</span>
+<span class="mi">0</span><span class="p">:</span>    <span class="o">---</span> <span class="n">End</span> <span class="n">of</span> <span class="n">call</span> <span class="n">chain</span> <span class="o">---</span>
+<span class="mi">1</span><span class="p">:</span>    <span class="n">Offset</span> <span class="mh">0x0001aa88</span> <span class="ow">in</span> <span class="n">procedure</span> <span class="n">ccsm_driver</span><span class="p">,</span> <span class="n">near</span> <span class="n">line</span> <span class="mi">465</span> <span class="ow">in</span> <span class="n">file</span> <span class="o">/</span><span class="n">gpfs</span><span class="o">/</span><span class="n">proj2</span><span class="o">/</span><span class="n">fis</span><span class="o">/</span><span class="n">cgd</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">erik</span><span class="o">/</span><span class="n">clm_trunk</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">drv</span><span class="o">/</span><span class="n">driver</span><span class="o">/</span><span class="n">ccsm_driver</span><span class="o">.</span><span class="n">F90</span>
+<span class="mi">1</span><span class="p">:</span>    <span class="o">---</span> <span class="n">End</span> <span class="n">of</span> <span class="n">call</span> <span class="n">chain</span> <span class="o">---</span>
+</pre></div>
+</div>
+<p><em>Post-crash section of the cesm log file</em></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">:</span><span class="n">Communication</span> <span class="n">statistics</span> <span class="n">of</span> <span class="n">task</span> <span class="mi">1</span> <span class="ow">is</span> <span class="n">associated</span> <span class="k">with</span> <span class="n">task</span> <span class="n">key</span><span class="p">:</span> <span class="mi">1684890719</span><span class="n">_1</span>
+<span class="mi">0</span><span class="p">:</span><span class="n">Communication</span> <span class="n">statistics</span> <span class="n">of</span> <span class="n">task</span> <span class="mi">0</span> <span class="ow">is</span> <span class="n">associated</span> <span class="k">with</span> <span class="n">task</span> <span class="n">key</span><span class="p">:</span> <span class="mi">1684890719</span><span class="n">_0</span>
+<span class="mi">0</span><span class="p">:</span>
+<span class="mi">0</span><span class="p">:</span><span class="n">Running</span><span class="p">:</span> <span class="o">./</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>
+<span class="mi">0</span><span class="p">:</span><span class="n">Please</span> <span class="n">wait</span><span class="o">...</span>
+<span class="mi">0</span><span class="p">:</span>
+<span class="mi">0</span><span class="p">:</span><span class="n">Memory</span> <span class="n">usage</span> <span class="k">for</span>   <span class="o">./</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span> <span class="p">(</span><span class="n">task</span> <span class="c1">#   0) is:     198892 KB. Exit status: 134. Signal: 0</span>
+<span class="mi">1</span><span class="p">:</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">Running</span><span class="p">:</span> <span class="o">./</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">Please</span> <span class="n">wait</span><span class="o">...</span>
+<span class="mi">1</span><span class="p">:</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">Memory</span> <span class="n">usage</span> <span class="k">for</span>   <span class="o">./</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span> <span class="p">(</span><span class="n">task</span> <span class="c1">#   0) is:     198572 KB. Exit status: 134. Signal: 0</span>
+<span class="n">INFO</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">656</span>  <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">file</span> <span class="n">STDOUT</span> <span class="n">closed</span> <span class="n">by</span> <span class="n">task</span> <span class="mi">0</span>
+<span class="n">INFO</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">656</span>  <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">file</span> <span class="n">STDERR</span> <span class="n">closed</span> <span class="n">by</span> <span class="n">task</span> <span class="mi">0</span>
+<span class="n">ERROR</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">250</span>  <span class="n">task</span> <span class="mi">0</span><span class="p">:</span> <span class="n">IOT</span><span class="o">/</span><span class="n">Abort</span> <span class="n">trap</span>
+<span class="n">INFO</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">656</span>  <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">file</span> <span class="n">STDOUT</span> <span class="n">closed</span> <span class="n">by</span> <span class="n">task</span> <span class="mi">1</span>
+<span class="n">INFO</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">656</span>  <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">file</span> <span class="n">STDERR</span> <span class="n">closed</span> <span class="n">by</span> <span class="n">task</span> <span class="mi">1</span>
+<span class="n">ERROR</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">250</span>  <span class="n">task</span> <span class="mi">1</span><span class="p">:</span> <span class="n">IOT</span><span class="o">/</span><span class="n">Abort</span> <span class="n">trap</span>
+<span class="n">INFO</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">639</span>  <span class="n">Exit</span> <span class="n">status</span> <span class="kn">from</span> <span class="nn">pm_respond</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">ATTENTION</span><span class="p">:</span> <span class="mi">0031</span><span class="o">-</span><span class="mi">386</span>  <span class="n">MP_INSTANCES</span> <span class="n">setting</span> <span class="n">ignored</span> <span class="n">when</span> <span class="n">LoadLeveler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">being</span> <span class="n">used</span><span class="o">.</span>
+<span class="n">Job</span>  <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lsf</span><span class="o">/</span><span class="mf">7.0</span><span class="o">/</span><span class="n">aix5</span><span class="o">-</span><span class="mi">64</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">poejob</span> <span class="o">/</span><span class="n">contrib</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">ccsm_launch</span> <span class="o">/</span><span class="n">contrib</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">job_memusage</span><span class="o">.</span><span class="n">exe</span> <span class="o">./</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>
+
+<span class="n">TID</span>   <span class="n">HOST_NAME</span>   <span class="n">COMMAND_LINE</span>            <span class="n">STATUS</span>            <span class="n">TERMINATION_TIME</span>
+<span class="o">=====</span> <span class="o">==========</span> <span class="o">================</span>  <span class="o">=======================</span>  <span class="o">===================</span>
+<span class="mi">00000</span> <span class="n">be0310en</span>   <span class="o">/</span><span class="n">contrib</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">ccs</span>  <span class="n">Exit</span> <span class="p">(</span><span class="mi">134</span><span class="p">)</span>               <span class="mi">08</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2010</span> <span class="mi">12</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">57</span>
+<span class="mi">00001</span> <span class="n">be0310en</span>   <span class="o">/</span><span class="n">contrib</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">ccs</span>  <span class="n">Exit</span> <span class="p">(</span><span class="mi">134</span><span class="p">)</span>               <span class="mi">08</span><span class="o">/</span><span class="mi">31</span><span class="o">/</span><span class="mi">2010</span> <span class="mi">12</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">57</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-clm-log-file">
+<h3>8.1.3.4. The CLM log file<a class="headerlink" href="#the-clm-log-file" title="Permalink to this headline">¶</a></h3>
+<p>Of course when you are working with and making changes to CLM, most of your focus will be on the CLM log file and the errors it shows.
+As already pointed out if you don&#8217;t see errors in the <code class="docutils literal"><span class="pre">lnd.log.*</span></code> file you should look in the <code class="docutils literal"><span class="pre">cesm.log.*</span></code> to see if any errors showed up there.</p>
+<p>Here&#8217;s an example of the <code class="docutils literal"><span class="pre">lnd.log.*</span></code> file when running <code class="docutils literal"><span class="pre">PTS_MODE</span></code> with initial conditions (this is bug 1025 in the <a class="reference external" href="CLM-URL">models/lnd/clm/doc/KnownLimitationss</a> file).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Successfully</span> <span class="n">initialized</span> <span class="n">variables</span> <span class="k">for</span> <span class="n">accumulation</span>
+
+<span class="n">reading</span> <span class="n">restart</span> <span class="n">file</span> <span class="n">I2000CN_f09_g16_c100503</span><span class="o">.</span><span class="n">clm2</span><span class="o">.</span><span class="n">r</span><span class="o">.</span><span class="mi">0001</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mf">00000.</span><span class="n">nc</span>
+<span class="n">Reading</span> <span class="n">restart</span> <span class="n">dataset</span>
+<span class="n">ERROR</span> <span class="o">-</span> <span class="n">setlatlon</span><span class="o">.</span><span class="n">F</span><span class="p">:</span><span class="n">Cant</span> <span class="n">get</span> <span class="n">variable</span> <span class="n">dim</span> <span class="k">for</span> <span class="n">lat</span> <span class="ow">or</span> <span class="n">lsmlat</span>
+<span class="n">ENDRUN</span><span class="p">:</span> <span class="n">called</span> <span class="n">without</span> <span class="n">a</span> <span class="n">message</span> <span class="n">string</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-datm-log-file">
+<h3>8.1.3.5. The DATM log file<a class="headerlink" href="#the-datm-log-file" title="Permalink to this headline">¶</a></h3>
+<p>When working with &#8220;I cases&#8221; the second most common problems after CLM problems are problems with the data atmosphere model. So examining the <code class="docutils literal"><span class="pre">atm.log.*</span></code> is important.</p>
+<p>Here&#8217;s an example of a problem that occurs when the wrong prescribed aerosol file is given to a <code class="docutils literal"><span class="pre">pt1_pt1</span></code> simulation.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">datm_comp_init</span><span class="p">)</span>  <span class="n">atm</span> <span class="n">mode</span> <span class="o">=</span> <span class="n">CLMNCEP</span>
+<span class="p">(</span><span class="n">shr_strdata_init</span><span class="p">)</span>  <span class="n">calling</span> <span class="n">shr_dmodel_mapSet</span> <span class="k">for</span> <span class="n">fill</span>
+<span class="p">(</span><span class="n">shr_strdata_init</span><span class="p">)</span>  <span class="n">calling</span> <span class="n">shr_dmodel_mapSet</span> <span class="k">for</span> <span class="n">remap</span>
+<span class="p">(</span><span class="s1">&#39;shr_map_getWts&#39;</span><span class="p">)</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">yd</span> <span class="n">outside</span> <span class="n">bounds</span>  <span class="mf">19.5000000000000000</span>
+<span class="p">(</span><span class="n">shr_sys_abort</span><span class="p">)</span> <span class="n">ERROR</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;shr_map_getWts&#39;</span><span class="p">)</span>  <span class="n">ERROR</span> <span class="n">yd</span> <span class="n">outside</span> <span class="mi">90</span> <span class="n">degree</span> <span class="n">bounds</span>
+<span class="p">(</span><span class="n">shr_sys_abort</span><span class="p">)</span> <span class="n">WARNING</span><span class="p">:</span> <span class="n">calling</span> <span class="n">shr_mpi_abort</span><span class="p">()</span> <span class="ow">and</span> <span class="n">stopping</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-batch-log-files">
+<h3>8.1.3.6. The batch log files<a class="headerlink" href="#the-batch-log-files" title="Permalink to this headline">¶</a></h3>
+<p>The names of the batch log files will depend on the batch system of the machine that is being used. They will normally be in the script directory. Usually, they don&#8217;t contain important information, but they are a last resort place to look for error messages. On the NCAR system &#8220;yellowstone&#8221; the batch files are called with names that start with the batch submission script and then either &#8220;stderr.o&#8221; or &#8220;stdout.o&#8221;, with the job number at the end.</p>
+</div>
+</div>
+<div class="section" id="general-advice-on-debugging-run-time-problems">
+<h2>8.1.4. General Advice on Debugging Run time Problems<a class="headerlink" href="#general-advice-on-debugging-run-time-problems" title="Permalink to this headline">¶</a></h2>
+<p>Here are some suggestions on how to track down a problem while running. In general if the problem still occurs for a simpler case, it will be easier to track down.</p>
+<ol class="arabic simple">
+<li><em>Run in DEBUG mode</em></li>
+<li><em>Run with a smaller set of processors</em></li>
+<li><em>Run in serial mode with a single processor</em></li>
+<li><em>Run at a lower resolution</em></li>
+<li><em>Run a simpler case</em></li>
+<li><em>Run with a debugger</em></li>
+</ol>
+<div class="section" id="run-in-debug-mode">
+<h3>8.1.4.1. Run in DEBUG mode<a class="headerlink" href="#run-in-debug-mode" title="Permalink to this headline">¶</a></h3>
+<p>The first thing to try is to run in DEBUG mode so that float point trapping will be triggered as well as array bounds checking and other things the compiler can turn on to help you find problems.
+To do this edit the <code class="docutils literal"><span class="pre">env_build.xml</span></code> file and set DEBUG to TRUE as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">DEBUG</span><span class="o">=</span><span class="n">TRUE</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-with-a-smaller-set-of-processors">
+<h3>8.1.4.2. Run with a smaller set of processors<a class="headerlink" href="#run-with-a-smaller-set-of-processors" title="Permalink to this headline">¶</a></h3>
+<p>Another way to simplify the system is to run with a smaller set of processors. You will need to clean the setup and edit the &#8211;env_mach_pes.xml&#8211;. For example, to run with four processors:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span> <span class="o">-</span><span class="n">clean</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">NTASKS_ATM</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_LND</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_ICE</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_OCN</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_CPL</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_GLC</span><span class="o">=</span><span class="mi">4</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span>
+</pre></div>
+</div>
+<p>Another recommended simplification is to run without threading, so set the NTHRDS for each component to &#8220;1&#8221; if it isn&#8217;t already. Sometimes, multiprocessing problems require a certain number of processors before they occur so you may not be able to debug the problem without enough processors. But, it&#8217;s always good to reduce it to as low a number as possible to make it simpler. For threading problems you may have to have threading enabled to find the problem, but you can run with 1, 2, or 3 threads to see what happens.</p>
+</div>
+<div class="section" id="run-in-serial-mode-with-a-single-processor">
+<h3>8.1.4.3. Run in serial mode with a single processor<a class="headerlink" href="#run-in-serial-mode-with-a-single-processor" title="Permalink to this headline">¶</a></h3>
+<p>Simplifying to one processor removes all multi-processing problems and makes the case as simple as possible. If you can enable <code class="docutils literal"><span class="pre">MPILIB=mpi-serial</span></code> you will also be able to run interactively rather than having to submit to a job queue, which sometimes makes it easier to run and debug. If you can use <code class="docutils literal"><span class="pre">MPILIB=mpi-serial</span></code> you can also use threading, but still run interactively in order to use more processors to make it faster if needed.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span> <span class="o">-</span><span class="n">clean</span>
+<span class="c1"># Set tasks and threads for each component to 1</span>
+<span class="c1"># You could also set threads to something &gt; 1 for speed, but still</span>
+<span class="c1"># run interactively if threading isn&#39;t an issue.</span>
+
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">NTASKS_ATM</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">NTHRDS_ATM</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">NTASKS_LND</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">NTHRDS_LND</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">NTASKS_ICE</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">NTHRDS_ICE</span><span class="o">=</span><span class="mi">1</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">NTASKS_OCN</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">NTHRDS_OCN</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">NTASKS_CPL</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">NTHRDS_CPL</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">NTASKS_GLC</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">NTHRDS_GLC</span><span class="o">=</span><span class="mi">1</span>
+<span class="c1"># set MPILIB to mpi-serial so that you can run interactively</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">MPILIB</span><span class="o">=</span><span class="n">mpi</span><span class="o">-</span><span class="n">serial</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span>
+<span class="c1"># Then build your case</span>
+<span class="c1"># And finally run, by running the *.run script interactively</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-at-a-lower-resolution">
+<h3>8.1.4.4. Run at a lower resolution<a class="headerlink" href="#run-at-a-lower-resolution" title="Permalink to this headline">¶</a></h3>
+<p>If you can create a new case running at a lower resolution and replicate the problem it may be easier to solve. This of course requires creating a whole new case, and trying out different lower resolutions.</p>
+</div>
+<div class="section" id="run-a-simpler-case">
+<h3>8.1.4.5. Run a simpler case<a class="headerlink" href="#run-a-simpler-case" title="Permalink to this headline">¶</a></h3>
+<p>Along the same lines, you might try running a simpler case, trying another compset with a simpler setup and see if you can replicate the problem and then debug from that simpler case. Again, of course you will need to create new cases to do this.</p>
+</div>
+<div class="section" id="run-with-a-debugger">
+<h3>8.1.4.6. Run with a debugger<a class="headerlink" href="#run-with-a-debugger" title="Permalink to this headline">¶</a></h3>
+<p>Another suggestion is to run the model with a debugger such as: <strong>dbx</strong>, <strong>gdb</strong>, or <strong>totalview</strong>.
+Often to run with a debugger you will need to reduce the number of processors as outlined above.
+Some debuggers such as <strong>dbx</strong> will only work with one processor, while more advanced debuggers such as <strong>totalview</strong> can work with both MPI tasks and OMP threads.
+Even simple debuggers though can be used to query core files, to see where the code was at when it died (for example using the <strong>where</strong> in <strong>dbx</strong> for a core file can be very helpful.
+For help in running with a debugger you will need to contact your system administrators for the machine you are running on.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="8. Troubleshooting"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >8. Troubleshooting</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+    </div>
+  </body>
+</html>
