@@ -1,0 +1,240 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>3.3. Creating input for surface dataset generation &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3.4. Creating Surface Datasets" href="creating-surface-datasets.html" />
+    <link rel="prev" title="3.2. Building the CLM tools" href="building-the-clm-tools.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="creating-surface-datasets.html" title="3.4. Creating Surface Datasets"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="building-the-clm-tools.html" title="3.2. Building the CLM tools"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">3. Using CLM tools</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">3.3. Creating input for surface dataset generation</a><ul>
+<li><a class="reference internal" href="#generating-scrip-grid-files">3.3.1. 1. Generating SCRIP grid files</a><ul>
+<li><a class="reference internal" href="#using-mknocnmap-pl-to-create-grid-and-maps-for-single-point-regional-grids">3.3.1.1. Using mknocnmap.pl to create grid and maps for single-point regional grids</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#creating-mapping-files-for-mksurfdata-map">3.3.2. 2. Creating mapping files for mksurfdata_map</a><ul>
+<li><a class="reference internal" href="#figure-2-3-details-of-running-mkmapdata-sh">3.3.2.1. Figure 2-3. Details of running mkmapdata.sh</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="building-the-clm-tools.html"
+                        title="previous chapter">3.2. Building the CLM tools</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="creating-surface-datasets.html"
+                        title="next chapter">3.4. Creating Surface Datasets</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/users_guide/using-clm-tools/creating-input-for-surface-dataset-generation.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="creating-input-for-surface-dataset-generation">
+<span id="creating-maps-for-mksurfdata"></span><h1>3.3. Creating input for surface dataset generation<a class="headerlink" href="#creating-input-for-surface-dataset-generation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="generating-scrip-grid-files">
+<h2>3.3.1. 1. Generating SCRIP grid files<a class="headerlink" href="#generating-scrip-grid-files" title="Permalink to this headline">¶</a></h2>
+<p>The utility <code class="docutils literal"><span class="pre">mkmapdata.sh</span></code> requires SCRIP format input files to describe the input and output grids that maps are generated for. CLM provides a utility, <code class="docutils literal"><span class="pre">mkmapgrids</span></code> that generates those files.
+The program converts old formats of CAM or CLM grid files to SCRIP grid format. There is also a NCL script (<code class="docutils literal"><span class="pre">mkscripgrid.ncl</span></code>) to create regular latitude longitude regional or single-point grids at the resolution the user desires.</p>
+<p>SCRIP grid files for all the standard model resolutions and the raw surface datasets have already been done and the files are in the XML database. Hence, this step doesn&#8217;t need to be done &#8211; EXCEPT WHEN YOU ARE CREATING YOUR OWN GRIDS. If you have a CLM grid or CAM file from previous versions and you want to convert it you can use <strong>mkmapgrids</strong>.</p>
+<div class="section" id="using-mknocnmap-pl-to-create-grid-and-maps-for-single-point-regional-grids">
+<h3>3.3.1.1. Using mknocnmap.pl to create grid and maps for single-point regional grids<a class="headerlink" href="#using-mknocnmap-pl-to-create-grid-and-maps-for-single-point-regional-grids" title="Permalink to this headline">¶</a></h3>
+<p>If you want to create a regular latitude/longitude single-point or regional grid, we suggest you use <strong>mknoocnmap.pl</strong> in <code class="docutils literal"><span class="pre">models/lnd/clm/tools/shared/mkmapdata</span></code> which will create both the SCRIP grid file you need (using <code class="docutils literal"><span class="pre">models/lnd/clm/tools/shared/mkmapgrids/mkscripgrid.ncl</span></code> AND an identity mapping file assuming there is NO ocean in your grid domain. If you HAVE ocean in your domain you could modify the mask in the SCRIP grid file for ocean, and then use <strong>ESMF_RegridWeightGen</strong> to create the mapping file, and <strong>gen_domain</strong> to create the domain file. Like other tools, <code class="docutils literal"><span class="pre">shared/mkmapdata/mknoocnmap.pl</span></code> has a help option with the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SYNOPSIS</span>
+     <span class="n">mknoocnmap</span><span class="o">.</span><span class="n">pl</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span>     <span class="n">Gets</span> <span class="nb">map</span> <span class="ow">and</span> <span class="n">grid</span> <span class="n">files</span> <span class="k">for</span> <span class="n">a</span> <span class="n">single</span> <span class="n">land</span><span class="o">-</span><span class="n">only</span> <span class="n">point</span><span class="o">.</span>
+<span class="n">REQUIRED</span> <span class="n">OPTIONS</span>
+     <span class="o">-</span><span class="n">centerpoint</span> <span class="p">[</span><span class="ow">or</span> <span class="o">-</span><span class="n">p</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">lat</span><span class="p">,</span><span class="n">lon</span><span class="o">&gt;</span> <span class="n">Center</span> <span class="n">latitude</span><span class="p">,</span><span class="n">longitude</span> <span class="n">of</span> <span class="n">the</span> <span class="n">grid</span> <span class="n">to</span> <span class="n">create</span><span class="o">.</span>
+     <span class="o">-</span><span class="n">name</span> <span class="p">[</span><span class="o">-</span><span class="ow">or</span> <span class="o">-</span><span class="n">n</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span>       <span class="n">Name</span> <span class="n">to</span> <span class="n">use</span> <span class="n">to</span> <span class="n">describe</span> <span class="n">point</span>
+
+<span class="n">OPTIONS</span>
+     <span class="o">-</span><span class="n">dx</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span>                   <span class="n">Size</span> <span class="n">of</span> <span class="n">total</span> <span class="n">grid</span> <span class="ow">in</span> <span class="n">degrees</span> <span class="ow">in</span> <span class="n">longitude</span> <span class="n">direction</span>
+                                    <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="mf">0.1</span><span class="p">)</span>
+     <span class="o">-</span><span class="n">dy</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span>                   <span class="n">Size</span> <span class="n">of</span> <span class="n">total</span> <span class="n">grid</span> <span class="ow">in</span> <span class="n">degrees</span> <span class="ow">in</span> <span class="n">latitude</span> <span class="n">direction</span>
+                                    <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="mf">0.1</span><span class="p">)</span>
+     <span class="o">-</span><span class="n">silent</span> <span class="p">[</span><span class="ow">or</span> <span class="o">-</span><span class="n">s</span><span class="p">]</span>             <span class="n">Make</span> <span class="n">output</span> <span class="n">silent</span>
+     <span class="o">-</span><span class="n">help</span> <span class="p">[</span><span class="ow">or</span> <span class="o">-</span><span class="n">h</span><span class="p">]</span>               <span class="n">Print</span> <span class="n">usage</span> <span class="n">to</span> <span class="n">STDOUT</span><span class="o">.</span>
+     <span class="o">-</span><span class="n">verbose</span> <span class="p">[</span><span class="ow">or</span> <span class="o">-</span><span class="n">v</span><span class="p">]</span>                    <span class="n">Make</span> <span class="n">output</span> <span class="n">more</span> <span class="n">verbose</span><span class="o">.</span>
+     <span class="o">-</span><span class="n">nx</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span>                   <span class="n">Number</span> <span class="n">of</span> <span class="n">longitudes</span> <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="mi">1</span><span class="p">)</span>
+     <span class="o">-</span><span class="n">ny</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span>                   <span class="n">Number</span> <span class="n">of</span> <span class="n">latitudes</span>  <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="CLM-URL">Figure 2-5</a> for a visual representation of this process.</p>
+</div>
+</div>
+<div class="section" id="creating-mapping-files-for-mksurfdata-map">
+<h2>3.3.2. 2. Creating mapping files for mksurfdata_map<a class="headerlink" href="#creating-mapping-files-for-mksurfdata-map" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">mkmapdata.sh</span></code> uses the above SCRIP grid input files to create SCRIP mapping data files (uses ESMF).</p>
+<p>The bash shell script <code class="docutils literal"><span class="pre">models/lnd/clm/tools/shared/mkmapgrids/mkmapdata.sh</span></code> uses <strong>ESMF_RegridWeightGen</strong> to create a list of maps from the raw datasets that are input to <strong>mksurfdata_map</strong>.
+Each dataset that has a different grid, or land-mask needs a different mapping file for it, but many different raw datasets share the same grid/land-mask as other files.
+Hence, there doesn&#8217;t need to be a different mapping file for EACH raw dataset &#8211; just for each DIFFERENT raw dataset.
+See <a class="reference external" href="CLM-URL">Figure 2-3</a> for a visual representation of how this works.
+The bash script figures out which mapping files it needs to create and then runs <strong>ESMF_RegridWeightGen</strong> for each one.
+You can then either enter the datasets into the XML database (see <a class="reference external" href="CLM-URL">Chapter 3</a> or leave the files in place, and use the &#8220;-res usrspec -usr_gname -usr_gdate&#8221; options to <strong>mksurfdata_map</strong> (see <a class="reference external" href="CLM-URL">the Section called Running mksurfdata.pl</a> below).
+Use the &#8220;-phys&#8221; option to specify if you are creating mapping files for clm4_0 or clm4_5 (the list of raw datafiles is somewhat different between the two).
+mkmapdata.sh has a help option with the following</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">../../</span><span class="n">tools</span><span class="o">/</span><span class="n">shared</span><span class="o">/</span><span class="n">mkmapdata</span><span class="o">/</span><span class="n">mkmapdata</span><span class="o">.</span><span class="n">sh</span>
+
+<span class="o">**********************</span>
+<span class="n">usage</span> <span class="n">on</span> <span class="n">yellowstone</span><span class="p">:</span>
+<span class="o">./</span><span class="n">mkmapdata</span><span class="o">.</span><span class="n">sh</span>
+
+<span class="n">valid</span> <span class="n">arguments</span><span class="p">:</span>
+<span class="p">[</span><span class="o">-</span><span class="n">f</span><span class="o">|--</span><span class="n">gridfile</span> <span class="o">&lt;</span><span class="n">gridname</span><span class="o">&gt;</span><span class="p">]</span>
+     <span class="n">Full</span> <span class="n">pathname</span> <span class="n">of</span> <span class="n">model</span> <span class="n">SCRIP</span> <span class="n">grid</span> <span class="n">file</span> <span class="n">to</span> <span class="n">use</span>
+     <span class="n">This</span> <span class="n">variable</span> <span class="n">should</span> <span class="n">be</span> <span class="nb">set</span> <span class="k">if</span> <span class="n">this</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">a</span> <span class="n">supported</span> <span class="n">grid</span>
+     <span class="n">This</span> <span class="n">variable</span> <span class="n">will</span> <span class="n">override</span> <span class="n">the</span> <span class="n">automatic</span> <span class="n">generation</span> <span class="n">of</span> <span class="n">the</span>
+     <span class="n">filename</span> <span class="n">generated</span> <span class="kn">from</span> <span class="nn">the</span> <span class="o">-</span><span class="n">res</span> <span class="n">argument</span>
+     <span class="n">the</span> <span class="n">filename</span> <span class="ow">is</span> <span class="n">generated</span> <span class="n">ASSUMING</span> <span class="n">that</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">supported</span>
+     <span class="n">grid</span> <span class="n">that</span> <span class="n">has</span> <span class="n">entries</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">file</span> <span class="n">namelist_defaults_clm</span><span class="o">.</span><span class="n">xml</span>
+     <span class="n">the</span> <span class="o">-</span><span class="n">r</span><span class="o">|--</span><span class="n">res</span> <span class="n">argument</span> <span class="n">MUST</span> <span class="n">be</span> <span class="n">specied</span> <span class="k">if</span> <span class="n">this</span> <span class="n">argument</span> <span class="ow">is</span> <span class="n">specified</span>
+<span class="p">[</span><span class="o">-</span><span class="n">r</span><span class="o">|--</span><span class="n">res</span> <span class="o">&lt;</span><span class="n">res</span><span class="o">&gt;</span><span class="p">]</span>
+     <span class="n">Model</span> <span class="n">output</span> <span class="n">resolution</span> <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="mi">10</span><span class="n">x15</span><span class="p">)</span>
+<span class="p">[</span><span class="o">-</span><span class="n">t</span><span class="o">|--</span><span class="n">gridtype</span> <span class="o">&lt;</span><span class="nb">type</span><span class="o">&gt;</span><span class="p">]</span>
+     <span class="n">Model</span> <span class="n">output</span> <span class="n">grid</span> <span class="nb">type</span>
+     <span class="n">supported</span> <span class="n">values</span> <span class="n">are</span> <span class="p">[</span><span class="n">regional</span><span class="p">,</span><span class="k">global</span><span class="p">],</span> <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="k">global</span><span class="p">)</span>
+<span class="p">[</span><span class="o">-</span><span class="n">p</span><span class="o">|--</span><span class="n">phys</span> <span class="o">&lt;</span><span class="n">CLM</span><span class="o">-</span><span class="n">version</span><span class="o">&gt;</span><span class="p">]</span>
+     <span class="n">Whether</span> <span class="n">to</span> <span class="n">generate</span> <span class="n">mapping</span> <span class="n">files</span> <span class="k">for</span> <span class="n">clm4_0</span> <span class="ow">or</span> <span class="n">clm4_5</span>
+     <span class="n">supported</span> <span class="n">values</span> <span class="n">are</span> <span class="p">[</span><span class="n">clm4_0</span><span class="p">,</span><span class="n">clm4_5</span><span class="p">],</span> <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="n">clm4_5</span><span class="p">)</span>
+<span class="p">[</span><span class="o">-</span><span class="n">b</span><span class="o">|--</span><span class="n">batch</span><span class="p">]</span>
+     <span class="n">Toggles</span> <span class="n">batch</span> <span class="n">mode</span> <span class="n">usage</span><span class="o">.</span>
+<span class="n">If</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">batch</span> <span class="n">mode</span>
+     <span class="n">you</span> <span class="n">need</span> <span class="n">to</span> <span class="n">have</span> <span class="n">a</span> <span class="n">separate</span> <span class="n">batch</span> <span class="n">script</span> <span class="k">for</span> <span class="n">a</span> <span class="n">supported</span> <span class="n">machine</span>
+     <span class="n">that</span> <span class="n">calls</span> <span class="n">this</span> <span class="n">script</span> <span class="n">interactively</span> <span class="o">-</span> <span class="n">you</span> <span class="n">cannot</span> <span class="n">submit</span> <span class="n">this</span>
+     <span class="n">script</span> <span class="n">directory</span> <span class="n">to</span> <span class="n">the</span> <span class="n">batch</span> <span class="n">system</span>
+<span class="p">[</span><span class="o">-</span><span class="n">l</span><span class="o">|--</span><span class="nb">list</span><span class="p">]</span>
+     <span class="n">List</span> <span class="n">mapping</span> <span class="n">files</span> <span class="n">required</span> <span class="p">(</span><span class="n">use</span> <span class="n">check_input_data</span> <span class="n">to</span> <span class="n">get</span> <span class="n">them</span><span class="p">)</span>
+     <span class="n">also</span> <span class="n">writes</span> <span class="n">data</span> <span class="n">to</span> <span class="n">clm</span><span class="o">.</span><span class="n">input_data_list</span>
+<span class="p">[</span><span class="o">-</span><span class="n">d</span><span class="o">|--</span><span class="n">debug</span><span class="p">]</span>
+     <span class="n">Toggles</span> <span class="n">debug</span><span class="o">-</span><span class="n">only</span> <span class="p">(</span><span class="n">don</span><span class="s1">&#39;t actually run mkmapdata just echo what would happen)</span>
+<span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="o">|--</span><span class="n">help</span><span class="p">]</span>
+     <span class="n">Displays</span> <span class="n">this</span> <span class="n">help</span> <span class="n">message</span>
+<span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="o">|--</span><span class="n">verbose</span><span class="p">]</span>
+     <span class="n">Toggle</span> <span class="n">verbose</span> <span class="n">usage</span> <span class="o">--</span> <span class="n">log</span> <span class="n">more</span> <span class="n">information</span> <span class="n">on</span> <span class="n">what</span> <span class="ow">is</span> <span class="n">happening</span>
+
+ <span class="n">You</span> <span class="n">can</span> <span class="n">also</span> <span class="nb">set</span> <span class="n">the</span> <span class="n">following</span> <span class="n">env</span> <span class="n">variables</span><span class="p">:</span>
+  <span class="n">ESMFBIN_PATH</span> <span class="o">-</span> <span class="n">Path</span> <span class="n">to</span> <span class="n">ESMF</span> <span class="n">binaries</span>
+                 <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="o">/</span><span class="n">contrib</span><span class="o">/</span><span class="n">esmf</span><span class="o">-</span><span class="mf">5.3</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="mi">64</span><span class="o">-</span><span class="n">O</span><span class="o">/</span><span class="nb">bin</span><span class="p">)</span>
+  <span class="n">CSMDATA</span> <span class="o">------</span> <span class="n">Path</span> <span class="n">to</span> <span class="n">CESM</span> <span class="nb">input</span> <span class="n">data</span>
+                 <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="o">/</span><span class="n">glade</span><span class="o">/</span><span class="n">p</span><span class="o">/</span><span class="n">cesm</span><span class="o">/</span><span class="n">cseg</span><span class="o">/</span><span class="n">inputdata</span><span class="p">)</span>
+  <span class="n">MPIEXEC</span> <span class="o">------</span> <span class="n">Name</span> <span class="n">of</span> <span class="n">mpirun</span> <span class="n">executable</span>
+                 <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="n">mpirun</span><span class="o">.</span><span class="n">lsf</span><span class="p">)</span>
+  <span class="n">REGRID_PROC</span> <span class="o">--</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">MPI</span> <span class="n">processors</span> <span class="n">to</span> <span class="n">use</span>
+                 <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="o">**</span><span class="k">pass</span> <span class="n">environment</span> <span class="n">variables</span> <span class="n">by</span> <span class="n">preceding</span> <span class="n">above</span> <span class="n">commands</span>
+  <span class="k">with</span> <span class="s1">&#39;env var1=setting var2=setting &#39;</span>
+<span class="o">**********************</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Make sure you specify with the &#8220;-phys&#8221; option if you are creating files for CLM4.0! The default is CLM4.5.</p>
+</div>
+<div class="section" id="figure-2-3-details-of-running-mkmapdata-sh">
+<h3>3.3.2.1. Figure 2-3. Details of running mkmapdata.sh<a class="headerlink" href="#figure-2-3-details-of-running-mkmapdata-sh" title="Permalink to this headline">¶</a></h3>
+<p>Insert figure 2-3</p>
+<p>Each of the raw datasets for <strong>mksurfdata_map</strong> needs a mapping file to map from the output grid you are running on to the grid and land-mask for that dataset. This is what <strong>mkmapdata.sh</strong> does. To create the mapping files you need a SCRIP grid file to correspond with each resolution and land mask that you have a raw data file in <strong>mksurfdata_map</strong>. Some raw datasets share the same grid and land mask &#8211; hence they can share the same SCRIP grid file. The output maps created here go into <strong>mksurfdata_map</strong> see <a class="reference external" href="CLM-URL">Figure 2-6</a>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="creating-surface-datasets.html" title="3.4. Creating Surface Datasets"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="building-the-clm-tools.html" title="3.2. Building the CLM tools"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >3. Using CLM tools</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>

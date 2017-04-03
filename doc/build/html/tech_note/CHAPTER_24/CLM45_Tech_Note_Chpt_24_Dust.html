@@ -1,0 +1,298 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>24. Dust Model &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="25. Carbon Isotopes" href="../CHAPTER_25/CLM45_Tech_Note_Chpt_25_Isotopes.html" />
+    <link rel="prev" title="23. Biogenic Volatile Organic Compounds (BVOCs)" href="../CHAPTER_23/CLM45_Tech_Note_Chpt_23_BVOCs.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../CHAPTER_25/CLM45_Tech_Note_Chpt_25_Isotopes.html" title="25. Carbon Isotopes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../CHAPTER_23/CLM45_Tech_Note_Chpt_23_BVOCs.html" title="23. Biogenic Volatile Organic Compounds (BVOCs)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../CHAPTER_23/CLM45_Tech_Note_Chpt_23_BVOCs.html"
+                        title="previous chapter">23. Biogenic Volatile Organic Compounds (BVOCs)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../CHAPTER_25/CLM45_Tech_Note_Chpt_25_Isotopes.html"
+                        title="next chapter">25. Carbon Isotopes</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tech_note/CHAPTER_24/CLM45_Tech_Note_Chpt_24_Dust.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dust-model">
+<h1>24. Dust Model<a class="headerlink" href="#dust-model" title="Permalink to this headline">¶</a></h1>
+<p>Atmospheric dust is mobilized from the land by wind in the CLM. The most
+important factors determining soil erodibility and dust emission include
+the wind friction speed, the vegetation cover, and the soil moisture.
+The CLM dust mobilization scheme (Mahowald et al. ** 2006) accounts for
+these factors based on the DEAD (Dust Entrainment and Deposition) model
+of Zender et al. (2003). Please refer to the Zender et al. ** (2003)
+article for additional information regarding the equations presented in
+this section.</p>
+<p>The total vertical mass flux of dust, <img class="math" src="../../_images/math/9709a4abf24e4730222814d5a44fc66e6a9f114b.png" alt="F_{j}"/>  (kg m<sup>-2</sup> s<sup>-1</sup>), from the ground into transport
+bin <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/> is given by</p>
+<div class="math" id="equation-ZEqnNum146272">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-ZEqnNum146272" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8074c44216e8a586799a4f64de4da3bc959c5375.png" alt="F_{j} =TSf_{m} \alpha Q_{s} \sum _{i=1}^{I}M_{i,j}"/></p>
+</div><p>where <img class="math" src="../../_images/math/f2d283a2071f9d043c9e0b0f794a8880fa0d3ce9.png" alt="T"/> is a global factor that compensates for the DEAD model’s
+sensitivity to horizontal and temporal resolution and equals 5 x
+10<sup>-4</sup> in the CLM instead of 7 x 10<sup>-4</sup> in
+Zender et al. (2003). <img class="math" src="../../_images/math/1dbc400fcc213305415872f9f625cd2828f97a00.png" alt="S"/> is the source erodibility factor set to
+1 in the CLM and serves as a place holder at this time.</p>
+<p>The grid cell fraction of exposed bare soil suitable for dust
+mobilization <img class="math" src="../../_images/math/2979ace21ad1431b7986b3f89fb9a05f7fc412b5.png" alt="f_{m}"/>  is given by</p>
+<div class="math" id="equation-24.2)">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-24.2)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9e9fbd842847c643ad2402dc5807a9da2714ba43.png" alt="f_{m} =\left(1-f_{lake} -f_{wetl} \right)\left(1-f_{sno} \right)\left(1-f_{v} \right)\frac{w_{liq,1} }{w_{liq,1} +w_{ice,1} }"/></p>
+</div><p>where ** <img class="math" src="../../_images/math/50d89e9d847ae893df078a19141bdde0abb141d8.png" alt="f_{lake}"/>  and ** <img class="math" src="../../_images/math/951c4003a85224e92b2265d9db2014ed7a8e43e6.png" alt="f_{wetl}"/>  and <img class="math" src="../../_images/math/f946f3426bf2cf588dbe5a9a9c77396e913a4a80.png" alt="f_{sno}"/>
+are the CLM grid cell fractions of lake and wetland (section 2.2.3) and
+snow cover (section 7.2.1), all ranging from zero to one. Not mentioned
+by Zender et al. (2003), <img class="math" src="../../_images/math/a46b9426bc52b39112bb6e78aba04042d14eb975.png" alt="w_{liq,\, 1}"/>  and
+<img class="math" src="../../_images/math/4fb14f3af5960c234cb29f0e10b8609e8851d3bc.png" alt="{}_{w_{ice,\, 1} }"/> are the CLM top soil layer liquid water and
+ice contents (mm) entered as a ratio expressing the decreasing ability
+of dust to mobilize from increasingly frozen soil. The grid cell
+fraction of vegetation cover,<img class="math" src="../../_images/math/8751fab016759f288166d338cbca12061a33863f.png" alt="{}_{f_{v} }"/>, is defined as</p>
+<div class="math" id="equation-ZEqnNum242183">
+<p><span class="eqno">(3)<a class="headerlink" href="#equation-ZEqnNum242183" title="Permalink to this equation">¶</a></span><img src="../../_images/math/10ca904a91244ce9e8ccfda036463913d8b7baed.png" alt="0\le f_{v} =\frac{L+S}{\left(L+S\right)_{t} } \le 1{\rm \; \; \; \; where\; }\left(L+S\right)_{t} =0.3{\rm \; m}^{2} {\rm m}^{-2}"/></p>
+</div><p>where equation applies only for dust mobilization and is not related to
+the plant functional type fractions prescribed from the CLM input data
+or simulated by the CLM dynamic vegetation model (Chapter 22). <img class="math" src="../../_images/math/ae2b750f71e1fc0daaa3de9a85d42794d7cd1326.png" alt="L"/>
+and <img class="math" src="../../_images/math/1dbc400fcc213305415872f9f625cd2828f97a00.png" alt="S"/> are the CLM leaf and stem area index values
+(m:sup:<cite>2</cite> m<sup>-2</sup>) averaged at the land unit level so
+as to include all the pfts and the bare ground present in a vegetated
+land unit. <img class="math" src="../../_images/math/ae2b750f71e1fc0daaa3de9a85d42794d7cd1326.png" alt="L"/> and <img class="math" src="../../_images/math/1dbc400fcc213305415872f9f625cd2828f97a00.png" alt="S"/> may be prescribed from the CLM
+input data (section 2.1.4) or simulated by the CLM biogeochemistry model
+(Chapter 13).</p>
+<p>The sandblasting mass efficiency <img class="math" src="../../_images/math/877d234f4cec6974ce218fc2e975a486a7972dfd.png" alt="\alpha"/>  (m:sup:<cite>-1</cite>) is
+calculated as</p>
+<div class="math" id="equation-24.4)">
+<p><span class="eqno">(4)<a class="headerlink" href="#equation-24.4)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1925444ce2e4681cfd3eb2615f1331863637ecfb.png" alt="\alpha =100e^{\left(13.4M_{clay} -6.0\right)\ln 10} {\rm \; \; }\left\{\begin{array}{l} {M_{clay} =\% clay\times 0.01{\rm \; \; \; 0}\le \% clay\le 20} \\ {M_{clay} =20\times 0.01{\rm \; \; \; \; \; \; \; \; 20&lt;\% }clay\le 100} \end{array}\right."/></p>
+</div><p>where <img class="math" src="../../_images/math/c5e4792ffb023bb23762ec6a23b2993766afeda2.png" alt="M_{clay}"/> is the mass fraction of clay
+particles in the soil and %clay is determined from the surface dataset
+(section 2.2.3). <img class="math" src="../../_images/math/974446a0784fab5f523d0223b628277e6e45f318.png" alt="M_{clay} =0"/> corresponds to sand and
+<img class="math" src="../../_images/math/1190eba7e6c21f1f589ff91366469422a46041f2.png" alt="M_{clay} =0.2"/> to sandy loam.</p>
+<p><img class="math" src="../../_images/math/79d0b98ebc3b9a1a9b010c44d62116f1df7786cb.png" alt="Q_{s}"/>  is the total horizontally saltating mass flux (kg
+m<sup>-1</sup> s<sup>-1</sup>) of “large” particles (Table
+24.1), also referred to as the vertically integrated streamwise mass
+flux</p>
+<div class="math" id="equation-ZEqnNum832592">
+<p><span class="eqno">(5)<a class="headerlink" href="#equation-ZEqnNum832592" title="Permalink to this equation">¶</a></span><img src="../../_images/math/97b40c1f92eb553c128d49ffe7c1e93a619f7bf5.png" alt="Q_{s} =\left\{\begin{array}{l} {\frac{c_{s} \rho _{atm} u_{*s}^{3} }{g} \left(1-\frac{u_{*t} }{u_{*s} } \right)\left(1+\frac{u_{*t} }{u_{*s} } \right)^{2} {\rm \; }\qquad {\rm for\; }u_{*t} &lt;u_{*s} } \\ {0{\rm \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; }\qquad {\rm for\; }u_{*t} \ge u_{*s} } \end{array}\right."/></p>
+</div><p>where the saltation constant <img class="math" src="../../_images/math/2df3b0747a460da75b66e43a6d68b65839832afd.png" alt="c_{s}"/> equals 2.61 and
+<img class="math" src="../../_images/math/488d242d2c249cf5bf3182b58bbcc9ead040b82c.png" alt="\rho _{atm}"/>  is the atmospheric density (kg m<sup>-3</sup>)
+(Table 2.3), <img class="math" src="../../_images/math/307b3725cbb03398131f9ca542d79aff4933195f.png" alt="g"/> the acceleration of gravity (m
+s<sup>-2</sup>) (Table 2.6). The threshold wind friction speed for saltation <img class="math" src="../../_images/math/61671bbf43e3434f8e8efddfb411236a9161d39a.png" alt="u_{*t}"/>  (m s<sup>-1</sup>) is</p>
+<div class="math" id="equation-ZEqnNum888452">
+<p><span class="eqno">(6)<a class="headerlink" href="#equation-ZEqnNum888452" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c03c23b2767d9f0bc41a033497460a623f3491c6.png" alt="u_{*t} =f_{z} \left[Re_{*t}^{f} \rho _{osp} gD_{osp} \left(1+\frac{6\times 10^{-7} }{\rho _{osp} gD_{osp}^{2.5} } \right)\right]^{\frac{1}{2} } \rho _{atm} ^{-\frac{1}{2} } f_{w}"/></p>
+</div><p>where <img class="math" src="../../_images/math/4f3592c7dedbebcdbb1fd0b41a866ee4b2a24568.png" alt="f_{z}"/>  is a factor dependent on surface roughness but set
+to 1 as a place holder for now, <img class="math" src="../../_images/math/1e1a5f8ef6a3550ac2aace52d9e18885b0ad5079.png" alt="\rho _{osp}"/>  and
+<img class="math" src="../../_images/math/ff8098f70f2d41c5e52a18a9f6becba13628b036.png" alt="D_{osp}"/>  are the density (2650 kg m<sup>-3</sup>) and
+diameter (75 x 10<img class="math" src="../../_images/math/22a309b154b80f61c14d90340b06b8952274bdac.png" alt="{}^{-6}"/> m) of optimal saltation particles,
+and <img class="math" src="../../_images/math/e9920ab25eeacddf0da2f55a09dfc1d67da1b3b5.png" alt="f_{w}"/>  is a factor dependent on soil moisture:</p>
+<div class="math" id="equation-24.7)">
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-24.7)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2c0e8e925fd3a551034181c2b9bb1d992d65000a.png" alt="f_{w} =\left\{\begin{array}{l} {1{\rm \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; for\; }w\le w_{t} } \\ {\sqrt{1+1.21\left[100\left(w-w_{t} \right)\right]^{0.68} } {\rm \; \; for\; }w&gt;w_{t} } \end{array}\right."/></p>
+</div><p>where</p>
+<div class="math" id="equation-24.8)">
+<p><span class="eqno">(8)<a class="headerlink" href="#equation-24.8)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e16335f1dc63ef5260ea5efa735c55dab91d90e9.png" alt="w_{t} =a\left(0.17M_{clay} +0.14M_{clay}^{2} \right){\rm \; \; \; \; \; \; 0}\le M_{clay} =\% clay\times 0.01\le 1"/></p>
+</div><p>and</p>
+<div class="math" id="equation-24.9)">
+<p><span class="eqno">(9)<a class="headerlink" href="#equation-24.9)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fda21bfa232cf947259a259ca63399fbdb25371c.png" alt="w=\frac{\theta _{1} \rho _{liq} }{\rho _{d,1} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/0189d8f3cb8f66a0139e69bb6669d676a817128a.png" alt="a=M_{clay}^{-1}"/>  for tuning purposes,
+<img class="math" src="../../_images/math/a3eb75b2a791d51344f65fbedce56be1bf03e9a0.png" alt="\theta _{1}"/>  is the volumetric soil moisture in the top soil
+layer (m:math:<cite>{}^{3 }</cite>m<sup>-3</sup>) (section 7.4),
+<img class="math" src="../../_images/math/99459ae3ea5d5e40e141953e3b5f47c1c193f392.png" alt="\rho _{liq}"/>  is the density of liquid water (kg
+m<sup>-3</sup>) (Table 2.6), and <img class="math" src="../../_images/math/8b44e5f18101a41e10e6189af6bc0ca511a5d842.png" alt="\rho _{d,\, 1}"/>  is the bulk
+density of soil in the top soil layer (kg m<sup>-3</sup>) defined as
+in section 6.3 rather than as in Zender et al. (2003).
+<img class="math" src="../../_images/math/6dbca38bf19b0ee509a94c948f21d1da7177d4a5.png" alt="Re_{*t}^{f}"/>  from equation is the threshold friction Reynolds
+factor</p>
+<div class="math" id="equation-24.10)">
+<p><span class="eqno">(10)<a class="headerlink" href="#equation-24.10)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f4b2cf0f8771078ef82dbc1e4896e686fb37bea0.png" alt="Re_{*t}^{f} =\left\{\begin{array}{l} {\frac{0.1291^{2} }{-1+1.928Re_{*t} } {\rm \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; for\; 0.03}\le Re_{*t} \le 10} \\ {0.12^{2} \left(1-0.0858e^{-0.0617(Re_{*t} -10)} \right)^{2} {\rm \; for\; }Re_{*t} &gt;10} \end{array}\right."/></p>
+</div><p>and <img class="math" src="../../_images/math/5884b21b585e20a9430ac117778d6d85932e7ed2.png" alt="Re_{*t}"/>  is the threshold friction Reynolds number
+approximation for optimally sized particles</p>
+<div class="math" id="equation-24.11)">
+<p><span class="eqno">(11)<a class="headerlink" href="#equation-24.11)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d5f1efe61e8466956303e5aeab2a4bdea582cb8b.png" alt="Re_{*t} =0.38+1331\left(100D_{osp} \right)^{1.56}"/></p>
+</div><p>In equation , <img class="math" src="../../_images/math/ab13db534734e8c0547e0bf26debcb7f83554a6b.png" alt="u_{*s}"/>  ** is defined as the wind friction speed
+(m s<sup>-1</sup>) accounting for the Owen effect (Owen 1964)</p>
+<div class="math" id="equation-24.12)">
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-24.12)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9ae7a7d208e623533a4538187f4b41a56ae8f7e7.png" alt="u_{\*s} =\left\{\begin{array}{l} {u_{\*} {\rm \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; \; for\; }U_{10} &lt;U_{10,t} } \\ {u_{*} +0.003\left(U_{10} -U_{10,t} \right)^{2} {\rm \; for\; }U_{10} \ge U_{10,t} } \end{array}\right."/></p>
+</div><p>where <img class="math" src="../../_images/math/0d674e7d8fec40bf9a08eea2a7f1f4a389c27959.png" alt="u_{*}"/>  is the CLM wind friction speed (m
+s<sup>-1</sup>), also known as friction velocity (section 5.1),
+<img class="math" src="../../_images/math/81fc3c4d624939256d5c15582e1764264fc0eb2c.png" alt="U_{10}"/> is the 10-m wind speed (m s<sup>-1</sup>)
+calculated as the wind speed at the top of the canopy in section 4.3 of
+Bonan (1996) but here for 10 m above the ground, and
+<img class="math" src="../../_images/math/f12b3d442d08b6e34ea1bf44ed348566f86b1e30.png" alt="U_{10,\, t}"/>  is the threshold wind speed at 10 m (m
+s<sup>-1</sup>)</p>
+<div class="math" id="equation-24.13)">
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-24.13)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b3e9f2b2b1cdefb2c3b8850efa41f5fc3dbde72d.png" alt="U_{10,t} =u_{*t} \frac{U_{10} }{u_{*} }"/></p>
+</div><p>In equation we sum <img class="math" src="../../_images/math/b31a0be525eded3e0d0c2ea3b2ddd9c66a8cb023.png" alt="M_{i,\, j}"/>  over <img class="math" src="../../_images/math/0790311704be56da2d2b188450ec1336707b3885.png" alt="I=3"/> source modes
+<img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> where <img class="math" src="../../_images/math/b31a0be525eded3e0d0c2ea3b2ddd9c66a8cb023.png" alt="M_{i,\, j}"/>  is the mass fraction of each source
+mode <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> carried in each of <em>:math:`J=4`</em> transport bins <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/></p>
+<div class="math" id="equation-24.14)">
+<p><span class="eqno">(14)<a class="headerlink" href="#equation-24.14)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/af01a3aaa8beaec59f4455f05704c152512f2f8b.png" alt="M_{i,j} =\frac{m_{i} }{2} \left[{\rm erf}\left(\frac{\ln {\textstyle\frac{D_{j,\max } }{\tilde{D}_{v,i} }} }{\sqrt{2} \ln \sigma _{g,i} } \right)-{\rm erf}\left(\frac{\ln {\textstyle\frac{D_{j,\min } }{\tilde{D}_{v,i} }} }{\sqrt{2} \ln \sigma _{g,i} } \right)\right]"/></p>
+</div><p>where <img class="math" src="../../_images/math/781ff372f8f5e1b4be45b459499304cb19338bdc.png" alt="m_{i}"/> , <img class="math" src="../../_images/math/c15c893ce916388cded17ec2e28080d767a32b75.png" alt="\tilde{D}_{v,\, i}"/> , and
+<img class="math" src="../../_images/math/2ed9d1596d0c114dbfc34aac4036889e03d599d6.png" alt="\sigma _{g,\, i}"/>  are the mass fraction, mass median diameter,
+and geometric standard deviation assigned to each particle source mode
+<img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> (Table 24.1), while <img class="math" src="../../_images/math/9bc870e96c7efa10a3d2c624aa9c0be3de603379.png" alt="D_{j,\, \min }"/>  and
+<img class="math" src="../../_images/math/082db595575efe5f2daf9f44eaf9f414759f1b6f.png" alt="D_{j,\, \max }"/>  are the minimum and maximum diameters (m) in
+each transport bin <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/> ** (Table 24.2).</p>
+<p>Table 24.1. Mass fraction <img class="math" src="../../_images/math/781ff372f8f5e1b4be45b459499304cb19338bdc.png" alt="m_{i}"/> , mass median diameter
+<img class="math" src="../../_images/math/c15c893ce916388cded17ec2e28080d767a32b75.png" alt="\tilde{D}_{v,\, i}"/> , and geometric standard deviation
+<img class="math" src="../../_images/math/2ed9d1596d0c114dbfc34aac4036889e03d599d6.png" alt="\sigma _{g,\, i}"/> , per dust source mode <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="27%" />
+<col width="33%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/></th>
+<th class="head"><img class="math" src="../../_images/math/781ff372f8f5e1b4be45b459499304cb19338bdc.png" alt="m_{i}"/>  (fraction)</th>
+<th class="head"><img class="math" src="../../_images/math/c15c893ce916388cded17ec2e28080d767a32b75.png" alt="\tilde{D}_{v,\, i}"/>  (m)</th>
+<th class="head"><img class="math" src="../../_images/math/2ed9d1596d0c114dbfc34aac4036889e03d599d6.png" alt="\sigma _{g,\, i}"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>0.036</td>
+<td>0.832 x 10<img class="math" src="../../_images/math/22a309b154b80f61c14d90340b06b8952274bdac.png" alt="{}^{-6}"/></td>
+<td>2.1</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>0.957</td>
+<td>4.820 x 10<img class="math" src="../../_images/math/22a309b154b80f61c14d90340b06b8952274bdac.png" alt="{}^{-6}"/></td>
+<td>1.9</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>0.007</td>
+<td>19.38 x 10<img class="math" src="../../_images/math/22a309b154b80f61c14d90340b06b8952274bdac.png" alt="{}^{-6}"/></td>
+<td>1.6</td>
+</tr>
+</tbody>
+</table>
+<p>Table 24.2. Minimum and maximum particle diameters in each dust transport bin <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="41%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/></th>
+<th class="head"><img class="math" src="../../_images/math/9bc870e96c7efa10a3d2c624aa9c0be3de603379.png" alt="D_{j,\, \min }"/>  (m)</th>
+<th class="head"><img class="math" src="../../_images/math/082db595575efe5f2daf9f44eaf9f414759f1b6f.png" alt="D_{j,\, \max }"/>  (m)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>0.1 x 10<img class="math" src="../../_images/math/22a309b154b80f61c14d90340b06b8952274bdac.png" alt="{}^{-6}"/></td>
+<td>1.0 x 10<img class="math" src="../../_images/math/22a309b154b80f61c14d90340b06b8952274bdac.png" alt="{}^{-6}"/></td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>1.0 x 10<img class="math" src="../../_images/math/22a309b154b80f61c14d90340b06b8952274bdac.png" alt="{}^{-6}"/></td>
+<td>2.5 x 10<img class="math" src="../../_images/math/22a309b154b80f61c14d90340b06b8952274bdac.png" alt="{}^{-6}"/></td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>2.5 x 10<img class="math" src="../../_images/math/22a309b154b80f61c14d90340b06b8952274bdac.png" alt="{}^{-6}"/></td>
+<td>5.0 x 10<img class="math" src="../../_images/math/22a309b154b80f61c14d90340b06b8952274bdac.png" alt="{}^{-6}"/></td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>5.0 x 10<img class="math" src="../../_images/math/22a309b154b80f61c14d90340b06b8952274bdac.png" alt="{}^{-6}"/></td>
+<td>10.0 x 10<img class="math" src="../../_images/math/22a309b154b80f61c14d90340b06b8952274bdac.png" alt="{}^{-6}"/></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../CHAPTER_25/CLM45_Tech_Note_Chpt_25_Isotopes.html" title="25. Carbon Isotopes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../CHAPTER_23/CLM45_Tech_Note_Chpt_23_BVOCs.html" title="23. Biogenic Volatile Organic Compounds (BVOCs)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>

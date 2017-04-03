@@ -1,0 +1,332 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>22. Dynamic Global Vegetation Model &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="23. Biogenic Volatile Organic Compounds (BVOCs)" href="../CHAPTER_23/CLM45_Tech_Note_Chpt_23_BVOCs.html" />
+    <link rel="prev" title="21. Transient Landcover Change" href="../CHAPTER_21/CLM45_Tech_Note_Chpt_21_Transient_Landcover.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../CHAPTER_23/CLM45_Tech_Note_Chpt_23_BVOCs.html" title="23. Biogenic Volatile Organic Compounds (BVOCs)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../CHAPTER_21/CLM45_Tech_Note_Chpt_21_Transient_Landcover.html" title="21. Transient Landcover Change"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">22. Dynamic Global Vegetation Model</a><ul>
+<li><a class="reference internal" href="#establishment-and-survival">22.1. Establishment and survival</a></li>
+<li><a class="reference internal" href="#light-competition">22.2. Light competition</a></li>
+<li><a class="reference internal" href="#cn-processes-modified-for-the-cndv-coupling">22.3. CN processes modified for the CNDV coupling</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../CHAPTER_21/CLM45_Tech_Note_Chpt_21_Transient_Landcover.html"
+                        title="previous chapter">21. Transient Landcover Change</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../CHAPTER_23/CLM45_Tech_Note_Chpt_23_BVOCs.html"
+                        title="next chapter">23. Biogenic Volatile Organic Compounds (BVOCs)</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tech_note/CHAPTER_22/CLM45_Tech_Note_Chpt_22_DGVM.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dynamic-global-vegetation-model">
+<h1>22. Dynamic Global Vegetation Model<a class="headerlink" href="#dynamic-global-vegetation-model" title="Permalink to this headline">¶</a></h1>
+<p>In CLM the user may choose to run the CN model as a dgvm (dynamic global
+vegetation model) (CNDV). Note that CN must be active to run the dgvm in
+CLM. In this section, a general description of the dgvm processes and
+how they integrate with CN are provided. Further details are available
+in the CLM3DGVM Technical Note (Levis et al. 2004). The focus here is on
+the differences relative to the corresponding processes in the CLM3DGVM.</p>
+<p>As with the CLM3DGVM, CNDV can simulate biogeographical changes only for
+natural vegetation. Although the vegetated land unit may be separated
+into naturally vegetated and human managed land units to permit a
+coexistence of natural and human managed vegetation, CNDV only works if
+the human managed land units are fixed. CLM’s transient land cover and
+land use change capability (see Chapter 21), which permits transitions
+between natural and human managed plant functional types (PFTs), is
+incompatible with the CNDV option at this time.</p>
+<p>CNDV was implemented by introducing CLM3DGVM code to the hourly CN
+framework only to the extent necessary to simulate annual biogeography
+updates. This includes the annual processes of light competition,
+establishment, and survival [see sections 2.7 and 2.10, Levis et al.
+(2004)] as they pertain to the calculations of PFT cover (FPC) and
+population (P) but not processes related to carbon pools, leaf area
+index (LAI), or canopy height. In CNDV we added complexity to the gap
+mortality calculation with annual heat stress and growth efficiency
+considerations from the corresponding CLM3DGVM algorithm [section 2.8,
+Levis et al. (2004)]. All other ecosystem processes (allocation,
+phenology, fire, etc.) are handled by CN modules. Unlike in the
+CLM3DGVM, in CNDV, annual biogeography updates are interpolated to
+hourly intervals.</p>
+<div class="section" id="establishment-and-survival">
+<h2>22.1. Establishment and survival<a class="headerlink" href="#establishment-and-survival" title="Permalink to this headline">¶</a></h2>
+<p>The PFT distribution in the vegetated land unit is typically prescribed
+in CLM (see section 2.1.2) except for the case when CNDV is active. In
+CNDV the model begins with no PFT information per grid cell and
+evaluates whether or not a PFT may establish or survive according to the
+PFT’s bioclimatic limits (Table 22.1). Shrub PFTs are treated as trees
+at establishment.</p>
+<p>CNDV omits the CLM3DGVM’s annual introduction of saplings when a PFT can
+establish. The CLM3DGVM merged sapling carbon pools with a PFT’s
+existing carbon. The resultant leaf carbon (annual maximum value) would
+update the FPC, i.e. the foliar projective cover or fraction of the
+vegetated land unit occupied by the PFT [section 2.10, Levis et al.
+(2004)]. Instead, CNDV updates the FPC using the PFT’s annual maximum
+leaf carbon without an addition from saplings. For newly established
+PFTs, CNDV assigns seed leaf carbon equal to 1 g C m<sup>-2</sup> of
+land unit area and seed FPC equal to 0.05 for grasses and 0.000844 for
+trees (values determined from CLM3DGVM simulations). The addition of
+establishing individuals to <em>P</em>, a PFT’s population, is handled as in
+the CLM3DGVM.</p>
+<p><em>FPC</em> changes annually as in the CLM3DGVM but now is interpolated to an
+hourly increment using the algorithms designed to conserve energy and
+mass in the CLM’s dynamic land use option.</p>
+</div>
+<div class="section" id="light-competition">
+<h2>22.2. Light competition<a class="headerlink" href="#light-competition" title="Permalink to this headline">¶</a></h2>
+<p>In CNDV’s order of annual processes, light competition is invoked before
+establishment and survival. However, light competition does not affect a
+simulation starting from bare ground until the vegetation fills the land
+unit (a few years at least).</p>
+<p>Light competition starts with a calculation updating <em>FPC</em>. For
+reference, this update was included at the end of allocation in the
+CLM3DGVM [section 2.6, Levis et al. (2004)].</p>
+<p>Due to their height advantage, trees will cover up to 95% of the land
+unit when their productivity permits, as in the CLM3DGVM, regardless of
+grass and shrub productivity. Grasses get second priority, as in the
+CLM3DGVM, even with shrubs included now. Shrubs, then, have access to
+the remaining space and follow the tree algorithm for self thinning
+[section 2.7, Levis et al. (2004)]. As a result, trees typically
+dominate in the most productive regions, grasses in less productive
+regions, and shrubs in the least productive non-desert regions (Zeng et
+al. 2008).</p>
+</div>
+<div class="section" id="cn-processes-modified-for-the-cndv-coupling">
+<h2>22.3. CN processes modified for the CNDV coupling<a class="headerlink" href="#cn-processes-modified-for-the-cndv-coupling" title="Permalink to this headline">¶</a></h2>
+<p>Gap mortality and mortality from fire: Constant annual mortality rate of
+0.02 is changed for trees and shrubs to an annual rate calculated as in
+the CLM3DGVM accounting for background and stress mortality [section
+2.8, Levis et al. (2004)]. The CN module converts the annual rate to
+hourly.</p>
+<p>The CLM3DGVM used the concepts of average plant individual and PFT
+population, <em>P</em>. CNDV retains these concepts in the light competition,
+establishment, and survival calculations. In CNDV we account for the
+individuals removed hourly from <em>P</em> in response to CN’s fire and gap
+mortality, while the carbon pools per individual and FPC remain
+constant. Ultimately, <em>P</em> updates should only affect the annual
+processes of light competition, establishment, and survival, so the <em>P</em>
+update may be moved to the end of the year in a future version of CNDV.</p>
+<p>Vegetation Structure Update: CN stocking is a constant, while in CNDV
+stocking changes as P and FPC change. This affects the top-of-canopy
+height calculation. CN specific leaf area and stem diameter calculations
+are kept, while the height calculation is replaced with the CLM3DGVM’s
+[section 2.6, Levis et al. (2004)]. CN stem area index (SAI) is kept.</p>
+<p>Allocation: CN calculates a PFT’s fraction of currently allocated carbon
+relative to the total allocation instead of obtaining a constant value
+from CLM’s PFT-physiology file. In CNDV, we returned to the constant
+values in the old PFT-physiology file to get a reasonable simulation of
+PFTs. For CNDV to use the calculated fraction, we will need to change
+the algorithm for PFTs in early stages of growth.</p>
+<p>Table 22.1. Plant functional type (PFT) biogeography rules with respect
+to climate.</p>
+<p>Adapted from Table 1 of Levis et al. (2004) to include shrub PFTs.
+<img class="math" src="../../_images/math/5769e09cc5c497a6736d21a7b9e3ea8f4d23d606.png" alt="T_{c,\min }"/> , coldest minimum monthly air temperature for
+survival of previously established PFTs; <img class="math" src="../../_images/math/ed6e79bf2116c1594ef9c0b747266f91366f5bb5.png" alt="T_{c,\max }"/> , warmest
+minimum monthly air temperature for establishment of new PFTs;
+<img class="math" src="../../_images/math/b93ef2a24d294febb9d72c65db7b3c9f0a796ac5.png" alt="GDD_{\min }"/> , minimum annual growing degree-days above
+5<img class="math" src="../../_images/math/e075c7ddb29ac7f8d048a8e20bfe21265659c904.png" alt="{}^\circ"/>C for establishment of new PFTs. Levis et al.
+(2004) include an explanation of these variables and their use.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="27%" />
+<col width="27%" />
+<col width="15%" />
+<col width="5%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&#160;</th>
+<th class="head">Survival</th>
+<th class="head">&#160;</th>
+<th class="head">&#160;</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#160;</td>
+<td><img class="math" src="../../_images/math/2001cef50a6b5d4d822cd23ad2377924e2c7f702.png" alt="{T}_{c,min}"/> (<img class="math" src="../../_images/math/8a5aab8ae56b127306339f23c81f7decf9adca3a.png" alt="\circ"/>C)</td>
+<td><img class="math" src="../../_images/math/05d7d0639371d039fb88c69b1d79677dbc574804.png" alt="{T}_{c,max}"/> (<img class="math" src="../../_images/math/8a5aab8ae56b127306339f23c81f7decf9adca3a.png" alt="\circ"/>C)</td>
+<td><img class="math" src="../../_images/math/2f0252dd7338c53e000e1f137b483aa545bb302c.png" alt="{GDD}_{min}"/></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Tropical broadleaf evergreen tree (BET)</td>
+<td>&#160;</td>
+<td>15.5</td>
+<td>No limit</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>Tropical broadleaf deciduous tree (BDT)</td>
+<td>&#160;</td>
+<td>15.5</td>
+<td>No limit</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>Temperate needleleaf evergreen tree (NET)</td>
+<td>&#160;</td>
+<td>-2.0</td>
+<td>22.0</td>
+<td>900</td>
+</tr>
+<tr class="row-even"><td>Temperate broadleaf evergreen tree (BET)</td>
+<td>&#160;</td>
+<td>3.0</td>
+<td>18.8</td>
+<td>1200</td>
+</tr>
+<tr class="row-odd"><td>Temperate broadleaf deciduous tree (BDT)</td>
+<td>&#160;</td>
+<td>-17.0</td>
+<td>15.5</td>
+<td>1200</td>
+</tr>
+<tr class="row-even"><td>Boreal needleleaf evergreen tree (NET)</td>
+<td>&#160;</td>
+<td>-32.5</td>
+<td>-2.0</td>
+<td>600</td>
+</tr>
+<tr class="row-odd"><td>Boreal deciduous tree</td>
+<td>&#160;</td>
+<td>No limit</td>
+<td>-2.0</td>
+<td>350</td>
+</tr>
+<tr class="row-even"><td>Temperate broadleaf deciduous shrub (BDS)</td>
+<td>&#160;</td>
+<td>-17.0</td>
+<td>No limit</td>
+<td>1200</td>
+</tr>
+<tr class="row-odd"><td>Boreal broadleaf deciduous shrub (BDS)</td>
+<td>&#160;</td>
+<td>No limit</td>
+<td>-2.0</td>
+<td>350</td>
+</tr>
+<tr class="row-even"><td>C<sub>4</sub></td>
+<td>&#160;</td>
+<td>15.5</td>
+<td>No limit</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>C<sub>3</sub></td>
+<td>&#160;</td>
+<td>-17.0</td>
+<td>15.5</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>C<sub>3</sub> arctic</td>
+<td>&#160;</td>
+<td>No limit</td>
+<td>-17.0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../CHAPTER_23/CLM45_Tech_Note_Chpt_23_BVOCs.html" title="23. Biogenic Volatile Organic Compounds (BVOCs)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../CHAPTER_21/CLM45_Tech_Note_Chpt_21_Transient_Landcover.html" title="21. Transient Landcover Change"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>
