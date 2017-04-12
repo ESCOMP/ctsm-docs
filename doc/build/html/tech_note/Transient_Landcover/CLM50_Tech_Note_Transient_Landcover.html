@@ -1,0 +1,438 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>26. Transient Landcover Change &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="27. Dynamic Global Vegetation Model" href="../DGVM/CLM50_Tech_Note_DGVM.html" />
+    <link rel="prev" title="25. Crops and Irrigation" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../DGVM/CLM50_Tech_Note_DGVM.html" title="27. Dynamic Global Vegetation Model"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html" title="25. Crops and Irrigation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">26. Transient Landcover Change</a><ul>
+<li><a class="reference internal" href="#annual-transient-land-cover-data-and-time-interpolation">26.1. Annual Transient Land Cover Data and Time Interpolation</a></li>
+<li><a class="reference internal" href="#mass-and-energy-conservation">26.2. Mass and Energy Conservation</a></li>
+<li><a class="reference internal" href="#annual-transient-land-cover-dataset-development">26.3. Annual Transient Land Cover Dataset Development</a><ul>
+<li><a class="reference internal" href="#unh-transient-land-use-and-land-cover-change-dataset">26.3.1. 21.3.1 UNH Transient Land Use and Land Cover Change Dataset</a></li>
+<li><a class="reference internal" href="#representing-land-use-and-land-cover-change-in-clm">26.3.2. 21.3.2 Representing Land Use and Land Cover Change in CLM</a></li>
+<li><a class="reference internal" href="#present-day-pft-dataset">26.3.3. 21.3.3 Present Day PFT Dataset</a></li>
+<li><a class="reference internal" href="#potential-pft-distribution">26.3.4. 21.3.4 Potential PFT Distribution</a></li>
+<li><a class="reference internal" href="#transient-land-cover-change-dataset">26.3.5. 21.3.5 Transient Land Cover Change Dataset</a></li>
+<li><a class="reference internal" href="#forest-harvest-dataset-changes">26.3.6. Forest Harvest Dataset Changes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html"
+                        title="previous chapter">25. Crops and Irrigation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../DGVM/CLM50_Tech_Note_DGVM.html"
+                        title="next chapter">27. Dynamic Global Vegetation Model</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tech_note/Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="transient-landcover-change">
+<span id="rst-transient-landcover-change"></span><h1>26. Transient Landcover Change<a class="headerlink" href="#transient-landcover-change" title="Permalink to this headline">¶</a></h1>
+<p>CLM includes a treatment of mass and energy fluxes associated with
+prescribed temporal change in land cover. Using an annual time series of
+the spatial distribution of PFTs and wood harvest, CLM diagnoses the
+change in area for PFTs at each model time step and then performs mass
+and energy balance accounting necessary to represent the expansion and
+contraction of PFT area. This implementation currently only pertains to
+the case where all PFTs for a particular grid cell coexist on a single
+soil/snow column. In this case, the only biogeophysical state variable
+affected is canopy water (<img class="math" src="../../_images/math/258eda6779920de57a66eb543a1f37e4f20e2f5b.png" alt="W_{can}"/> ). The biogeochemical impacts
+of land use and land cover change are simulated through changes in CLM
+carbon pools and fluxes as shown in Figure 21.1 and described further in
+Chapter 13. Other implementations are possible, such as changing the
+area of soil/snow columns or land unit area, however these require
+additional consideration of conservation of mass and energy among the
+soil/snow columns and land units which will be implemented in future
+versions of CLM.</p>
+<div class="section" id="annual-transient-land-cover-data-and-time-interpolation">
+<h2>26.1. Annual Transient Land Cover Data and Time Interpolation<a class="headerlink" href="#annual-transient-land-cover-data-and-time-interpolation" title="Permalink to this headline">¶</a></h2>
+<p>The changes in area over time associated with individual PFTs are
+prescribed through a forcing dataset, referred to here as the <em>dynpft</em>
+dataset. The <em>dynpft</em> dataset consists of an annual time series of
+global grids, where each annual time slice describes the fractional area
+occupied by all PFTs and the annual wood harvest within each grid cell.
+Changes in area and wood harvest for each PFT within a grid cell at each
+model time step are inferred from a time-interpolation of the area
+information for the PFT from the two bracketing annual time slices in
+the <em>dynpft</em> dataset.</p>
+<p>As a special case, when the time dimension of the <em>dynpft</em> dataset
+starts at a later year than the current model time step, the first time
+slice from the <em>dynpft</em> dataset is used to represent the current time
+step PFT fractional area distributions. Similarly, when the time
+dimension of the <em>dynpft</em> dataset stops at an earlier year than the
+current model time step, the last time slice of the <em>dynpft</em> dataset is
+used. Thus, the simulation will have invariant representations of PFT
+distributions through time for the periods prior to and following the
+time duration of the <em>dynpft</em> dataset, with transient PFT distributions
+during the period covered by the <em>dynpft</em> dataset.</p>
+<p>The following equations capture this logic, where <img class="math" src="../../_images/math/90254843cacffcbe34b3b12526cdf4718b7e7c30.png" alt="year_{cur}"/>  is
+the calendar year for the current timestep,
+<img class="math" src="../../_images/math/e68b38805b288b983ef353e1a09f8a7205809d3b.png" alt="dynpft\_ year\eqref{GrindEQ__1_}"/> and
+<img class="math" src="../../_images/math/a172b9d9821768516d3898dbc20d9af7878be846.png" alt="dynpft\_ year(nyears)"/>are the first and last calendar years in
+the <em>dynpft</em> dataset, respectively, <img class="math" src="../../_images/math/5b1037a6e07ae4a04d6699988482e31c09e2697d.png" alt="nyears"/> is the number of
+years in the <em>dynpft</em> dataset, <img class="math" src="../../_images/math/6a54220b05bec11f3f6e2a24c354e471415cca29.png" alt="nt_{1}"/>  and <img class="math" src="../../_images/math/d213b0f9a320936f2533c189304f7b388e02c884.png" alt="nt_{2}"/>
+<img class="math" src="../../_images/math/ed496cc723ce55f9b83fb3501ccea322f9a0be39.png" alt="{}_{ }"/>are the two bracketing years used in the interpolation
+algorithm, and <img class="math" src="../../_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.png" alt="n"/> is the index value for the
+<img class="math" src="../../_images/math/8720a018d63cd54b794f7dca65f945642b31a36e.png" alt="dynpft\_ year"/> array corresponding to
+<img class="math" src="../../_images/math/813efcb63864174368de3d7f03175b36cc969e37.png" alt="dynpft\_ year(n)=year_{cur}"/> :</p>
+<div class="math" id="equation-26.1)">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-26.1)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f3fcda8b28f95e932184b0234f417907e96c64ca.png" alt="nt_{1} =\left\{\begin{array}{l} {1\qquad {\rm for}\qquad year_{cur} &lt;dynpft\_ year(1)} \\ {n\qquad {\rm for}\qquad dynpft\_ year(1)\le year_{cur} &lt;dynpft\_ year(nyears)} \\ {nyears\qquad {\rm for}\qquad year_{cur} \ge dynpft\_ year(nyears)} \end{array}\right\}"/></p>
+</div><div class="math" id="equation-26.2)">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-26.2)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/759d57c7f6740a539d817c589f90ae569a612f75.png" alt="nt_{2} =\left\{\begin{array}{l} {1\qquad {\rm for}\qquad year_{cur} &lt;dynpft\_ year(1)} \\ {n+1\qquad {\rm for}\qquad dynpft\_ year(1)\le year_{cur} &lt;dynpft\_ year(nyears)} \\ {nyears\qquad {\rm for}\qquad year_{cur} \ge dynpft\_ year(nyears)} \end{array}\right\}"/></p>
+</div><p>Interpolation of PFT weights between annual time slices in the <em>dynpft</em>
+dataset uses a simple linear algorithm, based on the conversion of the
+current time step information into a floating-point value for the number
+of calendar days since January 1 of the current model year
+(<img class="math" src="../../_images/math/e50c28d0d0cd50a81dd6459119206ded765f04b5.png" alt="cday"/>). The interpolation weight for the current time step
+<img class="math" src="../../_images/math/858e85b866321f960a44d8a38d62c6f110ced7a9.png" alt="tw_{cday}"/> <img class="math" src="../../_images/math/ed496cc723ce55f9b83fb3501ccea322f9a0be39.png" alt="{}_{ }"/>is</p>
+<div class="math" id="equation-26.3)">
+<p><span class="eqno">(3)<a class="headerlink" href="#equation-26.3)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d946327d44015006e637d1b430558a8397313a63.png" alt="tw_{cday} =\frac{366-cday}{365}"/></p>
+</div><p>where the numerator is 366 instead of 365 because the time manager
+function for CLM returns a value of <img class="math" src="../../_images/math/43a833511666bfe6c3320534a01cc1154bb35128.png" alt="cday=1.0"/> for midnight
+Greenwich mean time on January 1. With weights <img class="math" src="../../_images/math/50f3c9fc326052db444f372e3891a1e25b50fae0.png" alt="w_{p} (nt_{1} )"/>
+and <img class="math" src="../../_images/math/949a4b09f720fe4631ba7c61740412231b900014.png" alt="w_{p} (nt_{2} )"/>obtained from the <em>dynpft</em> dataset for PFT
+<em>p</em> at the bracketing annual time slices
+<img class="math" src="../../_images/math/6a54220b05bec11f3f6e2a24c354e471415cca29.png" alt="nt_{1}"/> <img class="math" src="../../_images/math/ed496cc723ce55f9b83fb3501ccea322f9a0be39.png" alt="{}_{ }"/>and <img class="math" src="../../_images/math/d213b0f9a320936f2533c189304f7b388e02c884.png" alt="nt_{2}"/> , the interpolated
+PFT weight for the current time step (<img class="math" src="../../_images/math/cf2159db5f8a8c60ed44acf049d88aa32fd0e7fb.png" alt="w_{p,t}"/> ) is</p>
+<div class="math" id="equation-26.4)">
+<p><span class="eqno">(4)<a class="headerlink" href="#equation-26.4)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ff3245f71fde01863af403cdaf7e9156d4cd75f4.png" alt="w_{p,t} =tw_{cday} \left[w_{p} \left(nt_{1} \right)-w_{p} \left(nt_{2} \right)\right]+w_{p} \left(nt_{2} \right)"/></p>
+</div><p>The form of this equation is designed to improve roundoff accuracy
+performance, and guarantees <img class="math" src="../../_images/math/cf2159db5f8a8c60ed44acf049d88aa32fd0e7fb.png" alt="w_{p,t}"/>  stays in the range [0,1].
+Note that values for <img class="math" src="../../_images/math/50f3c9fc326052db444f372e3891a1e25b50fae0.png" alt="w_{p} (nt_{1} )"/>, <img class="math" src="../../_images/math/949a4b09f720fe4631ba7c61740412231b900014.png" alt="w_{p} (nt_{2} )"/>,
+and <img class="math" src="../../_images/math/cf2159db5f8a8c60ed44acf049d88aa32fd0e7fb.png" alt="w_{p,t}"/> <img class="math" src="../../_images/math/ed496cc723ce55f9b83fb3501ccea322f9a0be39.png" alt="{}_{ }"/>are fractional weights at the
+column level of the subgrid hierarchy.</p>
+<p>The change in weight for a PFT between the current and previous time
+steps (<img class="math" src="../../_images/math/32ac109720b341a562ff0c9d31d36551b1c3d08d.png" alt="\Delta w_{p}"/> ) is</p>
+<div class="math" id="equation-26.5)">
+<p><span class="eqno">(5)<a class="headerlink" href="#equation-26.5)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f5a8d159223fe8c4faab3c8e6522c0ec28d75e25.png" alt="\Delta w_{p} =w_{p}^{n} -w_{p}^{n-1}"/></p>
+</div><p>where <em>n</em> denotes the current time step. The area of a given PFT
+increases for <img class="math" src="../../_images/math/23025f8b4abc92b2c09fc8a964562c3ed3ab0541.png" alt="\Delta w_{p} &gt;0"/> and decreases for
+<img class="math" src="../../_images/math/a9492bf66c9a541e8d4d1f5512515658d54279a3.png" alt="\Delta w_{p} &lt;0"/>.</p>
+</div>
+<div class="section" id="mass-and-energy-conservation">
+<h2>26.2. Mass and Energy Conservation<a class="headerlink" href="#mass-and-energy-conservation" title="Permalink to this headline">¶</a></h2>
+<p>Mass conservation is maintained across a PFT weight transition by
+summing up all the water state variables to get the total vegetated land
+unit water content before (<img class="math" src="../../_images/math/2fb353d42aacf9dc2e25e75812ce3849934e6510.png" alt="W_{tot,1}"/> ) and after
+(<img class="math" src="../../_images/math/7974e5d3705eeb12d53edba3387b8dbaa4a0c948.png" alt="W_{tot,2}"/> ) new PFT weights are calculated. For example,
+<img class="math" src="../../_images/math/2fb353d42aacf9dc2e25e75812ce3849934e6510.png" alt="W_{tot,1}"/>  is</p>
+<div class="math" id="equation-26.6)">
+<p><span class="eqno">(6)<a class="headerlink" href="#equation-26.6)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8304cbf48359b251adf03b1faebd516d0f962270.png" alt="W_{tot,1} =W_{a} +W_{sno} +\sum _{i=1}^{N_{levgrnd} }\left(w_{liq,i} +w_{ice,i} \right) +\sum _{j=1}^{npft}\left(W_{can,j} wt_{j,1} \right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/91fbfb72ff73d153e6b6f357f2bc6e55bbf25918.png" alt="W_{a}"/>  is the aquifer water, <img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.png" alt="W_{sno}"/>  is the snow
+water, <img class="math" src="../../_images/math/9b38021be899f869dcb9a2eec54e1034d941bd39.png" alt="w_{liq,i}"/>  and <img class="math" src="../../_images/math/fd8a0fbaf8024407f6cf74f5e9187a713d94776d.png" alt="w_{ice,i}"/> are the liquid and ice
+soil water contents, <img class="math" src="../../_images/math/ca9a19a33a7e4dd74b0de98b9c1822d449907a81.png" alt="W_{can,j}"/> is the canopy water content for
+PFT <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/>, and <img class="math" src="../../_images/math/bd1657fc1f7bb893f4e8737526f7148864232ff6.png" alt="wt_{j,1}"/>  is the PFT weight for PFT
+<img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/>. For the situation where only PFT weights are changing and all
+other land unit fractions are constant, any difference between
+<img class="math" src="../../_images/math/2fb353d42aacf9dc2e25e75812ce3849934e6510.png" alt="W_{tot,1}"/>  and <img class="math" src="../../_images/math/7974e5d3705eeb12d53edba3387b8dbaa4a0c948.png" alt="W_{tot,2}"/> can only be due to
+differences in the total canopy water before and after the PFT weight
+change. To ensure water conservation, the typically very small
+difference between <img class="math" src="../../_images/math/7974e5d3705eeb12d53edba3387b8dbaa4a0c948.png" alt="W_{tot,2}"/> and <img class="math" src="../../_images/math/2fb353d42aacf9dc2e25e75812ce3849934e6510.png" alt="W_{tot,1}"/>  is
+subtracted from the grid cell runoff</p>
+<div class="math" id="equation-26.7)">
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-26.7)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8ab5304ba044b94be209149a0e60f377ae1403e5.png" alt="R_{liq} =R_{liq} +W_{tot,2} -W_{tot,1} ."/></p>
+</div><p>Total energy is unperturbed in this case and therefore an energy
+conservation treatment is not required. As noted above, other
+implementations are possible and will be desirable in the future, such
+as changing the area of soil/snow columns or land unit area, for example
+in a situation in which crops are implemented on a separate soil column.
+These would require additional consideration of conservation of mass and
+energy among the soil/snow columns and land units.</p>
+</div>
+<div class="section" id="annual-transient-land-cover-dataset-development">
+<h2>26.3. Annual Transient Land Cover Dataset Development<a class="headerlink" href="#annual-transient-land-cover-dataset-development" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the development of the d<em>ynpft</em> dataset.
+Development of this dataset requires adapting for use with the CLM a
+harmonized dataset of land cover change for the historical period and
+for different representations of the scenario period.</p>
+<div class="section" id="unh-transient-land-use-and-land-cover-change-dataset">
+<h3>26.3.1. 21.3.1 UNH Transient Land Use and Land Cover Change Dataset<a class="headerlink" href="#unh-transient-land-use-and-land-cover-change-dataset" title="Permalink to this headline">¶</a></h3>
+<p>To coordinate the processing and consistency of land use and land cover
+change data between the historical period (1850-2005) and the four IPCC
+representative concentration pathways (RCPs) derived from integrated
+assessment models (IAM), the University of New Hampshire
+(stocktickerUNH) research group (Louise Chini, George Hurtt, Steve
+Frolking; luh.unh.edu) produced a harmonized transient dataset for use
+in climate change simulations. The historical component of the transient
+land use and land cover change dataset is Version 1 of the Land-Use
+History A product (LUHa.v1) covering the period 1850-2005. The RCP
+transient land use and land cover change components (2005-2100) are
+referred to as the Future Land-Use Harmonization A products. Version 1
+(LUHa.v1_future.v1) is used for the AIM, MESSAGE, and MiniCAM IAMs;
+Version 1.1 (LUHa.v1_future.v1.1) is used for the IMAGE IAM. The land
+cover information is provided at 0.5 degree grid resolution and includes
+fractional grid cell coverage by crops, pasture, and primary and
+secondary natural vegetation.</p>
+<p>The crop fraction of the grid cell represents the area of the grid cell
+used to grow any type of crop. Similarly, pasture represents the
+fraction of a grid cell used for grazing livestock. The remaining area
+in a half degree grid cell is partitioned into primary and secondary
+vegetation. Primary vegetation represents the fractional area of a grid
+cell with vegetation undisturbed by human activities. Secondary
+vegetation represents vegetated areas that have recovered from some
+human disturbance; this could include re-vegetation of pasture and crop
+areas as well as primary vegetation areas that have been logged.</p>
+<p>The stocktickerUNH dataset provides a transition matrix that describes
+the annual fraction of land that is transformed from one category to
+another (e.g. primary land to crop, pasture to crop, etc.; Hurtt et al.
+2006). Included in these transitions is the conversion of secondary land
+to secondary land, representing the logging on land recovering from an
+earlier disturbance. These transitions provide information on all
+changes in land cover through the sum of all transitions in a given
+year. Harmonized prescriptions of CMIP5 wood harvest statistics also are
+provided by (Hurtt et al. 2011) for the historical and RCP time series.
+The wood harvest is prescribed spatially on the same 0.5 degree grid as
+the land use class transitions for each year.</p>
+<p>To ensure consistency with the various land use classes wood harvest is
+prescribed as both the area of land harvested and the amount of carbon
+extracted in the grid cell for a particular year. To account for the
+differences in standing amount of wood carbon as well as the differences
+in harvest intensity associated with the different land units, the
+harvest area and carbon amounts are prescribed for the five classes of:
+PlaceNamePrimary PlaceTypeForest, PlaceNamePrimary PlaceTypeNon-Forest,
+PlaceNameSecondary PlaceNameMature PlaceTypeForest, PlaceNameSecondary
+PlaceNameYoung PlaceTypeForest, and PlaceNameplaceSecondary
+PlaceTypeNon-Forest.</p>
+</div>
+<div class="section" id="representing-land-use-and-land-cover-change-in-clm">
+<h3>26.3.2. 21.3.2 Representing Land Use and Land Cover Change in CLM<a class="headerlink" href="#representing-land-use-and-land-cover-change-in-clm" title="Permalink to this headline">¶</a></h3>
+<p>CLM represents the land surface as a hierarchy of sub-grid types:
+glacier; lake; wetland; urban; and vegetated land. The vegetated land is
+further divided into a mosaic of PFTs. To represent the UNH transient
+land use and land cover change dataset in CLM, the annual fractional
+composition of crop, pasture, primary vegetation, and secondary
+vegetation land units specified in the UNH dataset needs to be
+faithfully represented with a corresponding PFT mosaic in CLM using the
+methods described in Lawrence et al (2012). This method translated each
+of the UNH land units into fractional PFT values based on current day
+and potential vegetation CLM land surface parameters for that grid cell
+and for that year, as shown in Figure 21.2.</p>
+<p>The methodology for creating the transient PFT dataset is based on four
+steps which are applied across the time series. First, crop PFT
+composition is directly specified from the crop land unit fractional
+area. Second, pasture PFTs are assigned based on grass PFTs found in the
+potential vegetation and current day CLM land surface parameters scaled
+by the area of pasture. Third, potential vegetation PFTs are assigned to
+the grid cell scaled by the fractional area of the primary land unit.
+Last, current day non-crop and non-pasture PFTs are assigned to the grid
+cell scaled by the fractional area of the secondary land unit. The
+annual tree harvest values also are calculated from the harvest
+information of the UNH dataset used in conjunction with transient tree
+PFT values. Separate datasets representing the extent of water, wetland,
+ice and urban land cover are used to compile the final land cover
+present in each CLM grid cell. These additional non-vegetated land cover
+fractions are held constant throughout the time series. All datasets are
+resolved at the half degree grid resolution.</p>
+</div>
+<div class="section" id="present-day-pft-dataset">
+<h3>26.3.3. 21.3.3 Present Day PFT Dataset<a class="headerlink" href="#present-day-pft-dataset" title="Permalink to this headline">¶</a></h3>
+<p>The present day dataset is based on the methodology of Lawrence and
+Chase (2007) and uses a variety of satellite products to develop present
+day PFT distributions with matching leaf area index values. The dataset
+initially derives fractions of bare ground and tree cover from the
+Moderate Resolution Imaging Spectroradiometer (MODIS) vegetation
+continuous fields product (Hansen et al. 2003). To further distinguish
+tree types, the tree fraction is divided into broadleaf/needleleaf and
+evergreen/deciduous types based on the Advanced Very High Resolution
+Radiometer (AVHRR) continuous fields tree cover (DeFries et al. 2000).
+The remaining grid cell area is assumed to be herbaceous grasses and
+shrubs, including crops. The area of crop is initially determined from
+Ramankutty et al. (2008) circa 2000 global crop land areas, and the
+remaining grass and shrub fractions are derived from the MODIS land
+cover (Friedl et al. 2002). Further subdivisions of grass, shrub and
+tree PFTs into tropical, temperate and boreal types were based on the
+physiology and climate rules from Nemani and Running (1996), and for
+C3/C4 photosynthetic pathways based on MODIS derived leaf area index
+values and the mapping methods of Still et al. (2003). In contrast to
+Lawrence and Chase (2007), the understory grasses of forested areas have
+been replaced with trees for the dataset. Some advantages of this
+dataset are that it reproduces the physical properties as observed by
+the MODIS land surface data (e.g. grid cell albedo and leaf area index
+values) while maintaining the multiple PFT representation.</p>
+</div>
+<div class="section" id="potential-pft-distribution">
+<h3>26.3.4. 21.3.4 Potential PFT Distribution<a class="headerlink" href="#potential-pft-distribution" title="Permalink to this headline">¶</a></h3>
+<p>Essential to any reconstruction of past vegetation distributions is the
+need to know the potential vegetation that would be there prior to human
+activities. Many researchers have worked to estimate potential
+vegetation types at regional and global scales from remnant vegetation
+and other field data or from bioclimatic models. The CLM potential PFT
+distribution is derived from Ramankutty et al. (2008) at 5 arc-minute
+resolution. However, this product is based on a biome type
+classification system that is not directly compatible with the CLM PFT
+distributions.</p>
+<p>The CLM potential vegetation is described by Lawrence and Chase (2010).
+This reconstruction describes potential PFT distributions extrapolated
+from the current day PFT composition of remnant natural biomes as mapped
+by Ramankutty et al. (2008). The current day remnant natural PFT
+parameters were taken from the Lawrence and Chase (2007) dataset with
+the same forest understory changes as described above to ensure
+consistency between the two datasets. The current day remnant natural
+PFT biome compositions were spatially extrapolated to the potential
+vegetation biome distributions provided by Ramankutty et al. (2008)
+using inverse distance weighted methods. The resulting product is a CLM
+PFT distribution that may have existed prior to human disturbance under
+current day climate conditions.</p>
+</div>
+<div class="section" id="transient-land-cover-change-dataset">
+<h3>26.3.5. 21.3.5 Transient Land Cover Change Dataset<a class="headerlink" href="#transient-land-cover-change-dataset" title="Permalink to this headline">¶</a></h3>
+<p>For each year from 1850 to 2005 and to 2100 for each of the four RCPs,
+PFT distributions and wood harvest are adjusted based on the
+stocktickerUNH dataset. Initially the grid cell is checked to adjust the
+crop area based on the stocktickerUNH crop area. If the crop area
+exceeds the available land area (i.e. the grid cell area minus the area
+assigned to glacier, wetlands, lake and urban areas) then all the
+available area is allocated to crops and no other PFTs are added. After
+the crop area is assigned, any remaining area is considered available
+for pasture.</p>
+<p>As the pasture data from the stocktickerUNH dataset represents grazing,
+pasture areas are assigned in the present day based on the availability
+of grasses (C3, C4 and boreal C3 PFTs) and shrubs relative to the bare
+soil fraction. If the grazing area exceeds the total vegetated area from
+both the potential and current day PFT data, then the grazed area is
+limited to the larger of the potential or current day vegetated area.
+This is done to prevent representing sparsely vegetated grazing areas as
+100% vegetated pastures. Once the grazing area is less than or equal to
+the total vegetated area, then grazing areas are assigned to the C3 and
+C4 grass areas based on their potential vegetation and current day
+fractions. In areas where the grazing area cannot be met through the
+current day or potential vegetation grass fraction alone, the current
+day tree PFTs are converted to grass PFTs, with the remaining shrub PFTs
+included as being grazed.</p>
+<p>Once crop and pasture areas are assigned to a grid cell, the remaining
+area is assigned to primary and secondary natural vegetation. Primary
+vegetation is assumed to be undisturbed and reflects the potential
+vegetation PFT distributions. In the secondary region, the PFT
+distributions are based on the current day non-crop and non-pasture PFTs
+in the grid cell. This process ensures that the PFT distributions are
+kept consistent with the original current day and potential vegetation
+CLM parameters, while remaining faithful to the stocktickerUNH assigned
+areas.</p>
+</div>
+<div class="section" id="forest-harvest-dataset-changes">
+<h3>26.3.6. Forest Harvest Dataset Changes<a class="headerlink" href="#forest-harvest-dataset-changes" title="Permalink to this headline">¶</a></h3>
+<p>Discussions following the initial analysis of CCSM4 land cover change
+experiments found there were very high wood harvest areas compared to
+wood harvest carbon in the RCP 6.0 and RCP 8.5 time series. The high
+wood harvest areas were traced to using gridded spatially explicit wood
+harvest targets from the MESSAGE and AIM groups for these two time
+series, rather than using regional targets with spatial downscaling in
+GLM as done with the other three time periods. As a result of these
+discussions new amended wood harvest targets were generated with
+regional targets through GLM for the RCP 6.0 and RCP 8.5 time series as
+described in Lawrence et al. (2012).</p>
+<p>Figure 21.1. Schematic of land cover change impacts on CLM carbon pools
+and fluxes.</p>
+<img alt="../../_images/image112.png" src="../../_images/image112.png" />
+<p>Figure 21.2. Schematic of translation of annual UNH land units to CLM4
+plant functional types.</p>
+<img alt="../../_images/image25.png" src="../../_images/image25.png" />
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../DGVM/CLM50_Tech_Note_DGVM.html" title="27. Dynamic Global Vegetation Model"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html" title="25. Crops and Irrigation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>
