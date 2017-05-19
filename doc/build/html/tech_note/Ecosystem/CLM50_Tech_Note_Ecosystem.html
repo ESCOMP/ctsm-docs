@@ -109,12 +109,13 @@
   <div class="section" id="surface-characterization-and-model-input-requirements">
 <span id="rst-surface-characterization-and-model-input-requirements"></span><h1>2. Surface Characterization and Model Input Requirements<a class="headerlink" href="#surface-characterization-and-model-input-requirements" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="surface-characterization">
-<h2>2.1. Surface Characterization<a class="headerlink" href="#surface-characterization" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>2.1. Surface Characterization<a class="headerlink" href="#surface-characterization" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="surface-heterogeneity-and-data-structure">
-<h3>2.1.1. Surface Heterogeneity and Data Structure<a class="headerlink" href="#surface-heterogeneity-and-data-structure" title="Permalink to this headline">¶</a></h3>
+<span id="id2"></span><h3>2.1.1. Surface Heterogeneity and Data Structure<a class="headerlink" href="#surface-heterogeneity-and-data-structure" title="Permalink to this headline">¶</a></h3>
 <p>Spatial land surface heterogeneity in CLM is represented as a nested
 subgrid hierarchy in which grid cells are composed of multiple land
-units, snow/soil columns, and PFTs (Figure 2.1). Each grid cell can have
+units, snow/soil columns, and PFTs (<a class="reference internal" href="#figure-clm-subgrid-hierarchy"><span class="std std-numref">Figure 2.1</span></a>).
+Each grid cell can have
 a different number of land units, each land unit can have a different
 number of columns, and each column can have multiple PFTs. The first
 subgrid level, the land unit, is intended to capture the broadest
@@ -144,13 +145,15 @@ crop land unit is split into irrigated and unirrigated columns with a
 single crop occupying each column. The urban land units have five
 columns (roof, sunlit walls and shaded walls, and pervious and
 impervious canyon floor) (Oleson et al. 2010b).</p>
-<p>Figure 2.1. Configuration of the CLM subgrid hierarchy.</p>
+<div class="figure" id="id11">
+<span id="figure-clm-subgrid-hierarchy"></span><img alt="../../_images/image12.png" src="../../_images/image12.png" />
+<p class="caption"><span class="caption-number">Figure 2.1 </span><span class="caption-text">Configuration of the CLM subgrid hierarchy.</span></p>
+</div>
 <p>Note that the Crop land unit is only used when the model is run with the
 crop model active. Abbreviations: TBD – Tall Building District; HD –
 High Density; MD – Medium Density, G – Glacier, L – Lake, U – Urban, C –
 Crop, V – Vegetated, PFT – Plant Functional Type, I – Irrigated, U –
 Unirrigated .</p>
-<img alt="../../_images/image12.png" src="../../_images/image12.png" />
 <p>The third subgrid level is referred to as the PFT level, but it also
 includes the treatment for bare ground. It is intended to capture the
 biogeophysical and biogeochemical differences between broad categories
@@ -160,7 +163,7 @@ structure may coexist on a single column. All fluxes to and from the
 surface are defined at the PFT level, as are the vegetation state
 variables (e.g. vegetation temperature and canopy water storage). On the
 crop land unit, several different crop types can be represented on each
-crop land unit column (see Chapter 20 for details).</p>
+crop land unit column (see Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a> for details).</p>
 <p>In addition to state and flux variable data structures for conserved
 components at each subgrid level (e.g., energy, water, carbon), each
 subgrid level also has a physical state data structure for handling
@@ -172,7 +175,8 @@ physical state variables at the column level, and the leaf area index
 and the fraction of canopy that is wet are defined as physical state
 variables at the PFT level.</p>
 <p>The standard configuration of the model subgrid hierarchy is illustrated
-in Figure 2.1. Here, only four PFTs are shown associated with the single
+in <a class="reference internal" href="#figure-clm-subgrid-hierarchy"><span class="std std-numref">Figure 2.1</span></a>. Here, only four PFTs are shown
+associated with the single
 column beneath the vegetated land unit but up to sixteen are possible.
 The crop land unit is present only when the crop model is active.</p>
 <p>Note that the biogeophysical processes related to soil and snow require
@@ -186,11 +190,13 @@ weighting depends on the PFT area relative to all PFTs, unless otherwise
 noted in the text.</p>
 </div>
 <div class="section" id="vegetation-composition">
-<h3>2.1.2. Vegetation Composition<a class="headerlink" href="#vegetation-composition" title="Permalink to this headline">¶</a></h3>
+<span id="id3"></span><h3>2.1.2. Vegetation Composition<a class="headerlink" href="#vegetation-composition" title="Permalink to this headline">¶</a></h3>
 <p>Vegetated surfaces are comprised of up to 15 possible plant functional
-types (PFTs) plus bare ground (Table 2.1). An additional PFT is
-added if the irrigation model is active and six additional PFTs are
-added if the crop model is active (Chapter 20). These plant types differ
+types (PFTs) plus bare ground (<a class="reference internal" href="#table-plant-functional-types"><span class="std std-numref">Table 2.1</span></a>). An
+additional PFT is added if
+the irrigation model is active and six additional PFTs are added if the
+crop model is active (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>). These
+plant types differ
 in leaf and stem optical properties that determine reflection,
 transmittance, and absorption of solar radiation (Table 3.1), root
 distribution parameters that control the uptake of water from the soil
@@ -202,8 +208,8 @@ within a grid cell can either be prescribed as time-invariant fields
 (e.g., using the present day dataset described in section 21.3.3) or can
 evolve with time if the model is run in transient landcover mode
 (Chapter 21).</p>
-<p>Table 2.1. Plant functional types</p>
-<table border="1" class="docutils">
+<table border="1" class="docutils" id="id12">
+<span id="table-plant-functional-types"></span><caption><span class="caption-number">Table 2.1 </span><span class="caption-text">Plant functional types</span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="77%" />
 <col width="23%" />
@@ -297,20 +303,24 @@ evolve with time if the model is run in transient landcover mode
 </tr>
 </tbody>
 </table>
-<p><sup>1</sup>Only used if irrigation is active (Chapter 20).
-<sup>2</sup>Only used if crop model is active (Chapter 20).
-<sup>3</sup>Reserved for future implementations of crop model (Chapter 20).</p>
+<p><sup>1</sup>Only used if irrigation is active (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>).
+<sup>2</sup>Only used if crop model is active (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>).
+<sup>3</sup>Reserved for future implementations of crop model (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>).</p>
 </div>
 <div class="section" id="vegetation-structure">
-<h3>2.1.3. Vegetation Structure<a class="headerlink" href="#vegetation-structure" title="Permalink to this headline">¶</a></h3>
+<span id="id4"></span><h3>2.1.3. Vegetation Structure<a class="headerlink" href="#vegetation-structure" title="Permalink to this headline">¶</a></h3>
 <p>Vegetation structure is defined by leaf and stem area indices
-(<img class="math" src="../../_images/math/1d80bdc3860076663247aef716a56e699051aa05.png" alt="L,\, S"/>) and canopy top and bottom heights (<img class="math" src="../../_images/math/d2aa3d510eaf95bba5962287c2992d7fa693e14d.png" alt="z_{top}"/>,<img class="math" src="../../_images/math/2e4724ec58153a39a5f61b74a8094b3b344f6aee.png" alt="z_{bot}"/> ) (Table 2.2). Separate leaf and
-stem area indices and canopy heights are prescribed or calculated for each PFT. Daily leaf and stem area indices are obtained from gridded
-datasets of monthly values (section 2.2.3). Canopy top and bottom heights are also obtained from gridded datasets. However, these are
-currently invariant in space and time and were obtained from PFT-specific values (Bonan et al. 2002a). When the biogeochemistry model
-is active, vegetation state (LAI, SAI, canopy top and bottom heights) are calculated prognostically (see Chapter 14).</p>
-<p>Table 2.2. Prescribed plant functional type heights</p>
-<table border="1" class="docutils">
+(<img class="math" src="../../_images/math/1d80bdc3860076663247aef716a56e699051aa05.png" alt="L,\, S"/>) and canopy top and bottom heights (<img class="math" src="../../_images/math/d2aa3d510eaf95bba5962287c2992d7fa693e14d.png" alt="z_{top}"/>,<img class="math" src="../../_images/math/2e4724ec58153a39a5f61b74a8094b3b344f6aee.png" alt="z_{bot}"/> )
+(<a class="reference internal" href="#table-prescribed-plant-functional-type-heights"><span class="std std-numref">Table 2.2</span></a>). Separate leaf and
+stem area indices and canopy heights are prescribed or calculated for each PFT. Daily leaf
+and stem area indices are obtained from griddeddatasets of monthly values (section
+<a class="reference internal" href="#surface-data"><span class="std std-numref">2.2.3</span></a>). Canopy top and bottom heights are also obtained from gridded datasets.
+However, these are currently invariant in space and time and were obtained from PFT-specific
+values (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2002a"><span class="std std-ref">Bonan et al. 2002a</span></a>). When the biogeochemistry model is active,
+vegetation state (LAI, SAI, canopy top and bottom heights) are calculated prognostically
+(see Chapter <a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html#rst-vegetation-phenology-and-turnover"><span class="std std-numref">20</span></a>).</p>
+<table border="1" class="docutils" id="id13">
+<span id="table-prescribed-plant-functional-type-heights"></span><caption><span class="caption-number">Table 2.2 </span><span class="caption-text">Prescribed plant functional type heights</span><a class="headerlink" href="#id13" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="42%" />
 <col width="29%" />
@@ -469,10 +479,10 @@ is active, vegetation state (LAI, SAI, canopy top and bottom heights) are calcul
 </tr>
 </tbody>
 </table>
-<p><sup>1</sup>Determined by the crop model (Chapter 20)</p>
+<p><sup>1</sup>Determined by the crop model (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>)</p>
 </div>
 <div class="section" id="phenology-and-vegetation-burial-by-snow">
-<h3>2.1.4. Phenology and vegetation burial by snow<a class="headerlink" href="#phenology-and-vegetation-burial-by-snow" title="Permalink to this headline">¶</a></h3>
+<span id="id5"></span><h3>2.1.4. Phenology and vegetation burial by snow<a class="headerlink" href="#phenology-and-vegetation-burial-by-snow" title="Permalink to this headline">¶</a></h3>
 <p>When the biogeochemistry model is inactive, leaf and stem area indices
 (m<sup>2</sup> leaf area m<sup>-2</sup> ground area) are updated
 daily by linearly interpolating between monthly values. Monthly PFT leaf
@@ -497,24 +507,25 @@ ground.</p>
 </div>
 </div>
 <div class="section" id="model-input-requirements">
-<h2>2.2. Model Input Requirements<a class="headerlink" href="#model-input-requirements" title="Permalink to this headline">¶</a></h2>
+<span id="id6"></span><h2>2.2. Model Input Requirements<a class="headerlink" href="#model-input-requirements" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="atmospheric-coupling">
-<h3>2.2.1. Atmospheric Coupling<a class="headerlink" href="#atmospheric-coupling" title="Permalink to this headline">¶</a></h3>
-<p>The current state of the atmosphere (Table 2.3) at a given time step is
+<span id="id7"></span><h3>2.2.1. Atmospheric Coupling<a class="headerlink" href="#atmospheric-coupling" title="Permalink to this headline">¶</a></h3>
+<p>The current state of the atmosphere (<a class="reference internal" href="#table-atmospheric-input-to-land-model"><span class="std std-numref">Table 2.3</span></a>)
+at a given time step is
 used to force the land model. This atmospheric state is provided by an
 atmospheric model in coupled mode or from an observed dataset in offline
-mode (Chapter 26). The land model then initiates a full set of
+mode (Chapter <a class="reference internal" href="../Offline/CLM50_Tech_Note_Offline.html#rst-offline-mode"><span class="std std-numref">31</span></a>). The land model then initiates a full set of
 calculations for surface energy, constituent, momentum, and radiative
 fluxes. The land model calculations are implemented in two steps. The
 land model proceeds with the calculation of surface energy, constituent,
 momentum, and radiative fluxes using the snow and soil hydrologic states
 from the previous time step. The land model then updates the soil and
 snow hydrology calculations based on these fluxes. These fields are
-passed to the atmosphere (Table 2.4). The albedos sent to the atmosphere
+passed to the atmosphere (<a class="reference internal" href="#table-land-model-output-to-atmospheric-model"><span class="std std-numref">Table 2.4</span></a>). The albedos sent to the atmosphere
 are for the solar zenith angle at the next time step but with surface
 conditions from the current time step.</p>
-<p>Table 2.3. Atmospheric input to land model</p>
-<table border="1" class="docutils">
+<table border="1" class="docutils" id="id14">
+<span id="table-atmospheric-input-to-land-model"></span><caption><span class="caption-number">Table 2.3 </span><span class="caption-text">Atmospheric input to land model</span><a class="headerlink" href="#id14" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="36%" />
 <col width="32%" />
@@ -656,7 +667,7 @@ required but is calculated directly from
 <img class="math" src="../../_images/math/c2d1736f9f999c6eb1e4a3ac9c05d09909a1c708.png" alt="\rho _{atm} =\frac{P_{atm} -0.378e_{atm} }{R_{da} T_{atm} }"/>
 where <img class="math" src="../../_images/math/3d0543e288c667d28eb58a68a70dafbe05d11255.png" alt="P_{atm}"/>  is atmospheric pressure (Pa), <img class="math" src="../../_images/math/6bfb53ecd18e2e1fd183f64a68f6aa4ce9917b27.png" alt="e_{atm}"/>  is
 atmospheric vapor pressure (Pa), <img class="math" src="../../_images/math/f6534a44b54424f40cc6484e7b8b441f4c8f61a2.png" alt="R_{da}"/>  is the gas constant for
-dry air (J kg<sup>-1</sup> K<sup>-1</sup>) (Table 2.6), and
+dry air (J kg<sup>-1</sup> K<sup>-1</sup>) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>), and
 <img class="math" src="../../_images/math/2636863cfff550565bfc84f73dc9991bb0aa3d31.png" alt="T_{atm}"/>  is the atmospheric temperature (K). The atmospheric
 vapor pressure <img class="math" src="../../_images/math/6bfb53ecd18e2e1fd183f64a68f6aa4ce9917b27.png" alt="e_{atm}"/>  is derived from atmospheric specific
 humidity <img class="math" src="../../_images/math/a54750e213d3b891fa2093cc89a7ca6e16f28111.png" alt="q_{atm}"/>  (kg kg<sup>-1</sup>) as
@@ -664,8 +675,8 @@ humidity <img class="math" src="../../_images/math/a54750e213d3b891fa2093cc89a7c
 <p>The O<sub>2</sub> partial pressure (Pa) is required but is
 calculated from molar ratio and the atmospheric pressure
 <img class="math" src="../../_images/math/3d0543e288c667d28eb58a68a70dafbe05d11255.png" alt="P_{atm}"/>  as <img class="math" src="../../_images/math/e6d59ff080421665fd47f7069545c967df0d6545.png" alt="o_{i} =0.209P_{atm}"/> .</p>
-<p>Table 2.4. Land model output to atmospheric model</p>
-<table border="1" class="docutils">
+<table border="1" class="docutils" id="id15">
+<span id="table-land-model-output-to-atmospheric-model"></span><caption><span class="caption-number">Table 2.4 </span><span class="caption-text">Land model output to atmospheric model</span><a class="headerlink" href="#id15" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="26%" />
 <col width="32%" />
@@ -769,15 +780,15 @@ calculated from molar ratio and the atmospheric pressure
 </tbody>
 </table>
 <p><sup>1</sup><img class="math" src="../../_images/math/d0dfc30d53cbaaaafd80fa169fd6ca803e01f2fb.png" alt="\lambda _{vap}"/>  is the latent heat of
-vaporization (J kg<sup>-1</sup>) (Table 2.6) and <img class="math" src="../../_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/>  is
+vaporization (J kg<sup>-1</sup>) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>) and <img class="math" src="../../_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/>  is
 either the latent heat of vaporization <img class="math" src="../../_images/math/d0dfc30d53cbaaaafd80fa169fd6ca803e01f2fb.png" alt="\lambda _{vap}"/>  or latent
 heat of sublimation <img class="math" src="../../_images/math/d41253ec9277535795f2300e8d7a0892de3ab5dc.png" alt="\lambda _{sub}"/>  (J kg<sup>-1</sup>)
-(Table 2.6) depending on the liquid water and ice content of the top
+(<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>) depending on the liquid water and ice content of the top
 snow/soil layer (section 5.4).</p>
 <p><sup>2</sup>There are <img class="math" src="../../_images/math/6270ac89836ffc46b901c8e6f13fd26d40c847e6.png" alt="j=1,\ldots ,4"/> dust transport bins.</p>
 </div>
 <div class="section" id="initialization">
-<h3>2.2.2. Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h3>
+<span id="id8"></span><h3>2.2.2. Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h3>
 <p>Initialization of the land model (i.e., providing the model with initial
 temperature and moisture states) depends on the type of run (startup or
 restart) (see the CLM4.5 User’s Guide). A startup run starts the model
@@ -826,15 +837,16 @@ ice contents are initialized as <img class="math" src="../../_images/math/ff5262
 <img class="math" src="../../_images/math/da05935b8fc8a955b089165a0e5be795bcdc2f8d.png" alt="w_{liq,\, i} =\Delta z_{i} \rho _{liq} \theta _{i}"/>  and
 <img class="math" src="../../_images/math/33ee0bc67f681b03aefb5d9ca27f7b1f0a46ee7c.png" alt="w_{ice,\, i} =0"/> for <img class="math" src="../../_images/math/c4ddf53787e07b6852b381fec070c9f59017f918.png" alt="T_{i} &gt;T_{f}"/> , where
 <img class="math" src="../../_images/math/ae7476424b9c81c6a026c0c3f4406cb00b3ee2d2.png" alt="\rho _{ice}"/>  and <img class="math" src="../../_images/math/99459ae3ea5d5e40e141953e3b5f47c1c193f392.png" alt="\rho _{liq}"/>  are the densities of ice
-and liquid water (kg m<sup>-3</sup>) (Table 2.6), and <img class="math" src="../../_images/math/43b4fcc8ffe3a239dcb50c726aa6d8e7700f94a5.png" alt="T_{f}"/>
-is the freezing temperature of water (K) (Table 2.6). All vegetated and
+and liquid water (kg m<sup>-3</sup>) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>), and <img class="math" src="../../_images/math/43b4fcc8ffe3a239dcb50c726aa6d8e7700f94a5.png" alt="T_{f}"/>
+is the freezing temperature of water (K) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>). All vegetated and
 glacier land units are initialized with water stored in the unconfined
 aquifer and unsaturated soil <img class="math" src="../../_images/math/824fd2e998f1722fcdc1e91d95724791c7a0072c.png" alt="W_{a} =4000"/> mm and water table
 depth <img class="math" src="../../_images/math/6b063ee474888544e76a46e42cc2a51da754f707.png" alt="z_{\nabla }"/>  at five meters below the soil column.</p>
 </div>
 <div class="section" id="surface-data">
-<h3>2.2.3. Surface Data<a class="headerlink" href="#surface-data" title="Permalink to this headline">¶</a></h3>
-<p>Required surface data for each land grid cell are listed in Table 2.5
+<span id="id9"></span><h3>2.2.3. Surface Data<a class="headerlink" href="#surface-data" title="Permalink to this headline">¶</a></h3>
+<p>Required surface data for each land grid cell are listed in
+<a class="reference internal" href="#table-surface-data-required-for-clm-and-their-base-spatial-resolution"><span class="std std-numref">Table 2.5</span></a>
 and include the glacier, lake, and urban fractions of the grid cell
 (vegetated and crop occupy the remainder), the fractional cover of each
 plant functional type (PFT), monthly leaf and stem area index and canopy
@@ -844,11 +856,11 @@ elevation, biogenic volatile organic compounds (BVOCs) emissions
 factors, population density, gross domestic production, peat area
 fraction, and peak month of agricultural burning. Optional surface data
 include crop irrigation and managed crops. All fields are aggregated to
-the model’s grid from high-resolution input datasets (Table 2.5) that
+the model’s grid from high-resolution input datasets (
+<a class="reference internal" href="#table-surface-data-required-for-clm-and-their-base-spatial-resolution"><span class="std std-numref">Table 2.5</span></a>) that
 are obtained from a variety of sources described below.</p>
-<p>Table 2.5. Surface data required for CLM and their base spatial
-resolution</p>
-<table border="1" class="docutils">
+<table border="1" class="docutils" id="id16">
+<span id="table-surface-data-required-for-clm-and-their-base-spatial-resolution"></span><caption><span class="caption-number">Table 2.5 </span><span class="caption-text">Surface data required for CLM and their base spatial resolution</span><a class="headerlink" href="#id16" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="62%" />
 <col width="38%" />
@@ -1008,7 +1020,7 @@ topography for the snow cover fraction parameterization (section 7.2.1).</p>
 of Emissions of Gases and Aerosols from Nature version 2.1 (MEGAN2.1;
 Guenther et al. 2012).</p>
 <p>The default list of PFTs includes an unmanaged crop treated as a second
-C3 grass (Table 2.1). The unmanaged crop has grid cell fractional cover
+C3 grass (<a class="reference internal" href="#table-plant-functional-types"><span class="std std-numref">Table 2.1</span></a>). The unmanaged crop has grid cell fractional cover
 assigned from MODIS satellite data (Lawrence and Chase 2007). A managed
 crop option uses grid cell fractional cover from the present-day crop
 dataset of Ramankutty and Foley (1998) (CLM4CNcrop). Managed crops are
@@ -1032,19 +1044,19 @@ for water (default CLM setting). PFTs in the human managed land unit do
 not share soil columns and thus permit for differences in land
 management between crops.</p>
 <p>CLM includes the option to irrigate cropland areas that are equipped for
-irrigation. The application of irrigation responds dynamically to
-climate (see Chapter 20). In CLM, irrigation is implemented for the C3
+irrigation. The application of irrigation responds dynamically to climate
+(see Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>). In CLM, irrigation is
+implemented for the C3
 generic crop only. When irrigation is enabled, the cropland area of each
 grid cell is divided into an irrigated and unirrigated fraction
-according to a dataset of areas equipped for irrigation (Siebert et al.
-2005). The area of irrigated cropland in each grid cell is given by the
+according to a dataset of areas equipped for irrigation (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#siebertetal2005"><span class="std std-ref">Siebert et al. (2005)</span></a>). The area of irrigated cropland in each grid cell is given by the
 smaller of the grid cell’s total cropland area, according to the default
 CLM4 dataset, and the grid cell’s area equipped for irrigation. The
 remainder of the grid cell’s cropland area (if any) is then assigned to
 unirrigated cropland. Irrigated and unirrigated crops are placed on
 separate soil columns, so that irrigation is only applied to the soil
 beneath irrigated crops.</p>
-<p>Several input datasets are required for the fire model (Li et al. 2013a)
+<p>Several input datasets are required for the fire model (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2013a"><span class="std std-ref">Li et al. 2013a</span></a>)
 including population density, gross domestic production, peat area
 fraction, and peak month of agricultural waste burning. Population
 density at 0.5<sup>o</sup> resolution for 1850-2100 combines 5-min
@@ -1067,15 +1079,15 @@ climatological peak month for agricultural waste burning is from van der
 Werf et al. (2010).</p>
 </div>
 <div class="section" id="adjustable-parameters-and-physical-constants">
-<h3>2.2.4. Adjustable Parameters and Physical Constants<a class="headerlink" href="#adjustable-parameters-and-physical-constants" title="Permalink to this headline">¶</a></h3>
+<span id="id10"></span><h3>2.2.4. Adjustable Parameters and Physical Constants<a class="headerlink" href="#adjustable-parameters-and-physical-constants" title="Permalink to this headline">¶</a></h3>
 <p>Values of certain adjustable parameters inherent in the biogeophysical
 or biogeochemical parameterizations have either been obtained from the
 literature or calibrated based on comparisons with observations. These
 are described in the text. Physical constants, generally shared by all
-of the components in the coupled modeling system, are presented in Table
-2.6.</p>
-<table border="1" class="colwidths-given docutils" id="id1">
-<caption><span class="caption-number">Table 2.1 </span><span class="caption-text">Table 2.6. Physical constants</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+of the components in the coupled modeling system, are presented in
+<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>.</p>
+<table border="1" class="colwidths-given docutils" id="id17">
+<span id="table-physical-constants"></span><caption><span class="caption-number">Table 2.6 </span><span class="caption-text">Physical constants</span><a class="headerlink" href="#id17" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="40%" />
 <col width="20%" />
