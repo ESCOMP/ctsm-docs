@@ -67,16 +67,16 @@
 <li><a class="reference internal" href="#soil-water">7.3. Soil Water</a><ul>
 <li><a class="reference internal" href="#hydraulic-properties">7.3.1. Hydraulic Properties</a></li>
 <li><a class="reference internal" href="#numerical-solution">7.3.2. Numerical Solution</a><ul>
-<li><a class="reference internal" href="#equilibrium-soil-matric-potential-and-volumetric-moisture">7.3.2.1. Equilibrium soil matric potential and volumetric moisture</a></li>
-<li><a class="reference internal" href="#equation-set-for-layer">7.3.2.2. Equation set for layer <img class="math" src="../../_images/math/89dcb535c1c0c802f1d34c9a8079f646dff63f50.png" alt="i=1"/></a></li>
-<li><a class="reference internal" href="#equation-set-for-layers">7.3.2.3. Equation set for layers <img class="math" src="../../_images/math/94ff6379fc0ee0cfadeb6ad04721e96e5a91f9cc.png" alt="i=2,\ldots ,N_{levsoi} -1"/></a></li>
-<li><a class="reference internal" href="#id8">7.3.2.4. Equation set for layers <img class="math" src="../../_images/math/439b8e237ab59a80c6d5a3bdf9dbbe4d85143070.png" alt="i=N_{levsoi} ,\ldots N_{levsoi} +1"/></a></li>
+<li><a class="reference internal" href="#equation-set-for-layer">7.3.2.1. Equation set for layer <img class="math" src="../../_images/math/89dcb535c1c0c802f1d34c9a8079f646dff63f50.png" alt="i=1"/></a></li>
+<li><a class="reference internal" href="#equation-set-for-layers">7.3.2.2. Equation set for layers <img class="math" src="../../_images/math/94ff6379fc0ee0cfadeb6ad04721e96e5a91f9cc.png" alt="i=2,\ldots ,N_{levsoi} -1"/></a></li>
+<li><a class="reference internal" href="#id8">7.3.2.3. Equation set for layer <img class="math" src="../../_images/math/36489338ce3c0f2c5e2bb810cae3e3a97c1827ce.png" alt="i=N_{levsoi}"/></a></li>
+<li><a class="reference internal" href="#adaptive-time-stepping">7.3.2.4. Adaptive Time Stepping</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a class="reference internal" href="#frozen-soils-and-perched-water-table">7.4. Frozen Soils and Perched Water Table</a></li>
-<li><a class="reference internal" href="#groundwater-soil-water-interactions">7.5. Groundwater-Soil Water Interactions</a></li>
+<li><a class="reference internal" href="#lateral-sub-surface-runoff">7.5. Lateral Sub-surface Runoff</a></li>
 <li><a class="reference internal" href="#runoff-from-glaciers-and-snow-capped-surfaces">7.6. Runoff from glaciers and snow-capped surfaces</a></li>
 </ul>
 </li>
@@ -132,7 +132,7 @@ m<sup>-2</sup> or mm of H<sub>2</sub>O) (<a class="reference internal" href="#hy
 ET from vegetation (Chapter <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#rst-momentum-sensible-heat-and-latent-heat-fluxes"><span class="std std-numref">5</span></a>), <img class="math" src="../../_images/math/8525155a3a4fea88abbafe102ddbd2fb5b6867e5.png" alt="E_{g}"/>  is ground evaporation
 (Chapter <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#rst-momentum-sensible-heat-and-latent-heat-fluxes"><span class="std std-numref">5</span></a>), <img class="math" src="../../_images/math/21237fcb1bce52cc508188002b79708d467c8a41.png" alt="q_{over}"/>  is surface runoff (section <a class="reference internal" href="#surface-runoff"><span class="std std-numref">7.2.1</span></a>),
 <img class="math" src="../../_images/math/c86d9001609fddf539c70885af9a292cf766aae1.png" alt="q_{h2osfc}"/>  is runoff from surface water storage (section <a class="reference internal" href="#surface-runoff"><span class="std std-numref">7.2.1</span></a>),
-<img class="math" src="../../_images/math/47eae552082d6b70fde3b9926d4770952f63362c.png" alt="q_{drai}"/>  is sub-surface drainage (section 7.6),
+<img class="math" src="../../_images/math/47eae552082d6b70fde3b9926d4770952f63362c.png" alt="q_{drai}"/>  is sub-surface drainage (section <a class="reference internal" href="#lateral-sub-surface-runoff"><span class="std std-numref">7.5</span></a>),
 <img class="math" src="../../_images/math/e667285d49e1651ab47c8d1cf5a3f359680f724c.png" alt="q_{rgwl}"/>  and <img class="math" src="../../_images/math/ba7afa35bedd43cbbf2b9e1dfb3a5a59f5db67bb.png" alt="q_{snwcp,ice}"/>  are liquid and solid runoff
 from glaciers, wetlands, and lakes, and runoff from other surface types
 due to snow capping (section <a class="reference internal" href="#runoff-from-glaciers-and-snow-capped-surfaces"><span class="std std-numref">7.6</span></a>) (all in kg m<sup>-2</sup>
@@ -200,10 +200,18 @@ have been determined.</p>
 for the surface albedo (section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#canopy-radiative-transfer"><span class="std std-numref">3.1</span></a>) and surface flux (Chapter <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#rst-momentum-sensible-heat-and-latent-heat-fluxes"><span class="std std-numref">5</span></a>)
 calculations is (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#dickinsonetal1993"><span class="std std-ref">Dickinson et al.1993</span></a>)</p>
 <div class="math" id="equation-7.12)">
-<p><span class="eqno">(12)<a class="headerlink" href="#equation-7.12)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/dee0aa0d8f13b9b599e2beaf3151503a89406c0a.png" alt="f_{wet} =\left\{\begin{array}{l} {\left[\frac{W_{can} }{p\left(L+S\right)} \right]^{{2\mathord{\left/ {\vphantom {2 3}} \right. \kern-\nulldelimiterspace} 3} } \le 1\qquad L+S&gt;0} \\ {0\qquad L+S=0} \end{array}\right\}"/></p>
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-7.12)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4f4da73d5d055457f6e16a73db57c09e773a45ac.png" alt="f_{wet} =
+\left\{\begin{array}{lr}
+\left[\frac{W_{can} }{p\left(L+S\right)} \right]^{{2\mathord{\left/ {\vphantom {2 3}} \right. \kern-\nulldelimiterspace} 3} } \le 1 &amp; \qquad L+S &gt; 0 \\
+0 &amp;\qquad L+S = 0
+\end{array}\right\}"/></p>
 </div><p>while the fraction of the canopy that is dry and transpiring is</p>
 <div class="math" id="equation-7.13)">
-<p><span class="eqno">(13)<a class="headerlink" href="#equation-7.13)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/27a9d56279c6a09d0481847edecd63c4adecb5a3.png" alt="f_{dry} =\left\{\begin{array}{l} {\frac{\left(1-f_{wet} \right)L}{L+S} \qquad L+S&gt;0} \\ {0\qquad L+S=0} \end{array}\right\}."/></p>
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-7.13)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d162fffc3e5eecf92c4d88e7d340244a7c7a41fd.png" alt="f_{dry} =
+\left\{\begin{array}{lr}
+\frac{\left(1-f_{wet} \right)L}{L+S} &amp; \qquad L+S &gt; 0 \\
+0 &amp;\qquad L+S = 0
+\end{array}\right\}."/></p>
 </div></div>
 <div class="section" id="surface-runoff-surface-water-storage-and-infiltration">
 <span id="id2"></span><h2>7.2. Surface Runoff, Surface Water Storage, and Infiltration<a class="headerlink" href="#surface-runoff-surface-water-storage-and-infiltration" title="Permalink to this headline">¶</a></h2>
@@ -293,7 +301,7 @@ randomly within the grid cell. With this assumption, a result from
 percolation theory can be used to quantify the fraction of the inundated
 portion of the grid cell that is interconnected</p>
 <div class="math" id="equation-7.69)">
-<p><span class="eqno">(19)<a class="headerlink" href="#equation-7.69)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/53d3e0797dfcc9c3d304418f87ccf785b0560c24.png" alt="\begin{array}{l} {f_{connected} =\left(f_{h2osfc} -f_{c} \right)^{\mu } \qquad for\, f_{h2osfc} &gt;f_{c} } \\ {f_{connected} =0\qquad \qquad \qquad for\, f_{h2osfc} \le f_{c} } \end{array}"/></p>
+<p><span class="eqno">(19)<a class="headerlink" href="#equation-7.69)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/be8458459b723a77d7b1b73957906b3214bd59a7.png" alt="\begin{array}{lr} f_{connected} =\left(f_{h2osfc} -f_{c} \right)^{\mu } &amp; \qquad f_{h2osfc} &gt;f_{c}  \\ f_{connected} =0 &amp;\qquad  f_{h2osfc} \le f_{c}  \end{array}"/></p>
 </div><p>where <img class="math" src="../../_images/math/a2d55a7d693197d09689e37cf9feb86340598924.png" alt="f_{c}"/>  is a threshold below which no single connected
 inundated area spans the grid cell and <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/>  is a scaling
 exponent. Default values of <img class="math" src="../../_images/math/a2d55a7d693197d09689e37cf9feb86340598924.png" alt="f_{c}"/>  and <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/> are 0.4 and
@@ -322,7 +330,7 @@ s<sup>-1</sup>),</p>
 <div class="math" id="equation-ZEqnNum569150">
 <p><span class="eqno">(22)<a class="headerlink" href="#equation-ZEqnNum569150" title="Permalink to this equation">¶</a></span><img src="../../_images/math/40a3c335d9d4d1d6b17b33179db4b89b01f0b179.png" alt="q_{infl,\, \max } =(1-fsat){\rm \Theta }iceksat"/></p>
 </div><p>where <img class="math" src="../../_images/math/298bdc26a4d00f4730cca0c8f73561bfe73eb3d1.png" alt="{\rm \Theta }ice"/> is an ice impedance factor (section
-7.4), infiltration excess (Hortonian) runoff is generated</p>
+<a class="reference internal" href="#hydraulic-properties"><span class="std std-numref">7.3.1</span></a>), infiltration excess (Hortonian) runoff is generated</p>
 <div class="math" id="equation-7.73)">
 <p><span class="eqno">(23)<a class="headerlink" href="#equation-7.73)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3c9506b0825ec04b3e953d15825d42ab3453ef2b.png" alt="q_{infl,\, excess} =\max \left(q_{in,soil} -\left(1-f_{h2osfc} \right)q_{\inf l,\max } ,0\right)"/></p>
 </div><p>and transferred from <img class="math" src="../../_images/math/913d171f9a9072fb54fa5e115dff712e3b9f5067.png" alt="q_{in,soil}"/>  to <img class="math" src="../../_images/math/e3eeb80e5e333f720db59188f64e4894b0f8a697.png" alt="q_{in,h2osfc}"/> .
@@ -350,11 +358,10 @@ into the surface soil layer</p>
 <span id="id6"></span><h2>7.3. Soil Water<a class="headerlink" href="#soil-water" title="Permalink to this headline">¶</a></h2>
 <p>Soil water is predicted from a multi-layer model, in which the vertical
 soil moisture transport is governed by infiltration, surface and
-sub-surface runoff, gradient diffusion, gravity, canopy transpiration
-through root extraction, and interactions with groundwater
-(<a class="reference internal" href="#hydrologic-processes-figure"><span class="std std-numref">Figure 7.1</span></a>).
+sub-surface runoff, gradient diffusion, gravity, and canopy transpiration
+through root extraction (<a class="reference internal" href="#hydrologic-processes-figure"><span class="std std-numref">Figure 7.1</span></a>).
 The following derivation generally follows that of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#yang1998"><span class="std std-ref">Z.-L. Yang (1998,
-unpublished manuscript)</span></a> with modifications by Zeng and Decker (2009).</p>
+unpublished manuscript)</span></a>.</p>
 <p>For one-dimensional vertical water flow in soils, the conservation of
 mass is stated as</p>
 <div class="math" id="equation-ZEqnNum790844">
@@ -369,10 +376,11 @@ of soil s<sup>-1</sup>) (ET loss). This equation is solved
 numerically by dividing the soil column into multiple layers in the
 vertical and integrating downward over each layer with an upper boundary
 condition of the infiltration flux into the top soil layer
-<img class="math" src="../../_images/math/bbafad0b839e722af02da5b9153dece556cff54e.png" alt="q_{infl}"/>  and a lower boundary condition that depends on the
-depth of the water table.</p>
+<img class="math" src="../../_images/math/bbafad0b839e722af02da5b9153dece556cff54e.png" alt="q_{infl}"/>  and a zero-flux lower boundary condition at the
+bottom of the soil column (sub-surface runoff is removed later in the
+timestep, section <a class="reference internal" href="#lateral-sub-surface-runoff"><span class="std std-numref">7.5</span></a>).</p>
 <p>The soil water flux <img class="math" src="../../_images/math/620a3ce6403ec82f1347af9985bc03f7a9382f4a.png" alt="q"/> in equation can be described by Darcy’s
-law</p>
+law <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#dingman2002"><span class="std std-ref">(Dingman 2002)</span></a></p>
 <div class="math" id="equation-7.80)">
 <p><span class="eqno">(30)<a class="headerlink" href="#equation-7.80)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2a7a11279be2ab78038a43368589cbfe58e1472a.png" alt="q=-k\frac{\partial \psi _{h} }{\partial z}"/></p>
 </div><p>where <img class="math" src="../../_images/math/0b7c1e16a3a8a849bb8ffdcdbf86f65fd1f30438.png" alt="k"/> is the hydraulic conductivity (mm s<sup>-1</sup>),
@@ -389,39 +397,19 @@ If the reference elevation is the soil surface, then
 becomes</p>
 <div class="math" id="equation-ZEqnNum186573">
 <p><span class="eqno">(32)<a class="headerlink" href="#equation-ZEqnNum186573" title="Permalink to this equation">¶</a></span><img src="../../_images/math/847afefb24a51d5942638181157a319539ba5fe1.png" alt="q=-k\left[\frac{\partial \left(\psi +z\right)}{\partial z} \right]."/></p>
-</div><p>Darcy’s equation can be further manipulated to yield</p>
+</div><p>Equation <a class="reference internal" href="#equation-ZEqnNum186573">(32)</a> can be further manipulated to yield</p>
 <div class="math" id="equation-7.83)">
 <p><span class="eqno">(33)<a class="headerlink" href="#equation-7.83)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fea88aa5279a0f96b6a4c2e338de5df69469553b.png" alt="q=-k\left[\frac{\partial \left(\psi +z\right)}{\partial z} \right]=-k\left(\frac{\partial \psi }{\partial z} +1\right)=-k\left(\frac{\partial \theta }{\partial z} \frac{\partial \psi }{\partial \theta } +1\right)."/></p>
-</div><p>Substitution of this equation into equation , with <img class="math" src="../../_images/math/063953e1bfb978dc103de50a7db823c73a7327ff.png" alt="Q=0"/>, yields
+</div><p>Substitution of this equation into equation <a class="reference internal" href="#equation-ZEqnNum790844">(29)</a>, with <img class="math" src="../../_images/math/063953e1bfb978dc103de50a7db823c73a7327ff.png" alt="Q=0"/>, yields
 the Richards equation</p>
 <div class="math" id="equation-ZEqnNum670361">
-<p><span class="eqno">(34)<a class="headerlink" href="#equation-ZEqnNum670361" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e43644b5dbf4fd3b7464cac8fe61c5d8e130c4b5.png" alt="\frac{\partial \theta }{\partial t} =\frac{\partial }{\partial z} \left[k\left(\frac{\partial \theta }{\partial z} \frac{\partial \psi }{\partial \theta } \right)+1\right]."/></p>
-</div><p>Zeng and Decker (2009) note that this <img class="math" src="../../_images/math/3be04d4207434584251f6921820c24ac9fa8c6f1.png" alt="\theta"/> -based form of the
-Richards equation cannot maintain the hydrostatic equilibrium soil
-moisture distribution because of the truncation errors of the
-finite-difference numerical scheme. They show that this deficiency can
-be overcome by subtracting the equilibrium state from equation as</p>
-<div class="math" id="equation-ZEqnNum936839">
-<p><span class="eqno">(35)<a class="headerlink" href="#equation-ZEqnNum936839" title="Permalink to this equation">¶</a></span><img src="../../_images/math/59c864722573f3c5df4e4d2a42b3138ea5636f61.png" alt="q=-k\left[\frac{\partial \left(\psi +z-C\right)}{\partial z} \right]"/></p>
-</div><p>where <img class="math" src="../../_images/math/afce44aa7c55836ca9345404c22fc7b599d2ed84.png" alt="C"/> is a constant hydraulic potential above the water table
-<img class="math" src="../../_images/math/6b063ee474888544e76a46e42cc2a51da754f707.png" alt="z_{\nabla }"/></p>
-<div class="math" id="equation-ZEqnNum126975">
-<p><span class="eqno">(36)<a class="headerlink" href="#equation-ZEqnNum126975" title="Permalink to this equation">¶</a></span><img src="../../_images/math/35a997e9be01533168728ba71ac2d50ee815eb0b.png" alt="C=\psi _{E} +z=\psi _{sat} \left[\frac{\theta _{E} \left(z\right)}{\theta _{sat} } \right]^{-B} +z=\psi _{sat} +z_{\nabla }"/></p>
-</div><p>so that</p>
-<div class="math" id="equation-ZEqnNum537733">
-<p><span class="eqno">(37)<a class="headerlink" href="#equation-ZEqnNum537733" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4d7e05326a87706c1a06fa3fcd21b26ec5228919.png" alt="q=-k\left[\frac{\partial \left(\psi -\psi _{E} \right)}{\partial z} \right]"/></p>
-</div><p>where <img class="math" src="../../_images/math/260df7ca5549139b6d09e13f0fc38d68b91cfedf.png" alt="\psi _{E}"/> is the equilibrium soil matric potential
-(mm). Substitution of equations and into equation yields Zeng and
-Decker’s (2009) modified Richards equation</p>
-<div class="math" id="equation-7.88)">
-<p><span class="eqno">(38)<a class="headerlink" href="#equation-7.88)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8125d86c3e89606c2afe945dfb4e10d5e0939708.png" alt="\frac{\partial \theta }{\partial t} =\frac{\partial }{\partial z} \left[k\left(\frac{\partial \left(\psi -\psi _{E} \right)}{\partial z} \right)\right]-Q"/></p>
-</div><p>where the soil moisture sink term <img class="math" src="../../_images/math/331157c6afbd113256867fd408d80277d1a24756.png" alt="Q"/> is now included.</p>
-<div class="section" id="hydraulic-properties">
+<p><span class="eqno">(34)<a class="headerlink" href="#equation-ZEqnNum670361" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8256ba75cca1bca73533b4b298fd4716e04c13bb.png" alt="\frac{\partial \theta }{\partial t} =\frac{\partial }{\partial z} \left[k\left(\frac{\partial \theta }{\partial z} \frac{\partial \psi }{\partial \theta } +1\right)\right]."/></p>
+</div><div class="section" id="hydraulic-properties">
 <span id="id7"></span><h3>7.3.1. Hydraulic Properties<a class="headerlink" href="#hydraulic-properties" title="Permalink to this headline">¶</a></h3>
 <p>The hydraulic conductivity <img class="math" src="../../_images/math/8d9b87805e745a0583a0be6d36d82450f80098fe.png" alt="k_{i}"/>  (mm s<sup>-1</sup>) and
 the soil matric potential <img class="math" src="../../_images/math/e0f01c1a1812da97c1e82a0016bad9f8e014a6b3.png" alt="\psi _{i}"/>  (mm) for layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/>
 vary with volumetric soil water <img class="math" src="../../_images/math/d361e948ee087b03ae6d55eb9f42e1c98f1fb517.png" alt="\theta _{i}"/>  and soil texture.
-As with the soil thermal properties (section 6.3) the hydraulic
+As with the soil thermal properties (section <a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#soil-and-snow-thermal-properties"><span class="std std-numref">6.3</span></a>) the hydraulic
 properties of the soil are assumed to be a weighted combination of the
 mineral properties, which are determined according to sand and clay
 contents based on work by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#clapphornberger1978"><span class="std std-ref">Clapp and Hornberger (1978)</span></a> and <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#cosbyetal1984"><span class="std std-ref">Cosby et al. (1984)</span></a>,
@@ -435,45 +423,49 @@ moisture of the two layers <img class="math" src="../../_images/math/d361e948ee0
 <img class="math" src="../../_images/math/e59239f28cf055219fc2696e3e66a6b598d01468.png" alt="\theta _{i+1}"/>  and an ice impedance factor
 <img class="math" src="../../_images/math/a2e4245ce2d815ef1ebf6232276d321cf51a3457.png" alt="\Theta _{ice}"/></p>
 <div class="math" id="equation-ZEqnNum398074">
-<p><span class="eqno">(39)<a class="headerlink" href="#equation-ZEqnNum398074" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d37c1b7c8d7d34705bfc7d03369ee5022215405e.png" alt="k\left[z_{h,\, i} \right]=\left\{\begin{array}{l} {\Theta _{ice} k_{sat} \left[z_{h,\, i} \right]\left[\frac{0.5\left(\theta _{\, i} +\theta _{\, i+1} \right)}{0.5\left(\theta _{sat,\, i} +\theta _{sat,\, i+1} \right)} \right]^{2B_{i} +3} \qquad 1\le i\le N_{levsoi} -1} \\ {\Theta _{ice} k_{sat} \left[z_{h,\, i} \right]\left(\frac{\theta _{\, i} }{\theta _{sat,\, i} } \right)^{2B_{i} +3} \qquad i=N_{levsoi} } \end{array}\right\}."/></p>
+<p><span class="eqno">(35)<a class="headerlink" href="#equation-ZEqnNum398074" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d62cac50a4211e5bada81a83ad04bca4aa7aabbc.png" alt="k\left[z_{h,\, i} \right] =
+\left\{\begin{array}{lr}
+\Theta _{ice} k_{sat} \left[z_{h,\, i} \right]\left[\frac{0.5\left(\theta _{\, i} +\theta _{\, i+1} \right)}{0.5\left(\theta _{sat,\, i} +\theta _{sat,\, i+1} \right)} \right]^{2B_{i} +3} &amp; \qquad 1 \le i \le N_{levsoi} - 1 \\
+\Theta _{ice} k_{sat} \left[z_{h,\, i} \right]\left(\frac{\theta _{\, i} }{\theta _{sat,\, i} } \right)^{2B_{i} +3} &amp; \qquad i = N_{levsoi}
+\end{array}\right\}."/></p>
 </div><p>The ice impedance factor is a function of ice content, and is meant to
 quantify the increased tortuosity of the water flow when part of the
 pore space is filled with ice. <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#swensonetal2012"><span class="std std-ref">Swenson et al. (2012)</span></a>
-used a power law form <img class="math" src="../../_images/math/85a5733230fa67ede3dcbf70193913fa9bf8ce75.png" alt="\Theta _{ice} =10^{-\Omega F_{ice} }"/>  where
-<img class="math" src="../../_images/math/23a67250a521289494d16ad71ad9db79246c1ab7.png" alt="\Omega =6"/>and
-<img class="math" src="../../_images/math/604ce21a572d4bde4baa393c0fa923882b62d9c7.png" alt="F_{ice} =\frac{\theta _{ice} }{\theta _{sat} }"/>  is the
+used a power law form <img class="math" src="../../_images/math/7ff8b29d1843445787b13581efaac0319ec57fe2.png" alt="\Theta _{ice} = 10^{-\Omega F_{ice} }"/>  where
+<img class="math" src="../../_images/math/3263fe5f050dd70fe3938032c7736d801087bbc5.png" alt="\Omega = 6"/>and
+<img class="math" src="../../_images/math/a2257b0d7c1f1b991a2573a95cf45191da2d7b9c.png" alt="F_{ice} = \frac{\theta_{ice} }{\theta_{sat} }"/>  is the
 ice-filled fraction of the pore space.</p>
 <p>Because the hydraulic properties of mineral and organic soil may differ
 significantly, the bulk hydraulic properties of each soil layer are
 computed as weighted averages of the properties of the mineral and
 organic components. The water content at saturation (i.e. porosity) is</p>
 <div class="math" id="equation-7.90)">
-<p><span class="eqno">(40)<a class="headerlink" href="#equation-7.90)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/33e0d55bc5d53bf2e4ff22c734f90286894509fd.png" alt="\theta _{sat,i} =(1-f_{om,i} )\theta _{sat,\min ,i} +f_{om,i} \theta _{sat,om}"/></p>
+<p><span class="eqno">(36)<a class="headerlink" href="#equation-7.90)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/33e0d55bc5d53bf2e4ff22c734f90286894509fd.png" alt="\theta _{sat,i} =(1-f_{om,i} )\theta _{sat,\min ,i} +f_{om,i} \theta _{sat,om}"/></p>
 </div><p>where <img class="math" src="../../_images/math/577ef60d1c9a96e7b33bc10c5b039604182d47a9.png" alt="f_{om,i}"/>  is the soil organic matter fraction,
 <img class="math" src="../../_images/math/ceaaee273b066562341eb44de4fa03c25f05b16e.png" alt="\theta _{sat,om} =0.9"/> (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#farouki1981"><span class="std std-ref">Farouki 1981</span></a>;
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lettsetal2000"><span class="std std-ref">Letts et al. 2000</span></a>) is the
 porosity of organic matter and the porosity of the mineral soil
 <img class="math" src="../../_images/math/d31b1fcb66f8f9e65fea82af89111aaee657c760.png" alt="\theta _{sat,\min ,i}"/>  is</p>
 <div class="math" id="equation-7.91)">
-<p><span class="eqno">(41)<a class="headerlink" href="#equation-7.91)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/10c4db8d2ec158fd680ef917aa800631c58c93ab.png" alt="\theta _{sai,\min ,i} =0.489-0.00126(\% sand)_{i} ."/></p>
-</div><p>The exponent “<img class="math" src="../../_images/math/9805f44feec6f81d376d09e88b8236635edbb3c8.png" alt="B"/>” is</p>
+<p><span class="eqno">(37)<a class="headerlink" href="#equation-7.91)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/88decea908b3d32c651c23e286f840394fa1d4e4.png" alt="\theta _{sai,\min ,i} = 0.489 - 0.00126(\% sand)_{i} ."/></p>
+</div><p>The exponent <img class="math" src="../../_images/math/aa34843018d4497f87bc54446f1d65b979960451.png" alt="B_{i}"/> is</p>
 <div class="math" id="equation-7.92)">
-<p><span class="eqno">(42)<a class="headerlink" href="#equation-7.92)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/40337066712333a0384c84870e712e33a5f47d06.png" alt="B_{i} =(1-f_{om,i} )B_{\min ,i} +f_{om,i} B_{om}"/></p>
-</div><p>where <img class="math" src="../../_images/math/d0c9ace0d27bd30fa4d82d13392d8601394188c0.png" alt="B_{om} =2.7"/>(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lettsetal2000"><span class="std std-ref">Letts et al. 2000</span></a>) and</p>
+<p><span class="eqno">(38)<a class="headerlink" href="#equation-7.92)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/40337066712333a0384c84870e712e33a5f47d06.png" alt="B_{i} =(1-f_{om,i} )B_{\min ,i} +f_{om,i} B_{om}"/></p>
+</div><p>where <img class="math" src="../../_images/math/24f0dc038da32acc47d403991dc53b2940b16e41.png" alt="B_{om} = 2.7"/> (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lettsetal2000"><span class="std std-ref">Letts et al. 2000</span></a>) and</p>
 <div class="math" id="equation-7.93)">
-<p><span class="eqno">(43)<a class="headerlink" href="#equation-7.93)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0ea4171ba1ec96db8ba40b2ac69780737f526db3.png" alt="B_{\min ,i} =2.91+0.159(\% clay)_{i} ."/></p>
+<p><span class="eqno">(39)<a class="headerlink" href="#equation-7.93)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0ea4171ba1ec96db8ba40b2ac69780737f526db3.png" alt="B_{\min ,i} =2.91+0.159(\% clay)_{i} ."/></p>
 </div><p>The soil matric potential (mm) is defined at the node depth
 <img class="math" src="../../_images/math/5c6a6f366d550318f46ac322944a966f3e695c78.png" alt="z_{i}"/>  of each layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> (<a class="reference internal" href="#water-flux-schematic-figure"><span class="std std-numref">Figure 7.2</span></a>)</p>
 <div class="math" id="equation-ZEqnNum316201">
-<p><span class="eqno">(44)<a class="headerlink" href="#equation-ZEqnNum316201" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ab51df431967a18d3d9a8d1f541e09daed808e9c.png" alt="\psi _{i} =\psi _{sat,\, i} \left(\frac{\theta _{\, i} }{\theta _{sat,\, i} } \right)^{-B_{i} } \ge -1\times 10^{8} \qquad 0.01\le \frac{\theta _{i} }{\theta _{sat,\, i} } \le 1"/></p>
+<p><span class="eqno">(40)<a class="headerlink" href="#equation-ZEqnNum316201" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ab51df431967a18d3d9a8d1f541e09daed808e9c.png" alt="\psi _{i} =\psi _{sat,\, i} \left(\frac{\theta _{\, i} }{\theta _{sat,\, i} } \right)^{-B_{i} } \ge -1\times 10^{8} \qquad 0.01\le \frac{\theta _{i} }{\theta _{sat,\, i} } \le 1"/></p>
 </div><p>where the saturated soil matric potential (mm) is</p>
 <div class="math" id="equation-7.95)">
-<p><span class="eqno">(45)<a class="headerlink" href="#equation-7.95)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/65c054184910c20e500dce48ba0af1227913d4b7.png" alt="\psi _{sat,i} =(1-f_{om,i} )\psi _{sat,\min ,i} +f_{om,i} \psi _{sat,om}"/></p>
-</div><p>where <img class="math" src="../../_images/math/8e6577497bbbb10999ac381580f24c27f21df8d0.png" alt="\psi _{sat,om} =-10.3"/>mm (Letts et al. 2000) is the
+<p><span class="eqno">(41)<a class="headerlink" href="#equation-7.95)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/65c054184910c20e500dce48ba0af1227913d4b7.png" alt="\psi _{sat,i} =(1-f_{om,i} )\psi _{sat,\min ,i} +f_{om,i} \psi _{sat,om}"/></p>
+</div><p>where <img class="math" src="../../_images/math/3493350d148f61fe2012ac0ca84de9163b260f52.png" alt="\psi _{sat,om} = -10.3"/> mm (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lettsetal2000"><span class="std std-ref">Letts et al. 2000</span></a>) is the
 saturated organic matter matric potential and the saturated mineral soil
 matric potential <img class="math" src="../../_images/math/d70714c9546400c8020103325536da8adaff4dc0.png" alt="\psi _{sat,\min ,i}"/> is</p>
 <div class="math" id="equation-7.96)">
-<p><span class="eqno">(46)<a class="headerlink" href="#equation-7.96)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b2660fae36a2aabfd7df08a1a6392ed37466c033.png" alt="\psi _{sat,\, \min ,\, i} =-10.0\times 10^{1.88-0.0131(\% sand)_{i} } ."/></p>
+<p><span class="eqno">(42)<a class="headerlink" href="#equation-7.96)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b2660fae36a2aabfd7df08a1a6392ed37466c033.png" alt="\psi _{sat,\, \min ,\, i} =-10.0\times 10^{1.88-0.0131(\% sand)_{i} } ."/></p>
 </div><p>The saturated hydraulic conductivity,
 <img class="math" src="../../_images/math/6e559173da81f657eb2d2a2d0b5ef7a651b441e3.png" alt="k_{sat} \left[z_{h,\, i} \right]"/> (mm s<sup>-1</sup>), for
 organic soils (<img class="math" src="../../_images/math/5621bdd00ee5b8378ce54539f9e508768ea7d7d3.png" alt="k_{sat,\, om}"/> ) may be two to three orders of
@@ -485,15 +477,18 @@ as 1 %. To better represent the influence of organic soil material on
 the grid cell average saturated hydraulic conductivity, the soil organic
 matter fraction is further subdivided into “connected” and “unconnected”
 fractions using a result from percolation theory (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#staufferaharony1994"><span class="std std-ref">Stauffer and Aharony
-1994</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#berkowitzbalberg1992"><span class="std std-ref">Berkowitz and Balberg 1992</span></a>). Assuming that the organic and mineral
-fractions are randomly distributed throughout a soil layer, percolation
-theory predicts that above a threshold value
+1994</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#berkowitzbalberg1992"><span class="std std-ref">Berkowitz and Balberg 1992</span></a>).
+Assuming that the organic and mineral fractions are randomly distributed throughout
+a soil layer, percolation theory predicts that above a threshold value
 <img class="math" src="../../_images/math/29e0d9888634cb2b4a790959d462ceaac761c1cb.png" alt="f_{om} =f_{threshold}"/> , connected flow pathways consisting of
 organic material only exist and span the soil space. Flow through these
 pathways interacts only with organic material, and thus can be described
 by <img class="math" src="../../_images/math/5621bdd00ee5b8378ce54539f9e508768ea7d7d3.png" alt="k_{sat,\, om}"/> . This fraction of the grid cell is given by</p>
 <div class="math" id="equation-7.97)">
-<p><span class="eqno">(47)<a class="headerlink" href="#equation-7.97)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3656e167ba0b7f17b1c931be0c319183b9fb1a89.png" alt="\begin{array}{l} {f_{perc} =\; N_{perc} \left(f_{om} {\rm \; }-f_{threshold} \right)^{\beta _{perc} } f_{om} {\rm \; }\qquad f_{om} \ge f_{threshold} } \\ {f_{perc} =0\qquad f_{om} &lt;f_{threshold} } \end{array}"/></p>
+<p><span class="eqno">(43)<a class="headerlink" href="#equation-7.97)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/53e4549b36d9f6662e14a9568dc88b0766a77b99.png" alt="\begin{array}{lr}
+f_{perc} =\; N_{perc} \left(f_{om} {\rm \; }-f_{threshold} \right)^{\beta _{perc} } f_{om} {\rm \; } &amp; \qquad f_{om} \ge f_{threshold}  \\
+f_{perc} = 0 &amp; \qquad f_{om} &lt;f_{threshold}
+\end{array}"/></p>
 </div><p>where <img class="math" src="../../_images/math/e1566a3e6dbaf9a6116879c3a17c77a830ed5e0a.png" alt="\beta ^{perc} =0.139"/>, <img class="math" src="../../_images/math/2f1e8a91847d6ce50ba04db8bd14d1bcffd6cdae.png" alt="f_{threshold} =0.5"/>, and
 <img class="math" src="../../_images/math/8f7bf7526e724fed1011817e557dffdef188182b.png" alt="N_{perc} =\left(1-f_{threshold} \right)^{-\beta _{perc} }"/> . In
 the unconnected portion of the grid cell,
@@ -501,27 +496,27 @@ the unconnected portion of the grid cell,
 hydraulic conductivity is assumed to correspond to flow pathways that
 pass through the mineral and organic components in series</p>
 <div class="math" id="equation-7.98)">
-<p><span class="eqno">(48)<a class="headerlink" href="#equation-7.98)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5f22d88e3bf31bee9272d168d15f270db45d4f71.png" alt="k_{sat,\, uncon} =f_{uncon} \left(\frac{\left(1-f_{om} \right)}{k_{sat,\, \min } } +\frac{\left(f_{om} -f_{perc} \right)}{k_{sat,\, om} } \right)^{-1} ."/></p>
+<p><span class="eqno">(44)<a class="headerlink" href="#equation-7.98)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5f22d88e3bf31bee9272d168d15f270db45d4f71.png" alt="k_{sat,\, uncon} =f_{uncon} \left(\frac{\left(1-f_{om} \right)}{k_{sat,\, \min } } +\frac{\left(f_{om} -f_{perc} \right)}{k_{sat,\, om} } \right)^{-1} ."/></p>
 </div><p>where saturated hydraulic conductivity for mineral soil depends on soil
-texture (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#cosbyetal1984"><span class="std std-ref">Cosby et al. (1984)</span></a>) as</p>
+texture (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#cosbyetal1984"><span class="std std-ref">Cosby et al. 1984</span></a>) as</p>
 <div class="math" id="equation-7.99)">
-<p><span class="eqno">(49)<a class="headerlink" href="#equation-7.99)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e0b013ee0e5918811e988cf8125b2dd035267b5a.png" alt="k_{sat,\, \min } \left[z_{h,\, i} \right]=0.0070556\times 10^{-0.884+0.0153\left(\% sand\right)_{i} } ."/></p>
+<p><span class="eqno">(45)<a class="headerlink" href="#equation-7.99)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e0b013ee0e5918811e988cf8125b2dd035267b5a.png" alt="k_{sat,\, \min } \left[z_{h,\, i} \right]=0.0070556\times 10^{-0.884+0.0153\left(\% sand\right)_{i} } ."/></p>
 </div><p>The bulk soil layer saturated hydraulic conductivity is then computed
 as</p>
 <div class="math" id="equation-7.100)">
-<p><span class="eqno">(50)<a class="headerlink" href="#equation-7.100)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0f031841e14d61a12a8ec65cda789db4600d077b.png" alt="k_{sat} \left[z_{h,\, i} \right]=f_{uncon,\, i} k_{sat,\, uncon} \left[z_{h,\, i} \right]+(1-f_{uncon,\, i} )k_{sat,\, om} \left[z_{h,\, i} \right]."/></p>
+<p><span class="eqno">(46)<a class="headerlink" href="#equation-7.100)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0f031841e14d61a12a8ec65cda789db4600d077b.png" alt="k_{sat} \left[z_{h,\, i} \right]=f_{uncon,\, i} k_{sat,\, uncon} \left[z_{h,\, i} \right]+(1-f_{uncon,\, i} )k_{sat,\, om} \left[z_{h,\, i} \right]."/></p>
 </div></div>
 <div class="section" id="numerical-solution">
 <span id="numerical-solution-hydrology"></span><h3>7.3.2. Numerical Solution<a class="headerlink" href="#numerical-solution" title="Permalink to this headline">¶</a></h3>
 <p>With reference to <a class="reference internal" href="#water-flux-schematic-figure"><span class="std std-numref">Figure 7.2</span></a>, the equation for conservation of mass
-(equation ) can be integrated over each layer as</p>
+(equation <a class="reference internal" href="#equation-ZEqnNum790844">(29)</a>) can be integrated over each layer as</p>
 <div class="math" id="equation-7.101)">
-<p><span class="eqno">(51)<a class="headerlink" href="#equation-7.101)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8fc8618da68c88c7a810a1ff64d2daa530f9dd94.png" alt="\int _{-z_{h,\, i} }^{-z_{h,\, i-1} }\frac{\partial \theta }{\partial t} \,  dz=-\int _{-z_{h,\, i} }^{-z_{h,\, i-1} }\frac{\partial q}{\partial z}  \, dz-\int _{-z_{h,\, i} }^{-z_{h,\, i-1} }Q\, dz ."/></p>
+<p><span class="eqno">(47)<a class="headerlink" href="#equation-7.101)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8fc8618da68c88c7a810a1ff64d2daa530f9dd94.png" alt="\int _{-z_{h,\, i} }^{-z_{h,\, i-1} }\frac{\partial \theta }{\partial t} \,  dz=-\int _{-z_{h,\, i} }^{-z_{h,\, i-1} }\frac{\partial q}{\partial z}  \, dz-\int _{-z_{h,\, i} }^{-z_{h,\, i-1} }Q\, dz ."/></p>
 </div><p>Note that the integration limits are negative since <img class="math" src="../../_images/math/683f2dd9129a91d21aaf1c04afa6f78b39d4cb0a.png" alt="z"/> is defined
 as positive upward from the soil surface. This equation can be written
 as</p>
 <div class="math" id="equation-ZEqnNum225309">
-<p><span class="eqno">(52)<a class="headerlink" href="#equation-ZEqnNum225309" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5b09e0e18c663e4f9d97e2d9823a20498fb5c6c2.png" alt="\Delta z_{i} \frac{\partial \theta _{liq,\, i} }{\partial t} =-q_{i-1} +q_{i} -e_{i}"/></p>
+<p><span class="eqno">(48)<a class="headerlink" href="#equation-ZEqnNum225309" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5b09e0e18c663e4f9d97e2d9823a20498fb5c6c2.png" alt="\Delta z_{i} \frac{\partial \theta _{liq,\, i} }{\partial t} =-q_{i-1} +q_{i} -e_{i}"/></p>
 </div><p>where <img class="math" src="../../_images/math/16190fd431b652003ac8c8207c69be969af5225b.png" alt="q_{i}"/>  is the flux of water across interface
 <img class="math" src="../../_images/math/0f05595bd04bb93531f2471a1afe9fe485b8b086.png" alt="z_{h,\, i}"/> , <img class="math" src="../../_images/math/07bf306d4d26ca53b837371512f43d8e1272b49b.png" alt="q_{i-1}"/>  is the flux of water across
 interface <img class="math" src="../../_images/math/baa80c3e029bf55ce3b5352c06d3f715022ac70c.png" alt="z_{h,\, i-1}"/> , and <img class="math" src="../../_images/math/ed00f520481842f537634a4801b7638f8e527d8d.png" alt="e_{i}"/>  is a layer-averaged
@@ -529,7 +524,7 @@ soil moisture sink term (ET loss) defined as positive for flow out of
 the layer (mm s<sup>-1</sup>). Taking the finite difference with
 time and evaluating the fluxes implicitly at time <img class="math" src="../../_images/math/b700b57c3b9fcd19ef715b657735e6dbbeaf8f00.png" alt="n+1"/> yields</p>
 <div class="math" id="equation-ZEqnNum181361">
-<p><span class="eqno">(53)<a class="headerlink" href="#equation-ZEqnNum181361" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0aab36b95ec6975159837a90150b670f1acecd14.png" alt="\frac{\Delta z_{i} \Delta \theta _{liq,\, i} }{\Delta t} =-q_{i-1}^{n+1} +q_{i}^{n+1} -e_{i}"/></p>
+<p><span class="eqno">(49)<a class="headerlink" href="#equation-ZEqnNum181361" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0aab36b95ec6975159837a90150b670f1acecd14.png" alt="\frac{\Delta z_{i} \Delta \theta _{liq,\, i} }{\Delta t} =-q_{i-1}^{n+1} +q_{i}^{n+1} -e_{i}"/></p>
 </div><p>where
 <img class="math" src="../../_images/math/73172f10c57520cecee24995523b935a61696800.png" alt="\Delta \theta _{liq,\, i} =\theta _{liq,\, i}^{n+1} -\theta _{liq,\, i}^{n}"/>
 is the change in volumetric soil liquid water of layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> in time
@@ -539,7 +534,7 @@ is the change in volumetric soil liquid water of layer <img class="math" src="..
 function of the total transpiration <img class="math" src="../../_images/math/c2419ccbfb87677933212c2d8c0f763b94ee67a0.png" alt="E_{v}^{t}"/>  (Chapter <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#rst-momentum-sensible-heat-and-latent-heat-fluxes"><span class="std std-numref">5</span></a>) and
 the effective root fraction <img class="math" src="../../_images/math/3d589aa29b1a51eed50771312ad08a885874a17a.png" alt="r_{e,\, i}"/></p>
 <div class="math" id="equation-ZEqnNum357392">
-<p><span class="eqno">(54)<a class="headerlink" href="#equation-ZEqnNum357392" title="Permalink to this equation">¶</a></span><img src="../../_images/math/27ce198636016cd715abba92f551a1b28c1c6f95.png" alt="e_{i} =r_{e,\, i} E_{v}^{t} ."/></p>
+<p><span class="eqno">(50)<a class="headerlink" href="#equation-ZEqnNum357392" title="Permalink to this equation">¶</a></span><img src="../../_images/math/27ce198636016cd715abba92f551a1b28c1c6f95.png" alt="e_{i} =r_{e,\, i} E_{v}^{t} ."/></p>
 </div><div class="figure" id="id13">
 <span id="water-flux-schematic-figure"></span><img alt="../../_images/image23.png" src="../../_images/image23.png" />
 <p class="caption"><span class="caption-number">Figure 7.2 </span><span class="caption-text">Schematic diagram of numerical scheme used to solve for soil water fluxes.</span></p>
@@ -557,7 +552,7 @@ layer.</p>
 soil column, the transpiration <img class="math" src="../../_images/math/c2419ccbfb87677933212c2d8c0f763b94ee67a0.png" alt="E_{v}^{t}"/>  is a weighted sum of
 transpiration from all PFTs whose weighting depends on PFT area as</p>
 <div class="math" id="equation-7.105)">
-<p><span class="eqno">(55)<a class="headerlink" href="#equation-7.105)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/53a8e7a4714b4f654d0e47cb8c2fa16a677c5bd5.png" alt="E_{v}^{t} =\sum _{j=1}^{npft}\left(E_{v}^{t} \right)_{j} \left(wt\right)_{j}"/></p>
+<p><span class="eqno">(51)<a class="headerlink" href="#equation-7.105)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/53a8e7a4714b4f654d0e47cb8c2fa16a677c5bd5.png" alt="E_{v}^{t} =\sum _{j=1}^{npft}\left(E_{v}^{t} \right)_{j} \left(wt\right)_{j}"/></p>
 </div><p>where <img class="math" src="../../_images/math/f4c2268c9492d6df8a4b955fc8ea25d4039748f0.png" alt="npft"/> is the number of PFTs sharing a soil column,
 <img class="math" src="../../_images/math/10c8450f0dc242f95018d19d6e0352b4269d68d8.png" alt="\left(E_{v}^{t} \right)_{j}"/>  is the transpiration from the
 <img class="math" src="../../_images/math/1e3a0f6ca1a19c82ece8f835d17419f544328efd.png" alt="j^{th}"/>  PFT on the column, and <img class="math" src="../../_images/math/4d46556eebbe8cf9725123b2307c046cb3d14c6e.png" alt="\left(wt\right)_{j}"/>  is
@@ -566,11 +561,11 @@ The effective root fraction <img class="math" src="../../_images/math/3d589aa29b
 quantity that is a weighted sum over all PFTs. The weighting depends on
 the per unit area transpiration of each PFT and its relative area as</p>
 <div class="math" id="equation-7.106)">
-<p><span class="eqno">(56)<a class="headerlink" href="#equation-7.106)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bf6dc5f1a1522687cc5bac0bb452d12b150e0440.png" alt="r_{e,\, i} =\frac{\sum _{j=1}^{npft}\left(r_{e,\, i} \right)_{j} \left(E_{v}^{t} \right)_{j} \left(wt\right)_{j}  }{\sum _{j=1}^{npft}\left(E_{v}^{t} \right)_{j} \left(wt\right)_{j}  }"/></p>
+<p><span class="eqno">(52)<a class="headerlink" href="#equation-7.106)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bf6dc5f1a1522687cc5bac0bb452d12b150e0440.png" alt="r_{e,\, i} =\frac{\sum _{j=1}^{npft}\left(r_{e,\, i} \right)_{j} \left(E_{v}^{t} \right)_{j} \left(wt\right)_{j}  }{\sum _{j=1}^{npft}\left(E_{v}^{t} \right)_{j} \left(wt\right)_{j}  }"/></p>
 </div><p>where <img class="math" src="../../_images/math/dac30c1ca79fdaf0090f92b58066d1b4e47bf0e5.png" alt="\left(r_{e,\, i} \right)_{j}"/>  is the effective root
 fraction for the <img class="math" src="../../_images/math/1e3a0f6ca1a19c82ece8f835d17419f544328efd.png" alt="j^{th}"/>  PFT</p>
 <div class="math" id="equation-7.107)">
-<p><span class="eqno">(57)<a class="headerlink" href="#equation-7.107)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/48ff983a1daccf3f621fe354b081a01c7756f532.png" alt="\begin{array}{l} {\left(r_{e,\, i} \right)_{j} =\frac{\left(r_{i} \right)_{j} \left(w_{i} \right)_{j} }{\left(\beta _{t} \right)_{j} } \qquad \left(\beta _{t} \right)_{j} &gt;0} \\ {\left(r_{e,\, i} \right)_{j} =0\qquad \left(\beta _{t} \right)_{j} =0} \end{array}"/></p>
+<p><span class="eqno">(53)<a class="headerlink" href="#equation-7.107)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/48ff983a1daccf3f621fe354b081a01c7756f532.png" alt="\begin{array}{l} {\left(r_{e,\, i} \right)_{j} =\frac{\left(r_{i} \right)_{j} \left(w_{i} \right)_{j} }{\left(\beta _{t} \right)_{j} } \qquad \left(\beta _{t} \right)_{j} &gt;0} \\ {\left(r_{e,\, i} \right)_{j} =0\qquad \left(\beta _{t} \right)_{j} =0} \end{array}"/></p>
 </div><p>and <img class="math" src="../../_images/math/6fb54d10644a619d77b26986a8db236ab22e40fd.png" alt="\left(r_{i} \right)_{j}"/>  is the fraction of roots in layer
 <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> (Chapter <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#rst-stomatal-resistance-and-photosynthesis"><span class="std std-numref">9</span></a>),
 <img class="math" src="../../_images/math/8975367ebc7628b466263ffe444d7b81d48ee927.png" alt="\left(w_{i} \right)_{j}"/>  is a soil dryness or plant wilting factor
@@ -582,200 +577,123 @@ their dependence on hydraulic conductivity and soil matric potential,
 can be linearized about <img class="math" src="../../_images/math/3be04d4207434584251f6921820c24ac9fa8c6f1.png" alt="\theta"/>  using a Taylor series expansion
 as</p>
 <div class="math" id="equation-7.108)">
-<p><span class="eqno">(58)<a class="headerlink" href="#equation-7.108)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/238d858aa4753b7016c1333e7378467c71e1fd91.png" alt="q_{i}^{n+1} =q_{i}^{n} +\frac{\partial q_{i} }{\partial \theta _{liq,\, i} } \Delta \theta _{liq,\, i} +\frac{\partial q_{i} }{\partial \theta _{liq,\, i+1} } \Delta \theta _{liq,\, i+1}"/></p>
+<p><span class="eqno">(54)<a class="headerlink" href="#equation-7.108)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/238d858aa4753b7016c1333e7378467c71e1fd91.png" alt="q_{i}^{n+1} =q_{i}^{n} +\frac{\partial q_{i} }{\partial \theta _{liq,\, i} } \Delta \theta _{liq,\, i} +\frac{\partial q_{i} }{\partial \theta _{liq,\, i+1} } \Delta \theta _{liq,\, i+1}"/></p>
 </div><div class="math" id="equation-7.109)">
-<p><span class="eqno">(59)<a class="headerlink" href="#equation-7.109)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bb9d87e05fa2b5a3f82016ebb626a06b4d7d90b4.png" alt="q_{i-1}^{n+1} =q_{i-1}^{n} +\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i-1} } \Delta \theta _{liq,\, i-1} +\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i} } \Delta \theta _{liq,\, i} ."/></p>
+<p><span class="eqno">(55)<a class="headerlink" href="#equation-7.109)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bb9d87e05fa2b5a3f82016ebb626a06b4d7d90b4.png" alt="q_{i-1}^{n+1} =q_{i-1}^{n} +\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i-1} } \Delta \theta _{liq,\, i-1} +\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i} } \Delta \theta _{liq,\, i} ."/></p>
 </div><p>Substitution of these expressions for <img class="math" src="../../_images/math/7238afcfe36301e479ebf9d05862ca17adcdb529.png" alt="q_{i}^{n+1}"/>  and
 <img class="math" src="../../_images/math/cb5f45399f53aad57c985c07dee4bbd2af19a912.png" alt="q_{i-1}^{n+1}"/>  into equation results in a general tridiagonal
 equation set of the form</p>
 <div class="math" id="equation-7.110)">
-<p><span class="eqno">(60)<a class="headerlink" href="#equation-7.110)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/595847a988305c60a3fc097d9ec5e70c763f9f76.png" alt="r_{i} =a_{i} \Delta \theta _{liq,\, i-1} +b_{i} \Delta \theta _{liq,\, i} +c_{i} \Delta \theta _{liq,\, i+1}"/></p>
+<p><span class="eqno">(56)<a class="headerlink" href="#equation-7.110)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/595847a988305c60a3fc097d9ec5e70c763f9f76.png" alt="r_{i} =a_{i} \Delta \theta _{liq,\, i-1} +b_{i} \Delta \theta _{liq,\, i} +c_{i} \Delta \theta _{liq,\, i+1}"/></p>
 </div><p>where</p>
 <div class="math" id="equation-ZEqnNum557934">
-<p><span class="eqno">(61)<a class="headerlink" href="#equation-ZEqnNum557934" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a70075e36f3c8d8446851dbb29cc972dbd401cc1.png" alt="a_{i} =-\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i-1} }"/></p>
+<p><span class="eqno">(57)<a class="headerlink" href="#equation-ZEqnNum557934" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a70075e36f3c8d8446851dbb29cc972dbd401cc1.png" alt="a_{i} =-\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i-1} }"/></p>
 </div><div class="math" id="equation-7.112)">
-<p><span class="eqno">(62)<a class="headerlink" href="#equation-7.112)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6412cd87e868d2c1eb541489184ec416ac49393d.png" alt="b_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i} } -\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i} } -\frac{\Delta z_{i} }{\Delta t}"/></p>
+<p><span class="eqno">(58)<a class="headerlink" href="#equation-7.112)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6412cd87e868d2c1eb541489184ec416ac49393d.png" alt="b_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i} } -\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i} } -\frac{\Delta z_{i} }{\Delta t}"/></p>
 </div><div class="math" id="equation-7.113)">
-<p><span class="eqno">(63)<a class="headerlink" href="#equation-7.113)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/461c8a4e4054115debd4f5b67e0bd2d872697ca2.png" alt="c_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i+1} }"/></p>
+<p><span class="eqno">(59)<a class="headerlink" href="#equation-7.113)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/461c8a4e4054115debd4f5b67e0bd2d872697ca2.png" alt="c_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i+1} }"/></p>
 </div><div class="math" id="equation-ZEqnNum981892">
-<p><span class="eqno">(64)<a class="headerlink" href="#equation-ZEqnNum981892" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fb8a5c34a0aea40dda427d0e13b89144a6fb3438.png" alt="r_{i} =q_{i-1}^{n} -q_{i}^{n} +e_{i} ."/></p>
+<p><span class="eqno">(60)<a class="headerlink" href="#equation-ZEqnNum981892" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fb8a5c34a0aea40dda427d0e13b89144a6fb3438.png" alt="r_{i} =q_{i-1}^{n} -q_{i}^{n} +e_{i} ."/></p>
 </div><p>The tridiagonal equation set is solved over
-<img class="math" src="../../_images/math/c97ac726dc7be2db5503c68b845ad1a6424254cc.png" alt="i=1,\ldots ,N_{levsoi} +1"/> where the layer
-<img class="math" src="../../_images/math/4b0ce829f99efe64a9a8e891bfe4e678924e1af5.png" alt="i=N_{levsoi} +1"/> is a virtual layer representing the aquifer.</p>
+<img class="math" src="../../_images/math/5b54b0bc10bf88e128516a3198b01fb9a2cd5881.png" alt="i=1,\ldots ,N_{levsoi}"/>.</p>
 <p>The finite-difference forms of the fluxes and partial derivatives in
 equations - can be obtained from equation as</p>
 <div class="math" id="equation-7.115)">
-<p><span class="eqno">(65)<a class="headerlink" href="#equation-7.115)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/34debc3790545bc4d9b33a97d750086068bc6340.png" alt="q_{i-1}^{n} =-k\left[z_{h,\, i-1} \right]\left[\frac{\left(\psi _{i-1} -\psi _{i} \right)+\left(\psi _{E,\, i} -\psi _{E,\, i-1} \right)}{z_{i} -z_{i-1} } \right]"/></p>
+<p><span class="eqno">(61)<a class="headerlink" href="#equation-7.115)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/34debc3790545bc4d9b33a97d750086068bc6340.png" alt="q_{i-1}^{n} =-k\left[z_{h,\, i-1} \right]\left[\frac{\left(\psi _{i-1} -\psi _{i} \right)+\left(\psi _{E,\, i} -\psi _{E,\, i-1} \right)}{z_{i} -z_{i-1} } \right]"/></p>
 </div><div class="math" id="equation-7.116)">
-<p><span class="eqno">(66)<a class="headerlink" href="#equation-7.116)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b41bcd6eb0a0d3e624dcb80a9add40656870bf87.png" alt="q_{i}^{n} =-k\left[z_{h,\, i} \right]\left[\frac{\left(\psi _{i} -\psi _{i+1} \right)+\left(\psi _{E,\, i+1} -\psi _{E,\, i} \right)}{z_{i+1} -z_{i} } \right]"/></p>
+<p><span class="eqno">(62)<a class="headerlink" href="#equation-7.116)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b41bcd6eb0a0d3e624dcb80a9add40656870bf87.png" alt="q_{i}^{n} =-k\left[z_{h,\, i} \right]\left[\frac{\left(\psi _{i} -\psi _{i+1} \right)+\left(\psi _{E,\, i+1} -\psi _{E,\, i} \right)}{z_{i+1} -z_{i} } \right]"/></p>
 </div><div class="math" id="equation-7.117)">
-<p><span class="eqno">(67)<a class="headerlink" href="#equation-7.117)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/294b0478a0e0690a11dd0f0e30983f085ebda60a.png" alt="\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i-1} } =-\left[\frac{k\left[z_{h,\, i-1} \right]}{z_{i} -z_{i-1} } \frac{\partial \psi _{i-1} }{\partial \theta _{liq,\, i-1} } \right]-\frac{\partial k\left[z_{h,\, i-1} \right]}{\partial \theta _{liq,\, i-1} } \left[\frac{\left(\psi _{i-1} -\psi _{i} \right)+\left(\psi _{E,\, i} -\psi _{E,\, i-1} \right)}{z_{i} -z_{i-1} } \right]"/></p>
+<p><span class="eqno">(63)<a class="headerlink" href="#equation-7.117)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/294b0478a0e0690a11dd0f0e30983f085ebda60a.png" alt="\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i-1} } =-\left[\frac{k\left[z_{h,\, i-1} \right]}{z_{i} -z_{i-1} } \frac{\partial \psi _{i-1} }{\partial \theta _{liq,\, i-1} } \right]-\frac{\partial k\left[z_{h,\, i-1} \right]}{\partial \theta _{liq,\, i-1} } \left[\frac{\left(\psi _{i-1} -\psi _{i} \right)+\left(\psi _{E,\, i} -\psi _{E,\, i-1} \right)}{z_{i} -z_{i-1} } \right]"/></p>
 </div><div class="math" id="equation-7.118)">
-<p><span class="eqno">(68)<a class="headerlink" href="#equation-7.118)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/50f786bd72b491122a7e547009e239ccdfe2ce51.png" alt="\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i} } =\left[\frac{k\left[z_{h,\, i-1} \right]}{z_{i} -z_{i-1} } \frac{\partial \psi _{i} }{\partial \theta _{liq,\, i} } \right]-\frac{\partial k\left[z_{h,\, i-1} \right]}{\partial \theta _{liq,\, i} } \left[\frac{\left(\psi _{i-1} -\psi _{i} \right)+\left(\psi _{E,\, i} -\psi _{E,\, i-1} \right)}{z_{i} -z_{i-1} } \right]"/></p>
+<p><span class="eqno">(64)<a class="headerlink" href="#equation-7.118)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/50f786bd72b491122a7e547009e239ccdfe2ce51.png" alt="\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i} } =\left[\frac{k\left[z_{h,\, i-1} \right]}{z_{i} -z_{i-1} } \frac{\partial \psi _{i} }{\partial \theta _{liq,\, i} } \right]-\frac{\partial k\left[z_{h,\, i-1} \right]}{\partial \theta _{liq,\, i} } \left[\frac{\left(\psi _{i-1} -\psi _{i} \right)+\left(\psi _{E,\, i} -\psi _{E,\, i-1} \right)}{z_{i} -z_{i-1} } \right]"/></p>
 </div><div class="math" id="equation-7.119)">
-<p><span class="eqno">(69)<a class="headerlink" href="#equation-7.119)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9abc3d3a9b63fe5de4661679dacaa742959d3e67.png" alt="\frac{\partial q_{i} }{\partial \theta _{liq,\, i} } =-\left[\frac{k\left[z_{h,\, i} \right]}{z_{i+1} -z_{i} } \frac{\partial \psi _{i} }{\partial \theta _{liq,\, i} } \right]-\frac{\partial k\left[z_{h,\, i} \right]}{\partial \theta _{liq,\, i} } \left[\frac{\left(\psi _{i} -\psi _{i+1} \right)+\left(\psi _{E,\, i+1} -\psi _{E,\, i} \right)}{z_{i+1} -z_{i} } \right]"/></p>
+<p><span class="eqno">(65)<a class="headerlink" href="#equation-7.119)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9abc3d3a9b63fe5de4661679dacaa742959d3e67.png" alt="\frac{\partial q_{i} }{\partial \theta _{liq,\, i} } =-\left[\frac{k\left[z_{h,\, i} \right]}{z_{i+1} -z_{i} } \frac{\partial \psi _{i} }{\partial \theta _{liq,\, i} } \right]-\frac{\partial k\left[z_{h,\, i} \right]}{\partial \theta _{liq,\, i} } \left[\frac{\left(\psi _{i} -\psi _{i+1} \right)+\left(\psi _{E,\, i+1} -\psi _{E,\, i} \right)}{z_{i+1} -z_{i} } \right]"/></p>
 </div><div class="math" id="equation-7.120)">
-<p><span class="eqno">(70)<a class="headerlink" href="#equation-7.120)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/61fe2591d97391695f83fa0385d2865b09918716.png" alt="\frac{\partial q_{i} }{\partial \theta _{liq,\, i+1} } =\left[\frac{k\left[z_{h,\, i} \right]}{z_{i+1} -z_{i} } \frac{\partial \psi _{i+1} }{\partial \theta _{liq,\, i+1} } \right]-\frac{\partial k\left[z_{h,\, i} \right]}{\partial \theta _{liq,\, i+1} } \left[\frac{\left(\psi _{i} -\psi _{i+1} \right)+\left(\psi _{E,\, i+1} -\psi _{E,\, i} \right)}{z_{i+1} -z_{i} } \right]."/></p>
+<p><span class="eqno">(66)<a class="headerlink" href="#equation-7.120)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/61fe2591d97391695f83fa0385d2865b09918716.png" alt="\frac{\partial q_{i} }{\partial \theta _{liq,\, i+1} } =\left[\frac{k\left[z_{h,\, i} \right]}{z_{i+1} -z_{i} } \frac{\partial \psi _{i+1} }{\partial \theta _{liq,\, i+1} } \right]-\frac{\partial k\left[z_{h,\, i} \right]}{\partial \theta _{liq,\, i+1} } \left[\frac{\left(\psi _{i} -\psi _{i+1} \right)+\left(\psi _{E,\, i+1} -\psi _{E,\, i} \right)}{z_{i+1} -z_{i} } \right]."/></p>
 </div><p>The derivatives of the soil matric potential at the node depth are
 derived from equation</p>
 <div class="math" id="equation-7.121)">
-<p><span class="eqno">(71)<a class="headerlink" href="#equation-7.121)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a48004f252389a87ffd55dcabbb0ed4f58b9c3ad.png" alt="\frac{\partial \psi _{i-1} }{\partial \theta _{liq,\, \, i-1} } =-B_{i-1} \frac{\psi _{i-1} }{\theta _{\, \, i-1} }"/></p>
+<p><span class="eqno">(67)<a class="headerlink" href="#equation-7.121)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a48004f252389a87ffd55dcabbb0ed4f58b9c3ad.png" alt="\frac{\partial \psi _{i-1} }{\partial \theta _{liq,\, \, i-1} } =-B_{i-1} \frac{\psi _{i-1} }{\theta _{\, \, i-1} }"/></p>
 </div><div class="math" id="equation-7.122)">
-<p><span class="eqno">(72)<a class="headerlink" href="#equation-7.122)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/08313413cf13eba91d949115015f7901a7355f5b.png" alt="\frac{\partial \psi _{i} }{\partial \theta _{\, liq,\, i} } =-B_{i} \frac{\psi _{i} }{\theta _{i} }"/></p>
+<p><span class="eqno">(68)<a class="headerlink" href="#equation-7.122)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/08313413cf13eba91d949115015f7901a7355f5b.png" alt="\frac{\partial \psi _{i} }{\partial \theta _{\, liq,\, i} } =-B_{i} \frac{\psi _{i} }{\theta _{i} }"/></p>
 </div><div class="math" id="equation-7.123)">
-<p><span class="eqno">(73)<a class="headerlink" href="#equation-7.123)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6906d7f4dadfd20b8c5539ff09a77e68b2417570.png" alt="\frac{\partial \psi _{i+1} }{\partial \theta _{liq,\, i+1} } =-B_{i+1} \frac{\psi _{i+1} }{\theta _{\, i+1} }"/></p>
+<p><span class="eqno">(69)<a class="headerlink" href="#equation-7.123)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6906d7f4dadfd20b8c5539ff09a77e68b2417570.png" alt="\frac{\partial \psi _{i+1} }{\partial \theta _{liq,\, i+1} } =-B_{i+1} \frac{\psi _{i+1} }{\theta _{\, i+1} }"/></p>
 </div><p>with the constraint
 <img class="math" src="../../_images/math/9c970682dbd1011eeba62f72fbc35db3161a6199.png" alt="0.01\, \theta _{sat,\, i} \le \theta _{\, i} \le \theta _{sat,\, i}"/> .</p>
 <p>The derivatives of the hydraulic conductivity at the layer interface are
 derived from equation</p>
 <div class="math" id="equation-7.124)">
-<p><span class="eqno">(74)<a class="headerlink" href="#equation-7.124)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3ed3fdde823a6c88039357f7f41f1833926bfe01.png" alt="\begin{array}{l} {\frac{\partial k\left[z_{h,\, i-1} \right]}{\partial \theta _{liq,\, i-1} } =\frac{\partial k\left[z_{h,\, i-1} \right]}{\partial \theta _{liq,\, i} } =\left(1-\frac{f_{frz,\, i-1} +f_{frz,\, i} }{2} \right)\left(2B_{i-1} +3\right)k_{sat} \left[z_{h,\, i-1} \right]\times } \\ {\qquad \left[\frac{0.5\left(\theta _{\, i-1} +\theta _{\, i} \right)}{0.5\left(\theta _{sat,\, i-1} +\theta _{sat,\, i} \right)} \right]^{2B_{i-1} +2} \left(\frac{0.5}{0.5\left(\theta _{sat,\, i-1} +\theta _{sat,\, i} \right)} \right)} \end{array}"/></p>
+<p><span class="eqno">(70)<a class="headerlink" href="#equation-7.124)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3ed3fdde823a6c88039357f7f41f1833926bfe01.png" alt="\begin{array}{l} {\frac{\partial k\left[z_{h,\, i-1} \right]}{\partial \theta _{liq,\, i-1} } =\frac{\partial k\left[z_{h,\, i-1} \right]}{\partial \theta _{liq,\, i} } =\left(1-\frac{f_{frz,\, i-1} +f_{frz,\, i} }{2} \right)\left(2B_{i-1} +3\right)k_{sat} \left[z_{h,\, i-1} \right]\times } \\ {\qquad \left[\frac{0.5\left(\theta _{\, i-1} +\theta _{\, i} \right)}{0.5\left(\theta _{sat,\, i-1} +\theta _{sat,\, i} \right)} \right]^{2B_{i-1} +2} \left(\frac{0.5}{0.5\left(\theta _{sat,\, i-1} +\theta _{sat,\, i} \right)} \right)} \end{array}"/></p>
 </div><div class="math" id="equation-7.125)">
-<p><span class="eqno">(75)<a class="headerlink" href="#equation-7.125)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9c511bc8e0767099469379debad45095d8fbadc9.png" alt="\begin{array}{l} {\frac{\partial k\left[z_{h,\, i} \right]}{\partial \theta _{liq,\, i} } =\frac{\partial k\left[z_{h,\, i} \right]}{\partial \theta _{liq,\, i+1} } =\left(1-\frac{f_{frz,\, i} +f_{frz,\, i+1} }{2} \right)\left(2B_{i} +3\right)k_{sat} \left[z_{h,\, i} \right]\times } \\ {\qquad \left[\frac{0.5\left(\theta _{\, i} +\theta _{\, i+1} \right)}{0.5\left(\theta _{sat,\, i} +\theta _{sat,\, i+1} \right)} \right]^{2B_{i} +2} \left(\frac{0.5}{0.5\left(\theta _{sat,\, i} +\theta _{sat,\, i+1} \right)} \right)} \end{array}."/></p>
-</div><div class="section" id="equilibrium-soil-matric-potential-and-volumetric-moisture">
-<h4>7.3.2.1. Equilibrium soil matric potential and volumetric moisture<a class="headerlink" href="#equilibrium-soil-matric-potential-and-volumetric-moisture" title="Permalink to this headline">¶</a></h4>
-<p>The equilibrium soil matric potential <img class="math" src="../../_images/math/260df7ca5549139b6d09e13f0fc38d68b91cfedf.png" alt="\psi _{E}"/>  can be derived
-from equation as</p>
-<div class="math" id="equation-ZEqnNum899028">
-<p><span class="eqno">(76)<a class="headerlink" href="#equation-ZEqnNum899028" title="Permalink to this equation">¶</a></span><img src="../../_images/math/49a21305714b33d1d32a226722b5e8620c4d495a.png" alt="\psi _{E} =\psi _{sat} \left(\frac{\theta _{E} \left(z\right)}{\theta _{sat} } \right)^{-B}"/></p>
-</div><p>and the equilibrium volumetric water content
-<img class="math" src="../../_images/math/5962485a5cec88d219b6dbac444bb32cbda5075a.png" alt="\theta _{E} \left(z\right)"/> at depth <img class="math" src="../../_images/math/683f2dd9129a91d21aaf1c04afa6f78b39d4cb0a.png" alt="z"/> can also be
-derived as</p>
-<div class="math" id="equation-7.127)">
-<p><span class="eqno">(77)<a class="headerlink" href="#equation-7.127)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5ee52a8eaedccf6e4f57cf60ca3234e5397902c2.png" alt="\theta _{E} \left(z\right)=\theta _{sat} \left(\frac{\psi _{sat} +z_{\nabla } -z}{\psi _{sat} } \right)^{-\frac{1}{B} } ."/></p>
-</div><p>Here, the soil matric potentials, the water table depth
-<img class="math" src="../../_images/math/6b063ee474888544e76a46e42cc2a51da754f707.png" alt="z_{\nabla }"/>  and the soil depths have units of mm. For the
-finite-difference scheme, a layer-average equilibrium volumetric water
-content is used in equation and can be obtained from</p>
-<div class="math" id="equation-7.128)">
-<p><span class="eqno">(78)<a class="headerlink" href="#equation-7.128)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/96c81b8a398d516fed8b9b1c046ffbadf851e7af.png" alt="\overline{\theta _{E,\, i} }=\int _{z_{h,\, i-1} }^{z_{h,\, i} }\frac{\theta _{E} \left(z\right)}{z_{h,\, i} -z_{h,\, i-1} }  \, dz"/></p>
-</div><p>which when integrated yields</p>
-<div class="math" id="equation-ZEqnNum445442">
-<p><span class="eqno">(79)<a class="headerlink" href="#equation-ZEqnNum445442" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a25bb43043d79dd5e8cb1ca61def38c9942a9584.png" alt="\overline{\theta _{E,\, i} }=\frac{\theta _{sat,\, i} \psi _{sat,\, i} }{\left(z_{h,\, i} -z_{h,\, i-1} \right)\left(1-\frac{1}{B_{i} } \right)} \left[\left(\frac{\psi _{sat,\, i} -z_{\nabla } +z_{h,\, i} }{\psi _{sat,\, i} } \right)^{1-\frac{1}{B_{i} } } -\left(\frac{\psi _{sat,\, i} -z_{\nabla } +z_{h,\, i-1} }{\psi _{sat,\, i} } \right)^{1-\frac{1}{B_{i} } } \right]."/></p>
-</div><p>Equation is valid when the water table <img class="math" src="../../_images/math/6b063ee474888544e76a46e42cc2a51da754f707.png" alt="z_{\nabla }"/>  is deeper
-than both interface depths <img class="math" src="../../_images/math/baa80c3e029bf55ce3b5352c06d3f715022ac70c.png" alt="z_{h,\, i-1}"/>  and
-<img class="math" src="../../_images/math/0f05595bd04bb93531f2471a1afe9fe485b8b086.png" alt="z_{h,\, i}"/> . Since the water table can be within the soil
-column, the equation is modified if the water table is within soil layer
-<img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> (<img class="math" src="../../_images/math/132e83eb42ecf4f115c90453178a0c3cf3f27507.png" alt="z_{h,\, i-1} &lt;z_{\nabla } &lt;z_{h,\, i}"/> ) as a weighted
-average of the saturated part and the unsaturated part</p>
-<div class="math" id="equation-7.130)">
-<p><span class="eqno">(80)<a class="headerlink" href="#equation-7.130)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e412c9b16548d460aea6683867e9ea65e6efd0bf.png" alt="\overline{\theta _{E,\, i} }=\overline{\theta _{E,\, sat,\, i} }\left(\frac{z_{h,\, i} -z_{\nabla } }{z_{h,\, i} -z_{h,\, i-1} } \right)+\overline{\theta _{E,\, unsat,\, i} }\left(\frac{z_{\nabla } -z_{h,\, i-1} }{z_{h,\, i} -z_{h,\, i-1} } \right)"/></p>
-</div><p>where <img class="math" src="../../_images/math/a9a1374d2fadcd8cd7235863b929df0be4d520e4.png" alt="\overline{\theta _{E,\, sat,\, i} }=\theta _{sat,\, i}"/>
-and the unsaturated part <img class="math" src="../../_images/math/38359c216b266d150dca9df4e4a9284a0c440aa3.png" alt="\overline{\theta _{E,\, unsat,\, i} }"/>
-is</p>
-<div class="math" id="equation-7.131)">
-<p><span class="eqno">(81)<a class="headerlink" href="#equation-7.131)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3cdb5fc82bbf31dae577e3d1461be32012d5ab19.png" alt="\overline{\theta _{E,\, unsat,\, i} }=\frac{\theta _{sat,\, i} \psi _{sat,\, i} }{\left(z_{\nabla } -z_{h,\, i-1} \right)\left(1-\frac{1}{B_{i} } \right)} \left[1-\left(\frac{\psi _{sat,\, i} -z_{\nabla } +z_{h,\, i-1} }{\psi _{sat,\, i} } \right)^{1-\frac{1}{B_{i} } } \right]."/></p>
-</div><p>If <img class="math" src="../../_images/math/2be373fb1e8e84f4a107df10dfe54c7d4687c0fe.png" alt="z_{\nabla } &lt;z_{h,\, i-1}"/> , then
-<img class="math" src="../../_images/math/4179105b980326a405bad38542a7433589f0aee5.png" alt="\overline{\theta _{E,\, i} }=\overline{\theta _{E,\, sat,\, i} }=\theta _{sat,\, i}"/> .
-If the water table is below the soil column
-(<img class="math" src="../../_images/math/5e0d5bdb24ebfe446d0dd5d817ec202a98deb6c9.png" alt="z_{\nabla } &gt;z_{h,\, N_{levsoi} }"/> ), an equilibrium volumetric
-soil moisture is calculated for a virtual layer <img class="math" src="../../_images/math/4b0ce829f99efe64a9a8e891bfe4e678924e1af5.png" alt="i=N_{levsoi} +1"/>
-as</p>
-<div class="math" id="equation-ZEqnNum235293">
-<p><span class="eqno">(82)<a class="headerlink" href="#equation-ZEqnNum235293" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c8b3a683820367b3a004387cfe2535be3e5b76d8.png" alt="\overline{\theta _{E,\, i=N_{levsoi+1} } }=\frac{\theta _{sat,i-1} \psi _{sat,\, i-1} }{\left(z_{\nabla } -z_{h,\, i-1} \right)\left(1-\frac{1}{B_{i-1} } \right)} \left[1-\left(\frac{\psi _{sat,\, i-1} -z_{\nabla } +z_{h,\, i-1} }{\psi _{sat,\, i-1} } \right)^{1-\frac{1}{B_{i-1} } } \right]"/></p>
-</div><p>The equilibrium volumetric soil moisture is constrained by</p>
-<div class="math" id="equation-7.133)">
-<p><span class="eqno">(83)<a class="headerlink" href="#equation-7.133)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/65b3ce27bb1aac980b07e57abbcada3a8a12ba01.png" alt="0\le \overline{\theta _{E,\, i} }\le \theta _{sat,\, i}"/></p>
-</div><p>The equilibrium soil matric potential is then</p>
-<div class="math" id="equation-ZEqnNum533842">
-<p><span class="eqno">(84)<a class="headerlink" href="#equation-ZEqnNum533842" title="Permalink to this equation">¶</a></span><img src="../../_images/math/84eceefb0ade3448f7bf75d787ea48b612d37cf5.png" alt="\psi _{E,\, i} =\psi _{sat,\, i} \left(\frac{\overline{\theta _{E,\, i} }}{\theta _{sat,\, i} } \right)^{-B_{i} } \ge -1\times 10^{8} \qquad \frac{\overline{\theta _{E,\, i} }}{\theta _{sat,\, i} } \ge 0.01"/></p>
-</div></div>
-<div class="section" id="equation-set-for-layer">
-<h4>7.3.2.2. Equation set for layer <img class="math" src="../../_images/math/89dcb535c1c0c802f1d34c9a8079f646dff63f50.png" alt="i=1"/><a class="headerlink" href="#equation-set-for-layer" title="Permalink to this headline">¶</a></h4>
+<p><span class="eqno">(71)<a class="headerlink" href="#equation-7.125)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9c511bc8e0767099469379debad45095d8fbadc9.png" alt="\begin{array}{l} {\frac{\partial k\left[z_{h,\, i} \right]}{\partial \theta _{liq,\, i} } =\frac{\partial k\left[z_{h,\, i} \right]}{\partial \theta _{liq,\, i+1} } =\left(1-\frac{f_{frz,\, i} +f_{frz,\, i+1} }{2} \right)\left(2B_{i} +3\right)k_{sat} \left[z_{h,\, i} \right]\times } \\ {\qquad \left[\frac{0.5\left(\theta _{\, i} +\theta _{\, i+1} \right)}{0.5\left(\theta _{sat,\, i} +\theta _{sat,\, i+1} \right)} \right]^{2B_{i} +2} \left(\frac{0.5}{0.5\left(\theta _{sat,\, i} +\theta _{sat,\, i+1} \right)} \right)} \end{array}."/></p>
+</div><div class="section" id="equation-set-for-layer">
+<h4>7.3.2.1. Equation set for layer <img class="math" src="../../_images/math/89dcb535c1c0c802f1d34c9a8079f646dff63f50.png" alt="i=1"/><a class="headerlink" href="#equation-set-for-layer" title="Permalink to this headline">¶</a></h4>
 <p>For the top soil layer (<img class="math" src="../../_images/math/89dcb535c1c0c802f1d34c9a8079f646dff63f50.png" alt="i=1"/>), the boundary condition is the
 infiltration rate (section <a class="reference internal" href="#surface-runoff"><span class="std std-numref">7.2.1</span></a>),
 <img class="math" src="../../_images/math/1f5bc80d54159c0649ccac65ab39689d12361124.png" alt="q_{i-1}^{n+1} =-q_{infl}^{n+1}"/> , and the water balance equation
 is</p>
 <div class="math" id="equation-7.135)">
-<p><span class="eqno">(85)<a class="headerlink" href="#equation-7.135)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6a14fde3266cde2f94e1264a5ef2e6fdda69fc6c.png" alt="\frac{\Delta z_{i} \Delta \theta _{liq,\, i} }{\Delta t} =q_{infl}^{n+1} +q_{i}^{n+1} -e_{i} ."/></p>
+<p><span class="eqno">(72)<a class="headerlink" href="#equation-7.135)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6a14fde3266cde2f94e1264a5ef2e6fdda69fc6c.png" alt="\frac{\Delta z_{i} \Delta \theta _{liq,\, i} }{\Delta t} =q_{infl}^{n+1} +q_{i}^{n+1} -e_{i} ."/></p>
 </div><p>After grouping like terms, the coefficients of the tridiagonal set of
 equations for <img class="math" src="../../_images/math/89dcb535c1c0c802f1d34c9a8079f646dff63f50.png" alt="i=1"/> are</p>
 <div class="math" id="equation-7.136)">
-<p><span class="eqno">(86)<a class="headerlink" href="#equation-7.136)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/989a9030045f0509eeb759f6d55d9245fbf63ccd.png" alt="a_{i} =0"/></p>
+<p><span class="eqno">(73)<a class="headerlink" href="#equation-7.136)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/989a9030045f0509eeb759f6d55d9245fbf63ccd.png" alt="a_{i} =0"/></p>
 </div><div class="math" id="equation-7.137)">
-<p><span class="eqno">(87)<a class="headerlink" href="#equation-7.137)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e9d617e273fe7d5ae08280a55632a22b890eb44d.png" alt="b_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i} } -\frac{\Delta z_{i} }{\Delta t}"/></p>
+<p><span class="eqno">(74)<a class="headerlink" href="#equation-7.137)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e9d617e273fe7d5ae08280a55632a22b890eb44d.png" alt="b_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i} } -\frac{\Delta z_{i} }{\Delta t}"/></p>
 </div><div class="math" id="equation-7.138)">
-<p><span class="eqno">(88)<a class="headerlink" href="#equation-7.138)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/461c8a4e4054115debd4f5b67e0bd2d872697ca2.png" alt="c_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i+1} }"/></p>
+<p><span class="eqno">(75)<a class="headerlink" href="#equation-7.138)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/461c8a4e4054115debd4f5b67e0bd2d872697ca2.png" alt="c_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i+1} }"/></p>
 </div><div class="math" id="equation-7.139)">
-<p><span class="eqno">(89)<a class="headerlink" href="#equation-7.139)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0f1545f9ff298afde235cda8cd2a0f9da7fa85f2.png" alt="r_{i} =q_{infl}^{n+1} -q_{i}^{n} +e_{i} ."/></p>
+<p><span class="eqno">(76)<a class="headerlink" href="#equation-7.139)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0f1545f9ff298afde235cda8cd2a0f9da7fa85f2.png" alt="r_{i} =q_{infl}^{n+1} -q_{i}^{n} +e_{i} ."/></p>
 </div></div>
 <div class="section" id="equation-set-for-layers">
-<h4>7.3.2.3. Equation set for layers <img class="math" src="../../_images/math/94ff6379fc0ee0cfadeb6ad04721e96e5a91f9cc.png" alt="i=2,\ldots ,N_{levsoi} -1"/><a class="headerlink" href="#equation-set-for-layers" title="Permalink to this headline">¶</a></h4>
+<h4>7.3.2.2. Equation set for layers <img class="math" src="../../_images/math/94ff6379fc0ee0cfadeb6ad04721e96e5a91f9cc.png" alt="i=2,\ldots ,N_{levsoi} -1"/><a class="headerlink" href="#equation-set-for-layers" title="Permalink to this headline">¶</a></h4>
 <p>The coefficients of the tridiagonal set of equations for
 <img class="math" src="../../_images/math/94ff6379fc0ee0cfadeb6ad04721e96e5a91f9cc.png" alt="i=2,\ldots ,N_{levsoi} -1"/> are</p>
 <div class="math" id="equation-7.140)">
-<p><span class="eqno">(90)<a class="headerlink" href="#equation-7.140)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a70075e36f3c8d8446851dbb29cc972dbd401cc1.png" alt="a_{i} =-\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i-1} }"/></p>
+<p><span class="eqno">(77)<a class="headerlink" href="#equation-7.140)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a70075e36f3c8d8446851dbb29cc972dbd401cc1.png" alt="a_{i} =-\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i-1} }"/></p>
 </div><div class="math" id="equation-7.141)">
-<p><span class="eqno">(91)<a class="headerlink" href="#equation-7.141)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6412cd87e868d2c1eb541489184ec416ac49393d.png" alt="b_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i} } -\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i} } -\frac{\Delta z_{i} }{\Delta t}"/></p>
+<p><span class="eqno">(78)<a class="headerlink" href="#equation-7.141)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6412cd87e868d2c1eb541489184ec416ac49393d.png" alt="b_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i} } -\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i} } -\frac{\Delta z_{i} }{\Delta t}"/></p>
 </div><div class="math" id="equation-7.142)">
-<p><span class="eqno">(92)<a class="headerlink" href="#equation-7.142)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/461c8a4e4054115debd4f5b67e0bd2d872697ca2.png" alt="c_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i+1} }"/></p>
+<p><span class="eqno">(79)<a class="headerlink" href="#equation-7.142)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/461c8a4e4054115debd4f5b67e0bd2d872697ca2.png" alt="c_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i+1} }"/></p>
 </div><div class="math" id="equation-7.143)">
-<p><span class="eqno">(93)<a class="headerlink" href="#equation-7.143)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fb8a5c34a0aea40dda427d0e13b89144a6fb3438.png" alt="r_{i} =q_{i-1}^{n} -q_{i}^{n} +e_{i} ."/></p>
+<p><span class="eqno">(80)<a class="headerlink" href="#equation-7.143)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fb8a5c34a0aea40dda427d0e13b89144a6fb3438.png" alt="r_{i} =q_{i-1}^{n} -q_{i}^{n} +e_{i} ."/></p>
 </div></div>
 <div class="section" id="id8">
-<h4>7.3.2.4. Equation set for layers <img class="math" src="../../_images/math/439b8e237ab59a80c6d5a3bdf9dbbe4d85143070.png" alt="i=N_{levsoi} ,\ldots N_{levsoi} +1"/><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
-<p>For the lowest soil layer (<img class="math" src="../../_images/math/36489338ce3c0f2c5e2bb810cae3e3a97c1827ce.png" alt="i=N_{levsoi}"/> ), the bottom boundary
-condition depends on the depth of the water table. If the water table is
-within the soil column (<img class="math" src="../../_images/math/b1b67bd202fc5fbb30cab59120accba4d92aa9ee.png" alt="z_{\nabla } \le z_{h,\, N_{levsoi} }"/> ),
-a zero-flux bottom boundary condition is applied (<img class="math" src="../../_images/math/8ab1c1611a356cc7d9e9adbed51229c7bc325689.png" alt="q_{i}^{n} =0"/>)
+<h4>7.3.2.3. Equation set for layer <img class="math" src="../../_images/math/36489338ce3c0f2c5e2bb810cae3e3a97c1827ce.png" alt="i=N_{levsoi}"/><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p>For the lowest soil layer (<img class="math" src="../../_images/math/36489338ce3c0f2c5e2bb810cae3e3a97c1827ce.png" alt="i=N_{levsoi}"/> ), a zero-flux bottom boundary
+condition is applied (<img class="math" src="../../_images/math/8ab1c1611a356cc7d9e9adbed51229c7bc325689.png" alt="q_{i}^{n} =0"/>)
 and the coefficients of the tridiagonal set of equations for
 <img class="math" src="../../_images/math/36489338ce3c0f2c5e2bb810cae3e3a97c1827ce.png" alt="i=N_{levsoi}"/>  are</p>
-<div class="math" id="equation-7.144)">
-<p><span class="eqno">(94)<a class="headerlink" href="#equation-7.144)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a70075e36f3c8d8446851dbb29cc972dbd401cc1.png" alt="a_{i} =-\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i-1} }"/></p>
-</div><div class="math" id="equation-7.145)">
-<p><span class="eqno">(95)<a class="headerlink" href="#equation-7.145)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/497af1bf39564b0293379284c8427cc7a6ae32ed.png" alt="b_{i} =-\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i} } -\frac{\Delta z_{i} }{\Delta t}"/></p>
-</div><div class="math" id="equation-7.146)">
-<p><span class="eqno">(96)<a class="headerlink" href="#equation-7.146)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/92ad2ef6afc94a53042a155aa57b44869c031674.png" alt="c_{i} =0"/></p>
-</div><div class="math" id="equation-7.147)">
-<p><span class="eqno">(97)<a class="headerlink" href="#equation-7.147)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8233848f31c25e50483ea6994bf3f8d841a826da.png" alt="r_{i} =q_{i-1}^{n} +e_{i} ."/></p>
-</div><p>The coefficients for the aquifer layer <img class="math" src="../../_images/math/4b0ce829f99efe64a9a8e891bfe4e678924e1af5.png" alt="i=N_{levsoi} +1"/> are then</p>
 <div class="math" id="equation-7.148)">
-<p><span class="eqno">(98)<a class="headerlink" href="#equation-7.148)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/989a9030045f0509eeb759f6d55d9245fbf63ccd.png" alt="a_{i} =0"/></p>
+<p><span class="eqno">(81)<a class="headerlink" href="#equation-7.148)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a70075e36f3c8d8446851dbb29cc972dbd401cc1.png" alt="a_{i} =-\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i-1} }"/></p>
 </div><div class="math" id="equation-7.149)">
-<p><span class="eqno">(99)<a class="headerlink" href="#equation-7.149)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/60d79f6697b4434571dae8c53053301af4090568.png" alt="b_{i} =-\frac{\Delta z_{i} }{\Delta t}"/></p>
+<p><span class="eqno">(82)<a class="headerlink" href="#equation-7.149)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6412cd87e868d2c1eb541489184ec416ac49393d.png" alt="b_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i} } -\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i} } -\frac{\Delta z_{i} }{\Delta t}"/></p>
 </div><div class="math" id="equation-7.150)">
-<p><span class="eqno">(100)<a class="headerlink" href="#equation-7.150)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/92ad2ef6afc94a53042a155aa57b44869c031674.png" alt="c_{i} =0"/></p>
+<p><span class="eqno">(83)<a class="headerlink" href="#equation-7.150)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/92ad2ef6afc94a53042a155aa57b44869c031674.png" alt="c_{i} =0"/></p>
 </div><div class="math" id="equation-7.151)">
-<p><span class="eqno">(101)<a class="headerlink" href="#equation-7.151)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bbc2301711952129fdbab959ad6df04f83796c14.png" alt="r_{i} =0."/></p>
-</div><p>If the water table is below the soil column
-(<img class="math" src="../../_images/math/5e0d5bdb24ebfe446d0dd5d817ec202a98deb6c9.png" alt="z_{\nabla } &gt;z_{h,\, N_{levsoi} }"/> ), the coefficients for
-<img class="math" src="../../_images/math/36489338ce3c0f2c5e2bb810cae3e3a97c1827ce.png" alt="i=N_{levsoi}"/>  are</p>
+<p><span class="eqno">(84)<a class="headerlink" href="#equation-7.151)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8233848f31c25e50483ea6994bf3f8d841a826da.png" alt="r_{i} =q_{i-1}^{n} +e_{i} ."/></p>
+</div></div>
+<div class="section" id="adaptive-time-stepping">
+<h4>7.3.2.4. Adaptive Time Stepping<a class="headerlink" href="#adaptive-time-stepping" title="Permalink to this headline">¶</a></h4>
+<p>The tridiagonal equation set is solved using an adaptive time-stepping procedure.
+An initial solution is found by setting <img class="math" src="../../_images/math/ec002955bdf95ee9869878fbad4f80fc98539359.png" alt="\Delta t"/> equal to the model time
+step.  An estimate of the error is calculated from</p>
 <div class="math" id="equation-7.152)">
-<p><span class="eqno">(102)<a class="headerlink" href="#equation-7.152)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a70075e36f3c8d8446851dbb29cc972dbd401cc1.png" alt="a_{i} =-\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i-1} }"/></p>
-</div><div class="math" id="equation-7.153)">
-<p><span class="eqno">(103)<a class="headerlink" href="#equation-7.153)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6412cd87e868d2c1eb541489184ec416ac49393d.png" alt="b_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i} } -\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i} } -\frac{\Delta z_{i} }{\Delta t}"/></p>
-</div><div class="math" id="equation-7.154)">
-<p><span class="eqno">(104)<a class="headerlink" href="#equation-7.154)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/461c8a4e4054115debd4f5b67e0bd2d872697ca2.png" alt="c_{i} =\frac{\partial q_{i} }{\partial \theta _{liq,\, i+1} }"/></p>
-</div><div class="math" id="equation-7.155)">
-<p><span class="eqno">(105)<a class="headerlink" href="#equation-7.155)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fb8a5c34a0aea40dda427d0e13b89144a6fb3438.png" alt="r_{i} =q_{i-1}^{n} -q_{i}^{n} +e_{i} ."/></p>
-</div><p>The <img class="math" src="../../_images/math/4b0ce829f99efe64a9a8e891bfe4e678924e1af5.png" alt="i=N_{levsoi} +1"/> terms are evaluated using</p>
-<div class="math" id="equation-7.156)">
-<p><span class="eqno">(106)<a class="headerlink" href="#equation-7.156)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3e02d436aaeee865cc3476c153dc0889b8373b03.png" alt="\psi _{N_{levsoi} +1} =\psi _{sat,\, N_{levsoi} } \left[s_{N_{levsoi} +1} \right]^{-B_{N_{levsoi} } } \ge -1\times 10^{8}"/></p>
-</div><div class="math" id="equation-7.157)">
-<p><span class="eqno">(107)<a class="headerlink" href="#equation-7.157)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d7764f7e3852af5651d8eed10510e16a7029ccff.png" alt="z_{N_{levsoi} +1} =0.5\left(z_{\nabla } +z_{N_{levsoi} } \right)"/></p>
-</div><p>where</p>
-<div class="math" id="equation-7.158)">
-<p><span class="eqno">(108)<a class="headerlink" href="#equation-7.158)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ec448ae674d1dd26027bec6e8bfe3de88ac915a9.png" alt="s_{N_{levsoi} +1} =0.5\left(\frac{\theta _{sat,\, N_{levsoi} } +\theta _{N_{levsoi} } }{\theta _{sat,\, N_{levsoi} } } \right)\qquad 0.01\le s_{N_{levsoi} +1} \le 1,"/></p>
-</div><p><img class="math" src="../../_images/math/73e04b9a3f8004784501e937130d3000f945cbec.png" alt="\psi _{E,\, N_{levsoi} +1}"/>  is evaluated from equations and ,</p>
-<p>and</p>
-<div class="math" id="equation-7.159)">
-<p><span class="eqno">(109)<a class="headerlink" href="#equation-7.159)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d92c4aefe5883b059bafb1a4b4328797263aa9bc.png" alt="\frac{\partial \psi _{N_{levsoi} +1} }{\partial \theta _{liq,\, N_{levsoi} +1} } =-B_{N_{levsoi} } \frac{\psi _{N_{levsoi} +1} }{s_{\, N_{levsoi} } \theta _{sat,\, N_{levsoi} } } ."/></p>
-</div><p>The coefficients for the aquifer layer <img class="math" src="../../_images/math/4b0ce829f99efe64a9a8e891bfe4e678924e1af5.png" alt="i=N_{levsoi} +1"/> are then</p>
-<div class="math" id="equation-7.160)">
-<p><span class="eqno">(110)<a class="headerlink" href="#equation-7.160)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a70075e36f3c8d8446851dbb29cc972dbd401cc1.png" alt="a_{i} =-\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i-1} }"/></p>
-</div><div class="math" id="equation-7.161)">
-<p><span class="eqno">(111)<a class="headerlink" href="#equation-7.161)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/497af1bf39564b0293379284c8427cc7a6ae32ed.png" alt="b_{i} =-\frac{\partial q_{i-1} }{\partial \theta _{liq,\, i} } -\frac{\Delta z_{i} }{\Delta t}"/></p>
-</div><div class="math" id="equation-7.162)">
-<p><span class="eqno">(112)<a class="headerlink" href="#equation-7.162)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/92ad2ef6afc94a53042a155aa57b44869c031674.png" alt="c_{i} =0"/></p>
-</div><div class="math" id="equation-7.163)">
-<p><span class="eqno">(113)<a class="headerlink" href="#equation-7.163)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6e20960c5ef1fc983c00680341bed639a7ef6b07.png" alt="r_{i} =q_{i-1}^{n} ."/></p>
-</div><p>Upon solution of the tridiagonal equation set (Press et al. 1992), the
+<p><span class="eqno">(85)<a class="headerlink" href="#equation-7.152)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/db4e33b705e07c4ee888e5b2b24660ed9d2394ce.png" alt="\epsilon = max \left[ \frac{\Delta \theta_{liq,\, i} \Delta z_{i}}{\Delta t} -
+\left( q_{i-1}^{n} - q_{i}^{n} + e_{i}\right) \right]"/></p>
+</div><p>If <img class="math" src="../../_images/math/65d19c66c148d5016c6a89d26486bf6d1966ded1.png" alt="\epsilon"/> is greater than a specified error tolerance, the solution is
+rejected, <img class="math" src="../../_images/math/ec002955bdf95ee9869878fbad4f80fc98539359.png" alt="\Delta t"/> is halved and a new solution is determined.  If the solution
+is accepted, the procedure repeats until the adaptive sub-stepping spans the full
+model time step.  During the solution, the sub-steps may be halved until a
+specified minimum time step length is reached, and the sub-steps may be doubled
+when <img class="math" src="../../_images/math/65d19c66c148d5016c6a89d26486bf6d1966ded1.png" alt="\epsilon"/> is less than a specified error tolerance.</p>
+<p>Upon solution of the tridiagonal equation set, the
 liquid water contents are updated as follows</p>
 <div class="math" id="equation-7.164)">
-<p><span class="eqno">(114)<a class="headerlink" href="#equation-7.164)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ceb57b0c7e44540b1c911d309c734a5aad2c7e16.png" alt="w_{liq,\, i}^{n+1} =w_{liq,\, i}^{n} +\Delta \theta _{liq,\, i} \Delta z_{i} \qquad i=1,\ldots ,N_{levsoi} ."/></p>
+<p><span class="eqno">(86)<a class="headerlink" href="#equation-7.164)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ceb57b0c7e44540b1c911d309c734a5aad2c7e16.png" alt="w_{liq,\, i}^{n+1} =w_{liq,\, i}^{n} +\Delta \theta _{liq,\, i} \Delta z_{i} \qquad i=1,\ldots ,N_{levsoi} ."/></p>
 </div><p>The volumetric water content is</p>
 <div class="math" id="equation-7.165)">
-<p><span class="eqno">(115)<a class="headerlink" href="#equation-7.165)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fa8939c24af9142599a24c99500a0efba52b401e.png" alt="\theta _{i} =\frac{w_{liq,\, i} }{\Delta z_{i} \rho _{liq} } +\frac{w_{ice,\, i} }{\Delta z_{i} \rho _{ice} } ."/></p>
+<p><span class="eqno">(87)<a class="headerlink" href="#equation-7.165)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fa8939c24af9142599a24c99500a0efba52b401e.png" alt="\theta _{i} =\frac{w_{liq,\, i} }{\Delta z_{i} \rho _{liq} } +\frac{w_{ice,\, i} }{\Delta z_{i} \rho _{ice} } ."/></p>
 </div></div>
 </div>
 </div>
@@ -789,14 +707,13 @@ possibility exists for perched saturated zones. Lateral drainage from
 perched saturated regions is parameterized as a function of the
 thickness of the saturated zone</p>
 <div class="math" id="equation-7.166)">
-<p><span class="eqno">(116)<a class="headerlink" href="#equation-7.166)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/efc684ca1e5da78da378ef56e308cfa3fdd97e54.png" alt="q_{drai,perch} =k_{drai,\, perch} \left(z_{frost} -z_{\nabla ,perch} \right)"/></p>
+<p><span class="eqno">(88)<a class="headerlink" href="#equation-7.166)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/efc684ca1e5da78da378ef56e308cfa3fdd97e54.png" alt="q_{drai,perch} =k_{drai,\, perch} \left(z_{frost} -z_{\nabla ,perch} \right)"/></p>
 </div><p>where <img class="math" src="../../_images/math/90cf4cd01b1d9e917fed15c27e149444fc818996.png" alt="k_{drai,\, perch}"/>  depends on topographic slope and soil
 hydraulic conductivity,</p>
 <div class="math" id="equation-7.167)">
-<p><span class="eqno">(117)<a class="headerlink" href="#equation-7.167)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/39151dc4462ea06b56ae8be5736795489ca39ef3.png" alt="k_{drai,\, perch} =10^{-5} \sin (\beta )\left(\frac{\sum _{i=N_{perch} }^{i=N_{frost} }\Theta _{ice,i} k_{sat} \left[z_{i} \right]\Delta z_{i}  }{\sum _{i=N_{perch} }^{i=N_{frost} }\Delta z_{i}  } \right)"/></p>
-</div><p>where <img class="math" src="../../_images/math/a2e4245ce2d815ef1ebf6232276d321cf51a3457.png" alt="\Theta _{ice}"/>  is an ice impedance factor determined from
-the ice content of the soil layers interacting with the water table
-(section 7.6), <img class="math" src="../../_images/math/410a9d0df9c135dd73b269cba7ef04dcfd932b1f.png" alt="\beta"/>  is the mean grid cell topographic slope in
+<p><span class="eqno">(89)<a class="headerlink" href="#equation-7.167)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/39151dc4462ea06b56ae8be5736795489ca39ef3.png" alt="k_{drai,\, perch} =10^{-5} \sin (\beta )\left(\frac{\sum _{i=N_{perch} }^{i=N_{frost} }\Theta _{ice,i} k_{sat} \left[z_{i} \right]\Delta z_{i}  }{\sum _{i=N_{perch} }^{i=N_{frost} }\Delta z_{i}  } \right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/cbae404a7724a4397b17f7571863dbcbe7d9e9e5.png" alt="\Theta_{ice}"/>  is an ice impedance factor, <img class="math" src="../../_images/math/410a9d0df9c135dd73b269cba7ef04dcfd932b1f.png" alt="\beta"/>
+is the mean grid cell topographic slope in
 radians, <img class="math" src="../../_images/math/c94072dc88cd6f28cb1693a433048e27ab0f8791.png" alt="z_{frost}"/> is the depth to the frost table, and
 <img class="math" src="../../_images/math/d7a47260811bf6e043d122c28fbcc9794c628388.png" alt="z_{\nabla ,perch}"/>  is the depth to the perched saturated zone.
 The frost table <img class="math" src="../../_images/math/c94072dc88cd6f28cb1693a433048e27ab0f8791.png" alt="z_{frost}"/>  is defined as the shallowest frozen
@@ -808,88 +725,32 @@ threshold is set to 0.9. Drainage from the perched saturated zone
 through <img class="math" src="../../_images/math/6395e8c8ef26088d3ac2a494d1968af711e497f9.png" alt="N_{frost}"/> , which are the layers containing
 <img class="math" src="../../_images/math/d7a47260811bf6e043d122c28fbcc9794c628388.png" alt="z_{\nabla ,perch}"/>  and, <img class="math" src="../../_images/math/c94072dc88cd6f28cb1693a433048e27ab0f8791.png" alt="z_{frost}"/> respectively.</p>
 </div>
-<div class="section" id="groundwater-soil-water-interactions">
-<span id="id10"></span><h2>7.5. Groundwater-Soil Water Interactions<a class="headerlink" href="#groundwater-soil-water-interactions" title="Permalink to this headline">¶</a></h2>
-<p>Drainage or sub-surface runoff is based on the SIMTOP scheme (Niu et al.
-2005) with a modification to account for reduced drainage in frozen
-soils. In the work of Niu et al. (2005), the drainage <img class="math" src="../../_images/math/47eae552082d6b70fde3b9926d4770952f63362c.png" alt="q_{drai}"/>
-(kg m<sup>-2</sup> s<sup>-1</sup>) was formulated as</p>
-<div class="math" id="equation-ZEqnNum924767">
-<p><span class="eqno">(118)<a class="headerlink" href="#equation-ZEqnNum924767" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f4e08496ac805802a0571ccb3996950bbdf33d76.png" alt="q_{drai} =q_{drai,\, \max } \exp \left(-f_{drai} z_{\nabla } \right)."/></p>
-</div><p>Here, the water table depth <img class="math" src="../../_images/math/6b063ee474888544e76a46e42cc2a51da754f707.png" alt="z_{\nabla }"/>  has units of meters. To
-restrict drainage in frozen soils, Niu et al. (2005) added the following
-condition</p>
-<div class="math" id="equation-7.169)">
-<p><span class="eqno">(119)<a class="headerlink" href="#equation-7.169)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/16864a5b78cc08f21507938660336d96fd3e3ec9.png" alt="q_{drai} =0\qquad {\rm for\; \; }w_{ice,\, N_{levsoi} } &gt;w_{liq,\, N_{levsoi} } ."/></p>
-</div><p>In preliminary testing it was found that a more gradual restriction of
-drainage was required so that the water table depth remained dynamic
-under partially frozen conditions. The following modification is made to
-equation</p>
-<div class="math" id="equation-ZEqnNum150955">
-<p><span class="eqno">(120)<a class="headerlink" href="#equation-ZEqnNum150955" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7b36e30649fc4708153015836472527f5b67a31e.png" alt="q_{drai} =\Theta _{ice} q_{drai,\, \max } \exp \left(-f_{drai} z_{\nabla } \right)"/></p>
-</div><p>where <img class="math" src="../../_images/math/a2e4245ce2d815ef1ebf6232276d321cf51a3457.png" alt="\Theta _{ice}"/>  is an ice impedance factor determined from
-the ice content of the soil layers interacting with the water table</p>
-<div class="math" id="equation-7.171)">
-<p><span class="eqno">(121)<a class="headerlink" href="#equation-7.171)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/41c51b29ed82d293494b01dba1c76a7e899340dd.png" alt="\Theta _{ice} =10^{-\Omega \left(\frac{\sum _{i=jwt}^{i=N_{levsoi} }F_{ice,i} \Delta z_{i}  }{\sum _{i=jwt}^{i=N_{levsoi} }\Delta z_{i}  } \right)}"/></p>
-</div><p>where <img class="math" src="../../_images/math/23a67250a521289494d16ad71ad9db79246c1ab7.png" alt="\Omega =6"/>is an adjustable parameter, <img class="math" src="../../_images/math/17b8a104d90f87d242be9f037f2c088fd649327e.png" alt="jwt"/> is the
-index of the layer directly above the water table,
-<img class="math" src="../../_images/math/604ce21a572d4bde4baa393c0fa923882b62d9c7.png" alt="F_{ice} =\frac{\theta _{ice} }{\theta _{sat} }"/>  is the
-ice-filled fraction of the pore space of soil layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> (kg
-m<sup>-2</sup>), and <img class="math" src="../../_images/math/18a8202648d865786985b1bdb0926ae863cf8908.png" alt="\Delta z_{i}"/>  is the layer thickness (mm). This
-expression is functionally the same as that used to determine the ice
-impedance factor in section <a class="reference internal" href="#hydraulic-properties"><span class="std std-numref">7.3.1</span></a>. In equation ,
-the decay factor <img class="math" src="../../_images/math/7f6f2216d1ee55b198fc71df7629cc64dfcc5ba5.png" alt="f_{drai} =2.5"/> m<sup>-1</sup> and the maximum drainage
-when the water table depth is at the surface
-<img class="math" src="../../_images/math/ced5182e93f773e5a27d89c001273b848e616d84.png" alt="q_{drai,\, \max } =10\sin (\beta )"/> kg m<sup>-2</sup>
-s<sup>-1</sup> , where <img class="math" src="../../_images/math/410a9d0df9c135dd73b269cba7ef04dcfd932b1f.png" alt="\beta"/>  is the mean grid cell
-topographic slope in radians, were determined for global simulations
-through sensitivity analysis and comparison with observed runoff.</p>
-<p>Determination of water table depth <img class="math" src="../../_images/math/6b063ee474888544e76a46e42cc2a51da754f707.png" alt="z_{\nabla }"/>  is based on work
-by Niu et al. (2007). In this approach, a groundwater component is added
-in the form of an unconfined aquifer lying below the soil column (<a class="reference internal" href="#hydrologic-processes-figure"><span class="std std-numref">Figure 7.1</span></a>). The groundwater solution is dependent on whether the water table
-is within or below the soil column. The water stored in the unconfined
-aquifer <img class="math" src="../../_images/math/91fbfb72ff73d153e6b6f357f2bc6e55bbf25918.png" alt="W_{a}"/>  has a prescribed maximum value (5000 mm). When
-the water table is within the soil column, <img class="math" src="../../_images/math/91fbfb72ff73d153e6b6f357f2bc6e55bbf25918.png" alt="W_{a}"/>  is constant
-because there is no water exchange between the soil column and the
-underlying aquifer. In this case, recharge to the water table is
-diagnosed by applying Darcy’s law across the water table</p>
-<div class="math" id="equation-7.172)">
-<p><span class="eqno">(122)<a class="headerlink" href="#equation-7.172)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a285d58ea5a4f0792bbbfafcc97fc2103250e1f5.png" alt="q_{rech\arg e} =-k_{aq} \frac{\left(\Psi _{\nabla } -\Psi _{jwt} \right)}{\left(z_{\nabla } -z_{jwt} \right)}"/></p>
-</div><p>where <img class="math" src="../../_images/math/6854eb91088e51d5a24fe3df10c296d334a90417.png" alt="\Psi _{\nabla } =0"/> is the matric potential at the water
-table and<img class="math" src="../../_images/math/eb01beeeb481ff0d339d79512b2330e5c80c5743.png" alt="k_{aq} =\Theta _{ice,jwt+1} k\left[z_{jwt+1} \right]"/>
-is the hydraulic conductivity of the layer containing the water table.
-Change in the water table is then calculated as the difference between
-recharge and drainage, scaled by the specific yield of the layer
-containing the water table</p>
-<div class="math" id="equation-ZEqnNum287831">
-<p><span class="eqno">(123)<a class="headerlink" href="#equation-ZEqnNum287831" title="Permalink to this equation">¶</a></span><img src="../../_images/math/db06b2c284f559d5bc9f0154917c81cd48f45eba.png" alt="\Delta z_{\nabla } =\frac{\left(q_{rech\arg e} -q_{drai} \right)}{S_{y} } \Delta t."/></p>
-</div><p>The specific yield, <img class="math" src="../../_images/math/517e042b5e8c6a81bccac0065dfff0fe424defdc.png" alt="S_{y}"/> , which depends on the soil
+<div class="section" id="lateral-sub-surface-runoff">
+<span id="id10"></span><h2>7.5. Lateral Sub-surface Runoff<a class="headerlink" href="#lateral-sub-surface-runoff" title="Permalink to this headline">¶</a></h2>
+<p>Lateral sub-surface runoff occurs when saturated soil moisture conditions
+exist within the soil column.  Sub-surface runoff is</p>
+<div class="math" id="equation-7.168)">
+<p><span class="eqno">(90)<a class="headerlink" href="#equation-7.168)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8568967f336450897b3acf6ef928c7484a2af91d.png" alt="q_{subsurface} = \Theta_{ice} K_{baseflow} tan \left( \beta \right)
+\Delta z_{sat}^{N_{baseflow}} \ ,"/></p>
+</div><p>where <img class="math" src="../../_images/math/e0ab514df4958cd0b06e6c173491fb392f8385ec.png" alt="K_{baseflow}"/> is a calibration parameter, <img class="math" src="../../_images/math/410a9d0df9c135dd73b269cba7ef04dcfd932b1f.png" alt="\beta"/> is the
+topographic slope, the exponent <img class="math" src="../../_images/math/db3fd0a7a66752f8a2e50bf8fcadb48d158fb4e8.png" alt="N_{baseflow}"/> = 1, and <img class="math" src="../../_images/math/fe3558a4252afad7f40f518156d97e32ba3f9b7e.png" alt="\Delta z_{sat}"/>
+is the thickness of the saturated portion of the soil column.</p>
+<p>The saturated thickness is</p>
+<div class="math" id="equation-7.1681)">
+<p><span class="eqno">(91)<a class="headerlink" href="#equation-7.1681)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2e1a7522530210d9f103751cbcbc0832b240c9c2.png" alt="\Delta z_{sat} = z_{bedrock} - z_{\nabla},"/></p>
+</div><p>where the water table <img class="math" src="../../_images/math/eec98da1e6b8e3f04461056ebc8760f7057d0823.png" alt="z_{\nabla}"/> is determined by finding the
+first soil layer above the bedrock depth (section ) in which the volumetric water
+content drops below a specified threshold. The default threshold is set to 0.9.</p>
+<p>The specific yield, <img class="math" src="../../_images/math/517e042b5e8c6a81bccac0065dfff0fe424defdc.png" alt="S_{y}"/> , which depends on the soil
 properties and the water table location, is derived by taking the
 difference between two equilibrium soil moisture profiles whose water
 tables differ by an infinitesimal amount</p>
 <div class="math" id="equation-7.174)">
-<p><span class="eqno">(124)<a class="headerlink" href="#equation-7.174)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/18e060e691db0afd6a3f079cde7a6e251598ded0.png" alt="S_{y} =\theta _{sat} \left(1-\left(1+\frac{z_{\nabla } }{\Psi _{sat} } \right)^{\frac{-1}{B} } \right)"/></p>
+<p><span class="eqno">(92)<a class="headerlink" href="#equation-7.174)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/18e060e691db0afd6a3f079cde7a6e251598ded0.png" alt="S_{y} =\theta _{sat} \left(1-\left(1+\frac{z_{\nabla } }{\Psi _{sat} } \right)^{\frac{-1}{B} } \right)"/></p>
 </div><p>where B is the Clapp-Hornberger exponent. Because <img class="math" src="../../_images/math/517e042b5e8c6a81bccac0065dfff0fe424defdc.png" alt="S_{y}"/>  is a
 function of the soil properties, it results in water table dynamics that
 are consistent with the soil water fluxes described in section 7.4.</p>
-<p>For the case when the water table is below the soil column, the change
-in water stored in the unconfined aquifer <img class="math" src="../../_images/math/91fbfb72ff73d153e6b6f357f2bc6e55bbf25918.png" alt="W_{a}"/>  (mm) is updated
-as</p>
-<div class="math" id="equation-7.174a)">
-<p><span class="eqno">(125)<a class="headerlink" href="#equation-7.174a)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fa1870d6441424c732c45f51251c3bdd928504d3.png" alt="\Delta W_{a}^{} =\left(q_{recharge} -q_{drai} \right)\Delta t"/></p>
-</div><p>and the water table is updated using equation with the specific yield of
-layer <img class="math" src="../../_images/math/b4b7bdc2ad44350d666a3e6babf24940dbaabb4a.png" alt="N_{levsoi}"/> .</p>
-<p>The recharge rate is defined as positive when water enters the aquifer</p>
-<div class="math" id="equation-7.174b)">
-<p><span class="eqno">(126)<a class="headerlink" href="#equation-7.174b)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d8bb73e3503786ac666498976bf83efbb7425312.png" alt="q_{recharge} =\frac{\Delta \theta _{liq,\, N_{levsoi} +1} \Delta z_{N_{levsoi} +1} }{\Delta t}"/></p>
-</div><p>where
-<img class="math" src="../../_images/math/9567f2c2bdc37d9909323557908295173bfbb950.png" alt="\Delta \theta _{liq,\, N_{levsoi} +1} =\theta _{liq,\, N_{levsoi} +1}^{n+1} -\theta _{liq,\, N_{levsoi} +1}^{n}"/>
-is the change in liquid water content for layer <img class="math" src="../../_images/math/4b0ce829f99efe64a9a8e891bfe4e678924e1af5.png" alt="i=N_{levsoi} +1"/>
-calculated from the solution of the soil water equations (section 7.4),
-and <img class="math" src="../../_images/math/e107818be566b883941620555ee2cb6550c80bd9.png" alt="\Delta z_{N_{levsoi} +1}"/>  (mm) is</p>
-<div class="math" id="equation-7.174c)">
-<p><span class="eqno">(127)<a class="headerlink" href="#equation-7.174c)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/58c8852fe1b46ae0ffb6465bf6c8628d97fdf557.png" alt="\Delta z_{N_{levsoi} +1} =z_{\nabla }^{n} -z_{h,\, N_{levsoi} } ."/></p>
-</div><p>After the above calculations, two numerical adjustments are implemented
+<p>After the above calculations, two numerical adjustments are implemented
 to keep the liquid water content of each soil layer
 (<img class="math" src="../../_images/math/cf0c9f644eb986b4243f04daec8e133cf676124a.png" alt="w_{liq,\, i}"/> ) within physical constraints of
 <img class="math" src="../../_images/math/ce6f8b37afea39ba8d860b1be761336c144e0d9e.png" alt="w_{liq}^{\min } \le w_{liq,\, i} \le \left(\theta _{sat,\, i} -\theta _{ice,\, i} \right)\Delta z_{i}"/>
@@ -915,11 +776,11 @@ found, then the water is removed from <img class="math" src="../../_images/math/
 for dew <img class="math" src="../../_images/math/60e6994744ea27c1b8ed0128fddefef44826c9bf.png" alt="q_{sdew}"/> , frost <img class="math" src="../../_images/math/2fbc3e5c2c60b16f46921ac54815ac1191551254.png" alt="q_{frost}"/> , or sublimation
 <img class="math" src="../../_images/math/218ff1be50bd10f48a3ac9c57a04b43f2f1f7d15.png" alt="q_{subl}"/>  (section 5.4) as</p>
 <div class="math" id="equation-7.175)">
-<p><span class="eqno">(128)<a class="headerlink" href="#equation-7.175)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f998dc9a0f810f93f08156a2fc20c738fbe14ab4.png" alt="w_{liq,\, 1}^{n+1} =w_{liq,\, 1}^{n} +q_{sdew} \Delta t"/></p>
+<p><span class="eqno">(93)<a class="headerlink" href="#equation-7.175)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f998dc9a0f810f93f08156a2fc20c738fbe14ab4.png" alt="w_{liq,\, 1}^{n+1} =w_{liq,\, 1}^{n} +q_{sdew} \Delta t"/></p>
 </div><div class="math" id="equation-7.176)">
-<p><span class="eqno">(129)<a class="headerlink" href="#equation-7.176)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4549f8885787da1f46e4b5317050797bc9c5a80b.png" alt="w_{ice,\, 1}^{n+1} =w_{ice,\, 1}^{n} +q_{frost} \Delta t"/></p>
+<p><span class="eqno">(94)<a class="headerlink" href="#equation-7.176)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4549f8885787da1f46e4b5317050797bc9c5a80b.png" alt="w_{ice,\, 1}^{n+1} =w_{ice,\, 1}^{n} +q_{frost} \Delta t"/></p>
 </div><div class="math" id="equation-7.177)">
-<p><span class="eqno">(130)<a class="headerlink" href="#equation-7.177)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a51d18f0a480ad10544d1eb927dfe76ea05ae896.png" alt="w_{ice,\, 1}^{n+1} =w_{ice,\, 1}^{n} -q_{subl} \Delta t."/></p>
+<p><span class="eqno">(95)<a class="headerlink" href="#equation-7.177)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a51d18f0a480ad10544d1eb927dfe76ea05ae896.png" alt="w_{ice,\, 1}^{n+1} =w_{ice,\, 1}^{n} -q_{subl} \Delta t."/></p>
 </div><p>Sublimation of ice is limited to the amount of ice available.</p>
 </div>
 <div class="section" id="runoff-from-glaciers-and-snow-capped-surfaces">
@@ -930,9 +791,9 @@ surfaces, the solid and liquid precipitation reaching the snow surface
 and dew in solid or liquid form, is separated into solid
 <img class="math" src="../../_images/math/ba7afa35bedd43cbbf2b9e1dfb3a5a59f5db67bb.png" alt="q_{snwcp,ice}"/> and liquid <img class="math" src="../../_images/math/9677e22d4c8a1b8db6549c7fd9db55e12f51ad77.png" alt="q_{snwcp,liq}"/>  runoff terms</p>
 <div class="math" id="equation-7.178)">
-<p><span class="eqno">(131)<a class="headerlink" href="#equation-7.178)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8e4d0e1845690c925c1acef53ee50b4e65e8bb96.png" alt="q_{snwcp,ice} =q_{grnd,ice} +q_{frost}"/></p>
+<p><span class="eqno">(96)<a class="headerlink" href="#equation-7.178)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8e4d0e1845690c925c1acef53ee50b4e65e8bb96.png" alt="q_{snwcp,ice} =q_{grnd,ice} +q_{frost}"/></p>
 </div><div class="math" id="equation-7.179)">
-<p><span class="eqno">(132)<a class="headerlink" href="#equation-7.179)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c59ee2adf60d54013dd687f3e29d2ddae3851ca1.png" alt="q_{snwcp,liq} =q_{grnd,liq} +q_{dew}"/></p>
+<p><span class="eqno">(97)<a class="headerlink" href="#equation-7.179)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c59ee2adf60d54013dd687f3e29d2ddae3851ca1.png" alt="q_{snwcp,liq} =q_{grnd,liq} +q_{dew}"/></p>
 </div><p>and snow pack properties are unchanged. The <img class="math" src="../../_images/math/ba7afa35bedd43cbbf2b9e1dfb3a5a59f5db67bb.png" alt="q_{snwcp,ice}"/>
 runoff is sent to the River Transport Model (RTM) (Chapter 11) where it
 is routed to the ocean as an ice stream and, if applicable, the ice is
@@ -943,11 +804,11 @@ runoff term <img class="math" src="../../_images/math/e667285d49e1651ab47c8d1cf5
 For glacier surfaces the runoff term <img class="math" src="../../_images/math/e667285d49e1651ab47c8d1cf5a3f359680f724c.png" alt="q_{rgwl}"/>  is calculated
 from the residual of the water balance</p>
 <div class="math" id="equation-7.180)">
-<p><span class="eqno">(133)<a class="headerlink" href="#equation-7.180)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b9f38ab7cc6e613aa9dc2a29e27429656bdac9aa.png" alt="q_{rgwl} =q_{grnd,ice} +q_{grnd,liq} -E_{g} -E_{v} -\frac{\left(W_{b}^{n+1} -W_{b}^{n} \right)}{\Delta t} -q_{snwcp,ice}"/></p>
+<p><span class="eqno">(98)<a class="headerlink" href="#equation-7.180)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b9f38ab7cc6e613aa9dc2a29e27429656bdac9aa.png" alt="q_{rgwl} =q_{grnd,ice} +q_{grnd,liq} -E_{g} -E_{v} -\frac{\left(W_{b}^{n+1} -W_{b}^{n} \right)}{\Delta t} -q_{snwcp,ice}"/></p>
 </div><p>where <img class="math" src="../../_images/math/e5490f8affcb364a3ee2de69fe67cfe7f1c21e71.png" alt="W_{b}^{n}"/>  and <img class="math" src="../../_images/math/556548e86be18c5a6efb0c6ed06abaeed9720822.png" alt="W_{b}^{n+1}"/>  are the water balances
 at the beginning and ending of the time step defined as</p>
 <div class="math" id="equation-7.181)">
-<p><span class="eqno">(134)<a class="headerlink" href="#equation-7.181)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fd7ec628e7c37b93c117841a681acde796bebdf9.png" alt="W_{b} =W_{can} +W_{sno} +\sum _{i=1}^{N}\left(w_{ice,i} +w_{liq,i} \right) ."/></p>
+<p><span class="eqno">(99)<a class="headerlink" href="#equation-7.181)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fd7ec628e7c37b93c117841a681acde796bebdf9.png" alt="W_{b} =W_{can} +W_{sno} +\sum _{i=1}^{N}\left(w_{ice,i} +w_{liq,i} \right) ."/></p>
 </div><p>Currently, glaciers are non-vegetated and <img class="math" src="../../_images/math/83f4a37820159c1a8c8deceb7f0f44cfd076c088.png" alt="E_{v} =W_{can} =0"/>.
 The contribution of lake runoff to <img class="math" src="../../_images/math/e667285d49e1651ab47c8d1cf5a3f359680f724c.png" alt="q_{rgwl}"/>  is described in
 section <a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html#precipitation-evaporation-and-runoff-lake"><span class="std std-numref">12.6.3</span></a>. The runoff
