@@ -801,56 +801,87 @@ the text</p>
 <p>The CLM includes the option to irrigate cropland areas that are equipped
 for irrigation. The application of irrigation responds dynamically to
 the soil moisture conditions simulated by the CLM. This irrigation
-algorithm is based loosely on the implementation of Ozdogan et al.
-(2010).</p>
+algorithm is based loosely on the implementation of
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#ozdoganetal2010"><span class="std std-ref">Ozdogan et al. (2010)</span></a>.</p>
 <p>When irrigation is enabled, the crop areas of each grid cell are divided
 into irrigated and rainfed fractions according to a dataset of areas
-equipped for irrigation (Portmann et al. 2010). Irrigated and rainfed
-crops are placed on separate soil columns, so that irrigation is only
-applied to the soil beneath irrigated crops.</p>
+equipped for irrigation (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#portmannetal2010"><span class="std std-ref">Portmann et al. 2010</span></a>).
+Irrigated and rainfed crops are placed on separate soil columns, so that
+irrigation is only applied to the soil beneath irrigated crops.</p>
 <p>In irrigated croplands, a check is made once per day to determine
 whether irrigation is required on that day. This check is made in the
 first time step after 6 AM local time. Irrigation is required if crop
-leaf area <img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.png" alt="&gt;"/> 0, and <img class="math" src="../../_images/math/feed9363d26005fc39ab78166bd34732cd00d3f2.png" alt="\beta_{t} &lt; 1"/>, i.e., water is limiting for photosynthesis (see section 8.4).</p>
-<p>If irrigation is required, the model computes the deficit between the
-current soil moisture content and a target soil moisture content; this
-deficit is the amount of water that will be added through irrigation.
-The target soil moisture content in each soil layer <em>i</em>
-(<img class="math" src="../../_images/math/c298933d33d3032af7b0dce7b1627f8e804af153.png" alt="{s}_{target,i}"/>, kg m<sup>-2</sup>) is a weighted
-average of the minimum soil moisture content that results in no water
-stress in that layer (<img class="math" src="../../_images/math/22b00e53ce837fff2a3e4eade99c8099d420160a.png" alt="{s}_{o,i}"/>, kg m<sup>-2</sup>) and
-the soil moisture content at saturation in that layer (<img class="math" src="../../_images/math/63f0a71127597de81814e4c252e3a90cf6d0386d.png" alt="{w}_{sat,i}"/>, kg m<sup>-2</sup>):</p>
-<div class="math" id="equation-25.7)">
-<p><span class="eqno">(7)<a class="headerlink" href="#equation-25.7)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d605a4a2de25128ab87923d19d7be86ee2cf41e5.png" alt="w_{target,i} =(1-0.7)\cdot w_{o,i} +0.7\cdot w_{sat,i}"/></p>
-</div><p><img class="math" src="../../_images/math/64d0ec065ed8f3d70f1ca1c1c9627fb7c3fa855e.png" alt="{w}_{o,i}"/> is determined by inverting equation 8.19 in Oleson
-et al. (2010a) to solve for the value of <img class="math" src="../../_images/math/2378710419649c0b552b3e48285083891e4ad133.png" alt="{s}_{i}"/> (soil
-wetness) that makes <img class="math" src="../../_images/math/b69e5c6709a45453452be1e60bb8e17683811363.png" alt="\Psi_{i} = \Psi_{o}"/> (where <img class="math" src="../../_images/math/01aced251083aadd94c20a718c719dd1cba3b6b8.png" alt="\Psi_{i}"/> is
-the soil water matric potential and <img class="math" src="../../_images/math/39bf6c93024d0a8b02039053e81f0094c71a9e63.png" alt="\Psi_{o}"/> is
-the soil water potential when stomata are fully open), and then
-converting this value to units of kg m<sup>-2</sup>.
-<img class="math" src="../../_images/math/63f0a71127597de81814e4c252e3a90cf6d0386d.png" alt="{w}_{sat,i}"/> is calculated simply by converting effective
-porosity (section 7.4) to units of kg m<sup>-2</sup>. The value 0.7
-was determined empirically, in order to give global, annual irrigation
-amounts that approximately match observed gross irrigation water use
-around the year 2000 (i.e., total water withdrawals for irrigation:
-<img class="math" src="../../_images/math/5ecfb5efd13556512083272088a2baa0839e3c66.png" alt="\sim"/> 2500 – 3000 km<sup>3</sup> year<sup>-1</sup>
-(Shiklomanov 2000)). The total water deficit (<img class="math" src="../../_images/math/3b6c69ea172f056237ddedfea3b7f0312a262d8b.png" alt="{w}_{deficit}"/>,
-kg m<sup>-2</sup>) of the column is then determined by:</p>
-<div class="math" id="equation-25.8)">
-<p><span class="eqno">(8)<a class="headerlink" href="#equation-25.8)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/66b856e9eb92b32d19dff757d4fa36cb6c7e3de9.png" alt="w_{deficit} =\sum _{i}\max \left(w_{target,i} -w_{liq,i} ,0\right)"/></p>
-</div><p>where  <img class="math" src="../../_images/math/b48b7a5368bb4f3ba4cbaa63b4c25c8799b6de75.png" alt="{w}_{liq,i}"/> (kg m<sup>-2</sup>) is the current
-soil water content of layer <em>i</em> (Chapter 7). The max function means that
-a surplus in one layer cannot make up for a deficit in another layer.
-The sum is taken only over soil layers that contain roots. In addition,
-if the temperature of any soil layer is below freezing, then the sum
-only includes layers above the top-most frozen soil layer.</p>
-<p>The amount of water added to this column through irrigation is then
-equal to <img class="math" src="../../_images/math/3b6c69ea172f056237ddedfea3b7f0312a262d8b.png" alt="{w}_{deficit}"/>. This irrigation is applied at a
-constant rate over the following four hours. Irrigation water is applied
+leaf area <img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.png" alt="&gt;"/> 0, and the available soil water is below a specified
+threshold.</p>
+<p>The soil moisture deficit <img class="math" src="../../_images/math/939c836ef89235fc43b9ef078edcd8c521b1400e.png" alt="D_{irrig}"/> is</p>
+<div class="math" id="equation-25.61)">
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-25.61)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6058444ca9f964b16126a82781bb07f235f9ca26.png" alt="D_{irrig} = \left\{
+\begin{array}{lr}
+w_{thresh} - w_{avail} &amp;\qquad w_{thresh} &gt; w_{avail} \\
+0 &amp;\qquad w_{thresh} \le w_{avail}
+\end{array} \right\}"/></p>
+</div><p>where <img class="math" src="../../_images/math/84af3ca0bc49c10550f14777aa0b05da8f35a3de.png" alt="w_{thresh}"/> is the irrigation moisture threshold (mm) and
+<img class="math" src="../../_images/math/72af5e91501d6720b71b05b1978af774debbec89.png" alt="w_{avail}"/> is the available moisture (mm).  The moisture threshold
+is</p>
+<div class="math" id="equation-25.62)">
+<p><span class="eqno">(8)<a class="headerlink" href="#equation-25.62)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fcc8ebdbe9e1d68b13a75f86d1e23dfda9cf2a88.png" alt="w_{thresh} = f_{thresh} \left(w_{target} - w_{wilt}\right) + w_{wilt}"/></p>
+</div><p>where <img class="math" src="../../_images/math/6d8166a4c31df0a6cf18b6a9019b1e97ddd2afa8.png" alt="w_{target}"/> is the irrigation target soil moisture (mm)</p>
+<div class="math" id="equation-25.63)">
+<p><span class="eqno">(9)<a class="headerlink" href="#equation-25.63)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ee2ca4c38906b01450186ed49f7a1a8480177a8a.png" alt="w_{target} = \sum_{j=1}^{N_{irr}} \theta_{target} \Delta z_{j} \ ,"/></p>
+</div><p><img class="math" src="../../_images/math/780006a47c8758cef7147a6b2b704330b4ee548a.png" alt="w_{wilt}"/> is the wilting point soil moisture (mm)</p>
+<div class="math" id="equation-25.64)">
+<p><span class="eqno">(10)<a class="headerlink" href="#equation-25.64)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/33cdb363fdc36052fbe6066a9967e3193188417e.png" alt="w_{wilt} = \sum_{j=1}^{N_{irr}} \theta_{wilt} \Delta z_{j} \ ,"/></p>
+</div><p>and <img class="math" src="../../_images/math/dae001418e5b782a8325e28e4bb7ce95a35bacb1.png" alt="f_{thresh}"/> is a tuning parameter.  The available moisture in
+the soil is</p>
+<div class="math" id="equation-25.65)">
+<p><span class="eqno">(11)<a class="headerlink" href="#equation-25.65)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/eba14cb993118c0b93d73815941b64ebbe0b0e3b.png" alt="w_{avail} = \sum_{j=1}^{N_{irr}} \theta_{j} \Delta z_{j} \ ,"/></p>
+</div><p><img class="math" src="../../_images/math/1053fe505b22fcc879c182936b965971c8837e57.png" alt="N_{irr}"/> is the index of the soil layer corresponding to a specified
+depth <img class="math" src="../../_images/math/1f0eef2a9394a824ab5a910558d8c55c917b23fd.png" alt="z_{irrig}"/> (<a class="reference internal" href="#table-irrigation-parameters"><span class="std std-numref">Table 25.1</span></a>) and
+<img class="math" src="../../_images/math/8c1a7061a6a26cf6bbb53392039d2034fd9050fa.png" alt="\Delta z"/> is the thickness of the soil layer (section
+<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#vertical-discretization"><span class="std std-numref">2.2</span></a>).  <img class="math" src="../../_images/math/e78528243bde20566109d8a558f3a877aba1fa97.png" alt="\theta_{j}"/> is the
+volumetric soil moisture in layer <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/> (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#soil-water"><span class="std std-numref">7.3</span></a>).
+<img class="math" src="../../_images/math/bcccb1c2d9db92b2b0697b4b8537e43f0e2eba86.png" alt="\theta_{target}"/> and
+<img class="math" src="../../_images/math/f7cd77d34407787a587b149c5286fe5be7782aaa.png" alt="\theta_{wilt}"/> are the target and wilting point volumetric
+soil moisture values, respectively, and are determined by inverting
+<a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#equation-ZEqnNum316201">(40)</a> using soil matric
+potential parameters <img class="math" src="../../_images/math/816c8302d3486b92ef678b508e367db74abe4cc6.png" alt="\Psi_{target}"/> and <img class="math" src="../../_images/math/507628930ad35526c1f358b4cd45f8d3c614c5dd.png" alt="\Psi_{wilt}"/>
+(<a class="reference internal" href="#table-irrigation-parameters"><span class="std std-numref">Table 25.1</span></a>). After the soil moisture deficit
+<img class="math" src="../../_images/math/939c836ef89235fc43b9ef078edcd8c521b1400e.png" alt="D_{irrig}"/> is calculated, irrigation in an amount equal to
+<img class="math" src="../../_images/math/35d6c1678ad329b5f8b876691a735c5e98a65a30.png" alt="\frac{D_{irrig}}{T_{irrig}}"/> (mm/s) is applied uniformly over
+the irrigation period <img class="math" src="../../_images/math/ac2bc01c475cdbd0b167ae303dd83bc662fb601b.png" alt="T_{irrig}"/> (s).  Irrigation water is applied
 directly to the ground surface, bypassing canopy interception (i.e.,
-added to  <img class="math" src="../../_images/math/547ddd005d55ba0eac928924fa6dacd3f2ccc83e.png" alt="{q}_{grnd,liq}"/>: section 7.1). Added irrigation is
-removed from total liquid runoff ( <img class="math" src="../../_images/math/1fde6a961fa43d2402abd4371c0a70cf66636f3d.png" alt="{R}_{liq}"/>: Chapter 11),
-simulating removal from nearby rivers.</p>
+added to  <img class="math" src="../../_images/math/547ddd005d55ba0eac928924fa6dacd3f2ccc83e.png" alt="{q}_{grnd,liq}"/>: section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#canopy-water"><span class="std std-numref">7.1</span></a>).</p>
+<p>To conserve mass, irrigation is removed from river water storage (Chapter 11).
+When river water storage is inadequate to meet irrigation demand,
+there are two options: 1) the additional water can be removed from the
+ocean model, or 2) the irrigation demand can be reduced such that
+river water storage is maintained above a specified threshold.</p>
+<table border="1" class="docutils" id="id21">
+<span id="table-irrigation-parameters"></span><caption><span class="caption-number">Table 25.1 </span><span class="caption-text">Irrigation parameters</span><a class="headerlink" href="#id21" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="75%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><img class="math" src="../../_images/math/dae001418e5b782a8325e28e4bb7ce95a35bacb1.png" alt="f_{thresh}"/></td>
+<td>1.0</td>
+</tr>
+<tr class="row-odd"><td><img class="math" src="../../_images/math/1f0eef2a9394a824ab5a910558d8c55c917b23fd.png" alt="z_{irrig}"/>       (m)</td>
+<td>0.6</td>
+</tr>
+<tr class="row-even"><td><img class="math" src="../../_images/math/816c8302d3486b92ef678b508e367db74abe4cc6.png" alt="\Psi_{target}"/>   (mm)</td>
+<td>-3400</td>
+</tr>
+<tr class="row-odd"><td><img class="math" src="../../_images/math/507628930ad35526c1f358b4cd45f8d3c614c5dd.png" alt="\Psi_{wilt}"/>     (mm)</td>
+<td>-150000</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="the-details-about-what-is-new-in-clm4-5">
 <span id="id14"></span><h2>25.4. The details about what is new in CLM4.5<a class="headerlink" href="#the-details-about-what-is-new-in-clm4-5" title="Permalink to this headline">¶</a></h2>
@@ -864,7 +895,7 @@ exclusive in CLM4.0.</p>
 <p>In CLM4.5 we have reversed this situation. Now the irrigation model can
 be used only while running with CROP. To accomplish this we downloaded
 data of percent irrigated and percent rainfed corn, soybean, and
-temperate cereals (wheat, barley, and rye) (Portmann et al. 2010),
+temperate cereals (wheat, barley, and rye) (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#portmannetal2010"><span class="std std-ref">Portmann et al. 2010</span></a>),
 available online from</p>
 <p><em>ftp://ftp.rz.uni-frankfurt.de/pub/uni-frankfurt/physische_geographie/hydrologie/public/data/MIRCA2000/harvested_area_grids.</em></p>
 <p>We embedded this data in CLM’s high-resolution pft data for use with the
@@ -924,17 +955,17 @@ availability, and growth stage. Soybean fixation is calculated only for
 unmet nitrogen demand; if soil nitrogen meets soybean demand, there will
 be no fixation during the time step. Soybean fixation is determined by</p>
 <div class="math" id="equation-25.10)">
-<p><span class="eqno">(9)<a class="headerlink" href="#equation-25.10)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5b53efccc4b2ebb48787ab1fbeac5dfd186e826c.png" alt="N_{fix} \; =\; N_{plant\_ ndemand} \; *\; min\; \left(\; 1,\; fxw,\; fxn\; \right)*\; fxg"/></p>
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-25.10)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5b53efccc4b2ebb48787ab1fbeac5dfd186e826c.png" alt="N_{fix} \; =\; N_{plant\_ ndemand} \; *\; min\; \left(\; 1,\; fxw,\; fxn\; \right)*\; fxg"/></p>
 </div><p>where <img class="math" src="../../_images/math/db42677bcf80477fa9ca59a54c26e75870f9fd9e.png" alt="{N}_{plant\_demand}"/> is the balance of nitrogen needed
 to reach potential growth that cannot be supplied from the soil mineral
 nitrogen pool, <em>fxw</em> is the soil water factor, <em>fxn</em> is the soil
 nitrogen factor, and <em>fxg</em> is the growth stage factor calculated by</p>
 <div class="math" id="equation-25.11)">
-<p><span class="eqno">(10)<a class="headerlink" href="#equation-25.11)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/47ec2ff273b9b18d2fce715cc114387da681ed1e.png" alt="fxw=\frac{wf}{0.85}"/></p>
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-25.11)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/47ec2ff273b9b18d2fce715cc114387da681ed1e.png" alt="fxw=\frac{wf}{0.85}"/></p>
 </div><div class="math" id="equation-25.12)">
-<p><span class="eqno">(11)<a class="headerlink" href="#equation-25.12)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/781e14b920ff022f4b5d2f8f6732d70a26159190.png" alt="fxn=\; \left\{\begin{array}{l} {0\qquad \qquad \qquad \qquad {\rm for\; }sminn\le 10} \\ {1.5-0.005\left(sminn\times 10\right)\qquad {\rm for\; 10\; &lt;\; }sminn{\rm \; }\ge 30} \\ {1\qquad \qquad \qquad \qquad {\rm for\; }sminn&gt;30} \end{array}\right\}"/></p>
+<p><span class="eqno">(14)<a class="headerlink" href="#equation-25.12)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/781e14b920ff022f4b5d2f8f6732d70a26159190.png" alt="fxn=\; \left\{\begin{array}{l} {0\qquad \qquad \qquad \qquad {\rm for\; }sminn\le 10} \\ {1.5-0.005\left(sminn\times 10\right)\qquad {\rm for\; 10\; &lt;\; }sminn{\rm \; }\ge 30} \\ {1\qquad \qquad \qquad \qquad {\rm for\; }sminn&gt;30} \end{array}\right\}"/></p>
 </div><div class="math" id="equation-25.13)">
-<p><span class="eqno">(12)<a class="headerlink" href="#equation-25.13)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/19eacb3630556ed8c46500edf336268c91b18865.png" alt="fxg=\left\{\begin{array}{l} {0\qquad \qquad \qquad \qquad \qquad {\rm for\; }GDD_{T_{2m} } \le 0.15} \\ {6.67\times GDD_{T_{2m} } -1\qquad \qquad \qquad {\rm for\; }0.15&lt;GDD_{T_{2m} } \ge 0.30} \\ {1\qquad \qquad \qquad \qquad \qquad {\rm for\; }0.30&lt;GDD_{T_{2m} } \ge 0.55} \\ {3.75-5\times GDD_{T_{2m} } \qquad \qquad \qquad {\rm for\; }0.55&lt;GDD_{T_{2m} } \ge 0.75} \\ {0\qquad \qquad \qquad \qquad \qquad {\rm for\; }GDD_{T_{2m} } &gt;0.75} \end{array}\right\}"/></p>
+<p><span class="eqno">(15)<a class="headerlink" href="#equation-25.13)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/19eacb3630556ed8c46500edf336268c91b18865.png" alt="fxg=\left\{\begin{array}{l} {0\qquad \qquad \qquad \qquad \qquad {\rm for\; }GDD_{T_{2m} } \le 0.15} \\ {6.67\times GDD_{T_{2m} } -1\qquad \qquad \qquad {\rm for\; }0.15&lt;GDD_{T_{2m} } \ge 0.30} \\ {1\qquad \qquad \qquad \qquad \qquad {\rm for\; }0.30&lt;GDD_{T_{2m} } \ge 0.55} \\ {3.75-5\times GDD_{T_{2m} } \qquad \qquad \qquad {\rm for\; }0.55&lt;GDD_{T_{2m} } \ge 0.75} \\ {0\qquad \qquad \qquad \qquad \qquad {\rm for\; }GDD_{T_{2m} } &gt;0.75} \end{array}\right\}"/></p>
 </div><p>where <em>wf</em> is the soil water content as a fraction of the water holding
 capacity for the top 0.05 m, <em>sminn</em> is the total nitrogen in the soil
 pool (g/m:sup:<cite>2</cite>), and <img class="math" src="../../_images/math/74a5b90ca76453ec5a12a65cd95487d5cd15ab09.png" alt="{GDD}_{T_{2m}}"/> is the fraction of
@@ -981,11 +1012,11 @@ released into the retranslocation storage pool. The quantity of nitrogen
 mobilized depends on the C:N ratio of the plant tissue, and is
 calculated as</p>
 <div class="math" id="equation-25.14)">
-<p><span class="eqno">(13)<a class="headerlink" href="#equation-25.14)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/dc9a749b029702edf3f6ebcc1ae4dfee6cbb1d8d.png" alt="leaf\_ to\_ retransn=\frac{c_{leaf} }{CN_{leaf} } -\frac{c_{leaf} }{CN_{leaf}^{f} }"/></p>
+<p><span class="eqno">(16)<a class="headerlink" href="#equation-25.14)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/dc9a749b029702edf3f6ebcc1ae4dfee6cbb1d8d.png" alt="leaf\_ to\_ retransn=\frac{c_{leaf} }{CN_{leaf} } -\frac{c_{leaf} }{CN_{leaf}^{f} }"/></p>
 </div><div class="math" id="equation-25.15)">
-<p><span class="eqno">(14)<a class="headerlink" href="#equation-25.15)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/cb08068d8ead2b986ec52f3d281cb73a38c3e2e2.png" alt="stemn\_ to\_ retransn=\frac{c_{stem} }{CN_{stem} } -\frac{c_{stem} }{CN_{stem}^{f} }"/></p>
+<p><span class="eqno">(17)<a class="headerlink" href="#equation-25.15)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/cb08068d8ead2b986ec52f3d281cb73a38c3e2e2.png" alt="stemn\_ to\_ retransn=\frac{c_{stem} }{CN_{stem} } -\frac{c_{stem} }{CN_{stem}^{f} }"/></p>
 </div><div class="math" id="equation-25.16)">
-<p><span class="eqno">(15)<a class="headerlink" href="#equation-25.16)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/576dbd1f2067ca58e58f070c62dbc24f618bbbfa.png" alt="frootn\_ to\_ retransn=\frac{c_{froot} }{CN_{froot} } -\frac{c_{froot} }{CN_{froot}^{f} }"/></p>
+<p><span class="eqno">(18)<a class="headerlink" href="#equation-25.16)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/576dbd1f2067ca58e58f070c62dbc24f618bbbfa.png" alt="frootn\_ to\_ retransn=\frac{c_{froot} }{CN_{froot} } -\frac{c_{froot} }{CN_{froot}^{f} }"/></p>
 </div><p>where <img class="math" src="../../_images/math/8e1587c690c73cf9ddc69d33eea82fe5330a52a2.png" alt="{C}_{leaf}"/>, <img class="math" src="../../_images/math/3bc0124bde88f87de12a04b54f4398acaa2f4a2d.png" alt="{C}_{stem}"/>, and <img class="math" src="../../_images/math/42302bc3a277a2f82ee10a0a6e11348dd8b363bd.png" alt="{C}_{froot}"/> is the carbon in the plant leaf, stem, and fine
 root, respectively, <img class="math" src="../../_images/math/d06f9734cef2f0142828754a9e07f367bf14a581.png" alt="{CN}_{leaf}"/>, <img class="math" src="../../_images/math/b2a2784c4d0616640f201112429458cd59ca3a3e.png" alt="{CN}_{stem}"/>, and <img class="math" src="../../_images/math/ecdc3ff5379e09fc1b25db78882669a65fc3e947.png" alt="{CN}_{froot}"/> is the pre-grain fill C:N ratio of the
 leaf, stem, and fine root respectively, and <img class="math" src="../../_images/math/080872e256b623a217cd680012841e36fd983623.png" alt="CN^f_{leaf}"/>,
