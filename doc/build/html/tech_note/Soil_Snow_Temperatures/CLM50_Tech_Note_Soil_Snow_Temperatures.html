@@ -1,0 +1,649 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>6. Soil and Snow Temperatures &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="7. Hydrology" href="../Hydrology/CLM50_Tech_Note_Hydrology.html" />
+    <link rel="prev" title="5. Momentum, Sensible Heat, and Latent Heat Fluxes" href="../Fluxes/CLM50_Tech_Note_Fluxes.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../Hydrology/CLM50_Tech_Note_Hydrology.html" title="7. Hydrology"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../Fluxes/CLM50_Tech_Note_Fluxes.html" title="5. Momentum, Sensible Heat, and Latent Heat Fluxes"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">6. Soil and Snow Temperatures</a><ul>
+<li><a class="reference internal" href="#numerical-solution">6.1. Numerical Solution</a></li>
+<li><a class="reference internal" href="#phase-change">6.2. Phase Change</a><ul>
+<li><a class="reference internal" href="#soil-and-snow-layers">6.2.1. Soil and Snow Layers</a></li>
+<li><a class="reference internal" href="#surface-water">6.2.2. Surface Water</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#soil-and-snow-thermal-properties">6.3. Soil and Snow Thermal Properties</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../Fluxes/CLM50_Tech_Note_Fluxes.html"
+                        title="previous chapter">5. Momentum, Sensible Heat, and Latent Heat Fluxes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../Hydrology/CLM50_Tech_Note_Hydrology.html"
+                        title="next chapter">7. Hydrology</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tech_note/Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="soil-and-snow-temperatures">
+<span id="rst-soil-and-snow-temperatures"></span><h1>6. Soil and Snow Temperatures<a class="headerlink" href="#soil-and-snow-temperatures" title="Permalink to this headline">¶</a></h1>
+<p>The first law of heat conduction is</p>
+<div class="math" id="equation-6.1)">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-6.1)" title="Permalink to this equation">¶</a></span><span class="math">F=-\lambda \nabla T</span></p>
+</div><p>where <span class="math">F</span> is the amount of heat conducted across a unit
+cross-sectional area in unit time (W m<sup>-2</sup>),
+<span class="math">\lambda</span>  is thermal conductivity (W m<sup>-1</sup>
+K<sup>-1</sup>), and <span class="math">\nabla T</span> is the spatial gradient of
+temperature (K m<sup>-1</sup>). In one-dimensional form</p>
+<div class="math" id="equation-ZEqnNum105915">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-ZEqnNum105915" title="Permalink to this equation">¶</a></span><span class="math">F_{z} =-\lambda \frac{\partial T}{\partial z}</span></p>
+</div><p>where <span class="math">z</span> is in the vertical direction (m) and is positive
+downward and <span class="math">F_{z}</span>  is positive upward. To account for
+non-steady or transient conditions, the principle of energy conservation
+in the form of the continuity equation is invoked as</p>
+<div class="math" id="equation-ZEqnNum376834">
+<p><span class="eqno">(3)<a class="headerlink" href="#equation-ZEqnNum376834" title="Permalink to this equation">¶</a></span><span class="math">c\frac{\partial T}{\partial t} =-\frac{\partial F_{z} }{\partial z}</span></p>
+</div><p>where <span class="math">c</span> is the volumetric snow/soil heat capacity (J
+m<sup>-3</sup> K<sup>-1</sup>) and <span class="math">t</span> is time (s).
+Combining equations and yields the second law of heat conduction in
+one-dimensional form</p>
+<div class="math" id="equation-6.4)">
+<p><span class="eqno">(4)<a class="headerlink" href="#equation-6.4)" title="Permalink to this equation">¶</a></span><span class="math">c\frac{\partial T}{\partial t} =\frac{\partial }{\partial z} \left[\lambda \frac{\partial T}{\partial z} \right].</span></p>
+</div><p>This equation is solved numerically to calculate the soil, snow, and
+surface water temperatures for a fifteen-layer soil column with up to
+five overlying layers of snow and a single surface water layer with the
+boundary conditions of <span class="math">h</span> as the heat flux into the top soil,
+snow, and surface water layers from the overlying atmosphere (section
+<a class="reference internal" href="#numerical-solution-temperature"><span class="std std-numref">6.1</span></a>) and zero heat flux at the bottom
+of the soil column. The temperature profile is calculated first without
+phase change and then readjusted for phase change (section <a class="reference internal" href="#phase-change"><span class="std std-numref">6.2</span></a>).</p>
+<div class="section" id="numerical-solution">
+<span id="numerical-solution-temperature"></span><h2>6.1. Numerical Solution<a class="headerlink" href="#numerical-solution" title="Permalink to this headline">¶</a></h2>
+<p>The soil column is discretized into 25 layers (section <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#vertical-discretization"><span class="std std-numref">2.2</span></a>)
+where <span class="math">N_{levgrnd} = 25</span> is the number of soil layers (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-soil-layer-structure"><span class="std std-numref">Table 2.3</span></a>).</p>
+<p>The overlying snow pack is modeled with up to five layers depending on
+the total snow depth. The layers from top to bottom are indexed in the
+Fortran code as <span class="math">i=-4,-3,-2,-1,0</span>, which permits the accumulation
+or ablation of snow at the top of the snow pack without renumbering the
+layers. Layer <span class="math">i=0</span> is the snow layer next to the soil surface and
+layer <span class="math">i=snl+1</span> is the top layer, where the variable <span class="math">snl</span>
+is the negative of the number of snow layers. The number of snow layers
+and the thickness of each layer is a function of snow depth
+<span class="math">z_{sno}</span>  (m) as follows.</p>
+<div class="math">
+<p><span class="math">\left\{\begin{array}{l} {snl=-1} \\ {\Delta z_{0} =z_{sno} \qquad {\rm for\; 0.01}\le {\rm z}_{{\rm sno}} \le 0.03} \end{array}\right\},</span></p>
+</div><div class="math">
+<p><span class="math">\left\{\begin{array}{l} {snl=-2} \\ {\Delta z_{-1} ={z_{sno} \mathord{\left/ {\vphantom {z_{sno}  2}} \right. \kern-\nulldelimiterspace} 2} \qquad {\rm for\; 0.03}\, {\rm &lt;}\, {\rm z}_{{\rm sno}} \le 0.04} \\ {\Delta z_{0} =\Delta z_{-1} } \end{array}\right\},</span></p>
+</div><div class="math">
+<p><span class="math">\left\{\begin{array}{l} {snl=-2} \\ {\Delta z_{-1} =0.02\qquad {\rm for\; 0.04}\, {\rm &lt;}\, {\rm z}_{{\rm sno}} \le 0.07} \\ {\Delta z_{0} =z_{sno} -\Delta z_{-1} } \end{array}\right\},</span></p>
+</div><div class="math">
+<p><span class="math">\left\{\begin{array}{l} {snl=-3} \\ {\Delta z_{-2} =0.02} \\ {\Delta z_{-1} ={\left(z_{sno} -0.02\right)\mathord{\left/ {\vphantom {\left(z_{sno} -0.02\right) 2}} \right. \kern-\nulldelimiterspace} 2} \qquad {\rm for\; 0.07}\, {\rm &lt;}\, {\rm z}_{{\rm sno}} \le 0.12} \\ {\Delta z_{0} =\Delta z_{-1} } \end{array}\right\},</span></p>
+</div><div class="math">
+<p><span class="math">\left\{\begin{array}{l} {snl=-3} \\ {\Delta z_{-2} =0.02} \\ {\Delta z_{-1} =0.05\qquad {\rm for\; 0.12}\, {\rm &lt;}\, {\rm z}_{{\rm sno}} \le 0.18} \\ {\Delta z_{0} =z_{sno} -\Delta z_{-2} -\Delta z_{-1} } \end{array}\right\},</span></p>
+</div><div class="math">
+<p><span class="math">\left\{\begin{array}{l} {snl=-4} \\ {\Delta z_{-3} =0.02} \\ {\Delta z_{-2} =0.05\qquad {\rm for\; 0.18}\, {\rm &lt;}\, {\rm z}_{{\rm sno}} \le 0.29} \\ {\Delta z_{-1} ={\left(z_{sno} -\Delta z_{-3} -\Delta z_{-2} \right)\mathord{\left/ {\vphantom {\left(z_{sno} -\Delta z_{-3} -\Delta z_{-2} \right) 2}} \right. \kern-\nulldelimiterspace} 2} } \\ {\Delta z_{0} =\Delta z_{-1} } \end{array}\right\},</span></p>
+</div><div class="math">
+<p><span class="math">\left\{\begin{array}{l} {snl=-4} \\ {\Delta z_{-3} =0.02} \\ {\Delta z_{-2} =0.05\qquad {\rm for\; 0.29}\, {\rm &lt;}\, {\rm z}_{{\rm sno}} \le 0.41} \\ {\Delta z_{-1} =0.11} \\ {\Delta z_{0} =z_{sno} -\Delta z_{-3} -\Delta z_{-2} -\Delta z_{-1} } \end{array}\right\},</span></p>
+</div><div class="math">
+<p><span class="math">\left\{\begin{array}{l} {snl=-5} \\ {\Delta z_{-4} =0.02} \\ {\Delta z_{-3} =0.05\qquad {\rm for\; 0.41}\, {\rm &lt;}\, {\rm z}_{{\rm sno}} \le 0.64} \\ {\Delta z_{-2} =0.11} \\ {\Delta z_{-1} ={\left(z_{sno} -\Delta z_{-4} -\Delta z_{-3} -\Delta z_{-2} \right)\mathord{\left/ {\vphantom {\left(z_{sno} -\Delta z_{-4} -\Delta z_{-3} -\Delta z_{-2} \right) 2}} \right. \kern-\nulldelimiterspace} 2} } \\ {\Delta z_{0} =\Delta z_{-1} } \end{array}\right\},</span></p>
+</div><div class="math">
+<p><span class="math">\left\{\begin{array}{l} {snl=-5} \\ {\Delta z_{-4} =0.02} \\ {\Delta z_{-3} =0.05\qquad {\rm for\; 0.64}\, {\rm &lt;}\, {\rm z}_{{\rm sno}} } \\ {\Delta z_{-2} =0.11} \\ {\Delta z_{-1} =0.23} \\ {\Delta z_{0} =z_{sno} -\Delta z_{-4} -\Delta z_{-3} -\Delta z_{-2} -\Delta z_{-1} } \end{array}\right\}.</span></p>
+</div><p>The node depths, which are located at the midpoint of the snow layers,
+and the layer interfaces are both referenced from the soil surface and
+are defined as negative values</p>
+<div class="math" id="equation-6.8)">
+<p><span class="eqno">(5)<a class="headerlink" href="#equation-6.8)" title="Permalink to this equation">¶</a></span><span class="math">z_{i} =z_{h,\, i} -0.5\Delta z_{i} \qquad i=snl+1,\ldots ,0</span></p>
+</div><div class="math" id="equation-6.9)">
+<p><span class="eqno">(6)<a class="headerlink" href="#equation-6.9)" title="Permalink to this equation">¶</a></span><span class="math">z_{h,\, i} =z_{h,\, i+1} -\Delta z_{i+1} \qquad i=snl,\ldots ,-1.</span></p>
+</div><p>Note that <span class="math">z_{h,\, 0}</span> , the interface between the bottom snow
+layer and the top soil layer, is zero. Thermal properties (i.e.,
+temperature <span class="math">T_{i}</span>  [K]; thermal conductivity
+<span class="math">\lambda _{i}</span>  [W m<sup>-1</sup> K<sup>-1</sup>];
+volumetric heat capacity <span class="math">c_{i}</span>  [J m<sup>-3</sup>
+K<sup>-1</sup>]) are defined for soil layers at the node depths
+(Figure 6.1) and for snow layers at the layer midpoints. When present,
+snow occupies a fraction of a grid cell’s area, therefore snow depth
+represents the thickness of the snowpack averaged over only the snow
+covered area. The grid cell average snow depth is related to the depth
+of the snow covered area as <span class="math">\bar{z}_{sno} =f_{sno} z_{sno}</span> . By
+default, the grid cell average snow depth is written to the history
+file.</p>
+<p>The heat flux <span class="math">F_{i}</span>  (W m<sup>-2</sup>) from layer <span class="math">i</span>
+to layer <span class="math">i+1</span> is</p>
+<div class="math" id="equation-ZEqnNum443713">
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-ZEqnNum443713" title="Permalink to this equation">¶</a></span><span class="math">F_{i} =-\lambda \left[z_{h,\, i} \right]\left(\frac{T_{i} -T_{i+1} }{z_{i+1} -z_{i} } \right)</span></p>
+</div><p>where the thermal conductivity at the interface
+<span class="math">\lambda \left[z_{h,\, i} \right]</span> is</p>
+<div class="math" id="equation-ZEqnNum604125">
+<p><span class="eqno">(8)<a class="headerlink" href="#equation-ZEqnNum604125" title="Permalink to this equation">¶</a></span><span class="math">\lambda \left[z_{h,\, i} \right]=\left\{\begin{array}{l} {\frac{\lambda _{i} \lambda _{i+1} \left(z_{i+1} -z_{i} \right)}{\lambda _{i} \left(z_{i+1} -z_{h,\, i} \right)+\lambda _{i+1} \left(z_{h,\, i} -z_{i} \right)} \qquad i=snl+1,\ldots ,N_{levgrnd} -1} \\ {0\qquad i=N_{levgrnd} } \end{array}\right\}.</span></p>
+</div><p>These equations are derived, with reference to Figure 6.1, assuming
+that the heat flux from <span class="math">i</span> (depth <span class="math">z_{i}</span> ) to the
+interface between <span class="math">i</span> and <span class="math">i+1</span> (depth <span class="math">z_{h,\, i}</span> )
+equals the heat flux from the interface to <span class="math">i+1</span> (depth
+<span class="math">z_{i+1}</span> ), i.e.,</p>
+<div class="math" id="equation-ZEqnNum726244">
+<p><span class="eqno">(9)<a class="headerlink" href="#equation-ZEqnNum726244" title="Permalink to this equation">¶</a></span><span class="math">-\lambda _{i} \frac{T_{i} -T_{m} }{z_{h,\, i} -z_{i} } =-\lambda _{i+1} \frac{T_{m} -T_{i+1} }{z_{i+1} -z_{h,\, i} }</span></p>
+</div><p>where <span class="math">T_{m}</span>  is the temperature at the interface of layers
+<span class="math">i</span> and <span class="math">i+1</span>.</p>
+<p>Shown are three soil layers, <span class="math">i-1</span>, <span class="math">i</span>, and <span class="math">i+1</span>.
+The thermal conductivity <span class="math">\lambda</span> , specific heat capacity
+<span class="math">c</span>, and temperature <span class="math">T</span> are defined at the layer node depth
+<span class="math">z</span>. <span class="math">T_{m}</span>  is the interface temperature. The thermal
+conductivity <span class="math">\lambda \left[z_{h} \right]</span> is defined at the
+interface of two layers</p>
+<p><span class="math">z_{h}</span> . The layer thickness is <span class="math">\Delta z</span>. The heat fluxes
+<span class="math">F_{i-1}</span>  and <span class="math">F_{i}</span>  are defined as positive upwards.</p>
+<div class="figure" id="id5">
+<span id="figure-soil-temperature-schematic"></span><img alt="../../_images/image112.png" src="../../_images/image112.png" />
+<p class="caption"><span class="caption-number">Figure 6.1 </span><span class="caption-text">Schematic diagram of numerical scheme used to solve for soil temperature.</span></p>
+</div>
+<p>The energy balance for the <span class="math">i^{th}</span>  layer is</p>
+<div class="math" id="equation-6.13)">
+<p><span class="eqno">(10)<a class="headerlink" href="#equation-6.13)" title="Permalink to this equation">¶</a></span><span class="math">\frac{c_{i} \Delta z_{i} }{\Delta t} \left(T_{i}^{n+1} -T_{i}^{n} \right)=-F_{i-1} +F_{i}</span></p>
+</div><p>where the superscripts <span class="math">n</span> and <span class="math">n+1</span> indicate values at the
+beginning and end of the time step, respectively, and <span class="math">\Delta t</span>
+is the time step (s). This equation is solved using the Crank-Nicholson
+method, which combines the explicit method with fluxes evaluated at
+<span class="math">n</span> (<span class="math">F_{i-1}^{n} ,F_{i}^{n}</span> ) and the implicit method with
+fluxes evaluated at <span class="math">n+1</span> (<span class="math">F_{i-1}^{n+1} ,F_{i}^{n+1}</span> )</p>
+<div class="math" id="equation-6.14)">
+<p><span class="eqno">(11)<a class="headerlink" href="#equation-6.14)" title="Permalink to this equation">¶</a></span><span class="math">\frac{c_{i} \Delta z_{i} }{\Delta t} \left(T_{i}^{n+1} -T_{i}^{n} \right)=\alpha \left(-F_{i-1}^{n} +F_{i}^{n} \right)+\left(1-\alpha \right)\left(-F_{i-1}^{n+1} +F_{i}^{n+1} \right)</span></p>
+</div><p>where <span class="math">\alpha =0.5</span>, resulting in a tridiagonal system of
+equations</p>
+<div class="math" id="equation-6.15)">
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-6.15)" title="Permalink to this equation">¶</a></span><span class="math">r_{i} =a_{i} T_{i-1}^{n+1} +b_{i} T_{i}^{n+1} +c_{i} T_{i+1}^{n+1}</span></p>
+</div><p>where <span class="math">a_{i}</span> , <span class="math">b_{i}</span> , and <span class="math">c_{i}</span>  are the
+subdiagonal, diagonal, and superdiagonal elements in the tridiagonal
+matrix and <span class="math">r_{i}</span>  is a column vector of constants. When surface
+water is present, the equation for the top soil layer has an additional
+term representing the surface water temperature; this results in a four
+element band-diagonal system of equations.</p>
+<p>For the top soil layer <span class="math">i=1</span> , top snow layer <span class="math">i=snl+1</span>, or
+surface water layer, the heat flux from the overlying atmosphere
+<span class="math">h</span> (W m<sup>-2</sup>, defined as positive into the surface)
+is</p>
+<div class="math" id="equation-6.16)">
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-6.16)" title="Permalink to this equation">¶</a></span><span class="math">h^{n+1} =-\alpha F_{i-1}^{n} -\left(1-\alpha \right)F_{i-1}^{n+1} .</span></p>
+</div><p>The energy balance for these layers is then</p>
+<div class="math" id="equation-6.17)">
+<p><span class="eqno">(14)<a class="headerlink" href="#equation-6.17)" title="Permalink to this equation">¶</a></span><span class="math">\frac{c_{i} \Delta z_{i} }{\Delta t} \left(T_{i}^{n+1} -T_{i}^{n} \right)=h^{n+1} +\alpha F_{i}^{n} +\left(1-\alpha \right)F_{i}^{n+1} .</span></p>
+</div><p>The heat flux <span class="math">h</span> at <span class="math">n+1</span> may be approximated as follows</p>
+<div class="math" id="equation-6.18)">
+<p><span class="eqno">(15)<a class="headerlink" href="#equation-6.18)" title="Permalink to this equation">¶</a></span><span class="math">h^{n+1} =h^{n} +\frac{\partial h}{\partial T_{i} } \left(T_{i}^{n+1} -T_{i}^{n} \right).</span></p>
+</div><p>The resulting equations are then</p>
+<div class="math" id="equation-ZEqnNum219926">
+<p><span class="eqno">(16)<a class="headerlink" href="#equation-ZEqnNum219926" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{rcl} {\frac{c_{i} \Delta z_{i} }{\Delta t} \left(T_{i}^{n+1} -T_{i}^{n} \right)} &amp; {=} &amp; {h^{n} +\frac{\partial h}{\partial T_{i} } \left(T_{i}^{n+1} -T_{i} \right)} \\ {} &amp; {} &amp; {-\alpha \frac{\lambda \left[z_{h,\, i} \right]\left(T_{i}^{n} -T_{i+1}^{n} \right)}{z_{i+1} -z_{i} } -\left(1-\alpha \right)\frac{\lambda \left[z_{h,\, i} \right]\left(T_{i}^{n+1} -T_{i+1}^{n+1} \right)}{z_{i+1} -z_{i} } } \end{array}</span></p>
+</div><p>For the top snow layer, <span class="math">i=snl+1</span>, the coefficients are</p>
+<div class="math" id="equation-6.20)">
+<p><span class="eqno">(17)<a class="headerlink" href="#equation-6.20)" title="Permalink to this equation">¶</a></span><span class="math">a_{i} =0</span></p>
+</div><div class="math" id="equation-6.21)">
+<p><span class="eqno">(18)<a class="headerlink" href="#equation-6.21)" title="Permalink to this equation">¶</a></span><span class="math">b_{i} =1+\frac{\Delta t}{c_{i} \Delta z_{i} } \left[\left(1-\alpha \right)\frac{\lambda \left[z_{h,\, i} \right]}{z_{i+1} -z_{i} } -\frac{\partial h}{\partial T_{i} } \right]</span></p>
+</div><div class="math" id="equation-6.22)">
+<p><span class="eqno">(19)<a class="headerlink" href="#equation-6.22)" title="Permalink to this equation">¶</a></span><span class="math">c_{i} =-\left(1-\alpha \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\lambda \left[z_{h,\, i} \right]}{z_{i+1} -z_{i} }</span></p>
+</div><div class="math" id="equation-6.23)">
+<p><span class="eqno">(20)<a class="headerlink" href="#equation-6.23)" title="Permalink to this equation">¶</a></span><span class="math">r_{i} =T_{i}^{n} +\frac{\Delta t}{c_{i} \Delta z_{i} } \left[h_{sno} ^{n} -\frac{\partial h}{\partial T_{i} } T_{i}^{n} +\alpha F_{i} \right]</span></p>
+</div><p>where</p>
+<div class="math" id="equation-ZEqnNum455578">
+<p><span class="eqno">(21)<a class="headerlink" href="#equation-ZEqnNum455578" title="Permalink to this equation">¶</a></span><span class="math">F_{i} =-\lambda \left[z_{h,\, i} \right]\left(\frac{T_{i}^{n} -T_{i+1}^{n} }{z_{i+1} -z_{i} } \right).</span></p>
+</div><p>The heat flux into the snow surface from the overlying atmosphere
+<span class="math">h</span> is</p>
+<div class="math" id="equation-6.25)">
+<p><span class="eqno">(22)<a class="headerlink" href="#equation-6.25)" title="Permalink to this equation">¶</a></span><span class="math">h=\overrightarrow{S}_{sno} -\overrightarrow{L}_{sno} -H_{sno} -\lambda E_{sno}</span></p>
+</div><p>where <span class="math">\overrightarrow{S}_{sno}</span>  is the solar radiation absorbed
+by the top snow layer (section 3.2.1), <span class="math">\overrightarrow{L}_{sno}</span>
+is the longwave radiation absorbed by the snow (positive toward the
+atmosphere) (section 4.2), <span class="math">H_{sno}</span>  is the sensible heat flux
+from the snow (Chapter 5), and <span class="math">\lambda E_{sno}</span>  is the latent
+heat flux from the snow (Chapter 5). The partial derivative of the heat
+flux <span class="math">h</span> with respect to temperature is</p>
+<div class="math" id="equation-6.26)">
+<p><span class="eqno">(23)<a class="headerlink" href="#equation-6.26)" title="Permalink to this equation">¶</a></span><span class="math">\frac{\partial h}{\partial T_{} } =-\frac{\partial \overrightarrow{L}_{} }{\partial T_{} } -\frac{\partial H_{} }{\partial T_{} } -\frac{\partial \lambda E_{} }{\partial T_{} }</span></p>
+</div><p>where the partial derivative of the net longwave radiation is</p>
+<div class="math" id="equation-6.27)">
+<p><span class="eqno">(24)<a class="headerlink" href="#equation-6.27)" title="Permalink to this equation">¶</a></span><span class="math">\frac{\partial \overrightarrow{L}_{} }{\partial T_{} } =4\varepsilon _{g} \sigma \left(T_{}^{n} \right)^{3}</span></p>
+</div><p>and the partial derivatives of the sensible and latent heat fluxes are
+given by equations and for non-vegetated surfaces, and by equations and
+for vegetated surfaces. <span class="math">\sigma</span>  is the Stefan-Boltzmann constant
+(W m<sup>-2</sup> K<sup>-4</sup>) (Table 2.6) and <span class="math">\varepsilon _{g}</span>  is the ground emissivity (section 4.2). For
+purposes of computing <span class="math">h</span> and <span class="math">\frac{\partial h}{\partial T_{g} }</span> , the term <span class="math">\lambda</span>
+is arbitrarily assumed to be</p>
+<div class="math" id="equation-6.28)">
+<p><span class="eqno">(25)<a class="headerlink" href="#equation-6.28)" title="Permalink to this equation">¶</a></span><span class="math">\lambda =\left\{\begin{array}{l} {\lambda _{sub} \qquad {\rm if\; }w_{liq,\, snl+1} =0{\rm \; and\; }w_{ice,\, snl+1} &gt;0} \\ {\lambda _{vap} \qquad {\rm otherwise}} \end{array}\right\}</span></p>
+</div><p>where <span class="math">\lambda _{sub}</span>  and <span class="math">\lambda _{vap}</span>  are the
+latent heat of sublimation and vaporization, respectively (J
+kg<sup>-1</sup>) (Table 2.6), and <span class="math">w_{liq,\, snl+1}</span>  and
+<span class="math">w_{ice,\, snl+1}</span>  are the liquid water and ice contents of the
+top snow/soil layer, respectively (kg m<sup>-2</sup>) (Chapter 7).</p>
+<p>For the top soil layer, <span class="math">i=1</span>, the coefficients are</p>
+<div class="math" id="equation-6.29)">
+<p><span class="eqno">(26)<a class="headerlink" href="#equation-6.29)" title="Permalink to this equation">¶</a></span><span class="math">a_{i} =-f_{sno} \left(1-\alpha \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\lambda \left[z_{h,\, i-1} \right]}{z_{i} -z_{i-1} }</span></p>
+</div><div class="math" id="equation-6.30)">
+<p><span class="eqno">(27)<a class="headerlink" href="#equation-6.30)" title="Permalink to this equation">¶</a></span><span class="math">b_{i} =1+\left(1-\alpha \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \left[f_{sno} \frac{\lambda \left[z_{h,\, i-1} \right]}{z_{i} -z_{i-1} } +\frac{\lambda \left[z_{h,\, i} \right]}{z_{i+1} -z_{i} } \right]-\left(1-f_{sno} \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\partial h}{\partial T}</span></p>
+</div><div class="math" id="equation-6.31)">
+<p><span class="eqno">(28)<a class="headerlink" href="#equation-6.31)" title="Permalink to this equation">¶</a></span><span class="math">c_{i} =-\left(1-\alpha \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\lambda \left[z_{h,\, i} \right]}{z_{i+1} -z_{i} }</span></p>
+</div><div class="math" id="equation-6.32)">
+<p><span class="eqno">(29)<a class="headerlink" href="#equation-6.32)" title="Permalink to this equation">¶</a></span><span class="math">r_{i} =T_{i}^{n} +\frac{\Delta t}{c_{i} \Delta z_{i} } \left[\left(1-f_{sno} \right)\left(h_{soil} ^{n} -\frac{\partial h}{\partial T_{} } T_{i}^{n} \right)+\alpha \left(F_{i} -f_{sno} F_{i-1} \right)\right]</span></p>
+</div><p>The heat flux into the soil surface from the overlying atmosphere
+<span class="math">h</span> is</p>
+<div class="math" id="equation-6.33)">
+<p><span class="eqno">(30)<a class="headerlink" href="#equation-6.33)" title="Permalink to this equation">¶</a></span><span class="math">h=\overrightarrow{S}_{soil} -\overrightarrow{L}_{soil} -H_{soil} -\lambda E_{soil}</span></p>
+</div><p>It can be seen that when no snow is present (<span class="math">f_{sno} =0</span>), the
+expressions for the coefficients of the top soil layer have the same
+form as those for the top snow layer.</p>
+<p>The surface snow/soil layer temperature computed in this way is the
+layer-averaged temperature and hence has somewhat reduced diurnal
+amplitude compared with surface temperature. An accurate surface
+temperature is provided that compensates for this effect and numerical
+error by tuning the heat capacity of the top layer (through adjustment
+of the layer thickness) to give an exact match to the analytic solution
+for diurnal heating. The top layer thickness for <span class="math">i=snl+1</span> is
+given by</p>
+<div class="math" id="equation-6.34)">
+<p><span class="eqno">(31)<a class="headerlink" href="#equation-6.34)" title="Permalink to this equation">¶</a></span><span class="math">\Delta z_{i*} =0.5\left[z_{i} -z_{h,\, i-1} +c_{a} \left(z_{i+1} -z_{h,\, i-1} \right)\right]</span></p>
+</div><p>where <span class="math">c_{a}</span>  is a tunable parameter, varying from 0 to 1, and is
+taken as 0.34 by comparing the numerical solution with the analytic
+solution (Z.-L. Yang 1998, unpublished manuscript).
+<span class="math">\Delta z_{i*}</span>  is used in place of <span class="math">\Delta z_{i}</span>  for
+<span class="math">i=snl+1</span> in equations -. The top snow/soil layer temperature
+computed in this way is the ground surface temperature
+<span class="math">T_{g}^{n+1}</span> .</p>
+<p>The boundary condition at the bottom of the snow/soil column is zero
+heat flux, <span class="math">F_{i} =0</span>, resulting in, for <span class="math">i=N_{levgrnd}</span> ,</p>
+<div class="math" id="equation-6.35)">
+<p><span class="eqno">(32)<a class="headerlink" href="#equation-6.35)" title="Permalink to this equation">¶</a></span><span class="math">\frac{c_{i} \Delta z_{i} }{\Delta t} \left(T_{i}^{n+1} -T_{i}^{n} \right)=\alpha \frac{\lambda \left[z_{h,\, i-1} \right]\left(T_{i-1}^{n} -T_{i}^{n} \right)}{z_{i} -z_{i-1} } +\left(1-\alpha \right)\frac{\lambda \left[z_{h,\, i-1} \right]\left(T_{i-1}^{n+1} -T_{i}^{n+1} \right)}{z_{i} -z_{i-1} }</span></p>
+</div><div class="math" id="equation-6.36)">
+<p><span class="eqno">(33)<a class="headerlink" href="#equation-6.36)" title="Permalink to this equation">¶</a></span><span class="math">a_{i} =-\left(1-\alpha \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\lambda \left[z_{h,\, i-1} \right]}{z_{i} -z_{i-1} }</span></p>
+</div><div class="math" id="equation-6.37)">
+<p><span class="eqno">(34)<a class="headerlink" href="#equation-6.37)" title="Permalink to this equation">¶</a></span><span class="math">b_{i} =1+\left(1-\alpha \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\lambda \left[z_{h,\, i-1} \right]}{z_{i} -z_{i-1} }</span></p>
+</div><div class="math" id="equation-6.38)">
+<p><span class="eqno">(35)<a class="headerlink" href="#equation-6.38)" title="Permalink to this equation">¶</a></span><span class="math">c_{i} =0</span></p>
+</div><div class="math" id="equation-6.39)">
+<p><span class="eqno">(36)<a class="headerlink" href="#equation-6.39)" title="Permalink to this equation">¶</a></span><span class="math">r_{i} =T_{i}^{n} -\alpha \frac{\Delta t}{c_{i} \Delta z_{i} } F_{i-1}</span></p>
+</div><p>where</p>
+<div class="math" id="equation-ZEqnNum768674">
+<p><span class="eqno">(37)<a class="headerlink" href="#equation-ZEqnNum768674" title="Permalink to this equation">¶</a></span><span class="math">F_{i-1} =-\frac{\lambda \left[z_{h,\, i-1} \right]}{z_{i} -z_{i-1} } \left(T_{i-1}^{n} -T_{i}^{n} \right).</span></p>
+</div><p>For the interior snow/soil layers, <span class="math">snl+1&lt;i&lt;N_{levgrnd}</span> ,
+excluding the top soil layer,</p>
+<div class="math" id="equation-6.41)">
+<p><span class="eqno">(38)<a class="headerlink" href="#equation-6.41)" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{rcl} {\frac{c_{i} \Delta z_{i} }{\Delta t} \left(T_{i}^{n+1} -T_{i}^{n} \right)} &amp; {=} &amp; {-\alpha \frac{\lambda \left[z_{h,\, i} \right]\left(T_{i}^{n} -T_{i+1}^{n} \right)}{z_{i+1} -z_{i} } +\alpha \frac{\lambda \left[z_{h,\, i-1} \right]\left(T_{i-1}^{n} -T_{i}^{n} \right)}{z_{i} -z_{i-1} } } \\ {} \end{array}</span></p>
+</div><div class="math" id="equation-6.42)">
+<p><span class="eqno">(39)<a class="headerlink" href="#equation-6.42)" title="Permalink to this equation">¶</a></span><span class="math">a_{i} =-\left(1-\alpha \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\lambda \left[z_{h,\, i-1} \right]}{z_{i} -z_{i-1} }</span></p>
+</div><div class="math" id="equation-6.43)">
+<p><span class="eqno">(40)<a class="headerlink" href="#equation-6.43)" title="Permalink to this equation">¶</a></span><span class="math">b_{i} =1+\left(1-\alpha \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \left[\frac{\lambda \left[z_{h,\, i-1} \right]}{z_{i} -z_{i-1} } +\frac{\lambda \left[z_{h,\, i} \right]}{z_{i+1} -z_{i} } \right]</span></p>
+</div><div class="math" id="equation-6.44)">
+<p><span class="eqno">(41)<a class="headerlink" href="#equation-6.44)" title="Permalink to this equation">¶</a></span><span class="math">c_{i} =-\left(1-\alpha \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\lambda \left[z_{h,\, i} \right]}{z_{i+1} -z_{i} }</span></p>
+</div><div class="math" id="equation-6.45)">
+<p><span class="eqno">(42)<a class="headerlink" href="#equation-6.45)" title="Permalink to this equation">¶</a></span><span class="math">r_{i} =T_{i}^{n} +\alpha \frac{\Delta t}{c_{i} \Delta z_{i} } \left(F_{i} -F_{i-1} \right)+\frac{\Delta t}{c_{i} \Delta z_{i} } \vec{S}_{g,i} .</span></p>
+</div><p>where <span class="math">\vec{S}_{g,i}</span>  is the absorbed solar flux in layer
+<span class="math">i</span> (section 3.2.1).</p>
+<p>When surface water exists, the following top soil layer coefficients are
+modified</p>
+<div class="math" id="equation-6.46)">
+<p><span class="eqno">(43)<a class="headerlink" href="#equation-6.46)" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {b_{i} =1+\left(1-\alpha \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \left[f_{h2osfc} \frac{\lambda _{h2osfc} }{z_{i} -z_{h2osfc} } +f_{sno} \frac{\lambda \left[z_{h,\, i-1} \right]}{z_{i} -z_{i-1} } +\frac{\lambda \left[z_{h,\, i} \right]}{z_{i+1} -z_{i} } \right]} \\ {\quad \quad -\left(1-f_{sno} -f_{h2osfc} \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\partial h}{\partial T} } \end{array}</span></p>
+</div><div class="math" id="equation-6.47)">
+<p><span class="eqno">(44)<a class="headerlink" href="#equation-6.47)" title="Permalink to this equation">¶</a></span><span class="math">r_{i} =T_{i}^{n} +\frac{\Delta t}{c_{i} \Delta z_{i} } \left[\begin{array}{l} {\left(1-f_{sno} -f_{h2osfc} \right)\left(h_{soil} ^{n} -\frac{\partial h}{\partial T_{} } T_{i}^{n} \right)} \\ {+\alpha \left(F_{i} -f_{sno} F_{i-1} +f_{h2osfc} \frac{\lambda _{h2osfc} }{z_{1} -z_{h2osfc} } \left(T_{1} -T_{h2osfc} \right)\right)} \end{array}\right]</span></p>
+</div><div class="math" id="equation-6.48)">
+<p><span class="eqno">(45)<a class="headerlink" href="#equation-6.48)" title="Permalink to this equation">¶</a></span><span class="math">d_{i} =-f_{h2osfc} \left(1-\alpha \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \left[\frac{\lambda _{h2osfc} }{z_{i} -z_{h2osfc} } \right]</span></p>
+</div><p>where <span class="math">d_{i}</span>  is an additional coefficient representing the heat
+flux from the surface water layer. The surface water layer coefficients
+are</p>
+<div class="math" id="equation-6.49)">
+<p><span class="eqno">(46)<a class="headerlink" href="#equation-6.49)" title="Permalink to this equation">¶</a></span><span class="math">a_{h2osfc} =0</span></p>
+</div><div class="math" id="equation-6.50)">
+<p><span class="eqno">(47)<a class="headerlink" href="#equation-6.50)" title="Permalink to this equation">¶</a></span><span class="math">b_{h2osfc} =1+\frac{\Delta t}{c_{h2osfc} \Delta z_{h2osfc} } \left[\left(1-\alpha \right)\frac{\lambda _{h2osfc} }{z_{1} -z_{h2osfc} } -\frac{\partial h}{\partial T} \right]</span></p>
+</div><div class="math" id="equation-6.51)">
+<p><span class="eqno">(48)<a class="headerlink" href="#equation-6.51)" title="Permalink to this equation">¶</a></span><span class="math">c_{h2osfc} =-\left(1-\alpha \right)\frac{\Delta t}{c_{h2osfc} \Delta z_{h2osfc} } \frac{\lambda _{h2osfc} }{z_{1} -z_{h2osfc} }</span></p>
+</div><div class="math" id="equation-6.52)">
+<p><span class="eqno">(49)<a class="headerlink" href="#equation-6.52)" title="Permalink to this equation">¶</a></span><span class="math">r_{h2osfc} =T_{h2osfc}^{n} +\frac{\Delta t}{c_{i} \Delta z_{i} } \left[h_{h2osfc} ^{n} -\frac{\partial h}{\partial T_{} } T_{h2osfc}^{n} +\alpha \frac{\lambda _{h2osfc} }{z_{1} -z_{h2osfc} } \left(T_{1} -T_{h2osfc} \right)\right]_{}</span></p>
+</div></div>
+<div class="section" id="phase-change">
+<span id="id1"></span><h2>6.2. Phase Change<a class="headerlink" href="#phase-change" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="soil-and-snow-layers">
+<span id="id2"></span><h3>6.2.1. Soil and Snow Layers<a class="headerlink" href="#soil-and-snow-layers" title="Permalink to this headline">¶</a></h3>
+<p>Upon update, the snow/soil temperatures are evaluated to determine if
+phase change will take place as</p>
+<div class="math" id="equation-ZEqnNum797408">
+<p><span class="eqno">(50)<a class="headerlink" href="#equation-ZEqnNum797408" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {T_{i}^{n+1} &gt;T_{f} {\rm \; and\; }w_{ice,\, i} &gt;0\qquad i=snl+1,\ldots ,N_{levgrnd} \qquad {\rm melting}} \\ {T_{i}^{n+1} &lt;T_{f} {\rm \; and\; }w_{liq,\, i} &gt;0\qquad i=snl+1,\ldots ,0\qquad {\rm freezing}} \\ {T_{i}^{n+1} &lt;T_{f} {\rm \; and\; }w_{liq,\, i} &gt;w_{liq,\, \max ,\, i} \qquad i=1,\ldots ,N_{levgrnd} \qquad {\rm freezing}} \end{array}</span></p>
+</div><p>where <span class="math">T_{i}^{n+1}</span>  is the soil layer temperature after solution
+of the tridiagonal equation set, <span class="math">w_{ice,\, i}</span>  and
+<span class="math">w_{liq,\, i}</span>  are the mass of ice and liquid water (kg
+m<sup>-2</sup>) in each snow/soil layer, respectively, and
+<span class="math">T_{f}</span>  is the freezing temperature of water (K) (Table 2.6). For
+the freezing process in soil layers, the concept of supercooled soil
+water from Niu and Yang (2006) is adopted. The supercooled soil water is
+the liquid water that coexists with ice over a wide range of
+temperatures below freezing and is implemented through a freezing point
+depression equation</p>
+<div class="math" id="equation-ZEqnNum547401">
+<p><span class="eqno">(51)<a class="headerlink" href="#equation-ZEqnNum547401" title="Permalink to this equation">¶</a></span><span class="math">w_{liq,\, \max ,\, i} =\Delta z_{i} \theta _{sat,\, i} \left[\frac{10^{3} L_{f} \left(T_{f} -T_{i} \right)}{gT_{i} \psi _{sat,\, i} } \right]^{{-1\mathord{\left/ {\vphantom {-1 B_{i} }} \right. \kern-\nulldelimiterspace} B_{i} } } \qquad T_{i} &lt;T_{f}</span></p>
+</div><p>where <span class="math">w_{liq,\, \max ,\, i}</span>  is the maximum liquid water in
+layer <span class="math">i</span> (kg m<sup>-2</sup>) when the soil temperature
+<span class="math">T_{i}</span>  is below the freezing temperature <span class="math">T_{f}</span> ,
+<span class="math">L_{f}</span>  is the latent heat of fusion (J kg<sup>-1</sup>)
+(Table 2.6), <span class="math">g</span> is the gravitational acceleration (m
+s<sup>-2</sup>) (Table 2.6), and <span class="math">\psi _{sat,\, i}</span>  and
+<span class="math">B_{i}</span>  are the soil texture-dependent saturated matric potential
+(mm) and Clapp and Hornberger (1978) exponent (section 7.4.1).</p>
+<p>For the special case when snow is present (snow mass <span class="math">W_{sno} &gt;0</span>)
+but there are no explicit snow layers (<span class="math">snl=0</span>) (i.e., there is
+not enough snow present to meet the minimum snow depth requirement of
+0.01 m), snow melt will take place for soil layer <span class="math">i=1</span> if the
+soil layer temperature is greater than the freezing temperature
+(<span class="math">T_{1}^{n+1} &gt;T_{f}</span> ).</p>
+<p>The rate of phase change is assessed from the energy excess (or deficit)
+needed to change <span class="math">T_{i}</span>  to freezing temperature, <span class="math">T_{f}</span> .
+The excess or deficit of energy <span class="math">H_{i}</span>  (W m<sup>-2</sup>) is
+determined as follows</p>
+<div class="math" id="equation-6.55)">
+<p><span class="eqno">(52)<a class="headerlink" href="#equation-6.55)" title="Permalink to this equation">¶</a></span><span class="math">H_{i} =\left\{\begin{array}{l} {\frac{\partial h}{\partial T} \left(T_{f} -T_{i}^{n} \right)-\frac{c_{i} \Delta z_{i} }{\Delta t} \left(T_{f} -T_{i}^{n} \right)\qquad \quad \quad \quad i=snl+1} \\ {\left(1-f_{sno} -f_{h2osfc} \right)\frac{\partial h}{\partial T} \left(T_{f} -T_{i}^{n} \right)-\frac{c_{i} \Delta z_{i} }{\Delta t} \left(T_{f} -T_{i}^{n} \right)\quad {\kern 1pt} {\kern 1pt} {\kern 1pt} {\kern 1pt} i=1} \\ {-\frac{c_{i} \Delta z_{i} }{\Delta t} \left(T_{f} -T_{i}^{n} \right)\qquad \quad \quad \quad i\ne \left\{1,snl+1\right\}} \end{array}\right\}.</span></p>
+</div><p>If the melting criteria is met (equation ) and
+<span class="math">H_{m} =\frac{H_{i} \Delta t}{L_{f} } &gt;0</span>, then the ice mass is
+readjusted as</p>
+<div class="math" id="equation-ZEqnNum547839">
+<p><span class="eqno">(53)<a class="headerlink" href="#equation-ZEqnNum547839" title="Permalink to this equation">¶</a></span><span class="math">w_{ice,\, i}^{n+1} =w_{ice,\, i}^{n} -H_{m} \ge 0\qquad i=snl+1,\ldots ,N_{levgrnd} .</span></p>
+</div><p>If the freezing criteria is met (equation ) and <span class="math">H_{m} &lt;0</span>, then
+the ice mass is readjusted for <span class="math">i=snl+1,\ldots ,0</span> as</p>
+<div class="math" id="equation-6.57)">
+<p><span class="eqno">(54)<a class="headerlink" href="#equation-6.57)" title="Permalink to this equation">¶</a></span><span class="math">w_{ice,\, i}^{n+1} =\min \left(w_{liq,\, i}^{n} +w_{ice,\, i}^{n} ,w_{ice,\, i}^{n} -H_{m} \right)</span></p>
+</div><p>and for <span class="math">i=1,\ldots ,N_{levgrnd}</span>  as</p>
+<div class="math" id="equation-6.58)">
+<p><span class="eqno">(55)<a class="headerlink" href="#equation-6.58)" title="Permalink to this equation">¶</a></span><span class="math">w_{ice,\, i}^{n+1} =\left\{\begin{array}{l} {\min \left(w_{liq,\, i}^{n} +w_{ice,\, i}^{n} -w_{liq,\, \max ,\, i}^{n} ,\, w_{ice,\, i}^{n} -H_{m} \right)\qquad w_{liq,\, i}^{n} +w_{ice,\, i}^{n} \ge w_{liq,\, \max ,\, i}^{n} {\rm \; }} \\ {{\rm 0}\qquad w_{liq,\, i}^{n} +w_{ice,\, i}^{n} &lt;w_{liq,\, \max ,\, i}^{n} {\rm \; \; }\, } \end{array}\right\}.</span></p>
+</div><p>Liquid water mass is readjusted as</p>
+<div class="math" id="equation-ZEqnNum864933">
+<p><span class="eqno">(56)<a class="headerlink" href="#equation-ZEqnNum864933" title="Permalink to this equation">¶</a></span><span class="math">w_{liq,\, i}^{n+1} =w_{liq,\, i}^{n} +w_{ice,\, i}^{n} -w_{ice,\, i}^{n+1} \ge 0.</span></p>
+</div><p>Because part of the energy <span class="math">H_{i}</span>  may not be consumed in
+melting or released in freezing, the energy is recalculated as</p>
+<div class="math" id="equation-6.60)">
+<p><span class="eqno">(57)<a class="headerlink" href="#equation-6.60)" title="Permalink to this equation">¶</a></span><span class="math">H_{i*} =H_{i} -\frac{L_{f} \left(w_{ice,\, i}^{n} -w_{ice,\, i}^{n+1} \right)}{\Delta t}</span></p>
+</div><p>and this energy is used to cool or warm the snow/soil layer (if
+<span class="math">\left|H_{i*} \right|&gt;0</span>) as</p>
+<div class="math" id="equation-ZEqnNum190862">
+<p><span class="eqno">(58)<a class="headerlink" href="#equation-ZEqnNum190862" title="Permalink to this equation">¶</a></span><span class="math">T_{i}^{n+1} =\left\{\begin{array}{l} {T_{f} +{\frac{\Delta t}{c_{i} \Delta z_{i} } H_{i*} \mathord{\left/ {\vphantom {\frac{\Delta t}{c_{i} \Delta z_{i} } H_{i*}  \left(1-\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\partial h}{\partial T} \right)}} \right. \kern-\nulldelimiterspace} \left(1-\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\partial h}{\partial T} \right)} \qquad \quad \quad \quad \quad \quad \, i=snl+1} \\ {T_{f} +{\frac{\Delta t}{c_{i} \Delta z_{i} } H_{i*} \mathord{\left/ {\vphantom {\frac{\Delta t}{c_{i} \Delta z_{i} } H_{i*}  \left(1-\left(1-f_{sno} -f_{h2osfc} \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\partial h}{\partial T} \right)}} \right. \kern-\nulldelimiterspace} \left(1-\left(1-f_{sno} -f_{h2osfc} \right)\frac{\Delta t}{c_{i} \Delta z_{i} } \frac{\partial h}{\partial T} \right)} \qquad i=1} \\ {T_{f} +\frac{\Delta t}{c_{i} \Delta z_{i} } H_{i*} \qquad \quad \quad \quad \quad \quad \, i\ne \left\{1,snl+1\right\}} \end{array}\right\}.</span></p>
+</div><p>For the special case when snow is present (<span class="math">W_{sno} &gt;0</span>), there
+are no explicit snow layers (<span class="math">snl=0</span>), and
+<span class="math">\frac{H_{1} \Delta t}{L_{f} } &gt;0</span> (melting), the snow mass
+<span class="math">W_{sno}</span>  (kg m<sup>-2</sup>) is reduced according to</p>
+<div class="math" id="equation-6.62)">
+<p><span class="eqno">(59)<a class="headerlink" href="#equation-6.62)" title="Permalink to this equation">¶</a></span><span class="math">W_{sno}^{n+1} =W_{sno}^{n} -\frac{H_{1} \Delta t}{L_{f} } \ge 0.</span></p>
+</div><p>The snow depth is reduced proportionally</p>
+<div class="math" id="equation-6.63)">
+<p><span class="eqno">(60)<a class="headerlink" href="#equation-6.63)" title="Permalink to this equation">¶</a></span><span class="math">z_{sno}^{n+1} =\frac{W_{sno}^{n+1} }{W_{sno}^{n} } z_{sno}^{n} .</span></p>
+</div><p>Again, because part of the energy may not be consumed in melting, the
+energy for the surface soil layer <span class="math">i=1</span> is recalculated as</p>
+<div class="math" id="equation-6.64)">
+<p><span class="eqno">(61)<a class="headerlink" href="#equation-6.64)" title="Permalink to this equation">¶</a></span><span class="math">H_{1*} =H_{1} -\frac{L_{f} \left(W_{sno}^{n} -W_{sno}^{n+1} \right)}{\Delta t} .</span></p>
+</div><p>If there is excess energy (<span class="math">H_{1*} &gt;0</span>), this energy becomes
+available to the top soil layer as</p>
+<div class="math" id="equation-ZEqnNum985120">
+<p><span class="eqno">(62)<a class="headerlink" href="#equation-ZEqnNum985120" title="Permalink to this equation">¶</a></span><span class="math">H_{1} =H_{1*} .</span></p>
+</div><p>The ice mass, liquid water content, and temperature of the top soil
+layer are then determined from equations , , and using the recalculated
+energy from equation . Snow melt <span class="math">M_{1S}</span>  (kg m<sup>-2</sup>
+s<sup>-1</sup>) and phase change energy <span class="math">E_{p,\, 1S}</span>  (W
+m<sup>-2</sup>) for this special case are</p>
+<div class="math" id="equation-6.66)">
+<p><span class="eqno">(63)<a class="headerlink" href="#equation-6.66)" title="Permalink to this equation">¶</a></span><span class="math">M_{1S} =\frac{W_{sno}^{n} -W_{sno}^{n+1} }{\Delta t} \ge 0</span></p>
+</div><div class="math" id="equation-6.67)">
+<p><span class="eqno">(64)<a class="headerlink" href="#equation-6.67)" title="Permalink to this equation">¶</a></span><span class="math">E_{p,\, 1S} =L_{f} M_{1S} .</span></p>
+</div><p>The total energy of phase change <span class="math">E_{p}</span>  (W m<sup>-2</sup>)
+for the snow/soil column is</p>
+<div class="math" id="equation-6.68)">
+<p><span class="eqno">(65)<a class="headerlink" href="#equation-6.68)" title="Permalink to this equation">¶</a></span><span class="math">E_{p} =E_{p,\, 1S} +\sum _{i=snl+1}^{N_{levgrnd} }E_{p,i}</span></p>
+</div><p>where</p>
+<div class="math" id="equation-6.69)">
+<p><span class="eqno">(66)<a class="headerlink" href="#equation-6.69)" title="Permalink to this equation">¶</a></span><span class="math">E_{p,\, i} =L_{f} \frac{\left(w_{ice,\, i}^{n} -w_{ice,\, i}^{n+1} \right)}{\Delta t} .</span></p>
+</div><p>The total snow melt <span class="math">M</span> (kg m<sup>-2</sup>
+s<sup>-1</sup>) is</p>
+<div class="math" id="equation-6.70)">
+<p><span class="eqno">(67)<a class="headerlink" href="#equation-6.70)" title="Permalink to this equation">¶</a></span><span class="math">M=M_{1S} +\sum _{i=snl+1}^{i=0}M_{i}</span></p>
+</div><p>where</p>
+<div class="math" id="equation-6.71)">
+<p><span class="eqno">(68)<a class="headerlink" href="#equation-6.71)" title="Permalink to this equation">¶</a></span><span class="math">M_{i} =\frac{\left(w_{ice,\, i}^{n} -w_{ice,\, i}^{n+1} \right)}{\Delta t} \ge 0.</span></p>
+</div><p>The solution for snow/soil temperatures conserves energy as</p>
+<div class="math" id="equation-6.72)">
+<p><span class="eqno">(69)<a class="headerlink" href="#equation-6.72)" title="Permalink to this equation">¶</a></span><span class="math">G-E_{p} -\sum _{i=snl+1}^{i=N_{levgrnd} }\frac{c_{i} \Delta z_{i} }{\Delta t}  \left(T_{i}^{n+1} -T_{i}^{n} \right)=0</span></p>
+</div><p>where <span class="math">G</span> is the ground heat flux (section 5.4).</p>
+</div>
+<div class="section" id="surface-water">
+<span id="id3"></span><h3>6.2.2. Surface Water<a class="headerlink" href="#surface-water" title="Permalink to this headline">¶</a></h3>
+<p>Phase change of surface water takes place when the surface water
+temperature, <span class="math">T_{h2osfc}</span> , becomes less than <span class="math">T_{f}</span>  . The
+energy available for freezing is</p>
+<div class="math" id="equation-6.73)">
+<p><span class="eqno">(70)<a class="headerlink" href="#equation-6.73)" title="Permalink to this equation">¶</a></span><span class="math">H_{h2osfc} =\frac{\partial h}{\partial T} \left(T_{f} -T_{h2osfc}^{n} \right)-\frac{c_{h2osfc} \Delta z_{h2osfc} }{\Delta t} \left(T_{f} -T_{h2osfc}^{n} \right)</span></p>
+</div><p>where <span class="math">c_{h2osfc}</span>  is the volumetric heat capacity of water, and
+<span class="math">\Delta z_{h2osfc}</span>  is the depth of the surface water layer. If
+<span class="math">H_{m} =\frac{H_{h2osfc} \Delta t}{L_{f} } &gt;0</span> then <span class="math">H_{m}</span>
+is removed from surface water and added to the snow column as ice</p>
+<div class="math" id="equation-6.74)">
+<p><span class="eqno">(71)<a class="headerlink" href="#equation-6.74)" title="Permalink to this equation">¶</a></span><span class="math">H^{n+1} _{h2osfc} =H^{n} _{h2osfc} -H_{m}</span></p>
+</div><div class="math" id="equation-6.75)">
+<p><span class="eqno">(72)<a class="headerlink" href="#equation-6.75)" title="Permalink to this equation">¶</a></span><span class="math">w_{ice,\, 0}^{n+1} =w_{ice,\, 0}^{n} +H_{m}</span></p>
+</div><p>The snow depth is adjusted to account for the additional ice mass</p>
+<div class="math" id="equation-6.76)">
+<p><span class="eqno">(73)<a class="headerlink" href="#equation-6.76)" title="Permalink to this equation">¶</a></span><span class="math">\Delta z_{sno} =\frac{H_{m} }{\rho _{ice} }</span></p>
+</div><p>If <span class="math">H_{m}</span> is greater than <span class="math">W_{sfc}</span> , the excess heat
+<span class="math">\frac{L_{f} \left(H_{m} -W_{sfc} \right)}{\Delta t}</span>  is used to
+cool the snow layer.</p>
+</div>
+</div>
+<div class="section" id="soil-and-snow-thermal-properties">
+<span id="id4"></span><h2>6.3. Soil and Snow Thermal Properties<a class="headerlink" href="#soil-and-snow-thermal-properties" title="Permalink to this headline">¶</a></h2>
+<p>The thermal properties of the soil are assumed to be a weighted combination of
+the mineral and organic properties of the soil
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lawrenceslater2008"><span class="std std-ref">Lawrence and Slater 2008</span></a>).
+The soil layer organic matter fraction <span class="math">f_{om,i}</span>  is</p>
+<div class="math" id="equation-6.77)">
+<p><span class="eqno">(74)<a class="headerlink" href="#equation-6.77)" title="Permalink to this equation">¶</a></span><span class="math">f_{om,i} =\rho _{om,i} /\rho _{om,\max } .</span></p>
+</div><p>Soil thermal conductivity <span class="math">\lambda _{i}</span>  (W m<sup>-1</sup> K<sup>-1</sup>)
+is from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#farouki1981"><span class="std std-ref">Farouki (1981)</span></a></p>
+<div class="math" id="equation-6.78)">
+<p><span class="eqno">(75)<a class="headerlink" href="#equation-6.78)" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{lr}
+\lambda _{i} = \left\{
+\begin{array}{lr}
+K_{e,\, i} \lambda _{sat,\, i} +\left(1-K_{e,\, i} \right)\lambda _{dry,\, i} &amp;\qquad S_{r,\, i} &gt; 1\times 10^{-7}  \\
+\lambda _{dry,\, i} &amp;\qquad S_{r,\, i} \le 1\times 10^{-7}
+\end{array}\right\} &amp;\qquad i=1,\ldots ,N_{levsoi}  \\
+
+\lambda _{i} =\lambda _{bedrock} &amp;\qquad i=N_{levsoi} +1,\ldots N_{levgrnd}
+\end{array}</span></p>
+</div><p>where <span class="math">\lambda _{sat,\, i}</span>  is the saturated thermal
+conductivity, <span class="math">\lambda _{dry,\, i}</span>  is the dry thermal
+conductivity, <span class="math">K_{e,\, i}</span>  is the Kersten number,
+<span class="math">S_{r,\, i}</span>  is the wetness of the soil with respect to
+saturation, and <span class="math">\lambda _{bedrock} =3</span> W m<sup>-1</sup>
+K<sup>-1</sup> is the thermal conductivity assumed for the deep
+ground layers (typical of saturated granitic rock;
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#clauserhuenges1995"><span class="std std-ref">Clauser and Huenges 1995</span></a>). For glaciers and wetlands,</p>
+<div class="math" id="equation-6.79)">
+<p><span class="eqno">(76)<a class="headerlink" href="#equation-6.79)" title="Permalink to this equation">¶</a></span><span class="math">\lambda _{i} =\left\{\begin{array}{l} {\lambda _{liq,\, i} \qquad T_{i} \ge T_{f} } \\ {\lambda _{ice,\, i} \qquad T_{i} &lt;T_{f} } \end{array}\right\}</span></p>
+</div><p>where <span class="math">\lambda _{liq}</span>  and <span class="math">\lambda _{ice}</span>  are the
+thermal conductivities of liquid water and ice, respectively (Table
+2.6). The saturated thermal conductivity <span class="math">\lambda _{sat,\, i}</span>  (W
+m<sup>-1</sup> K<sup>-1</sup>) depends on the thermal
+conductivities of the soil solid, liquid water, and ice constituents</p>
+<div class="math" id="equation-6.80)">
+<p><span class="eqno">(77)<a class="headerlink" href="#equation-6.80)" title="Permalink to this equation">¶</a></span><span class="math">\lambda _{sat} =\lambda _{s}^{1-\theta _{sat} } \lambda _{liq}^{\frac{\theta _{liq} }{\theta _{liq} +\theta _{ice} } \theta _{sat} } \lambda _{ice}^{\theta _{sat} \left(1-\frac{\theta _{liq} }{\theta _{liq} +\theta _{ice} } \right)}</span></p>
+</div><p>where the thermal conductivity of soil solids
+<span class="math">\lambda _{s,\, i}</span>  varies with the sand, clay, and organic
+matter content</p>
+<div class="math" id="equation-6.81)">
+<p><span class="eqno">(78)<a class="headerlink" href="#equation-6.81)" title="Permalink to this equation">¶</a></span><span class="math">\lambda _{s,i} =(1-f_{om,i} )\lambda _{s,\min ,i} +f_{om,i} \lambda _{s,om}</span></p>
+</div><p>where the mineral soil solid thermal conductivity
+<span class="math">\lambda _{s,\min ,i}</span> is</p>
+<div class="math" id="equation-6.82)">
+<p><span class="eqno">(79)<a class="headerlink" href="#equation-6.82)" title="Permalink to this equation">¶</a></span><span class="math">\lambda _{s,\, \min ,i} =\frac{8.80{\rm \; }\left(\% sand\right)_{i} +{\rm 2.92\; }\left(\% clay\right)_{i} }{\left(\% sand\right)_{i} +\left(\% clay\right)_{i} } ,</span></p>
+</div><p>and <span class="math">\lambda _{s,om} =0.25</span>W m<sup>-1</sup>
+K<sup>-1</sup> (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#farouki1981"><span class="std std-ref">Farouki 1981</span></a>). <span class="math">\theta _{sat,\, i}</span>  is the
+volumetric water content at saturation (porosity) (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#hydraulic-properties"><span class="std std-numref">7.3.1</span></a>).</p>
+<p>The thermal conductivity of dry soil is</p>
+<div class="math" id="equation-6.83)">
+<p><span class="eqno">(80)<a class="headerlink" href="#equation-6.83)" title="Permalink to this equation">¶</a></span><span class="math">\lambda _{dry,i} =(1-f_{om,i} )\lambda _{dry,\min ,i} +f_{om,i} \lambda _{dry,om}</span></p>
+</div><p>where the thermal conductivity of dry mineral soil
+<span class="math">\lambda _{dry,\min ,i}</span> (W m<sup>-1</sup>
+K<sup>-1</sup>) depends on the bulk density
+<span class="math">\rho _{d,\, i} =2700\left(1-\theta _{sat,\, i} \right)</span> (kg
+m<sup>-3</sup>) as</p>
+<div class="math" id="equation-6.84)">
+<p><span class="eqno">(81)<a class="headerlink" href="#equation-6.84)" title="Permalink to this equation">¶</a></span><span class="math">\lambda _{dry,\, \min ,i} =\frac{0.135\rho _{d,\, i} +64.7}{2700-0.947\rho _{d,\, i} }</span></p>
+</div><p>and <span class="math">\lambda _{dry,om} =0.05</span> W m<sup>-1</sup>
+K<sup>-1</sup> (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#farouki1981"><span class="std std-ref">Farouki 1981</span></a>) is the dry thermal conductivity of
+organic matter. The Kersten number <span class="math">K_{e,\, i}</span>  is a function of
+the degree of saturation <span class="math">S_{r}</span>  and phase of water</p>
+<div class="math" id="equation-6.85)">
+<p><span class="eqno">(82)<a class="headerlink" href="#equation-6.85)" title="Permalink to this equation">¶</a></span><span class="math">K_{e,\, i} = \left\{
+\begin{array}{lr}
+\log \left(S_{r,\, i} \right)+1\ge 0 &amp;\qquad T_{i} \ge T_{f}  \\
+S_{r,\, i} &amp;\qquad T_{i} &lt;T_{f}
+\end{array}\right\}</span></p>
+</div><p>where</p>
+<div class="math" id="equation-6.86)">
+<p><span class="eqno">(83)<a class="headerlink" href="#equation-6.86)" title="Permalink to this equation">¶</a></span><span class="math">S_{r,\, i} =\left(\frac{w_{liq,\, i} }{\rho _{liq} \Delta z_{i} } +\frac{w_{ice,\, i} }{\rho _{ice} \Delta z_{i} } \right)\frac{1}{\theta _{sat,\, i} } =\frac{\theta _{liq,\, i} +\theta _{ice,\, i} }{\theta _{sat,\, i} } \le 1.</span></p>
+</div><p>Thermal conductivity <span class="math">\lambda _{i}</span>  (W m<sup>-1</sup>
+K<sup>-1</sup>) for snow is from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#jordan1991"><span class="std std-ref">Jordan (1991)</span></a></p>
+<div class="math" id="equation-6.87)">
+<p><span class="eqno">(84)<a class="headerlink" href="#equation-6.87)" title="Permalink to this equation">¶</a></span><span class="math">\lambda _{i} =\lambda _{air} +\left(7.75\times 10^{-5} \rho _{sno,\, i} +1.105\times 10^{-6} \rho _{sno,\, i}^{2} \right)\left(\lambda _{ice} -\lambda _{air} \right)</span></p>
+</div><p>where <span class="math">\lambda _{air}</span>  is the thermal conductivity of air (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>)
+and <span class="math">\rho _{sno,\, i}</span>  is the bulk density of snow (kg m<sup>-3</sup>)</p>
+<div class="math" id="equation-6.88)">
+<p><span class="eqno">(85)<a class="headerlink" href="#equation-6.88)" title="Permalink to this equation">¶</a></span><span class="math">\rho _{sno,\, i} =\frac{w_{ice,\, i} +w_{liq,\, i} }{\Delta z_{i} } .</span></p>
+</div><p>The volumetric heat capacity <span class="math">c_{i}</span>  (J m<sup>-3</sup> K<sup>-1</sup>) for
+soil is from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#devries1963"><span class="std std-ref">de Vries (1963)</span></a> and depends on the
+heat capacities of the soil solid, liquid water, and ice constituents</p>
+<div class="math" id="equation-ZEqnNum222806">
+<p><span class="eqno">(86)<a class="headerlink" href="#equation-ZEqnNum222806" title="Permalink to this equation">¶</a></span><span class="math">c_{i} =c_{s,\, i} \left(1-\theta _{sat,\, i} \right)+\frac{w_{ice,\, i} }{\Delta z_{i} } C_{ice} +\frac{w_{liq,\, i} }{\Delta z_{i} } C_{liq}</span></p>
+</div><p>where <span class="math">C_{liq}</span>  and <span class="math">C_{ice}</span>  are the specific heat
+capacities (J kg<sup>-1</sup> K<sup>-1</sup>) of liquid water
+and ice, respectively (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>). The heat capacity of soil solids
+<span class="math">c_{s,i}</span> (J m<sup>-3</sup> K<sup>-1</sup>) is</p>
+<div class="math" id="equation-6.90)">
+<p><span class="eqno">(87)<a class="headerlink" href="#equation-6.90)" title="Permalink to this equation">¶</a></span><span class="math">c_{s,i} =(1-f_{om,i} )c_{s,\min ,i} +f_{om,i} c_{s,om}</span></p>
+</div><p>where the heat capacity of mineral soil solids
+<span class="math">c_{s,\min ,\, i}</span>  (J m<sup>-3</sup> K<sup>-1</sup>) is</p>
+<div class="math" id="equation-6.91)">
+<p><span class="eqno">(88)<a class="headerlink" href="#equation-6.91)" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{lr}
+c_{s,\min ,\, i} =\left(\frac{2.128{\rm \; }\left(\% sand\right)_{i} +{\rm 2.385\; }\left(\% clay\right)_{i} }{\left(\% sand\right)_{i} +\left(\% clay\right)_{i} } \right)\times 10^{6} &amp;\qquad i=1,\ldots ,N_{levsoi}  \\
+c_{s,\, \min ,i} =c_{s,\, bedrock} &amp;\qquad i=N_{levsoi} +1,\ldots ,N_{levgrnd}
+\end{array}</span></p>
+</div><p>where <span class="math">c_{s,bedrock} =2\times 10^{6}</span>  J m<sup>-3</sup>
+K<sup>-1</sup> is the heat capacity of bedrock and
+<span class="math">c_{s,om} =2.5\times 10^{6}</span> J m<sup>-3</sup>
+K<sup>-1</sup> (ref:<cite>Farouki 1981 &lt;Farouki1981&gt;</cite>) is the heat capacity of organic
+matter. For glaciers, wetlands, and snow</p>
+<div class="math" id="equation-ZEqnNum107679">
+<p><span class="eqno">(89)<a class="headerlink" href="#equation-ZEqnNum107679" title="Permalink to this equation">¶</a></span><span class="math">c_{i} =\frac{w_{ice,\, i} }{\Delta z_{i} } C_{ice} +\frac{w_{liq,\, i} }{\Delta z_{i} } C_{liq} .</span></p>
+</div><p>For the special case when snow is present (<span class="math">W_{sno} &gt;0</span>) but
+there are no explicit snow layers (<span class="math">snl=0</span>), the heat capacity of
+the top layer is a blend of ice and soil heat capacity</p>
+<div class="math" id="equation-6.93)">
+<p><span class="eqno">(90)<a class="headerlink" href="#equation-6.93)" title="Permalink to this equation">¶</a></span><span class="math">c_{1} =c_{1}^{\*} +\frac{C_{ice} W_{sno} }{\Delta z_{1} }</span></p>
+</div><p>where <span class="math">c_{1}^{\*}</span>  is calculated from equation or .</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">fill in the above - should be calculated form equation (6.89) or (6.92)</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../Hydrology/CLM50_Tech_Note_Hydrology.html" title="7. Hydrology"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../Fluxes/CLM50_Tech_Note_Fluxes.html" title="5. Momentum, Sensible Heat, and Latent Heat Fluxes"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.4.
+    </div>
+  </body>
+</html>

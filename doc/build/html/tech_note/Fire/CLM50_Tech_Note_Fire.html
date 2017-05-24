@@ -1,0 +1,893 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>23. Fire &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="24. Methane Model" href="../Methane/CLM50_Tech_Note_Methane.html" />
+    <link rel="prev" title="22. External Nitrogen Cycle" href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../Methane/CLM50_Tech_Note_Methane.html" title="24. Methane Model"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html" title="22. External Nitrogen Cycle"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">23. Fire</a><ul>
+<li><a class="reference internal" href="#non-peat-fires-outside-cropland-and-tropical-closed-forest">23.1. Non-peat fires outside cropland and tropical closed forest</a><ul>
+<li><a class="reference internal" href="#fire-counts">23.1.1. Fire counts</a></li>
+<li><a class="reference internal" href="#average-spread-area-of-a-fire">23.1.2. Average spread area of a fire</a></li>
+<li><a class="reference internal" href="#fire-impact">23.1.3. Fire impact</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#agricultural-fires">23.2. Agricultural fires</a></li>
+<li><a class="reference internal" href="#deforestation-fires">23.3. Deforestation fires</a></li>
+<li><a class="reference internal" href="#peat-fires">23.4. Peat fires</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html"
+                        title="previous chapter">22. External Nitrogen Cycle</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../Methane/CLM50_Tech_Note_Methane.html"
+                        title="next chapter">24. Methane Model</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tech_note/Fire/CLM50_Tech_Note_Fire.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="fire">
+<span id="rst-fire"></span><h1>23. Fire<a class="headerlink" href="#fire" title="Permalink to this headline">¶</a></h1>
+<p>The fire parameterization in CLM contains four components: non-peat
+fires outside cropland and tropical closed forests, agricultural fires,
+deforestation fires in the tropical closed forests, and peat fires (Li
+et al. 2012a, b, 2013). In this fire parameterization, burned area is
+affected by climate and weather conditions, vegetation composition and
+structure, and human activities. After burned area is calculated, we
+estimate the fire impact, including biomass and peat burning,
+fire-induced vegetation mortality, and the adjustment of the carbon and
+nitrogen (C/N) pools. Justification for all equations and parameter
+values is given by Li et al. (2012a, b; 2013) in detail.</p>
+<div class="section" id="non-peat-fires-outside-cropland-and-tropical-closed-forest">
+<h2>23.1. Non-peat fires outside cropland and tropical closed forest<a class="headerlink" href="#non-peat-fires-outside-cropland-and-tropical-closed-forest" title="Permalink to this headline">¶</a></h2>
+<p>Burned area in a grid cell per time step,<span class="math">A_{b}</span>
+(km <sup>2</sup> (time step) <sup>-1</sup>), is determined by</p>
+<div class="math" id="equation-23.1)">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-23.1)" title="Permalink to this equation">¶</a></span><span class="math">A_{b} =N_{f} a</span></p>
+</div><p>where <span class="math">N_{f}</span>  (count (time step)<sup>-1</sup>) is fire
+counts in the grid cell; <span class="math">a</span> (km:sup:<cite>2</cite>) is average fire
+spread area of a fire.</p>
+<div class="section" id="fire-counts">
+<h3>23.1.1. Fire counts<a class="headerlink" href="#fire-counts" title="Permalink to this headline">¶</a></h3>
+<p>Fire counts <span class="math">N_{f}</span>  is taken as</p>
+<div class="math" id="equation-23.2)">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-23.2)" title="Permalink to this equation">¶</a></span><span class="math">N_{f} =N_{i} f_{b} f_{m} f_{se,o}</span></p>
+</div><p>where <span class="math">N_{i}</span> ( count (time step)<sup>-1</sup>) is the
+number of ignition sources due to natural causes and human activities;
+<span class="math">f_{b}</span>  and <span class="math">f_{m}</span>  (fractions) represent the availability
+and combustibility of fuel, respectively; <span class="math">f_{se,o}</span>  is the
+fraction of anthropogenic and natural fires unsuppressed by humans and
+related to the socioeconomic conditions.</p>
+<p><span class="math">N_{i}</span>  (count (time step)<sup>-1</sup>) is given as</p>
+<div class="math" id="equation-23.3)">
+<p><span class="eqno">(3)<a class="headerlink" href="#equation-23.3)" title="Permalink to this equation">¶</a></span><span class="math">N_{i} =(I_{n} +I_{a} )A_{g}</span></p>
+</div><p>where <span class="math">I_{n}</span> (count km<sup>-2</sup> (time step)<sub>-1</sub>) and <span class="math">I_{a}</span> (count km<sup>-2</sup> (time step)<sup>-1</sup>) are the number of natural and
+anthropogenic ignitions per km<sup>2</sup>, respectively;
+<em>A</em><sub>g</sub> is the area of the grid cell (km<sup>2</sup>).
+<span class="math">I_{n}</span>  is estimated by</p>
+<div class="math" id="equation-23.4)">
+<p><span class="eqno">(4)<a class="headerlink" href="#equation-23.4)" title="Permalink to this equation">¶</a></span><span class="math">I_{n} =\gamma \psi I_{l}</span></p>
+</div><p>where <span class="math">\gamma</span> =0.25 is ignition efficiency of cloud-to-ground
+lightning; <span class="math">\psi =\frac{1}{5.16+2.16\cos (3\lambda )}</span>  is the
+cloud-to-ground lightning fraction and depends on the latitude
+<span class="math">\lambda</span> ; <span class="math">I_{l}</span>  (flash km<sup>-2</sup> (time step)<sup>-1</sup>) is the total lightning flashes. <span class="math">I_{a}</span> ,
+is modeled as a monotonic increasing function of population density:</p>
+<div class="math" id="equation-23.5)">
+<p><span class="eqno">(5)<a class="headerlink" href="#equation-23.5)" title="Permalink to this equation">¶</a></span><span class="math">I_{a} =\frac{\alpha D_{P} k(D_{P} )}{n}</span></p>
+</div><p>where <span class="math">\alpha =0.0035</span> (count person<sup>-1</sup> mon<sup>-1</sup>) is the number of potential ignition sources by a
+person per month; <span class="math">D_{P}</span>  (person km<sup>-2</sup>) is the population density;
+<span class="math">k(D_{P} )=6.8D_{P} ^{-0.6}</span>  represents anthropogenic ignition
+potential as a function of human population density<span class="math">D_{P}</span> ; <em>n</em>
+is the number of time steps in a month.</p>
+<p>Fuel availability<span class="math">f_{b}</span> is given as</p>
+<div class="math" id="equation-ZEqnNum730456">
+<p><span class="eqno">(6)<a class="headerlink" href="#equation-ZEqnNum730456" title="Permalink to this equation">¶</a></span><span class="math">f_{b} =\left\{\begin{array}{c} {0} \\ {\frac{B_{ag} -B_{low} }{B_{up} -B_{low} } } \\ {1} \end{array}\right. ,\begin{array}{cc} {} &amp; {} \end{array}\begin{array}{c} {B_{ag} &lt;B_{low} } \\ {\begin{array}{cc} {} &amp; {} \end{array}B_{low} \le B_{ag} \le B_{up} } \\ {B_{ag} &gt;B_{up} } \end{array}</span></p>
+</div><p>where <span class="math">B_{ag}</span>  (g C m<sup>-2</sup>) is the aboveground
+biomass of combined leaf, stem and aboveground litter (leaf litter and
+woody debris) pools; <span class="math">B_{low}</span> =155 g C m<sup>-2</sup> is
+the lower fuel threshold below which fire does not occur;
+<span class="math">B_{up}</span> = 1050 g C m<sup>-2</sup> is the upper fuel
+threshold above which fire occurrence is not limited by fuel
+availability.</p>
+<p>Fuel combustibility <span class="math">f_{m}</span> is estimated by</p>
+<div class="math" id="equation-23.7)">
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-23.7)" title="Permalink to this equation">¶</a></span><span class="math">f_{m} =f_{RH} f_{\theta } f_{T}</span></p>
+</div><p>where <span class="math">f_{RH}</span>, <span class="math">f_{\theta }</span>, <span class="math">f_{T}</span>
+represent the dependence of fuel combustibility on relative humidity
+<em>RH</em> (%), surface soil wetness <span class="math">\theta</span> , and surface air
+temperature <em>T</em> (ºC), respectively. <span class="math">f_{RH}</span> is calculated by</p>
+<div class="math" id="equation-23.8)">
+<p><span class="eqno">(8)<a class="headerlink" href="#equation-23.8)" title="Permalink to this equation">¶</a></span><span class="math">f_{RH} =\left\{\begin{array}{cccc} {1} &amp; {} &amp; {} &amp; {RH\le RH_{low} } \\ {\frac{RH_{up} -RH}{RH_{up} -RH_{low} } ,} &amp; {} &amp; {} &amp; {RH_{low} &lt;RH&lt;RH_{up} } \\ {0} &amp; {} &amp; {} &amp; {RH\ge RH_{up} } \end{array}\right.</span></p>
+</div><p><span class="math">RH_{low}</span> =30% and <span class="math">RH_{up}</span> =70% are used as the
+lower and upper thresholds of relative humidity. <span class="math">f_{\theta }</span> is given by</p>
+<div class="math" id="equation-GrindEQ__18_9_">
+<p><span class="eqno">(9)<a class="headerlink" href="#equation-GrindEQ__18_9_" title="Permalink to this equation">¶</a></span><span class="math">f_{\theta } =\exp [-\pi (\frac{\theta }{\theta _{e} } )^{2} ]</span></p>
+</div><p>where <span class="math">\theta</span>  is the soil wetness defined as volumetric soil
+moisture relative to that at saturation; <span class="math">\theta _{e}</span> =0.69 is
+the extinction coefficient of soil wetness. <span class="math">f_{T}</span>  is given by</p>
+<div class="math" id="equation-23.9)">
+<p><span class="eqno">(10)<a class="headerlink" href="#equation-23.9)" title="Permalink to this equation">¶</a></span><span class="math">f_{T} =\max [0,\min (1,\frac{T+10}{10} )]</span></p>
+</div><p>consistent with the fact that temperature is the main constraint for
+fire occurrence when temperature is below freezing, and fire generally
+does not occur when the temperature is less than -10 ºC.</p>
+<p>For scarcely populated regions (<span class="math">D_{p} \le 0.1</span> person
+km<sup>-2</sup>), we assume that anthropogenic suppression on fire
+occurrence is negligible, i.e.,<span class="math">f_{se,o} =1.0</span>. In regions of
+<span class="math">D_{p} &gt;0.1</span> person km<sup>-2</sup>, we parameterize the
+fraction of anthropogenic and natural fires unsuppressed by human
+activities as</p>
+<div class="math" id="equation-23.10)">
+<p><span class="eqno">(11)<a class="headerlink" href="#equation-23.10)" title="Permalink to this equation">¶</a></span><span class="math">f_{se,o} =f_{d} f_{e}</span></p>
+</div><p>where <span class="math">{f}_{d}</span> and <span class="math">{f}_{e}</span> are
+the effects of the demographic and economic conditions on fire
+occurrence. The demographic influence on fire occurrence is</p>
+<div class="math" id="equation-23.11)">
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-23.11)" title="Permalink to this equation">¶</a></span><span class="math">f_{d} =0.01+0.98\exp (-0.025D_{P} ).</span></p>
+</div><p>For shrub and grass PFTs, the economic influence on fire occurrence is
+parameterized as a function of Gross Domestic Product GDP (k 1995US$
+capita<sup>-1</sup>):</p>
+<div class="math" id="equation-23.12)">
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-23.12)" title="Permalink to this equation">¶</a></span><span class="math">f_{e} =0.1+0.9\times \exp [-\pi (\frac{GDP}{8} )^{0.5} ]</span></p>
+</div><p>which captures 73% of the observed MODIS fire counts with variable GDP
+in regions where shrub and grass PFTs are dominant (fractional coverage
+of shrub and grass PFTs <span class="math">&gt;</span> 50%). In regions outside tropical
+closed forests and dominated by trees (fractional coverage of tree PFTs
+<span class="math">&gt;</span> 50%), we divide the MODIS fire counts into only two bins
+(<span class="math">GDP\ge 20</span> k 1995US$ capita<sup>-1</sup>, and <span class="math">GDP&lt;20</span>
+k 1995US$ capita<sup>-1</sup>) and parameterize the economic
+influence on fire occurrence for tree PFTs as</p>
+<div class="math" id="equation-23.13)">
+<p><span class="eqno">(14)<a class="headerlink" href="#equation-23.13)" title="Permalink to this equation">¶</a></span><span class="math">f_{e} =\left\{\begin{array}{cc} {0.39,} &amp; {GDP\ge 20} \\ {1} &amp; {GDP&lt;20} \end{array}\right.</span></p>
+</div><p>to reproduce that the MODIS fire counts in tree-dominated regions of
+GDP (<span class="math">\ge 20</span> k 1995US$ capita<sup>-1</sup> is 39% of that in
+other tree-dominated regions.</p>
+</div>
+<div class="section" id="average-spread-area-of-a-fire">
+<h3>23.1.2. Average spread area of a fire<a class="headerlink" href="#average-spread-area-of-a-fire" title="Permalink to this headline">¶</a></h3>
+<p>Fire fighting capacity depends on socioeconomic conditions and affects
+fire spread area. Due to a lack of observations, we consider the
+socioeconomic impact on the average burned area rather than separately
+on fire spread rate and fire duration：</p>
+<div class="math" id="equation-23.14)">
+<p><span class="eqno">(15)<a class="headerlink" href="#equation-23.14)" title="Permalink to this equation">¶</a></span><span class="math">a=a^{*} F_{se}</span></p>
+</div><p>where <span class="math">a^{*}</span>  is the average burned area of a fire without
+anthropogenic suppression and <span class="math">F_{se}</span>  is the socioeconomic
+effect on fire spread area.</p>
+<p>Average burned area of a fire without anthropogenic suppression is
+assumed elliptical in shape with the wind direction along the major axis
+and the point of ignition at one of the foci. According to the area
+formula for an ellipse, average burned area of a fire can be represented
+as:</p>
+<div class="math" id="equation-23.15)">
+<p><span class="eqno">(16)<a class="headerlink" href="#equation-23.15)" title="Permalink to this equation">¶</a></span><span class="math">a^{*} =\pi \frac{l}{2} \frac{w}{2} \times 10^{-6} =\frac{\pi u_{p}^{2} \tau ^{2} }{4L_{B} } (1+\frac{1}{H_{B} } )^{2} \times 10^{-6}</span></p>
+</div><p>where <span class="math">u_{p}</span> (m s<sup>-1</sup>) is the fire spread rate in
+the downwind direction; <span class="math">\tau</span> (s) is average fire
+duration;<span class="math">L_{B}</span>  and <span class="math">H_{B}</span>  are length-to-breadth ratio
+and head-to-back ratio of the ellipse; 10<sup>-6</sup> converts m<sup>2</sup> to km<sup>2</sup>.</p>
+<p>According to Arora and Boer (2005),</p>
+<div class="math" id="equation-ZEqnNum696342">
+<p><span class="eqno">(17)<a class="headerlink" href="#equation-ZEqnNum696342" title="Permalink to this equation">¶</a></span><span class="math">L_{B} =1.0+10.0[1-\exp (-0.06W)]</span></p>
+</div><p>where <span class="math">W</span>(m s<sup>-1</sup>) is the wind speed. According to
+the mathematical properties of the ellipse, the head-to-back ratio
+<span class="math">H_{B}</span>  is</p>
+<div class="math" id="equation-ZEqnNum179757">
+<p><span class="eqno">(18)<a class="headerlink" href="#equation-ZEqnNum179757" title="Permalink to this equation">¶</a></span><span class="math">H_{B} =\frac{u_{p} }{u_{b} } =\frac{L_{B} +(L_{B} ^{2} -1)^{0.5} }{L_{B} -(L_{B} ^{2} -1)^{0.5} } .</span></p>
+</div><p>The fire spread rate in the downwind direction is represented as</p>
+<div class="math" id="equation-23.18)">
+<p><span class="eqno">(19)<a class="headerlink" href="#equation-23.18)" title="Permalink to this equation">¶</a></span><span class="math">u_{p} =u_{\max } C_{m} g(W)</span></p>
+</div><p>(Arora and Boer, 2005), where <span class="math">u_{\max }</span>(m s<sup>-1</sup>) is the PFT-dependent average maximum fire spread
+rate in natural vegetation regions; <span class="math">C_{m}</span>  and <span class="math">g(W)</span>
+represent the dependence of <span class="math">u_{p}</span>  on fuel wetness and wind
+speed <span class="math">W</span>, respectively. <span class="math">u_{\max }</span>  is set to 0.55 m
+s<sup>-1</sup>for grass PFTs, 0.46 m s<sup>-1</sup> for
+shrub PFTs, 0.43 m s<sup>-1</sup> for needleleaf tree PFTs, and 0.40 m s<sup>-1</sup> for other tree PFTs.
+<span class="math">C_{m} =C_{\beta } C_{RH}</span>  is estimated by the dependence of
+<span class="math">u_{p}</span> on root zone soil wetness (<span class="math">C_{\beta }</span> ) and
+relative humidity (<span class="math">C_{RH}</span> ). Here,<span class="math">\beta</span>  is a root
+zone soil moisture limitation function. Due to a lack of observations to
+calibrate <span class="math">C_{\beta }</span> , we adopt a simple linear function, where
+<span class="math">\beta _{low}</span> =0.3 and <span class="math">\beta _{up}</span> =0.7 are the lower
+and upper thresholds of root zone soil wetness, respectively.
+<a href="#id1"><span class="problematic" id="id2">**</span></a><span class="math">C_{RH}</span> ** is set equal to <span class="math">f_{RH}</span> . <span class="math">g(W)</span> is
+derived from the mathematical properties of the ellipse and Eqs and</p>
+<div class="math" id="equation-23.19)">
+<p><span class="eqno">(20)<a class="headerlink" href="#equation-23.19)" title="Permalink to this equation">¶</a></span><span class="math">g(W)=\frac{2L_{B} }{1+\frac{1}{H_{B} } } g(0).</span></p>
+</div><p>Since g(<em>W</em>)=1.0, and<span class="math">L_{B}</span>  and <span class="math">H_{B}</span>  are at their
+maxima<span class="math">L_{B} ^{\max } =11.0</span>and <span class="math">H_{B} ^{\max } =482.0</span>
+when <span class="math">W\to \infty</span> , g(0) can be derived as</p>
+<div class="math" id="equation-23.20)">
+<p><span class="eqno">(21)<a class="headerlink" href="#equation-23.20)" title="Permalink to this equation">¶</a></span><span class="math">g(0)=\frac{1+\frac{1}{H_{B} ^{\max } } }{2L_{B} ^{\max } } =0.05.</span></p>
+</div><p>In the absence of globally gridded data on barriers to fire (e.g.
+rivers, lakes, roads, firebreaks) and human fire-fighting efforts,
+average fire duration is simply assumed equal to 1 which is the observed
+2001–2004 mean persistence of most fires in the world (Giglio et al.
+2006).</p>
+<p>As with the socioeconomic influence on fire occurrence, we assume that
+the socioeconomic influence on fire spreading is negligible in regions
+of<span class="math">D_{p} \le 0.1</span> person km<sup>-2</sup>, i.e.,
+<span class="math">F_{se} =1.0</span>. In regions of <span class="math">D_{p} &gt;0.1</span> person
+km<sup>-2</sup>, we parameterize such socioeconomic influence as:</p>
+<div class="math" id="equation-23.21)">
+<p><span class="eqno">(22)<a class="headerlink" href="#equation-23.21)" title="Permalink to this equation">¶</a></span><span class="math">F_{se} =F_{d} F_{e}</span></p>
+</div><p>where <span class="math">{F}_{d}</span> and <span class="math">{F}_{e}</span> are
+effects of the demographic and economic conditions on the average spread
+area of a fire, and are identified by maximizing the explained
+variability of the GFED3 burned area fraction with both socioeconomic
+indices in grid cells with various dominant vegetation types. For shrub
+and grass PFTs, the demographic impact factor is</p>
+<div class="math" id="equation-ZEqnNum900584">
+<p><span class="eqno">(23)<a class="headerlink" href="#equation-ZEqnNum900584" title="Permalink to this equation">¶</a></span><span class="math">F_{d} =0.2+0.8\times \exp [-\pi (\frac{D_{p} }{450} )^{0.5} ]</span></p>
+</div><p>and the economic impact factor is</p>
+<div class="math" id="equation-ZEqnNum213480">
+<p><span class="eqno">(24)<a class="headerlink" href="#equation-ZEqnNum213480" title="Permalink to this equation">¶</a></span><span class="math">F_{e} =0.2+0.8\times \exp (-\pi \frac{GDP}{7} ).</span></p>
+</div><p>For tree PFTs outside tropical closed forests, the demographic and
+economic impact factors are given as</p>
+<div class="math" id="equation-23.24)">
+<p><span class="eqno">(25)<a class="headerlink" href="#equation-23.24)" title="Permalink to this equation">¶</a></span><span class="math">F_{d} =0.4+0.6\times \exp (-\pi \frac{D_{p} }{125} )</span></p>
+</div><p>and</p>
+<div class="math" id="equation-ZEqnNum543524">
+<p><span class="eqno">(26)<a class="headerlink" href="#equation-ZEqnNum543524" title="Permalink to this equation">¶</a></span><span class="math">F_{e} =\left\{\begin{array}{cc} {0.62,} &amp; {GDP&gt;20} \\ {0.83,} &amp; {8&lt;GDP\le 20} \\ {1,} &amp; {GDP\le 8} \end{array}\right. .</span></p>
+</div><p>Eqs. - reflect that more developed and more densely populated regions
+have a higher fire fighting capability.</p>
+</div>
+<div class="section" id="fire-impact">
+<h3>23.1.3. Fire impact<a class="headerlink" href="#fire-impact" title="Permalink to this headline">¶</a></h3>
+<p>In post-fire regions, we calculate PFT-level fire carbon emissions from
+the <em>j</em>th PFT, <span class="math">{\phi}_{j}</span>  (g C (time step)<sup>-1</sup>, as</p>
+<div class="math" id="equation-23.26)">
+<p><span class="eqno">(27)<a class="headerlink" href="#equation-23.26)" title="Permalink to this equation">¶</a></span><span class="math">\phi _{j} =A_{b,j} C_{j} \bullet CC_{j}</span></p>
+</div><p>where <span class="math">A_{b,j}</span> (km<sup>2</sup>(time step)<sup>-1</sup>) is burned area for the <em>j</em>th PFT;
+<strong>C</strong><sub>j</sub> =(<em>C</em><sub>leaf</sub>, <em>C</em><sub>stem</sub>, <em>C</em><sub>root</sub>, <em>C</em><sub>ts</sub>) is a vector with carbon density
+(g C km<sup>-2</sup>) for leaf, stem (live and dead stem), root (fine, live coarse and dead coarse root), and transfer and storage carbon pools
+as elements; <strong>CC</strong><sub>j</sub> = (<em>CC</em><sub>leaf</sub>, <em>CC</em><sub>stem</sub>, <em>CC</em><sub>root</sub>, <em>CC</em><sub>ts</sub>) is the corresponding combustion
+completeness factor vector (Table 18.1). Moreover, we assume that 30% and 20% of column-level litter and coarse woody debris are burned and
+the corresponding carbon is transferred to atmosphere.</p>
+<p>Tissue mortality due to fire leads to carbon transfers in two ways.
+First, carbon from uncombusted leaf, live stem, dead stem, root, and
+transfer and storage pools
+<span class="math">C^{'} _{j1} =(C_{{\rm leaf}} (1-CC_{{\rm leaf}} ) ,C_{{\rm livestem}} (1-CC_{{\rm stem}} ) ,C_{{\rm deadstem}} (1-CC_{{\rm stem}} ),C_{{\rm root}} (1-CC_{{\rm root}} ),C_{{\rm ts}} (1-CC_{{\rm ts}} )) _{j}</span>
+(g C km<sup>-2</sup>) is transferred to litter as</p>
+<div class="math" id="equation-23.27)">
+<p><span class="eqno">(28)<a class="headerlink" href="#equation-23.27)" title="Permalink to this equation">¶</a></span><span class="math">\Psi _{j1} =\frac{A_{b,j} }{f_{j} A_{g} } C^{'} _{j1} \bullet M_{j1}</span></p>
+</div><p>where
+<span class="math">M_{j1} =(M_{{\rm leaf}} ,M_{{\rm livestem,1}} ,M_{{\rm deadstem}} ,M_{{\rm root}} ,M_{{\rm ts}} )_{j}</span>
+is the corresponding mortality factor vector (Table 18.1). Second,
+carbon from uncombusted live stems is transferred to dead stems as:</p>
+<div class="math" id="equation-23.28)">
+<p><span class="eqno">(29)<a class="headerlink" href="#equation-23.28)" title="Permalink to this equation">¶</a></span><span class="math">\Psi _{j2} =\frac{A_{b,j} }{f_{j} A_{g} } C_{livestem} (1-CC_{stem} )M_{livestem,2}</span></p>
+</div><p>where <span class="math">M_{livestem,2}</span>  is the corresponding mortality factor
+(Table 18.1).</p>
+<p>Fire nitrogen emissions and nitrogen transfers due to fire-induced
+mortality are calculated the same way as for carbon, using the same
+values for combustion completeness and mortality factors. With CLM’s
+dynamic vegetation option enabled, the number of tree PFT individuals
+killed by fire per km<sup>2</sup> (individual km<sup>-2</sup>
+(time step)<sup>-1</sup>) is given by</p>
+<div class="math" id="equation-23.29)">
+<p><span class="eqno">(30)<a class="headerlink" href="#equation-23.29)" title="Permalink to this equation">¶</a></span><span class="math">P_{disturb,j} =\frac{A_{b,j} }{f_{j} A_{g} } P_{j} \xi _{j}</span></p>
+</div><p>where <span class="math">P_{j}</span>  (individual km<sup>-2</sup>) is the population
+density for the <em>j</em>th tree PFT and <span class="math">\xi _{j}</span>  is the
+whole-plant mortality factor (Table 18.1).</p>
+</div>
+</div>
+<div class="section" id="agricultural-fires">
+<h2>23.2. Agricultural fires<a class="headerlink" href="#agricultural-fires" title="Permalink to this headline">¶</a></h2>
+<p>The burned area of cropland (km<sup>2</sup> (timestep <sup>-1</sup>) is taken as <span class="math">{A}_{b}</span>:</p>
+<div class="math" id="equation-23.30)">
+<p><span class="eqno">(31)<a class="headerlink" href="#equation-23.30)" title="Permalink to this equation">¶</a></span><span class="math">A_{b} =a_{1} f_{b} f_{se} f_{t} f_{crop} A_{g}</span></p>
+</div><p>where <span class="math">a_{1}</span>  ((timestep) <sup>-1</sup>) is a
+constant; <span class="math">f_{b}</span>  is the fuel availability factor;
+<span class="math">f_{se}</span>  represents the socioeconomic effect on fires;
+<span class="math">f_{t}</span>  determines the seasonality of agricultural fires;
+<span class="math">f_{crop}</span>  is the fractional coverage of cropland.
+<span class="math">a_{1}</span> = 0.31 hr<sup>-1</sup> is estimated using
+an inverse method, by matching 1997-2004 simulations from an unreleased
+CLM4.5 version driven by Qian et al. (2006) atmospheric forcing and
+climatological lightning data to the analysis of van der Werf et al.
+(2010) that shows the 2001-2009 average contribution of cropland fires
+is 4.7% of the total global burned area.</p>
+<p>We assume the same fuel-load requirement for all fires, so
+<span class="math">f_{b}</span>  is set by Eq. . The socioeconomic factor <span class="math">f_{se}</span>
+is given as follows:</p>
+<div class="math" id="equation-23.31)">
+<p><span class="eqno">(32)<a class="headerlink" href="#equation-23.31)" title="Permalink to this equation">¶</a></span><span class="math">f_{se} =f_{d} f_{e} .</span></p>
+</div><p>Here</p>
+<div class="math" id="equation-23.32)">
+<p><span class="eqno">(33)<a class="headerlink" href="#equation-23.32)" title="Permalink to this equation">¶</a></span><span class="math">f_{d} =0.04+0.96\times \exp [-\pi (\frac{D_{p} }{350} )^{0.5} ]</span></p>
+</div><p>and</p>
+<div class="math" id="equation-23.33)">
+<p><span class="eqno">(34)<a class="headerlink" href="#equation-23.33)" title="Permalink to this equation">¶</a></span><span class="math">f_{e} =0.01+0.99\times \exp (-\pi \frac{GDP}{10} )</span></p>
+</div><p>are the effects of population density and GDP on burned area, derived
+in a similar way to Eqs. and . <span class="math">f_{t}</span>  is set to 1 during the
+climatological peak month for agricultural fires (van der Werf et al.
+2010) in time steps with no precipitation and
+<em>T</em><span class="math">&gt;</span><span class="math">{T}_{f}</span> if no agricultural fires occurred
+earlier in the year; <span class="math">{f}_{t}</span> is set to 0 otherwise. Peak
+month in this dataset correlates with the month after harvesting or the
+month before planting. In CLM we use this dataset the same way whether
+the CROP option is active or not, without regard to the CROP option’s
+simulated planting and harvesting dates.</p>
+<p>In the post-fire region, fire impact is parameterized similar to section
+18.1.3 but with combustion completeness factors and tissue mortality
+factors for crop PFTs (Table 18.1).</p>
+</div>
+<div class="section" id="deforestation-fires">
+<h2>23.3. Deforestation fires<a class="headerlink" href="#deforestation-fires" title="Permalink to this headline">¶</a></h2>
+<p>CLM focuses on deforestation fires in tropical closed forests. Tropical
+closed forests are defined as grid cells with tropical tree coverage
+<span class="math">&gt;</span>60% according to the FAO classification. Deforestation fires
+are defined as fires caused by deforestation, including escaped
+deforestation fires, termed degradation fires. Deforestation and
+degradation fires are assumed to occur outside of cropland areas in
+these grid cells. Burned area is controlled by the deforestation rate
+and climate:</p>
+<div class="math" id="equation-23.34)">
+<p><span class="eqno">(35)<a class="headerlink" href="#equation-23.34)" title="Permalink to this equation">¶</a></span><span class="math">A_{b} =bf_{lu} f_{cli,d} A_{g}</span></p>
+</div><p>where <em>b</em> (time step)<sup>-1</sup> is a global constant;
+<span class="math">f_{lu}</span>  (fraction) represents the effect of decreasing
+fractional coverage of tree PFTs derived from land use data; and
+<span class="math">f_{cli,d}</span>  (fraction) represents the effect of climate
+conditions on the burned area.</p>
+<p>Constants <em>b</em> and <span class="math">{f}_{lu}</span> are calibrated
+based on observations and reanalysis datasets in the Amazon rainforest
+(tropical closed forests within 15.5ºS<span class="math">\text{-}</span>10.5ºN,
+30.5ºW<span class="math">\text{-}</span>91ºW). <em>b=</em>0.035 d<sup>-1</sup> and
+<span class="math">f_{lu}</span>  is defined as</p>
+<div class="math" id="equation-23.35)">
+<p><span class="eqno">(36)<a class="headerlink" href="#equation-23.35)" title="Permalink to this equation">¶</a></span><span class="math">f_{lu} =\max (0.0005,0.19D-0.0011)</span></p>
+</div><p>where <span class="math">D</span>(yr:sup:<cite>-1</cite>) is the annual loss of tree cover
+based on CLM4’s land use and land cover change data.</p>
+<p>The effect of climate on deforestation fires is parameterized as:</p>
+<div class="math" id="equation-ZEqnNum336915">
+<p><span class="eqno">(37)<a class="headerlink" href="#equation-ZEqnNum336915" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {f_{cli,d} =\max [0,\min (1,\frac{b_{2} -P_{60d} }{b_{2} } )]^{0.5} \max [0,\min (1,\frac{b_{3} -P_{10d} }{b_{3} } )]^{0.5} } \\ {\qquad \max [0,\min (1,\frac{0.25-P}{0.25} )]} \end{array}</span></p>
+</div><p>where<span class="math">P</span>(mm d<sup>-1</sup>) is instantaneous
+precipitation, while <span class="math">P_{60d}</span>  (mm d<sup>-1</sup>) and
+<span class="math">P_{10d}</span>  (mm d<sup>-1</sup>) are 60-day and 10-day running
+means of precipitation, respectively; <span class="math">b_{2}</span>  (mm
+d<sup>-1</sup>) and <span class="math">b_{3}</span>  (mm d<sup>-1</sup>) are the
+grid-cell dependent thresholds of <span class="math">P_{60d}</span>  and <span class="math">P_{10d}</span> ;
+0.25 mm d<sup>-1</sup> is the maximum precipitation rate for
+drizzle. Le Page et al. (2010) analyzed the relationship between
+large-scale deforestation fire counts and precipitation during
+2003<span class="math">\text{-}</span>2006 in southern Amazonia where tropical
+evergreen trees (BET Tropical) are dominant. Figure 2 in Le Page et al.
+(2010) showed that fires generally occurred if both <span class="math">P_{60d}</span>  and
+<span class="math">P_{10d}</span>  were less than about 4.0 mm d<sup>-1</sup>, and
+fires occurred more frequently in a drier environment. Based on the
+30-yr (1985:math:<cite>text{-}</cite>2004) precipitation data in Qian et al.
+(2006), the climatological precipitation of dry months (P:math:<cite>&lt;</cite>4.0
+mm d<sup>-1</sup>) in a year over tropical deciduous tree (BDT
+Tropical) dominated regions is 46% of that over BET Tropical dominated
+regions, so we set the PFT-dependent thresholds of <span class="math">P_{60d}</span>  and
+<span class="math">P_{10d}</span>  as 4.0 mm d<sup>-1</sup> for BET Tropical and 1.8
+mm d<sup>-1</sup> (= 4.0 mm d<sup>-1</sup> <span class="math">\times</span> 46%)
+for BDT Tropical, and <em>b</em><sub>2</sub> and <em>b</em><sub>3</sub> are
+the average of thresholds of BET Tropical and BDT Tropical weighted by
+their coverage.</p>
+<p>The post-fire area due to deforestation is not limited to land-type
+conversion regions. In the tree-reduced region, the maximum fire carbon
+emissions are assumed to be 80% of the total conversion flux. According
+to the fraction of conversion flux for tropical trees in the
+tree-reduced region (60%) assigned by CLM, to reach the maximum fire
+carbon emissions in a conversion region requires burning this region
+about twice when we set PFT-dependent combustion completeness factors to
+about 0.3 for stem [the mean of 0.2<span class="math">{-}</span>0.4 used in van
+der Werf (2010)]. Therefore, when the burned area calculated from Eq. is
+no more than twice the tree-reduced area, we assume no escaped fires
+outside the land-type conversion region, and the fire-related fraction
+of the total conversion flux is estimated as
+<span class="math">\frac{A_{b} /A_{g} }{2D}</span> . Otherwise, 80% of the total
+conversion flux is assumed to be fire carbon emissions, and the biomass
+combustion and vegetation mortality outside the tree-reduced regions
+with an area fraction of <span class="math">\frac{A_{b} }{A_{g} } -2D</span> are set as in
+section 18.1.3.</p>
+</div>
+<div class="section" id="peat-fires">
+<h2>23.4. Peat fires<a class="headerlink" href="#peat-fires" title="Permalink to this headline">¶</a></h2>
+<p>The burned area due to peat fires is given as <span class="math">{A}_{b}</span>:</p>
+<div class="math" id="equation-23.37)">
+<p><span class="eqno">(38)<a class="headerlink" href="#equation-23.37)" title="Permalink to this equation">¶</a></span><span class="math">A_{b} =cf_{cli,p} f_{peat} (1-f_{sat} )A_{g}</span></p>
+</div><p>where <em>c</em> (time step)<sup>-1</sup> is a constant; <span class="math">f_{cli,p}</span>
+represents the effect of climate on the burned area;<span class="math">f_{peat}</span>
+is the fractional coverage of peatland in the grid cell; and
+<span class="math">f_{sat}</span>  is the fraction of the grid cell with a water table at
+the surface or higher. <em>c</em>=1.0<span class="math">\times</span>10<sup>-3</sup> hr<sup>-1</sup> for tropical peat fires and
+<em>c</em>=4.2<span class="math">\times</span>10<sup>-5</sup> hr<sup>-1</sup> for boreal peat fires are derived using an inverse
+method, by matching simulations from an unreleased
+CLM4.5 version driven by Qian et al. (2006) atmospheric forcing and
+climatological lightning data to earlier studies: about 2.4 Mha peatland
+was burned over Indonesia in 1997 (Page et al. 2002) and the average
+burned area of peat fires in Western Canada was 0.2 Mha
+yr<sup>-1</sup> for 1980-1999 (Turestky et al.  2004).</p>
+<p>For tropical peat fires, <span class="math">f_{cli,p}</span>  is set as a function of
+long-term precipitation <span class="math">P_{60d}</span> :</p>
+<div class="math" id="equation-23.38)">
+<p><span class="eqno">(39)<a class="headerlink" href="#equation-23.38)" title="Permalink to this equation">¶</a></span><span class="math">f_{cli,p} =\max [0,\min (1,\frac{4-P_{60d} }{4} )]^{2} .</span></p>
+</div><p>For boreal peat fires, <span class="math">f_{cli,p}</span>  is set to</p>
+<div class="math" id="equation-23.39)">
+<p><span class="eqno">(40)<a class="headerlink" href="#equation-23.39)" title="Permalink to this equation">¶</a></span><span class="math">f_{cli,p} = \exp (-\pi \frac{\theta _{17cm} }{0.3} )\cdot \max [0,\min (1,\frac{T_{17cm} -T_{f} }{10} )]</span></p>
+</div><p>where <span class="math">\theta _{17cm}</span>  and <span class="math">T_{17cm}</span>  are the wetness and
+temperature of the top 17 cm of soil; <span class="math">T_{f}</span> =273.15 K is the
+freezing temperature.</p>
+<p>Peat fires lead to peat combustion and the combustion and mortality of
+vegetation in peatlands. For tropical peat fires, based on Page et al.
+(2002), about 6% of the peat carbon loss from stored carbon is caused by
+33.9% of the peatland burned. Carbon emissions due to peat combustion (g C m<sup>-2</sup> (time step)<sup>-1</sup>) are therefore set as
+the product of 6%/33.9%, by burned area fraction of peat fire ((time
+step)<sup>-1</sup>), by soil organic carbon (g C m<sup>-2</sup>). For boreal peat fires, the carbon emissions due to
+peat combustion are set as 2.2 kg C m<sup>-2</sup>peat fire area (Turetsky et al.
+2002). Biomass combustion and vegetation mortality in post-fire
+peatlands are set the same as section 18.1.3 for non-crop PFTs and as
+section 18.2 for crops PFTs.</p>
+<p>Table 18.1. PFT-specific combustion completeness and fire mortality
+factors.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="7%" />
+<col width="8%" />
+<col width="9%" />
+<col width="9%" />
+<col width="8%" />
+<col width="7%" />
+<col width="9%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">PFT</th>
+<th class="head"><em>CC</em><sub>leaf</sub></th>
+<th class="head"><em>CC</em><sub>stem</sub></th>
+<th class="head"><em>CC</em><sub>root</sub></th>
+<th class="head"><em>CC</em><sub>ts</sub></th>
+<th class="head"><em>M</em><sub>leaf</sub></th>
+<th class="head"><em>M</em><sub>livestem</sub></th>
+<th class="head"><em>M</em><sub>deadstem</sub></th>
+<th class="head"><em>M</em><sub>root</sub></th>
+<th class="head"><em>M</em><sub>ts</sub></th>
+<th class="head"><em>M</em><sub>livestem</sub></th>
+<th class="head"><span class="math">\xi</span><sub>j</sub></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>NET Temperate</td>
+<td>0.80</td>
+<td>0.25</td>
+<td>0.00</td>
+<td>0.50</td>
+<td>0.80</td>
+<td>0.15</td>
+<td>0.15</td>
+<td>0.15</td>
+<td>0.50</td>
+<td>0.35</td>
+<td>0.15</td>
+</tr>
+<tr class="row-odd"><td>NET Boreal</td>
+<td>0.80</td>
+<td>0.25</td>
+<td>0.00</td>
+<td>0.50</td>
+<td>0.80</td>
+<td>0.15</td>
+<td>0.15</td>
+<td>0.15</td>
+<td>0.50</td>
+<td>0.35</td>
+<td>0.15</td>
+</tr>
+<tr class="row-even"><td>NDT Boreal</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>BET Tropical</td>
+<td>0.80</td>
+<td>0.22</td>
+<td>0.00</td>
+<td>0.45</td>
+<td>0.80</td>
+<td>0.13</td>
+<td>0.13</td>
+<td>0.13</td>
+<td>0.45</td>
+<td>0.32</td>
+<td>0.13</td>
+</tr>
+<tr class="row-even"><td>BET Temperate</td>
+<td>0.80</td>
+<td>0.22</td>
+<td>0.00</td>
+<td>0.45</td>
+<td>0.80</td>
+<td>0.13</td>
+<td>0.13</td>
+<td>0.13</td>
+<td>0.45</td>
+<td>0.32</td>
+<td>0.13</td>
+</tr>
+<tr class="row-odd"><td>BDT Tropical</td>
+<td>0.80</td>
+<td>0.22</td>
+<td>0.00</td>
+<td>0.45</td>
+<td>0.80</td>
+<td>0.10</td>
+<td>0.10</td>
+<td>0.10</td>
+<td>0.35</td>
+<td>0.25</td>
+<td>0.10</td>
+</tr>
+<tr class="row-even"><td>BDT Temperate</td>
+<td>0.80</td>
+<td>0.22</td>
+<td>0.00</td>
+<td>0.45</td>
+<td>0.80</td>
+<td>0.10</td>
+<td>0.10</td>
+<td>0.10</td>
+<td>0.35</td>
+<td>0.25</td>
+<td>0.10</td>
+</tr>
+<tr class="row-odd"><td>BDT Boreal</td>
+<td>0.80</td>
+<td>0.22</td>
+<td>0.00</td>
+<td>0.45</td>
+<td>0.80</td>
+<td>0.13</td>
+<td>0.13</td>
+<td>0.13</td>
+<td>0.45</td>
+<td>0.32</td>
+<td>0.13</td>
+</tr>
+<tr class="row-even"><td>BES Temperate</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>BDS Temperate</td>
+<td>0.80</td>
+<td>0.30</td>
+<td>0.00</td>
+<td>0.55</td>
+<td>0.80</td>
+<td>0.17</td>
+<td>0.17</td>
+<td>0.17</td>
+<td>0.55</td>
+<td>0.38</td>
+<td>0.17</td>
+</tr>
+<tr class="row-even"><td>BDS Boreal</td>
+<td>0.80</td>
+<td>0.30</td>
+<td>0.00</td>
+<td>0.55</td>
+<td>0.80</td>
+<td>0.17</td>
+<td>0.17</td>
+<td>0.17</td>
+<td>0.55</td>
+<td>0.38</td>
+<td>0.17</td>
+</tr>
+<tr class="row-odd"><td>C<sub>3</sub> Grass Arctic</td>
+<td>0.80</td>
+<td>0.80</td>
+<td>0.00</td>
+<td>0.80</td>
+<td>0.80</td>
+<td>0.20</td>
+<td>0.20</td>
+<td>0.20</td>
+<td>0.80</td>
+<td>0.60</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>C<sub>3</sub> Grass</td>
+<td>0.80</td>
+<td>0.80</td>
+<td>0.00</td>
+<td>0.80</td>
+<td>0.80</td>
+<td>0.20</td>
+<td>0.20</td>
+<td>0.20</td>
+<td>0.80</td>
+<td>0.60</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>C<sub>4</sub> Grass</td>
+<td>0.80</td>
+<td>0.80</td>
+<td>0.00</td>
+<td>0.80</td>
+<td>0.80</td>
+<td>0.20</td>
+<td>0.20</td>
+<td>0.20</td>
+<td>0.80</td>
+<td>0.60</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>Crop 1</td>
+<td>0.80</td>
+<td>0.80</td>
+<td>0.00</td>
+<td>0.80</td>
+<td>0.80</td>
+<td>0.20</td>
+<td>0.20</td>
+<td>0.20</td>
+<td>0.80</td>
+<td>0.60</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>Crop 2</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Leaves (<span class="math">CC_{{\rm leaf}}</span> ), stems (<span class="math">CC_{{\rm stem}}</span> ),
+roots (<span class="math">CC_{{\rm root}}</span> ) , and transfer and storage carbon
+(<span class="math">CC_{{\rm ts}}</span> ); mortality factors for leaves
+(<span class="math">M_{{\rm leaf}}</span> ), live stems (<span class="math">M_{{\rm livestem,1}}</span> ),
+dead stems (<span class="math">M_{{\rm deadstem}}</span> ), roots
+(<span class="math">M_{{\rm root}}</span> ), and transfer and storage carbon
+(<span class="math">M_{{\rm ts}}</span> ) related to the carbon transfers from these pools
+to litter pool; mortality factors for live stems
+(<span class="math">M_{{\rm livestem,2}}</span> ) related to the carbon transfer from live
+stems to dead stems; whole-plant mortality factor (<span class="math">\xi _{j}</span> ).
+Parameters are calibrated in an unreleased CLM4.5 version driven by Qian
+et al. (2006) atmospheric forcing and climatological lightning data.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../Methane/CLM50_Tech_Note_Methane.html" title="24. Methane Model"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html" title="22. External Nitrogen Cycle"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.4.
+    </div>
+  </body>
+</html>

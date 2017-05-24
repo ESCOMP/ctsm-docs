@@ -1,0 +1,1145 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>25. Crops and Irrigation &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="26. Transient Landcover Change" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html" />
+    <link rel="prev" title="24. Methane Model" href="../Methane/CLM50_Tech_Note_Methane.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html" title="26. Transient Landcover Change"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../Methane/CLM50_Tech_Note_Methane.html" title="24. Methane Model"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">25. Crops and Irrigation</a><ul>
+<li><a class="reference internal" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5">25.1. Summary of CLM5.0 updates relative to the CLM4.5</a></li>
+<li><a class="reference internal" href="#the-crop-model">25.2. The crop model</a><ul>
+<li><a class="reference internal" href="#introduction">25.2.1. Introduction</a></li>
+<li><a class="reference internal" href="#crop-plant-functional-types">25.2.2. Crop plant functional types</a></li>
+<li><a class="reference internal" href="#phenology">25.2.3. Phenology</a><ul>
+<li><a class="reference internal" href="#planting">25.2.3.1. Planting</a></li>
+<li><a class="reference internal" href="#leaf-emergence">25.2.3.2. Leaf emergence</a></li>
+<li><a class="reference internal" href="#grain-fill">25.2.3.3. Grain fill</a></li>
+<li><a class="reference internal" href="#harvest">25.2.3.4. Harvest</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#allocation">25.2.4. Allocation</a><ul>
+<li><a class="reference internal" href="#leaf-emergence-to-grain-fill">25.2.4.1. Leaf emergence to grain fill</a></li>
+<li><a class="reference internal" href="#grain-fill-to-harvest">25.2.4.2. Grain fill to harvest</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#general-comments">25.2.5. General comments</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-irrigation-model">25.3. The irrigation model</a></li>
+<li><a class="reference internal" href="#the-details-about-what-is-new-in-clm4-5">25.4. The details about what is new in CLM4.5</a><ul>
+<li><a class="reference internal" href="#interactive-irrigation-for-corn-temperate-cereals-and-soybean">25.4.1. Interactive irrigation for corn, temperate cereals, and soybean</a></li>
+<li><a class="reference internal" href="#interactive-fertilization">25.4.2. Interactive fertilization</a></li>
+<li><a class="reference internal" href="#biological-nitrogen-fixation-for-soybeans">25.4.3. Biological nitrogen fixation for soybeans</a></li>
+<li><a class="reference internal" href="#modified-c-n-ratios-for-crops">25.4.4. Modified C:N ratios for crops</a></li>
+<li><a class="reference internal" href="#nitrogen-retranslocation-for-crops">25.4.5. Nitrogen retranslocation for crops</a></li>
+<li><a class="reference internal" href="#separate-reproductive-pool">25.4.6. Separate reproductive pool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../Methane/CLM50_Tech_Note_Methane.html"
+                        title="previous chapter">24. Methane Model</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html"
+                        title="next chapter">26. Transient Landcover Change</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tech_note/Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="crops-and-irrigation">
+<span id="rst-crops-and-irrigation"></span><h1>25. Crops and Irrigation<a class="headerlink" href="#crops-and-irrigation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary-of-clm5-0-updates-relative-to-the-clm4-5">
+<span id="id1"></span><h2>25.1. Summary of CLM5.0 updates relative to the CLM4.5<a class="headerlink" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5" title="Permalink to this headline">¶</a></h2>
+<p>We describe here the complete crop and irrigation parameterizations that
+appear in CLM5.0. Corresponding information for CLM4.5 appeared on the
+CLM4.5 web site in a pdf document independent of the CLM4.5 Technical
+Note (Oleson et al. 2010a). The CLM4.0 crop model description also
+appeared in Levis et al. (2012).</p>
+<p>CLM5.0 includes the following updates to the CROP option, where CROP
+refers to the interactive crop management model and is included by default with the BGC configuration:</p>
+<ul class="simple">
+<li>New crop functional types</li>
+<li>All crop areas are actively managed</li>
+<li>Fertilization rates updated based on crop type and geographic region</li>
+<li>Irrigation updates</li>
+<li>Phenological triggers vary by latitude for some crop types</li>
+<li>Ability to simulate transient crop management</li>
+<li>Adjustments to allocation and phenological parameters</li>
+<li>Crops reaching their maximum LAI triggers the grain fill phase</li>
+<li>Grain C and N pools are included in a 1-year product pool</li>
+<li>C for annual crop seeding comes from the grain C pool</li>
+<li>Initial seed C for planting is increased from 1 to 3 g C/m^2</li>
+</ul>
+<p>These updates appear in detail in the sections below. Many also appear in
+Levis et al. (2016).</p>
+</div>
+<div class="section" id="the-crop-model">
+<span id="id2"></span><h2>25.2. The crop model<a class="headerlink" href="#the-crop-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="introduction">
+<h3>25.2.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
+<p>Groups developing Earth System Models generally account for the human
+footprint on the landscape in simulations of historical and future
+climates. Traditionally we have represented this footprint with natural
+vegetation types and particularly grasses because they resemble many
+common crops. Most modeling efforts have not incorporated more explicit
+representations of land management such as crop type, planting,
+harvesting, tillage, fertilization, and irrigation, because global scale
+datasets of these factors have lagged behind vegetation mapping. As this
+begins to change, we increasingly find models that will simulate the
+biogeophysical and biogeochemical effects not only of natural but also
+human-managed land cover.</p>
+<p>AgroIBIS is a state-of-the-art land surface model with options to
+simulate dynamic vegetation (Kucharik et al. 2000) and interactive
+crop management (Kucharik and Brye 2003). The interactive crop
+management parameterizations from AgroIBIS (March 2003 version) were
+coupled as a proof-of-concept to the Community Land Model version 3
+[CLM3.0, Oleson et al. (2004)] (not published), then coupled to the
+CLM3.5 (Levis et al. 2009) and later released to the community with
+CLM4CN (Levis et al. 2012) and CLM4.5.</p>
+<p>With interactive crop management and, therefore, a more accurate
+representation of agricultural landscapes, we hope to improve the CLM’s
+simulated biogeophysics and biogeochemistry. These advances may improve
+fully coupled simulations with the Community Earth System Model (CESM),
+while helping human societies answer questions about changing food,
+energy, and water resources in response to climate, environmental, land
+use, and land management change (e.g., Kucharik and Brye 2003; Lobell et al. 2006).</p>
+</div>
+<div class="section" id="crop-plant-functional-types">
+<span id="id3"></span><h3>25.2.2. Crop plant functional types<a class="headerlink" href="#crop-plant-functional-types" title="Permalink to this headline">¶</a></h3>
+<p>CLM’s default list of plant functional types (pfts) includes an
+unmanaged crop (Table 2.1) treated as a second C3 grass. The unmanaged
+crop has grid cell coverage assigned from satellite data, as do all
+natural pfts when CLM’s dynamic vegetation model (CNDV; Castillo et al. 2012) is not active.</p>
+<p>The new crop pfts used in the CLM get grid cell coverage from the
+present-day crop dataset of Portmann et al. (2010). We assign these
+managed crops in the proportions given by Portmann et al. (2010) without
+exceeding the area previously assigned to the unmanaged crop. The
+unmanaged crop continues to occupy any of its original area that remains
+and continues to be handled just by the carbon/nitrogen cycling part of
+the CLM (i.e., CN). The managed crop types (corn, soybean, and temperate
+cereals) were chosen based on the availability of corresponding
+algorithms in AgroIBIS. Temperate cereals include wheat, barley, and rye
+here. We treat all temperate cereals as summer crops (like spring wheat,
+for example) at this time. We may introduce winter cereals (such as
+winter wheat) in a future version of the model.</p>
+<p>To allow crops to coexist with natural vegetation in a grid cell and be
+treated by separate models (i.e., CLM4.5CNcrop versus CLM4.5CNDV), we
+separate the vegetated land unit into a naturally vegetated land unit
+and a human managed land unit. Plant functional types in the naturally
+vegetated land unit share one soil column and compete for water (default
+CLM setting). Managed crop PFTs in the human managed land unit do not
+share soil columns and thus permit for differences in land management
+between crops.</p>
+</div>
+<div class="section" id="phenology">
+<span id="id4"></span><h3>25.2.3. Phenology<a class="headerlink" href="#phenology" title="Permalink to this headline">¶</a></h3>
+<p>CLM4.5CN includes evergreen, seasonally deciduous (responding to changes
+in day length), and stress deciduous (responding to changes in
+temperature and/or soil moisture) phenology algorithms (Chapter 14). In
+CLM4.5CNcrop we have added the AgroIBIS crop phenology algorithm,
+consisting of three distinct phases.</p>
+<p>Phase 1 starts at planting and ends with leaf emergence, phase 2
+continues from leaf emergence to the beginning of grain fill, and phase
+3 starts from the beginning of grain fill and ends with physiological
+maturity and harvest.</p>
+<div class="section" id="planting">
+<span id="id5"></span><h4>25.2.3.1. Planting<a class="headerlink" href="#planting" title="Permalink to this headline">¶</a></h4>
+<p>Corn and temperate cereals must meet the following requirements between
+April 1<sup>st</sup> and June 14<sup>th</sup> for planting in the northern hemisphere (NH):</p>
+<div class="math" id="equation-ZEqnNum568682">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-ZEqnNum568682" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l}
+{T_{10d} &gt;T_{p} } \\
+{T_{10d}^{\min } &gt;T_{p}^{\min } }  \\
+{GDD_{8} \ge GDD_{\min } }
+\end{array}</span></p>
+</div><p>where <span class="math">{T}_{10d}</span> is the 10-day running mean of <span class="math">{T}_{2m}</span>, (the simulated 2-m air
+temperature at every model time step) and <span class="math">T_{10d}^{\min}</span>  is
+the 10-day running mean of <span class="math">T_{2m}^{\min }</span>  (the daily minimum of
+<span class="math">{T}_{2m}</span>. <span class="math">{T}_{p}</span> and <span class="math">T_{p}^{\min }</span>  are crop-specific coldest planting temperatures
+(Table 20.1), <span class="math">{GDD}_{8}</span> is the 20-year running mean growing
+degree-days (units are degree-days or <sup>o</sup> days) tracked
+from April through September (NH) base 8<sup>o</sup> C with
+maximum daily increments of 30<sup>o</sup> days (see Eq.XXX ), and
+<span class="math">{GDD}_{min }</span>is the minimum growing degree day requirement
+(Table 20.1). Soy must meet the same requirements but between May
+1<sup>st</sup> and June 14<sup>th</sup> for planting. If the
+requirements in Eq. are not met by June 14<sup>th</sup>, then corn,
+soybean, and temperate cereals are still planted on June
+15<sup>th</sup> as long as  <span class="math">{GDD}_{8} &gt; 0</span>. In
+the southern hemisphere (SH) the NH requirements apply 6 months later.</p>
+<p><span class="math">{GDD}_{8}</span> does not change as quickly as <span class="math">{T}_{10d}</span> and <span class="math">T_{10d}^{\min }</span>, so
+it determines whether the crop can be planted in a grid cell, while the
+two faster-changing variables determine when the crop may be planted.</p>
+<p>At planting, each crop is assigned 1 g leaf C m<sup>-2</sup> pft
+column area to be transferred to the leaves upon leaf emergence. An
+equivalent amount of seed leaf N is assigned given the pft’s C to N
+ratio for leaves (<span class="math">{CN}_{leaf}</span>). (This differs from AgroIBIS,
+which uses a seed leaf area index instead of seed C.)</p>
+<p>At planting, the model updates the average growing degree-days necessary
+for the crop to reach vegetative and physiological maturity,
+<span class="math">{GDD}_{mat}</span>, according to the following AgroIBIS rules:</p>
+<div class="math" id="equation-25.2)">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-25.2)" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {GDD_{{\rm mat}}^{{\rm corn}} =0.85GDD_{{\rm 8}} {\rm \; \; \; and\; \; \; 950}&lt;GDD_{{\rm mat}}^{{\rm corn}} &lt;1850{}^\circ {\rm days}} \\ {GDD_{{\rm mat}}^{{\rm temp.\; cereals}} =GDD_{{\rm 0}} {\rm \; \; \; and\; \; \; }GDD_{{\rm mat}}^{{\rm temp.\; cereals}} &lt;1700{}^\circ {\rm days}} \\ {GDD_{{\rm mat}}^{{\rm soy}} =GDD_{{\rm 10}} {\rm \; \; \; and\; \; \; }GDD_{{\rm mat}}^{{\rm soy}} &lt;1700{}^\circ {\rm days}} \end{array}</span></p>
+</div><p>where <span class="math">{GDD}_{10}</span> is the 20-year running mean growing
+degree-days tracked from April through September (NH) base
+10<span class="math">{}^\circ</span>C with maximum daily increments of
+30<span class="math">{}^\circ</span>days. Eq. shows how we calculate
+<span class="math">{GDD}_{0}</span>, <span class="math">{GDD}_{8}</span>, and <span class="math">{GDD}_{10}</span>:</p>
+<div class="math" id="equation-ZEqnNum977351">
+<p><span class="eqno">(3)<a class="headerlink" href="#equation-ZEqnNum977351" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {GDD_{{\rm 0}} =GDD_{0} +T_{2{\rm m}} -T_{f} {\rm \; \; \; where\; \; \; 0}\le T_{2{\rm m}} -T_{f} \le 26{}^\circ {\rm days}} \\ {GDD_{{\rm 8}} =GDD_{8} +T_{2{\rm m}} -T_{f} -8{\rm \; \; \; where\; \; \; 0}\le T_{2{\rm m}} -T_{f} -8\le 30{}^\circ {\rm days}} \\ {GDD_{{\rm 10}} =GDD_{10} +T_{2{\rm m}} -T_{f} -10{\rm \; \; \; where\; \; \; 0}\le T_{2{\rm m}} -T_{f} -10\le 30{}^\circ {\rm days}} \end{array}</span></p>
+</div><p>where, if <span class="math">{T}_{2m}</span> -  <span class="math">{T}_{f}</span> takes on values
+outside the above ranges, then it equals the minimum or maximum value in
+the range. Also  <span class="math">{T}_{f}</span> equals 273.15 K,
+<span class="math">{T}_{2m}</span> has units of K, and <em>GDD</em> has units of <sup>o</sup>days.</p>
+</div>
+<div class="section" id="leaf-emergence">
+<span id="id6"></span><h4>25.2.3.2. Leaf emergence<a class="headerlink" href="#leaf-emergence" title="Permalink to this headline">¶</a></h4>
+<p>According to AgroIBIS, leaves may emerge when the growing degree-days of
+soil temperature to 0.05 m depth tracked since planting
+(<span class="math">GDD_{T_{soi} }</span> ) reaches 3 to 5% of <span class="math">{GDD}_{mat}</span>
+(Table 20.1). <span class="math">GDD_{T_{soi} }</span> is base 8, 0, and
+10<span class="math">{}^\circ</span>C for corn, soybean, and temperate cereals.
+Leaf onset, as defined in the CN part of the model, occurs in the first
+time step of phase 2, at which moment all seed C is transferred to leaf
+C. Subsequently, the leaf area index generally increases and reaches
+a maximum value during phase 2.</p>
+</div>
+<div class="section" id="grain-fill">
+<span id="id7"></span><h4>25.2.3.3. Grain fill<a class="headerlink" href="#grain-fill" title="Permalink to this headline">¶</a></h4>
+<p>Phase 3 begins in a similar way to phase 2. A variable tracked since
+planting like <span class="math">GDD_{T_{soi} }</span>  but for 2-m air temperature,
+<span class="math">GDD_{T_{{\rm 2m}} }</span>, must reach a heat unit threshold, <em>h</em>,
+of 40 to 70% of  <span class="math">{GDD}_{mat}</span> (Table 20.1). For corn the
+percentage itself is an empirical function of <span class="math">{GDD}_{mat}</span>
+(not shown). In phase 3, the leaf area index begins to decline in
+response to a background litterfall rate calculated as the inverse of
+leaf longevity for the pft as done in the CN part of the model.</p>
+</div>
+<div class="section" id="harvest">
+<span id="id8"></span><h4>25.2.3.4. Harvest<a class="headerlink" href="#harvest" title="Permalink to this headline">¶</a></h4>
+<p>Harvest is assumed to occur as soon as the crop reaches maturity. When
+<span class="math">GDD_{T_{{\rm 2m}} }</span>  reaches 100% of <span class="math">{GDD}_{mat}</span> or
+the number of days past planting reaches a crop-specific maximum (Table
+20.1), then the crop is harvested. Harvest occurs in one time step using
+CN’s leaf offset algorithm. New variables track the flow of grain C and
+N to food and of live stem C and N to litter. Currently, food C and N
+are routed directly to litter using the labile, cellulose, and lignin
+fractions for leaves. The same fractions for leaves are used for the
+flow of live stem C and N to litter for corn, soybean, and temperate
+cereals. This is in contrast to the approach for unmanaged PFTs which
+puts live stem C and N to dead stems first, rather than to litter.</p>
+</div>
+</div>
+<div class="section" id="allocation">
+<span id="id9"></span><h3>25.2.4. Allocation<a class="headerlink" href="#allocation" title="Permalink to this headline">¶</a></h3>
+<p>Allocation responds to the same phases as phenology (section 20.2.3).
+Simulated C assimilation begins every year upon leaf emergence in phase
+2 and ends with harvest at the end of phase 3; therefore, so does the
+allocation of such C to the crop’s leaf, live stem, fine root, and
+reproductive pools.</p>
+<div class="section" id="leaf-emergence-to-grain-fill">
+<span id="id10"></span><h4>25.2.4.1. Leaf emergence to grain fill<a class="headerlink" href="#leaf-emergence-to-grain-fill" title="Permalink to this headline">¶</a></h4>
+<p>During phase 2, the allocation coefficients (fraction of available C) to
+each C pool are defined as:</p>
+<div class="math" id="equation-25.4)">
+<p><span class="eqno">(4)<a class="headerlink" href="#equation-25.4)" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {a_{repr} =0} \\ {a_{froot} =a_{froot}^{i} -(a_{froot}^{i} -a_{froot}^{f} )\frac{GDD_{T_{{\rm 2m}} } }{GDD_{{\rm mat}} } {\rm \; \; \; where\; \; \; }\frac{GDD_{T_{{\rm 2m}} } }{GDD_{{\rm mat}} } \le 1} \\ {a_{leaf} =(1-a_{froot} )\cdot \frac{a_{leaf}^{i} (e^{-b} -e^{-b\frac{GDD_{T_{{\rm 2m}} } }{h} } )}{e^{-b} -1} {\rm \; \; \; where\; \; \; }b=0.1} \\ {a_{livestem} =1-a_{repr} -a_{froot} -a_{leaf} } \end{array}</span></p>
+</div><p>where <span class="math">a_{leaf}^{i}</span> , <span class="math">a_{froot}^{i}</span> , and
+<span class="math">a_{froot}^{f}</span>  are initial and final values of these
+coefficients (Table 20.2), and <em>h</em> is a heat unit threshold defined in
+section 20.2.3. At a crop-specific maximum leaf area index,
+<span class="math">{L}_{max}</span> (Table 20.2), carbon allocation is directed
+exclusively to the fine roots.</p>
+</div>
+<div class="section" id="grain-fill-to-harvest">
+<span id="id11"></span><h4>25.2.4.2. Grain fill to harvest<a class="headerlink" href="#grain-fill-to-harvest" title="Permalink to this headline">¶</a></h4>
+<p>The calculation of <span class="math">a_{froot}</span>  remains the same from phase 2 to
+phase 3. Other allocation coefficients change to:</p>
+<div class="math" id="equation-ZEqnNum833921">
+<p><span class="eqno">(5)<a class="headerlink" href="#equation-ZEqnNum833921" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l}
+{a_{leaf} =a_{leaf}^{i,3} {\rm \; \; \; when\; \; \; }a_{leaf}^{i,3} \le a_{leaf}^{f} {\rm \; \; \; else...}} \\
+{a_{leaf} =a_{leaf} \left(1-\frac{GDD_{T_{{\rm 2m}} } -h}{GDD_{{\rm mat}} d_{L} -h} \right)^{d_{alloc}^{leaf} } \ge a_{leaf}^{f} {\rm \; \; \; where\; \; \; }\frac{GDD_{T_{{\rm 2m}} } -h}{GDD_{{\rm mat}} d_{L} -h} \le 1} \\
+{} \\
+{a_{livestem} =a_{livestem}^{i,3} {\rm \; \; \; when\; \; \; }a_{livestem}^{i,3} \le a_{livestem}^{f} {\rm \; \; \; else...}} \\
+{a_{livestem} =a_{livestem} \left(1-\frac{GDD_{T_{{\rm 2m}} } -h}{GDD_{{\rm mat}} d_{L} -h} \right)^{d_{alloc}^{stem} } \ge a_{livestem}^{f} {\rm \; \; \; where\; \; \; }\frac{GDD_{T_{{\rm 2m}} } -h}{GDD_{{\rm mat}} d_{L} -h} \le 1} \\
+{} \\
+{a_{repr} =1-a_{froot} -a_{livestem} -a_{leaf} }
+\end{array}</span></p>
+</div><p>where <span class="math">a_{leaf}^{i,3}</span>  and <span class="math">a_{livestem}^{i,3}</span>  (initial
+values) equal the last <span class="math">a_{leaf}</span>  and <span class="math">a_{livestem}</span>
+calculated in phase 2, <span class="math">d_{L}</span> , <span class="math">d_{alloc}^{leaf}</span>  and
+<span class="math">d_{alloc}^{stem}</span>  are leaf area index and leaf and stem
+allocation decline factors, and <span class="math">a_{leaf}^{f}</span>  and
+<span class="math">a_{livestem}^{f}</span>  are final values of these allocation
+coefficients (Table 20.2).</p>
+</div>
+</div>
+<div class="section" id="general-comments">
+<span id="id12"></span><h3>25.2.5. General comments<a class="headerlink" href="#general-comments" title="Permalink to this headline">¶</a></h3>
+<p>C and N accounting now includes new pools and fluxes pertaining to live
+stems and reproductive tissues. For example, the calculations of growth
+respiration, above ground net primary production, litter fall, and
+displayed vegetation all now account for reproductive C.</p>
+<p>We track allocation to reproductive C separately from CN’s allocation to
+other C pools but within the CN framework. CN uses
+<span class="math">{\textstyle\frac{a_{root} }{a_{leaf} }}</span>  and <span class="math">{\textstyle\frac{a_{livestem} }{a_{leaf} }}</span>  to calculate C and
+N allometry and plant N demand.</p>
+<p>Stem area index (<em>S</em>) is equal to 0.1<em>L</em> for corn and 0.2<em>L</em> for
+other crops, as in AgroIBIS, where <em>L</em> is the leaf area index. All live
+C and N pools go to 0 after crop harvest, but the <em>S</em> is kept at 0.25 to
+simulate a post-harvest “stubble” on the ground.</p>
+<p>Crop heights at the top and bottom of the canopy, <span class="math">{z}_{top}</span>
+and <span class="math">{z}_{bot}</span> (m), come from the AgroIBIS formulation:</p>
+<div class="math" id="equation-25.6)">
+<p><span class="eqno">(6)<a class="headerlink" href="#equation-25.6)" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l}
+{z_{top} =z_{top}^{\max } \left(\frac{L}{L_{\max } -1} \right)^{2} \ge 0.05{\rm \; where\; }\frac{L}{L_{\max } -1} \le 1} \\
+{z_{bot} =0.02{\rm m}}
+\end{array}</span></p>
+</div><p>The CN part of the model keeps track of a term representing excess
+maintenance respiration that for perennial pfts or pfts with C storage
+may be extracted from later gross primary production. Later extraction
+cannot continue to happen after harvest for annual crops, so at harvest
+we turn the excess respiration pool into a flux that extracts
+CO<sub>2</sub> directly from the atmosphere. This way we eliminate
+any excess maintenance respiration remaining at harvest as if such
+respiration had not taken place.</p>
+<p>In the list of plant physiological and other parameters used by the CLM,
+we started the managed crops with the existing values assigned to the
+unmanaged C3 crop. Then we changed the following parameters to
+distinguish corn, soybean, and temperate cereals from the unmanaged C3
+crop and from each other:</p>
+<ol class="arabic simple">
+<li>Growth respiration coefficient from 0.30 to the AgroIBIS value of
+0.25.</li>
+<li>Fraction of leaf N in the Rubisco enzyme from 0.1 to 0.2 g N Rubisco
+g<sup>-1</sup> N leaf for temperate cereals to increase
+productivity (not chosen based on AgroIBIS).</li>
+<li>Fraction of current photosynthesis displayed as growth changed from
+0.5 to 1 (not chosen based on AgroIBIS).</li>
+<li>CLM4.5CN curve for the effect of temperature on photosynthesis
+instead of crop-specific curves from AgroIBIS.</li>
+<li>Quantum efficiency at 25<sup>o</sup>C,
+<span class="math">\alpha</span> , from 0.06 to 0.04 <em>µ</em>mol CO<sub>2</sub>  <em>µ</em>mol<sup>-1</sup> photon for C4 crops (corn and unmanaged C4
+crop), using CLM4.5CN’s C4 grass value.</li>
+<li>Slope, <em>m</em>, of conductance-to-photosynthesis relationship from 9 to 4 for C4 crops as in AgroIBIS.</li>
+<li>Specific leaf areas, <em>SLA</em>, to the AgroIBIS values (Table 20.1).</li>
+<li>Leaf orientation, <span class="math">\chi _{L}</span>, to the AgroIBIS values (Table 20.1).</li>
+<li>Soil moisture photosynthesis limitation factor,
+<span class="math">\beta _{t}</span>, for soybeans multiplied as in AgroIBIS by 1.25
+for increased drought tolerance.</li>
+</ol>
+<p>Table 20.1. Crop plant functional types (pfts) in CLM4.5CNcrop and their
+parameters relating to phenology and morphology. Numbers in the first
+column correspond to the list of pfts in Table 2.1.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="2%" />
+<col width="13%" />
+<col width="6%" />
+<col width="9%" />
+<col width="8%" />
+<col width="8%" />
+<col width="9%" />
+<col width="9%" />
+<col width="5%" />
+<col width="9%" />
+<col width="14%" />
+<col width="7%" />
+<col width="1%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&#160;</th>
+<th class="head">Phenological
+Type</th>
+<th class="head"><span class="math">T_{p}</span>
+K</th>
+<th class="head"><span class="math">T_{p}^{\min }</span>
+K</th>
+<th class="head"><span class="math">{GDD}_{min}</span>
+ºdays</th>
+<th class="head"><span class="math">{GDD}_{mat}</span>
+ºdays</th>
+<th class="head">Phase 2
+%<span class="math">{GDD}_{mat}</span></th>
+<th class="head">Phase 3
+%<span class="math">{GDD}_{mat}</span></th>
+<th class="head">Harvest: days
+past planting</th>
+<th class="head"><span class="math">z_{top}^{\max }</span>
+m</th>
+<th class="head"><em>SLA</em>
+m<sup>2</sup>leaf g<sup>-1</sup>C</th>
+<th class="head"><span class="math">\chi _{L}</span>
+index</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><ol class="first last arabic simple" start="15">
+<li></li>
+</ol>
+</td>
+<td>C<sub>3</sub> unmanaged rainfed crop</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>0.03</td>
+<td>-0.30</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="16">
+<li></li>
+</ol>
+</td>
+<td>C<sub>3</sub> unmanaged irrigated crop</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>0.03</td>
+<td>-0.30</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="17">
+<li></li>
+</ol>
+</td>
+<td>Rainfed Corn (also known as Maize)</td>
+<td>&#160;</td>
+<td>950-1850</td>
+<td>3</td>
+<td>55-65</td>
+<td><span class="math">\mathrm{\le}</span>165</td>
+<td>2.50</td>
+<td>0.05</td>
+<td>-0.50</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="18">
+<li></li>
+</ol>
+</td>
+<td>Irrigated Corn (also known as Maize)</td>
+<td>&#160;</td>
+<td>950-1850</td>
+<td>3</td>
+<td>55-65</td>
+<td><span class="math">\mathrm{\le}</span>165</td>
+<td>2.50</td>
+<td>0.05</td>
+<td>-0.50</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="19">
+<li></li>
+</ol>
+</td>
+<td>Rainfed Temperate Cereals</td>
+<td>&#160;</td>
+<td><span class="math">\mathrm{\le}</span>1700</td>
+<td>5</td>
+<td>60</td>
+<td><span class="math">\mathrm{\le}</span>150</td>
+<td>1.20</td>
+<td>0.07</td>
+<td>0.65</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="20">
+<li></li>
+</ol>
+</td>
+<td>Irrigated Temperate Cereals</td>
+<td>&#160;</td>
+<td><span class="math">\mathrm{\le}</span>1700</td>
+<td>5</td>
+<td>60</td>
+<td><span class="math">\mathrm{\le}</span>150</td>
+<td>1.20</td>
+<td>0.07</td>
+<td>0.65</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="21">
+<li></li>
+</ol>
+</td>
+<td>Rainfed Winter cereals (place holder)</td>
+<td>&#160;</td>
+<td>1900</td>
+<td>5</td>
+<td>40</td>
+<td><span class="math">\mathrm{\le}</span>265</td>
+<td>1.20</td>
+<td>0.07</td>
+<td>0.65</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="22">
+<li></li>
+</ol>
+</td>
+<td>Irrigated Winter cereals (place holder)</td>
+<td>&#160;</td>
+<td>1900</td>
+<td>5</td>
+<td>40</td>
+<td><span class="math">\mathrm{\le}</span>265</td>
+<td>1.20</td>
+<td>0.07</td>
+<td>0.65</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="23">
+<li></li>
+</ol>
+</td>
+<td>Rainfed Soybean</td>
+<td>&#160;</td>
+<td><span class="math">\mathrm{\le}</span>1700</td>
+<td>3</td>
+<td>70</td>
+<td><span class="math">\mathrm{\le}</span>150</td>
+<td>0.75</td>
+<td>0.07</td>
+<td>-0.50</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="24">
+<li></li>
+</ol>
+</td>
+<td>Irrigated Soybean</td>
+<td>&#160;</td>
+<td><span class="math">\mathrm{\le}</span>1700</td>
+<td>3</td>
+<td>70</td>
+<td><span class="math">\mathrm{\le}</span>150</td>
+<td>0.75</td>
+<td>0.07</td>
+<td>-0.50</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+<p>Notes: <span class="math">T_{p}</span> and <span class="math">T_{p}^{\min }</span> are coldest
+planting temperatures but for winter cereals <span class="math">T_{p}^{\min }</span>
+is a warmest planting temperature. <span class="math">{GDD}_{min}</span> is the lowest
+(for planting) 20-year running mean growing degree-days base 0ºC (winter
+cereals) or 8 (other crops) tracked from April to September (NH).
+<span class="math">{GDD}_{mat}</span> is a crop’s 20-year running mean growing
+degree-days needed for vegetative and physiological maturity. Harvest
+occurs at 100%<span class="math">{GDD}_{mat}</span> or when the days past planting
+reach the number in the 10<sup>th</sup> column. Crop growth phases
+are described in the text. <span class="math">z_{top}^{\max }</span>  is the maximum
+top-of-canopy height of a crop, <em>SLA</em> is specific leaf area, and leaf
+orientation index, <span class="math">\chi _{L}</span> , equals -1 for vertical, 0 for
+random, and 1 for horizontal leaf orientation.</p>
+<p>Table 20.2. Crop pfts in CLM4.5CNcrop and their parameters relating to
+allocation. Numbers in the first column correspond to the list of pfts in Table 2.1.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="2%" />
+<col width="16%" />
+<col width="14%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="10%" />
+<col width="8%" />
+<col width="11%" />
+<col width="10%" />
+<col width="2%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>&#160;</td>
+<td><span class="math">a_{leaf}^{i}</span></td>
+<td><span class="math">{L}_{max}</span></td>
+<td><span class="math">a_{froot}^{i}</span></td>
+<td><span class="math">a_{froot}^{f}</span></td>
+<td><span class="math">a_{leaf}^{f}</span></td>
+<td><span class="math">a_{livestem}^{f}</span></td>
+<td><span class="math">d_{L}</span></td>
+<td><span class="math">d_{alloc}^{stem}</span></td>
+<td><span class="math">d_{alloc}^{leaf}</span></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>&#160;</td>
+<td>fraction</td>
+<td>m<sup>2</sup>  m<sup>-2</sup></td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="17">
+<li></li>
+</ol>
+</td>
+<td>Rainfed Corn (also referred to as Maize)</td>
+<td>0.800</td>
+<td>5</td>
+<td>0.400</td>
+<td>0.050</td>
+<td>0.000</td>
+<td>0.000</td>
+<td>1.05</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="18">
+<li></li>
+</ol>
+</td>
+<td>Irrigated Corn (also referred to as Maize)</td>
+<td>0.800</td>
+<td>5</td>
+<td>0.400</td>
+<td>0.050</td>
+<td>0.000</td>
+<td>0.000</td>
+<td>1.05</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="19">
+<li></li>
+</ol>
+</td>
+<td>Rainfed Temperate Cereals</td>
+<td>0.750</td>
+<td>7</td>
+<td>0.300</td>
+<td>0.000</td>
+<td>0.000</td>
+<td>0.050</td>
+<td>1.05</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="20">
+<li></li>
+</ol>
+</td>
+<td>Irrigated Temperate Cereals</td>
+<td>0.750</td>
+<td>7</td>
+<td>0.300</td>
+<td>0.000</td>
+<td>0.000</td>
+<td>0.050</td>
+<td>1.05</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="21">
+<li></li>
+</ol>
+</td>
+<td>Rainfed Winter cereals (place holder)</td>
+<td>0.425</td>
+<td>7</td>
+<td>0.300</td>
+<td>0.000</td>
+<td>0.000</td>
+<td>0.050</td>
+<td>1.05</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="22">
+<li></li>
+</ol>
+</td>
+<td>Irrigated Winter cereals (place holder)</td>
+<td>0.425</td>
+<td>7</td>
+<td>0.300</td>
+<td>0.000</td>
+<td>0.000</td>
+<td>0.050</td>
+<td>1.05</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr class="row-odd"><td><ol class="first last arabic simple" start="23">
+<li></li>
+</ol>
+</td>
+<td>Rainfed Soybean</td>
+<td>0.850</td>
+<td>6</td>
+<td>0.500</td>
+<td>0.200</td>
+<td>0.000</td>
+<td>0.300</td>
+<td>1.05</td>
+<td>5</td>
+<td>2</td>
+</tr>
+<tr class="row-even"><td><ol class="first last arabic simple" start="24">
+<li></li>
+</ol>
+</td>
+<td>Irrigated Soybean</td>
+<td>0.850</td>
+<td>6</td>
+<td>0.500</td>
+<td>0.200</td>
+<td>0.000</td>
+<td>0.300</td>
+<td>1.05</td>
+<td>5</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>Notes: Crop growth phases and corresponding variables are described in
+the text</p>
+</div>
+</div>
+<div class="section" id="the-irrigation-model">
+<span id="id13"></span><h2>25.3. The irrigation model<a class="headerlink" href="#the-irrigation-model" title="Permalink to this headline">¶</a></h2>
+<p>The CLM includes the option to irrigate cropland areas that are equipped
+for irrigation. The application of irrigation responds dynamically to
+the soil moisture conditions simulated by the CLM. This irrigation
+algorithm is based loosely on the implementation of
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#ozdoganetal2010"><span class="std std-ref">Ozdogan et al. (2010)</span></a>.</p>
+<p>When irrigation is enabled, the crop areas of each grid cell are divided
+into irrigated and rainfed fractions according to a dataset of areas
+equipped for irrigation (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#portmannetal2010"><span class="std std-ref">Portmann et al. 2010</span></a>).
+Irrigated and rainfed crops are placed on separate soil columns, so that
+irrigation is only applied to the soil beneath irrigated crops.</p>
+<p>In irrigated croplands, a check is made once per day to determine
+whether irrigation is required on that day. This check is made in the
+first time step after 6 AM local time. Irrigation is required if crop
+leaf area <span class="math">&gt;</span> 0, and the available soil water is below a specified
+threshold.</p>
+<p>The soil moisture deficit <span class="math">D_{irrig}</span> is</p>
+<div class="math" id="equation-25.61)">
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-25.61)" title="Permalink to this equation">¶</a></span><span class="math">D_{irrig} = \left\{
+\begin{array}{lr}
+w_{thresh} - w_{avail} &amp;\qquad w_{thresh} &gt; w_{avail} \\
+0 &amp;\qquad w_{thresh} \le w_{avail}
+\end{array} \right\}</span></p>
+</div><p>where <span class="math">w_{thresh}</span> is the irrigation moisture threshold (mm) and
+<span class="math">w_{avail}</span> is the available moisture (mm).  The moisture threshold
+is</p>
+<div class="math" id="equation-25.62)">
+<p><span class="eqno">(8)<a class="headerlink" href="#equation-25.62)" title="Permalink to this equation">¶</a></span><span class="math">w_{thresh} = f_{thresh} \left(w_{target} - w_{wilt}\right) + w_{wilt}</span></p>
+</div><p>where <span class="math">w_{target}</span> is the irrigation target soil moisture (mm)</p>
+<div class="math" id="equation-25.63)">
+<p><span class="eqno">(9)<a class="headerlink" href="#equation-25.63)" title="Permalink to this equation">¶</a></span><span class="math">w_{target} = \sum_{j=1}^{N_{irr}} \theta_{target} \Delta z_{j} \ ,</span></p>
+</div><p><span class="math">w_{wilt}</span> is the wilting point soil moisture (mm)</p>
+<div class="math" id="equation-25.64)">
+<p><span class="eqno">(10)<a class="headerlink" href="#equation-25.64)" title="Permalink to this equation">¶</a></span><span class="math">w_{wilt} = \sum_{j=1}^{N_{irr}} \theta_{wilt} \Delta z_{j} \ ,</span></p>
+</div><p>and <span class="math">f_{thresh}</span> is a tuning parameter.  The available moisture in
+the soil is</p>
+<div class="math" id="equation-25.65)">
+<p><span class="eqno">(11)<a class="headerlink" href="#equation-25.65)" title="Permalink to this equation">¶</a></span><span class="math">w_{avail} = \sum_{j=1}^{N_{irr}} \theta_{j} \Delta z_{j} \ ,</span></p>
+</div><p><span class="math">N_{irr}</span> is the index of the soil layer corresponding to a specified
+depth <span class="math">z_{irrig}</span> (<a class="reference internal" href="#table-irrigation-parameters"><span class="std std-numref">Table 25.1</span></a>) and
+<span class="math">\Delta z</span> is the thickness of the soil layer (section
+<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#vertical-discretization"><span class="std std-numref">2.2</span></a>).  <span class="math">\theta_{j}</span> is the
+volumetric soil moisture in layer <span class="math">j</span> (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#soil-water"><span class="std std-numref">7.3</span></a>).
+<span class="math">\theta_{target}</span> and
+<span class="math">\theta_{wilt}</span> are the target and wilting point volumetric
+soil moisture values, respectively, and are determined by inverting
+<a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#equation-ZEqnNum316201">(40)</a> using soil matric
+potential parameters <span class="math">\Psi_{target}</span> and <span class="math">\Psi_{wilt}</span>
+(<a class="reference internal" href="#table-irrigation-parameters"><span class="std std-numref">Table 25.1</span></a>). After the soil moisture deficit
+<span class="math">D_{irrig}</span> is calculated, irrigation in an amount equal to
+<span class="math">\frac{D_{irrig}}{T_{irrig}}</span> (mm/s) is applied uniformly over
+the irrigation period <span class="math">T_{irrig}</span> (s).  Irrigation water is applied
+directly to the ground surface, bypassing canopy interception (i.e.,
+added to  <span class="math">{q}_{grnd,liq}</span>: section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#canopy-water"><span class="std std-numref">7.1</span></a>).</p>
+<p>To conserve mass, irrigation is removed from river water storage (Chapter 11).
+When river water storage is inadequate to meet irrigation demand,
+there are two options: 1) the additional water can be removed from the
+ocean model, or 2) the irrigation demand can be reduced such that
+river water storage is maintained above a specified threshold.</p>
+<table border="1" class="docutils" id="id21">
+<span id="table-irrigation-parameters"></span><caption><span class="caption-number">Table 25.1 </span><span class="caption-text">Irrigation parameters</span><a class="headerlink" href="#id21" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="75%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><span class="math">f_{thresh}</span></td>
+<td>1.0</td>
+</tr>
+<tr class="row-odd"><td><span class="math">z_{irrig}</span>       (m)</td>
+<td>0.6</td>
+</tr>
+<tr class="row-even"><td><span class="math">\Psi_{target}</span>   (mm)</td>
+<td>-3400</td>
+</tr>
+<tr class="row-odd"><td><span class="math">\Psi_{wilt}</span>     (mm)</td>
+<td>-150000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="the-details-about-what-is-new-in-clm4-5">
+<span id="id14"></span><h2>25.4. The details about what is new in CLM4.5<a class="headerlink" href="#the-details-about-what-is-new-in-clm4-5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="interactive-irrigation-for-corn-temperate-cereals-and-soybean">
+<span id="id15"></span><h3>25.4.1. Interactive irrigation for corn, temperate cereals, and soybean<a class="headerlink" href="#interactive-irrigation-for-corn-temperate-cereals-and-soybean" title="Permalink to this headline">¶</a></h3>
+<p>CLM4.0 included interactive irrigation only for the generic C3 crops,
+i.e. plant functional types (pfts) 15 (rainfed) and 16 (irrigated) in
+the CLM list of pfts and not for the additional crops of the interactive
+crop management model (CROP). Irrigation and CROP were mutually
+exclusive in CLM4.0.</p>
+<p>In CLM4.5 we have reversed this situation. Now the irrigation model can
+be used only while running with CROP. To accomplish this we downloaded
+data of percent irrigated and percent rainfed corn, soybean, and
+temperate cereals (wheat, barley, and rye) (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#portmannetal2010"><span class="std std-ref">Portmann et al. 2010</span></a>),
+available online from</p>
+<p><em>ftp://ftp.rz.uni-frankfurt.de/pub/uni-frankfurt/physische_geographie/hydrologie/public/data/MIRCA2000/harvested_area_grids.</em></p>
+<p>We embedded this data in CLM’s high-resolution pft data for use with the
+tool mksurfdat to generate surface datasets at any desired resolution.
+Now this data includes percent cover for 24 pfts:</p>
+<p>1-16 as in the standard list of pfts, plus six more:</p>
+<p>17 corn</p>
+<p>18 irrigated_corn</p>
+<p>19 spring_temperate_cereal</p>
+<p>20 irrigated_spring_temperate_cereal</p>
+<p>21 winter_temperate_cereal</p>
+<p>22 irrigated_winter_temperate_cereal</p>
+<p>23 soybean</p>
+<p>24 irrigated_soybean</p>
+<p>We intend surface datasets with 24 pfts only for CROP simulations with
+or without irrigation. In simulations without irrigation, the rainfed
+and irrigated crops merge into just rainfed crops at run time. Surface
+datasets with 16 pfts can be used for all other CLM simulations.</p>
+</div>
+<div class="section" id="interactive-fertilization">
+<span id="id16"></span><h3>25.4.2. Interactive fertilization<a class="headerlink" href="#interactive-fertilization" title="Permalink to this headline">¶</a></h3>
+<p>CLM adds nitrogen directly to the soil mineral nitrogen pool to meet
+crop nitrogen demands. CLM’s separate crop land unit ensures that
+natural vegetation will not access the fertilizer applied to crops.
+Fertilizer amounts are obtained from the Agro-IBIS model (Kucharik and
+Brye 2003), but can be modified in CLM’s pft-physiology input dataset.
+Fertilizer is reported in g N/m<sup>2</sup> by plant functional
+type. Total nitrogen fertilizer amounts are 150 g N/m<sup>2</sup>
+for maize, 80 g N/m<sup>2</sup> for temperate cereals, and 25 g
+N/m<sup>2</sup> for soybean, representative of central U.S. annual
+fertilizer application amounts. Since CLM’s denitrification rate is high
+and results in a 50% loss of the unused available nitrogen each day,
+fertilizer is applied slowly to minimize the loss and maximize plant
+uptake. Fertilizer application begins during the emergence phase of crop
+development and continues for 20 days, which helps reduce large losses
+of nitrogen from leaching and denitrification during the early stage of
+crop development. The 20-day period is chosen as an optimization to
+limit fertilizer application to the emergence stage. A fertilizer
+counter in seconds, <em>f</em>, is set as soon as the onset growth for crops
+initiates:</p>
+<p><em>f</em> = <em>n</em> * 86400 [20.9)]</p>
+<p>where <em>n</em> is set to 20 fertilizer application days. When the crop enters
+phase 2 (leaf emergence to the beginning of grain fill) of its growth
+cycle, fertilizer application begins by initializing fertilizer amount
+to the total fertilizer divided by the initialized <em>f</em>. Fertilizer is
+applied and <em>f</em> is decremented each time step until a zero balance on
+the counter is reached.</p>
+<p>The crop fertilization scheme was developed in versions of the CLM prior
+to CLM4.5. In CLM4.5, crops with fertilization may be simulated over
+productive.</p>
+</div>
+<div class="section" id="biological-nitrogen-fixation-for-soybeans">
+<span id="id17"></span><h3>25.4.3. Biological nitrogen fixation for soybeans<a class="headerlink" href="#biological-nitrogen-fixation-for-soybeans" title="Permalink to this headline">¶</a></h3>
+<p>Nitrogen fixation by soybeans is similar to that in the SWAT model
+(Neitsch et al. 2005) and depends on soil moisture, nitrogen
+availability, and growth stage. Soybean fixation is calculated only for
+unmet nitrogen demand; if soil nitrogen meets soybean demand, there will
+be no fixation during the time step. Soybean fixation is determined by</p>
+<div class="math" id="equation-25.10)">
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-25.10)" title="Permalink to this equation">¶</a></span><span class="math">N_{fix} \; =\; N_{plant\_ ndemand} \; *\; min\; \left(\; 1,\; fxw,\; fxn\; \right)*\; fxg</span></p>
+</div><p>where <span class="math">{N}_{plant\_demand}</span> is the balance of nitrogen needed
+to reach potential growth that cannot be supplied from the soil mineral
+nitrogen pool, <em>fxw</em> is the soil water factor, <em>fxn</em> is the soil
+nitrogen factor, and <em>fxg</em> is the growth stage factor calculated by</p>
+<div class="math" id="equation-25.11)">
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-25.11)" title="Permalink to this equation">¶</a></span><span class="math">fxw=\frac{wf}{0.85}</span></p>
+</div><div class="math" id="equation-25.12)">
+<p><span class="eqno">(14)<a class="headerlink" href="#equation-25.12)" title="Permalink to this equation">¶</a></span><span class="math">fxn=\; \left\{\begin{array}{l} {0\qquad \qquad \qquad \qquad {\rm for\; }sminn\le 10} \\ {1.5-0.005\left(sminn\times 10\right)\qquad {\rm for\; 10\; &lt;\; }sminn{\rm \; }\ge 30} \\ {1\qquad \qquad \qquad \qquad {\rm for\; }sminn&gt;30} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-25.13)">
+<p><span class="eqno">(15)<a class="headerlink" href="#equation-25.13)" title="Permalink to this equation">¶</a></span><span class="math">fxg=\left\{\begin{array}{l} {0\qquad \qquad \qquad \qquad \qquad {\rm for\; }GDD_{T_{2m} } \le 0.15} \\ {6.67\times GDD_{T_{2m} } -1\qquad \qquad \qquad {\rm for\; }0.15&lt;GDD_{T_{2m} } \ge 0.30} \\ {1\qquad \qquad \qquad \qquad \qquad {\rm for\; }0.30&lt;GDD_{T_{2m} } \ge 0.55} \\ {3.75-5\times GDD_{T_{2m} } \qquad \qquad \qquad {\rm for\; }0.55&lt;GDD_{T_{2m} } \ge 0.75} \\ {0\qquad \qquad \qquad \qquad \qquad {\rm for\; }GDD_{T_{2m} } &gt;0.75} \end{array}\right\}</span></p>
+</div><p>where <em>wf</em> is the soil water content as a fraction of the water holding
+capacity for the top 0.05 m, <em>sminn</em> is the total nitrogen in the soil
+pool (g/m:sup:<cite>2</cite>), and <span class="math">{GDD}_{T_{2m}}</span> is the fraction of
+growing degree-days accumulated during the growing season.
+<span class="math">N\mathrm{fix}</span> is added directly to the soil mineral nitrogen
+pool for use that time step. Nitrogen fixation occurs after the plant
+has accumulated 15%<span class="math">{GDD}_{mat}</span> and before
+75% <span class="math">{GDD}_{mat}</span>, so before grain fill begins.</p>
+</div>
+<div class="section" id="modified-c-n-ratios-for-crops">
+<span id="id18"></span><h3>25.4.4. Modified C:N ratios for crops<a class="headerlink" href="#modified-c-n-ratios-for-crops" title="Permalink to this headline">¶</a></h3>
+<p>Typically, C:N ratios in plant tissue vary throughout the growing season
+and tend to be lower during early growth stages and higher in later
+growth stages. In order to account for this change, two sets of C:N
+ratios are established in CLM for the leaf, stem, and fine root of
+crops. This modified C:N ratio approach accounts for the nitrogen
+retranslocation that occurs during phase 3 of crop growth. Leaf and stem
+(and root for temperate cereals) C:N ratios for phases 1 and 2 are lower
+than measurements (Table 20.3) to allow excess nitrogen storage in plant
+tissue. During grain fill (phase 3) of the crop growth cycle, the
+nitrogen in the plant tissues is moved to a storage pool to fulfill
+nitrogen demands of organ (reproductive pool) development, such that the
+resulting C:N ratio of the plant tissue is reflective of measurements at
+harvest. All C:N ratios were determined by calibration process, through
+comparisons of model output versus observations of plant carbon
+throughout the growth season.</p>
+</div>
+<div class="section" id="nitrogen-retranslocation-for-crops">
+<span id="id19"></span><h3>25.4.5. Nitrogen retranslocation for crops<a class="headerlink" href="#nitrogen-retranslocation-for-crops" title="Permalink to this headline">¶</a></h3>
+<p>Nitrogen retranslocation in crops occurs when nitrogen that was used for
+tissue growth of leaves, stems, and fine roots during the early growth
+season is remobilized and used for grain development (Pollmer et al.
+1979; Crawford et al. 1982; Simpson et al. 1983; Ta and Weiland 1992;
+Barbottin et al. 2005; Gallais et al. 2006, 2007). Nitrogen allocation
+for crops follows that of natural vegetation, is supplied in CLM by the
+soil mineral nitrogen pool, and depends on C:N ratios for leaves, stems,
+roots, and organs. Nitrogen demand during organ development is fulfilled
+through retranslocation from leaves, stems, and roots. Nitrogen
+retranslocation is initiated at the beginning of the grain fill stage
+for corn and temperate cereals, but not until after LAI decline in
+soybean. Nitrogen stored in the leaf and stem is moved into a storage
+retranslocation pool. For temperate cereals, nitrogen in roots is also
+released into the retranslocation storage pool. The quantity of nitrogen
+mobilized depends on the C:N ratio of the plant tissue, and is
+calculated as</p>
+<div class="math" id="equation-25.14)">
+<p><span class="eqno">(16)<a class="headerlink" href="#equation-25.14)" title="Permalink to this equation">¶</a></span><span class="math">leaf\_ to\_ retransn=\frac{c_{leaf} }{CN_{leaf} } -\frac{c_{leaf} }{CN_{leaf}^{f} }</span></p>
+</div><div class="math" id="equation-25.15)">
+<p><span class="eqno">(17)<a class="headerlink" href="#equation-25.15)" title="Permalink to this equation">¶</a></span><span class="math">stemn\_ to\_ retransn=\frac{c_{stem} }{CN_{stem} } -\frac{c_{stem} }{CN_{stem}^{f} }</span></p>
+</div><div class="math" id="equation-25.16)">
+<p><span class="eqno">(18)<a class="headerlink" href="#equation-25.16)" title="Permalink to this equation">¶</a></span><span class="math">frootn\_ to\_ retransn=\frac{c_{froot} }{CN_{froot} } -\frac{c_{froot} }{CN_{froot}^{f} }</span></p>
+</div><p>where <span class="math">{C}_{leaf}</span>, <span class="math">{C}_{stem}</span>, and <span class="math">{C}_{froot}</span> is the carbon in the plant leaf, stem, and fine
+root, respectively, <span class="math">{CN}_{leaf}</span>, <span class="math">{CN}_{stem}</span>, and <span class="math">{CN}_{froot}</span> is the pre-grain fill C:N ratio of the
+leaf, stem, and fine root respectively, and <span class="math">CN^f_{leaf}</span>,
+<span class="math">CN^f_{stem}</span>, and <span class="math">CN^f_{froot}</span> is the post-grain fill C:N
+ratio of the leaf, stem, and fine root respectively (Table 20.3). Since
+C:N measurements are taken from mature crops, pre-grain development C:N
+ratios for leaves, stems, and roots are optimized to allow maximum
+nitrogen accumulation for later use during organ development. Post-grain
+fill C:N ratios are assigned the same as crop residue. Once excess
+nitrogen is moved into the retranslocated pool, during the remainder of
+the growing season the retranslocated pool is used first to meet plant
+nitrogen demand by assigning the available nitrogen from the
+retranslocated pool equal to the plant nitrogen demand. Once the
+retranslocation pool is depleted, soil mineral nitrogen pool is used to
+fulfill plant nitrogen demands.</p>
+<p>Table 20.3. Pre- and post-grain fill C:N ratios for crop leaf, stem,
+fine root, and reproductive pools.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="12%" />
+<col width="31%" />
+<col width="16%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Pre-grain fill stage</th>
+<th class="head">Corn</th>
+<th class="head">Temperate Cereals</th>
+<th class="head">Soybean</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><span class="math">{CN}_{leaf}</span></td>
+<td>10</td>
+<td>15</td>
+<td>25</td>
+</tr>
+<tr class="row-odd"><td><span class="math">{CN}_{stem}</span></td>
+<td>50</td>
+<td>50</td>
+<td>50</td>
+</tr>
+<tr class="row-even"><td><span class="math">{CN}_{froot}</span></td>
+<td>42</td>
+<td>30</td>
+<td>42</td>
+</tr>
+<tr class="row-odd"><td>Post-grain fill stage</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td><span class="math">CN_{leaf}^{f}</span></td>
+<td>65</td>
+<td>65</td>
+<td>65</td>
+</tr>
+<tr class="row-odd"><td><span class="math">CN_{stem}^{f}</span></td>
+<td>120</td>
+<td>100</td>
+<td>130</td>
+</tr>
+<tr class="row-even"><td><span class="math">CN_{froot}^{f}</span></td>
+<td>42</td>
+<td>40</td>
+<td>42</td>
+</tr>
+<tr class="row-odd"><td><span class="math">CN_{repr}^{f}</span></td>
+<td>50</td>
+<td>40</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="separate-reproductive-pool">
+<span id="id20"></span><h3>25.4.6. Separate reproductive pool<a class="headerlink" href="#separate-reproductive-pool" title="Permalink to this headline">¶</a></h3>
+<p>One notable difference between natural vegetation and crops is the
+presence of a reproductive carbon pool (and nitrogen pool). Accounting
+for the reproductive pool helps determine whether crops are performing
+reasonably, through yield calculations, seasonal GPP and NEE changes,
+etc. The reproductive pool is maintained similarly to the leaf, stem,
+and fine root pools, but allocation of carbon and nitrogen does not
+begin until the grain fill stage of crop development. Eq. shows the
+carbon and nitrogen allocation coefficients to the reproductive pool. In
+the CLM4.0, allocation of carbon to the reproductive pool was calculated
+but merged with the stem pool. In the model, as allocation declines
+during the grain fill stage of growth, increasing amounts of carbon and
+nitrogen are available for grain development.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html" title="26. Transient Landcover Change"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../Methane/CLM50_Tech_Note_Methane.html" title="24. Methane Model"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.4.
+    </div>
+  </body>
+</html>

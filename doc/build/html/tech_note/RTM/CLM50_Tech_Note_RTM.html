@@ -1,0 +1,214 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>14. River Transport Model (RTM) &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="15. Urban Model (CLMU)" href="../Urban/CLM50_Tech_Note_Urban.html" />
+    <link rel="prev" title="13. Glaciers" href="../Glacier/CLM50_Tech_Note_Glacier.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../Urban/CLM50_Tech_Note_Urban.html" title="15. Urban Model (CLMU)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../Glacier/CLM50_Tech_Note_Glacier.html" title="13. Glaciers"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../Glacier/CLM50_Tech_Note_Glacier.html"
+                        title="previous chapter">13. Glaciers</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../Urban/CLM50_Tech_Note_Urban.html"
+                        title="next chapter">15. Urban Model (CLMU)</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tech_note/RTM/CLM50_Tech_Note_RTM.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="river-transport-model-rtm">
+<span id="rst-river-transport-model-rtm"></span><h1>14. River Transport Model (RTM)<a class="headerlink" href="#river-transport-model-rtm" title="Permalink to this headline">¶</a></h1>
+<p>The RTM was developed to route total runoff from the land surface model
+to either the active ocean or marginal seas which enables the hydrologic
+cycle to be closed (Branstetter 2001, Branstetter and Famiglietti 1999).
+This is needed to model ocean convection and circulation, which is
+affected by freshwater input. It also provides another method of
+diagnosing the performance of the land model because the river flow can
+be directly compared to gauging station data (e.g., Dai and Trenberth
+2002).</p>
+<p>To improve global energy conservation when CLM is being run as part of
+the Community Climate System Model, runoff is split into two streams, a
+liquid water stream and an ice water stream (derived from excess
+snowfall in snow-capped grid cells, section 7.7). The liquid and ice
+streams are routed through the RTM, passed to, and dealt with by the
+ocean separately.</p>
+<p>The RTM uses a linear transport scheme to route water from each grid
+cell to its downstream neighboring grid cell. The change in storage
+<span class="math">S</span> of river water, whether it be liquid or ice, within a RTM grid
+cell (m<sup>3</sup> s<sup>-1</sup>) is</p>
+<div class="math" id="equation-14.1)">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-14.1)" title="Permalink to this equation">¶</a></span><span class="math">\frac{dS}{dt} =\sum F_{in}  -F_{out} +R</span></p>
+</div><p>where <span class="math">\sum F_{in}</span> is the sum of inflows of water from
+neighboring upstream grid cells (m<sup>3</sup> s<sup>-1</sup>),
+<span class="math">F_{out}</span>  is the flux of water leaving the grid cell in the
+downstream direction (m <sup>3</sup> s<sup>-1</sup>), and <span class="math">R</span>
+is the total runoff generated by the land model grid cell
+(m<sup>3</sup> s<sup>-1</sup>). Downstream water flow direction in
+each grid cell is determined as one of eight compass points (north,
+northeast, east, southeast, south, southwest, west, and northwest) based
+on the steepest downhill slope as determined from a digital elevation
+model (Graham et al. 1999). The flux of water leaving the grid cell
+<span class="math">F_{out}</span>  is</p>
+<div class="math" id="equation-14.2)">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-14.2)" title="Permalink to this equation">¶</a></span><span class="math">F_{out} =\frac{v}{d} S</span></p>
+</div><p>where <span class="math">v</span> is the effective water flow velocity (m
+s<sup>-1</sup>), <span class="math">d</span> is the distance between centers of
+neighboring grid cells (m), and <span class="math">S</span> is the volume of river water
+stored within the grid cell (m<sup>3</sup>). The effective water flow
+velocity can be estimated from Manning’s equation, which is a function
+of surface water slope, the hydraulic radius of the river channel, and a
+channel roughness coefficient (Dingman, 2002). However, hydraulic radius
+and channel roughness data are not available globally, so a simplified
+effective flow velocity expression is used in RTM</p>
+<div class="math" id="equation-14.3)">
+<p><span class="eqno">(3)<a class="headerlink" href="#equation-14.3)" title="Permalink to this equation">¶</a></span><span class="math">v=\max \left(0.05,k\beta ^{1/2} \right)</span></p>
+</div><p>where <span class="math">\beta</span>  is the grid cell mean topographic slope, and
+<span class="math">k=1</span>.</p>
+<p>The distance <span class="math">d</span> between two grid cell centers depends on river
+direction, latitude, and longitude as</p>
+<div class="math" id="equation-14.4)">
+<p><span class="eqno">(4)<a class="headerlink" href="#equation-14.4)" title="Permalink to this equation">¶</a></span><span class="math">d=\sqrt{\Delta x^{2} +\Delta y^{2} } .</span></p>
+</div><p>The distance in the zonal direction <span class="math">\Delta x</span> (m) is</p>
+<div class="math" id="equation-14.5)">
+<p><span class="eqno">(5)<a class="headerlink" href="#equation-14.5)" title="Permalink to this equation">¶</a></span><span class="math">\Delta x=\left(1\times 10^{3} \left|\theta _{i,\, j} -\theta _{i*,\, j*} \right|R_{e} \right)\left[0.5\left(\cos \phi _{i,\, j} +\cos \phi _{i*,\, j*} \right)\right]</span></p>
+</div><p>where <span class="math">\theta _{i,\, j}</span>  and <span class="math">\theta _{i*,\, j*}</span>  are the
+latitudes (radians) of the upstream and downstream grid cells,
+<span class="math">\phi _{i,\, j}</span>  and <span class="math">\phi _{i*,\, j*}</span>  are the longitudes
+(radians) of the upstream and downstream grid cells, <span class="math">R_{e}</span>  is
+the radius of the earth (km) (Table 2.6), and <span class="math">i</span> and <span class="math">j</span>
+are grid cell indices. The distance in the meridional direction
+<span class="math">\Delta y</span> (m) is</p>
+<div class="math" id="equation-14.6)">
+<p><span class="eqno">(6)<a class="headerlink" href="#equation-14.6)" title="Permalink to this equation">¶</a></span><span class="math">\Delta y=\left(1\times 10^{3} \left|\theta _{i,\, j} -\theta _{i*,\, j*} \right|R_{e} \right).</span></p>
+</div><p>The RTM is generally run at a time step greater than that of the CLM
+because of computational constraints. The total runoff from the land
+model at each time step is accumulated until the RTM is invoked. The
+total liquid water runoff at the land model resolution (kg
+m<sup>-2</sup> s<sup>-1</sup>) is</p>
+<div class="math" id="equation-14.7)">
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-14.7)" title="Permalink to this equation">¶</a></span><span class="math">R_{liq} =q_{over} +q_{drai} +q_{rgwl}</span></p>
+</div><p>where <span class="math">q_{over}</span>  is surface runoff (section 7.3),
+<span class="math">q_{drai}</span>  is sub-surface drainage (section 7.6), and
+<span class="math">q_{rgwl}</span>  is liquid runoff from glaciers, wetlands, and lakes
+(all in kg m<sup>-2</sup> s<sup>-1</sup>) (sections 7.7 and
+9.6.3). The total ice water runoff, also at the land model resolution is</p>
+<div class="math" id="equation-14.8)">
+<p><span class="eqno">(8)<a class="headerlink" href="#equation-14.8)" title="Permalink to this equation">¶</a></span><span class="math">R_{ice} =q_{snwcp,ice}</span></p>
+</div><p>where <span class="math">q_{snwcp,ice}</span>  is the ice runoff from snow-capped
+surfaces (section 7.7). The runoff at the land model resolution is
+interpolated to the resolution of RTM and converted to units of
+m<sup>3</sup> s<sup>-1</sup> for use in equation (11.1) by multiplying
+by <span class="math">1\times 10^{-3} A</span> where <span class="math">A</span> is the area
+(m<sup>2</sup>) of the RTM grid cell.</p>
+<p>The RTM grid cells that are at river mouths, hence providing freshwater
+flux to the ocean, are identified by examining each RTM ocean grid cell
+and determining if a RTM land grid cell flows to that ocean grid cell.
+River mouth grid cells are also assigned if any overlapping grid cells
+at the land model resolution contain land. When used as part of the
+Community Climate System Model, the ocean freshwater liquid and ice
+fluxes at the RTM resolution are passed to the flux coupler which
+distributes the fluxes to the appropriate ocean grid cells. When used
+with the Community Atmosphere Model or when run offline, RTM serves only
+as a diagnostic tool. The river-routing scheme conserves water globally
+as</p>
+<div class="math" id="equation-14.9)">
+<p><span class="eqno">(9)<a class="headerlink" href="#equation-14.9)" title="Permalink to this equation">¶</a></span><span class="math">\sum _{i,\, j}\left(\frac{dS}{dt} \right) _{i,\, j} =\sum _{i,\, j}R_{i,\, j}  .</span></p>
+</div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../Urban/CLM50_Tech_Note_Urban.html" title="15. Urban Model (CLMU)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../Glacier/CLM50_Tech_Note_Glacier.html" title="13. Glaciers"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1442 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>2. Surface Characterization, Vertical Discretization, and Model Input Requirements &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3. Surface Albedos" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html" />
+    <link rel="prev" title="1. Introduction" href="../Introduction/CLM50_Tech_Note_Introduction.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html" title="3. Surface Albedos"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../Introduction/CLM50_Tech_Note_Introduction.html" title="1. Introduction"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">2. Surface Characterization, Vertical Discretization, and Model Input Requirements</a><ul>
+<li><a class="reference internal" href="#surface-characterization">2.1. Surface Characterization</a><ul>
+<li><a class="reference internal" href="#surface-heterogeneity-and-data-structure">2.1.1. Surface Heterogeneity and Data Structure</a></li>
+<li><a class="reference internal" href="#vegetation-composition">2.1.2. Vegetation Composition</a></li>
+<li><a class="reference internal" href="#vegetation-structure">2.1.3. Vegetation Structure</a></li>
+<li><a class="reference internal" href="#phenology-and-vegetation-burial-by-snow">2.1.4. Phenology and vegetation burial by snow</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#vertical-discretization">2.2. Vertical Discretization</a><ul>
+<li><a class="reference internal" href="#soil-layers">2.2.1. Soil Layers</a></li>
+<li><a class="reference internal" href="#depth-to-bedrock">2.2.2. Depth to Bedrock</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-input-requirements">2.3. Model Input Requirements</a><ul>
+<li><a class="reference internal" href="#atmospheric-coupling">2.3.1. Atmospheric Coupling</a></li>
+<li><a class="reference internal" href="#initialization">2.3.2. Initialization</a></li>
+<li><a class="reference internal" href="#surface-data">2.3.3. Surface Data</a></li>
+<li><a class="reference internal" href="#adjustable-parameters-and-physical-constants">2.3.4. Adjustable Parameters and Physical Constants</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../Introduction/CLM50_Tech_Note_Introduction.html"
+                        title="previous chapter">1. Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html"
+                        title="next chapter">3. Surface Albedos</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tech_note/Ecosystem/CLM50_Tech_Note_Ecosystem.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="surface-characterization-vertical-discretization-and-model-input-requirements">
+<span id="rst-surface-characterization-vertical-discretization-and-model-input-requirements"></span><h1>2. Surface Characterization, Vertical Discretization, and Model Input Requirements<a class="headerlink" href="#surface-characterization-vertical-discretization-and-model-input-requirements" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="surface-characterization">
+<span id="id1"></span><h2>2.1. Surface Characterization<a class="headerlink" href="#surface-characterization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="surface-heterogeneity-and-data-structure">
+<span id="id2"></span><h3>2.1.1. Surface Heterogeneity and Data Structure<a class="headerlink" href="#surface-heterogeneity-and-data-structure" title="Permalink to this headline">¶</a></h3>
+<p>Spatial land surface heterogeneity in CLM is represented as a nested
+subgrid hierarchy in which grid cells are composed of multiple land
+units, snow/soil columns, and PFTs (<a class="reference internal" href="#figure-clm-subgrid-hierarchy"><span class="std std-numref">Figure 2.1</span></a>).
+Each grid cell can have
+a different number of land units, each land unit can have a different
+number of columns, and each column can have multiple PFTs. The first
+subgrid level, the land unit, is intended to capture the broadest
+spatial patterns of subgrid heterogeneity. The current land units are
+glacier, lake, urban, vegetated, and crop (when the crop model option is
+turned on). The land unit level can be used to further delineate these
+patterns. For example, the urban land unit is divided into density
+classes representing the tall building district, high density, and
+medium density urban areas.</p>
+<p>The second subgrid level, the column, is intended to capture potential
+variability in the soil and snow state variables within a single land
+unit. For example, the vegetated land unit could contain several columns
+with independently evolving vertical profiles of soil water and
+temperature. Similarly, the managed vegetation land unit could be
+divided into two columns, irrigated and non-irrigated. The snow/soil
+column is represented by fifteen layers for soil and up to five layers
+for snow, depending on snow depth. The central characteristic of the
+column subgrid level is that this is where the state variables for water
+and energy in the soil and snow are defined, as well as the fluxes of
+these components within the soil and snow. Regardless of the number and
+type of PFTs occupying space on the column, the column physics operates
+with a single set of upper boundary fluxes, as well as a single set of
+transpiration fluxes from multiple soil levels. These boundary fluxes
+are weighted averages over all PFTs. Currently, for glacier, lake, and
+vegetated land units, a single column is assigned to each land unit. The
+crop land unit is split into irrigated and unirrigated columns with a
+single crop occupying each column. The urban land units have five
+columns (roof, sunlit walls and shaded walls, and pervious and
+impervious canyon floor) (Oleson et al. 2010b).</p>
+<div class="figure" id="id14">
+<span id="figure-clm-subgrid-hierarchy"></span><img alt="../../_images/image12.png" src="../../_images/image12.png" />
+<p class="caption"><span class="caption-number">Figure 2.1 </span><span class="caption-text">Configuration of the CLM subgrid hierarchy.</span></p>
+</div>
+<p>Note that the Crop land unit is only used when the model is run with the
+crop model active. Abbreviations: TBD – Tall Building District; HD –
+High Density; MD – Medium Density, G – Glacier, L – Lake, U – Urban, C –
+Crop, V – Vegetated, PFT – Plant Functional Type, I – Irrigated, U –
+Unirrigated .</p>
+<p>The third subgrid level is referred to as the PFT level, but it also
+includes the treatment for bare ground. It is intended to capture the
+biogeophysical and biogeochemical differences between broad categories
+of plants in terms of their functional characteristics. On the vegetated
+land unit, up to 16 possible PFTs that differ in physiology and
+structure may coexist on a single column. All fluxes to and from the
+surface are defined at the PFT level, as are the vegetation state
+variables (e.g. vegetation temperature and canopy water storage). On the
+crop land unit, several different crop types can be represented on each
+crop land unit column (see Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a> for details).</p>
+<p>In addition to state and flux variable data structures for conserved
+components at each subgrid level (e.g., energy, water, carbon), each
+subgrid level also has a physical state data structure for handling
+quantities that are not involved in conservation checks (diagnostic
+variables). For example, the urban canopy air temperature and humidity
+are defined through physical state variables at the land unit level, the
+number of snow layers and the soil roughness lengths are defined as
+physical state variables at the column level, and the leaf area index
+and the fraction of canopy that is wet are defined as physical state
+variables at the PFT level.</p>
+<p>The standard configuration of the model subgrid hierarchy is illustrated
+in <a class="reference internal" href="#figure-clm-subgrid-hierarchy"><span class="std std-numref">Figure 2.1</span></a>. Here, only four PFTs are shown
+associated with the single
+column beneath the vegetated land unit but up to sixteen are possible.
+The crop land unit is present only when the crop model is active.</p>
+<p>Note that the biogeophysical processes related to soil and snow require
+PFT level properties to be aggregated to the column level. For example,
+the net heat flux into the ground is required as a boundary condition
+for the solution of snow/soil temperatures (Chapter <a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#rst-soil-and-snow-temperatures"><span class="std std-numref">6</span></a>). This column
+level property must be determined by aggregating the net heat flux from
+all PFTs sharing the column. This is generally accomplished in the model
+by computing a weighted sum of the desired quantity over all PFTs whose
+weighting depends on the PFT area relative to all PFTs, unless otherwise
+noted in the text.</p>
+</div>
+<div class="section" id="vegetation-composition">
+<span id="id3"></span><h3>2.1.2. Vegetation Composition<a class="headerlink" href="#vegetation-composition" title="Permalink to this headline">¶</a></h3>
+<p>Vegetated surfaces are comprised of up to 15 possible plant functional
+types (PFTs) plus bare ground (<a class="reference internal" href="#table-plant-functional-types"><span class="std std-numref">Table 2.1</span></a>). An
+additional PFT is added if
+the irrigation model is active and six additional PFTs are added if the
+crop model is active (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>). These
+plant types differ in leaf and stem optical properties that determine reflection,
+transmittance, and absorption of solar radiation (<a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#table-plant-functional-type-optical-properties"><span class="std std-numref">Table 3.1</span></a>), root
+distribution parameters that control the uptake of water from the soil
+(<a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#table-plant-functional-type-root-distribution-parameters"><span class="std std-numref">Table 9.3</span></a>), aerodynamic parameters that determine resistance to heat,
+moisture, and momentum transfer (<a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#table-plant-functional-type-aerodynamic-parameters"><span class="std std-numref">Table 5.1</span></a>), and photosynthetic
+parameters that determine stomatal resistance, photosynthesis, and
+transpiration (<a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#table-plant-functional-type-pft-photosynthetic-parameters"><span class="std std-numref">Table 9.1</span></a>,
+<a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#table-temperature-dependence-parameters-for-c3-photosynthesis"><span class="std std-numref">Table 9.2</span></a>). The composition and abundance of PFTs
+within a grid cell can either be prescribed as time-invariant fields
+(e.g., using the present day dataset described in section 21.3.3) or can
+evolve with time if the model is run in transient landcover mode
+(Chapter <a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html#rst-transient-landcover-change"><span class="std std-numref">26</span></a>).</p>
+<table border="1" class="docutils" id="id15">
+<span id="table-plant-functional-types"></span><caption><span class="caption-number">Table 2.1 </span><span class="caption-text">Plant functional types</span><a class="headerlink" href="#id15" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="77%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Plant functional type</th>
+<th class="head">Acronym</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Needleleaf evergreen tree – temperate</td>
+<td>NET Temperate</td>
+</tr>
+<tr class="row-odd"><td>Needleleaf evergreen tree - boreal</td>
+<td>NET Boreal</td>
+</tr>
+<tr class="row-even"><td>Needleleaf deciduous tree – boreal</td>
+<td>NDT Boreal</td>
+</tr>
+<tr class="row-odd"><td>Broadleaf evergreen tree – tropical</td>
+<td>BET Tropical</td>
+</tr>
+<tr class="row-even"><td>Broadleaf evergreen tree – temperate</td>
+<td>BET Temperate</td>
+</tr>
+<tr class="row-odd"><td>Broadleaf deciduous tree – tropical</td>
+<td>BDT Tropical</td>
+</tr>
+<tr class="row-even"><td>Broadleaf deciduous tree – temperate</td>
+<td>BDT Temperate</td>
+</tr>
+<tr class="row-odd"><td>Broadleaf deciduous tree – boreal</td>
+<td>BDT Boreal</td>
+</tr>
+<tr class="row-even"><td>Broadleaf evergreen shrub - temperate</td>
+<td>BES Temperate</td>
+</tr>
+<tr class="row-odd"><td>Broadleaf deciduous shrub – temperate</td>
+<td>BDS Temperate</td>
+</tr>
+<tr class="row-even"><td>Broadleaf deciduous shrub – boreal</td>
+<td>BDS Boreal</td>
+</tr>
+<tr class="row-odd"><td>C<sub>3</sub> arctic grass</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>C<sub>3</sub> grass</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>C<sub>4</sub> grass</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>C<sub>3</sub> Unmanaged Rainfed Crop</td>
+<td>Crop R</td>
+</tr>
+<tr class="row-odd"><td><sup>1</sup>C<sub>3</sub> Unmanaged Irrigated Crop</td>
+<td>Crop I</td>
+</tr>
+<tr class="row-even"><td><sup>2</sup>Rainfed Corn</td>
+<td>Corn R</td>
+</tr>
+<tr class="row-odd"><td><sup>2</sup>Irrigated Corn</td>
+<td>Corn I</td>
+</tr>
+<tr class="row-even"><td><sup>2</sup>Rainfed Temperate Cereals</td>
+<td>Temp Cereal R</td>
+</tr>
+<tr class="row-odd"><td><sup>2</sup>Irrigated Temperate Cereals</td>
+<td>Temp Cereal I</td>
+</tr>
+<tr class="row-even"><td><sup>3</sup>Rainfed Winter Cereals</td>
+<td>Winter Cereal R</td>
+</tr>
+<tr class="row-odd"><td><sup>3</sup>Irrigated Winter Cereals</td>
+<td>Winter Cereal I</td>
+</tr>
+<tr class="row-even"><td><sup>2</sup>Rainfed Soybean</td>
+<td>Soybean R</td>
+</tr>
+<tr class="row-odd"><td><sup>2</sup>Irrigated Soybean</td>
+<td>Soybean I</td>
+</tr>
+</tbody>
+</table>
+<p><sup>1</sup>Only used if irrigation is active (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>).
+<sup>2</sup>Only used if crop model is active (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>).
+<sup>3</sup>Reserved for future implementations of crop model (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>).</p>
+</div>
+<div class="section" id="vegetation-structure">
+<span id="id4"></span><h3>2.1.3. Vegetation Structure<a class="headerlink" href="#vegetation-structure" title="Permalink to this headline">¶</a></h3>
+<p>Vegetation structure is defined by leaf and stem area indices
+(<span class="math">L,\, S</span>) and canopy top and bottom heights (<span class="math">z_{top}</span>,<span class="math">z_{bot}</span> )
+(<a class="reference internal" href="#table-prescribed-plant-functional-type-heights"><span class="std std-numref">Table 2.2</span></a>). Separate leaf and
+stem area indices and canopy heights are prescribed or calculated for each PFT. Daily leaf
+and stem area indices are obtained from griddeddatasets of monthly values (section
+<a class="reference internal" href="#surface-data"><span class="std std-numref">2.3.3</span></a>). Canopy top and bottom heights are also obtained from gridded datasets.
+However, these are currently invariant in space and time and were obtained from PFT-specific
+values (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2002a"><span class="std std-ref">Bonan et al. 2002a</span></a>). When the biogeochemistry model is active,
+vegetation state (LAI, SAI, canopy top and bottom heights) are calculated prognostically
+(see Chapter <a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html#rst-vegetation-phenology-and-turnover"><span class="std std-numref">20</span></a>).</p>
+<table border="1" class="docutils" id="id16">
+<span id="table-prescribed-plant-functional-type-heights"></span><caption><span class="caption-number">Table 2.2 </span><span class="caption-text">Prescribed plant functional type heights</span><a class="headerlink" href="#id16" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="42%" />
+<col width="29%" />
+<col width="29%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Plant functional type</th>
+<th class="head"><span class="math">z_{top}</span>  (m)</th>
+<th class="head"><span class="math">z_{bot}</span>  (m)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>NET Temperate</td>
+<td>17</td>
+<td>8.5</td>
+</tr>
+<tr class="row-odd"><td>NET Boreal</td>
+<td>17</td>
+<td>8.5</td>
+</tr>
+<tr class="row-even"><td>NDT Boreal</td>
+<td>14</td>
+<td>7</td>
+</tr>
+<tr class="row-odd"><td>BET Tropical</td>
+<td>35</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>BET temperate</td>
+<td>35</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>BDT tropical</td>
+<td>18</td>
+<td>10</td>
+</tr>
+<tr class="row-even"><td>BDT temperate</td>
+<td>20</td>
+<td>11.5</td>
+</tr>
+<tr class="row-odd"><td>BDT boreal</td>
+<td>20</td>
+<td>11.5</td>
+</tr>
+<tr class="row-even"><td>BES temperate</td>
+<td>0.5</td>
+<td>0.1</td>
+</tr>
+<tr class="row-odd"><td>BDS temperate</td>
+<td>0.5</td>
+<td>0.1</td>
+</tr>
+<tr class="row-even"><td>BDS boreal</td>
+<td>0.5</td>
+<td>0.1</td>
+</tr>
+<tr class="row-odd"><td>C<span class="math">{}_{3}</span> arctic grass</td>
+<td>0.5</td>
+<td>0.01</td>
+</tr>
+<tr class="row-even"><td>C<span class="math">{}_{3}</span> grass</td>
+<td>0.5</td>
+<td>0.01</td>
+</tr>
+<tr class="row-odd"><td>C<span class="math">{}_{4}</span> grass</td>
+<td>0.5</td>
+<td>0.01</td>
+</tr>
+<tr class="row-even"><td>Crop R</td>
+<td>0.5</td>
+<td>0.01</td>
+</tr>
+<tr class="row-odd"><td>Crop I</td>
+<td>0.5</td>
+<td>0.01</td>
+</tr>
+<tr class="row-even"><td><sup>1</sup>Corn R</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><sup>1</sup>Corn I</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><sup>1</sup>Temp Cereal R</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><sup>1</sup>Temp Cereal I</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><sup>1</sup>Winter Cereal R</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><sup>1</sup>Winter Cereal I</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><sup>1</sup>Soybean R</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><sup>1</sup>Soybean I</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p><sup>1</sup>Determined by the crop model (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>)</p>
+</div>
+<div class="section" id="phenology-and-vegetation-burial-by-snow">
+<span id="id5"></span><h3>2.1.4. Phenology and vegetation burial by snow<a class="headerlink" href="#phenology-and-vegetation-burial-by-snow" title="Permalink to this headline">¶</a></h3>
+<p>When the biogeochemistry model is inactive, leaf and stem area indices
+(m<sup>2</sup> leaf area m<sup>-2</sup> ground area) are updated
+daily by linearly interpolating between monthly values. Monthly PFT leaf
+area index values are developed from the 1-km MODIS-derived monthly grid
+cell average leaf area index of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#mynenietal2002"><span class="std std-ref">Myneni et al. (2002)</span></a>,
+as described in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lawrencechase2007"><span class="std std-ref">Lawrence and Chase (2007)</span></a>. Stem area
+ndex is calculated from the monthly PFT leaf area index using the methods of
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#zengetal2002"><span class="std std-ref">Zeng et al. (2002)</span></a>. The leaf and stem area indices are
+adjusted for vertical burying by snow (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#wangzeng2009"><span class="std std-ref">Wang and Zeng 2009</span></a>)
+as</p>
+<div class="math" id="equation-2.1">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-2.1" title="Permalink to this equation">¶</a></span><span class="math">A=A^{*} ( 1-f_{veg}^{sno} )</span></p>
+</div><p>where <span class="math">A^{\*}</span> is the leaf or stem area before adjustment for
+snow, <span class="math">A</span> is the remaining exposed leaf or stem area,
+<span class="math">f_{veg}^{sno}</span> is the vertical fraction of vegetation covered by snow</p>
+<div class="math" id="equation-2.2">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-2.2" title="Permalink to this equation">¶</a></span><span class="math">{f_{veg}^{sno} = \frac{z_{sno} -z_{bot} }{z_{top} -z_{bot} }         \qquad {\rm for\; tree\; and\; shrub}} \\
+{f_{veg}^{sno} = \frac{\min \left(z_{sno} ,\, z_{c} \right)}{z_{c} } \qquad {\rm for\; grass\; and\; crop}}</span></p>
+</div><p>where <span class="math">z_{sno} -z_{bot} \ge 0,{\rm \; }0\le f_{veg}^{sno} \le 1</span>, <span class="math">z_{sno}</span>  is the depth of snow (m)
+(Chapter <a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html#rst-snow-hydrology"><span class="std std-numref">8</span></a>), and <span class="math">z_{c} = 0.2</span> is the snow depth when short vegetation is assumed to
+be completely buried by snow (m). For numerical reasons, exposed leaf and stem area are set to zero if less than
+0.05. If the sum of exposed leaf and stem area is zero, then the surface is treated as snow-covered ground.</p>
+</div>
+</div>
+<div class="section" id="vertical-discretization">
+<span id="id6"></span><h2>2.2. Vertical Discretization<a class="headerlink" href="#vertical-discretization" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="soil-layers">
+<span id="id7"></span><h3>2.2.1. Soil Layers<a class="headerlink" href="#soil-layers" title="Permalink to this headline">¶</a></h3>
+<p>The soil column can be discretized into an arbitrary number of layers.  The default
+vertical discretization (<a class="reference internal" href="#table-soil-layer-structure"><span class="std std-numref">Table 2.3</span></a>) uses
+<span class="math">N_{levgrnd} = 25</span> layers, of which <span class="math">N_{levsoi} = 20</span> are hydrologically and
+biogeochemically active.  The deepest 5 layers are only included in the thermodynamical
+calculations (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lawrenceetal2008"><span class="std std-ref">Lawrence et al. 2008</span></a>) described in Chapter
+<a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#rst-soil-and-snow-temperatures"><span class="std std-numref">6</span></a>.</p>
+<p>The layer structure of the soil is described by the node depth, <span class="math">z_{i}</span>
+(m), the thickness of each layer, <span class="math">\Delta z_{i}</span>  (m), and the depths
+at the layer interfaces <span class="math">z_{h,\, i}</span>  (m).</p>
+<table border="1" class="docutils" id="id17">
+<span id="table-soil-layer-structure"></span><caption><span class="caption-number">Table 2.3 </span><span class="caption-text">Soil layer structure</span><a class="headerlink" href="#id17" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="19%" />
+<col width="22%" />
+<col width="30%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Layer</th>
+<th class="head"><span class="math">z_{i}</span></th>
+<th class="head"><span class="math">\Delta z_{i}</span></th>
+<th class="head"><span class="math">z_{h,\, i}</span></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>0.010</td>
+<td>0.020</td>
+<td>0.020</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>0.040</td>
+<td>0.040</td>
+<td>0.060</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>0.090</td>
+<td>0.060</td>
+<td>0.120</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>0.160</td>
+<td>0.080</td>
+<td>0.200</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>0.260</td>
+<td>0.120</td>
+<td>0.320</td>
+</tr>
+<tr class="row-odd"><td>6</td>
+<td>0.400</td>
+<td>0.160</td>
+<td>0.480</td>
+</tr>
+<tr class="row-even"><td>7</td>
+<td>0.580</td>
+<td>0.200</td>
+<td>0.680</td>
+</tr>
+<tr class="row-odd"><td>8</td>
+<td>0.800</td>
+<td>0.240</td>
+<td>0.920</td>
+</tr>
+<tr class="row-even"><td>9</td>
+<td>1.060</td>
+<td>0.280</td>
+<td>1.200</td>
+</tr>
+<tr class="row-odd"><td>10</td>
+<td>1.360</td>
+<td>0.320</td>
+<td>1.520</td>
+</tr>
+<tr class="row-even"><td>11</td>
+<td>1.700</td>
+<td>0.360</td>
+<td>1.880</td>
+</tr>
+<tr class="row-odd"><td>12</td>
+<td>2.080</td>
+<td>0.400</td>
+<td>2.280</td>
+</tr>
+<tr class="row-even"><td>13</td>
+<td>2.500</td>
+<td>0.440</td>
+<td>2.720</td>
+</tr>
+<tr class="row-odd"><td>14</td>
+<td>2.990</td>
+<td>0.540</td>
+<td>3.260</td>
+</tr>
+<tr class="row-even"><td>15</td>
+<td>3.580</td>
+<td>0.640</td>
+<td>3.900</td>
+</tr>
+<tr class="row-odd"><td>16</td>
+<td>4.270</td>
+<td>0.740</td>
+<td>4.640</td>
+</tr>
+<tr class="row-even"><td>17</td>
+<td>5.060</td>
+<td>0.840</td>
+<td>5.480</td>
+</tr>
+<tr class="row-odd"><td>18</td>
+<td>5.950</td>
+<td>0.940</td>
+<td>6.420</td>
+</tr>
+<tr class="row-even"><td>19</td>
+<td>6.940</td>
+<td>1.040</td>
+<td>7.460</td>
+</tr>
+<tr class="row-odd"><td>20</td>
+<td>8.030</td>
+<td>1.140</td>
+<td>8.600</td>
+</tr>
+<tr class="row-even"><td>21</td>
+<td>9.795</td>
+<td>2.390</td>
+<td>10.990</td>
+</tr>
+<tr class="row-odd"><td>22</td>
+<td>13.328</td>
+<td>4.676</td>
+<td>15.666</td>
+</tr>
+<tr class="row-even"><td>23</td>
+<td>19.483</td>
+<td>7.635</td>
+<td>23.301</td>
+</tr>
+<tr class="row-odd"><td>24</td>
+<td>28.871</td>
+<td>11.140</td>
+<td>34.441</td>
+</tr>
+<tr class="row-even"><td>25</td>
+<td>41.998</td>
+<td>15.115</td>
+<td>49.556</td>
+</tr>
+</tbody>
+</table>
+<p>Layer node depth (<span class="math">z_{i}</span> ), thickness (<span class="math">\Delta z_{i}</span> ), and depth at
+layer interface (<span class="math">z_{h,\, i}</span> ) for default soil column. All in meters.</p>
+</div>
+<div class="section" id="depth-to-bedrock">
+<span id="id8"></span><h3>2.2.2. Depth to Bedrock<a class="headerlink" href="#depth-to-bedrock" title="Permalink to this headline">¶</a></h3>
+<p>The hydrologically and biogeochemically active portion of the soil column can be
+restricted to a thickness less than that of the maximum soil depth.  By providing
+a depth-to-bedrock dataset, which may vary spatially, the number of layers used
+in the hydrologic and biogeochemical calculations, <span class="math">N_{bedrock}</span>, may be
+specified, subject to the constraint <span class="math">N_{bedrock} \le N_{levsoi}</span></p>
+</div>
+</div>
+<div class="section" id="model-input-requirements">
+<span id="id9"></span><h2>2.3. Model Input Requirements<a class="headerlink" href="#model-input-requirements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="atmospheric-coupling">
+<span id="id10"></span><h3>2.3.1. Atmospheric Coupling<a class="headerlink" href="#atmospheric-coupling" title="Permalink to this headline">¶</a></h3>
+<p>The current state of the atmosphere (<a class="reference internal" href="#table-atmospheric-input-to-land-model"><span class="std std-numref">Table 2.4</span></a>)
+at a given time step is
+used to force the land model. This atmospheric state is provided by an
+atmospheric model in coupled mode or from an observed dataset in offline
+mode (Chapter <a class="reference internal" href="../Offline/CLM50_Tech_Note_Offline.html#rst-offline-mode"><span class="std std-numref">31</span></a>). The land model then initiates a full set of
+calculations for surface energy, constituent, momentum, and radiative
+fluxes. The land model calculations are implemented in two steps. The
+land model proceeds with the calculation of surface energy, constituent,
+momentum, and radiative fluxes using the snow and soil hydrologic states
+from the previous time step. The land model then updates the soil and
+snow hydrology calculations based on these fluxes. These fields are
+passed to the atmosphere (<a class="reference internal" href="#table-land-model-output-to-atmospheric-model"><span class="std std-numref">Table 2.5</span></a>). The albedos sent to the atmosphere
+are for the solar zenith angle at the next time step but with surface
+conditions from the current time step.</p>
+<table border="1" class="docutils" id="id18">
+<span id="table-atmospheric-input-to-land-model"></span><caption><span class="caption-number">Table 2.4 </span><span class="caption-text">Atmospheric input to land model</span><a class="headerlink" href="#id18" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="36%" />
+<col width="32%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">variable name</th>
+<th class="head">units</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><sup>1</sup>Reference height</td>
+<td><span class="math">z'_{atm}</span></td>
+<td>m</td>
+</tr>
+<tr class="row-odd"><td>Zonal wind at <span class="math">z_{atm}</span></td>
+<td><span class="math">u_{atm}</span></td>
+<td>m s<sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td>Meridional wind at <span class="math">z_{atm}</span></td>
+<td><span class="math">v_{atm}</span></td>
+<td>m s<sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td>Potential temperature</td>
+<td><span class="math">\overline{\theta _{atm} }</span></td>
+<td>K</td>
+</tr>
+<tr class="row-even"><td>Specific humidity at <span class="math">z_{atm}</span></td>
+<td><span class="math">q_{atm}</span></td>
+<td>kg kg<sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td>Pressure at <span class="math">z_{atm}</span></td>
+<td><span class="math">P_{atm}</span></td>
+<td>Pa</td>
+</tr>
+<tr class="row-even"><td>Temperature at <span class="math">z_{atm}</span></td>
+<td><span class="math">T_{atm}</span></td>
+<td>K</td>
+</tr>
+<tr class="row-odd"><td>Incident longwave radiation</td>
+<td><span class="math">L_{atm} \, \downarrow</span></td>
+<td>W m<sup>-2</sup></td>
+</tr>
+<tr class="row-even"><td><sup>2</sup>Liquid precipitation</td>
+<td><span class="math">q_{rain}</span></td>
+<td>mm s<sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td><sup>2</sup>Solid precipitation</td>
+<td><span class="math">q_{sno}</span></td>
+<td>mm s<sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td>Incident direct beam visible solar radiation</td>
+<td><span class="math">S_{atm} \, \downarrow _{vis}^{\mu }</span></td>
+<td>W m<sup>-2</sup></td>
+</tr>
+<tr class="row-odd"><td>Incident direct beam near-infrared solar radiation</td>
+<td><span class="math">S_{atm} \, \downarrow _{nir}^{\mu }</span></td>
+<td>W m<sup>-2</sup></td>
+</tr>
+<tr class="row-even"><td>Incident diffuse visible solar radiation</td>
+<td><span class="math">S_{atm} \, \downarrow _{vis}</span></td>
+<td>W m<sup>-2</sup></td>
+</tr>
+<tr class="row-odd"><td>Incident diffuse near-infrared solar radiation</td>
+<td><span class="math">S_{atm} \, \downarrow _{nir}</span></td>
+<td>W m<sup>-2</sup></td>
+</tr>
+<tr class="row-even"><td>Carbon dioxide (CO:sub:<cite>2</cite>) concentration</td>
+<td><span class="math">c_{a}</span></td>
+<td>ppmv</td>
+</tr>
+<tr class="row-odd"><td><sup>3</sup>Aerosol deposition rate</td>
+<td><span class="math">D_{sp}</span></td>
+<td>kg m<sup>-2</sup> s<sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td><sup>4</sup>Nitrogen deposition rate</td>
+<td><span class="math">NF_{ndep\_ s{\it min}n}</span></td>
+<td>g (N) m<sup>-2</sup> yr<sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td><sup>5</sup>Lightning frequency</td>
+<td><span class="math">I_{l}</span></td>
+<td>flash km<sup>-2</sup> hr<sup>-1</sup></td>
+</tr>
+</tbody>
+</table>
+<p><sup>1</sup>The atmospheric reference height received from the
+atmospheric model <span class="math">z'_{atm}</span>  is assumed to be the height above
+the surface as defined by the roughness length <span class="math">z_{0}</span>  plus
+displacement height <span class="math">d</span>. Thus, the reference height used for flux
+computations (Chapter <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#rst-momentum-sensible-heat-and-latent-heat-fluxes"><span class="std std-numref">5</span></a>)
+is <span class="math">z_{atm} =z'_{atm} +z_{0} +d</span>. The
+reference heights for temperature, wind, and specific humidity
+(<span class="math">z_{atm,\, h}</span> , <span class="math">z_{atm,\, {\it m}}</span> ,
+<span class="math">z_{atm,\, w}</span> ) are required. These are set equal
+to<span class="math">z_{atm}</span> .</p>
+<p><sup>2</sup>The placeCAM provides convective and large-scale liquid
+and solid precipitation, which are added to yield total liquid
+precipitation <span class="math">q_{rain}</span>  and solid precipitation
+<span class="math">q_{sno}</span> .</p>
+<p><sup>3</sup>There are 14 aerosol deposition rates required depending
+on species and affinity for bonding with water; 8 of these are dust
+deposition rates (dry and wet rates for 4 dust size bins,
+<span class="math">D_{dst,\, dry1} ,\, D_{dst,\, dry2} ,\, D_{dst,\, dry3} ,\, D_{dst,\, dry4}</span> ,
+<span class="math">D_{dst,\, \, wet1} ,D_{dst,\, wet2} ,\, D_{dst,wet3} ,\, D_{dst,\, wet4}</span> ),
+3 are black carbon deposition rates (dry and wet hydrophilic and dry
+hydrophobic rates,
+<span class="math">D_{bc,\, dryhphil} ,\, D_{bc,\, wethphil} ,\, D_{bc,\, dryhphob}</span> ),
+and 3 are organic carbon deposition rates (dry and wet hydrophilic and
+dry hydrophobic rates,
+<span class="math">D_{oc,\, dryhphil} ,\, D_{oc,\, wethphil} ,\, D_{oc,\, dryhphob}</span> ).
+These fluxes are computed interactively by the atmospheric model (when
+prognostic aerosol representation is active) or are prescribed from a
+time-varying (annual cycle or transient), globally-gridded deposition
+file defined in the namelist (see the CLM4.5 User’s Guide). Aerosol
+deposition rates were calculated in a transient 1850-2009 CAM simulation
+(at a resolution of 1.9x2.5x26L) with interactive chemistry (troposphere
+and stratosphere) driven by CCSM3 20<sup>th</sup> century
+sea-surface temperatures and emissions (Lamarque et al. 2010) for
+short-lived gases and aerosols; observed concentrations were specified
+for methane, N<sub>2</sub>O, the ozone-depleting substances (CFCs)
+,and CO<sub>2</sub>. The fluxes are used by the snow-related
+parameterizations (Chapters <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#rst-surface-albedos"><span class="std std-numref">3</span></a> and numref:<cite>rst_Snow Hydrology</cite>).</p>
+<p><sup>4</sup>The nitrogen deposition rate is required by the
+biogeochemistry model when active and represents the total deposition of
+mineral nitrogen onto the land surface, combining deposition of
+NO<sub>y</sub> and NH<sub>x</sub>. The rate is supplied either
+as a time-invariant spatially-varying annual mean rate or time-varying
+for a transient simulation. Nitrogen deposition rates were calculated
+from the same CAM chemistry simulation that generated the aerosol
+deposition rates.</p>
+<p><sup>5</sup>Climatological 3-hourly lightning frequency at
+<span class="math">\sim</span>1.8<sup>o</sup> resolution is provided, which was
+calculated via bilinear interpolation from 1995-2011 NASA LIS/OTD grid
+product v2.2 (<a class="reference external" href="http://ghrc.msfc.nasa.gov">http://ghrc.msfc.nasa.gov</a>) 2-hourly, 2.5<sup>o</sup>
+lightning frequency data. In future versions of the model, lightning
+data may be obtained directly from the atmosphere model.</p>
+<p>Density of air (<span class="math">\rho _{atm}</span> ) (kg m<sup>-3</sup>) is also
+required but is calculated directly from
+<span class="math">\rho _{atm} =\frac{P_{atm} -0.378e_{atm} }{R_{da} T_{atm} }</span>
+where <span class="math">P_{atm}</span>  is atmospheric pressure (Pa), <span class="math">e_{atm}</span>  is
+atmospheric vapor pressure (Pa), <span class="math">R_{da}</span>  is the gas constant for
+dry air (J kg<sup>-1</sup> K<sup>-1</sup>) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>), and
+<span class="math">T_{atm}</span>  is the atmospheric temperature (K). The atmospheric
+vapor pressure <span class="math">e_{atm}</span>  is derived from atmospheric specific
+humidity <span class="math">q_{atm}</span>  (kg kg<sup>-1</sup>) as
+<span class="math">e_{atm} =\frac{q_{atm} P_{atm} }{0.622+0.378q_{atm} }</span> .</p>
+<p>The O<sub>2</sub> partial pressure (Pa) is required but is
+calculated from molar ratio and the atmospheric pressure
+<span class="math">P_{atm}</span>  as <span class="math">o_{i} =0.209P_{atm}</span> .</p>
+<table border="1" class="docutils" id="id19">
+<span id="table-land-model-output-to-atmospheric-model"></span><caption><span class="caption-number">Table 2.5 </span><span class="caption-text">Land model output to atmospheric model</span><a class="headerlink" href="#id19" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="26%" />
+<col width="32%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Variable name</th>
+<th class="head">units</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><sup>1</sup>Latent heat flux</td>
+<td><span class="math">\lambda _{vap} E_{v} +\lambda E_{g}</span></td>
+<td>W m<sup>-2</sup></td>
+</tr>
+<tr class="row-odd"><td>Sensible heat flux</td>
+<td><span class="math">H_{v} +H_{g}</span></td>
+<td>W m<sup>-2</sup></td>
+</tr>
+<tr class="row-even"><td>Water vapor flux</td>
+<td><span class="math">E_{v} +E_{g}</span></td>
+<td>mm s<sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td>Zonal momentum flux</td>
+<td><span class="math">\tau _{x}</span></td>
+<td>kg m<sup>-1</sup> s<sup>-2</sup></td>
+</tr>
+<tr class="row-even"><td>Meridional momentum flux</td>
+<td><span class="math">\tau _{y}</span></td>
+<td>kg m<sup>-1</sup> s<sup>-2</sup></td>
+</tr>
+<tr class="row-odd"><td>Emitted longwave radiation</td>
+<td><span class="math">L\, \uparrow</span></td>
+<td>W m<sup>-2</sup></td>
+</tr>
+<tr class="row-even"><td>Direct beam visible albedo</td>
+<td><span class="math">I\, \uparrow _{vis}^{\mu }</span></td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>Direct beam near-infrared albedo</td>
+<td><span class="math">I\, \uparrow _{nir}^{\mu }</span></td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>Diffuse visible albedo</td>
+<td><span class="math">I\, \uparrow _{vis}</span></td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>Diffuse near-infrared albedo</td>
+<td><span class="math">I\, \uparrow _{nir}</span></td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>Absorbed solar radiation</td>
+<td><span class="math">\vec{S}</span></td>
+<td>W m<sup>-2</sup></td>
+</tr>
+<tr class="row-odd"><td>Radiative temperature</td>
+<td><span class="math">T_{rad}</span></td>
+<td>K</td>
+</tr>
+<tr class="row-even"><td>Temperature at 2 meter height</td>
+<td><span class="math">T_{2m}</span></td>
+<td>K</td>
+</tr>
+<tr class="row-odd"><td>Specific humidity at 2 meter height</td>
+<td><span class="math">q_{2m}</span></td>
+<td>kg kg<sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td>Snow water equivalent</td>
+<td><span class="math">W_{sno}</span></td>
+<td>m</td>
+</tr>
+<tr class="row-odd"><td>Aerodynamic resistance</td>
+<td><span class="math">r_{am}</span></td>
+<td>s m<sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td>Friction velocity</td>
+<td><span class="math">u_{*}</span></td>
+<td>m s<sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td><sup>2</sup>Dust flux</td>
+<td><span class="math">F_{j}</span></td>
+<td>kg m<sup>-2</sup> s<sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td>Net ecosystem exchange</td>
+<td>NEE</td>
+<td>kgCO<sub>2</sub> m<sup>-2</sup> s<sup>-1</sup></td>
+</tr>
+</tbody>
+</table>
+<p><sup>1</sup><span class="math">\lambda _{vap}</span>  is the latent heat of
+vaporization (J kg<sup>-1</sup>) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>) and <span class="math">\lambda</span>  is
+either the latent heat of vaporization <span class="math">\lambda _{vap}</span>  or latent
+heat of sublimation <span class="math">\lambda _{sub}</span>  (J kg<sup>-1</sup>)
+(<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>) depending on the liquid water and ice content of the top
+snow/soil layer (section 5.4).</p>
+<p><sup>2</sup>There are <span class="math">j=1,\ldots ,4</span> dust transport bins.</p>
+</div>
+<div class="section" id="initialization">
+<span id="id11"></span><h3>2.3.2. Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h3>
+<p>Initialization of the land model (i.e., providing the model with initial
+temperature and moisture states) depends on the type of run (startup or
+restart) (see the CLM4.5 User’s Guide). A startup run starts the model
+from either initial conditions that are set internally in the Fortran
+code (referred to as arbitrary initial conditions) or from an initial
+conditions dataset that enables the model to start from a spun up state
+(i.e., where the land is in equilibrium with the simulated climate). In
+restart runs, the model is continued from a previous simulation and
+initialized from a restart file that ensures that the output is
+bit-for-bit the same as if the previous simulation had not stopped. The
+fields that are required from the restart or initial conditions files
+can be obtained by examining the code. Arbitrary initial conditions are
+specified as follows.</p>
+<p>Soil points are initialized with
+surface ground temperature <span class="math">T_{g}</span>  and soil layer temperature
+<span class="math">T_{i}</span> , for <span class="math">i=1,\ldots ,N_{levgrnd}</span> , of 274 K,
+vegetation temperature <span class="math">T_{v}</span>  of 283 K, no snow or canopy water
+(<span class="math">W_{sno} =0</span>, <span class="math">W_{can} =0</span>), and volumetric soil water
+content <span class="math">\theta _{i} =0.15</span> mm<sup>3</sup> mm<sup>-3</sup>
+for layers <span class="math">i=1,\ldots ,N_{levsoi}</span>  and <span class="math">\theta _{i} =0.0</span>
+mm<sup>3</sup> mm<sup>-3</sup> for layers
+<span class="math">i=N_{levsoi} +1,\ldots ,N_{levgrnd}</span> . placeLake temperatures
+(<span class="math">T_{g}</span>  and <span class="math">T_{i}</span> ) are initialized at 277 K and
+<span class="math">W_{sno} =0</span>.</p>
+<p>Glacier temperatures (<span class="math">T_{g} =T_{snl+1}</span>  and <span class="math">T_{i}</span>  for
+<span class="math">i=snl+1,\ldots ,N_{levgrnd}</span>  where <span class="math">snl</span> is the negative
+of the number of snow layers, i.e., <span class="math">snl</span> ranges from –5 to 0) are
+initialized to 250 K with a snow water equivalent <span class="math">W_{sno} =1000</span>
+mm, snow depth <span class="math">z_{sno} =\frac{W_{sno} }{\rho _{sno} }</span>  (m) where
+<span class="math">\rho _{sno} =250</span> kg m<sup>-3</sup> is an initial estimate
+for the bulk density of snow, and <span class="math">\theta _{i}</span> =1.0 for
+<span class="math">i=1,\ldots ,N_{levgrnd}</span> . The snow layer structure (e.g., number
+of snow layers <span class="math">snl</span> and layer thickness) is initialized based on
+the snow depth (section 6.1). The snow liquid water and ice contents (kg
+m<sup>-2</sup>) are initialized as <span class="math">w_{liq,\, i} =0</span> and
+<span class="math">w_{ice,\, i} =\Delta z_{i} \rho _{sno}</span> , respectively, where
+<span class="math">i=snl+1,\ldots ,0</span> are the snow layers, and <span class="math">\Delta z_{i}</span>
+is the thickness of snow layer <span class="math">i</span> (m). The soil liquid water and
+ice contents are initialized as <span class="math">w_{liq,\, i} =0</span> and
+<span class="math">w_{ice,\, i} =\Delta z_{i} \rho _{ice} \theta _{i}</span>  for
+<span class="math">T_{i} \le T_{f}</span> , and
+<span class="math">w_{liq,\, i} =\Delta z_{i} \rho _{liq} \theta _{i}</span>  and
+<span class="math">w_{ice,\, i} =0</span> for <span class="math">T_{i} &gt;T_{f}</span> , where
+<span class="math">\rho _{ice}</span>  and <span class="math">\rho _{liq}</span>  are the densities of ice
+and liquid water (kg m<sup>-3</sup>) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>), and <span class="math">T_{f}</span>
+is the freezing temperature of water (K) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>). All vegetated and
+glacier land units are initialized with water stored in the unconfined
+aquifer and unsaturated soil <span class="math">W_{a} =4000</span> mm and water table
+depth <span class="math">z_{\nabla }</span>  at five meters below the soil column.</p>
+</div>
+<div class="section" id="surface-data">
+<span id="id12"></span><h3>2.3.3. Surface Data<a class="headerlink" href="#surface-data" title="Permalink to this headline">¶</a></h3>
+<p>Required surface data for each land grid cell are listed in
+<a class="reference internal" href="#table-surface-data-required-for-clm-and-their-base-spatial-resolution"><span class="std std-numref">Table 2.6</span></a>
+and include the glacier, lake, and urban fractions of the grid cell
+(vegetated and crop occupy the remainder), the fractional cover of each
+plant functional type (PFT), monthly leaf and stem area index and canopy
+top and bottom heights for each PFT, soil color, soil texture, soil
+organic matter density, maximum fractional saturated area, slope,
+elevation, biogenic volatile organic compounds (BVOCs) emissions
+factors, population density, gross domestic production, peat area
+fraction, and peak month of agricultural burning. Optional surface data
+include crop irrigation and managed crops. All fields are aggregated to
+the model’s grid from high-resolution input datasets (
+<a class="reference internal" href="#table-surface-data-required-for-clm-and-their-base-spatial-resolution"><span class="std std-numref">Table 2.6</span></a>) that
+are obtained from a variety of sources described below.</p>
+<table border="1" class="docutils" id="id20">
+<span id="table-surface-data-required-for-clm-and-their-base-spatial-resolution"></span><caption><span class="caption-number">Table 2.6 </span><span class="caption-text">Surface data required for CLM and their base spatial resolution</span><a class="headerlink" href="#id20" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="62%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Surface Field</th>
+<th class="head">Resolution</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Percent glacier</td>
+<td>0.05<sup>o</sup></td>
+</tr>
+<tr class="row-odd"><td>Percent lake and lake depth</td>
+<td>0.05<sup>o</sup></td>
+</tr>
+<tr class="row-even"><td>Percent urban</td>
+<td>0.05<sup>o</sup></td>
+</tr>
+<tr class="row-odd"><td>Percent plant functional types (PFTs)</td>
+<td>0.05<sup>o</sup></td>
+</tr>
+<tr class="row-even"><td>Monthly leaf and stem area index</td>
+<td>0.5<sup>o</sup></td>
+</tr>
+<tr class="row-odd"><td>Canopy height (top, bottom)</td>
+<td>0.5<sup>o</sup></td>
+</tr>
+<tr class="row-even"><td>Soil color</td>
+<td>0.5<sup>o</sup></td>
+</tr>
+<tr class="row-odd"><td>Percent sand, percent clay</td>
+<td>0.083<sup>o</sup></td>
+</tr>
+<tr class="row-even"><td>Soil organic matter density</td>
+<td>0.083<sup>o</sup></td>
+</tr>
+<tr class="row-odd"><td>Maximum fractional saturated area</td>
+<td>0.125<sup>o</sup></td>
+</tr>
+<tr class="row-even"><td>Elevation</td>
+<td>1km</td>
+</tr>
+<tr class="row-odd"><td>Slope</td>
+<td>1km</td>
+</tr>
+<tr class="row-even"><td>Biogenic Volatile Organic Compounds</td>
+<td>0.5<sup>o</sup></td>
+</tr>
+<tr class="row-odd"><td>Crop Irrigation</td>
+<td>0.083<sup>o</sup></td>
+</tr>
+<tr class="row-even"><td>Managed crops</td>
+<td>0.5<sup>o</sup></td>
+</tr>
+<tr class="row-odd"><td>Population density</td>
+<td>0.5<sup>o</sup></td>
+</tr>
+<tr class="row-even"><td>Gross domestic production</td>
+<td>0.5<sup>o</sup></td>
+</tr>
+<tr class="row-odd"><td>Peat area fraction</td>
+<td>0.5<sup>o</sup></td>
+</tr>
+<tr class="row-even"><td>Peak month of agricultural waste burning</td>
+<td>0.5<sup>o</sup></td>
+</tr>
+</tbody>
+</table>
+<p>At the base spatial resolution of 0.05<sup>o</sup>, the percentage of
+each PFT is defined with respect to the vegetated portion of the grid
+cell and the sum of the PFTs is 100%. The percent lake, wetland,
+glacier, and urban at their base resolution are specified with respect
+to the entire grid cell. The surface dataset creation routines re-adjust
+the PFT percentages to ensure that the sum of all land cover types in
+the grid cell sum to 100%. A minimum threshold of 0.1% of the grid cell
+by area is required for urban areas.</p>
+<p>The percentage glacier mask was derived from vector data of global
+glacier and ice sheet spatial coverage. Vector data for glaciers (ice
+caps, icefields and mountain glaciers) were taken from the first
+globally complete glacier inventory, the Randolph Glacier Inventory
+version 1.0 (RGIv1.0: <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#arendtetal2012"><span class="std std-ref">Arendt et al. 2012</span></a>).
+Vector data for the Greenland Ice Sheet were provided by Frank Paul and
+Tobias Bolch (University of Zurich: <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#rastneretal2012"><span class="std std-ref">Rastner et al. 2012</span></a>).
+Antarctic Ice Sheet data were provided by
+Andrew Bliss (University of Alaska) and were extracted from the
+Scientific Committee on Antarctic Research (SCAR) Antarctic Digital
+Database version 5.0. Floating ice is only provided for the Antarctic
+and does not include the small area of Arctic ice shelves. High spatial
+resolution vector data were then processed to determine the area of
+glacier, ice sheet and floating ice within 30-second grid cells
+globally. The 30-second glacier, ice sheet and Antarctic ice shelf masks
+were subsequently draped over equivalent-resolution GLOBE topography
+(Global Land One-km Base Elevation Project, Hastings et al. 1999) to
+extract approximate ice-covered elevations of ice-covered regions. Grid
+cells flagged as land-ice in the mask but ocean in GLOBE (typically,
+around ice sheets at high latitudes) were designated land-ice with an
+elevation of 0 meters. Finally, the high-resolution mask/topography
+datasets were aggregated and processed into three 3-minute datasets:
+3-minute fractional areal land ice coverage (including both glaciers and
+ice sheets); 3-minute distributions of areal glacier fractional coverage
+by elevation and areal ice sheet fractional coverage by elevation. Ice
+fractions were binned at 100 meter intervals, with bin edges defined
+from 0 to 6000 meters (plus one top bin encompassing all remaining
+high-elevation ice, primarily in the Himalaya). These distributions by
+elevation are needed when running CLM4 with multiple glacier elevation
+classes.</p>
+<p>Percent lake and lake depth are area-averaged from the 90-second
+resolution data of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#kourzeneva2009"><span class="std std-ref">Kourzeneva (2009, 2010)</span></a> to the 0.05<sup>o</sup>
+resolution using the MODIS land-mask. Percent urban is derived from
+LandScan 2004, a population density dataset derived from census data,
+nighttime lights satellite observations, road proximity and slope
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#dobsonetal2000"><span class="std std-ref">Dobson et al. 2000</span></a>) as described by
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#jacksonetal2010"><span class="std std-ref">Jackson et al. (2010)</span></a> at 1km
+resolution and aggregated to 0.05<sup>o</sup>. A number of urban
+radiative, thermal, and morphological fields are also required and are
+obtained from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#jacksonetal2010"><span class="std std-ref">Jackson et al. (2010)</span></a>. Their description can be found in
+Table 3 of the Community Land Model Urban (CLMU) technical note (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#olesonetal2010b"><span class="std std-ref">Oleson
+et al. 2010b</span></a>).</p>
+<p>Percent PFTs are derived from MODIS satellite data as described in
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lawrencechase2007"><span class="std std-ref">Lawrence and Chase (2007)</span></a> (section 21.3.3).
+Prescribed PFT leaf area index is derived from the MODIS satellite data of
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#mynenietal2002"><span class="std std-ref">Myneni et al. (2002)</span></a> using the de-aggregation methods
+described in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lawrencechase2007"><span class="std std-ref">Lawrence and Chase (2007)</span></a>
+(section 2.2.3). Prescribed PFT stem area index is derived from PFT leaf
+area index phenology combined with the methods of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#zengetal2002"><span class="std std-ref">Zeng et al. (2002)</span></a>.
+Prescribed canopy top and bottom heights are from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonan1996"><span class="std std-ref">Bonan (1996)</span></a> as
+described in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2002b"><span class="std std-ref">Bonan et al. (2002b)</span></a>. If the biogeochemistry model is
+active, it supplies the leaf and stem area index and canopy top and
+bottom heights dynamically, and the prescribed values are ignored.</p>
+<p>Soil color determines dry and saturated soil albedo (section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#ground-albedos"><span class="std std-numref">3.2</span></a>).
+Soil colors are from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lawrencechase2007"><span class="std std-ref">Lawrence and Chase (2007)</span></a>.</p>
+<p>The soil texture and organic matter content determine soil thermal and
+hydrologic properties (sections 6.3 and 7.4.1). The International
+Geosphere-Biosphere Programme (IGBP) soil dataset (Global Soil Data Task
+2000) of 4931 soil mapping units and their sand and clay content for
+each soil layer were used to create a mineral soil texture dataset
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2002b"><span class="std std-ref">(Bonan et al. 2002b)</span></a>. Soil organic matter data is merged from two
+sources. The majority of the globe is from ISRIC-WISE (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#batjes2006"><span class="std std-ref">Batjes, 2006</span></a>).
+The high latitudes come from the 0.25<sup>o</sup> version of the
+Northern Circumpolar Soil Carbon Database (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#hugeliusetal2012"><span class="std std-ref">Hugelius et al. 2012</span></a>). Both
+datasets report carbon down to 1m depth. Carbon is partitioned across
+the top seven CLM4 layers (<span class="math">\sim</span>1m depth) as in
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lawrenceslater2008"><span class="std std-ref">Lawrence and Slater (2008)</span></a>.</p>
+<p>The maximum fractional saturated area (<span class="math">f_{\max }</span> ) is used in
+determining surface runoff and infiltration (section 7.3). Maximum
+fractional saturated area at 0.125<sup>o</sup> resolution is
+calculated from 1-km compound topographic indices (CTIs) based on the
+USGS HYDRO1K dataset (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#verdingreenlee1996"><span class="std std-ref">Verdin and Greenlee 1996</span></a>)
+following the algorithm in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#niuetal2005"><span class="std std-ref">Niu et al. (2005)</span></a>.
+<span class="math">f_{\max }</span>  is the ratio between the number
+of 1-km pixels with CTIs equal to or larger than the mean CTI and the
+total number of pixels in a 0.125<sup>o</sup> grid cell. See
+section 7.3.1 and <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2013b"><span class="std std-ref">Li et al. (2013b)</span></a> for further details. Slope and
+elevation are also obtained from the USGS HYDRO1K 1-km dataset
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#verdingreenlee1996"><span class="std std-ref">Verdin and Greenlee 1996</span></a>).  Slope is used in the
+surface water parameterization (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#surface-water-storage"><span class="std std-numref">7.2.2</span></a>), and
+elevation is used to calculate the grid cell standard deviation of
+topography for the snow cover fraction parameterization (section <a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html#snow-covered-area-fraction"><span class="std std-numref">8.1</span></a>).</p>
+<p>Biogenic Volatile Organic Compounds emissions factors are from the Model
+of Emissions of Gases and Aerosols from Nature version 2.1 (MEGAN2.1;
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#guentheretal2012"><span class="std std-ref">Guenther et al. 2012</span></a>).</p>
+<p>The default list of PFTs includes an unmanaged crop treated as a second
+C3 grass (<a class="reference internal" href="#table-plant-functional-types"><span class="std std-numref">Table 2.1</span></a>). The unmanaged crop has grid cell fractional cover
+assigned from MODIS satellite data (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lawrencechase2007"><span class="std std-ref">Lawrence and Chase (2007)</span></a>). A managed
+crop option uses grid cell fractional cover from the present-day crop
+dataset of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#ramankuttyfoley1998"><span class="std std-ref">Ramankutty and Foley (1998)</span></a>
+(CLM4CNcrop). Managed crops are assigned in the proportions given by
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#ramankuttyfoley1998"><span class="std std-ref">Ramankutty and Foley (1998)</span></a> without
+exceeding the area previously assigned to the unmanaged crop. The
+unmanaged crop continues to occupy any of its original area that remains
+and continues to be handled just by the CN part of CLM4CNcrop. The
+managed crop types (corn, soybean, and temperate cereals) were chosen
+based on the availability of corresponding algorithms in AgroIBIS
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#kuchariketal2000"><span class="std std-ref">Kucharik et al. 2000</span></a>;
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#kucharikbrye2003"><span class="std std-ref">Kucharik and Brye 2003</span></a>). Temperate cereals
+include wheat, barley, and rye here. All temperate cereals are treated
+as summer crops (like spring wheat, for example) at this time. Winter
+cereals (such as winter wheat) may be introduced in a future version of
+the model.</p>
+<p>To allow crops to coexist with natural vegetation in a grid cell and be
+treated by separate models (i.e., CLM4.5BGCcrop versus the Dynamic
+Vegetation version (CLM4.5BGCDV)), we separate the vegetated land unit
+into a naturally vegetated land unit and a human managed land unit. PFTs
+in the naturally vegetated land unit share one soil column and compete
+for water (default CLM setting). PFTs in the human managed land unit do
+not share soil columns and thus permit for differences in land
+management between crops.</p>
+<p>CLM includes the option to irrigate cropland areas that are equipped for
+irrigation. The application of irrigation responds dynamically to climate
+(see Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>). In CLM, irrigation is
+implemented for the C3 generic crop only. When irrigation is enabled, the
+cropland area of each grid cell is divided into an irrigated and unirrigated
+fraction according to a dataset of areas equipped for irrigation
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#siebertetal2005"><span class="std std-ref">Siebert et al. (2005)</span></a>). The area of irrigated
+cropland in each grid cell is given by the
+smaller of the grid cell’s total cropland area, according to the default
+CLM4 dataset, and the grid cell’s area equipped for irrigation. The
+remainder of the grid cell’s cropland area (if any) is then assigned to
+unirrigated cropland. Irrigated and unirrigated crops are placed on
+separate soil columns, so that irrigation is only applied to the soil
+beneath irrigated crops.</p>
+<p>Several input datasets are required for the fire model (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2013a"><span class="std std-ref">Li et al. 2013a</span></a>)
+including population density, gross domestic production, peat area
+fraction, and peak month of agricultural waste burning. Population
+density at 0.5<sup>o</sup> resolution for 1850-2100 combines 5-min
+resolution decadal population density data for 1850–1980 from the
+Database of the Global Environment version 3.1 (HYDEv3.1) with
+0.5<sup>o</sup> resolution population density data for 1990, 1995,
+2000, and 2005 from the Gridded Population of the World version 3
+dataset (GPWv3) (CIESIN, 2005). Gross Domestic Production (GDP) per
+capita in 2000 at 0.5<sup>o</sup> is from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#vanvuurenetal2006"><span class="std std-ref">Van Vuuren et al. (2006)</span></a>,
+which is the base-year GDP data for IPCC-SRES and derived from
+country-level World Bank’s World Development Indicators (WDI) measured
+in constant 1995 US$ (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#worldbank2004"><span class="std std-ref">World Bank, 2004</span></a>) and the UN Statistics Database
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#unstat2005"><span class="std std-ref">UNSTAT, 2005</span></a>). The peatland area fraction at 0.5<sup>o</sup>
+resolution is derived from three vector datasets: peatland data in
+Indonesia and Malaysian Borneo (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#olsonetal2001"><span class="std std-ref">Olson et al. 2001</span></a>); peatland data in
+Canada (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#tarnocaietal2011"><span class="std std-ref">Tarnocai et al. 2011</span></a>); and bog, fen and mire data in boreal
+regions (north of 45<sup>o</sup>N) outside Canada provided by the
+Global Lakes and Wetlands Database (GLWD) (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lehnerdoll2004"><span class="std std-ref">Lehner and Döll, 2004</span></a>). The
+climatological peak month for agricultural waste burning is from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#vanderwerfetal2010"><span class="std std-ref">van der
+Werf et al. (2010)</span></a>.</p>
+</div>
+<div class="section" id="adjustable-parameters-and-physical-constants">
+<span id="id13"></span><h3>2.3.4. Adjustable Parameters and Physical Constants<a class="headerlink" href="#adjustable-parameters-and-physical-constants" title="Permalink to this headline">¶</a></h3>
+<p>Values of certain adjustable parameters inherent in the biogeophysical
+or biogeochemical parameterizations have either been obtained from the
+literature or calibrated based on comparisons with observations. These
+are described in the text. Physical constants, generally shared by all
+of the components in the coupled modeling system, are presented in
+<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>.</p>
+<table border="1" class="colwidths-given docutils" id="id21">
+<span id="table-physical-constants"></span><caption><span class="caption-number">Table 2.7 </span><span class="caption-text">Physical constants</span><a class="headerlink" href="#id21" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="40%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">description</th>
+<th class="head">name</th>
+<th class="head">value</th>
+<th class="head">units</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Pi</td>
+<td><span class="math">\pi</span></td>
+<td>3.14159265358979323846</td>
+<td>-</td>
+</tr>
+<tr class="row-odd"><td>Acceleration of gravity</td>
+<td><span class="math">g</span></td>
+<td>9.80616</td>
+<td>m s<sup>-2</sup></td>
+</tr>
+<tr class="row-even"><td>Standard pressure</td>
+<td><span class="math">P_{std}</span></td>
+<td>101325</td>
+<td>Pa</td>
+</tr>
+<tr class="row-odd"><td>Stefan-Boltzmann constant</td>
+<td><span class="math">\sigma</span></td>
+<td>5.67 <span class="math">\times 10^{-8}</span></td>
+<td>W m <sup>-2</sup> K <span class="math">{}^{-4}</span></td>
+</tr>
+<tr class="row-even"><td>Boltzmann constant</td>
+<td><span class="math">\kappa</span></td>
+<td>1.38065 <span class="math">\times 10^{-23}</span></td>
+<td>J K <sup>-1</sup> molecule <sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td>Avogadro’s number</td>
+<td><span class="math">N_{A}</span></td>
+<td>6.02214 <span class="math">\times 10^{26}</span></td>
+<td>molecule kmol<sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td>Universal gas constant</td>
+<td><span class="math">R_{gas}</span></td>
+<td><span class="math">N_{A} \kappa</span></td>
+<td>J K <sup>-1</sup> kmol <sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td>Molecular weight of dry air</td>
+<td><span class="math">MW_{da}</span></td>
+<td>28.966</td>
+<td>kg kmol <sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td>Dry air gas constant</td>
+<td><span class="math">R_{da}</span></td>
+<td><span class="math">{R_{gas} \mathord{\left/ {\vphantom {R_{gas}  MW_{da} }} \right. \kern-\nulldelimiterspace} MW_{da} }</span></td>
+<td>J K <sup>-1</sup> kg <sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td>Molecular weight of water vapor</td>
+<td><span class="math">MW_{wv}</span></td>
+<td>18.016</td>
+<td>kg kmol <sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td>Water vapor gas constant</td>
+<td><span class="math">R_{wv}</span></td>
+<td><span class="math">{R_{gas} \mathord{\left/ {\vphantom {R_{gas}  MW_{wv} }} \right. \kern-\nulldelimiterspace} MW_{wv} }</span></td>
+<td>J K <sup>-1</sup> kg <sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td>Von Karman constant</td>
+<td><span class="math">k</span></td>
+<td>0.4</td>
+<td>-</td>
+</tr>
+<tr class="row-even"><td>Freezing temperature of fresh water</td>
+<td><span class="math">T_{f}</span></td>
+<td>273.5</td>
+<td>K</td>
+</tr>
+<tr class="row-odd"><td>Density of liquid water</td>
+<td><span class="math">\rho _{liq}</span></td>
+<td>1000</td>
+<td>kg m <sup>-3</sup></td>
+</tr>
+<tr class="row-even"><td>Density of ice</td>
+<td><span class="math">\rho _{ice}</span></td>
+<td>917</td>
+<td>kg m <sup>-3</sup></td>
+</tr>
+<tr class="row-odd"><td>Specific heat capacity of dry air</td>
+<td><span class="math">C_{p}</span></td>
+<td>1.00464 <span class="math">\times 10^{3}</span></td>
+<td>J kg <sup>-1</sup> K <sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td>Specific heat capacity of water</td>
+<td><span class="math">C_{liq}</span></td>
+<td>4.188 <span class="math">\times 10^{3}</span></td>
+<td>J kg <sup>-1</sup> K <sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td>Specific heat capacity of ice</td>
+<td><span class="math">C_{ice}</span></td>
+<td>2.11727 <span class="math">\times 10^{3}</span></td>
+<td>J kg <sup>-1</sup> K <sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td>Latent heat of vaporization</td>
+<td><span class="math">\lambda _{vap}</span></td>
+<td>2.501 <span class="math">\times 10^{6}</span></td>
+<td>J kg <sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td>Latent heat of fusion</td>
+<td><span class="math">L_{f}</span></td>
+<td>3.337 <span class="math">\times 10^{5}</span></td>
+<td>J kg <sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td>Latent heat of sublimation</td>
+<td><span class="math">\lambda _{sub}</span></td>
+<td><span class="math">\lambda _{vap} +L_{f}</span></td>
+<td>J kg <sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td><sup>1</sup> &#8220;Thermal conductivity of water&#8221;</td>
+<td><span class="math">\lambda _{liq}</span></td>
+<td>0.57</td>
+<td>W m <sup>-1</sup> K <sup>-1</sup></td>
+</tr>
+<tr class="row-even"><td><sup>1</sup> &#8220;Thermal conductivity of ice&#8221;</td>
+<td><span class="math">\lambda _{ice}</span></td>
+<td>2.29</td>
+<td>W m <sup>-1</sup> K <sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td><sup>1</sup> &#8220;Thermal conductivity of air&#8221;</td>
+<td><span class="math">\lambda _{air}</span></td>
+<td>0.023 W m <sup>-1</sup> K <sup>-1</sup></td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Radius of the earth</td>
+<td><span class="math">R_{e}</span></td>
+<td>6.37122</td>
+<td><span class="math">\times 10^{6}</span> m</td>
+</tr>
+</tbody>
+</table>
+<p><sup>1</sup>Not shared by other components of the coupled modeling system.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html" title="3. Surface Albedos"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../Introduction/CLM50_Tech_Note_Introduction.html" title="1. Introduction"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,661 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>20. Vegetation Phenology and Turnover &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="21. Decomposition" href="../Decomposition/CLM50_Tech_Note_Decomposition.html" />
+    <link rel="prev" title="19. Carbon and Nitrogen Allocation" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../Decomposition/CLM50_Tech_Note_Decomposition.html" title="21. Decomposition"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html" title="19. Carbon and Nitrogen Allocation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">20. Vegetation Phenology and Turnover</a><ul>
+<li><a class="reference internal" href="#general-phenology-flux-parameterization">20.1. General Phenology Flux Parameterization</a><ul>
+<li><a class="reference internal" href="#onset-periods">20.1.1. 14.1.1 Onset Periods</a></li>
+<li><a class="reference internal" href="#offset-periods">20.1.2. 14.1.2 Offset Periods</a></li>
+<li><a class="reference internal" href="#background-onset-growth">20.1.3. 14.1.3 Background Onset Growth</a></li>
+<li><a class="reference internal" href="#background-litterfall">20.1.4. 14.1.4 Background Litterfall</a></li>
+<li><a class="reference internal" href="#livewood-turnover">20.1.5. 14.1.5 Livewood Turnover</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#evergreen-phenology">20.2. Evergreen Phenology</a></li>
+<li><a class="reference internal" href="#seasonal-deciduous-phenology">20.3. Seasonal-Deciduous Phenology</a><ul>
+<li><a class="reference internal" href="#seasonal-deciduous-onset-trigger">20.3.1. 14.3.1 Seasonal-Deciduous Onset Trigger</a></li>
+<li><a class="reference internal" href="#seasonal-deciduous-offset-trigger">20.3.2. 14.3.2 Seasonal-Deciduous Offset Trigger</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stress-deciduous-phenology">20.4. Stress-Deciduous Phenology</a><ul>
+<li><a class="reference internal" href="#stress-deciduous-onset-triggers">20.4.1. 14.4.1 Stress-Deciduous Onset Triggers</a></li>
+<li><a class="reference internal" href="#stress-deciduous-offset-triggers">20.4.2. 14.4.2 Stress-Deciduous Offset Triggers</a></li>
+<li><a class="reference internal" href="#stress-deciduous-long-growing-season">20.4.3. 14.4.3 Stress-Deciduous: Long Growing Season</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#litterfall-fluxes-merged-to-the-column-level">20.5. Litterfall Fluxes Merged to the Column Level</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html"
+                        title="previous chapter">19. Carbon and Nitrogen Allocation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../Decomposition/CLM50_Tech_Note_Decomposition.html"
+                        title="next chapter">21. Decomposition</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tech_note/Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="vegetation-phenology-and-turnover">
+<span id="rst-vegetation-phenology-and-turnover"></span><h1>20. Vegetation Phenology and Turnover<a class="headerlink" href="#vegetation-phenology-and-turnover" title="Permalink to this headline">¶</a></h1>
+<p>The CLM phenology model consists of several algorithms controlling the
+transfer of stored carbon and nitrogen out of storage pools for the
+display of new growth and into litter pools for losses of displayed
+growth. PFTs are classified into three distinct phenological types that
+are represented by separate algorithms: an evergreen type, for which
+some fraction of annual leaf growth persists in the displayed pool for
+longer than one year; a seasonal-deciduous type with a single growing
+season per year, controlled mainly by temperature and daylength; and a
+stress-deciduous type with the potential for multiple growing seasons
+per year, controlled by temperature and soil moisture conditions.</p>
+<p>The three phenology types share a common set of control variables. The
+calculation of the phenology fluxes is generalized, operating
+identically for all three phenology types, given a specification of the
+common control variables. The following sections describe first the
+general flux parameterization, followed by the algorithms for setting
+the control parameters for the three phenology types.</p>
+<div class="section" id="general-phenology-flux-parameterization">
+<h2>20.1. General Phenology Flux Parameterization<a class="headerlink" href="#general-phenology-flux-parameterization" title="Permalink to this headline">¶</a></h2>
+<p>Fluxes of carbon and nitrogen from storage pools and into displayed
+tissue pools pass through a special transfer pool (denoted <em>_xfer</em>),
+maintained as a separate state variable for each tissue type. Storage
+(<em>_stor</em>) and transfer (<em>_xfer</em>) pools are maintained separately to
+reduce the complexity of accounting for transfers into and out of
+storage over the course of a single growing season.</p>
+<p>Figure 14.1. Example of annual phenology cycle for seasonal deciduous.</p>
+<img alt="../../_images/image115.png" src="../../_images/image115.png" />
+<div class="section" id="onset-periods">
+<h3>20.1.1. 14.1.1 Onset Periods<a class="headerlink" href="#onset-periods" title="Permalink to this headline">¶</a></h3>
+<p>The deciduous phenology algorithms specify the occurrence of onset
+growth periods (Figure 14.1). Carbon fluxes from the transfer pools into
+displayed growth are calculated during these periods as:</p>
+<div class="math" id="equation-20.1)">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-20.1)" title="Permalink to this equation">¶</a></span><span class="math">CF_{leaf\_ xfer,leaf} =r_{xfer\_ on} CS_{leaf\_ xfer}</span></p>
+</div><div class="math" id="equation-20.2)">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-20.2)" title="Permalink to this equation">¶</a></span><span class="math">CF_{froot\_ xfer,froot} =r_{xfer\_ on} CS_{froot\_ xfer}</span></p>
+</div><div class="math" id="equation-20.3)">
+<p><span class="eqno">(3)<a class="headerlink" href="#equation-20.3)" title="Permalink to this equation">¶</a></span><span class="math">CF_{livestem\_ xfer,livestem} =r_{xfer\_ on} CS_{livestem\_ xfer}</span></p>
+</div><div class="math" id="equation-20.4)">
+<p><span class="eqno">(4)<a class="headerlink" href="#equation-20.4)" title="Permalink to this equation">¶</a></span><span class="math">CF_{deadstem\_ xfer,deadstem} =r_{xfer\_ on} CS_{deadstem\_ xfer}</span></p>
+</div><div class="math" id="equation-20.5)">
+<p><span class="eqno">(5)<a class="headerlink" href="#equation-20.5)" title="Permalink to this equation">¶</a></span><span class="math">CF_{livecroot\_ xfer,livecroot} =r_{xfer\_ on} CS_{livecroot\_ xfer}</span></p>
+</div><div class="math" id="equation-20.6)">
+<p><span class="eqno">(6)<a class="headerlink" href="#equation-20.6)" title="Permalink to this equation">¶</a></span><span class="math">CF_{deadcroot\_ xfer,deadcroot} =r_{xfer\_ on} CS_{deadcroot\_ xfer} ,</span></p>
+</div><p>with corresponding nitrogen fluxes:</p>
+<div class="math" id="equation-20.7)">
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-20.7)" title="Permalink to this equation">¶</a></span><span class="math">NF_{leaf\_ xfer,leaf} =r_{xfer\_ on} NS_{leaf\_ xfer}</span></p>
+</div><div class="math" id="equation-20.8)">
+<p><span class="eqno">(8)<a class="headerlink" href="#equation-20.8)" title="Permalink to this equation">¶</a></span><span class="math">NF_{froot\_ xfer,froot} =r_{xfer\_ on} NS_{froot\_ xfer}</span></p>
+</div><div class="math" id="equation-20.9)">
+<p><span class="eqno">(9)<a class="headerlink" href="#equation-20.9)" title="Permalink to this equation">¶</a></span><span class="math">NF_{livestem\_ xfer,livestem} =r_{xfer\_ on} NS_{livestem\_ xfer}</span></p>
+</div><div class="math" id="equation-20.10)">
+<p><span class="eqno">(10)<a class="headerlink" href="#equation-20.10)" title="Permalink to this equation">¶</a></span><span class="math">NF_{deadstem\_ xfer,deadstem} =r_{xfer\_ on} NS_{deadstem\_ xfer}</span></p>
+</div><div class="math" id="equation-20.11)">
+<p><span class="eqno">(11)<a class="headerlink" href="#equation-20.11)" title="Permalink to this equation">¶</a></span><span class="math">NF_{livecroot\_ xfer,livecroot} =r_{xfer\_ on} NS_{livecroot\_ xfer}</span></p>
+</div><div class="math" id="equation-20.12)">
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-20.12)" title="Permalink to this equation">¶</a></span><span class="math">NF_{deadcroot\_ xfer,deadcroot} =r_{xfer\_ on} NS_{deadcroot\_ xfer} ,</span></p>
+</div><p>where CF is the carbon flux, CS is stored carbon, NF is the nitrogen
+flux, NS is stored nitrogen, <span class="math">{r}_{xfer\_on}</span> (s<sup>-1</sup>) is a time-varying rate coefficient controlling flux
+out of the transfer pool:</p>
+<div class="math" id="equation-ZEqnNum852972">
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-ZEqnNum852972" title="Permalink to this equation">¶</a></span><span class="math">r_{xfer\_ on} =\left\{\begin{array}{l} {{2\mathord{\left/ {\vphantom {2 t_{onset} }} \right. \kern-\nulldelimiterspace} t_{onset} } \qquad {\rm for\; }t_{onset} \ne \Delta t} \\ {{1\mathord{\left/ {\vphantom {1 \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t} \qquad {\rm for\; }t_{onset} =\Delta t} \end{array}\right.</span></p>
+</div><p>and <em>t</em><sub>onset</sub> (s) is the number of seconds remaining in
+the current phenology onset growth period (Figure 14.1). The form of Eq.
+produces a flux from the transfer pool which declines linearly over the
+onset growth period, approaching zero flux in the final timestep.</p>
+</div>
+<div class="section" id="offset-periods">
+<h3>20.1.2. 14.1.2 Offset Periods<a class="headerlink" href="#offset-periods" title="Permalink to this headline">¶</a></h3>
+<p>The deciduous phenology algorithms also specify the occurrence of
+litterfall during offset periods. In contrast to the onset periods, only
+leaf and fine root state variables are subject to litterfall fluxes.
+Carbon fluxes from display pools into litter are calculated during these
+periods as:</p>
+<div class="math" id="equation-20.14)">
+<p><span class="eqno">(14)<a class="headerlink" href="#equation-20.14)" title="Permalink to this equation">¶</a></span><span class="math">CF_{leaf,litter}^{n} =\left\{\begin{array}{l} {CF_{leaf,litter}^{n-1} +r_{xfer\_ off} \left(CS_{leaf} -CF_{leaf,litter}^{n-1} {\kern 1pt} t_{offset} \right)\qquad {\rm for\; }t_{offset} \ne \Delta t} \\ {\left({CS_{leaf} \mathord{\left/ {\vphantom {CS_{leaf}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t} \right)+CF_{alloc,leaf} \qquad \qquad \qquad \qquad {\rm for\; }t_{offset} =\Delta t} \end{array}\right.</span></p>
+</div><div class="math" id="equation-20.15)">
+<p><span class="eqno">(15)<a class="headerlink" href="#equation-20.15)" title="Permalink to this equation">¶</a></span><span class="math">CF_{froot,litter}^{n} =\left\{\begin{array}{l} {CF_{froot,litter}^{n-1} +r_{xfer\_ off} \left(CS_{froot} -CF_{froot,litter}^{n-1} {\kern 1pt} t_{offset} \right)\qquad {\rm for\; }t_{offset} \ne \Delta t} \\ {\left({CS_{froot} \mathord{\left/ {\vphantom {CS_{froot}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t} \right)+CF_{alloc,\, froot} \qquad \qquad \qquad {\rm for\; }t_{offset} =\Delta t} \end{array}\right.</span></p>
+</div><div class="math" id="equation-20.16)">
+<p><span class="eqno">(16)<a class="headerlink" href="#equation-20.16)" title="Permalink to this equation">¶</a></span><span class="math">r_{xfer\_ off} =\frac{2\Delta t}{t_{offset} ^{2} }</span></p>
+</div><p>where superscripts <em>n</em> and <em>n-1</em> refer to fluxes on the current and
+previous timesteps, respectively. The rate coefficient <span class="math">{r}_{xfer\_off}</span> varies with time to produce a linearly
+increasing litterfall rate throughout the offset period, and the special
+case for fluxes in the final litterfall timestep
+(<span class="math">{t}_{offset}</span> = <span class="math">\Delta t</span>) ensures that all of the
+displayed growth is sent to the litter pools for deciduous plant types.</p>
+<p>Corresponding nitrogen fluxes during litterfall take into account retranslocation of nitrogen out of the displayed leaf pool prior to
+litterfall (<span class="math">{NF}_{leaf,retrans}</span>, gN m<sup>-2</sup> s<sup>-1</sup>). Retranslocation of nitrogen out of fine roots is
+assumed to be negligible. The fluxes are:</p>
+<div class="math" id="equation-20.17)">
+<p><span class="eqno">(17)<a class="headerlink" href="#equation-20.17)" title="Permalink to this equation">¶</a></span><span class="math">NF_{leaf,litter} ={CF_{leaf,litter} \mathord{\left/ {\vphantom {CF_{leaf,litter}  CN_{leaf\_ litter} }} \right. \kern-\nulldelimiterspace} CN_{leaf\_ litter} }</span></p>
+</div><div class="math" id="equation-20.18)">
+<p><span class="eqno">(18)<a class="headerlink" href="#equation-20.18)" title="Permalink to this equation">¶</a></span><span class="math">NF_{froot,litter} ={CF_{leaf,litter} \mathord{\left/ {\vphantom {CF_{leaf,litter}  CN_{froot} }} \right. \kern-\nulldelimiterspace} CN_{froot} }</span></p>
+</div><div class="math" id="equation-20.19)">
+<p><span class="eqno">(19)<a class="headerlink" href="#equation-20.19)" title="Permalink to this equation">¶</a></span><span class="math">NF_{leaf,retrans} =\left({CF_{leaf,litter} \mathord{\left/ {\vphantom {CF_{leaf,litter}  CN_{leaf} }} \right. \kern-\nulldelimiterspace} CN_{leaf} } \right)-NF_{leaf,litter} .</span></p>
+</div><p>where CN is C:N.</p>
+</div>
+<div class="section" id="background-onset-growth">
+<h3>20.1.3. 14.1.3 Background Onset Growth<a class="headerlink" href="#background-onset-growth" title="Permalink to this headline">¶</a></h3>
+<p>The stress-deciduous phenology algorithm includes a provision for the
+case when stress signals are absent, and the vegetation shifts from a
+deciduous habit to an evergreen habit, until the next occurrence of an
+offset stress trigger . In that case, the regular onset flux mechanism
+is switched off and a background onset growth algorithm is invoked
+(<span class="math">{r}_{bgtr} &gt;  0</span>). During this period, small fluxes
+of carbon and nitrogen from the storage pools into the associated
+transfer pools are calculated on each time step, and the entire contents
+of the transfer pool are added to the associated displayed growth pool
+on each time step. The carbon fluxes from transfer to display pools
+under these conditions are:</p>
+<div class="math" id="equation-20.20)">
+<p><span class="eqno">(20)<a class="headerlink" href="#equation-20.20)" title="Permalink to this equation">¶</a></span><span class="math">CF_{leaf\_ xfer,leaf} ={CS_{leaf\_ xfer} \mathord{\left/ {\vphantom {CS_{leaf\_ xfer}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.21)">
+<p><span class="eqno">(21)<a class="headerlink" href="#equation-20.21)" title="Permalink to this equation">¶</a></span><span class="math">CF_{froot\_ xfer,froot} ={CS_{froot\_ xfer} \mathord{\left/ {\vphantom {CS_{froot\_ xfer}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.22)">
+<p><span class="eqno">(22)<a class="headerlink" href="#equation-20.22)" title="Permalink to this equation">¶</a></span><span class="math">CF_{livestem\_ xfer,livestem} ={CS_{livestem\_ xfer} \mathord{\left/ {\vphantom {CS_{livestem\_ xfer}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.23)">
+<p><span class="eqno">(23)<a class="headerlink" href="#equation-20.23)" title="Permalink to this equation">¶</a></span><span class="math">CF_{deadstem\_ xfer,deadstem} ={CS_{deadstem\_ xfer} \mathord{\left/ {\vphantom {CS_{deadstem\_ xfer}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.24)">
+<p><span class="eqno">(24)<a class="headerlink" href="#equation-20.24)" title="Permalink to this equation">¶</a></span><span class="math">CF_{livecroot\_ xfer,livecroot} ={CS_{livecroot\_ xfer} \mathord{\left/ {\vphantom {CS_{livecroot\_ xfer}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.25)">
+<p><span class="eqno">(25)<a class="headerlink" href="#equation-20.25)" title="Permalink to this equation">¶</a></span><span class="math">CF_{deadcroot\_ xfer,deadcroot} ={CS_{deadcroot\_ xfer} \mathord{\left/ {\vphantom {CS_{deadcroot\_ xfer}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t} ,</span></p>
+</div><p>and the corresponding nitrogen fluxes are:</p>
+<div class="math" id="equation-20.26)">
+<p><span class="eqno">(26)<a class="headerlink" href="#equation-20.26)" title="Permalink to this equation">¶</a></span><span class="math">NF_{leaf\_ xfer,leaf} ={NS_{leaf\_ xfer} \mathord{\left/ {\vphantom {NS_{leaf\_ xfer}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.27)">
+<p><span class="eqno">(27)<a class="headerlink" href="#equation-20.27)" title="Permalink to this equation">¶</a></span><span class="math">NF_{froot\_ xfer,froot} ={NS_{froot\_ xfer} \mathord{\left/ {\vphantom {NS_{froot\_ xfer}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.28)">
+<p><span class="eqno">(28)<a class="headerlink" href="#equation-20.28)" title="Permalink to this equation">¶</a></span><span class="math">NF_{livestem\_ xfer,livestem} ={NS_{livestem\_ xfer} \mathord{\left/ {\vphantom {NS_{livestem\_ xfer}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.29)">
+<p><span class="eqno">(29)<a class="headerlink" href="#equation-20.29)" title="Permalink to this equation">¶</a></span><span class="math">NF_{deadstem\_ xfer,deadstem} ={NS_{deadstem\_ xfer} \mathord{\left/ {\vphantom {NS_{deadstem\_ xfer}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.30)">
+<p><span class="eqno">(30)<a class="headerlink" href="#equation-20.30)" title="Permalink to this equation">¶</a></span><span class="math">NF_{livecroot\_ xfer,livecroot} ={NS_{livecroot\_ xfer} \mathord{\left/ {\vphantom {NS_{livecroot\_ xfer}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.31)">
+<p><span class="eqno">(31)<a class="headerlink" href="#equation-20.31)" title="Permalink to this equation">¶</a></span><span class="math">NF_{deadcroot\_ xfer,deadcroot} ={NS_{deadcroot\_ xfer} \mathord{\left/ {\vphantom {NS_{deadcroot\_ xfer}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t} .</span></p>
+</div></div>
+<div class="section" id="background-litterfall">
+<h3>20.1.4. 14.1.4 Background Litterfall<a class="headerlink" href="#background-litterfall" title="Permalink to this headline">¶</a></h3>
+<p>Both evergreen and stress-deciduous phenology algorithms can specify a
+litterfall flux that is not associated with a specific offset period,
+but which occurs instead at a slow rate over an extended period of time,
+referred to as background litterfall. For evergreen types the background
+litterfall is the only litterfall flux. For stress-deciduous types
+either the offset period litterfall or the background litterfall
+mechanism may be active, but not both at once. Given a specification of
+the background litterfall rate (<span class="math">{r}_{bglf}</span>, s<sup>-1</sup>), litterfall carbon fluxes are calculated as</p>
+<div class="math" id="equation-20.32)">
+<p><span class="eqno">(32)<a class="headerlink" href="#equation-20.32)" title="Permalink to this equation">¶</a></span><span class="math">CF_{leaf,litter} =r_{bglf} CS_{leaf}</span></p>
+</div><div class="math" id="equation-20.33)">
+<p><span class="eqno">(33)<a class="headerlink" href="#equation-20.33)" title="Permalink to this equation">¶</a></span><span class="math">CS_{froot,litter} =r_{bglf} CS_{froot} ,</span></p>
+</div><p>with corresponding nitrogen litterfall and retranslocation fluxes:</p>
+<div class="math" id="equation-20.34)">
+<p><span class="eqno">(34)<a class="headerlink" href="#equation-20.34)" title="Permalink to this equation">¶</a></span><span class="math">NF_{leaf,litter} ={CF_{leaf,litter} \mathord{\left/ {\vphantom {CF_{leaf,litter}  CN_{leaf\_ litter} }} \right. \kern-\nulldelimiterspace} CN_{leaf\_ litter} }</span></p>
+</div><div class="math" id="equation-20.35)">
+<p><span class="eqno">(35)<a class="headerlink" href="#equation-20.35)" title="Permalink to this equation">¶</a></span><span class="math">NF_{froot,litter} ={CF_{froot,litter} \mathord{\left/ {\vphantom {CF_{froot,litter}  CN_{froot} }} \right. \kern-\nulldelimiterspace} CN_{froot} }</span></p>
+</div><div class="math" id="equation-20.36)">
+<p><span class="eqno">(36)<a class="headerlink" href="#equation-20.36)" title="Permalink to this equation">¶</a></span><span class="math">NF_{leaf,retrans} =\left({CF_{leaf,litter} \mathord{\left/ {\vphantom {CF_{leaf,litter}  CN_{leaf} }} \right. \kern-\nulldelimiterspace} CN_{leaf} } \right)-NF_{leaf,litter} .</span></p>
+</div></div>
+<div class="section" id="livewood-turnover">
+<h3>20.1.5. 14.1.5 Livewood Turnover<a class="headerlink" href="#livewood-turnover" title="Permalink to this headline">¶</a></h3>
+<p>The conceptualization of live wood vs. dead wood fractions for stem and
+coarse root pools is intended to capture the difference in maintenance
+respiration rates between these two physiologically distinct tissue
+types. Unlike displayed pools for leaf and fine root, which are lost to
+litterfall, live wood cells reaching the end of their lifespan are
+retained as a part of the dead woody structure of stems and coarse
+roots. A mechanism is therefore included in the phenology routine to
+effect the transfer of live wood to dead wood pools, which also takes
+into account the different nitrogen concentrations typical of these
+tissue types.</p>
+<p>A live wood turnover rate (<span class="math">{r}_{lwt}</span>, s<sup>-1</sup>) is
+defined as</p>
+<div class="math" id="equation-20.37)">
+<p><span class="eqno">(37)<a class="headerlink" href="#equation-20.37)" title="Permalink to this equation">¶</a></span><span class="math">r_{lwt} ={p_{lwt} \mathord{\left/ {\vphantom {p_{lwt}  \left(365\cdot 86400\right)}} \right. \kern-\nulldelimiterspace} \left(365\cdot 86400\right)}</span></p>
+</div><p>where <span class="math">{p}_{lwt} = 0.7</span> is the assumed annual live wood
+turnover fraction. Carbon fluxes from live to dead wood pools are:</p>
+<div class="math" id="equation-20.38)">
+<p><span class="eqno">(38)<a class="headerlink" href="#equation-20.38)" title="Permalink to this equation">¶</a></span><span class="math">CF_{livestem,deadstem} =CS_{livestem} r_{lwt}</span></p>
+</div><div class="math" id="equation-20.39)">
+<p><span class="eqno">(39)<a class="headerlink" href="#equation-20.39)" title="Permalink to this equation">¶</a></span><span class="math">CF_{livecroot,deadcroot} =CS_{livecroot} r_{lwt} ,</span></p>
+</div><p>and the associated nitrogen fluxes, including retranslocation of
+nitrogen out of live wood during turnover, are:</p>
+<div class="math" id="equation-20.40)">
+<p><span class="eqno">(40)<a class="headerlink" href="#equation-20.40)" title="Permalink to this equation">¶</a></span><span class="math">NF_{livestem,deadstem} ={CF_{livestem,deadstem} \mathord{\left/ {\vphantom {CF_{livestem,deadstem}  CN_{dw} }} \right. \kern-\nulldelimiterspace} CN_{dw} }</span></p>
+</div><div class="math" id="equation-20.41)">
+<p><span class="eqno">(41)<a class="headerlink" href="#equation-20.41)" title="Permalink to this equation">¶</a></span><span class="math">NF_{livestem,retrans} =\left({CF_{livestem,deadstem} \mathord{\left/ {\vphantom {CF_{livestem,deadstem}  CN_{lw} }} \right. \kern-\nulldelimiterspace} CN_{lw} } \right)-NF_{livestem,deadstem}</span></p>
+</div><div class="math" id="equation-20.42)">
+<p><span class="eqno">(42)<a class="headerlink" href="#equation-20.42)" title="Permalink to this equation">¶</a></span><span class="math">NF_{livecroot,deadcroot} ={CF_{livecroot,deadcroot} \mathord{\left/ {\vphantom {CF_{livecroot,deadcroot}  CN_{dw} }} \right. \kern-\nulldelimiterspace} CN_{dw} }</span></p>
+</div><div class="math" id="equation-20.43)">
+<p><span class="eqno">(43)<a class="headerlink" href="#equation-20.43)" title="Permalink to this equation">¶</a></span><span class="math">NF_{livecroot,retrans} =\left({CF_{livecroot,deadcroot} \mathord{\left/ {\vphantom {CF_{livecroot,deadcroot}  CN_{lw} }} \right. \kern-\nulldelimiterspace} CN_{lw} } \right)-NF_{livecroot,deadcroot} .</span></p>
+</div></div>
+</div>
+<div class="section" id="evergreen-phenology">
+<h2>20.2. Evergreen Phenology<a class="headerlink" href="#evergreen-phenology" title="Permalink to this headline">¶</a></h2>
+<p>The evergreen phenology algorithm is by far the simplest of the three
+possible types. It is assumed for all evergreen types that all carbon
+and nitrogen allocated for new growth in the current timestep goes
+immediately to the displayed growth pools (i.e. f<span class="math">{f}_{cur} = 1.0</span>
+(Chapter 13)). As such, there is never an accumulation of carbon or
+nitrogen in the storage or transfer pools, and so the onset growth and
+background onset growth mechanisms are never invoked for this type.
+Litterfall is specified to occur only through the background litterfall
+mechanism – there are no distinct periods of litterfall for evergreen
+types, but rather a continuous (slow) shedding of foliage and fine
+roots. This is an obvious area for potential improvements in the model,
+since it is known, at least for evergreen needleleaf trees in the
+temperate and boreal zones, that there are distinct periods of higher
+and lower leaf litterfall (Ferrari, 1999; Gholz et al., 1985). The rate
+of background litterfall (<span class="math">{r}_{bglf}</span>, section 14.1.4)
+depends on the specified leaf longevity (<span class="math">\tau_{leaf}</span>, y), as</p>
+<div class="math" id="equation-20.44)">
+<p><span class="eqno">(44)<a class="headerlink" href="#equation-20.44)" title="Permalink to this equation">¶</a></span><span class="math">r_{bglf} =\frac{1}{\tau _{leaf} \cdot 365\cdot 86400} .</span></p>
+</div></div>
+<div class="section" id="seasonal-deciduous-phenology">
+<h2>20.3. Seasonal-Deciduous Phenology<a class="headerlink" href="#seasonal-deciduous-phenology" title="Permalink to this headline">¶</a></h2>
+<p>The seasonal-deciduous phenology algorithm derives directly from the
+treatment used in the offline model Biome-BGC v. 4.1.2, (Thornton et
+al., 2002), which in turn is based on the parameterizations for leaf
+onset and offset for temperate deciduous broadleaf forest from White et
+al. (1997). Initiation of leaf onset is triggered when a common
+degree-day summation exceeds a critical value, and leaf litterfall is
+initiated when daylength is shorter than a critical value. Because of
+the dependence on daylength, the seasonal deciduous phenology algorithm
+is only valid for latitudes outside of the tropical zone, defined here
+as <span class="math">\left|{\rm latitude}\right|&gt;19.5{\rm {}^\circ }</span>. Neither the
+background onset nor background litterfall mechanism is invoked for the
+seasonal-deciduous phenology algorithm. The algorithm allows a maximum
+of one onset period and one offset period each year.</p>
+<p>The algorithms for initiation of onset and offset periods use the winter
+and summer solstices as coordination signals. The period between winter
+and summer solstice is identified as <span class="math">{dayl}_{n} &gt; {dayl}_{n-1}</span>,
+and the period between summer and winter
+solstice is identified as <span class="math">{dayl}_{n} &lt; {dayl}_{n-1}</span>,
+where  <span class="math">{dayl}_{n}</span> and  <span class="math">{dayl}_{n-1}</span> are the day length(s) calculated for the
+current and previous timesteps, respectively, using</p>
+<div class="math" id="equation-20.45)">
+<p><span class="eqno">(45)<a class="headerlink" href="#equation-20.45)" title="Permalink to this equation">¶</a></span><span class="math">dayl=2\cdot 13750.9871\cdot acos\left(\frac{-\sin (lat)\sin (decl)}{\cos (lat)\cos (decl)} \right),</span></p>
+</div><p>where <em>lat</em> and <em>decl</em> are the latitude and solar declination (radians),
+respectively, and the factor 13750.9871 is the number of seconds per
+radian of hour-angle.</p>
+<div class="section" id="seasonal-deciduous-onset-trigger">
+<h3>20.3.1. 14.3.1 Seasonal-Deciduous Onset Trigger<a class="headerlink" href="#seasonal-deciduous-onset-trigger" title="Permalink to this headline">¶</a></h3>
+<p>The onset trigger for the seasonal-deciduous phenology algorithm is
+based on an accumulated growing-degree-day approach (White et al.,
+1997). The growing-degree-day summation (<span class="math">{GDD}_{sum}</span>) is
+initiated ( <span class="math">{GDD}_{sum} = 0</span>) when the phenological state is
+dormant and the model timestep crosses the winter solstice. Once these
+conditions are met, <span class="math">{GDD}_{sum}</span> is updated on each timestep as</p>
+<div class="math" id="equation-ZEqnNum510730">
+<p><span class="eqno">(46)<a class="headerlink" href="#equation-ZEqnNum510730" title="Permalink to this equation">¶</a></span><span class="math">GDD_{sum}^{n} =\left\{\begin{array}{l} {GDD_{sum}^{n-1} +\left(T_{s,3} -TKFRZ\right)f_{day} \qquad {\rm for\; }T_{s,3} &gt;TKFRZ} \\ {GDD_{sum}^{n-1} \qquad \qquad \qquad {\rm for\; }T_{s,3} \le TKFRZ} \end{array}\right.</span></p>
+</div><p>where <span class="math">{T}_{s,3}</span> (K) is the temperature of the third soil layer, and
+<span class="math">f_{day} ={\Delta t\mathord{\left/ {\vphantom {\Delta t 86400}} \right. \kern-\nulldelimiterspace} 86400}</span> .
+The onset period is initiated if <span class="math">GDD_{sum} &gt;GDD_{sum\_ crit}</span> ,
+where</p>
+<div class="math" id="equation-ZEqnNum598907">
+<p><span class="eqno">(47)<a class="headerlink" href="#equation-ZEqnNum598907" title="Permalink to this equation">¶</a></span><span class="math">GDD_{sum\_ crit} =\exp \left(4.8+0.13{\kern 1pt} \left(T_{2m,ann\_ avg} -TKFRZ\right)\right)</span></p>
+</div><p>and where <span class="math">{T}_{2m,ann\_avg}</span> (K) is the annual average of
+the 2m air temperature, and TKFRZ is the freezing point of water (273.15 K). The following control variables are set when a new onset growth
+period is initiated:</p>
+<div class="math" id="equation-20.48)">
+<p><span class="eqno">(48)<a class="headerlink" href="#equation-20.48)" title="Permalink to this equation">¶</a></span><span class="math">GDD_{sum} =0</span></p>
+</div><div class="math" id="equation-20.49)">
+<p><span class="eqno">(49)<a class="headerlink" href="#equation-20.49)" title="Permalink to this equation">¶</a></span><span class="math">t_{onset} =86400\cdot n_{days\_ on} ,</span></p>
+</div><p>where <span class="math">{n}_{days\_on}</span> is set to a constant value of 30 days.
+Fluxes from storage into transfer pools occur in the timestep when a new
+onset growth period is initiated. Carbon fluxes are:</p>
+<div class="math" id="equation-ZEqnNum904388">
+<p><span class="eqno">(50)<a class="headerlink" href="#equation-ZEqnNum904388" title="Permalink to this equation">¶</a></span><span class="math">CF_{leaf\_ stor,leaf\_ xfer} ={f_{stor,xfer} CS_{leaf\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} CS_{leaf\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.51)">
+<p><span class="eqno">(51)<a class="headerlink" href="#equation-20.51)" title="Permalink to this equation">¶</a></span><span class="math">CF_{froot\_ stor,froot\_ xfer} ={f_{stor,xfer} CS_{froot\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} CS_{froot\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.52)">
+<p><span class="eqno">(52)<a class="headerlink" href="#equation-20.52)" title="Permalink to this equation">¶</a></span><span class="math">CF_{livestem\_ stor,livestem\_ xfer} ={f_{stor,xfer} CS_{livestem\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} CS_{livestem\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.53)">
+<p><span class="eqno">(53)<a class="headerlink" href="#equation-20.53)" title="Permalink to this equation">¶</a></span><span class="math">CF_{deadstem\_ stor,deadstem\_ xfer} ={f_{stor,xfer} CS_{deadstem\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} CS_{deadstem\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.54)">
+<p><span class="eqno">(54)<a class="headerlink" href="#equation-20.54)" title="Permalink to this equation">¶</a></span><span class="math">CF_{livecroot\_ stor,livecroot\_ xfer} ={f_{stor,xfer} CS_{livecroot\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} CS_{livecroot\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.55)">
+<p><span class="eqno">(55)<a class="headerlink" href="#equation-20.55)" title="Permalink to this equation">¶</a></span><span class="math">CF_{deadcroot\_ stor,deadcroot\_ xfer} ={f_{stor,xfer} CS_{deadcroot\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} CS_{deadcroot\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-ZEqnNum195642">
+<p><span class="eqno">(56)<a class="headerlink" href="#equation-ZEqnNum195642" title="Permalink to this equation">¶</a></span><span class="math">CF_{gresp\_ stor,gresp\_ xfer} ={f_{stor,xfer} CS_{gresp\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} CS_{gresp\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><p>and the associated nitrogen fluxes are:</p>
+<div class="math" id="equation-ZEqnNum812152">
+<p><span class="eqno">(57)<a class="headerlink" href="#equation-ZEqnNum812152" title="Permalink to this equation">¶</a></span><span class="math">NF_{leaf\_ stor,leaf\_ xfer} ={f_{stor,xfer} NS_{leaf\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} NS_{leaf\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.58)">
+<p><span class="eqno">(58)<a class="headerlink" href="#equation-20.58)" title="Permalink to this equation">¶</a></span><span class="math">NF_{froot\_ stor,froot\_ xfer} ={f_{stor,xfer} NS_{froot\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} NS_{froot\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.59)">
+<p><span class="eqno">(59)<a class="headerlink" href="#equation-20.59)" title="Permalink to this equation">¶</a></span><span class="math">NF_{livestem\_ stor,livestem\_ xfer} ={f_{stor,xfer} NS_{livestem\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} NS_{livestem\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.60)">
+<p><span class="eqno">(60)<a class="headerlink" href="#equation-20.60)" title="Permalink to this equation">¶</a></span><span class="math">NF_{deadstem\_ stor,deadstem\_ xfer} ={f_{stor,xfer} NS_{deadstem\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} NS_{deadstem\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-20.61)">
+<p><span class="eqno">(61)<a class="headerlink" href="#equation-20.61)" title="Permalink to this equation">¶</a></span><span class="math">NF_{livecroot\_ stor,livecroot\_ xfer} ={f_{stor,xfer} NS_{livecroot\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} NS_{livecroot\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-ZEqnNum605338">
+<p><span class="eqno">(62)<a class="headerlink" href="#equation-ZEqnNum605338" title="Permalink to this equation">¶</a></span><span class="math">NF_{deadcroot\_ stor,deadcroot\_ xfer} ={f_{stor,xfer} NS_{deadcroot\_ stor} \mathord{\left/ {\vphantom {f_{stor,xfer} NS_{deadcroot\_ stor}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><p>where <span class="math">{f}_{stor,xfer}</span> is the fraction of current storage
+pool moved into the transfer pool for display over the incipient onset
+period. This fraction is set to 0.5, based on the observation that
+seasonal deciduous trees are capable of replacing their canopies from
+storage reserves in the event of a severe early-season disturbance such
+as frost damage or defoliation due to insect herbivory.</p>
+<p>If the onset criterion (<span class="math">{GDD}_{sum} &gt; {GDD}_{sum\_crit}</span>) is not met before the summer solstice,
+then <span class="math">{GDD}_{sum}</span> is set to 0.0 and the growing-degree-day
+accumulation will not start again until the following winter solstice.
+This mechanism prevents the initiation of very short growing seasons
+late in the summer in cold climates. The onset counter is decremented on
+each time step after initiation of the onset period, until it reaches
+zero, signaling the end of the onset period:</p>
+<div class="math" id="equation-20.63)">
+<p><span class="eqno">(63)<a class="headerlink" href="#equation-20.63)" title="Permalink to this equation">¶</a></span><span class="math">t_{onfset}^{n} =t_{onfset}^{n-1} -\Delta t</span></p>
+</div></div>
+<div class="section" id="seasonal-deciduous-offset-trigger">
+<h3>20.3.2. 14.3.2 Seasonal-Deciduous Offset Trigger<a class="headerlink" href="#seasonal-deciduous-offset-trigger" title="Permalink to this headline">¶</a></h3>
+<p>After the completion of an onset period, and once past the summer
+solstice, the offset (litterfall) period is triggered when daylength is
+shorter than 39300 s. The offset counter is set at the initiation of the
+offset period: <span class="math">t_{offset} =86400\cdot n_{days\_ off}</span> , where
+<span class="math">{n}_{days\_off}</span> is set to a constant value of 15 days. The
+offset counter is decremented on each time step after initiation of the
+offset period, until it reaches zero, signaling the end of the offset
+period:</p>
+<div class="math" id="equation-20.64)">
+<p><span class="eqno">(64)<a class="headerlink" href="#equation-20.64)" title="Permalink to this equation">¶</a></span><span class="math">t_{offset}^{n} =t_{offset}^{n-1} -\Delta t</span></p>
+</div></div>
+</div>
+<div class="section" id="stress-deciduous-phenology">
+<h2>20.4. Stress-Deciduous Phenology<a class="headerlink" href="#stress-deciduous-phenology" title="Permalink to this headline">¶</a></h2>
+<p>The stress-deciduous phenology algorithm was developed specifically for
+the CLM based in part on the grass phenology model proposed by White et
+al. (1997). The algorithm handles phenology for vegetation types such as
+grasses and tropical drought-deciduous trees that respond to both cold
+and drought-stress signals, and that can have multiple growing seasons
+per year. The algorithm also allows for the possibility that leaves
+might persist year-round in the absence of a suitable stress trigger. In
+that case the phenology switches to an evergreen habit, maintaining a
+marginally-deciduous leaf longevity (one year) until the occurrence of
+the next stress trigger.</p>
+<div class="section" id="stress-deciduous-onset-triggers">
+<h3>20.4.1. 14.4.1 Stress-Deciduous Onset Triggers<a class="headerlink" href="#stress-deciduous-onset-triggers" title="Permalink to this headline">¶</a></h3>
+<p>In climates that are warm year-round, onset triggering depends on soil
+water availability. At the beginning of a dormant period (end of
+previous offset period), an accumulated soil water index
+(<span class="math">{SWI}_{sum}</span>, d) is initialized (<span class="math">{SWI}_{sum} = 0</span>), with subsequent accumulation calculated as:</p>
+<div class="math" id="equation-ZEqnNum503826">
+<p><span class="eqno">(65)<a class="headerlink" href="#equation-ZEqnNum503826" title="Permalink to this equation">¶</a></span><span class="math">SWI_{sum}^{n} =\left\{\begin{array}{l} {SWI_{sum}^{n-1} +f_{day} \qquad {\rm for\; }\Psi _{s,3} \ge \Psi _{onset} } \\ {SWI_{sum}^{n-1} \qquad \qquad {\rm for\; }\Psi _{s,3} &lt;\Psi _{onset} } \end{array}\right.</span></p>
+</div><p>where <span class="math">\Psi</span><sub>s,3</sub> is the soil water potential (MPa)
+in the third soil layer and <span class="math">{\Psi}_{onset} = -2 MPa</span>
+is the onset soil water potential threshold. Onset triggering is
+possible once <span class="math">{SWI}_{sum} &gt; 15</span>. If the cold climate
+growing degree-day accumulator is not active at the time when this
+threshold is reached (see below), and if the daylength is greater than 6
+hours, then onset is triggered. Except as noted below,
+<span class="math">{SWI}_{sum}</span> continues to accumulate according to Eq. during
+the dormant period if the daylength criterion prevents onset triggering,
+and onset is then triggered at the timestep when daylength exceeds 6
+hours.</p>
+<p>In climates with a cold season, onset triggering depends on both
+accumulated soil temperature summation and adequate soil moisture. At
+the beginning of a dormant period a freezing day accumulator
+(<span class="math">{FD}_{sum}</span>, d) is initialized (<span class="math">{FD}_{sum} = 0</span>),
+with subsequent accumulation calculated as:</p>
+<div class="math" id="equation-20.66)">
+<p><span class="eqno">(66)<a class="headerlink" href="#equation-20.66)" title="Permalink to this equation">¶</a></span><span class="math">FD_{sum}^{n} =\left\{\begin{array}{l} {FD_{sum}^{n-1} +f_{day} \qquad {\rm for\; }T_{s,3} &gt;TKFRZ} \\ {FD_{sum}^{n-1} \qquad \qquad {\rm for\; }T_{s,3} \le TKFRZ} \end{array}\right. .</span></p>
+</div><p>If <span class="math">{FD}_{sum} &gt; 15</span> during the dormant period, then a
+cold-climate onset triggering criterion is introduced, following exactly
+the growing degree-day summation (<span class="math">{GDD}_{sum}</span>) logic of Eqs.
+and . At that time <span class="math">{SWI}_{sum}</span> is reset
+(<span class="math">{SWI}_{sum} = 0</span>). Onset triggering under these conditions
+depends on meeting all three of the following criteria:
+<span class="math">{SWI}_{sum} &gt; 15</span>, <span class="math">{GDD}_{sum} &gt; {GDD}_{sum\_crit}</span>, and daylength greater than 6 hrs.</p>
+<p>The following control variables are set when a new onset growth period
+is initiated: <span class="math">{SWI}_{sum} = 0</span>, <span class="math">{FD}_{sum} = 0</span>, <span class="math">{GDD}_{sum} = 0</span>, <span class="math">{n}_{days\_active} = 0</span>, and
+<span class="math">t_{onset} = 86400\cdot n_{days\_ on}</span> , where <span class="math">{n}_{days\_on}</span> is set to a constant value of 30 days. Fluxes
+from storage into transfer pools occur in the timestep when a new onset growth period is initiated, and are handled identically to Eqs. - for
+carbon fluxes, and to Eqs. - for nitrogen fluxes. The onset counter is decremented on each time step after initiation of the onset period,
+until it reaches zero, signaling the end of the onset period:</p>
+<div class="math" id="equation-20.67)">
+<p><span class="eqno">(67)<a class="headerlink" href="#equation-20.67)" title="Permalink to this equation">¶</a></span><span class="math">t_{onfset}^{n} =t_{onfset}^{n-1} -\Delta t</span></p>
+</div></div>
+<div class="section" id="stress-deciduous-offset-triggers">
+<h3>20.4.2. 14.4.2 Stress-Deciduous Offset Triggers<a class="headerlink" href="#stress-deciduous-offset-triggers" title="Permalink to this headline">¶</a></h3>
+<p>Any one of the following three conditions is sufficient to initiate an
+offset period for the stress-deciduous phenology algorithm: sustained
+period of dry soil, sustained period of cold temperature, or daylength
+shorter than 6 hours. Offset triggering due to dry soil or cold
+temperature conditions is only allowed once the most recent onset period
+is complete. Dry soil condition is evaluated with an offset soil water
+index accumulator (<span class="math">{OSWI}_{sum}</span>, d). To test for a sustained
+period of dry soils, this control variable can increase or decrease, as
+follows:</p>
+<div class="math" id="equation-20.68)">
+<p><span class="eqno">(68)<a class="headerlink" href="#equation-20.68)" title="Permalink to this equation">¶</a></span><span class="math">OSWI_{sum}^{n} =\left\{\begin{array}{l} {OSWI_{sum}^{n-1} +f_{day} \qquad \qquad \qquad {\rm for\; }\Psi _{s,3} \le \Psi _{offset} } \\ {{\rm max}\left(OSWI_{sum}^{n-1} -f_{day} ,0\right)\qquad {\rm for\; }\Psi _{s,3} &gt;\Psi _{onset} } \end{array}\right.</span></p>
+</div><p>where <span class="math">{\Psi}_{offset} = -2 MPa</span> is the offset soil
+water potential threshold. An offset period is triggered if the previous
+onset period is complete and <span class="math">{OSWI}_{sum}</span>
+<span class="math">\mathrm{\ge}</span> <span class="math">{OSWI}_{sum\_crit}</span>, where <span class="math">{OSWI}_{sum\_crit} = 15</span>.</p>
+<p>The cold temperature trigger is calculated with an offset freezing day
+accumulator (<span class="math">{OFD}_{sum}</span>, d). To test for a sustained period
+of cold temperature, this variable can increase or decrease, as follows:</p>
+<div class="math" id="equation-20.69)">
+<p><span class="eqno">(69)<a class="headerlink" href="#equation-20.69)" title="Permalink to this equation">¶</a></span><span class="math">OFD_{sum}^{n} =\left\{\begin{array}{l} {OFD_{sum}^{n-1} +f_{day} \qquad \qquad \qquad {\rm for\; }T_{s,3} \le TKFRZ} \\ {{\rm max}\left(OFD_{sum}^{n-1} -f_{day} ,0\right)\qquad \qquad {\rm for\; }T_{s,3} &gt;TKFRZ} \end{array}\right.</span></p>
+</div><p>An offset period is triggered if the previous onset period is complete
+and  <span class="math">{OFD}_{sum} &gt; {OFD}_{sum\_crit}</span>,
+where <span class="math">{OFD}_{sum\_crit} = 15</span>.</p>
+<p>The offset counter is set at the initiation of the offset period:
+<span class="math">t_{offset} =86400\cdot n_{days\_ off}</span> , where
+<span class="math">{n}_{days\_off}</span> is set to a constant value of 15 days. The
+offset counter is decremented on each time step after initiation of the
+offset period, until it reaches zero, signaling the end of the offset
+period:</p>
+<div class="math" id="equation-20.70)">
+<p><span class="eqno">(70)<a class="headerlink" href="#equation-20.70)" title="Permalink to this equation">¶</a></span><span class="math">t_{offset}^{n} =t_{offset}^{n-1} -\Delta t</span></p>
+</div></div>
+<div class="section" id="stress-deciduous-long-growing-season">
+<h3>20.4.3. 14.4.3 Stress-Deciduous: Long Growing Season<a class="headerlink" href="#stress-deciduous-long-growing-season" title="Permalink to this headline">¶</a></h3>
+<p>Under conditions when the stress-deciduous conditions triggering offset
+are not met for one year or longer, the stress-deciduous algorithm
+shifts toward the evergreen behavior. This can happen in cases where a
+stress-deciduous vegetation type is assigned in a climate where suitably
+strong stresses occur less frequently than once per year. This condition
+is evaluated by tracking the number of days since the beginning of the
+most recent onset period (<span class="math">{n}_{days\_active}</span>, d). At the end
+of an offset period <span class="math">{n}_{days\_active}</span> is reset to 0. A long
+growing season control variable (<em>LGS</em>, range 0 to 1) is calculated as:</p>
+<div class="math" id="equation-20.71)">
+<p><span class="eqno">(71)<a class="headerlink" href="#equation-20.71)" title="Permalink to this equation">¶</a></span><span class="math">LGS=\left\{\begin{array}{l} {0\qquad \qquad \qquad {\rm for\; }n_{days\_ active} &lt;365} \\ {\left({n_{days\_ active} \mathord{\left/ {\vphantom {n_{days\_ active}  365}} \right. \kern-\nulldelimiterspace} 365} \right)-1\qquad {\rm for\; }365\le n_{days\_ active} &lt;730} \\ {1\qquad \qquad \qquad {\rm for\; }n_{days\_ active} \ge 730} \end{array}\right. .</span></p>
+</div><p>The rate coefficient for background litterfall (<span class="math">{r}_{bglf}</span>, s<sup>-1</sup>) is calculated as a function of <em>LGS</em>:</p>
+<div class="math" id="equation-20.72)">
+<p><span class="eqno">(72)<a class="headerlink" href="#equation-20.72)" title="Permalink to this equation">¶</a></span><span class="math">r_{bglf} =\frac{LGS}{\tau _{leaf} \cdot 365\cdot 86400}</span></p>
+</div><p>where <span class="math">{\tau}_{leaf}</span> is the leaf longevity. The result is a shift to continuous litterfall as
+<span class="math">{n}_{days\_active}</span> increases from 365 to 730. When a new offset period is triggered <span class="math">{r}_{bglf}</span> is set to 0.</p>
+<p>The rate coefficient for background onset growth from the transfer pools ( <span class="math">{r}_{bgtr}</span>, s<sup>-1</sup>) also depends on <em>LGS</em>, as:</p>
+<div class="math" id="equation-20.73)">
+<p><span class="eqno">(73)<a class="headerlink" href="#equation-20.73)" title="Permalink to this equation">¶</a></span><span class="math">r_{bgtr} =\frac{LGS}{365\cdot 86400} .</span></p>
+</div><p>On each timestep with <span class="math">{r}_{bgtr}</span> <span class="math">\neq</span> 0, carbon fluxes from storage to transfer pools are calculated as:</p>
+<div class="math" id="equation-20.74)">
+<p><span class="eqno">(74)<a class="headerlink" href="#equation-20.74)" title="Permalink to this equation">¶</a></span><span class="math">CF_{leaf\_ stor,leaf\_ xfer} =CS_{leaf\_ stor} r_{bgtr}</span></p>
+</div><div class="math" id="equation-20.75)">
+<p><span class="eqno">(75)<a class="headerlink" href="#equation-20.75)" title="Permalink to this equation">¶</a></span><span class="math">CF_{froot\_ stor,froot\_ xfer} =CS_{froot\_ stor} r_{bgtr}</span></p>
+</div><div class="math" id="equation-20.76)">
+<p><span class="eqno">(76)<a class="headerlink" href="#equation-20.76)" title="Permalink to this equation">¶</a></span><span class="math">CF_{livestem\_ stor,livestem\_ xfer} =CS_{livestem\_ stor} r_{bgtr}</span></p>
+</div><div class="math" id="equation-20.77)">
+<p><span class="eqno">(77)<a class="headerlink" href="#equation-20.77)" title="Permalink to this equation">¶</a></span><span class="math">CF_{deadstem\_ stor,deadstem\_ xfer} =CS_{deadstem\_ stor} r_{bgtr}</span></p>
+</div><div class="math" id="equation-20.78)">
+<p><span class="eqno">(78)<a class="headerlink" href="#equation-20.78)" title="Permalink to this equation">¶</a></span><span class="math">CF_{livecroot\_ stor,livecroot\_ xfer} =CS_{livecroot\_ stor} r_{bgtr}</span></p>
+</div><div class="math" id="equation-20.79)">
+<p><span class="eqno">(79)<a class="headerlink" href="#equation-20.79)" title="Permalink to this equation">¶</a></span><span class="math">CF_{deadcroot\_ stor,deadcroot\_ xfer} =CS_{deadcroot\_ stor} r_{bgtr} ,</span></p>
+</div><p>with corresponding nitrogen fluxes:</p>
+<div class="math" id="equation-20.80)">
+<p><span class="eqno">(80)<a class="headerlink" href="#equation-20.80)" title="Permalink to this equation">¶</a></span><span class="math">NF_{leaf\_ stor,leaf\_ xfer} =NS_{leaf\_ stor} r_{bgtr}</span></p>
+</div><div class="math" id="equation-20.81)">
+<p><span class="eqno">(81)<a class="headerlink" href="#equation-20.81)" title="Permalink to this equation">¶</a></span><span class="math">NF_{froot\_ stor,froot\_ xfer} =NS_{froot\_ stor} r_{bgtr}</span></p>
+</div><div class="math" id="equation-20.82)">
+<p><span class="eqno">(82)<a class="headerlink" href="#equation-20.82)" title="Permalink to this equation">¶</a></span><span class="math">NF_{livestem\_ stor,livestem\_ xfer} =NS_{livestem\_ stor} r_{bgtr}</span></p>
+</div><div class="math" id="equation-20.83)">
+<p><span class="eqno">(83)<a class="headerlink" href="#equation-20.83)" title="Permalink to this equation">¶</a></span><span class="math">NF_{deadstem\_ stor,deadstem\_ xfer} =NS_{deadstem\_ stor} r_{bgtr}</span></p>
+</div><div class="math" id="equation-20.84)">
+<p><span class="eqno">(84)<a class="headerlink" href="#equation-20.84)" title="Permalink to this equation">¶</a></span><span class="math">NF_{livecroot\_ stor,livecroot\_ xfer} =NS_{livecroot\_ stor} r_{bgtr}</span></p>
+</div><div class="math" id="equation-20.85)">
+<p><span class="eqno">(85)<a class="headerlink" href="#equation-20.85)" title="Permalink to this equation">¶</a></span><span class="math">NF_{deadcroot\_ stor,deadcroot\_ xfer} =NS_{deadcroot\_ stor} r_{bgtr} .</span></p>
+</div><p>The result, in conjunction with the treatment of background onset
+growth, is a shift to continuous transfer from storage to display pools
+at a rate that would result in complete turnover of the storage pools in
+one year at steady state, once <em>LGS</em> reaches 1 (i.e. after two years
+without stress-deciduous offset conditions). If and when conditions
+cause stress-deciduous triggering again, <span class="math">{r}_{bgtr}</span> is rest
+to 0.</p>
+</div>
+</div>
+<div class="section" id="litterfall-fluxes-merged-to-the-column-level">
+<h2>20.5. Litterfall Fluxes Merged to the Column Level<a class="headerlink" href="#litterfall-fluxes-merged-to-the-column-level" title="Permalink to this headline">¶</a></h2>
+<p>CLM uses three litter pools, defined on the basis of commonly measured
+chemical fractionation of fresh litter into labile (LIT1 = hot water and
+alcohol soluble fraction), cellulose/hemicellulose (LIT2 = acid soluble
+fraction) and remaining material, referred to here for convenience as
+lignin (LIT3 = acid insoluble fraction) (Aber et al., 1990; Taylor et
+al., 1989). While multiple plant functional types can coexist on a
+single CLM soil column, each soil column includes a single instance of
+the litter pools. Fluxes entering the litter pools due to litterfall are
+calculated using a weighted average of the fluxes originating at the PFT
+level. Carbon fluxes are calculated as:</p>
+<div class="math" id="equation-20.86)">
+<p><span class="eqno">(86)<a class="headerlink" href="#equation-20.86)" title="Permalink to this equation">¶</a></span><span class="math">CF_{leaf,lit1} =\sum _{p=0}^{npfts}CF_{leaf,litter} f_{lab\_ leaf,p} wcol_{p}</span></p>
+</div><div class="math" id="equation-20.87)">
+<p><span class="eqno">(87)<a class="headerlink" href="#equation-20.87)" title="Permalink to this equation">¶</a></span><span class="math">CF_{leaf,lit2} =\sum _{p=0}^{npfts}CF_{leaf,litter} f_{cel\_ leaf,p} wcol_{p}</span></p>
+</div><div class="math" id="equation-20.88)">
+<p><span class="eqno">(88)<a class="headerlink" href="#equation-20.88)" title="Permalink to this equation">¶</a></span><span class="math">CF_{leaf,lit3} =\sum _{p=0}^{npfts}CF_{leaf,litter} f_{lig\_ leaf,p} wcol_{p}</span></p>
+</div><div class="math" id="equation-20.89)">
+<p><span class="eqno">(89)<a class="headerlink" href="#equation-20.89)" title="Permalink to this equation">¶</a></span><span class="math">CF_{froot,lit1} =\sum _{p=0}^{npfts}CF_{froot,litter} f_{lab\_ froot,p} wcol_{p}</span></p>
+</div><div class="math" id="equation-20.90)">
+<p><span class="eqno">(90)<a class="headerlink" href="#equation-20.90)" title="Permalink to this equation">¶</a></span><span class="math">CF_{froot,lit2} =\sum _{p=0}^{npfts}CF_{froot,litter} f_{cel\_ froot,p} wcol_{p}</span></p>
+</div><div class="math" id="equation-20.91)">
+<p><span class="eqno">(91)<a class="headerlink" href="#equation-20.91)" title="Permalink to this equation">¶</a></span><span class="math">CF_{froot,lit3} =\sum _{p=0}^{npfts}CF_{froot,litter} f_{lig\_ froot,p} wcol_{p}  ,</span></p>
+</div><p>where <span class="math">{f}_{lab\_leaf,p}</span>, <span class="math">{f}_{cel\_leaf,p}</span>, and
+<span class="math">{f}_{lig\_leaf,p}</span> are the labile, cellulose/hemicellulose,
+and lignin fractions of leaf litter for PFT <em>p</em>,
+<span class="math">{f}_{lab\_froot,p}</span>, <span class="math">{f}_{cel\_froot,p}</span>, and
+<span class="math">{f}_{lig\_froot,p}</span> are the labile, cellulose/hemicellulose,
+and lignin fractions of fine root litter for PFT <em>p</em>,
+<span class="math">{wtcol}_{p}</span> is the weight relative to the column for PFT
+<em>p</em>, and <em>p</em> is an index through the plant functional types occurring on
+a column. Nitrogen fluxes to the litter pools are assumed to follow the
+C:N of the senescent tissue, and so are distributed using the same
+fractions used for carbon fluxes:</p>
+<div class="math" id="equation-20.92)">
+<p><span class="eqno">(92)<a class="headerlink" href="#equation-20.92)" title="Permalink to this equation">¶</a></span><span class="math">NF_{leaf,lit1} =\sum _{p=0}^{npfts}NF_{leaf,litter} f_{lab\_ leaf,p} wcol_{p}</span></p>
+</div><div class="math" id="equation-20.93)">
+<p><span class="eqno">(93)<a class="headerlink" href="#equation-20.93)" title="Permalink to this equation">¶</a></span><span class="math">NF_{leaf,lit2} =\sum _{p=0}^{npfts}NF_{leaf,litter} f_{cel\_ leaf,p} wcol_{p}</span></p>
+</div><div class="math" id="equation-20.94)">
+<p><span class="eqno">(94)<a class="headerlink" href="#equation-20.94)" title="Permalink to this equation">¶</a></span><span class="math">NF_{leaf,lit3} =\sum _{p=0}^{npfts}NF_{leaf,litter} f_{lig\_ leaf,p} wcol_{p}</span></p>
+</div><div class="math" id="equation-20.95)">
+<p><span class="eqno">(95)<a class="headerlink" href="#equation-20.95)" title="Permalink to this equation">¶</a></span><span class="math">NF_{froot,lit1} =\sum _{p=0}^{npfts}NF_{froot,litter} f_{lab\_ froot,p} wcol_{p}</span></p>
+</div><div class="math" id="equation-20.96)">
+<p><span class="eqno">(96)<a class="headerlink" href="#equation-20.96)" title="Permalink to this equation">¶</a></span><span class="math">NF_{froot,lit2} =\sum _{p=0}^{npfts}NF_{froot,litter} f_{cel\_ froot,p} wcol_{p}</span></p>
+</div><div class="math" id="equation-20.97)">
+<p><span class="eqno">(97)<a class="headerlink" href="#equation-20.97)" title="Permalink to this equation">¶</a></span><span class="math">NF_{froot,lit3} =\sum _{p=0}^{npfts}NF_{froot,litter} f_{lig\_ froot,p} wcol_{p}  .</span></p>
+</div></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../Decomposition/CLM50_Tech_Note_Decomposition.html" title="21. Decomposition"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html" title="19. Carbon and Nitrogen Allocation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.4.
+    </div>
+  </body>
+</html>

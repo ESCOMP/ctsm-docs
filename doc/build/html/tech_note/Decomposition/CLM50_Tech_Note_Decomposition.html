@@ -1,0 +1,815 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>21. Decomposition &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="22. External Nitrogen Cycle" href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html" />
+    <link rel="prev" title="20. Vegetation Phenology and Turnover" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html" title="22. External Nitrogen Cycle"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html" title="20. Vegetation Phenology and Turnover"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">21. Decomposition</a><ul>
+<li><a class="reference internal" href="#clm-cn-pool-structure-rate-constants-and-parameters">21.1. CLM-CN Pool Structure, Rate Constants and Parameters</a></li>
+<li><a class="reference internal" href="#century-based-pool-structure-rate-constants-and-parameters">21.2. Century-based Pool Structure, Rate Constants and Parameters</a></li>
+<li><a class="reference internal" href="#environmental-modifiers-on-decomposition-rate">21.3. Environmental modifiers on decomposition rate</a></li>
+<li><a class="reference internal" href="#n-limitation-of-decomposition-fluxes">21.4. N-limitation of Decomposition Fluxes</a></li>
+<li><a class="reference internal" href="#n-competition-between-plant-uptake-and-soil-immobilization-fluxes">21.5. N Competition between plant uptake and soil immobilization fluxes</a></li>
+<li><a class="reference internal" href="#final-decomposition-fluxes">21.6. Final Decomposition Fluxes</a></li>
+<li><a class="reference internal" href="#vertical-distribution-and-transport-of-decomposing-c-and-n-pools">21.7. Vertical Distribution and Transport of Decomposing C and N pools</a></li>
+<li><a class="reference internal" href="#model-equilibration">21.8. Model Equilibration</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html"
+                        title="previous chapter">20. Vegetation Phenology and Turnover</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html"
+                        title="next chapter">22. External Nitrogen Cycle</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tech_note/Decomposition/CLM50_Tech_Note_Decomposition.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="decomposition">
+<span id="rst-decomposition"></span><h1>21. Decomposition<a class="headerlink" href="#decomposition" title="Permalink to this headline">¶</a></h1>
+<p>Decomposition of fresh litter material into progressively more
+recalcitrant forms of soil organic matter is represented in CLM is
+defined as a cascade of <span class="math">{k}_{tras}</span> transformations between
+<span class="math">{m}_{pool}</span> decomposing coarse woody debris (CWD), litter,
+and soil organic matter (SOM) pools, each defined at
+<span class="math">{n}_{lev}</span> vertical levels. CLM allows the user to define, at
+compile time, between 2 contrasting hypotheses of decomposition as
+embodied by two separate decomposition submodels: the CLM-CN pool
+structure used in CLM4.0, or a second pool structure, characterized by
+slower decomposition rates, based on the Century model (Parton et al.
+1988). In addition, the user can choose, at compile time, whether to
+allow <span class="math">{n}_{lev}</span> to equal 1, as in CLM4.0, or to equal the
+number of soil levels used for the soil hydrology (default 10).</p>
+<p>Figure 15.1. Schematic of decomposition model in CLM.</p>
+<p>Model is structured to allow different representations of the soil C and
+N decomposition cascade, as well as a vertically-explicit treatment of
+soil biogeochemistry.</p>
+<img alt="../../_images/image11.png" src="../../_images/image11.png" />
+<p>For the single-level model structure, the fundamental equation for
+carbon balance of the decomposing pools is:</p>
+<div class="math" id="equation-21.1)">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-21.1)" title="Permalink to this equation">¶</a></span><span class="math">\frac{\partial C_{i} }{\partial t} =R_{i} +\sum _{j\ne i}\left(i-r_{j} \right)T_{ji} k_{j} C_{j} -k_{i} C_{i}</span></p>
+</div><p>where <span class="math">{C}_{i}</span> is the carbon content of pool <em>i</em>,
+<span class="math">{R}_{i}</span> are the carbon inputs from plant tissues directly to
+pool <em>i</em> (only non-zero for CWD and litter pools), <span class="math">{k}_{i}</span>
+is the decay constant of pool <em>i</em>; <span class="math">{T}_{ji}</span> is the fraction
+of carbon directed from pool <em>j</em> to pool <em>i</em> with fraction
+<span class="math">{r}_{j}</span> lost as a respiration flux along the way.</p>
+<p>Adding the vertical dimension to the decomposing pools changes the
+balance equation to the following:</p>
+<div class="math" id="equation-21.2)">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-21.2)" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {\frac{\partial C_{i} (z)}{\partial t} =R_{i} (z)+\sum _{i\ne j}\left(1-r_{j} \right)T_{ji} k_{j} (z)C_{j} (z) -k_{i} (z)C_{i} (z)} \\ {+\frac{\partial }{\partial z} \left(D(z)\frac{\partial C_{i} }{\partial z} \right)+\frac{\partial }{\partial z} \left(A(z)C_{i} \right)} \end{array}</span></p>
+</div><p>where <span class="math">{C}_{i}</span>(z) is now defined at each model level, and
+in volumetric (gC m<sup>-3</sup>) rather than areal (gC m<sup>-2</sup>) units, along with <span class="math">{R}_{i}</span>(z) and
+<span class="math">{k}_{j}</span>(z). In addition, vertical transport is handled by
+the last two terms, for diffusive and advective transport. In the base
+model, advective transport is set to zero, leaving only a diffusive flux
+with diffusivity <em>D(z)</em> defined for all decomposing carbon and nitrogen
+pools. Further discussion of the vertical distribution of carbon inputs
+<span class="math">{R}_{i}</span>(z), vertical turnover times
+<span class="math">{k}_{j}</span>(z), and vertical transport <em>D(z)</em> is below.
+Discussion of the vertical model and analysis of both decomposition
+structures is in Koven et al (2013).</p>
+<p>Figure 15.2. Pool structure, transitions, respired fractions (numbers at
+end of arrows), and turnover times (numbers in boxes) for the 2
+alternate soil decomposition models included in CLM.</p>
+<img alt="../../_images/image21.png" src="../../_images/image21.png" />
+<div class="section" id="clm-cn-pool-structure-rate-constants-and-parameters">
+<h2>21.1. CLM-CN Pool Structure, Rate Constants and Parameters<a class="headerlink" href="#clm-cn-pool-structure-rate-constants-and-parameters" title="Permalink to this headline">¶</a></h2>
+<p>The CLM-CN structure in CLM45 uses three state variables for fresh
+litter and four state variables for soil organic matter (SOM). The
+masses of carbon and nitrogen in the live microbial community are not
+modeled explicitly, but the activity of these organisms is represented
+by decomposition fluxes transferring mass between the litter and SOM
+pools, and heterotrophic respiration losses associated with these
+transformations. The litter and SOM pools in CLM-CN are arranged as a
+converging cascade (Figure 15.2), derived directly from the
+implementation in Biome-BGC v4.1.2 (Thornton et al. 2002; Thornton and
+Rosenbloom, 2005).</p>
+<p>Model parameters are estimated based on a synthesis of microcosm
+decomposition studies using radio-labeled substrates (Degens and
+Sparling, 1996; Ladd et al. 1992; Martin et al. 1980; Mary et al. 1993;
+Saggar et al. 1994; Sørensen, 1981; van Veen et al. 1984). Multiple
+exponential models are fitted to data from the microcosm studies to
+estimate exponential decay rates and respiration fractions (Thornton,
+1998). The microcosm experiments used for parameterization were all
+conducted at constant temperature and under moist conditions with
+relatively high mineral nitrogen concentrations, and so the resulting
+rate constants are assumed not limited by the availability of water or
+mineral nitrogen. Table 15.1 lists the base decomposition rates for each
+litter and SOM pool, as well as a base rate for physical fragmentation
+for the coarse woody debris pool (CWD).</p>
+<p>Table 15.1. Decomposition rate constants for litter and SOM pools, C:N
+ratios, and acceleration parameters (see section 15.8 for explanation)
+for the CLM-CN decomposition pool structure.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="27%" />
+<col width="27%" />
+<col width="8%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&#160;</th>
+<th class="head">Biome-BGC</th>
+<th class="head">CLM-CN</th>
+<th class="head">&#160;</th>
+<th class="head">&#160;</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&#160;</td>
+<td><span class="math">{k}_{disc1}</span>(d<sup>-1</sup>)</td>
+<td><span class="math">{k}_{disc2}</span> (hr<sup>-1</sup>)</td>
+<td><em>C:N ratio</em></td>
+<td>Acceleration term (<span class="math">{a}_{i}</span>)</td>
+</tr>
+<tr class="row-odd"><td><span class="math">{k}_{Lit1}</span></td>
+<td>0.7</td>
+<td>0.04892</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td><span class="math">{k}_{Lit2}</span></td>
+<td>0.07</td>
+<td>0.00302</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td><span class="math">{k}_{Lit3}</span></td>
+<td>0.014</td>
+<td>0.00059</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td><span class="math">{k}_{SOM1}</span></td>
+<td>0.07</td>
+<td>0.00302</td>
+<td>12</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td><span class="math">{k}_{SOM2}</span></td>
+<td>0.014</td>
+<td>0.00059</td>
+<td>12</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td><span class="math">{k}_{SOM3}</span></td>
+<td>0.0014</td>
+<td>0.00006</td>
+<td>10</td>
+<td>5</td>
+</tr>
+<tr class="row-odd"><td><span class="math">{k}_{SOM4}</span></td>
+<td>0.0001</td>
+<td>0.000004</td>
+<td>10</td>
+<td>70</td>
+</tr>
+<tr class="row-even"><td><span class="math">{k}_{CWD}</span></td>
+<td>0.001</td>
+<td>0.00004</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>The first column of Table 15.1 gives the rates as used for the Biome-BGC
+model, which uses a discrete-time model with a daily timestep. The
+second column of Table 15.1 shows the rates transformed for a one-hour
+discrete timestep typical of CLM-CN. The transformation is based on the
+conversion of the initial discrete-time value (<span class="math">{k}_{disc1}</span>)
+first to a continuous time value (<span class="math">{k}_{cont}</span>), then to the
+new discrete-time value with a different timestep
+(<span class="math">{k}_{disc2}</span>) , following Olson (1963):</p>
+<div class="math" id="equation-ZEqnNum608251">
+<p><span class="eqno">(3)<a class="headerlink" href="#equation-ZEqnNum608251" title="Permalink to this equation">¶</a></span><span class="math">k_{cont} =-\log \left(1-k_{disc1} \right)</span></p>
+</div><div class="math" id="equation-ZEqnNum772630">
+<p><span class="eqno">(4)<a class="headerlink" href="#equation-ZEqnNum772630" title="Permalink to this equation">¶</a></span><span class="math">k_{disc2} =1-\exp \left(-k_{cont} \frac{\Delta t_{2} }{\Delta t_{1} } \right)</span></p>
+</div><p>where <span class="math">\Delta</span><span class="math">{t}_{1}</span> (s) and
+<span class="math">\Delta</span>t<sub>2</sub> (s) are the time steps of the
+initial and new discrete-time models, respectively.</p>
+<p>Respiration fractions are parameterized for decomposition fluxes out of
+each litter and SOM pool. The respiration fraction (<em>rf</em>, unitless) is
+the fraction of the decomposition carbon flux leaving one of the litter
+or SOM pools that is released as CO<sub>2</sub> due to heterotrophic
+respiration. Respiration fractions and exponential decay rates are
+estimated simultaneously from the results of microcosm decomposition
+experiments (Thornton, 1998). The same values are used in CLM-CN and
+Biome-BGC (Table 15.2).</p>
+<p>Table 15.2. Respiration fractions for litter and SOM pools</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="54%" />
+<col width="46%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Pool</th>
+<th class="head"><em>rf</em></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><span class="math">{rf}_{Lit1}</span></td>
+<td>0.39</td>
+</tr>
+<tr class="row-odd"><td><span class="math">{rf}_{Lit2}</span></td>
+<td>0.55</td>
+</tr>
+<tr class="row-even"><td><span class="math">{rf}_{Lit3}</span></td>
+<td>0.29</td>
+</tr>
+<tr class="row-odd"><td><span class="math">{rf}_{SOM1}</span></td>
+<td>0.28</td>
+</tr>
+<tr class="row-even"><td><span class="math">{rf}_{SOM2}</span></td>
+<td>0.46</td>
+</tr>
+<tr class="row-odd"><td><span class="math">{rf}_{SOM3}</span></td>
+<td>0.55</td>
+</tr>
+<tr class="row-even"><td><span class="math">{rf}_{SOM4}</span></td>
+<td><span class="math">{1.0}^{a}</span></td>
+</tr>
+</tbody>
+</table>
+<p><sup>a</sup><span class="math">{}^{a}</span> The respiration fraction for pool SOM4 is 1.0 by
+definition: since there is no pool downstream of SOM4, the entire carbon
+flux leaving this pool is assumed to be respired as CO<sub>2</sub>.</p>
+</div>
+<div class="section" id="century-based-pool-structure-rate-constants-and-parameters">
+<h2>21.2. Century-based Pool Structure, Rate Constants and Parameters<a class="headerlink" href="#century-based-pool-structure-rate-constants-and-parameters" title="Permalink to this headline">¶</a></h2>
+<p>The Century-based decomposition cascade is, like CLM-CN, a first-order
+decay model; the two structures differ in the number of pools, the
+connections between those pools, the turnover times of the pools, and
+the respired fraction during each transition (Figure 15.2). The turnover
+times are different for the Century-based pool structure, following
+those described in Parton et al. (1988) (Table 15.3).</p>
+<p>Table 15.3. Turnover times, C:N ratios, and acceleration parameters (see
+section 15.8 for explanation) for the Century-based decomposition
+cascade.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="26%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">&#160;</th>
+<th class="head">Turnover time (year)</th>
+<th class="head">C:N ratio</th>
+<th class="head">Acceleration term (<span class="math">{a}_{i}</span>)</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>CWD</td>
+<td>4.1</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>Litter 1</td>
+<td>0.066</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>Litter 2</td>
+<td>0.25</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>Litter 3</td>
+<td>0.25</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>1</td>
+</tr>
+<tr class="row-even"><td>SOM 1</td>
+<td>0.17</td>
+<td>8</td>
+<td>1</td>
+</tr>
+<tr class="row-odd"><td>SOM 2</td>
+<td>6.1</td>
+<td>11</td>
+<td>15</td>
+</tr>
+<tr class="row-even"><td>SOM 3</td>
+<td>270</td>
+<td>11</td>
+<td>675</td>
+</tr>
+</tbody>
+</table>
+<p>Likewise, values for the respiration fraction of Century-based structure are in Table 15.4.</p>
+<p>Table 15.4. Respiration fractions for litter and SOM pools for Century-based structure</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="73%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Pool</th>
+<th class="head"><em>rf</em></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><span class="math">{rf}_{Lit1}</span></td>
+<td>0.55</td>
+</tr>
+<tr class="row-odd"><td><span class="math">{rf}_{Lit2}</span></td>
+<td>0.5</td>
+</tr>
+<tr class="row-even"><td><span class="math">{rf}_{Lit3}</span></td>
+<td>0.5</td>
+</tr>
+<tr class="row-odd"><td><span class="math">{rf}_{SOM1}</span></td>
+<td>f(txt)</td>
+</tr>
+<tr class="row-even"><td><span class="math">{rf}_{SOM2}</span></td>
+<td>0.55</td>
+</tr>
+<tr class="row-odd"><td><span class="math">{rf}_{SOM3}</span></td>
+<td>0.55</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="environmental-modifiers-on-decomposition-rate">
+<h2>21.3. Environmental modifiers on decomposition rate<a class="headerlink" href="#environmental-modifiers-on-decomposition-rate" title="Permalink to this headline">¶</a></h2>
+<p>These base rates are modified on each timestep by functions of the
+current soil environment. For the single-level model, there are two rate
+modifiers, temperature (<span class="math">{r}_{tsoil}</span>, unitless) and moisture
+(<span class="math">{r}_{water}</span>, unitless), both of which are calculated using
+the average environmental conditions of the top five model levels (top
+29 cm of soil column). For the vertically-resolved model, two additional
+environmental modifiers are calculated beyond the temperature and
+moisture limitations: an oxygen scalar (<span class="math">{r}_{oxygen}</span>,
+unitless), and a depth scalar (<span class="math">{r}_{depth}</span>, unitless).</p>
+<p>The Temperature scalar <span class="math">{r}_{tsoil}</span> is calculated in CLM
+using a <span class="math">{Q}_{10}</span> approach, with <span class="math">{Q}_{10} = 1.5</span>.</p>
+<div class="math" id="equation-21.5)">
+<p><span class="eqno">(5)<a class="headerlink" href="#equation-21.5)" title="Permalink to this equation">¶</a></span><span class="math">r_{tsoil} =Q_{10} ^{\left(\frac{T_{soil,\, j} -T_{ref} }{10} \right)}</span></p>
+</div><p>where <em>j</em> is the soil layer index, <span class="math">{T}_{soil,j}</span> (K) is the
+temperature of soil level <em>j</em>. The reference temperature <span class="math">{T}_{ref}</span> = 25C.</p>
+<p>The rate scalar for soil water potential (<span class="math">{r}_{water}</span>,
+unitless) is calculated using a relationship from Andrén and Paustian
+(1987) and supported by additional data in Orchard and Cook (1983):</p>
+<div class="math" id="equation-21.6)">
+<p><span class="eqno">(6)<a class="headerlink" href="#equation-21.6)" title="Permalink to this equation">¶</a></span><span class="math">r_{water} =\sum _{j=1}^{5}\left\{\begin{array}{l} {0\qquad {\rm for\; }\Psi _{j} &lt;\Psi _{\min } } \\ {\frac{\log \left({\Psi _{\min } \mathord{\left/ {\vphantom {\Psi _{\min }  \Psi _{j} }} \right. \kern-\nulldelimiterspace} \Psi _{j} } \right)}{\log \left({\Psi _{\min } \mathord{\left/ {\vphantom {\Psi _{\min }  \Psi _{\max } }} \right. \kern-\nulldelimiterspace} \Psi _{\max } } \right)} w_{soil,\, j} \qquad {\rm for\; }\Psi _{\min } \le \Psi _{j} \le \Psi _{\max } } \\ {1\qquad {\rm for\; }\Psi _{j} &gt;\Psi _{\max } \qquad \qquad } \end{array}\right\}</span></p>
+</div><p>where <span class="math">{\Psi}_{j}</span> is the soil water potential in
+layer <em>j</em>, <span class="math">{\Psi}_{min}</span> is a lower limit for soil
+water potential control on decomposition rate (set to -10 MPa).
+<span class="math">{\Psi}_{sat,j}</span> (MPa) is the saturated soil water
+potential, calculated using the multivariate regression model from Cosby et al. (1984):</p>
+<div class="math" id="equation-21.7)">
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-21.7)" title="Permalink to this equation">¶</a></span><span class="math">\Psi _{sat,\, j} =-\left(9.8e-5\right)\exp \left(\left(1.54-0.0095P_{sand,\, j} +0.0063\left(100-P_{sand,\, j} -P_{clay,\, j} \right)\right)\log \left(10\right)\right)</span></p>
+</div><p>where <span class="math">{P}_{sand,j}</span> and <span class="math">{P}_{clay,j}</span> are the
+volume percentages of sand and clay in soil layer <em>j</em>.</p>
+<p>For frozen soils, the bulk of the rapid dropoff in decomposition with
+decreasing temperature is due to the moisture limitation, since matric
+potential is limited by temperature in the supercooled water formulation
+of Niu and Yang (2006),</p>
+<div class="math" id="equation-21.8)">
+<p><span class="eqno">(8)<a class="headerlink" href="#equation-21.8)" title="Permalink to this equation">¶</a></span><span class="math">\psi \left(T\right)=-\frac{L_{f} \left(T-T_{f} \right)}{10^{3} T}</span></p>
+</div><p>An additional frozen decomposition limitation can be specified using a
+‘frozen Q<sub>10</sub> following Koven et al. (2011), however the
+default value of this is the same as the unfrozen Q<sub>10</sub>
+value, and therefore the basic hypothesis is that frozen respiration is
+limited by liquid water availability, and can be modeled following the
+same approach as thawed but dry soils.</p>
+<p>An additional rate scalar, <span class="math">{r}_{oxygen}</span> is enabled when the
+CH<sub>4</sub> submodel is used (set equal to 1 for the single layer
+model or when the CH<sub>4</sub> submodel is disabled). This limits
+decomposition when there is insufficient molecular oxygen to satisfy
+stoichiometric demand (1 mol O<sub>2</sub> consumed per mol
+CO<sub>2</sub> produced) from heterotrophic decomposers, and supply
+from diffusion through soil layers (unsaturated and saturated) or
+aerenchyma (Chapter 19). A minimum value of  <span class="math">{r}_{oxygen}</span> is
+set at 0.2, with the assumption that oxygen within organic tissues can
+supply the necessary stoichiometric demand at this rate. This value lies
+between estimates of 0.025–0.1 (Frolking et al. 2001), and 0.35 (Wania
+et al. 2009); the large range of these estimates poses a large
+unresolved uncertainty.</p>
+<p>Lastly, a possible explicit depth dependence, <span class="math">{r}_{depth}</span>,
+(set equal to 1 for the single layer model) can be applied to soil C
+decomposition rates to account for processes other than temperature,
+moisture, and anoxia that can limit decomposition. This depth dependence
+of decomposition was shown by Jenkinson and Coleman (2008) to be an
+important term in fitting total C and 14C profiles, and implies that
+unresolved processes, such as priming effects, microscale anoxia, soil
+mineral surface and/or aggregate stabilization may be important in
+controlling the fate of carbon at depth (Koven et al. 2013). CLM
+includes these unresolved depth controls via an exponential decrease in
+the soil turnover time with depth:</p>
+<div class="math" id="equation-21.9)">
+<p><span class="eqno">(9)<a class="headerlink" href="#equation-21.9)" title="Permalink to this equation">¶</a></span><span class="math">r_{depth} =\exp \left(-\frac{z}{z_{\tau } } \right)</span></p>
+</div><p>where <span class="math">{z}_{\tau}</span> is the e-folding depth for decomposition, set by default to 0.5m.</p>
+<p>The combined decomposition rate scalar (<span class="math">{r}_{total}</span>,unitless) is:</p>
+<div class="math" id="equation-21.10)">
+<p><span class="eqno">(10)<a class="headerlink" href="#equation-21.10)" title="Permalink to this equation">¶</a></span><span class="math">r_{total} =r_{tsoil} r_{water} r_{oxygen} r_{depth} .</span></p>
+</div></div>
+<div class="section" id="n-limitation-of-decomposition-fluxes">
+<h2>21.4. N-limitation of Decomposition Fluxes<a class="headerlink" href="#n-limitation-of-decomposition-fluxes" title="Permalink to this headline">¶</a></h2>
+<p>Decomposition rates can also be limited by the availability of mineral
+nitrogen, but calculation of this limitation depends on first estimating
+the potential rates of decomposition, assuming an unlimited mineral
+nitrogen supply. The general case is described here first, referring to
+a generic decomposition flux from an “upstream” pool (<em>u</em>) to a
+“downstream” pool (<em>d</em>), with an intervening loss due to respiration.
+The potential carbon flux out of the upstream pool
+(<span class="math">{CF}_{pot,u}</span>, gC m<sup>-2</sup> s<sup>-1</sup>) is:</p>
+<div class="math" id="equation-21.11)">
+<p><span class="eqno">(11)<a class="headerlink" href="#equation-21.11)" title="Permalink to this equation">¶</a></span><span class="math">CF_{pot,\, u} =CS_{u} k_{u}</span></p>
+</div><p>where <span class="math">{CS}_{u}</span> (gC m<sup>-2</sup>) is the initial mass
+in the upstream pool and <span class="math">{k}_{u}</span> is the decay rate constant
+(s:sup:<cite>-1</cite>) for the upstream pool, adjusted for temperature and
+moisture conditions. Depending on the C:N ratios of the upstream and
+downstream pools and the amount of carbon lost in the transformation due
+to respiration (the respiration fraction), the execution of this
+potential carbon flux can generate either a source or a sink of new
+mineral nitrogen
+(<span class="math">{NF}_{pot\_min,u}</span><span class="math">{}_{\rightarrow}</span><span class="math">{}_{d}</span>, gN m<sup>-2</sup> s<sup>-1</sup>). The governing equation
+(Thornton and Rosenbloom, 2005) is:</p>
+<div class="math" id="equation-21.12)">
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-21.12)" title="Permalink to this equation">¶</a></span><span class="math">NF_{pot\_ min,\, u\to d} =\frac{CF_{pot,\, u} \left(1-rf_{u} -\frac{CN_{d} }{CN_{u} } \right)}{CN_{d} }</span></p>
+</div><p>where <span class="math">{rf}_{u}</span> is the respiration fraction for fluxes
+leaving the upstream pool, <span class="math">{CN}_{u}</span> and  <span class="math">{CN}_{d}</span>
+are the C:N ratios for upstream and downstream pools, respectively.
+Negative values of
+<span class="math">{NF}_{pot\_min,u}</span><span class="math">{}_{\rightarrow}</span><span class="math">{}_{d}</span>
+indicate that the decomposition flux results in a source of new mineral
+nitrogen, while positive values indicate that the potential
+decomposition flux results in a sink (demand) for mineral nitrogen.</p>
+<p>Following from the general case, potential carbon fluxes leaving
+individual pools in the decomposition cascade, for the example of the
+CLM-CN pool structure, are given as:</p>
+<div class="math" id="equation-21.13)">
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-21.13)" title="Permalink to this equation">¶</a></span><span class="math">CF_{pot,\, Lit1} ={CS_{Lit1} k_{Lit1} r_{total} \mathord{\left/ {\vphantom {CS_{Lit1} k_{Lit1} r_{total}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-21.14)">
+<p><span class="eqno">(14)<a class="headerlink" href="#equation-21.14)" title="Permalink to this equation">¶</a></span><span class="math">CF_{pot,\, Lit2} ={CS_{Lit2} k_{Lit2} r_{total} \mathord{\left/ {\vphantom {CS_{Lit2} k_{Lit2} r_{total}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-21.15)">
+<p><span class="eqno">(15)<a class="headerlink" href="#equation-21.15)" title="Permalink to this equation">¶</a></span><span class="math">CF_{pot,\, Lit3} ={CS_{Lit3} k_{Lit3} r_{total} \mathord{\left/ {\vphantom {CS_{Lit3} k_{Lit3} r_{total}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-21.16)">
+<p><span class="eqno">(16)<a class="headerlink" href="#equation-21.16)" title="Permalink to this equation">¶</a></span><span class="math">CF_{pot,\, SOM1} ={CS_{SOM1} k_{SOM1} r_{total} \mathord{\left/ {\vphantom {CS_{SOM1} k_{SOM1} r_{total}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-21.17)">
+<p><span class="eqno">(17)<a class="headerlink" href="#equation-21.17)" title="Permalink to this equation">¶</a></span><span class="math">CF_{pot,\, SOM2} ={CS_{SOM2} k_{SOM2} r_{total} \mathord{\left/ {\vphantom {CS_{SOM2} k_{SOM2} r_{total}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-21.18)">
+<p><span class="eqno">(18)<a class="headerlink" href="#equation-21.18)" title="Permalink to this equation">¶</a></span><span class="math">CF_{pot,\, SOM3} ={CS_{SOM3} k_{SOM3} r_{total} \mathord{\left/ {\vphantom {CS_{SOM3} k_{SOM3} r_{total}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><div class="math" id="equation-21.19)">
+<p><span class="eqno">(19)<a class="headerlink" href="#equation-21.19)" title="Permalink to this equation">¶</a></span><span class="math">CF_{pot,\, SOM4} ={CS_{SOM4} k_{SOM4} r_{total} \mathord{\left/ {\vphantom {CS_{SOM4} k_{SOM4} r_{total}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}</span></p>
+</div><p>where the factor (1/<span class="math">\Delta</span><em>t</em>) is included because the rate
+constant is calculated for the entire timestep (Eqs. and ), but the
+convention is to express all fluxes on a per-second basis. Potential
+mineral nitrogen fluxes associated with these decomposition steps are,
+again for the example of the CLM-CN pool structure (the CENTURY
+structure will be similar but without the different terminal step):</p>
+<div class="math" id="equation-ZEqnNum934998">
+<p><span class="eqno">(20)<a class="headerlink" href="#equation-ZEqnNum934998" title="Permalink to this equation">¶</a></span><span class="math">NF_{pot\_ min,\, Lit1\to SOM1} ={CF_{pot,\, Lit1} \left(1-rf_{Lit1} -\frac{CN_{SOM1} }{CN_{Lit1} } \right)\mathord{\left/ {\vphantom {CF_{pot,\, Lit1} \left(1-rf_{Lit1} -\frac{CN_{SOM1} }{CN_{Lit1} } \right) CN_{SOM1} }} \right. \kern-\nulldelimiterspace} CN_{SOM1} }</span></p>
+</div><div class="math" id="equation-21.21)">
+<p><span class="eqno">(21)<a class="headerlink" href="#equation-21.21)" title="Permalink to this equation">¶</a></span><span class="math">NF_{pot\_ min,\, Lit2\to SOM2} ={CF_{pot,\, Lit2} \left(1-rf_{Lit2} -\frac{CN_{SOM2} }{CN_{Lit2} } \right)\mathord{\left/ {\vphantom {CF_{pot,\, Lit2} \left(1-rf_{Lit2} -\frac{CN_{SOM2} }{CN_{Lit2} } \right) CN_{SOM2} }} \right. \kern-\nulldelimiterspace} CN_{SOM2} }</span></p>
+</div><div class="math" id="equation-21.22)">
+<p><span class="eqno">(22)<a class="headerlink" href="#equation-21.22)" title="Permalink to this equation">¶</a></span><span class="math">NF_{pot\_ min,\, Lit3\to SOM3} ={CF_{pot,\, Lit3} \left(1-rf_{Lit3} -\frac{CN_{SOM3} }{CN_{Lit3} } \right)\mathord{\left/ {\vphantom {CF_{pot,\, Lit3} \left(1-rf_{Lit3} -\frac{CN_{SOM3} }{CN_{Lit3} } \right) CN_{SOM3} }} \right. \kern-\nulldelimiterspace} CN_{SOM3} }</span></p>
+</div><div class="math" id="equation-21.23)">
+<p><span class="eqno">(23)<a class="headerlink" href="#equation-21.23)" title="Permalink to this equation">¶</a></span><span class="math">NF_{pot\_ min,\, SOM1\to SOM2} ={CF_{pot,\, SOM1} \left(1-rf_{SOM1} -\frac{CN_{SOM2} }{CN_{SOM1} } \right)\mathord{\left/ {\vphantom {CF_{pot,\, SOM1} \left(1-rf_{SOM1} -\frac{CN_{SOM2} }{CN_{SOM1} } \right) CN_{SOM2} }} \right. \kern-\nulldelimiterspace} CN_{SOM2} }</span></p>
+</div><div class="math" id="equation-21.24)">
+<p><span class="eqno">(24)<a class="headerlink" href="#equation-21.24)" title="Permalink to this equation">¶</a></span><span class="math">NF_{pot\_ min,\, SOM2\to SOM3} ={CF_{pot,\, SOM2} \left(1-rf_{SOM2} -\frac{CN_{SOM3} }{CN_{SOM2} } \right)\mathord{\left/ {\vphantom {CF_{pot,\, SOM2} \left(1-rf_{SOM2} -\frac{CN_{SOM3} }{CN_{SOM2} } \right) CN_{SOM3} }} \right. \kern-\nulldelimiterspace} CN_{SOM3} }</span></p>
+</div><div class="math" id="equation-21.25)">
+<p><span class="eqno">(25)<a class="headerlink" href="#equation-21.25)" title="Permalink to this equation">¶</a></span><span class="math">NF_{pot\_ min,\, SOM3\to SOM4} ={CF_{pot,\, SOM3} \left(1-rf_{SOM3} -\frac{CN_{SOM4} }{CN_{SOM3} } \right)\mathord{\left/ {\vphantom {CF_{pot,\, SOM3} \left(1-rf_{SOM3} -\frac{CN_{SOM4} }{CN_{SOM3} } \right) CN_{SOM4} }} \right. \kern-\nulldelimiterspace} CN_{SOM4} }</span></p>
+</div><div class="math" id="equation-ZEqnNum473594">
+<p><span class="eqno">(26)<a class="headerlink" href="#equation-ZEqnNum473594" title="Permalink to this equation">¶</a></span><span class="math">NF_{pot\_ min,\, SOM4} =-{CF_{pot,\, SOM4} \mathord{\left/ {\vphantom {CF_{pot,\, SOM4}  CN_{SOM4} }} \right. \kern-\nulldelimiterspace} CN_{SOM4} }</span></p>
+</div><p>where the special form of Eq. arises because there is no SOM pool
+downstream of SOM4 in the converging cascade: all carbon fluxes leaving
+that pool are assumed to be in the form of respired CO<sub>2</sub>,
+and all nitrogen fluxes leaving that pool are assumed to be sources of
+new mineral nitrogen.</p>
+<p>Steps in the decomposition cascade that result in release of new mineral
+nitrogen (mineralization fluxes) are allowed to proceed at their
+potential rates, without modification for nitrogen availability. Steps
+that result in an uptake of mineral nitrogen (immobilization fluxes) are
+subject to rate limitation, depending on the availability of mineral
+nitrogen, the total immobilization demand, and the total demand for soil
+mineral nitrogen to support new plant growth. The potential mineral
+nitrogen fluxes from Eqs. - are evaluated, summing all the positive
+fluxes to generate the total potential nitrogen immobilization flux
+(<span class="math">{NF}_{immob\_demand}</span>, gN m<sup>-2</sup> s<sup>-1</sup>), and summing absolute values of all the negative
+fluxes to generate the total nitrogen mineralization flux
+(<span class="math">{NF}_{gross\_nmin}</span>, gN m<sup>-2</sup> s<sup>-1</sup>). Since <span class="math">{NF}_{griss\_nmin}</span> is a source of
+new mineral nitrogen to the soil mineral nitrogen pool it is not limited
+by the availability of soil mineral nitrogen, and is therefore an actual
+as opposed to a potential flux.</p>
+</div>
+<div class="section" id="n-competition-between-plant-uptake-and-soil-immobilization-fluxes">
+<h2>21.5. N Competition between plant uptake and soil immobilization fluxes<a class="headerlink" href="#n-competition-between-plant-uptake-and-soil-immobilization-fluxes" title="Permalink to this headline">¶</a></h2>
+<p>Once <span class="math">{NF}_{immob\_demand }</span> is known, the competition between
+plant and microbial nitrogen demand can be resolved. Mineral nitrogen in
+the soil pool (<span class="math">{NS}_{sminn}</span>, gN m<sup>-2</sup>) at the
+beginning of the timestep is considered the available supply. Total
+demand for mineral nitrogen from this pool (<span class="math">{NF}_{total\_demand}</span>, gN m<sup>-2</sup> s<sup>-1</sup>) is:</p>
+<div class="math" id="equation-21.27)">
+<p><span class="eqno">(27)<a class="headerlink" href="#equation-21.27)" title="Permalink to this equation">¶</a></span><span class="math">NF_{total\_ demand} =NF_{immob\_ demand} +NF_{plant\_ demand\_ soil}</span></p>
+</div><p>If <span class="math">{NF}_{total\_demand}</span><span class="math">\Delta</span><em>t</em> <span class="math">&lt;</span>
+<span class="math">{NS}_{sminn}</span>, then the available pool is large enough to
+meet both plant and microbial demand, and neither plant growth nor
+immobilization steps in the decomposition cascade are limited by
+nitrogen availability in the timestep. In that case, the signaling
+variables <span class="math">{f}_{plant\_demand}</span> and
+<span class="math">{f}_{immob\_demand}</span> are both set to 1.0, where
+<span class="math">{f}_{plant\_demand}</span> is defined and used in section 15.4, and
+<span class="math">{f}_{immob\_demand}</span> is the fraction of potential
+immobilization demand that can be met given current supply of mineral nitrogen.</p>
+<p>If <span class="math">{NF}_{total\_demand}</span><span class="math">\Delta</span><em>t</em>
+<span class="math">\mathrm{\ge}</span> <span class="math">{NS}_{sminn}</span>, then there is not enough
+mineral nitrogen to meet the combined demands for plant growth and
+heterotrophic immobilization, and both of these processes proceed at
+lower-than-potential rates, defined by the fractions
+<span class="math">{f}_{plant\_demand}</span> and <span class="math">{f}_{immob\_demand}</span>,
+where:</p>
+<div class="math" id="equation-21.28)">
+<p><span class="eqno">(28)<a class="headerlink" href="#equation-21.28)" title="Permalink to this equation">¶</a></span><span class="math">f_{plant\_ demand} =f_{immob\_ demand} =\frac{NS_{sminn} }{\Delta t\, NF_{total\_ demand} }</span></p>
+</div><p>This treatment of competition for nitrogen as a limiting resource is
+referred to a demand-based competition, where the fraction of the
+available resource that eventually flows to a particular process depends
+on the demand from that process in comparison to the total demand from
+all processes. Processes expressing a greater demand acquire a larger
+fraction of the available resource.</p>
+</div>
+<div class="section" id="final-decomposition-fluxes">
+<h2>21.6. Final Decomposition Fluxes<a class="headerlink" href="#final-decomposition-fluxes" title="Permalink to this headline">¶</a></h2>
+<p>With <span class="math">{f}_{immob\_demand}</span> known, final decomposition fluxes
+can be calculated. Actual carbon fluxes leaving the individual litter
+and SOM pools, again for the example of the CLM-CN pool structure (the
+CENTURY structure will be similar but, again without the different
+terminal step), are calculated as:</p>
+<div class="math" id="equation-21.29)">
+<p><span class="eqno">(29)<a class="headerlink" href="#equation-21.29)" title="Permalink to this equation">¶</a></span><span class="math">CF_{Lit1} =\left\{\begin{array}{l} {CF_{pot,\, Lit1} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit1\to SOM1} &gt;0} \\ {CF_{pot,\, Lit1} \qquad {\rm for\; }NF_{pot\_ min,\, Lit1\to SOM1} \le 0} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-21.30)">
+<p><span class="eqno">(30)<a class="headerlink" href="#equation-21.30)" title="Permalink to this equation">¶</a></span><span class="math">CF_{Lit2} =\left\{\begin{array}{l} {CF_{pot,\, Lit2} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit2\to SOM2} &gt;0} \\ {CF_{pot,\, Lit2} \qquad {\rm for\; }NF_{pot\_ min,\, Lit2\to SOM2} \le 0} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-21.31)">
+<p><span class="eqno">(31)<a class="headerlink" href="#equation-21.31)" title="Permalink to this equation">¶</a></span><span class="math">CF_{Lit3} =\left\{\begin{array}{l} {CF_{pot,\, Lit3} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit3\to SOM3} &gt;0} \\ {CF_{pot,\, Lit3} \qquad {\rm for\; }NF_{pot\_ min,\, Lit3\to SOM3} \le 0} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-21.32)">
+<p><span class="eqno">(32)<a class="headerlink" href="#equation-21.32)" title="Permalink to this equation">¶</a></span><span class="math">CF_{SOM1} =\left\{\begin{array}{l} {CF_{pot,\, SOM1} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM1\to SOM2} &gt;0} \\ {CF_{pot,\, SOM1} \qquad {\rm for\; }NF_{pot\_ min,\, SOM1\to SOM2} \le 0} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-21.33)">
+<p><span class="eqno">(33)<a class="headerlink" href="#equation-21.33)" title="Permalink to this equation">¶</a></span><span class="math">CF_{SOM2} =\left\{\begin{array}{l} {CF_{pot,\, SOM2} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM2\to SOM3} &gt;0} \\ {CF_{pot,\, SOM2} \qquad {\rm for\; }NF_{pot\_ min,\, SOM2\to SOM3} \le 0} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-21.34)">
+<p><span class="eqno">(34)<a class="headerlink" href="#equation-21.34)" title="Permalink to this equation">¶</a></span><span class="math">CF_{SOM3} =\left\{\begin{array}{l} {CF_{pot,\, SOM3} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM3\to SOM4} &gt;0} \\ {CF_{pot,\, SOM3} \qquad {\rm for\; }NF_{pot\_ min,\, SOM3\to SOM4} \le 0} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-21.35)">
+<p><span class="eqno">(35)<a class="headerlink" href="#equation-21.35)" title="Permalink to this equation">¶</a></span><span class="math">CF_{SOM4} =CF_{pot,\, SOM4}</span></p>
+</div><p>Heterotrophic respiration fluxes (losses of carbon as
+CO<sub>2</sub> to the atmosphere) are:</p>
+<div class="math" id="equation-21.36)">
+<p><span class="eqno">(36)<a class="headerlink" href="#equation-21.36)" title="Permalink to this equation">¶</a></span><span class="math">CF_{Lit1,\, HR} =CF_{Lit1} rf_{Lit1}</span></p>
+</div><div class="math" id="equation-21.37)">
+<p><span class="eqno">(37)<a class="headerlink" href="#equation-21.37)" title="Permalink to this equation">¶</a></span><span class="math">CF_{Lit2,\, HR} =CF_{Lit2} rf_{Lit2}</span></p>
+</div><div class="math" id="equation-21.38)">
+<p><span class="eqno">(38)<a class="headerlink" href="#equation-21.38)" title="Permalink to this equation">¶</a></span><span class="math">CF_{Lit3,\, HR} =CF_{Lit3} rf_{Lit3}</span></p>
+</div><div class="math" id="equation-21.39)">
+<p><span class="eqno">(39)<a class="headerlink" href="#equation-21.39)" title="Permalink to this equation">¶</a></span><span class="math">CF_{SOM1,\, HR} =CF_{SOM1} rf_{SOM1}</span></p>
+</div><div class="math" id="equation-21.40)">
+<p><span class="eqno">(40)<a class="headerlink" href="#equation-21.40)" title="Permalink to this equation">¶</a></span><span class="math">CF_{SOM2,\, HR} =CF_{SOM2} rf_{SOM2}</span></p>
+</div><div class="math" id="equation-21.41)">
+<p><span class="eqno">(41)<a class="headerlink" href="#equation-21.41)" title="Permalink to this equation">¶</a></span><span class="math">CF_{SOM3,\, HR} =CF_{SOM3} rf_{SOM3}</span></p>
+</div><div class="math" id="equation-21.42)">
+<p><span class="eqno">(42)<a class="headerlink" href="#equation-21.42)" title="Permalink to this equation">¶</a></span><span class="math">CF_{SOM4,\, HR} =CF_{SOM4} rf_{SOM4}</span></p>
+</div><p>Transfers of carbon from upstream to downstream pools in the
+decomposition cascade are given as:</p>
+<div class="math" id="equation-21.43)">
+<p><span class="eqno">(43)<a class="headerlink" href="#equation-21.43)" title="Permalink to this equation">¶</a></span><span class="math">CF_{Lit1,\, SOM1} =CF_{Lit1} \left(1-rf_{Lit1} \right)</span></p>
+</div><div class="math" id="equation-21.44)">
+<p><span class="eqno">(44)<a class="headerlink" href="#equation-21.44)" title="Permalink to this equation">¶</a></span><span class="math">CF_{Lit2,\, SOM2} =CF_{Lit2} \left(1-rf_{Lit2} \right)</span></p>
+</div><div class="math" id="equation-21.45)">
+<p><span class="eqno">(45)<a class="headerlink" href="#equation-21.45)" title="Permalink to this equation">¶</a></span><span class="math">CF_{Lit3,\, SOM3} =CF_{Lit3} \left(1-rf_{Lit3} \right)</span></p>
+</div><div class="math" id="equation-21.46)">
+<p><span class="eqno">(46)<a class="headerlink" href="#equation-21.46)" title="Permalink to this equation">¶</a></span><span class="math">CF_{SOM1,\, SOM2} =CF_{SOM1} \left(1-rf_{SOM1} \right)</span></p>
+</div><div class="math" id="equation-21.47)">
+<p><span class="eqno">(47)<a class="headerlink" href="#equation-21.47)" title="Permalink to this equation">¶</a></span><span class="math">CF_{SOM2,\, SOM3} =CF_{SOM2} \left(1-rf_{SOM2} \right)</span></p>
+</div><div class="math" id="equation-21.48)">
+<p><span class="eqno">(48)<a class="headerlink" href="#equation-21.48)" title="Permalink to this equation">¶</a></span><span class="math">CF_{SOM3,\, SOM4} =CF_{SOM3} \left(1-rf_{SOM3} \right)</span></p>
+</div><p>In accounting for the fluxes of nitrogen between pools in the
+decomposition cascade and associated fluxes to or from the soil mineral
+nitrogen pool, the model first calculates a flux of nitrogen from an
+upstream pool to a downstream pool, then calculates a flux either from
+the soil mineral nitrogen pool to the downstream pool (immobilization)
+or from the downstream pool to the soil mineral nitrogen pool
+(mineralization). Transfers of nitrogen from upstream to downstream
+pools in the decomposition cascade are given as:</p>
+<div class="math" id="equation-21.49)">
+<p><span class="eqno">(49)<a class="headerlink" href="#equation-21.49)" title="Permalink to this equation">¶</a></span><span class="math">NF_{Lit1,\, SOM1} ={CF_{Lit1} \mathord{\left/ {\vphantom {CF_{Lit1}  CN_{Lit1} }} \right. \kern-\nulldelimiterspace} CN_{Lit1} }</span></p>
+</div><div class="math" id="equation-21.50)">
+<p><span class="eqno">(50)<a class="headerlink" href="#equation-21.50)" title="Permalink to this equation">¶</a></span><span class="math">NF_{Lit2,\, SOM2} ={CF_{Lit2} \mathord{\left/ {\vphantom {CF_{Lit2}  CN_{Lit2} }} \right. \kern-\nulldelimiterspace} CN_{Lit2} }</span></p>
+</div><div class="math" id="equation-21.51)">
+<p><span class="eqno">(51)<a class="headerlink" href="#equation-21.51)" title="Permalink to this equation">¶</a></span><span class="math">NF_{Lit3,\, SOM3} ={CF_{Lit3} \mathord{\left/ {\vphantom {CF_{Lit3}  CN_{Lit3} }} \right. \kern-\nulldelimiterspace} CN_{Lit3} }</span></p>
+</div><div class="math" id="equation-21.52)">
+<p><span class="eqno">(52)<a class="headerlink" href="#equation-21.52)" title="Permalink to this equation">¶</a></span><span class="math">NF_{SOM1,\, SOM2} ={CF_{SOM1} \mathord{\left/ {\vphantom {CF_{SOM1}  CN_{SOM1} }} \right. \kern-\nulldelimiterspace} CN_{SOM1} }</span></p>
+</div><div class="math" id="equation-21.53)">
+<p><span class="eqno">(53)<a class="headerlink" href="#equation-21.53)" title="Permalink to this equation">¶</a></span><span class="math">NF_{SOM2,\, SOM3} ={CF_{SOM2} \mathord{\left/ {\vphantom {CF_{SOM2}  CN_{SOM2} }} \right. \kern-\nulldelimiterspace} CN_{SOM2} }</span></p>
+</div><div class="math" id="equation-21.54)">
+<p><span class="eqno">(54)<a class="headerlink" href="#equation-21.54)" title="Permalink to this equation">¶</a></span><span class="math">NF_{SOM3,\, SOM4} ={CF_{SOM3} \mathord{\left/ {\vphantom {CF_{SOM3}  CN_{SOM3} }} \right. \kern-\nulldelimiterspace} CN_{SOM3} }</span></p>
+</div><p>Corresponding fluxes to or from the soil mineral nitrogen pool depend on
+whether the decomposition step is an immobilization flux or a
+mineralization flux:</p>
+<div class="math" id="equation-21.55)">
+<p><span class="eqno">(55)<a class="headerlink" href="#equation-21.55)" title="Permalink to this equation">¶</a></span><span class="math">NF_{sminn,\, Lit1\to SOM1} =\left\{\begin{array}{l} {NF_{pot\_ min,\, Lit1\to SOM1} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit1\to SOM1} &gt;0} \\ {NF_{pot\_ min,\, Lit1\to SOM1} \qquad {\rm for\; }NF_{pot\_ min,\, Lit1\to SOM1} \le 0} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-21.56)">
+<p><span class="eqno">(56)<a class="headerlink" href="#equation-21.56)" title="Permalink to this equation">¶</a></span><span class="math">NF_{sminn,\, Lit2\to SOM2} =\left\{\begin{array}{l} {NF_{pot\_ min,\, Lit2\to SOM2} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit2\to SOM2} &gt;0} \\ {NF_{pot\_ min,\, Lit2\to SOM2} \qquad {\rm for\; }NF_{pot\_ min,\, Lit2\to SOM2} \le 0} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-21.57)">
+<p><span class="eqno">(57)<a class="headerlink" href="#equation-21.57)" title="Permalink to this equation">¶</a></span><span class="math">NF_{sminn,\, Lit3\to SOM3} =\left\{\begin{array}{l} {NF_{pot\_ min,\, Lit3\to SOM3} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit3\to SOM3} &gt;0} \\ {NF_{pot\_ min,\, Lit3\to SOM3} \qquad {\rm for\; }NF_{pot\_ min,\, Lit3\to SOM3} \le 0} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-21.58)">
+<p><span class="eqno">(58)<a class="headerlink" href="#equation-21.58)" title="Permalink to this equation">¶</a></span><span class="math">NF_{sminn,SOM1\to SOM2} =\left\{\begin{array}{l} {NF_{pot\_ min,\, SOM1\to SOM2} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM1\to SOM2} &gt;0} \\ {NF_{pot\_ min,\, SOM1\to SOM2} \qquad {\rm for\; }NF_{pot\_ min,\, SOM1\to SOM2} \le 0} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-21.59)">
+<p><span class="eqno">(59)<a class="headerlink" href="#equation-21.59)" title="Permalink to this equation">¶</a></span><span class="math">NF_{sminn,SOM2\to SOM3} =\left\{\begin{array}{l} {NF_{pot\_ min,\, SOM2\to SOM3} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM2\to SOM3} &gt;0} \\ {NF_{pot\_ min,\, SOM2\to SOM3} \qquad {\rm for\; }NF_{pot\_ min,\, SOM2\to SOM3} \le 0} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-21.60)">
+<p><span class="eqno">(60)<a class="headerlink" href="#equation-21.60)" title="Permalink to this equation">¶</a></span><span class="math">NF_{sminn,SOM3\to SOM4} =\left\{\begin{array}{l} {NF_{pot\_ min,\, SOM3\to SOM4} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM3\to SOM4} &gt;0} \\ {NF_{pot\_ min,\, SOM3\to SOM4} \qquad {\rm for\; }NF_{pot\_ min,\, SOM3\to SOM4} \le 0} \end{array}\right\}</span></p>
+</div><div class="math" id="equation-21.61)">
+<p><span class="eqno">(61)<a class="headerlink" href="#equation-21.61)" title="Permalink to this equation">¶</a></span><span class="math">NF_{sminn,\, SOM4} =NF_{pot\_ min,\, SOM4}</span></p>
+</div></div>
+<div class="section" id="vertical-distribution-and-transport-of-decomposing-c-and-n-pools">
+<h2>21.7. Vertical Distribution and Transport of Decomposing C and N pools<a class="headerlink" href="#vertical-distribution-and-transport-of-decomposing-c-and-n-pools" title="Permalink to this headline">¶</a></h2>
+<p>Additional terms are needed to calculate the vertically-resolved soil C
+and N budget: the initial vertical distribution of C and N from PFTs
+delivered to the litter and CWD pools, and the vertical transport of C
+and N pools.</p>
+<p>For initial vertical inputs, CLM uses separate profiles for aboveground
+(leaf, stem) and belowground (root) inputs. Aboveground inputs are given
+a single exponential with default e-folding depth = 0.1m. Belowground
+inputs are distributed according to rooting profiles with default values
+based on the Jackson et al. (1996) exponential parameterization.</p>
+<p>Vertical mixing is accomplished by an advection-diffusion equation. The
+goal of this is to consider slow, soild- and adsorbed-phase transport
+due to bioturbation, cryoturbation, and erosion. Faster aqueous-phase
+transport is not included in CLM, but has been developed as part of the
+CLM-BeTR suite of parameterizations (Tang and Riley 2013). The default
+value of the advection term is 0 cm/yr, such that transport is purely
+diffusive. Diffusive transport differs in rate between permafrost soils
+(where cryoturbation is the dominant transport term) and non-permafrost
+soils (where bioturbation dominates). For permafrost soils, a
+parameterization based on that of Koven et al. (2009) is used: the
+diffusivity parameter is constant through the active layer, and
+decreases linearly from the base of the active layer to zero at a set
+depth (default 3m); the default permafrost diffusivity is 5
+cm<sup>2</sup>/yr. For non-permafrost soils, the default diffusivity
+is 1 cm<sup>2</sup>/yr.</p>
+</div>
+<div class="section" id="model-equilibration">
+<h2>21.8. Model Equilibration<a class="headerlink" href="#model-equilibration" title="Permalink to this headline">¶</a></h2>
+<p>Because of the coupling between the slowest SOM pools and productivity
+through N downregulation of photosynthesis, equilibration of the model
+for initialization purposes will take an extremely long time in the
+standard mode. This is particularly true for the CENTURY-based
+decomposition cascade, which includes a passive pool. In order to
+rapidly equilibrate the model, a modified version of the “accelerated
+decomposition” (Thornton and Rosenbloom, 2005) is used. The fundamental
+idea of this approach is to allow fluxes between the various pools (both
+turnover-defined and vertically-defined fluxes) adjust rapidly, while
+keeping the pool sizes themselves small so that they can fill quickly.
+To do this, the base decomposition rate  <span class="math">{k}_{i}</span> for each
+pool <em>i</em> is accelerated by a term <span class="math">{a}_{i}</span> such that the slow
+pools are collapsed onto an approximately annual timescale (Koven et al.
+2013). Accelerating the pools beyond this timescale distorts the
+seasonal and/or diurnal cycles of decomposition and N mineralization,
+thus leading to a substantially different ecosystem productivity than
+the full model. For the vertical model, the vertical transport terms are
+also accelerated by the same term <span class="math">{a}_{i}</span>, as is the
+radioactive decay when <span class="math">{}^{14}</span>C is enabled, following the same
+principle of keeping fluxes between pools (or fluxes lost to decay)
+close to the full model while keeping the pools sizes small. When
+leaving the accelerated decomposition mode, the concentration of C and N
+in pools that had been accelerated are multiplied by the same term
+<span class="math">{a}_{i}</span>, to bring the model into approximate equilibrium.
+Note that in CLM, the model can also transition into accelerated
+decomposition mode from the standard mode (by dividing the pools by
+<span class="math">{a}_{i}</span>), and that the transitions into and out of
+accelerated decomposition mode are handled automatically by CLM upon
+loading from restart files (which preserve information about the mode of
+the model when restart files were written).</p>
+<p>The acceleration terms for the two decomposition cascades are shown in
+Tables 15.1 and 15.3.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html" title="22. External Nitrogen Cycle"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html" title="20. Vegetation Phenology and Turnover"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.4.
+    </div>
+  </body>
+</html>

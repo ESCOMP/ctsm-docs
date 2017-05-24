@@ -1,0 +1,1040 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>12. Lake Model &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="13. Glaciers" href="../Glacier/CLM50_Tech_Note_Glacier.html" />
+    <link rel="prev" title="11. Plant Hydraulic Stress" href="../Plant_Hydraulic_Stress/CLM50_Tech_Note_Plant_Hydraulic_Stress.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../Glacier/CLM50_Tech_Note_Glacier.html" title="13. Glaciers"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../Plant_Hydraulic_Stress/CLM50_Tech_Note_Plant_Hydraulic_Stress.html" title="11. Plant Hydraulic Stress"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">12. Lake Model</a><ul>
+<li><a class="reference internal" href="#vertical-discretization">12.1. Vertical Discretization</a></li>
+<li><a class="reference internal" href="#external-data">12.2. External Data</a></li>
+<li><a class="reference internal" href="#surface-albedo">12.3. Surface Albedo</a></li>
+<li><a class="reference internal" href="#surface-fluxes-and-surface-temperature">12.4. Surface Fluxes and Surface Temperature</a><ul>
+<li><a class="reference internal" href="#overview-of-changes-from-clm4">12.4.1. Overview of Changes from CLM4</a></li>
+<li><a class="reference internal" href="#surface-properties">12.4.2. Surface Properties</a></li>
+<li><a class="reference internal" href="#surface-flux-solution">12.4.3. Surface Flux Solution</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lake-temperature">12.5. Lake Temperature</a><ul>
+<li><a class="reference internal" href="#introduction">12.5.1. Introduction</a></li>
+<li><a class="reference internal" href="#overview-of-changes-from-clm4-2">12.5.2. Overview of Changes from CLM4</a></li>
+<li><a class="reference internal" href="#boundary-conditions">12.5.3. Boundary Conditions</a></li>
+<li><a class="reference internal" href="#eddy-diffusivity-and-thermal-conductivities">12.5.4. Eddy Diffusivity and Thermal Conductivities</a></li>
+<li><a class="reference internal" href="#radiation-penetration">12.5.5. Radiation Penetration</a></li>
+<li><a class="reference internal" href="#heat-capacities">12.5.6. Heat Capacities</a></li>
+<li><a class="reference internal" href="#crank-nicholson-solution">12.5.7. Crank-Nicholson Solution</a></li>
+<li><a class="reference internal" href="#phase-change">12.5.8. Phase Change</a></li>
+<li><a class="reference internal" href="#convection">12.5.9. Convection</a></li>
+<li><a class="reference internal" href="#energy-conservation">12.5.10. Energy Conservation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lake-hydrology">12.6. Lake Hydrology</a><ul>
+<li><a class="reference internal" href="#overview">12.6.1. Overview</a></li>
+<li><a class="reference internal" href="#water-balance">12.6.2. Water Balance</a></li>
+<li><a class="reference internal" href="#precipitation-evaporation-and-runoff">12.6.3. Precipitation, Evaporation, and Runoff</a></li>
+<li><a class="reference internal" href="#soil-hydrology">12.6.4. Soil Hydrology</a></li>
+<li><a class="reference internal" href="#modifications-to-snow-layer-logic">12.6.5. Modifications to Snow Layer Logic</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../Plant_Hydraulic_Stress/CLM50_Tech_Note_Plant_Hydraulic_Stress.html"
+                        title="previous chapter">11. Plant Hydraulic Stress</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../Glacier/CLM50_Tech_Note_Glacier.html"
+                        title="next chapter">13. Glaciers</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tech_note/Lake/CLM50_Tech_Note_Lake.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="lake-model">
+<span id="rst-lake-model"></span><h1>12. Lake Model<a class="headerlink" href="#lake-model" title="Permalink to this headline">¶</a></h1>
+<p>The lake model, denoted the <em>Lake, Ice, Snow, and Sediment Simulator</em>
+(LISSS), is from <code class="xref std std-numref docutils literal"><span class="pre">Subin</span> <span class="pre">et</span> <span class="pre">al.</span> <span class="pre">(2012a)</span></code>.
+It includes extensive modifications to the lake code of
+<code class="xref std std-numref docutils literal"><span class="pre">Zeng</span> <span class="pre">et</span> <span class="pre">al.</span> <span class="pre">(2002)</span></code> used in CLM
+versions 2 through 4, which utilized concepts from the lake models of
+<code class="xref std std-numref docutils literal"><span class="pre">Bonan</span> <span class="pre">(1996)</span></code>,
+<code class="xref std std-numref docutils literal"><span class="pre">Henderson-Sellers</span>&#160; <span class="pre">(1985)</span></code>,
+<code class="xref std std-numref docutils literal"><span class="pre">Henderson-Sellers</span>&#160; <span class="pre">(1986)</span></code>,
+<code class="xref std std-numref docutils literal"><span class="pre">Hostetler</span> <span class="pre">and</span> <span class="pre">Bartlein</span> <span class="pre">(1990)</span></code>,
+and the coupled lake-atmosphere model of <code class="xref std std-numref docutils literal"><span class="pre">Hostetler</span> <span class="pre">et</span> <span class="pre">al.</span> <span class="pre">(1993)</span></code>, <code class="xref std std-numref docutils literal"><span class="pre">Hostetler</span> <span class="pre">et</span> <span class="pre">al.</span> <span class="pre">(1993)</span></code>.
+Lakes have spatially variable depth prescribed in the surface data (section
+<a class="reference internal" href="#external-data-lake"><span class="std std-numref">12.2</span></a>); the surface data optionally includes lake optical
+extinction coeffient and horizontal fetch, currently only used for site
+simulations. Lake physics includes freezing and thawing in the lake
+body, resolved snow layers, and “soil” and bedrock layers below the lake
+body. Temperatures and ice fractions are simulated for
+<span class="math">N_{levlak} =10</span> layers (for global simulations) or
+<span class="math">N_{levlak} =25</span> (for site simulations) with discretization
+described in section 9.1. Lake albedo is described in section 9.3. Lake
+surface fluxes (section 9.4) generally follow the formulations for
+non-vegetated surfaces, including the calculations of aerodynamic
+resistances (section 5.2); however, the lake surface temperature
+<span class="math">T_{g}</span>  (representing an infinitesimal interface layer between
+the top resolved lake layer and the atmosphere) is solved for
+simultaneously with the surface fluxes. After surface fluxes are
+evaluated, temperatures are solved simultaneously in the resolved snow
+layers (if present), the lake body, and the soil and bedrock, using the
+ground heat flux <em>G</em> as a top boundary condition. Snow, soil, and
+bedrock models generally follow the formulations for non-vegetated
+surfaces (Chapter 6), with modifications described below.</p>
+<div class="section" id="vertical-discretization">
+<span id="vertical-discretization-lake"></span><h2>12.1. Vertical Discretization<a class="headerlink" href="#vertical-discretization" title="Permalink to this headline">¶</a></h2>
+<p>Currently, there is one lake modeled in each grid cell (with prescribed
+or assumed depth <em>d</em>, extinction coefficient <span class="math">\eta</span>, and fetch
+<em>f</em>), although this could be modified with changes to the CLM subgrid
+decomposition algorithm in future model versions. As currently
+implemented, the lake consists of 0-5 snow layers; water and ice layers
+(10 for global simulations and 25 for site simulations) comprising the
+“lake body;” 10 “soil” layers; and 5 bedrock layers. Each lake body
+layer has a fixed water mass (set by the nominal layer thickness and the
+liquid density), with frozen mass-fraction <em>I</em> a state variable.
+Resolved snow layers are present if the snow thickness
+<span class="math">z_{sno} \ge s_{\min }</span>  , where <em>s</em><sub>min</sub> = 4 cm by
+default, and is adjusted for model timesteps other than 1800 s in order
+to maintain numerical stability (section 9.6.5). For global simulations
+with 10 body layers, the default (50 m lake) body layer thicknesses are
+given by: <span class="math">\Delta z_{i}</span>  of 0.1, 1, 2, 3, 4, 5, 7, 7, 10.45, and
+10.45 m, with node depths <span class="math">z_{i}</span>  located at the center of each
+layer (i.e., 0.05, 0.6, 2.1, 4.6, 8.1, 12.6, 18.6, 25.6, 34.325, 44.775
+m). For site simulations with 25 layers, the default thicknesses are
+(m): 0.1 for layer 1; 0.25 for layers 2-5; 0.5 for layers 6-9; 0.75 for
+layers 10-13; 2 for layers 14-15; 2.5 for layers 16-17; 3.5 for layers
+18-21; and 5.225 for layers 22-25. For lakes with depth <em>d</em>
+<span class="math">\neq</span> 50 m and <em>d</em> <span class="math">\ge</span> 1 m, the top
+layer is kept at 10 cm and the other 9 layer thicknesses are adjusted to
+maintain fixed proportions. For lakes with <em>d</em> <span class="math">&lt;</span> 1 m, all layers
+have equal thickness. Thicknesses of snow, soil, and bedrock layers
+follow the scheme used over non-vegetated surfaces (Chapter 6), with
+modifications to the snow layer thickness rules to keep snow layers at
+least as thick as <em>s</em><sub>min</sub> (section 9.6.5).</p>
+</div>
+<div class="section" id="external-data">
+<span id="external-data-lake"></span><h2>12.2. External Data<a class="headerlink" href="#external-data" title="Permalink to this headline">¶</a></h2>
+<p>As discussed in Subin et al (2012a, b), the Global Lake and Wetland
+Database (Lehner and Doll 2004) is currently used to prescribe lake
+fraction in each land model grid cell, for a total of 2.3 million
+km<sup>-2</sup>. As in Subin et al. (2012a, b), the Kourzeneva
+(2012) global gridded dataset is currently used to estimate a mean lake
+depth in each grid cell, based on interpolated compilations of
+geographic information.</p>
+</div>
+<div class="section" id="surface-albedo">
+<span id="surface-albedo-lake"></span><h2>12.3. Surface Albedo<a class="headerlink" href="#surface-albedo" title="Permalink to this headline">¶</a></h2>
+<p>For direct radiation, the albedo <em>a</em> for lakes with ground temperature
+<span class="math">{T}_{g}</span> (K) above freezing is given by (Pivovarov, 1972)</p>
+<div class="math" id="equation-ZEqnNum194122">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-ZEqnNum194122" title="Permalink to this equation">¶</a></span><span class="math">a=\frac{0.5}{\cos z+0.15}</span></p>
+</div><p>where <em>z</em> is the zenith angle. For diffuse radiation, the expression in
+eq. is integrated over the full sky to yield <em>a</em> = 0.10.</p>
+<p>For frozen lakes without resolved snow layers, the albedo at cold
+temperatures <em>a</em><sub>0</sub> is 0.60 for visible and 0.40 for near
+infrared radiation. As the temperature at the ice surface,
+<span class="math">{T}_{g}</span>, approaches freezing [ <span class="math">{T}_{f}</span> (K) (Table
+2.6)], the albedo is relaxed towards 0.10 based on Mironov et al. (2010):</p>
+<div class="math" id="equation-12.2)">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-12.2)" title="Permalink to this equation">¶</a></span><span class="math">a=a_{0} \left(1-x\right)+0.10x,x=\exp \left(-95\frac{T_{f} -T_{g} }{T_{f} } \right)</span></p>
+</div><p>where <em>a</em> is restricted to be no less than that given in eq. .</p>
+<p>For frozen lakes with resolved snow layers, the reflectance of the ice
+surface is fixed at <em>a</em><sub>0</sub>, and the snow reflectance is
+calculated as over non-vegetated surfaces (Chapter 3). These two
+reflectances are combined to obtain the snow-fraction-weighted albedo as
+in over non-vegetated surfaces (Chapter 3).</p>
+</div>
+<div class="section" id="surface-fluxes-and-surface-temperature">
+<span id="surface-fluxes-and-surface-temperature-lake"></span><h2>12.4. Surface Fluxes and Surface Temperature<a class="headerlink" href="#surface-fluxes-and-surface-temperature" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overview-of-changes-from-clm4">
+<span id="id1"></span><h3>12.4.1. Overview of Changes from CLM4<a class="headerlink" href="#overview-of-changes-from-clm4" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>The surface roughnesses, and surface absorption fraction
+<span class="math">\beta</span>, are diagnostic rather than constants. As the surface
+roughnesses depend (weakly) on the friction velocity <span class="math">u_{\*}</span>
+(which itself depends weakly on the surface roughnesses), their
+calculation has been incorporated into the iteration solution for
+<span class="math">{T}_{g}</span>, and the maximum number of iterations has been
+increased to 4. Convergence of the modified solution was tested
+during development.</li>
+<li>A coefficient of <span class="math">\beta</span> has been added to
+<span class="math">{S}_{g}</span> in eq. , correcting a previous error.
+.. todo:: fill this equation number in</li>
+<li>The top layer thickness <span class="math">\Delta z_{T}</span>  used in eq. has been
+appended with a coefficient of ½, correcting a previous error.</li>
+<li>The thermal conductivity <span class="math">\lambda _{T}</span>  used in eq. depends on
+the properties of the top model layer (e.g., snow, ice, or water).
+When this layer is unfrozen, <span class="math">\lambda _{T}</span>  includes the eddy
+conductivity calculated in the previous timestep.</li>
+<li>Several conditions are imposed on the ground temperature
+<span class="math">{T}_{g}</span> to maintain a stable density profile at the lake
+surface eq. .</li>
+</ol>
+</div>
+<div class="section" id="surface-properties">
+<span id="surface-properties-lake"></span><h3>12.4.2. Surface Properties<a class="headerlink" href="#surface-properties" title="Permalink to this headline">¶</a></h3>
+<p>The fraction of shortwave radiation absorbed at the surface,
+<span class="math">\beta</span>, depends on the lake state. If resolved snow layers are
+present, then <span class="math">\beta</span> is set equal to the absorption fraction
+predicted by the snow-optics submodel (Chapter 3) for the top snow
+layer. Otherwise, <span class="math">\beta</span> is set equal to the near infrared
+fraction of the shortwave radiation reaching the surface simulated by
+the atmospheric model or atmospheric data model used for offline
+simulations (Chapter 26). The remainder of the shortwave radiation
+fraction (1 <span class="math">{-}</span> <span class="math">\beta</span>) is absorbed in the lake
+body or soil as described in section 9.5.5.</p>
+<p>The surface roughnesses are functions of the lake state and atmospheric
+forcing. For frozen lakes ( <span class="math">T_{g} \le T_{f}</span> ) with resolved
+snow layers, the momentum roughness length
+<span class="math">z_{0m} =2.4\times 10^{-3} {\rm m}</span> (as over non-vegetated
+surfaces; Chapter 5), and the scalar roughness lengths
+(<em>z</em><sub>0q</sub> for latent heat; and <em>z</em><sub>0h</sub>, for sensible heat) are given by
+(Zilitinkevich 1970)</p>
+<div class="math" id="equation-ZEqnNum631483">
+<p><span class="eqno">(3)<a class="headerlink" href="#equation-ZEqnNum631483" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {R_{0} =\frac{z_{0m} u_{*} }{\nu } ,} \\ {z_{0h} =z_{0q} =z_{0m} \exp \left\{-0.13R_{0} ^{0.45} \right\}} \end{array}</span></p>
+</div><p>where <span class="math">R_{0}</span> is the near-surface atmospheric roughness
+Reynolds number, <span class="math">z_{0h}</span> is the roughness
+length for sensible heat,  <span class="math">z_{0q}</span> is the
+roughness length for latent heat, <span class="math">\nu</span> (m<sup>2</sup> s<sup>-1</sup>) is the kinematic viscosity of air, and
+<span class="math">u_{\*}</span>  (m s<sup>-1</sup>) is the friction velocity in the
+atmospheric surface layer. For frozen lakes without resolved snow
+layers, <span class="math">z_{0m} =1\times 10^{-3} {\rm m}</span> (Subin et al. 2012a),
+and the scalar roughness lengths are given by .</p>
+<p>For unfrozen lakes, <em>z</em><sub>0m</sub> is given by (Subin et al. 2012a)</p>
+<div class="math" id="equation-ZEqnNum864823">
+<p><span class="eqno">(4)<a class="headerlink" href="#equation-ZEqnNum864823" title="Permalink to this equation">¶</a></span><span class="math">z_{0m} =\max \left(\frac{\alpha \nu }{u_{*} } ,C\frac{u_{*} ^{2} }{g} \right)</span></p>
+</div><p>where <span class="math">\alpha</span> = 0.1, <span class="math">\nu</span> is the kinematic viscosity
+of air given below, <em>C</em> is the effective Charnock coefficient given
+below, and <em>g</em> is the acceleration of gravity (Table 2.6). The kinematic
+viscosity is given by</p>
+<div class="math" id="equation-12.5)">
+<p><span class="eqno">(5)<a class="headerlink" href="#equation-12.5)" title="Permalink to this equation">¶</a></span><span class="math">\nu =\nu _{0} \left(\frac{T_{g} }{T_{0} } \right)^{1.5} \frac{P_{0} }{P_{ref} }</span></p>
+</div><p>where
+<span class="math">\nu _{0} =1.51\times 10^{-5} {\textstyle\frac{{\rm m}^{{\rm 2}} }{{\rm s}}}</span>
+, <span class="math">T_{0} ={\rm 293.15\; K}</span>,
+<span class="math">P_{0} =1.013\times 10^{5} {\rm \; Pa}</span> , and
+<span class="math">P_{ref}</span> is the pressure at the atmospheric reference
+height. The Charnock coefficient <em>C</em> is a function of the lake fetch <em>F</em>
+(m), given in the surface data or set to 25 times the lake depth <em>d</em> by
+default:</p>
+<div class="math" id="equation-12.6)">
+<p><span class="eqno">(6)<a class="headerlink" href="#equation-12.6)" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {C=C_{\min } +(C_{\max } -C_{\min } )\exp \left\{-\min \left(A,B\right)\right\}} \\ {A={\left(\frac{Fg}{u_{\*} ^{2} } \right)^{{1\mathord{\left/ {\vphantom {1 3}} \right. \kern-\nulldelimiterspace} 3} } \mathord{\left/ {\vphantom {\left(\frac{Fg}{u_{\*} ^{2} } \right)^{{1\mathord{\left/ {\vphantom {1 3}} \right. \kern-\nulldelimiterspace} 3} }  f_{c} }} \right. \kern-\nulldelimiterspace} f_{c} } } \\ {B=\varepsilon \frac{\sqrt{dg} }{u} } \end{array}</span></p>
+</div><p>where <em>A</em> and <em>B</em> define the fetch- and depth-limitation, respectively;
+<span class="math">C_{\min } =0.01</span> , <span class="math">C_{\max } =0.01</span>,
+<span class="math">\varepsilon =1</span> , <span class="math">f_{c} =100</span> , and <em>u</em> (m
+s<sup>-1</sup>) is the atmospheric forcing wind.</p>
+</div>
+<div class="section" id="surface-flux-solution">
+<span id="surface-flux-solution-lake"></span><h3>12.4.3. Surface Flux Solution<a class="headerlink" href="#surface-flux-solution" title="Permalink to this headline">¶</a></h3>
+<p>Conservation of energy at the lake surface requires</p>
+<div class="math" id="equation-ZEqnNum309023">
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-ZEqnNum309023" title="Permalink to this equation">¶</a></span><span class="math">\beta \vec{S}_{g} -\vec{L}_{g} -H_{g} -\lambda E_{g} -G=0</span></p>
+</div><p>where <span class="math">\vec{S}_{g}</span> is the absorbed solar radiation in the lake,
+<span class="math">\beta</span> is the fraction absorbed at the surface,
+<span class="math">\vec{L}_{g}</span> is the net emitted longwave radiation (+ upwards),
+<span class="math">H_{g}</span> is the sensible heat flux (+ upwards),
+<span class="math">E_{g}</span> is the water vapor flux (+ upwards), and <em>G</em> is the
+ground heat flux (+ downwards). All of these fluxes depend implicitly on
+the temperature at the lake surface <span class="math">{T}_{g}</span>.
+<span class="math">\lambda</span>  converts <span class="math">E_{g}</span>  to an energy flux based on</p>
+<div class="math" id="equation-ZEqnNum257687">
+<p><span class="eqno">(8)<a class="headerlink" href="#equation-ZEqnNum257687" title="Permalink to this equation">¶</a></span><span class="math">\lambda =\left\{\begin{array}{l} {\lambda _{sub} \qquad T_{g} \le T_{f} } \\ {\lambda _{vap} \qquad T_{g} &gt;T_{f} } \end{array}\right\}.</span></p>
+</div><p>The sensible heat flux (W m<sup>-2</sup>) is</p>
+<div class="math" id="equation-ZEqnNum720553">
+<p><span class="eqno">(9)<a class="headerlink" href="#equation-ZEqnNum720553" title="Permalink to this equation">¶</a></span><span class="math">H_{g} =-\rho _{atm} C_{p} \frac{\left(\theta _{atm} -T_{g} \right)}{r_{ah} }</span></p>
+</div><p>where <span class="math">\rho _{atm}</span>  is the density of moist air (kg
+m<sup>-3</sup>) (Chapter 5), <span class="math">C_{p}</span>  is the specific heat
+capacity of air (J kg<sup>-1</sup> K<sup>-1</sup>) (Table 2.6),
+<span class="math">\theta _{atm}</span>  is the atmospheric potential temperature (K)
+(Chapter 5), <span class="math">T_{g}</span>  is the lake surface temperature (K) (at an
+infinitesimal interface just above the top resolved model layer: snow,
+ice, or water), and <span class="math">r_{ah}</span>  is the aerodynamic resistance to
+sensible heat transfer (s m<sup>-1</sup>) (section 5.1).</p>
+<p>The water vapor flux (kg m<sup>-2</sup> s<sup>-1</sup>) is</p>
+<div class="math" id="equation-12.10)">
+<p><span class="eqno">(10)<a class="headerlink" href="#equation-12.10)" title="Permalink to this equation">¶</a></span><span class="math">E_{g} =-\frac{\rho _{atm} \left(q_{atm} -q_{sat}^{T_{g} } \right)}{r_{aw} }</span></p>
+</div><p>where <span class="math">q_{atm}</span>  is the atmospheric specific humidity (kg
+kg<sup>-1</sup>) (section 2.2.1), <span class="math">q_{sat}^{T_{g} }</span> is the
+saturated specific humidity (kg kg<sup>-1</sup>) (section 5.5) at
+the lake surface temperature <span class="math">T_{g}</span> , and <span class="math">r_{aw}</span>  is the
+aerodynamic resistance to water vapor transfer (s m<sup>-1</sup>)
+(section 5.1).</p>
+<p>The zonal and meridional momentum fluxes are</p>
+<div class="math" id="equation-12.11)">
+<p><span class="eqno">(11)<a class="headerlink" href="#equation-12.11)" title="Permalink to this equation">¶</a></span><span class="math">\tau _{x} =-\rho _{atm} \frac{u_{atm} }{r_{atm} }</span></p>
+</div><div class="math" id="equation-12.12)">
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-12.12)" title="Permalink to this equation">¶</a></span><span class="math">\tau _{y} =-\rho _{atm} \frac{v_{atm} }{r_{atm} }</span></p>
+</div><p>where <span class="math">u_{atm}</span>  and <span class="math">v_{atm}</span>  are the zonal and
+meridional atmospheric winds (m s<sup>-1</sup>) (section 2.2.1), and
+<span class="math">r_{am}</span>  is the aerodynamic resistance for momentum (s
+m<sup>-1</sup>) (section 5.1).</p>
+<p>The heat flux into the lake surface <span class="math">G</span> (W m<sup>-2</sup>) is</p>
+<div class="math" id="equation-ZEqnNum122376">
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-ZEqnNum122376" title="Permalink to this equation">¶</a></span><span class="math">G=\frac{2\lambda _{T} }{\Delta z_{T} } \left(T_{g} -T_{T} \right)</span></p>
+</div><p>where <span class="math">\lambda _{T}</span>  is the thermal conductivity (W
+m<sup>-1</sup> K<sup>-1</sup>), <span class="math">\Delta z_{T}</span>  is the
+thickness (m), and <span class="math">T_{T}</span>  is the temperature (K) of the top
+resolved lake layer (snow, ice, or water). The top thermal conductivity
+<span class="math">\lambda _{T}</span>  of unfrozen lakes ( <span class="math">T_{g} &gt;T_{f}</span> )
+includes conductivities due to molecular ( <span class="math">\lambda _{liq}</span> ) and
+eddy (<span class="math">\lambda _{K}</span> ) diffusivities (section 9.5.4), as evaluated
+in the top lake layer at the previous timestep, where
+<span class="math">\lambda _{liq}</span>  is the thermal conductivity of water (Table
+2.6). For frozen lakes without resolved snow layers,
+<span class="math">\lambda _{T} =\lambda _{ice}</span>  . When resolved snow layers are
+present, <span class="math">\lambda _{T}</span> is calculated based on the water
+content, ice content, and thickness of the top snow layer, as for
+non-vegetated surfaces.</p>
+<p>The absorbed solar radiation <span class="math">\vec{S}_{g}</span>  is</p>
+<div class="math" id="equation-12.14)">
+<p><span class="eqno">(14)<a class="headerlink" href="#equation-12.14)" title="Permalink to this equation">¶</a></span><span class="math">\vec{S}_{g} =\sum _{\Lambda }S_{atm} \, \downarrow _{\Lambda }^{\mu } \left(1-\alpha _{g,\, \Lambda }^{\mu } \right) +S_{atm} \, \downarrow _{\Lambda } \left(1-\alpha _{g,\, \Lambda } \right)</span></p>
+</div><p>where <span class="math">S_{atm} \, \downarrow _{\Lambda }^{\mu }</span>  and
+<span class="math">S_{atm} \, \downarrow _{\Lambda }</span>  are the incident direct beam
+and diffuse solar fluxes (W m<sup>-2</sup>) and <span class="math">\Lambda</span>
+denotes the visible (<span class="math">&lt;</span> 0.7<span class="math">\mu {\rm m}</span>) and
+near-infrared (<span class="math">\ge</span>  0.7<span class="math">\mu {\rm m}</span>) wavebands (section
+2.2.1), and <span class="math">\alpha _{g,\, \Lambda }^{\mu }</span>  and
+<span class="math">\alpha _{g,\, \mu }</span>  are the direct beam and diffuse lake
+albedos (section 9.3).</p>
+<p>The net emitted longwave radiation is</p>
+<div class="math" id="equation-12.15)">
+<p><span class="eqno">(15)<a class="headerlink" href="#equation-12.15)" title="Permalink to this equation">¶</a></span><span class="math">\vec{L}_{g} =L_{g} \, \uparrow -L_{atm} \, \downarrow</span></p>
+</div><p>where <span class="math">L_{g} \, \uparrow</span>  is the upward longwave radiation from
+the surface, <span class="math">L_{atm} \, \downarrow</span>  is the downward atmospheric
+longwave radiation (section 2.2.1). The upward longwave radiation from
+the surface is</p>
+<div class="math" id="equation-12.16)">
+<p><span class="eqno">(16)<a class="headerlink" href="#equation-12.16)" title="Permalink to this equation">¶</a></span><span class="math">L\, \uparrow =\left(1-\varepsilon _{g} \right)L_{atm} \, \downarrow +\varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{4} +4\varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{3} \left(T_{g}^{n+1} -T_{g}^{n} \right)</span></p>
+</div><p>where <span class="math">\varepsilon _{g} =0.97</span> is the lake surface emissivity,
+<span class="math">\sigma</span> is the Stefan-Boltzmann constant (W m<sup>-2</sup> K<sup>-4</sup>) (Table 2.6), and <span class="math">T_{g}^{n+1} -T_{g}^{n}</span> is
+the difference in lake surface temperature between Newton-Raphson iterations (see below).</p>
+<p>The sensible heat <span class="math">H_{g}</span> , the water vapor flux <span class="math">E_{g}</span>
+through its dependence on the saturated specific humidity, the net
+longwave radiation <span class="math">\vec{L}_{g}</span> , and the ground heat flux
+<span class="math">G</span>, all depend on the lake surface temperature <span class="math">T_{g}</span> .
+Newton-Raphson iteration is applied to solve for <span class="math">T_{g}</span>  and the
+surface fluxes as</p>
+<div class="math" id="equation-ZEqnNum858039">
+<p><span class="eqno">(17)<a class="headerlink" href="#equation-ZEqnNum858039" title="Permalink to this equation">¶</a></span><span class="math">\Delta T_{g} =\frac{\beta \overrightarrow{S}_{g} -\overrightarrow{L}_{g} -H_{g} -\lambda E_{g} -G}{\frac{\partial \overrightarrow{L}_{g} }{\partial T_{g} } +\frac{\partial H_{g} }{\partial T_{g} } +\frac{\partial \lambda E_{g} }{\partial T_{g} } +\frac{\partial G}{\partial T_{g} } }</span></p>
+</div><p>where <span class="math">\Delta T_{g} =T_{g}^{n+1} -T_{g}^{n}</span>  and the subscript
+“n” indicates the iteration. Therefore, the surface temperature
+<span class="math">T_{g}^{n+1}</span>  can be written as</p>
+<div class="math" id="equation-ZEqnNum878786">
+<p><span class="eqno">(18)<a class="headerlink" href="#equation-ZEqnNum878786" title="Permalink to this equation">¶</a></span><span class="math">T_{g}^{n+1} =\frac{\beta \overrightarrow{S}_{g} -\overrightarrow{L}_{g} -H_{g} -\lambda E_{g} -G+T_{g}^{n} \left(\frac{\partial \overrightarrow{L}_{g} }{\partial T_{g} } +\frac{\partial H_{g} }{\partial T_{g} } +\frac{\partial \lambda E_{g} }{\partial T_{g} } +\frac{\partial G}{\partial T_{g} } \right)}{\frac{\partial \overrightarrow{L}_{g} }{\partial T_{g} } +\frac{\partial H_{g} }{\partial T_{g} } +\frac{\partial \lambda E_{g} }{\partial T_{g} } +\frac{\partial G}{\partial T_{g} } }</span></p>
+</div><p>where the partial derivatives are</p>
+<div class="math" id="equation-12.19)">
+<p><span class="eqno">(19)<a class="headerlink" href="#equation-12.19)" title="Permalink to this equation">¶</a></span><span class="math">\frac{\partial \overrightarrow{L}_{g} }{\partial T_{g} } =4\varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{3} ,</span></p>
+</div><div class="math" id="equation-12.20)">
+<p><span class="eqno">(20)<a class="headerlink" href="#equation-12.20)" title="Permalink to this equation">¶</a></span><span class="math">\frac{\partial H_{g} }{\partial T_{g} } =\frac{\rho _{atm} C_{p} }{r_{ah} } ,</span></p>
+</div><div class="math" id="equation-12.21)">
+<p><span class="eqno">(21)<a class="headerlink" href="#equation-12.21)" title="Permalink to this equation">¶</a></span><span class="math">\frac{\partial \lambda E_{g} }{\partial T_{g} } =\frac{\lambda \rho _{atm} }{r_{aw} } \frac{dq_{sat}^{T_{g} } }{dT_{g} } ,</span></p>
+</div><div class="math" id="equation-12.22)">
+<p><span class="eqno">(22)<a class="headerlink" href="#equation-12.22)" title="Permalink to this equation">¶</a></span><span class="math">\frac{\partial G}{\partial T_{g} } =\frac{2\lambda _{T} }{\Delta z_{T} } .</span></p>
+</div><p>The fluxes of momentum, sensible heat, and water vapor are solved for
+simultaneously with lake surface temperature as follows. The
+stability-related equations are the same as for non-vegetated surfaces
+(section 5.2), except that the surface roughnesses are here (weakly
+varying) functions of the friction velocity <span class="math">u_{\*}</span> . To begin,
+<em>z</em><sub>0m</sub> is set based on the value
+calculated for the last timestep (for <span class="math">T_{g} &gt;T_{f}</span> ) or based on
+the values in section 9.4.2 (otherwise), and the scalar roughness
+lengths are set based on the relationships in section 9.4.2.</p>
+<ol class="arabic">
+<li><p class="first">An initial guess for the wind speed <span class="math">V_{a}</span>  including the
+convective velocity <span class="math">U_{c}</span>  is obtained from eq. assuming an
+initial convective velocity <span class="math">U_{c} =0</span> m s<sup>-1</sup> for
+stable conditions (<span class="math">\theta _{v,\, atm} -\theta _{v,\, s} \ge 0</span>
+as evaluated from eq. ) and <span class="math">U_{c} =0.5</span> for unstable
+conditions (<span class="math">\theta _{v,\, atm} -\theta _{v,\, s} &lt;0</span>).</p>
+</li>
+<li><p class="first">An initial guess for the Monin-Obukhov length <span class="math">L</span> is obtained
+from the bulk Richardson number using equations and .</p>
+</li>
+<li><p class="first">The following system of equations is iterated four times:</p>
+</li>
+<li><p class="first">Heat of vaporization / sublimation <span class="math">\lambda</span> (eq. )</p>
+</li>
+<li><p class="first">Thermal conductivity <span class="math">\lambda _{T}</span> (above)</p>
+</li>
+<li><p class="first">Friction velocity <span class="math">u_{\*}</span>  (eqs. , , , )</p>
+</li>
+<li><p class="first">Potential temperature scale <span class="math">\theta _{\*}</span>  (eqs. , , , )</p>
+</li>
+<li><p class="first">Humidity scale <span class="math">q_{\*}</span>  (eqs. , , , )</p>
+</li>
+<li><p class="first">Aerodynamic resistances <span class="math">r_{am}</span> , <span class="math">r_{ah}</span> , and
+<span class="math">r_{aw}</span>  (eqs. , , )</p>
+</li>
+<li><p class="first">Lake surface temperature <span class="math">T_{g}^{n+1}</span>  (eq.)</p>
+</li>
+<li><p class="first">Heat of vaporization / sublimation <span class="math">\lambda</span>  (eq. )</p>
+</li>
+<li><p class="first">Sensible heat flux <span class="math">H_{g}</span>  is updated for <span class="math">T_{g}^{n+1}</span>
+(eq.)</p>
+</li>
+<li><p class="first">Water vapor flux <span class="math">E_{g}</span>  is updated for <span class="math">T_{g}^{n+1}</span>
+as</p>
+<div class="math" id="equation-ZEqnNum331835">
+<p><span class="eqno">(23)<a class="headerlink" href="#equation-ZEqnNum331835" title="Permalink to this equation">¶</a></span><span class="math">E_{g} =-\frac{\rho _{atm} }{r_{aw} } \left[q_{atm} -q_{sat}^{T_{g} } -\frac{\partial q_{sat}^{T_{g} } }{\partial T_{g} } \left(T_{g}^{n+1} -T_{g}^{n} \right)\right]</span></p>
+</div></li>
+</ol>
+<p>where the last term on the right side of equation is the change in
+saturated specific humidity due to the change in <span class="math">T_{g}</span>  between
+iterations.</p>
+<ol class="arabic simple">
+<li>Saturated specific humidity <span class="math">q_{sat}^{T_{g} }</span>  and its
+derivative <span class="math">\frac{dq_{sat}^{T_{g} } }{dT_{g} }</span>  are updated
+for <span class="math">T_{g}^{n+1}</span>  (section 5.1).</li>
+<li>Virtual potential temperature scale <span class="math">\theta _{v\*}</span>  (eq. )</li>
+<li>Wind speed including the convective velocity, <span class="math">V_{a}</span>  (eq. )</li>
+<li>Monin-Obukhov length <span class="math">L</span> (eq. ).</li>
+<li>Roughness lengths (eq. , ).</li>
+</ol>
+<p>Once the four iterations for lake surface temperature have been yielded
+a tentative solution <span class="math">T_{g} ^{{'} }</span> , several restrictions
+are imposed in order to maintain consistency with the top lake model
+layer temperature <span class="math">T_{T}</span> (Subin et al. 2012a).</p>
+<div class="math" id="equation-ZEqnNum180534">
+<p><span class="eqno">(24)<a class="headerlink" href="#equation-ZEqnNum180534" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {{\rm 1)\; }T_{T} \le T_{f} &lt;T_{g} ^{{'} } \Rightarrow T_{g} =T_{f} ,} \\ {{\rm 2)\; }T_{T} &gt;T_{g} ^{{'} } &gt;T_{m} \Rightarrow T_{g} =T_{T} ,} \\ {{\rm 3)\; }T_{m} &gt;T_{g} ^{{'} } &gt;T_{T} &gt;T_{f} \Rightarrow T_{g} =T_{T} } \end{array}</span></p>
+</div><p>where <span class="math">T_{m}</span> is the temperature of maximum liquid water
+density, 3.85<sup>o</sup> C (Hostetler and Bartlein 1990). The
+first condition requires that, if there is any snow or ice present, the
+surface temperature is restricted to be less than or equal to freezing.
+The second and third conditions maintain convective stability in the top
+lake layer.</p>
+<p>If eq. XXX is applied, the turbulent fluxes <span class="math">H_{g}</span> and
+<span class="math">E_{g}</span> are re-evaluated. The emitted longwave radiation and
+the momentum fluxes are re-evaluated in any case. The final ground heat
+flux <span class="math">G</span> is calculated from the residual of the energy balance eq.
+XXX in order to precisely conserve energy. XXX This ground heat flux
+is taken as a prescribed flux boundary condition for the lake
+temperature solution (section 9.5.3). An energy balance check is
+included at each timestep to insure that eq. XXX is obeyed to within
+0.1 W m<sup>-2</sup>.</p>
+</div>
+</div>
+<div class="section" id="lake-temperature">
+<span id="id2"></span><h2>12.5. Lake Temperature<a class="headerlink" href="#lake-temperature" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="introduction">
+<span id="introduction-lake"></span><h3>12.5.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
+<p>The (optional-) snow, lake body (water and/or ice), soil, and bedrock
+system is unified for the lake temperature solution. The governing
+equation, similar to that for the snow-soil-bedrock system for vegetated
+land units (Chapter 6), is</p>
+<div class="math" id="equation-ZEqnNum239244">
+<p><span class="eqno">(25)<a class="headerlink" href="#equation-ZEqnNum239244" title="Permalink to this equation">¶</a></span><span class="math">\tilde{c}_{v} \frac{\partial T}{\partial t} =\frac{\partial }{\partial z} \left(\tau \frac{\partial T}{\partial z} \right)-\frac{d\phi }{dz}</span></p>
+</div><p>where <span class="math">\tilde{c}_{v}</span>  is the volumetric heat capacity (J
+m<sup>-3</sup> K<sup>-1</sup>), <span class="math">t</span> is time (s), <em>T</em> is
+the temperature (K), <span class="math">\tau</span> is the thermal conductivity (W
+m<sup>-1</sup> K<sup>-1</sup>), and <span class="math">\phi</span> is the solar
+radiation (W m<sup>-2</sup>) penetrating to depth <em>z</em> (m). The
+system is discretized into <em>N</em> layers, where</p>
+<div class="math" id="equation-12.26)">
+<p><span class="eqno">(26)<a class="headerlink" href="#equation-12.26)" title="Permalink to this equation">¶</a></span><span class="math">N=n_{sno} +N_{levlak} +N_{levgrnd}  ,</span></p>
+</div><p><span class="math">n_{sno}</span>  is the number of actively modeled snow layers at the
+current timestep (section 7.2), and <span class="math">N_{levgrnd}</span> is as for
+vegetated land units (Chapter 6). Energy is conserved as</p>
+<div class="math" id="equation-ZEqnNum317718">
+<p><span class="eqno">(27)<a class="headerlink" href="#equation-ZEqnNum317718" title="Permalink to this equation">¶</a></span><span class="math">\frac{d}{dt} \sum _{j=1}^{N}\left[\tilde{c}_{v,j} (t)\left(T_{j} -T_{f} \right)+L_{j} (t)\right] \Delta z_{j} =G+\left(1-\beta \right)\vec{S}_{g}</span></p>
+</div><p>where <span class="math">\tilde{c}_{v,j} (t)</span>is the volumetric heat capacity of
+the <em>j</em>th layer (section 9.5.5), <span class="math">L_{j} (t)</span>is the latent heat
+of fusion per unit volume of the <em>j</em>th layer (proportional to the mass
+of liquid water present), and the right-hand side represents the net
+influx of energy to the lake system. Note that
+<span class="math">\tilde{c}_{v,j} (t)</span> can only change due to phase change (except
+for changing snow layer mass, which, apart from energy required to melt
+snow, represents an untracked energy flux in the land model, along with
+advected energy associated with water flows in general), and this is
+restricted to occur at <span class="math">T_{j} =T_{f}</span> in the snow-lake-soil
+system, allowing eq. to be precisely enforced and justifying the
+exclusion of <span class="math">c_{v,j}</span>  from the time derivative in eq. .</p>
+</div>
+<div class="section" id="overview-of-changes-from-clm4-2">
+<span id="id3"></span><h3>12.5.2. Overview of Changes from CLM4<a class="headerlink" href="#overview-of-changes-from-clm4-2" title="Permalink to this headline">¶</a></h3>
+<p>Thermal conductivities include additional eddy diffusivity, beyond the
+Hostetler and Bartlein (1990) formulation, due to unresolved processes
+(Fang and Stefan 1996; Subin et al. 2012a). Lake water is now allowed to
+freeze by an arbitrary fraction for each layer, which releases latent
+heat and changes thermal properties. Convective mixing occurs for all
+lakes, even if frozen. Soil and bedrock are included beneath the lake.
+The full snow model is used if the snow thickness exceeds a threshold;
+if there are resolved snow layers, radiation transfer is predicted by
+the snow-optics submodel (Chapter 3), and the remaining radiation
+penetrating the bottom snow layer is absorbed in the top layer of lake
+ice; conversely, if there are no snow layers, the solar radiation
+penetrating the bottom lake layer is absorbed in the top soil layer. The
+lakes have variable depth, and all physics is assumed valid for
+arbitrary depth, except for a depth-dependent enhanced mixing (section
+9.5.4). Finally, a previous sign error in the calculation of eddy
+diffusivity (specifically, the Brunt-Väisälä frequency term; eq. ) was
+corrected.</p>
+</div>
+<div class="section" id="boundary-conditions">
+<span id="boundary-conditions-lake"></span><h3>12.5.3. Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Permalink to this headline">¶</a></h3>
+<p>The top boundary condition, imposed at the top modeled layer
+<span class="math">i=j_{top}</span>  , where <span class="math">j_{top} =-n_{sno} +1</span>, is the
+downwards surface flux <em>G</em> defined by the energy flux residual during
+the surface temperature solution (section 9.4.3). The bottom boundary
+condition, imposed at <span class="math">i=N_{levlak} +N_{levgrnd}</span>  , is zero flux.
+The 2-m windspeed <span class="math">u_{2}</span> (m s<sup>-1</sup>) is used in the
+calculation of eddy diffusivity:</p>
+<div class="math" id="equation-ZEqnNum997977">
+<p><span class="eqno">(28)<a class="headerlink" href="#equation-ZEqnNum997977" title="Permalink to this equation">¶</a></span><span class="math">u_{2} =\frac{u_{*} }{k} \ln \left(\frac{2}{z_{0m} } \right)\ge 0.1.</span></p>
+</div><p>where <span class="math">u_{*}</span> is the friction velocity calculated in section
+9.4.3 and <em>k</em> is the von Karman constant (Table 2.6).</p>
+</div>
+<div class="section" id="eddy-diffusivity-and-thermal-conductivities">
+<span id="id4"></span><h3>12.5.4. Eddy Diffusivity and Thermal Conductivities<a class="headerlink" href="#eddy-diffusivity-and-thermal-conductivities" title="Permalink to this headline">¶</a></h3>
+<p>The total eddy diffusivity <span class="math">K_{W}</span>  (m<sup>2</sup> s<sup>-1</sup>) for liquid water in the lake body is given by (Subin et al. 2012a)</p>
+<div class="math" id="equation-12.29)">
+<p><span class="eqno">(29)<a class="headerlink" href="#equation-12.29)" title="Permalink to this equation">¶</a></span><span class="math">K_{W} = m_{d} \left(\kappa _{e} +K_{ed} +\kappa _{m} \right)</span></p>
+</div><p>where <span class="math">\kappa _{e}</span>  is due to wind-driven eddies (Hostetler and
+Bartlein 1990), <span class="math">K_{ed}</span>  is a modest enhanced diffusivity
+intended to represent unresolved mixing processes (Fang and Stefan
+1996),
+<span class="math">\kappa _{m} =\frac{\lambda _{liq} }{c_{liq} \rho _{liq} }</span> is
+the molecular diffusivity of water (given by the ratio of its thermal
+conductivity (W m<sup>-1</sup> K<sup>-1</sup>) to the product of
+its heat capacity (J kg<sup>-1</sup> K<sup>-1</sup>) and density
+(kg m<sup>-3</sup>), values given in Table 2.6), and <span class="math">m_{d}</span>
+(unitless) is a factor which increases the overall diffusivity for large
+lakes, intended to represent 3-dimensional mixing processes such as
+caused by horizontal temperature gradients. As currently implemented,</p>
+<div class="math" id="equation-12.30)">
+<p><span class="eqno">(30)<a class="headerlink" href="#equation-12.30)" title="Permalink to this equation">¶</a></span><span class="math">m_{d} =\left\{\begin{array}{l} {1,\qquad d&lt;25{\rm m}} \\ {10,\qquad d\ge 25{\rm m}} \end{array}\right\}</span></p>
+</div><p>where <em>d</em> is the lake depth.</p>
+<p>The wind-driven eddy diffusion coefficient <span class="math">\kappa _{e,\, i}</span> (m<sup>2</sup> s<sup>-1</sup>) for layers <span class="math">1\le i\le N_{levlak}</span>  is</p>
+<div class="math" id="equation-12.31)">
+<p><span class="eqno">(31)<a class="headerlink" href="#equation-12.31)" title="Permalink to this equation">¶</a></span><span class="math">\kappa _{e,\, i} =\left\{\begin{array}{l} {\frac{kw^{*} z_{i} }{P_{0} \left(1+37Ri^{2} \right)} \exp \left(-k^{*} z_{i} \right)\qquad T_{g} &gt;T_{f} } \\ {0\qquad T_{g} \le T_{f} } \end{array}\right\}</span></p>
+</div><p>where <span class="math">P_{0} =1</span> is the neutral value of the turbulent Prandtl
+number, <span class="math">z_{i}</span>  is the node depth (m), the surface friction
+velocity (m s<sup>-1</sup>) is <span class="math">w^{*} =0.0012u_{2}</span> , and
+<span class="math">k^{*}</span>  varies with latitude <span class="math">\phi</span>  as
+<span class="math">k^{*} =6.6u_{2}^{-1.84} \sqrt{\left|\sin \phi \right|}</span> . For the
+bottom layer,
+<span class="math">\kappa _{e,\, N_{levlak} } =\kappa _{e,N_{levlak} -1\, }</span> . As in
+Hostetler and Bartlein (1990), the 2-m wind speed <span class="math">u_{2}</span>  (m
+s<sup>-1</sup>) (eq. ) is used to evaluate <span class="math">w^{*}</span>  and
+<span class="math">k^{*}</span>  rather than the 10-m wind used by Henderson-Sellers
+(1985).</p>
+<p>The Richardson number is</p>
+<div class="math" id="equation-12.32)">
+<p><span class="eqno">(32)<a class="headerlink" href="#equation-12.32)" title="Permalink to this equation">¶</a></span><span class="math">R_{i} =\frac{-1+\sqrt{1+\frac{40N^{2} k^{2} z_{i}^{2} }{w^{*^{2} } \exp \left(-2k^{*} z_{i} \right)} } }{20}</span></p>
+</div><p>where</p>
+<div class="math" id="equation-ZEqnNum230908">
+<p><span class="eqno">(33)<a class="headerlink" href="#equation-ZEqnNum230908" title="Permalink to this equation">¶</a></span><span class="math">N^{2} =\frac{g}{\rho _{i} } \frac{\partial \rho }{\partial z}</span></p>
+</div><p>and <span class="math">g</span> is the acceleration due to gravity (m s<sup>-2</sup>)
+(Table 2.6), <span class="math">\rho _{i}</span>  is the density of water (kg
+m<sup>-3</sup>), and <span class="math">\frac{\partial \rho }{\partial z}</span>  is
+approximated as
+<span class="math">\frac{\rho _{i+1} -\rho _{i} }{z_{i+1} -z_{i} }</span> . Note that
+because here, <em>z</em> is increasing downwards (unlike in Hostetler and
+Bartlein (1990)), eq. contains no negative sign; this is a correction
+from CLM4. The density of water is (Hostetler and Bartlein 1990)</p>
+<div class="math" id="equation-12.34)">
+<p><span class="eqno">(34)<a class="headerlink" href="#equation-12.34)" title="Permalink to this equation">¶</a></span><span class="math">\rho _{i} =1000\left(1-1.9549\times 10^{-5} \left|T_{i} -277\right|^{1.68} \right).</span></p>
+</div><p>The enhanced diffusivity <span class="math">K_{ed}</span>  is given by (Fang and Stefan
+1996)</p>
+<div class="math" id="equation-ZEqnNum809542">
+<p><span class="eqno">(35)<a class="headerlink" href="#equation-ZEqnNum809542" title="Permalink to this equation">¶</a></span><span class="math">K_{ed} =1.04\times 10^{-8} \left(N^{2} \right)^{-0.43} ,N^{2} \ge 7.5\times 10^{-5} {\rm s}^{2}</span></p>
+</div><p>where <span class="math">N^{2}</span> is calculated as in eq. except for the minimum
+value imposed in .</p>
+<p>The thermal conductivity for the liquid water portion of lake body layer
+<em>i</em>, <span class="math">\tau _{liq,i}</span>  (W m<sup>-1</sup> K<sup>-1</sup>) is
+given by</p>
+<div class="math" id="equation-12.36)">
+<p><span class="eqno">(36)<a class="headerlink" href="#equation-12.36)" title="Permalink to this equation">¶</a></span><span class="math">\tau _{liq,i} =K_{W} c_{liq} \rho _{liq}  .</span></p>
+</div><p>The thermal conductivity of the ice portion of lake body layer <em>i</em>,
+<span class="math">\tau _{ice,eff}</span> (W m<sup>-1</sup> K<sup>-1</sup>), is
+constant among layers, and is given by</p>
+<div class="math" id="equation-12.37)">
+<p><span class="eqno">(37)<a class="headerlink" href="#equation-12.37)" title="Permalink to this equation">¶</a></span><span class="math">\tau _{ice,eff} =\tau _{ice} \frac{\rho _{ice} }{\rho _{liq} }</span></p>
+</div><p>where <span class="math">\tau _{ice}</span> (Table 2.6) is the nominal thermal
+conductivity of ice: <span class="math">\tau _{ice,eff}</span> is adjusted for the fact
+that the nominal model layer thicknesses remain constant even while the
+physical ice thickness exceeds the water thickness.</p>
+<p>The overall thermal conductivity <span class="math">\tau _{i}</span>  for layer <em>i</em> with
+ice mass-fraction <span class="math">I_{i}</span> is the harmonic mean of the liquid
+and water fractions, assuming that they will be physically vertically
+stacked, and is given by</p>
+<div class="math" id="equation-12.38)">
+<p><span class="eqno">(38)<a class="headerlink" href="#equation-12.38)" title="Permalink to this equation">¶</a></span><span class="math">\tau _{i} =\frac{\tau _{ice,eff} \tau _{liq,i} }{\tau _{liq,i} I_{i} +\tau _{ice} \left(1-I_{i} \right)}  .</span></p>
+</div><p>The thermal conductivity of snow, soil, and bedrock layers above and
+below the lake, respectively, are computed identically to those for
+vegetated land units (Chapter 6), except for the adjustment of thermal
+conductivity for frost heave or excess ice (Subin et al., 2012a,
+Supporting Information).</p>
+</div>
+<div class="section" id="radiation-penetration">
+<span id="id5"></span><h3>12.5.5. Radiation Penetration<a class="headerlink" href="#radiation-penetration" title="Permalink to this headline">¶</a></h3>
+<p>If there are no resolved snow layers, the surface absorption fraction <span class="math">\beta</span> is set according to the near-infrared fraction simulated
+by the atmospheric model. This is apportioned to the surface energy
+budget (section 9.4.2), and thus no additional radiation is absorbed in
+the top <span class="math">z_{a}</span>  (currently 0.6 m) of unfrozen lakes, for which
+the light extinction coefficient <span class="math">\eta</span> (m<sup>-1</sup>)
+varies between lake columns (eq. ). For frozen lakes
+(<span class="math">T_{g} \le T_{f}</span> ), the remaining <span class="math">\left(1-\beta \right)\vec{S}_{g}</span>  fraction of surface absorbed
+radiation that is not apportioned to the surface energy budget is
+absorbed in the top lake body layer. This is a simplification, as lake
+ice is partially transparent. If there are resolved snow layers, then
+the snow optics submodel (Chapter 3) is used to calculate the snow layer
+absorption (except for the absorption predicted for the top layer by the
+snow optics submodel, which is assigned to the surface energy budget),
+with the remainder penetrating snow layers absorbed in the top lake body
+ice layer.</p>
+<p>For unfrozen lakes, the solar radiation remaining at depth
+<span class="math">z&gt;z_{a}</span>  in the lake body is given by</p>
+<div class="math" id="equation-12.39)">
+<p><span class="eqno">(39)<a class="headerlink" href="#equation-12.39)" title="Permalink to this equation">¶</a></span><span class="math">\phi =\left(1-\beta \vec{S}_{g} \right)\exp \left\{-\eta \left(z-z_{a} \right)\right\} .</span></p>
+</div><p>For all lake body layers, the flux absorbed by the layer <em>i</em>,
+<span class="math">\phi _{i}</span>  , is</p>
+<div class="math" id="equation-12.40)">
+<p><span class="eqno">(40)<a class="headerlink" href="#equation-12.40)" title="Permalink to this equation">¶</a></span><span class="math">\phi _{i} =\left(1-\beta \vec{S}_{g} \right)\left[\exp \left\{-\eta \left(z_{i} -\frac{\Delta z_{i} }{2} -z_{a} \right)\right\}-\exp \left\{-\eta \left(z_{i} +\frac{\Delta z_{i} }{2} -z_{a} \right)\right\}\right] .</span></p>
+</div><p>The argument of each exponent is constrained to be non-negative (so
+<span class="math">\phi _{i}</span>  = 0 for layers contained within <span class="math">{z}_{a}</span>).
+The remaining flux exiting the bottom of layer <span class="math">i=N_{levlak}</span>  is
+absorbed in the top soil layer.</p>
+<p>The light extinction coefficient <span class="math">\eta</span> (m<sup>-1</sup>), if
+not provided as external data, is a function of depth <em>d</em> (m) (Subin et
+al. 2012a):</p>
+<div class="math" id="equation-ZEqnNum284649">
+<p><span class="eqno">(41)<a class="headerlink" href="#equation-ZEqnNum284649" title="Permalink to this equation">¶</a></span><span class="math">\eta =1.1925d^{-0.424}  .</span></p>
+</div></div>
+<div class="section" id="heat-capacities">
+<span id="heat-capacities-lake"></span><h3>12.5.6. Heat Capacities<a class="headerlink" href="#heat-capacities" title="Permalink to this headline">¶</a></h3>
+<p>The vertically-integrated heat capacity for each lake layer,
+<span class="math">\text{c}_{v,i}</span> (J m<sup>-2</sup>) is determined by the mass-weighted average over the heat capacities for the
+water and ice fractions:</p>
+<div class="math" id="equation-12.42)">
+<p><span class="eqno">(42)<a class="headerlink" href="#equation-12.42)" title="Permalink to this equation">¶</a></span><span class="math">c_{v,i} =\Delta z_{i} \rho _{liq} \left[c_{liq} \left(1-I_{i} \right)+c_{ice} I_{i} \right] .</span></p>
+</div><p>Note that the density of water is used for both ice and water fractions,
+as the thickness of the layer is fixed.</p>
+<p>The total heat capacity <span class="math">c_{v,i}</span>  for each soil, snow, and
+bedrock layer (J m<sup>-2</sup>) is determined as for vegetated land
+units (Chapter 6), as the sum of the heat capacities for the water, ice,
+and mineral constituents.</p>
+</div>
+<div class="section" id="crank-nicholson-solution">
+<span id="crank-nicholson-solution-lake"></span><h3>12.5.7. Crank-Nicholson Solution<a class="headerlink" href="#crank-nicholson-solution" title="Permalink to this headline">¶</a></h3>
+<p>The solution method for thermal diffusion is similar to that used for
+soil (Chapter 6), except that the lake body layers are sandwiched
+between the snow and soil layers (section 9.5.1), and radiation flux is
+absorbed throughout the lake layers. Before solution, layer temperatures
+<span class="math">T_{i}</span>  (K), thermal conductivities <span class="math">\tau _{i}</span>  (W
+m<sup>-1</sup> K<sup>-1</sup>), heat capacities <span class="math">c_{v,i}</span>
+(J m<sup>-2</sup>), and layer and interface depths from all
+components are transformed into a uniform set of vectors with length
+<span class="math">N=n_{sno} +N_{levlak} +N_{levgrnd}</span>  and consistent units to
+simplify the solution. Thermal conductivities at layer interfaces are
+calculated as the harmonic mean of the conductivities of the neighboring
+layers:</p>
+<div class="math" id="equation-12.43)">
+<p><span class="eqno">(43)<a class="headerlink" href="#equation-12.43)" title="Permalink to this equation">¶</a></span><span class="math">\lambda _{i} =\frac{\tau _{i} \tau _{i+1} \left(z_{i+1} -z_{i} \right)}{\tau _{i} \left(z_{i+1} -\hat{z}_{i} \right)+\tau _{i+1} \left(\hat{z}_{i} -z_{i} \right)}  ,</span></p>
+</div><p>where <span class="math">\lambda _{i}</span>  is the conductivity at the interface between
+layer <em>i</em> and layer <em>i +</em> 1, <span class="math">z_{i}</span>  is the depth of the node of
+layer <em>i</em>, and <span class="math">\hat{z}_{i}</span>  is the depth of the interface below
+layer <em>i</em>. Care is taken at the boundaries between snow and lake and
+between lake and soil. The governing equation is discretized for each
+layer as</p>
+<div class="math" id="equation-ZEqnNum991615">
+<p><span class="eqno">(44)<a class="headerlink" href="#equation-ZEqnNum991615" title="Permalink to this equation">¶</a></span><span class="math">\frac{c_{v,i} }{\Delta t} \left(T_{i}^{n+1} -T_{i}^{n} \right)=F_{i-1} -F_{i} +\phi _{i}</span></p>
+</div><p>where superscripts <em>n</em> + 1 and <em>n</em> denote values at the end and
+beginning of the timestep <span class="math">\Delta t</span>, respectively, <span class="math">F_{i}</span>
+(W m<sup>-2</sup>) is the downward heat flux at the bottom of layer
+<em>i</em>, and <span class="math">\phi _{i}</span>  is the solar radiation absorbed in layer
+<em>i</em>.</p>
+<p>Eq. is solved using the semi-implicit Crank-Nicholson Method, resulting
+in a tridiagonal system of equations:</p>
+<div class="math" id="equation-12.45)">
+<p><span class="eqno">(45)<a class="headerlink" href="#equation-12.45)" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {r_{i} =a_{i} T_{i-1}^{n+1} +b_{i} T_{i}^{n+1} +cT_{i+1}^{n+1} ,} \\ {a_{i} =-0.5\frac{\Delta t}{c_{v,i} } \frac{\partial F_{i-1} }{\partial T_{i-1}^{n} } ,} \\ {b_{i} =1+0.5\frac{\Delta t}{c_{v,i} } \left(\frac{\partial F_{i-1} }{\partial T_{i-1}^{n} } +\frac{\partial F_{i} }{\partial T_{i}^{n} } \right),} \\ {c_{i} =-0.5\frac{\Delta t}{c_{v,i} } \frac{\partial F_{i} }{\partial T_{i}^{n} } ,} \\ {r_{i} =T_{i}^{n} +0.5\frac{\Delta t}{c_{v,i} } \left(F_{i-1} -F_{i} \right)+\frac{\Delta t}{c_{v,i} } \phi _{i} .} \end{array}</span></p>
+</div><p>The fluxes <span class="math">F_{i}</span>  are defined as follows: for the top layer,
+<span class="math">F_{j_{top} -1} =2G;a_{j_{top} } =0</span>, where <em>G</em> is defined as in
+section 9.4.3 (the factor of 2 merely cancels out the Crank-Nicholson
+0.5 in the equation for <span class="math">r_{j_{top} }</span> ). For the bottom layer,
+<span class="math">F_{N_{levlak} +N_{levgrnd} } =0</span>. For all other layers:</p>
+<div class="math" id="equation-12.46)">
+<p><span class="eqno">(46)<a class="headerlink" href="#equation-12.46)" title="Permalink to this equation">¶</a></span><span class="math">F_{i} =\lambda _{i} \frac{T_{i} ^{n} -T_{i+1}^{n} }{z_{n+1} -z_{n} }  .</span></p>
+</div></div>
+<div class="section" id="phase-change">
+<span id="phase-change-lake"></span><h3>12.5.8. Phase Change<a class="headerlink" href="#phase-change" title="Permalink to this headline">¶</a></h3>
+<p>Phase change in the lake, snow, and soil is done similarly to that done
+for the soil and snow for vegetated land units (Chapter 6), except
+without the allowance for freezing point depression in soil underlying
+lakes. After the heat diffusion is calculated, phase change occurs in a
+given layer if the temperature is below freezing and liquid water
+remains, or if the temperature is above freezing and ice remains.</p>
+<p>If melting occurs, the available energy for melting, <span class="math">Q_{avail}</span>
+(J m<sup>-2</sup>), is computed as</p>
+<div class="math" id="equation-ZEqnNum598199">
+<p><span class="eqno">(47)<a class="headerlink" href="#equation-ZEqnNum598199" title="Permalink to this equation">¶</a></span><span class="math">Q_{avail} =\left(T_{i} -T_{f} \right)c_{v,i}</span></p>
+</div><p>where <span class="math">T_{i}</span>  is the temperature of the layer after thermal
+diffusion (section 9.5.7), and <span class="math">c_{v,i}</span> is as calculated in
+section 9.5.6. The mass of melt in the layer <em>M</em> (kg m<sup>-2</sup>)
+is given by</p>
+<div class="math" id="equation-12.48)">
+<p><span class="eqno">(48)<a class="headerlink" href="#equation-12.48)" title="Permalink to this equation">¶</a></span><span class="math">M=\min \left\{M_{ice} ,\frac{Q_{avail} }{H_{fus} } \right\}</span></p>
+</div><p>where <span class="math">H_{fus}</span>  (J kg<sup>-1</sup>) is the latent heat of
+fusion of water (Table 2.6), and <span class="math">M_{ice}</span>  is the mass of ice in
+the layer: <span class="math">I_{i} \rho _{liq} \Delta z_{i}</span>  for a lake body
+layer, or simply the soil / snow ice content state variable
+(<span class="math">w_{ice}</span> ) for a soil / snow layer. The heat remainder,
+<span class="math">Q_{rem}</span> is given by</p>
+<div class="math" id="equation-ZEqnNum889387">
+<p><span class="eqno">(49)<a class="headerlink" href="#equation-ZEqnNum889387" title="Permalink to this equation">¶</a></span><span class="math">Q_{rem} =Q_{avail} -MH_{fus}  .</span></p>
+</div><p>Finally, the mass of ice in the layer <span class="math">M_{ice}</span>  is adjusted
+downwards by <span class="math">M</span>, and the temperature <span class="math">T_{i}</span>  of the
+layer is adjusted to</p>
+<div class="math" id="equation-ZEqnNum926437">
+<p><span class="eqno">(50)<a class="headerlink" href="#equation-ZEqnNum926437" title="Permalink to this equation">¶</a></span><span class="math">T_{i} =T_{f} +\frac{Q_{rem} }{c'_{v,i} }</span></p>
+</div><p>where <span class="math">c'_{v,i} =c_{v,i} +M\left(c_{liq} -c_{ice} \right)</span>.</p>
+<p>If freezing occurs, <span class="math">Q_{avail}</span>  is again given by but will be
+negative. The melt <span class="math">M</span>, also negative, is given by</p>
+<div class="math" id="equation-12.51)">
+<p><span class="eqno">(51)<a class="headerlink" href="#equation-12.51)" title="Permalink to this equation">¶</a></span><span class="math">M=\max \left\{-M_{liq} ,\frac{Q_{avail} }{H_{fus} } \right\}</span></p>
+</div><p>where <span class="math">M_{liq}</span>  is the mass of water in the layer:
+<span class="math">\left(1-I_{i} \right)\rho _{liq} \Delta z_{i}</span>  for a lake body
+layer, or the soil / snow water content state variable
+(<span class="math">w_{liq}</span> ). The heat remainder <span class="math">Q_{rem}</span>  is given by eq.
+and will be negative or zero. Finally, <span class="math">M_{liq}</span>  is adjusted
+downwards by <span class="math">-M</span> and the temperature is reset according to eq. .</p>
+<p>In the presence of nonzero snow water <span class="math">W_{sno}</span>  without resolved
+snow layers over</p>
+<p>an unfrozen top lake layer, the available energy in the top lake layer
+<span class="math">\left(T_{1} -T_{f} \right)c_{v,1}</span>  is used to melt the snow.
+Similar to above, <span class="math">W_{sno}</span>  is either completely melted and the
+remainder of heat returned to the top lake layer, or the available heat
+is exhausted and the top lake layer is set to freezing. The snow
+thickness is adjusted downwards in proportion to the amount of melt,
+maintaining constant density.</p>
+</div>
+<div class="section" id="convection">
+<span id="convection-lake"></span><h3>12.5.9. Convection<a class="headerlink" href="#convection" title="Permalink to this headline">¶</a></h3>
+<p>Convective mixing is based on Hostetler et al.’s (1993, 1994) coupled
+lake-atmosphere model, adjusting the lake temperature after diffusion
+and phase change to maintain a stable density profile. Unfrozen lakes
+overturn when <span class="math">\rho _{i} &gt;\rho _{i+1}</span> , in which case the layer
+thickness weighted average temperature for layers 1 to <span class="math">i+1</span> is
+applied to layers 1 to <span class="math">i+1</span> and the densities are updated. This
+scheme is applied iteratively to layers <span class="math">1\le i&lt;N_{levlak} -1</span>.
+Unstable profiles occurring at the bottom of the lake (i.e., between
+layers <span class="math">i=N_{levlak} -1</span> and <span class="math">i=N_{levlak}</span> ) are treated
+separately (Subin et al. 2012a), as occasionally these can be induced by
+heat expelled from the sediments (not present in the original Hostetler
+et al. (1994) model). Mixing proceeds from the bottom upward in this
+case (i.e., first mixing layers <span class="math">i=N_{levlak} -1</span> and
+<span class="math">i=N_{levlak}</span> , then checking <span class="math">i=N_{levlak} -2</span> and
+<span class="math">i=N_{levlak} -1</span> and mixing down to <span class="math">i=N_{levlak}</span>  if
+needed, and on to the top), so as not to mix in with warmer over-lying
+layers.</p>
+<p>For frozen lakes, this algorithm is generalized to conserve total
+enthalpy and ice content, and to maintain ice contiguous at the top of
+the lake. Thus, an additional mixing criterion is added: the presence of
+ice in a layer that is below a layer which is not completely frozen.
+When this occurs, these two lake layers and all those above mix. Total
+enthalpy <em>Q</em> is conserved as</p>
+<div class="math" id="equation-12.52)">
+<p><span class="eqno">(52)<a class="headerlink" href="#equation-12.52)" title="Permalink to this equation">¶</a></span><span class="math">Q=\sum _{j=1}^{i+1}\Delta z_{j} \rho _{liq} \left(T_{j} -T_{f} \right)\left[\left(1-I_{j} \right)c_{liq} +I_{j} c_{ice} \right]  .</span></p>
+</div><p>Once the average ice fraction <span class="math">I_{av}</span>  is calculated from</p>
+<div class="math" id="equation-12.53)">
+<p><span class="eqno">(53)<a class="headerlink" href="#equation-12.53)" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {I_{av} =\frac{\sum _{j=1}^{i+1}I_{j} \Delta z_{j}  }{Z_{i+1} } ,} \\ {Z_{i+1} =\sum _{j=1}^{i+1}\Delta z_{j}  ,} \end{array}</span></p>
+</div><p>the temperatures are calculated. A separate temperature is calculated
+for the frozen (<span class="math">T_{froz}</span> ) and unfrozen (<span class="math">T_{unfr}</span> )
+fractions of the mixed layers. If the total heat content <em>Q</em> is positive
+(e.g. some layers will be above freezing), then the extra heat is all
+assigned to the unfrozen layers, while the fully frozen layers are kept
+at freezing. Conversely, if <span class="math">Q &lt; 0</span>, the heat deficit will all
+be assigned to the ice, and the liquid layers will be kept at freezing.
+For the layer that contains both ice and liquid (if present), a weighted
+average temperature will have to be calculated.</p>
+<p>If <span class="math">Q &gt; 0</span>, then <span class="math">T_{froz} =T_{f}</span> , and <span class="math">T_{unfr}</span>
+is given by</p>
+<div class="math" id="equation-12.54)">
+<p><span class="eqno">(54)<a class="headerlink" href="#equation-12.54)" title="Permalink to this equation">¶</a></span><span class="math">T_{unfr} =\frac{Q}{\rho _{liq} Z_{i+1} \left[\left(1-I_{av} \right)c_{liq} \right]} +T_{f}  .</span></p>
+</div><p>If <span class="math">Q &lt; 0</span>, then <span class="math">T_{unfr} =T_{f}</span> , and <span class="math">T_{froz}</span>
+is given by</p>
+<div class="math" id="equation-12.55)">
+<p><span class="eqno">(55)<a class="headerlink" href="#equation-12.55)" title="Permalink to this equation">¶</a></span><span class="math">T_{froz} =\frac{Q}{\rho _{liq} Z_{i+1} \left[I_{av} c_{ice} \right]} +T_{f}  .</span></p>
+</div><p>The ice is lumped together at the top. For each lake layer <em>j</em> from 1
+to <em>i</em> + 1, the ice fraction and temperature are set as follows, where
+<span class="math">Z_{j} =\sum _{m=1}^{j}\Delta z_{m}</span>  :</p>
+<ol class="arabic">
+<li><p class="first">If <span class="math">Z_{j} \le Z_{i+1} I_{av}</span>  , then <span class="math">I_{j} =1</span> and
+<span class="math">T_{j} =T_{froz}</span>  .</p>
+</li>
+<li><p class="first">Otherwise, if <span class="math">Z_{j-1} &lt;Z_{i+1} I_{av}</span>  , then the layer will
+contain both ice and water. The ice fraction is given by
+<span class="math">I_{j} =\frac{Z_{i+1} I_{av} -Z_{j-1} }{\Delta z_{j} }</span>  . The
+temperature is set to conserve the desired heat content that would be
+present if the layer could have two temperatures, and then dividing
+by the heat capacity of the layer to yield</p>
+<div class="math" id="equation-12.56)">
+<p><span class="eqno">(56)<a class="headerlink" href="#equation-12.56)" title="Permalink to this equation">¶</a></span><span class="math">T_{j} =\frac{T_{froz} I_{j} c_{ice} +T_{unfr} \left(1-I_{j} \right)c_{liq} }{I_{j} c_{ice} +\left(1-I_{j} \right)c_{liq} }  .</span></p>
+</div></li>
+<li><p class="first">Otherwise, <span class="math">I_{j} =0</span> and <span class="math">T_{j} =T_{unfr}</span> .</p>
+</li>
+</ol>
+</div>
+<div class="section" id="energy-conservation">
+<span id="energy-conservation-lake"></span><h3>12.5.10. Energy Conservation<a class="headerlink" href="#energy-conservation" title="Permalink to this headline">¶</a></h3>
+<p>To check energy conservation, the left-hand side of eq. XXX is
+re-written to yield the total enthalpy of the lake system (J
+m<sup>-2</sup>) <span class="math">H_{tot}</span> :</p>
+<div class="math" id="equation-12.57)">
+<p><span class="eqno">(57)<a class="headerlink" href="#equation-12.57)" title="Permalink to this equation">¶</a></span><span class="math">H_{tot} =\sum _{i=j_{top} }^{N_{levlak} +N_{levgrnd} }\left[c_{v,i} \left(T_{i} -T_{f} \right)+M_{liq,i} H_{fus} \right] -W_{sno,bulk} H_{fus}</span></p>
+</div><p>where <span class="math">M_{liq,i}</span>  is the water mass of the <em>i</em>th layer (similar
+to section 9.5.8), and <span class="math">W_{sno,bulk}</span>  is the mass of snow-ice not
+present in resolved snow layers. This expression is evaluated once at
+the beginning and once at the end of the timestep (re-evaluating each
+<span class="math">c_{v,i}</span> ), and the change is compared with the net surface
+energy flux to yield the error flux <span class="math">E_{soi}</span>  (W
+m<sup>-2</sup>):</p>
+<div class="math" id="equation-12.58)">
+<p><span class="eqno">(58)<a class="headerlink" href="#equation-12.58)" title="Permalink to this equation">¶</a></span><span class="math">E_{soi} =\frac{\Delta H_{tot} }{\Delta t} -G-\sum _{i=j_{top} }^{N_{levlak} +N_{levgrnd} }\phi _{i}</span></p>
+</div><p>If <span class="math">\left|E_{soi} \right|&lt;0.1</span>W m<sup>-2</sup>, it is
+subtracted from the sensible heat flux and added to <em>G</em>. Otherwise, the
+model is aborted.</p>
+</div>
+</div>
+<div class="section" id="lake-hydrology">
+<span id="id6"></span><h2>12.6. Lake Hydrology<a class="headerlink" href="#lake-hydrology" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overview">
+<span id="overview-lake-hydrology"></span><h3>12.6.1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
+<p>Hydrology is done similarly to other impervious non-vegetated columns
+(e.g., glaciers) where snow layers may be resolved but infiltration into
+the permanent ground is not allowed. The water mass of lake columns is
+currently maintained constant, aside from overlying snow. The water
+budget is balanced with <span class="math">q_{rgwl}</span>  (eq. ; kg m<sup>-2</sup>
+s<sup>-1</sup>), a generalized runoff term for impervious land units
+that may be negative.</p>
+<p>There are some modifications to the soil and snow parameterizations as
+compared with the soil in vegetated land units, or the snow overlying
+other impervious columns. The soil can freeze or thaw, with the
+allowance for frost heave (or the initialization of excess ice)
+(sections 9.5.4 and 9.5.8), but no air-filled pore space is allowed in
+the soil. To preserve numerical stability in the lake model (which uses
+a slightly different surface flux algorithm than over other
+non-vegetated land units), two changes are made to the snow model.
+First, dew or frost is not allowed to be absorbed by a top snow layer
+which has become completely melted during the timestep. Second, because
+occasional instabilities occurred during model testing when the
+Courant–Friedrichs–Lewy (CFL) condition was violated, due to the
+explicit time-stepping integration of the surface flux solution,
+resolved snow layers must be a minimum of <span class="math">s_{\min }</span>  = 4 cm
+thick rather than 1 cm when the default timestep of 1800 s is used.</p>
+</div>
+<div class="section" id="water-balance">
+<span id="water-balance-lake"></span><h3>12.6.2. Water Balance<a class="headerlink" href="#water-balance" title="Permalink to this headline">¶</a></h3>
+<p>The total water balance of the system is given by</p>
+<div class="math" id="equation-ZEqnNum932128">
+<p><span class="eqno">(59)<a class="headerlink" href="#equation-ZEqnNum932128" title="Permalink to this equation">¶</a></span><span class="math">\Delta W_{sno} +\sum _{i=1}^{n_{levsoi} }\left(\Delta w_{liq,i} +\Delta w_{ice,i} \right) =\left(q_{rain} +q_{sno} -E_{g} -q_{rgwl} -q_{snwcp,\, ice} \right)\Delta t</span></p>
+</div><p>where <span class="math">W_{sno}</span>  (kg m<sup>-2</sup>) is the total mass of snow
+(both liquid and ice, in resolved snow layers or bulk snow),
+<span class="math">w_{liq,i}</span>  and <span class="math">w_{ice,i}</span>  are the masses of water phases
+(kg m<sup>-2</sup>) in soil layer <em>i</em>, <span class="math">q_{rain}</span>  and
+<span class="math">q_{sno}</span>  are the precipitation forcing from the atmosphere (kg
+m<sup>-2</sup> s<sup>-1</sup>), <span class="math">q_{snwcp,\, ice}</span>  is the
+ice runoff associated with snow-capping (below), <span class="math">E_{g}</span>  is the
+ground evaporation (section 9.4.3), and <span class="math">n_{levsoi}</span>  is the
+number of hydrologically active soil layers (as opposed to dry bedrock
+layers).</p>
+</div>
+<div class="section" id="precipitation-evaporation-and-runoff">
+<span id="precipitation-evaporation-and-runoff-lake"></span><h3>12.6.3. Precipitation, Evaporation, and Runoff<a class="headerlink" href="#precipitation-evaporation-and-runoff" title="Permalink to this headline">¶</a></h3>
+<p>All precipitation reaches the ground, as there is no vegetated fraction.
+As for other land types, incident snowfall accumulates (with ice mass
+<span class="math">W_{sno}</span>  and thickness <span class="math">z_{sno}</span> ) until its thickness
+exceeds a minimum thickness <span class="math">s_{\min }</span> , at which point a
+resolved snow layer is initiated, with water, ice, dissolved aerosol,
+snow-grain radius, etc., state variables tracked by the Snow Hydrology
+submodel (section 7.2). The density of fresh snow is assigned as for
+other land types (section 7.2). Solid precipitation is added immediately
+to the snow, while liquid precipitation is added to snow layers, if they
+exist, after accounting for dew, frost, and sublimation (below). If
+<span class="math">z_{sno}</span>  exceeds <span class="math">s_{\min }</span>  after solid precipitation is
+added but no snow layers are present, a new snow layer is initiated
+immediately, and then dew, frost, and sublimation are accounted for.
+Snow-capping is invoked if the snow depth <span class="math">z_{sno} &gt;1000{\rm m}</span>,
+in which case additional precipitation and frost deposition is added to
+<span class="math">q_{snwcp,\, ice}</span> .</p>
+<p>If there are resolved snow layers, the generalized “evaporation”
+<span class="math">E_{g}</span>  (i.e., evaporation, dew, frost, and sublimation) is
+treated as over other land units, except that the allowed evaporation
+from the ground is unlimited (though the top snow layer cannot lose more
+water mass than it contains). If there are no resolved snow layers but
+<span class="math">W_{sno} &gt;0</span> and <span class="math">E_{g} &gt;0</span>, sublimation
+<span class="math">q_{sub,sno}</span> (kg m<sup>-2</sup> s<sup>-1</sup>) will be
+given by</p>
+<div class="math" id="equation-12.60)">
+<p><span class="eqno">(60)<a class="headerlink" href="#equation-12.60)" title="Permalink to this equation">¶</a></span><span class="math">q_{sub,sno} =\min \left\{E_{g} ,\frac{W_{sno} }{\Delta t} \right\} .</span></p>
+</div><p>If <span class="math">E_{g} &lt;0,T_{g} \le T_{f}</span>  , and there are no resolved snow
+layers or the top snow layer is not unfrozen, then the rate of frost
+production <span class="math">q_{frost} =\left|E_{g} \right|</span>. If <span class="math">E_{g} &lt;0</span>
+but the top snow layer has completely thawed during the Phase Change
+step of the Lake Temperature solution (section 9.5.8), then frost (or
+dew) is not allowed to accumulate (<span class="math">q_{frost} =0</span>), to insure that
+the layer is eliminated by the Snow Hydrology (section 7.2) code. (If
+<span class="math">T_{g} &gt;T_{f}</span> , then no snow is present (section 9.4.3), and
+evaporation or dew deposition is balanced by <span class="math">q_{rgwl}</span> .) The
+snowpack is updated for frost and sublimation:</p>
+<div class="math" id="equation-12.61)">
+<p><span class="eqno">(61)<a class="headerlink" href="#equation-12.61)" title="Permalink to this equation">¶</a></span><span class="math">W_{sno} =W_{sno} +\Delta t\left(q_{frost} -q_{sub,sno} \right) .</span></p>
+</div><p>If there are resolved snow layers, then this update occurs using the
+Snow Hydrology submodel (section 7.2). Otherwise, the snow ice mass is
+updated directly, and <span class="math">z_{sno}</span>  is adjusted by the same
+proportion as the snow ice (i.e., maintaining the same density), unless
+there was no snow before adding the frost, in which case the density is
+assumed to be 250 kg m<sup>-3</sup>.</p>
+</div>
+<div class="section" id="soil-hydrology">
+<span id="soil-hydrology-lake"></span><h3>12.6.4. Soil Hydrology<a class="headerlink" href="#soil-hydrology" title="Permalink to this headline">¶</a></h3>
+<p>The combined water and ice soil volume fraction in a soil layer
+<span class="math">\theta _{i}</span>  is given by</p>
+<div class="math" id="equation-12.62)">
+<p><span class="eqno">(62)<a class="headerlink" href="#equation-12.62)" title="Permalink to this equation">¶</a></span><span class="math">\theta _{i} =\frac{1}{\Delta z_{i} } \left(\frac{w_{ice,i} }{\rho _{ice} } +\frac{w_{liq,i} }{\rho _{liq} } \right) .</span></p>
+</div><p>If <span class="math">\theta _{i} &lt;\theta _{sat,i}</span>  , the pore volume fraction at
+saturation (as may occur when ice melts), then the liquid water mass is
+adjusted to</p>
+<div class="math" id="equation-12.63)">
+<p><span class="eqno">(63)<a class="headerlink" href="#equation-12.63)" title="Permalink to this equation">¶</a></span><span class="math">w_{liq,i} =\left(\theta _{sat,i} \Delta z_{i} -\frac{w_{ice,i} }{\rho _{ice} } \right)\rho _{liq}  .</span></p>
+</div><p>Otherwise, if excess ice is melting and
+<span class="math">w_{liq,i} &gt;\theta _{sat,i} \rho _{liq} \Delta z_{i}</span>  , then the
+water in the layer is reset to</p>
+<div class="math" id="equation-12.64)">
+<p><span class="eqno">(64)<a class="headerlink" href="#equation-12.64)" title="Permalink to this equation">¶</a></span><span class="math">w_{liq,i} = \theta _{sat,i} \rho _{liq} \Delta z_{i}</span></p>
+</div><p>This allows excess ice to be initialized (and begin to be lost only
+after the pore ice is melted, which is realistic if the excess ice is
+found in heterogeneous chunks) but irreversibly lost when melt occurs.</p>
+</div>
+<div class="section" id="modifications-to-snow-layer-logic">
+<span id="modifications-to-snow-layer-logic-lake"></span><h3>12.6.5. Modifications to Snow Layer Logic<a class="headerlink" href="#modifications-to-snow-layer-logic" title="Permalink to this headline">¶</a></h3>
+<p>A thickness difference <span class="math">z_{lsa} =s_{\min } -\tilde{s}_{\min }</span>
+adjusts the minimum resolved snow layer thickness for lake columns as
+compared to non-lake columns. The value of <span class="math">z_{lsa}</span>  is chosen to
+satisfy the CFL condition for the model timestep. By default,
+<span class="math">\tilde{s}_{\min }</span> = 1 cm and <span class="math">s_{\min }</span> = 4 cm. See
+Subin et al. (2012a; including Supporting Information) for further
+discussion.</p>
+<p>The rules for combining and sub-dividing snow layers (section 7.2.7) are
+adjusted for lakes to maintain minimum thicknesses of <span class="math">s_{\min }</span>
+and to increase all target layer thicknesses by <span class="math">z_{lsa}</span> . The
+rules for combining layers are modified by simply increasing layer
+thickness thresholds by <span class="math">z_{lsa}</span> . The rules for dividing snow
+layers are contained in a separate subroutine that is modified for
+lakes, and is a function of the number of layers and the layer
+thicknesses. There are two types of operations: (a) subdividing layers
+in half, and (b) shifting some volume from higher layers to lower layers
+(without increasing the layer number). For subdivisions of type (a), the
+thickness thresholds triggering subdivision are increased by
+<span class="math">2z_{lsa}</span>  for lakes. For shifts of type (b), the thickness
+thresholds triggering the shifts are increased by <span class="math">z_{lsa}</span> . At
+the end of the modified subroutine, a snow ice and liquid balance check
+are performed.</p>
+<p>In rare instances, resolved snow layers may be present over an unfrozen
+top lake body layer. In this case, the snow layers may be eliminated if
+enough heat is present in the top layer to melt the snow: see Subin et
+al. (2012a, Supporting Information).</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../Glacier/CLM50_Tech_Note_Glacier.html" title="13. Glaciers"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../Plant_Hydraulic_Stress/CLM50_Tech_Note_Plant_Hydraulic_Stress.html" title="11. Plant Hydraulic Stress"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.4.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>4.3. Adding Resolution Names &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.4. Changing Default Filenames" href="CLM-3.3-Adding-or-Changing-Default-Filenames.html" />
+    <link rel="prev" title="4.2. Managing Your Data Own Files" href="CLM-3.1-Managing-Your-Own-Data-files.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="CLM-3.3-Adding-or-Changing-Default-Filenames.html" title="4.4. Changing Default Filenames"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="CLM-3.1-Managing-Your-Own-Data-files.html" title="4.2. Managing Your Data Own Files"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">4. Adding New Resolutions</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="CLM-3.1-Managing-Your-Own-Data-files.html"
+                        title="previous chapter">4.2. Managing Your Data Own Files</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="CLM-3.3-Adding-or-Changing-Default-Filenames.html"
+                        title="next chapter">4.4. Changing Default Filenames</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/users_guide/adding-new-resolutions/CLM-3.2-Adding-Resolution-Names.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="adding-resolution-names">
+<span id="id1"></span><h1>4.3. Adding Resolution Names<a class="headerlink" href="#adding-resolution-names" title="Permalink to this headline">¶</a></h1>
+<p>If you are adding files for new resolutions which aren&#8217;t covered in the namelist_definition file &#8211; you&#8217;ll need to add them in.
+The list of valid resolutions is in the id=&#8221;res&#8221; entry in the <code class="docutils literal"><span class="pre">models/lnd/clm/bld/namelist_files/namelist_definition_clm4_5.xml</span></code> file.
+You need to choose a name for your new resolution and simply add it to the comma delimited list of valid_values for the id=&#8221;res&#8221; entry.
+The convention for global Gaussian grids is number_of_latitudes x number_of_longitudes.
+The convention for global finite volume grids is latitude_grid_size x longitude_grid_size where latitude and longitude is measured in degrees.
+The convention for unstructured HOMME grids is ne&lt;size&gt;np4, where &lt;size&gt; corresponds to the resolution.
+The higher &lt;size&gt; is the higher the resolution.
+So for example, ne60np4 is roughly half-degree while ne240np4 is roughly a eighth degree.
+For regional or single-point datasets the names have a grid size number_of_latitudes x number_of_longitudes followed by an underscore and then a descriptive name such as a City name followed by an abbreviation for the Country in caps.
+The only hard requirement is that names be unique for different grid files. Here&#8217;s what the entry for resolutions looks like in the file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">entry</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;res&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;char*30&quot;</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;default_settings&quot;</span>
+       <span class="n">group</span><span class="o">=</span><span class="s2">&quot;default_settings&quot;</span>
+       <span class="n">valid_values</span><span class="o">=</span>
+       <span class="s2">&quot;512x1024,360x720cru,128x256,64x128,48x96,32x64,8x16,94x192,0.23x0.31,0.9x1.25,1.9x2.5,2.5x3.33,</span>
+       <span class="mi">4</span><span class="n">x5</span><span class="p">,</span><span class="mi">10</span><span class="n">x15</span><span class="p">,</span><span class="mi">5</span><span class="n">x5_amazon</span><span class="p">,</span><span class="mi">1</span><span class="n">x1_tropicAtl</span><span class="p">,</span><span class="mi">1</span><span class="n">x1_camdenNJ</span><span class="p">,</span><span class="mi">1</span><span class="n">x1_vacouverCAN</span><span class="p">,</span><span class="mi">1</span><span class="n">x1_mexicocityMEX</span><span class="p">,</span><span class="mi">1</span><span class="n">x1_asphaltjungleNJ</span><span class="p">,</span>
+       <span class="mi">1</span><span class="n">x1_brazil</span><span class="p">,</span><span class="mi">1</span><span class="n">x1_urbanc_alpha</span><span class="p">,</span><span class="mi">1</span><span class="n">x1_numaIA</span><span class="p">,</span><span class="mi">1</span><span class="n">x1_smallvilleIA</span><span class="p">,</span><span class="mf">0.1</span><span class="n">x0</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.5</span><span class="n">x0</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="n">x3min</span><span class="p">,</span><span class="mi">5</span><span class="n">x5min</span><span class="p">,</span><span class="mi">10</span><span class="n">x10min</span><span class="p">,</span><span class="mf">0.33</span><span class="n">x0</span><span class="o">.</span><span class="mi">3</span><span class="p">,</span>
+       <span class="n">ne4np4</span><span class="p">,</span><span class="n">ne16np4</span><span class="p">,</span><span class="n">ne30np4</span><span class="p">,</span><span class="n">ne60np4</span><span class="p">,</span><span class="n">ne120np4</span><span class="p">,</span><span class="n">ne240np4</span><span class="p">,</span><span class="n">wus12</span><span class="p">,</span><span class="n">us20</span><span class="p">,</span><span class="mi">1</span><span class="n">km</span><span class="o">-</span><span class="n">merge</span><span class="o">-</span><span class="mi">10</span><span class="nb">min</span><span class="s2">&quot;&gt;</span>
+       <span class="n">Horizontal</span> <span class="n">resolutions</span>
+       <span class="n">Note</span><span class="p">:</span> <span class="mf">0.1</span><span class="n">x0</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="n">x0</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="n">x5min</span><span class="p">,</span> <span class="mi">10</span><span class="n">x10min</span><span class="p">,</span> <span class="mi">3</span><span class="n">x3min</span><span class="p">,</span> <span class="mi">1</span><span class="n">km</span><span class="o">-</span><span class="n">merge</span><span class="o">-</span><span class="mi">10</span><span class="nb">min</span><span class="p">,</span> <span class="ow">and</span> <span class="mf">0.33</span><span class="n">x0</span><span class="o">.</span><span class="mi">33</span> <span class="n">are</span> <span class="n">only</span> <span class="n">used</span> <span class="k">for</span> <span class="n">CLM</span> <span class="n">tools</span>
+<span class="o">&lt;/</span><span class="n">entry</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>As you can see you just add your new resolution names to the end of the valid_values list.</p>
+<p>When using PTCLM and adding supported single-point resolutions, you&#8217;ll also want to add these resolutions to the <code class="docutils literal"><span class="pre">models/lnd/clm/bld/config_files/config_definition.xml</span></code> under the <code class="docutils literal"><span class="pre">sitespf_pt</span></code> name.
+The entry in that file looks like:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">entry</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;sitespf_pt&quot;</span>
+     <span class="n">valid_values</span><span class="o">=</span><span class="s2">&quot;none,1x1_brazil,1x1_tropicAtl,5x5_amazon,1x1_camdenNJ,1x1_vancouverCAN,</span>
+     <span class="mi">1</span><span class="n">x1_mexicocityMEX</span><span class="p">,</span><span class="mi">1</span><span class="n">x1_asphaltjungleNJ</span><span class="p">,</span><span class="mi">1</span><span class="n">x1_urbanc_alpha</span><span class="p">,</span><span class="mi">1</span><span class="n">x1_numaIA</span><span class="p">,</span><span class="mi">1</span><span class="n">x1_smallvilleIA</span><span class="p">,</span><span class="n">us20</span><span class="p">,</span><span class="n">wus12</span><span class="s2">&quot;</span>
+     <span class="n">value</span><span class="o">=</span><span class="s2">&quot;none&quot;</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;physics&quot;</span><span class="o">&gt;</span>
+     <span class="n">Flag</span> <span class="n">to</span> <span class="n">turn</span> <span class="n">on</span> <span class="n">site</span> <span class="n">specific</span> <span class="n">special</span> <span class="n">configuration</span> <span class="n">flags</span> <span class="k">for</span> <span class="n">supported</span> <span class="n">single</span>
+     <span class="n">point</span> <span class="n">resolutions</span><span class="o">.</span> <span class="n">See</span> <span class="n">the</span> <span class="n">specific</span> <span class="n">config_defaults_</span><span class="o">*.</span><span class="n">xml</span> <span class="n">file</span> <span class="k">for</span> <span class="n">the</span> <span class="n">special</span>
+     <span class="n">settings</span> <span class="n">that</span> <span class="n">are</span> <span class="nb">set</span> <span class="k">for</span> <span class="n">a</span> <span class="n">particular</span> <span class="n">site</span><span class="o">.</span>
+<span class="o">&lt;/</span><span class="n">entry</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>PTCLM assumes that any supported single-point resolutions are valid settings for <code class="docutils literal"><span class="pre">sitespf_pt</span></code>.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="CLM-3.3-Adding-or-Changing-Default-Filenames.html" title="4.4. Changing Default Filenames"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="CLM-3.1-Managing-Your-Own-Data-files.html" title="4.2. Managing Your Data Own Files"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >4. Adding New Resolutions</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.4.
+    </div>
+  </body>
+</html>
