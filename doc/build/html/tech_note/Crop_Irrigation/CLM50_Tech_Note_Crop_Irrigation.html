@@ -57,7 +57,7 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">25. Crops and Irrigation</a><ul>
-<li><a class="reference internal" href="#summary-of-clm4-5-updates-relative-to-the-clm4-0">25.1. Summary of CLM4.5 updates relative to the CLM4.0</a></li>
+<li><a class="reference internal" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5">25.1. Summary of CLM5.0 updates relative to the CLM4.5</a></li>
 <li><a class="reference internal" href="#the-crop-model">25.2. The crop model</a><ul>
 <li><a class="reference internal" href="#introduction">25.2.1. Introduction</a></li>
 <li><a class="reference internal" href="#crop-plant-functional-types">25.2.2. Crop plant functional types</a></li>
@@ -123,25 +123,30 @@
             
   <div class="section" id="crops-and-irrigation">
 <span id="rst-crops-and-irrigation"></span><h1>25. Crops and Irrigation<a class="headerlink" href="#crops-and-irrigation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="summary-of-clm4-5-updates-relative-to-the-clm4-0">
-<h2>25.1. Summary of CLM4.5 updates relative to the CLM4.0<a class="headerlink" href="#summary-of-clm4-5-updates-relative-to-the-clm4-0" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="summary-of-clm5-0-updates-relative-to-the-clm4-5">
+<h2>25.1. Summary of CLM5.0 updates relative to the CLM4.5<a class="headerlink" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5" title="Permalink to this headline">¶</a></h2>
 <p>We describe here the complete crop and irrigation parameterizations that
-appear in CLM4.5. Corresponding information for CLM4.0 appeared on the
-CLM4.0 web site in a pdf document independent of the CLM4.0 Technical
+appear in CLM5.0. Corresponding information for CLM4.5 appeared on the
+CLM4.5 web site in a pdf document independent of the CLM4.5 Technical
 Note (Oleson et al. 2010a). The CLM4.0 crop model description also
 appeared in Levis et al. (2012).</p>
-<p>CLM4.5 includes the following updates to the CROP option, where CROP
-refers to the interactive crop management model:</p>
+<p>CLM5.0 includes the following updates to the CROP option, where CROP
+refers to the interactive crop management model and is included by default with the BGC configuration:</p>
 <ul class="simple">
-<li>Interactive irrigation</li>
-<li>Interactive fertilization</li>
-<li>Biological nitrogen fixation for soybeans</li>
-<li>Modified C:N ratios for crops</li>
-<li>Nitrogen retranslocation for crops</li>
-<li>Separate reproductive pool</li>
+<li>New crop functional types</li>
+<li>All crop areas are actively managed</li>
+<li>Fertilization rates updated based on crop type and geographic region</li>
+<li>Irrigation updates</li>
+<li>Phenological triggers vary by latitude for some crop types</li>
+<li>Ability to simulate transient crop management</li>
+<li>Adjustments to allocation and phenological parameters</li>
+<li>Crops reaching their maximum LAI triggers the grain fill phase</li>
+<li>Grain C and N pools are included in a 1-year product pool</li>
+<li>C for annual crop seeding comes from the grain C pool</li>
+<li>Initial seed C for planting is increased from 1 to 3 g C/m^2</li>
 </ul>
-<p>These updates appear in detail in section 20.4. Most also appear in
-Drewniak et al. (2013).</p>
+<p>These updates appear in detail in the sections below. Many also appear in
+Levis et al. (2016).</p>
 </div>
 <div class="section" id="the-crop-model">
 <h2>25.2. The crop model<a class="headerlink" href="#the-crop-model" title="Permalink to this headline">¶</a></h2>
@@ -165,7 +170,7 @@ management parameterizations from AgroIBIS (March 2003 version) were
 coupled as a proof-of-concept to the Community Land Model version 3
 [CLM3.0, Oleson et al. (2004)] (not published), then coupled to the
 CLM3.5 (Levis et al. 2009) and later released to the community with
-CLM4CN (Levis et al. 2012).</p>
+CLM4CN (Levis et al. 2012) and CLM4.5.</p>
 <p>With interactive crop management and, therefore, a more accurate
 representation of agricultural landscapes, we hope to improve the CLM’s
 simulated biogeophysics and biogeochemistry. These advances may improve
@@ -417,7 +422,7 @@ column correspond to the list of pfts in Table 2.1.</p>
 <col width="1%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">&#160;</th>
+<tr class="row-odd"><th class="head">&nbsp;</th>
 <th class="head">Phenological
 Type</th>
 <th class="head"><img class="math" src="../../_images/math/b635b2e283d0573a44f67b1c948e30bb8facc76d.png" alt="T_{p}"/>
@@ -440,7 +445,7 @@ m</th>
 m<sup>2</sup>leaf g<sup>-1</sup>C</th>
 <th class="head"><img class="math" src="../../_images/math/ae1087201853e2dfb9c1ca60a1f6209712b6a6a1.png" alt="\chi _{L}"/>
 index</th>
-<th class="head">&#160;</th>
+<th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -449,41 +454,41 @@ index</th>
 </ol>
 </td>
 <td>C<sub>3</sub> unmanaged rainfed crop</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 <td>0.03</td>
 <td>-0.30</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last arabic simple" start="16">
 <li></li>
 </ol>
 </td>
 <td>C<sub>3</sub> unmanaged irrigated crop</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 <td>0.03</td>
 <td>-0.30</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><ol class="first last arabic simple" start="17">
 <li></li>
 </ol>
 </td>
 <td>Rainfed Corn (also known as Maize)</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>950-1850</td>
 <td>3</td>
 <td>55-65</td>
@@ -491,16 +496,16 @@ index</th>
 <td>2.50</td>
 <td>0.05</td>
 <td>-0.50</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last arabic simple" start="18">
 <li></li>
 </ol>
 </td>
 <td>Irrigated Corn (also known as Maize)</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>950-1850</td>
 <td>3</td>
 <td>55-65</td>
@@ -508,16 +513,16 @@ index</th>
 <td>2.50</td>
 <td>0.05</td>
 <td>-0.50</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><ol class="first last arabic simple" start="19">
 <li></li>
 </ol>
 </td>
 <td>Rainfed Temperate Cereals</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.png" alt="\mathrm{\le}"/>1700</td>
 <td>5</td>
 <td>60</td>
@@ -525,16 +530,16 @@ index</th>
 <td>1.20</td>
 <td>0.07</td>
 <td>0.65</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last arabic simple" start="20">
 <li></li>
 </ol>
 </td>
 <td>Irrigated Temperate Cereals</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.png" alt="\mathrm{\le}"/>1700</td>
 <td>5</td>
 <td>60</td>
@@ -542,16 +547,16 @@ index</th>
 <td>1.20</td>
 <td>0.07</td>
 <td>0.65</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><ol class="first last arabic simple" start="21">
 <li></li>
 </ol>
 </td>
 <td>Rainfed Winter cereals (place holder)</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>1900</td>
 <td>5</td>
 <td>40</td>
@@ -559,16 +564,16 @@ index</th>
 <td>1.20</td>
 <td>0.07</td>
 <td>0.65</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last arabic simple" start="22">
 <li></li>
 </ol>
 </td>
 <td>Irrigated Winter cereals (place holder)</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>1900</td>
 <td>5</td>
 <td>40</td>
@@ -576,16 +581,16 @@ index</th>
 <td>1.20</td>
 <td>0.07</td>
 <td>0.65</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><ol class="first last arabic simple" start="23">
 <li></li>
 </ol>
 </td>
 <td>Rainfed Soybean</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.png" alt="\mathrm{\le}"/>1700</td>
 <td>3</td>
 <td>70</td>
@@ -593,16 +598,16 @@ index</th>
 <td>0.75</td>
 <td>0.07</td>
 <td>-0.50</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last arabic simple" start="24">
 <li></li>
 </ol>
 </td>
 <td>Irrigated Soybean</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.png" alt="\mathrm{\le}"/>1700</td>
 <td>3</td>
 <td>70</td>
@@ -610,9 +615,9 @@ index</th>
 <td>0.75</td>
 <td>0.07</td>
 <td>-0.50</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -646,7 +651,7 @@ allocation. Numbers in the first column correspond to the list of pfts in Table 
 <col width="2%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>&#160;</td>
+<tr class="row-odd"><td>&nbsp;</td>
 <td><img class="math" src="../../_images/math/af2ecbbbb5582d77e1e078d1a95ec93e88e5042f.png" alt="a_{leaf}^{i}"/></td>
 <td><img class="math" src="../../_images/math/d2987d5f6affa1f71162618f8bd6b96b2cd70f70.png" alt="{L}_{max}"/></td>
 <td><img class="math" src="../../_images/math/102e5e893cde9d171f1c67227abede6125f3ea97.png" alt="a_{froot}^{i}"/></td>
@@ -656,19 +661,19 @@ allocation. Numbers in the first column correspond to the list of pfts in Table 
 <td><img class="math" src="../../_images/math/6e323f28b05d84c759d73bf822da40f9db67b7e9.png" alt="d_{L}"/></td>
 <td><img class="math" src="../../_images/math/243bd0e471d20d76de9ac02905660712dd1f29a9.png" alt="d_{alloc}^{stem}"/></td>
 <td><img class="math" src="../../_images/math/4db720a603b3b8d70914bbcde1b72c2c8ca8101e.png" alt="d_{alloc}^{leaf}"/></td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
-<tr class="row-even"><td>&#160;</td>
+<tr class="row-even"><td>&nbsp;</td>
 <td>fraction</td>
 <td>m<sup>2</sup>  m<sup>-2</sup></td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><ol class="first last arabic simple" start="17">
 <li></li>
@@ -1034,9 +1039,9 @@ fine root, and reproductive pools.</p>
 <td>42</td>
 </tr>
 <tr class="row-odd"><td>Post-grain fill stage</td>
-<td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/316da031ed8ea94a157a826a4ada7bf165b44eac.png" alt="CN_{leaf}^{f}"/></td>
 <td>65</td>
@@ -1103,7 +1108,7 @@ nitrogen are available for grain development.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
   </body>
 </html>
