@@ -113,7 +113,7 @@ and energy balance accounting necessary to represent the expansion and
 contraction of PFT area. This implementation currently only pertains to
 the case where all PFTs for a particular grid cell coexist on a single
 soil/snow column. In this case, the only biogeophysical state variable
-affected is canopy water (<span class="math">W_{can}</span> ). The biogeochemical impacts
+affected is canopy water (<img class="math" src="../../_images/math/258eda6779920de57a66eb543a1f37e4f20e2f5b.png" alt="W_{can}"/> ). The biogeochemical impacts
 of land use and land cover change are simulated through changes in CLM
 carbon pools and fluxes as shown in Figure 21.1 and described further in
 Chapter 13. Other implementations are possible, such as changing the
@@ -142,72 +142,72 @@ used. Thus, the simulation will have invariant representations of PFT
 distributions through time for the periods prior to and following the
 time duration of the <em>dynpft</em> dataset, with transient PFT distributions
 during the period covered by the <em>dynpft</em> dataset.</p>
-<p>The following equations capture this logic, where <span class="math">year_{cur}</span>  is
+<p>The following equations capture this logic, where <img class="math" src="../../_images/math/90254843cacffcbe34b3b12526cdf4718b7e7c30.png" alt="year_{cur}"/>  is
 the calendar year for the current timestep,
-<span class="math">dynpft\_ year\eqref{GrindEQ__1_}</span> and
-<span class="math">dynpft\_ year(nyears)</span>are the first and last calendar years in
-the <em>dynpft</em> dataset, respectively, <span class="math">nyears</span> is the number of
-years in the <em>dynpft</em> dataset, <span class="math">nt_{1}</span>  and <span class="math">nt_{2}</span>
-<span class="math">{}_{ }</span>are the two bracketing years used in the interpolation
-algorithm, and <span class="math">n</span> is the index value for the
-<span class="math">dynpft\_ year</span> array corresponding to
-<span class="math">dynpft\_ year(n)=year_{cur}</span> :</p>
+<img class="math" src="../../_images/math/e68b38805b288b983ef353e1a09f8a7205809d3b.png" alt="dynpft\_ year\eqref{GrindEQ__1_}"/> and
+<img class="math" src="../../_images/math/a172b9d9821768516d3898dbc20d9af7878be846.png" alt="dynpft\_ year(nyears)"/>are the first and last calendar years in
+the <em>dynpft</em> dataset, respectively, <img class="math" src="../../_images/math/5b1037a6e07ae4a04d6699988482e31c09e2697d.png" alt="nyears"/> is the number of
+years in the <em>dynpft</em> dataset, <img class="math" src="../../_images/math/6a54220b05bec11f3f6e2a24c354e471415cca29.png" alt="nt_{1}"/>  and <img class="math" src="../../_images/math/d213b0f9a320936f2533c189304f7b388e02c884.png" alt="nt_{2}"/>
+<img class="math" src="../../_images/math/ed496cc723ce55f9b83fb3501ccea322f9a0be39.png" alt="{}_{ }"/>are the two bracketing years used in the interpolation
+algorithm, and <img class="math" src="../../_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.png" alt="n"/> is the index value for the
+<img class="math" src="../../_images/math/8720a018d63cd54b794f7dca65f945642b31a36e.png" alt="dynpft\_ year"/> array corresponding to
+<img class="math" src="../../_images/math/813efcb63864174368de3d7f03175b36cc969e37.png" alt="dynpft\_ year(n)=year_{cur}"/> :</p>
 <div class="math" id="equation-26.1)">
-<p><span class="eqno">(1)<a class="headerlink" href="#equation-26.1)" title="Permalink to this equation">¶</a></span><span class="math">nt_{1} =\left\{\begin{array}{l} {1\qquad {\rm for}\qquad year_{cur} &lt;dynpft\_ year(1)} \\ {n\qquad {\rm for}\qquad dynpft\_ year(1)\le year_{cur} &lt;dynpft\_ year(nyears)} \\ {nyears\qquad {\rm for}\qquad year_{cur} \ge dynpft\_ year(nyears)} \end{array}\right\}</span></p>
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-26.1)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f3fcda8b28f95e932184b0234f417907e96c64ca.png" alt="nt_{1} =\left\{\begin{array}{l} {1\qquad {\rm for}\qquad year_{cur} &lt;dynpft\_ year(1)} \\ {n\qquad {\rm for}\qquad dynpft\_ year(1)\le year_{cur} &lt;dynpft\_ year(nyears)} \\ {nyears\qquad {\rm for}\qquad year_{cur} \ge dynpft\_ year(nyears)} \end{array}\right\}"/></p>
 </div><div class="math" id="equation-26.2)">
-<p><span class="eqno">(2)<a class="headerlink" href="#equation-26.2)" title="Permalink to this equation">¶</a></span><span class="math">nt_{2} =\left\{\begin{array}{l} {1\qquad {\rm for}\qquad year_{cur} &lt;dynpft\_ year(1)} \\ {n+1\qquad {\rm for}\qquad dynpft\_ year(1)\le year_{cur} &lt;dynpft\_ year(nyears)} \\ {nyears\qquad {\rm for}\qquad year_{cur} \ge dynpft\_ year(nyears)} \end{array}\right\}</span></p>
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-26.2)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/759d57c7f6740a539d817c589f90ae569a612f75.png" alt="nt_{2} =\left\{\begin{array}{l} {1\qquad {\rm for}\qquad year_{cur} &lt;dynpft\_ year(1)} \\ {n+1\qquad {\rm for}\qquad dynpft\_ year(1)\le year_{cur} &lt;dynpft\_ year(nyears)} \\ {nyears\qquad {\rm for}\qquad year_{cur} \ge dynpft\_ year(nyears)} \end{array}\right\}"/></p>
 </div><p>Interpolation of PFT weights between annual time slices in the <em>dynpft</em>
 dataset uses a simple linear algorithm, based on the conversion of the
 current time step information into a floating-point value for the number
 of calendar days since January 1 of the current model year
-(<span class="math">cday</span>). The interpolation weight for the current time step
-<span class="math">tw_{cday}</span> <span class="math">{}_{ }</span>is</p>
+(<img class="math" src="../../_images/math/e50c28d0d0cd50a81dd6459119206ded765f04b5.png" alt="cday"/>). The interpolation weight for the current time step
+<img class="math" src="../../_images/math/858e85b866321f960a44d8a38d62c6f110ced7a9.png" alt="tw_{cday}"/> <img class="math" src="../../_images/math/ed496cc723ce55f9b83fb3501ccea322f9a0be39.png" alt="{}_{ }"/>is</p>
 <div class="math" id="equation-26.3)">
-<p><span class="eqno">(3)<a class="headerlink" href="#equation-26.3)" title="Permalink to this equation">¶</a></span><span class="math">tw_{cday} =\frac{366-cday}{365}</span></p>
+<p><span class="eqno">(3)<a class="headerlink" href="#equation-26.3)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d946327d44015006e637d1b430558a8397313a63.png" alt="tw_{cday} =\frac{366-cday}{365}"/></p>
 </div><p>where the numerator is 366 instead of 365 because the time manager
-function for CLM returns a value of <span class="math">cday=1.0</span> for midnight
-Greenwich mean time on January 1. With weights <span class="math">w_{p} (nt_{1} )</span>
-and <span class="math">w_{p} (nt_{2} )</span>obtained from the <em>dynpft</em> dataset for PFT
+function for CLM returns a value of <img class="math" src="../../_images/math/43a833511666bfe6c3320534a01cc1154bb35128.png" alt="cday=1.0"/> for midnight
+Greenwich mean time on January 1. With weights <img class="math" src="../../_images/math/50f3c9fc326052db444f372e3891a1e25b50fae0.png" alt="w_{p} (nt_{1} )"/>
+and <img class="math" src="../../_images/math/949a4b09f720fe4631ba7c61740412231b900014.png" alt="w_{p} (nt_{2} )"/>obtained from the <em>dynpft</em> dataset for PFT
 <em>p</em> at the bracketing annual time slices
-<span class="math">nt_{1}</span> <span class="math">{}_{ }</span>and <span class="math">nt_{2}</span> , the interpolated
-PFT weight for the current time step (<span class="math">w_{p,t}</span> ) is</p>
+<img class="math" src="../../_images/math/6a54220b05bec11f3f6e2a24c354e471415cca29.png" alt="nt_{1}"/> <img class="math" src="../../_images/math/ed496cc723ce55f9b83fb3501ccea322f9a0be39.png" alt="{}_{ }"/>and <img class="math" src="../../_images/math/d213b0f9a320936f2533c189304f7b388e02c884.png" alt="nt_{2}"/> , the interpolated
+PFT weight for the current time step (<img class="math" src="../../_images/math/cf2159db5f8a8c60ed44acf049d88aa32fd0e7fb.png" alt="w_{p,t}"/> ) is</p>
 <div class="math" id="equation-26.4)">
-<p><span class="eqno">(4)<a class="headerlink" href="#equation-26.4)" title="Permalink to this equation">¶</a></span><span class="math">w_{p,t} =tw_{cday} \left[w_{p} \left(nt_{1} \right)-w_{p} \left(nt_{2} \right)\right]+w_{p} \left(nt_{2} \right)</span></p>
+<p><span class="eqno">(4)<a class="headerlink" href="#equation-26.4)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ff3245f71fde01863af403cdaf7e9156d4cd75f4.png" alt="w_{p,t} =tw_{cday} \left[w_{p} \left(nt_{1} \right)-w_{p} \left(nt_{2} \right)\right]+w_{p} \left(nt_{2} \right)"/></p>
 </div><p>The form of this equation is designed to improve roundoff accuracy
-performance, and guarantees <span class="math">w_{p,t}</span>  stays in the range [0,1].
-Note that values for <span class="math">w_{p} (nt_{1} )</span>, <span class="math">w_{p} (nt_{2} )</span>,
-and <span class="math">w_{p,t}</span> <span class="math">{}_{ }</span>are fractional weights at the
+performance, and guarantees <img class="math" src="../../_images/math/cf2159db5f8a8c60ed44acf049d88aa32fd0e7fb.png" alt="w_{p,t}"/>  stays in the range [0,1].
+Note that values for <img class="math" src="../../_images/math/50f3c9fc326052db444f372e3891a1e25b50fae0.png" alt="w_{p} (nt_{1} )"/>, <img class="math" src="../../_images/math/949a4b09f720fe4631ba7c61740412231b900014.png" alt="w_{p} (nt_{2} )"/>,
+and <img class="math" src="../../_images/math/cf2159db5f8a8c60ed44acf049d88aa32fd0e7fb.png" alt="w_{p,t}"/> <img class="math" src="../../_images/math/ed496cc723ce55f9b83fb3501ccea322f9a0be39.png" alt="{}_{ }"/>are fractional weights at the
 column level of the subgrid hierarchy.</p>
 <p>The change in weight for a PFT between the current and previous time
-steps (<span class="math">\Delta w_{p}</span> ) is</p>
+steps (<img class="math" src="../../_images/math/32ac109720b341a562ff0c9d31d36551b1c3d08d.png" alt="\Delta w_{p}"/> ) is</p>
 <div class="math" id="equation-26.5)">
-<p><span class="eqno">(5)<a class="headerlink" href="#equation-26.5)" title="Permalink to this equation">¶</a></span><span class="math">\Delta w_{p} =w_{p}^{n} -w_{p}^{n-1}</span></p>
+<p><span class="eqno">(5)<a class="headerlink" href="#equation-26.5)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f5a8d159223fe8c4faab3c8e6522c0ec28d75e25.png" alt="\Delta w_{p} =w_{p}^{n} -w_{p}^{n-1}"/></p>
 </div><p>where <em>n</em> denotes the current time step. The area of a given PFT
-increases for <span class="math">\Delta w_{p} &gt;0</span> and decreases for
-<span class="math">\Delta w_{p} &lt;0</span>.</p>
+increases for <img class="math" src="../../_images/math/23025f8b4abc92b2c09fc8a964562c3ed3ab0541.png" alt="\Delta w_{p} &gt;0"/> and decreases for
+<img class="math" src="../../_images/math/a9492bf66c9a541e8d4d1f5512515658d54279a3.png" alt="\Delta w_{p} &lt;0"/>.</p>
 </div>
 <div class="section" id="mass-and-energy-conservation">
 <h2>26.2. Mass and Energy Conservation<a class="headerlink" href="#mass-and-energy-conservation" title="Permalink to this headline">¶</a></h2>
 <p>Mass conservation is maintained across a PFT weight transition by
 summing up all the water state variables to get the total vegetated land
-unit water content before (<span class="math">W_{tot,1}</span> ) and after
-(<span class="math">W_{tot,2}</span> ) new PFT weights are calculated. For example,
-<span class="math">W_{tot,1}</span>  is</p>
+unit water content before (<img class="math" src="../../_images/math/2fb353d42aacf9dc2e25e75812ce3849934e6510.png" alt="W_{tot,1}"/> ) and after
+(<img class="math" src="../../_images/math/7974e5d3705eeb12d53edba3387b8dbaa4a0c948.png" alt="W_{tot,2}"/> ) new PFT weights are calculated. For example,
+<img class="math" src="../../_images/math/2fb353d42aacf9dc2e25e75812ce3849934e6510.png" alt="W_{tot,1}"/>  is</p>
 <div class="math" id="equation-26.6)">
-<p><span class="eqno">(6)<a class="headerlink" href="#equation-26.6)" title="Permalink to this equation">¶</a></span><span class="math">W_{tot,1} =W_{a} +W_{sno} +\sum _{i=1}^{N_{levgrnd} }\left(w_{liq,i} +w_{ice,i} \right) +\sum _{j=1}^{npft}\left(W_{can,j} wt_{j,1} \right)</span></p>
-</div><p>where <span class="math">W_{a}</span>  is the aquifer water, <span class="math">W_{sno}</span>  is the snow
-water, <span class="math">w_{liq,i}</span>  and <span class="math">w_{ice,i}</span> are the liquid and ice
-soil water contents, <span class="math">W_{can,j}</span> is the canopy water content for
-PFT <span class="math">j</span>, and <span class="math">wt_{j,1}</span>  is the PFT weight for PFT
-<span class="math">j</span>. For the situation where only PFT weights are changing and all
+<p><span class="eqno">(6)<a class="headerlink" href="#equation-26.6)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8304cbf48359b251adf03b1faebd516d0f962270.png" alt="W_{tot,1} =W_{a} +W_{sno} +\sum _{i=1}^{N_{levgrnd} }\left(w_{liq,i} +w_{ice,i} \right) +\sum _{j=1}^{npft}\left(W_{can,j} wt_{j,1} \right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/91fbfb72ff73d153e6b6f357f2bc6e55bbf25918.png" alt="W_{a}"/>  is the aquifer water, <img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.png" alt="W_{sno}"/>  is the snow
+water, <img class="math" src="../../_images/math/9b38021be899f869dcb9a2eec54e1034d941bd39.png" alt="w_{liq,i}"/>  and <img class="math" src="../../_images/math/fd8a0fbaf8024407f6cf74f5e9187a713d94776d.png" alt="w_{ice,i}"/> are the liquid and ice
+soil water contents, <img class="math" src="../../_images/math/ca9a19a33a7e4dd74b0de98b9c1822d449907a81.png" alt="W_{can,j}"/> is the canopy water content for
+PFT <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/>, and <img class="math" src="../../_images/math/bd1657fc1f7bb893f4e8737526f7148864232ff6.png" alt="wt_{j,1}"/>  is the PFT weight for PFT
+<img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/>. For the situation where only PFT weights are changing and all
 other land unit fractions are constant, any difference between
-<span class="math">W_{tot,1}</span>  and <span class="math">W_{tot,2}</span> can only be due to
+<img class="math" src="../../_images/math/2fb353d42aacf9dc2e25e75812ce3849934e6510.png" alt="W_{tot,1}"/>  and <img class="math" src="../../_images/math/7974e5d3705eeb12d53edba3387b8dbaa4a0c948.png" alt="W_{tot,2}"/> can only be due to
 differences in the total canopy water before and after the PFT weight
 change. To ensure water conservation, the typically very small
-difference between <span class="math">W_{tot,2}</span> and <span class="math">W_{tot,1}</span>  is
+difference between <img class="math" src="../../_images/math/7974e5d3705eeb12d53edba3387b8dbaa4a0c948.png" alt="W_{tot,2}"/> and <img class="math" src="../../_images/math/2fb353d42aacf9dc2e25e75812ce3849934e6510.png" alt="W_{tot,1}"/>  is
 subtracted from the grid cell runoff</p>
 <div class="math" id="equation-26.7)">
-<p><span class="eqno">(7)<a class="headerlink" href="#equation-26.7)" title="Permalink to this equation">¶</a></span><span class="math">R_{liq} =R_{liq} +W_{tot,2} -W_{tot,1} .</span></p>
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-26.7)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8ab5304ba044b94be209149a0e60f377ae1403e5.png" alt="R_{liq} =R_{liq} +W_{tot,2} -W_{tot,1} ."/></p>
 </div><p>Total energy is unperturbed in this case and therefore an energy
 conservation treatment is not required. As noted above, other
 implementations are possible and will be desirable in the future, such
@@ -432,7 +432,7 @@ plant functional types.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.4.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
   </body>
 </html>
