@@ -707,7 +707,14 @@ included the effects of the minimum permanent snow cover.</p>
 <col width="9%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>Color Class</td>
+<tr class="row-odd"><td>&#160;</td>
+<td colspan="2">Dry</td>
+<td colspan="2">Saturated</td>
+<td>&#160;</td>
+<td colspan="2">Dry</td>
+<td colspan="2">Saturated</td>
+</tr>
+<tr class="row-even"><td>Color Class</td>
 <td>vis</td>
 <td>nir</td>
 <td>vis</td>
@@ -718,7 +725,7 @@ included the effects of the minimum permanent snow cover.</p>
 <td>vis</td>
 <td>nir</td>
 </tr>
-<tr class="row-even"><td>1</td>
+<tr class="row-odd"><td>1</td>
 <td>0.36</td>
 <td>0.61</td>
 <td>0.25</td>
@@ -729,7 +736,7 @@ included the effects of the minimum permanent snow cover.</p>
 <td>0.13</td>
 <td>0.26</td>
 </tr>
-<tr class="row-odd"><td>2</td>
+<tr class="row-even"><td>2</td>
 <td>0.34</td>
 <td>0.57</td>
 <td>0.23</td>
@@ -740,7 +747,7 @@ included the effects of the minimum permanent snow cover.</p>
 <td>0.12</td>
 <td>0.24</td>
 </tr>
-<tr class="row-even"><td>3</td>
+<tr class="row-odd"><td>3</td>
 <td>0.32</td>
 <td>0.53</td>
 <td>0.21</td>
@@ -751,7 +758,7 @@ included the effects of the minimum permanent snow cover.</p>
 <td>0.11</td>
 <td>0.22</td>
 </tr>
-<tr class="row-odd"><td>4</td>
+<tr class="row-even"><td>4</td>
 <td>0.31</td>
 <td>0.51</td>
 <td>0.20</td>
@@ -762,7 +769,7 @@ included the effects of the minimum permanent snow cover.</p>
 <td>0.10</td>
 <td>0.20</td>
 </tr>
-<tr class="row-even"><td>5</td>
+<tr class="row-odd"><td>5</td>
 <td>0.30</td>
 <td>0.49</td>
 <td>0.19</td>
@@ -773,7 +780,7 @@ included the effects of the minimum permanent snow cover.</p>
 <td>0.09</td>
 <td>0.18</td>
 </tr>
-<tr class="row-odd"><td>6</td>
+<tr class="row-even"><td>6</td>
 <td>0.29</td>
 <td>0.48</td>
 <td>0.18</td>
@@ -784,7 +791,7 @@ included the effects of the minimum permanent snow cover.</p>
 <td>0.08</td>
 <td>0.16</td>
 </tr>
-<tr class="row-even"><td>7</td>
+<tr class="row-odd"><td>7</td>
 <td>0.28</td>
 <td>0.45</td>
 <td>0.17</td>
@@ -795,7 +802,7 @@ included the effects of the minimum permanent snow cover.</p>
 <td>0.07</td>
 <td>0.14</td>
 </tr>
-<tr class="row-odd"><td>8</td>
+<tr class="row-even"><td>8</td>
 <td>0.27</td>
 <td>0.43</td>
 <td>0.16</td>
@@ -806,7 +813,7 @@ included the effects of the minimum permanent snow cover.</p>
 <td>0.06</td>
 <td>0.12</td>
 </tr>
-<tr class="row-even"><td>9</td>
+<tr class="row-odd"><td>9</td>
 <td>0.26</td>
 <td>0.41</td>
 <td>0.15</td>
@@ -817,7 +824,7 @@ included the effects of the minimum permanent snow cover.</p>
 <td>0.05</td>
 <td>0.10</td>
 </tr>
-<tr class="row-odd"><td>10</td>
+<tr class="row-even"><td>10</td>
 <td>0.25</td>
 <td>0.39</td>
 <td>0.14</td>
@@ -918,8 +925,8 @@ are applied in the two-stream solution</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>Band 1: 0.3-0.7<img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/>m (visible)</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>(1.0)</td>
+<td>(1.0)</td>
 </tr>
 <tr class="row-odd"><td>Band 2: 0.7-1.0<img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/>m (near-IR)</td>
 <td>0.494</td>
@@ -958,10 +965,13 @@ boundary condition, SNICAR simulates solar absorption in all snow layers
 as well as the underlying soil or ground. With a thin snowpack,
 penetrating solar radiation to the underlying soil can be quite large
 and heat cannot be released from the soil to the atmosphere in this
-situation. Thus, solar radiation penetration is limited to snowpacks
-with total snow depth greater than or equal to 0.1 m
-(<img class="math" src="../../_images/math/0b9e6bd4b88cf2f3a83c138230d9c5330be29d9f.png" alt="z_{sno} \ge 0.1"/>) to prevent unrealistic soil warming within a
-single timestep.</p>
+situation. Thus, if the snowpack has total snow depth less than 0.1 m
+(<img class="math" src="../../_images/math/59b81df7b54ab8e0ace8ec6af32ca9633b300df6.png" alt="z_{sno} &lt; 0.1"/>) and there are no explicit snow layers, the solar
+radiation is absorbed by the top soil layer.  If there is a single snow layer,
+the solar radiation is absorbed in that layer.  If there is more than a single
+snow layer, 75% of the solar radiation is absorbed in the top snow layer,
+and 25% is absorbed in the next lowest snow layer. This prevents unrealistic
+soil warming within a single timestep.</p>
 <p>The radiative transfer calculation is performed twice for each column
 containing a mass of snow greater than
 <img class="math" src="../../_images/math/9cb80dfbd6f9b6e798b488d26655ef93277bde0e.png" alt="1 \times 10^{-30}"/> kgm<sup>-2</sup> (excluding lake and urban columns); once each for
@@ -985,7 +995,7 @@ the underlying ground.</p>
 <span id="id4"></span><h3>3.2.2. Snowpack Optical Properties<a class="headerlink" href="#snowpack-optical-properties" title="Permalink to this headline">¶</a></h3>
 <p>Ice optical properties for the five spectral bands are derived offline
 and stored in a namelist-defined lookup table for online retrieval (see
-CLM4.5 User’s Guide). Mie properties are first computed at fine spectral
+CLM5.0 User’s Guide). Mie properties are first computed at fine spectral
 resolution (470 bands), and are then weighted into the five bands
 applied by CLM according to incident solar flux,
 <img class="math" src="../../_images/math/b5213573c7fb8c08ca655ee52ab41cd44e44bb25.png" alt="I^{\downarrow } (\lambda )"/>. For example, the broadband
@@ -1109,7 +1119,7 @@ only with incident solar flux, as in equation .</p>
 </tbody>
 </table>
 <table border="1" class="docutils" id="id12">
-<span id="table-mass-extinction-values"></span><caption><span class="caption-number">Table 3.6 </span><span class="caption-text">Mass extinction values (m<sup>2</sup> kg<sub>-1</sub>) used for snowpack impurities and ice</span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
+<span id="table-mass-extinction-values"></span><caption><span class="caption-number">Table 3.6 </span><span class="caption-text">Mass extinction values (m<sup>2</sup> kg<sup>-1</sup>) used for snowpack impurities and ice</span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="56%" />
 <col width="9%" />
@@ -1329,7 +1339,7 @@ each time step <em>t</em> as</p>
 <div class="math" id="equation-3.72">
 <p><span class="eqno">(72)<a class="headerlink" href="#equation-3.72" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a185613cbeaf95852247f1cd061863ca43228259.png" alt="r_{e} \left(t\right)=\left[r_{e} \left(t-1\right)+dr_{e,\, dry} +dr_{e,\, wet} \right]f_{old} +r_{e,\, 0} f_{new} +r_{e,\, rfz} f_{rfrz}"/></p>
 </div><p>Here, the effective radius of freshly-fallen snow
-(<img class="math" src="../../_images/math/4ce5d83f88b201c01813fc574d1befee42e50e94.png" alt="r_{e,0}"/>) is fixed globally at 54.5 <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/> m (corresponding to a specific surface area of 60 m<sup>2</sup> kg<sub>-1</sub>), and the effective
+(<img class="math" src="../../_images/math/4ce5d83f88b201c01813fc574d1befee42e50e94.png" alt="r_{e,0}"/>) is fixed globally at 54.5 <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/> m (corresponding to a specific surface area of 60 m<sup>2</sup> kg<sup>-1</sup>), and the effective
 radius of refrozen liquid water (<img class="math" src="../../_images/math/fa5c123199756fa0d2e037eb83361bea98efc177.png" alt="r_{e,rfz}"/>) is set to 1000<img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/> m.</p>
 <p>Dry snow aging is based on a microphysical model described by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#flannerzender2006"><span class="std std-ref">Flanner
 and Zender (2006)</span></a>. This model simulates diffusive vapor flux
@@ -1395,7 +1405,7 @@ The solar hour angle <img class="math" src="../../_images/math/293fb39e1b93282c8
 <p><span class="eqno">(77)<a class="headerlink" href="#equation-3.77" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d3bc475ce93871063c6fd960d67bf8a2ff63b7cb.png" alt="h=2\pi d+\theta"/></p>
 </div><p>where <img class="math" src="../../_images/math/b9d10b54744d07746b97f53c55eb98046fd76c8c.png" alt="d"/> is calendar day (<img class="math" src="../../_images/math/cc1c1da5df35b5111c85c6626e7f475ad3ab47ef.png" alt="d=0.0"/> at 0Z on January 1), and
 <img class="math" src="../../_images/math/3be04d4207434584251f6921820c24ac9fa8c6f1.png" alt="\theta"/>  is longitude (radians) (positive east of the
-CityplaceGreenwich meridian).</p>
+Greenwich meridian).</p>
 <p>The solar declination angle <img class="math" src="../../_images/math/a702e781dfc76762a3a132c2031fba8898430925.png" alt="\delta"/>  is calculated as in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#berger1978a"><span class="std std-ref">Berger
 (1978a,b)</span></a> and is valid for one million years past or hence, relative to
 1950 A.D. The orbital parameters may be specified directly or the
