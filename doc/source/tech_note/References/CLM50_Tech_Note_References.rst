@@ -1225,6 +1225,8 @@ Niu, G.-Y., Yang, Z.-L., Dickinson, R.E., and Gulden, L.E. 2005. A
 simple TOPMODEL-based runoff parameterization (SIMTOP) for use in global
 climate models. J. Geophys. Res. 110:D21106. DOI:10.1029/2005JD006111.
 
+.. _NiuYang2006:
+
 Niu, G.-Y., and Yang, Z.-L. 2006. Effects of frozen soil on snowmelt
 runoff and soil water storage at a continental scale. J. Hydrometeor.
 7:937-952.
@@ -1566,7 +1568,7 @@ Schnell, S. and King, G.M., 1996. Responses of methanotrophic activity
 in soils and cultures to water stress. Applied and Environmental
 Microbiology 62:3203-3209.
 
-.. _Segers, R., 1998. Methane production and methane consumption: a review
+.. _Segers1998:
 
 Segers, R., 1998. Methane production and methane consumption: a review
 of processes underlying wetland methane fluxes. Biogeochemistry
