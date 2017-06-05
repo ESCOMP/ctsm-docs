@@ -7,8 +7,9 @@ The model parameterizes interception, throughfall, canopy drip, snow
 accumulation and melt, water transfer between snow layers, infiltration,
 evaporation, surface runoff, sub-surface drainage, redistribution within
 the soil column, and groundwater discharge and recharge to simulate
-changes in canopy water :math:`\Delta W_{can}` , surface water
-:math:`\Delta W_{sfc}` , snow water :math:`\Delta W_{sno}` , soil water
+changes in canopy water :math:`\Delta W_{can,\,liq}` , canopy snow water
+:math:`\Delta W_{can,\,sno}` surface water :math:`\Delta W_{sfc}` ,
+snow water :math:`\Delta W_{sno}` , soil water
 :math:`\Delta w_{liq,\, i}` , and soil ice :math:`\Delta w_{ice,\, i}` ,
 and water in the unconfined aquifer :math:`\Delta W_{a}`  (all in kg
 m\ :sup:`-2` or mm of H\ :sub:`2`\ O) (:numref:`Figure Hydrologic processes`).
@@ -18,7 +19,7 @@ The total water balance of the system is
 .. math::
    :label: 7.1) 
 
-   \begin{array}{l} {\Delta W_{can} +\Delta W_{sfc} +\Delta W_{sno} +} \\ {\sum _{i=1}^{N_{levsoi} }\left(\Delta w_{liq,\, i} +\Delta w_{ice,\, i} \right)+\Delta W_{a} =\left(\begin{array}{l} {q_{rain} +q_{sno} -E_{v} -E_{g} -q_{over} } \\ {-q_{h2osfc} -q_{drai} -q_{rgwl} -q_{snwcp,\, ice} } \end{array}\right) \Delta t} \end{array}
+   \begin{array}{l} {\Delta W_{can,\,liq} +\Delta W_{can,\,sno} +\Delta W_{sfc} +\Delta W_{sno} +} \\ {\sum _{i=1}^{N_{levsoi} }\left(\Delta w_{liq,\, i} +\Delta w_{ice,\, i} \right)+\Delta W_{a} =\left(\begin{array}{l} {q_{rain} +q_{sno} -E_{v} -E_{g} -q_{over} } \\ {-q_{h2osfc} -q_{drai} -q_{rgwl} -q_{snwcp,\, ice} } \end{array}\right) \Delta t} \end{array}
 
 where :math:`q_{rain}`  is the liquid part of precipitation,
 :math:`q_{sno}`  is the solid part of precipitation, :math:`E_{v}`  is
@@ -31,8 +32,8 @@ from glaciers, wetlands, and lakes, and runoff from other surface types
 due to snow capping (section :numref:`Runoff from glaciers and snow-capped surfaces`) (all in kg m\ :sup:`-2`
 s\ :sup:`-1`), :math:`N_{levsoi}`  is the number of soil layers
 (note that hydrology calculations are only done over soil layers 1 to
-:math:`N_{levsoi}` ; ground levels :math:`N_{levsoi} +1`\ to
-:math:`N_{levgrnd}`  are currently hydrologically inactive; :ref:`(Lawrence et
+:math:`N_{levsoi}` ; ground levels :math:`N_{levsoi} +1` \ to
+:math:`N_{levgrnd}` are currently hydrologically inactive; :ref:`(Lawrence et
 al. 2008) <Lawrenceetal2008>` and :math:`\Delta t` is the time step (s).
 
 .. _Figure Hydrologic processes:
@@ -46,74 +47,148 @@ al. 2008) <Lawrenceetal2008>` and :math:`\Delta t` is the time step (s).
 Canopy Water
 ----------------
 
-Precipitation is either intercepted by the canopy, falls directly to the
+Liquid precipitation is either intercepted by the canopy, falls directly to the
 snow/soil surface (throughfall), or drips off the vegetation (canopy
-drip). Interception by vegetation :math:`q_{intr}`  (kg
-m\ :sup:`-2` s\ :sup:`-1`) does not distinguish between
-liquid and solid phases
+drip). Solid precipitation is treated similiar, with the addition of unloading of previously intercepted snow.
+Interception by vegetation is divided between liquid and solid phases
+:math:`q_{intr,\,liq}` and :math:`q_{intr,\,ice}` (kg m\ :sup:`-2` s\ :sup:`-1`)
 
 .. math::
    :label: 7.2) 
 
-   q_{intr} =\alpha \left(q_{rain} +q_{sno} \right)\left\{1-\exp \left[-0.5\left(L+S\right)\right]\right\}
-
-where :math:`L` and :math:`S` are the exposed leaf and stem area index,
-respectively (section 2.1.4), and :math:`\alpha =0.25` scales
-interception from point to grid cell (:ref:`Lawrence et al. 2007 <Lawrenceetal2007>`). Throughfall
-(kg m\ :sup:`-2` s\ :sup:`-1`), however, is divided into
-liquid and solid phases reaching the ground (soil or snow surface) as
+   q_{intr,\,liq} =\alpha_{liq} \left(q_{rain} +q_{sno} \right)\left\{1-\exp \left[-0.5\left(L+S\right)\right]\right\}
 
 .. math::
    :label: 7.3) 
 
-   q_{thru,\, liq} =q_{rain} \left[1-\alpha \left\{1-\exp \left[-0.5\left(L+S\right)\right]\right\}\right]
+   q_{intr,\,ice} =\alpha_{sno} \left(q_{rain} +q_{sno} \right)\left\{1-\exp \left[-0.5\left(L+S\right)\right]\right\}
+
+   
+where :math:`L` and :math:`S` are the exposed leaf and stem area index,
+respectively (section 2.1.4), and the :math:`\alpha`\'s scale
+the fractional area of a leaf that collects water (:ref:`Lawrence et al. 2007 <Lawrenceetal2007>`).
+Values of  :math:`\alpha_{liq} = 0.25` and :math:`\alpha_{sno} = 1` reflect the increased capacity one side of a leaf has for snow than liquid water.
+Throughfall (kg m\ :sup:`-2` s\ :sup:`-1`) is also divided into
+liquid and solid phases, reaching the ground (soil or snow surface) as
 
 .. math::
    :label: 7.4) 
 
-   q_{thru,\, ice} =q_{sno} \left[1-\alpha \left\{1-\exp \left[-0.5\left(L+S\right)\right]\right\}\right].
-
-Similarly, the canopy drip is
+   q_{thru,\, liq} =q_{rain} \left[1-\alpha_{liq} \left\{1-\exp \left[-0.5\left(L+S\right)\right]\right\}\right]
 
 .. math::
    :label: 7.5) 
 
-   q_{drip,\, liq} =\frac{W_{can}^{intr} -W_{can,\, \max } }{\Delta t} \frac{q_{rain} }{q_{rain} +q_{sno} } \ge 0
+   q_{thru,\, ice} =q_{sno} \left[1-\alpha_{sno} \left\{1-\exp \left[-0.5\left(L+S\right)\right]\right\}\right].
+
+Similarly, the liquid and solid canopy drip fluxes are
 
 .. math::
    :label: 7.6) 
 
-   q_{drip,\, ice} =\frac{W_{can}^{intr} -W_{can,\, \max } }{\Delta t} \frac{q_{sno} }{q_{rain} +q_{sno} } \ge 0
-
-where
+   q_{drip,\, liq} =\frac{W_{can,\,liq}^{intr} -W_{can,\,liq}^{max } }{\Delta t} \ge 0
 
 .. math::
    :label: 7.7) 
 
-   W_{can}^{intr} =W_{can}^{n} +q_{intr} \Delta t\ge 0
+   q_{drip,\, ice} =\frac{W_{can,\,sno}^{intr} -W_{can,\,sno}^{max } }{\Delta t} \ge 0
 
-is the canopy water after accounting for interception,
-:math:`W_{can}^{n}`  is the canopy water from the previous time step,
-and :math:`W_{can,\, \max }`  (kg m\ :sup:`-2`) is the maximum
-amount of water the canopy can hold
+where
 
 .. math::
    :label: 7.8) 
 
-   W_{can,\, \max } =p\left(L+S\right).
+   W_{can,liq}^{intr} =W_{can,liq}^{n} +q_{intr} \Delta t\ge 0
 
-The maximum storage of solid water is assumed to be the same as that of
-liquid water, :math:`p=0.1` kg m\ :sup:`-2` (:ref:`Dickinson et al.
-1993 <Dickinsonetal1993>`). The canopy water is updated as
+and
 
 .. math::
    :label: 7.9) 
 
-   W_{can}^{n+1} =W_{can}^{n} +q_{intr} \Delta t-\left(q_{drip,\, liq} +q_{drip,\, ice} \right)\Delta t-E_{v}^{w} \Delta t\ge 0.
+   W_{can,sno}^{intr} =W_{can,sno}^{n} +q_{intr} \Delta t\ge 0
 
-where :math:`E_{v}^{w}`  is the flux of water vapor from stem and leaf
-surfaces (Chapter :numref:`rst_Momentum, Sensible Heat, and Latent Heat Fluxes`). The total rate of liquid and solid precipitation
-reaching the ground is then
+	   
+are the the canopy liquid water and snow water equivalent after accounting for interception,
+:math:`W_{can,\,liq}^{n}` and :math:`W_{can,\,sno}^{n}` are the canopy liquid and snow water
+from the previous time step, and :math:`W_{can,\,liq}^{max }` and :math:`W_{can,\,snow}^{max }`
+(kg m\ :sup:`-2` or mm of H\ :sub:`2`\ O) are the maximum amounts of liquid water and snow the canopy can hold.
+They are defined by 
+
+.. math::
+   :label: 7.10) 
+
+   W_{can,\,liq}^{max } =p_{liq}\left(L+S\right)
+
+.. math::
+   :label: 7.11) 
+
+   W_{can,\,sno}^{max } =p_{ice}\left(L+S\right).
+
+The maximum storage of liquid water is :math:`p_{liq}=0.1` kg m\ :sup:`-2` (:ref:`Dickinson et al.
+1993 <Dickinsonetal1993>`), and that of snow is :math:`p_{sno}=6`, consistent with reported
+field measurements (:ref:`Pomeroy et al. 1998 <Pomeroyetal1998>`).
+
+Canopy snow unloading from wind speed :math:`u` and above-freezing temperatures are modeled from linear
+fluxes and e-folding times similar to :ref:`Roesch et al. (2001) <Roeschetal2001>`
+
+.. math::
+   :label: 7.12)
+	   
+   q_{unl,\, wind} =\frac{u W_{can,sno}}{1.56\times 10^5 \text{ m}}
+
+.. math::
+   :label: 7.13)
+
+   q_{unl,\, temp} =\frac{W_{can,sno}(T-270 \textrm{ K})}{1.87\times 10^5 \text{ K s}} > 0
+
+.. math::
+   :label: 7.14)
+
+   q_{unl,\, tot} =\min \left( q_{unl,\, wind} +q_{unl,\, temp} ,W_{can,\, sno} \right)
+
+
+The canopy liquid water and snow water equivalent are updated as
+
+.. math::
+   :label: 7.15) 
+
+    W_{can,\, liq}^{n+1} =W_{can,liq}^{n} + q_{intr,\, liq} - q_{drip,\, liq} \Delta t - E_{v}^{liq} \Delta t \ge 0
+
+and
+
+.. math::
+   :label: 7.16) 
+
+   W_{can,\, sno}^{n+1} =W_{can,sno}^{n} + q_{intr,\, ice} - \left(q_{drip,\, ice}+q_{unl,\, tot} \right)\Delta t
+                         - E_{v}^{ice} \Delta t \ge 0
+
+..   W_{can}^{n+1} =W_{can}^{n} +q_{intr} \Delta t-\left(q_{drip,\, liq} +q_{drip,\, ice} \right)\Delta t-E_{v}^{w} \Delta t\ge 0.
+
+where :math:`E_{v}^{liq}` and :math:`E_{v}^{ice}` are partitioned from the stem and leaf
+surface evaporation :math:`E_{v}^{w}` (Chapter :numref:`rst_Momentum, Sensible Heat, and Latent Heat Fluxes`) based on the vegetation temperature :math:`T_{v}` (K) (Chapter :numref:`rst_Momentum, Sensible Heat, and Latent Heat Fluxes`) and its relation to the freezing temperature of water :math:`T_{f}` (K) (:numref:`Table Physical Constants`)
+
+.. math::
+   :label: 7.17) 
+
+   E_{v}^{liq} &= \begin{cases}
+	            E_{v}^{w} &  T_v > T_{f} \\
+	            0         &  T_v \le T_f
+                  \end{cases}
+
+.. math::
+   :label: 7.18) 
+
+   E_{v}^{ice} &= \begin{cases}
+	            0         & T_v > T_f \\
+	            E_{v}^{w} & T_v \le T_f
+                  \end{cases} .
+
+..    \begin{array}{lr} 
+..    E_{v}^{liq} = E_{v}^{w} \qquad T > 273 \text{K}  \\
+..    E_{v}^{ice} = E_{v}^{w} \qquad T \le 273 \text{K}
+..    \end{array}
+
+The total rate of liquid and solid precipitation reaching the ground is then
 
 .. math::
    :label: ZEqnNum946822 
@@ -123,7 +198,7 @@ reaching the ground is then
 .. math::
    :label: ZEqnNum339590 
 
-   q_{grnd,ice} =q_{thru,\, ice} +q_{drip,\, ice} .
+   q_{grnd,ice} =q_{thru,\, ice} +q_{drip,\, ice} +q_{unl,\, tot} .
 
 Solid precipitation reaching the soil or snow surface,
 :math:`q_{grnd,\, ice} \Delta t`, is added immediately to the snow pack
@@ -134,28 +209,41 @@ and snow/soil temperatures (Chapter :numref:`rst_Soil and Snow Temperatures`)
 have been determined.
 
 The wetted fraction of the canopy (stems plus leaves), which is required
-for the surface albedo (section :numref:`Canopy Radiative Transfer`) and surface flux (Chapter :numref:`rst_Momentum, Sensible Heat, and Latent Heat Fluxes`)
-calculations is (:ref:`Dickinson et al.1993 <Dickinsonetal1993>`)
+for surface flux (Chapter :numref:`rst_Momentum, Sensible Heat, and Latent Heat Fluxes`)
+calculations, is (:ref:`Dickinson et al.1993 <Dickinsonetal1993>`)
 
 .. math::
-   :label: 7.12) 
+   :label: 7.21) 
 
    f_{wet} =
    \left\{\begin{array}{lr} 
-   \left[\frac{W_{can} }{p\left(L+S\right)} \right]^{{2\mathord{\left/ {\vphantom {2 3}} \right. \kern-\nulldelimiterspace} 3} } \le 1 & \qquad L+S > 0 \\
+   \left[\frac{W_{can} }{p_{liq}\left(L+S\right)} \right]^{{2\mathord{\left/ {\vphantom {2 3}} \right. \kern-\nulldelimiterspace} 3} } \le 1 & \qquad L+S > 0 \\
    0 &\qquad L+S = 0
    \end{array}\right\}
 
 while the fraction of the canopy that is dry and transpiring is
 
 .. math::
-   :label: 7.13) 
+   :label: 7.22) 
 
    f_{dry} =
    \left\{\begin{array}{lr} 
    \frac{\left(1-f_{wet} \right)L}{L+S} & \qquad L+S > 0 \\ 
    0 &\qquad L+S = 0 
    \end{array}\right\}.
+
+Similarly, the snow-covered fraction of the canopy is used for surface alebdo when intercepted snow is present (Chapter :numref:`rst_Surface Albedos`)
+   
+
+.. math::
+   :label: 7.23) 
+
+   f_{can,\, sno} = 
+   \left\{\begin{array}{lr} 
+   \left[\frac{W_{can,\, sno} }{p_{sno}\left(L+S\right)} \right]^{{3\mathord{\left/ {\vphantom {3 20}} \right. \kern-\nulldelimiterspace} 20} } \le 1 & \qquad L+S > 0 \\
+   0 &\qquad L+S = 0
+   \end{array}\right\}.
+
 
 .. _Surface Runoff, Surface Water Storage, and Infiltration:
 
@@ -392,7 +480,7 @@ mass is stated as
    \frac{\partial \theta }{\partial t} =-\frac{\partial q}{\partial z} -Q
 
 where :math:`\theta`  is the volumetric soil water content
-(mm\ :sup:`3` of water mm\ :sup:`-3` of soil), :math:`t` is
+(mm\ :sup:`3` of water / mm\ :sup:`-3` of soil), :math:`t` is
 time (s), :math:`z` is height above some datum in the soil column (mm)
 (positive upwards), :math:`q` is soil water flux (kg m\ :sup:`-2`
 s\ :sup:`-1` or mm s\ :sup:`-1`) (positive upwards), and
