@@ -99,16 +99,18 @@
 <span id="rst-glaciers"></span><h1>13. Glaciers<a class="headerlink" href="#glaciers" title="Permalink to this headline">¶</a></h1>
 <p>This chapter describes features of CLM that are specific to coupling to
 an ice sheet model (in the CESM context, this is the Glimmer-CISM model;
-Lipscomb and Sacks (2012) provide documentation and user’s guide for
-Glimmer-CISM). General information about glacier land units can be found
-elsewhere in this document (see Chapter 2 for an overview).</p>
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lipscombsacks2012"><span class="std std-ref">Lipscomb and Sacks (2012)</span></a> provide documentation
+and user’s guide for Glimmer-CISM). General information about glacier
+land units can be found elsewhere in this document (see Chapter
+<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#rst-surface-characterization-vertical-discretization-and-model-input-requirements"><span class="std std-numref">2</span></a> for an overview).</p>
 <div class="section" id="overview">
-<h2>13.1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>13.1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>CLM is responsible for computing three quantities that are passed to the
 ice sheet model:</p>
 <ol class="arabic simple">
 <li>Surface mass balance (SMB) –&nbsp;the net annual accumulation/ablation of
-mass at the upper surface (section 10.3)</li>
+mass at the upper surface (section
+<a class="reference internal" href="#computation-of-the-surface-mass-balance"><span class="std std-numref">13.3</span></a>)</li>
 <li>Ground surface temperature, which serves as an upper boundary
 condition for Glimmer-CISM’s temperature calculation</li>
 <li>Surface topography, which currently is fixed in time, and is provided
@@ -134,7 +136,8 @@ Glimmer we would have 200 x 400 = 80,000 columns.</li>
 CLM instead of implementing a separate scheme for Glimmer-CISM. Any
 improvements to the CLM are applied to ice sheets automatically.</li>
 <li>The atmosphere model can respond during runtime to ice-sheet surface
-changes. As shown by Pritchard et al. (2008), runtime albedo feedback
+changes. As shown by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#pritchardetal2008"><span class="std std-ref">Pritchard et al. (2008)</span></a>,
+runtime albedo feedback
 from the ice sheet is critical for simulating ice-sheet retreat on
 paleoclimate time scales. Without this feedback the atmosphere warms
 much less, and the retreat is delayed.</li>
@@ -157,9 +160,10 @@ larger elevation changes, two-way coupling is highly desirable. A
 two-way coupling scheme is under development.</p>
 </div>
 <div class="section" id="multiple-elevation-class-scheme">
-<h2>13.2. Multiple elevation class scheme<a class="headerlink" href="#multiple-elevation-class-scheme" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>13.2. Multiple elevation class scheme<a class="headerlink" href="#multiple-elevation-class-scheme" title="Permalink to this headline">¶</a></h2>
 <p>In the typical operation of CLM, the glacier land unit contains a single
-column (section 2.1.1). However, when running CESM with an active ice
+column (section <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#surface-heterogeneity-and-data-structure"><span class="std std-numref">2.1.1</span></a>).
+However, when running CESM with an active ice
 sheet model, the glacier land unit is replaced by a glacier_mec land
 unit, where “mec” denotes “multiple elevation classes”. In most ways,
 glacier_mec land units behave the same as standard glacier land units.
@@ -201,7 +205,7 @@ the land and the atmosphere, but are included for potential forcing of
 Glimmer-CISM.</p>
 </div>
 <div class="section" id="computation-of-the-surface-mass-balance">
-<h2>13.3. Computation of the surface mass balance<a class="headerlink" href="#computation-of-the-surface-mass-balance" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>13.3. Computation of the surface mass balance<a class="headerlink" href="#computation-of-the-surface-mass-balance" title="Permalink to this headline">¶</a></h2>
 <p>The SMB of a glacier or ice sheet is the net annual
 accumulation/ablation of mass at the upper surface. Ablation is defined
 as the mass of water that runs off to the ocean. Not all the surface
