@@ -98,23 +98,26 @@
 <p>In offline mode (uncoupled to an atmospheric model), the atmospheric
 forcing required by CLM (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-atmospheric-input-to-land-model"><span class="std std-numref">Table 2.4</span></a>)
 is supplied by observed datasets.  The standard forcing provided with the
-model is a 110-year (1901-2010) dataset (CRUNCEP; <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#viovy2011"><span class="std std-ref">Viovy 2011</span></a>)
-that is a combination of two existing datasets; the CRU TS3.2 0.5<img class="math" src="../../_images/math/e075c7ddb29ac7f8d048a8e20bfe21265659c904.png" alt="{}^\circ"/> X 0.5<img class="math" src="../../_images/math/e075c7ddb29ac7f8d048a8e20bfe21265659c904.png" alt="{}^\circ"/> monthly data covering the period
+model is a 110-year (1901-2010) dataset provided by the Global Soil Wetness
+Project (GSWP3; NEED A REFERENCE). The GSWP3 dataset has a spatial resolution of
+0.5<img class="math" src="../../_images/math/ed17f4ed67d1f089d174df0bb9f6a44b4d20eac5.png" alt="{}^o"/> X 0.5<img class="math" src="../../_images/math/ed17f4ed67d1f089d174df0bb9f6a44b4d20eac5.png" alt="{}^o"/> and a temporal resolution of three
+hours.</p>
+<p>An alternative forcing dataset is also available, CRUNCEP, a 110-year (1901-2010) dataset
+(CRUNCEP; <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#viovy2011"><span class="std std-ref">Viovy 2011</span></a>) that is a combination of two existing datasets;
+the CRU TS3.2 0.5<img class="math" src="../../_images/math/ed17f4ed67d1f089d174df0bb9f6a44b4d20eac5.png" alt="{}^o"/> X 0.5<img class="math" src="../../_images/math/ed17f4ed67d1f089d174df0bb9f6a44b4d20eac5.png" alt="{}^o"/> monthly data covering the period
 1901 to 2002 (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#mitchelljones2005"><span class="std std-ref">Mitchell and Jones 2005</span></a>)
-and the NCEP reanalysis 2.5<img class="math" src="../../_images/math/e075c7ddb29ac7f8d048a8e20bfe21265659c904.png" alt="{}^\circ"/> X 2.5<img class="math" src="../../_images/math/e075c7ddb29ac7f8d048a8e20bfe21265659c904.png" alt="{}^\circ"/>
+and the NCEP reanalysis 2.5<img class="math" src="../../_images/math/ed17f4ed67d1f089d174df0bb9f6a44b4d20eac5.png" alt="{}^o"/> X 2.5<img class="math" src="../../_images/math/ed17f4ed67d1f089d174df0bb9f6a44b4d20eac5.png" alt="{}^o"/>
 6-hourly data covering the period 1948 to 2010. The CRUNCEP dataset has
 been used to force CLM for studies of vegetation growth,
 evapotranspiration, and gross primary production (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#maoetal2012"><span class="std std-ref">Mao et al. 2012</span></a>,
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#maoetal2013"><span class="std std-ref">Mao et al. 2013</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#shietal2013"><span class="std std-ref">Shi et al. 2013</span></a>)
 and for the TRENDY (trends in net land-atmosphere carbon exchange over the period
-1980-2010) project (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#piaoetal2012"><span class="std std-ref">Piao et al. 2012</span></a>). Version 4 is used
-here (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#viovy2011"><span class="std std-ref">Viovy 2011</span></a>). Alternative forcing datasets can also be used
-(e.g., the <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#qianetal2006"><span class="std std-ref">Qian et al. (2006)</span></a> dataset used for
-previous versions of CLM is still available).</p>
-<p>Here, the CRUNCEP dataset, which does not include data over oceans,
+1980-2010) project (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#piaoetal2012"><span class="std std-ref">Piao et al. 2012</span></a>). Version 7 is available
+here (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#viovy2011"><span class="std std-ref">Viovy 2011</span></a>).</p>
+<p>Here, the GSWP3 dataset, which does not include data for particular fields over oceans,
 lakes, and Antarctica is modified. This missing data is filled with
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#qianetal2006"><span class="std std-ref">Qian et al. (2006)</span></a> data from 1948 that is interpolated by the data atmosphere
-model to the 0.5<img class="math" src="../../_images/math/e075c7ddb29ac7f8d048a8e20bfe21265659c904.png" alt="{}^\circ"/> CRUNCEP grid. This allows the model
+model to the 0.5<img class="math" src="../../_images/math/ed17f4ed67d1f089d174df0bb9f6a44b4d20eac5.png" alt="{}^o"/> GSWP3 grid. This allows the model
 to be run over Antarctica and ensures data is available along coastlines
 regardless of model resolution.</p>
 <p>The forcing data is ingested into a data atmosphere model in three
@@ -124,33 +127,33 @@ fields [atmospheric pressure <img class="math" src="../../_images/math/3d0543e28
 humidity <img class="math" src="../../_images/math/a54750e213d3b891fa2093cc89a7ca6e16f28111.png" alt="q_{atm}"/>  (kg kg<sup>-1</sup>), atmospheric
 temperature <img class="math" src="../../_images/math/2636863cfff550565bfc84f73dc9991bb0aa3d31.png" alt="T_{atm}"/>  (K), and atmospheric wind <img class="math" src="../../_images/math/f411d24db0ef29f3678059ad351d57d8cedb5a05.png" alt="W_{atm}"/>
 (m s<sup>-1</sup>)]. These are separate streams because they are
-handled differently according to the type of field. In the CRUNCEP
-dataset, the precipitation stream is provided at six hour intervals and
+handled differently according to the type of field. In the GSWP3
+dataset, the precipitation stream is provided at three hour intervals and
 the data atmosphere model prescribes the same precipitation rate for
-each model time step within the six hour period. The four fields that
+each model time step within the three hour period. The four fields that
 are grouped together in another stream (pressure, humidity, temperature,
-and wind) are provided at six hour intervals and the data atmosphere
+and wind) are provided at three hour intervals and the data atmosphere
 model linearly interpolates these fields to the time step of the model.</p>
-<p>The total solar radiation is also provided at six hour intervals. The
+<p>The total solar radiation is also provided at three hour intervals. The
 data is fit to the model time step using a diurnal function that depends
 on the cosine of the solar zenith angle <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/>  to provide a
 smoother diurnal cycle of solar radiation and to ensure that all of the
-solar radiation supplied by the six-hourly forcing data is actually
+solar radiation supplied by the three-hourly forcing data is actually
 used. The solar radiation at model time step <img class="math" src="../../_images/math/cff4263e50ef4f3147a48c070515b8c91b2be0d7.png" alt="t_{M}"/>  is</p>
 <div class="math" id="equation-31.1">
 <p><span class="eqno">(1)<a class="headerlink" href="#equation-31.1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8089e3a157d8c0e19094208af72e8713f7ddeb64.png" alt="\begin{array}{lr}
 S_{atm} \left(t_{M} \right)=\frac{\frac{\Delta t_{FD} }{\Delta t_{M} } S_{atm} \left(t_{FD} \right)\mu \left(t_{M} \right)}{\sum _{i=1}^{\frac{\Delta t_{FD} }{\Delta t_{M} } }\mu \left(t_{M_{i} } \right) } &amp; \qquad {\rm for\; }\mu \left(t_{M} \right)&gt;0.001 \\
 S_{atm} \left(t_{M} \right)=0 &amp; \qquad {\rm for\; }\mu \left(t_{M} \right)\le 0.001
 \end{array}"/></p>
-</div><p>where <img class="math" src="../../_images/math/66d199843a5fafef06ea893e2d90b86a94be03e0.png" alt="\Delta t_{FD}"/>  is the time step of the forcing data (6
-hours <img class="math" src="../../_images/math/214eb8a4d9a622d1d31f06cad9f5264e29242b63.png" alt="\times"/>  3600 seconds hour<sup>-1</sup> = 21600
+</div><p>where <img class="math" src="../../_images/math/66d199843a5fafef06ea893e2d90b86a94be03e0.png" alt="\Delta t_{FD}"/>  is the time step of the forcing data (3
+hours <img class="math" src="../../_images/math/214eb8a4d9a622d1d31f06cad9f5264e29242b63.png" alt="\times"/>  3600 seconds hour<sup>-1</sup> = 10800
 seconds), <img class="math" src="../../_images/math/ec4aa50f8ead7216b6b9fb3359084cffa0a3eda8.png" alt="\Delta t_{M}"/>  is the model time step (seconds),
-<img class="math" src="../../_images/math/e26a2d1ab3777ce2922ecca3357a47b55c107379.png" alt="S_{atm} \left(t_{FD} \right)"/> is the six-hourly solar radiation
+<img class="math" src="../../_images/math/e26a2d1ab3777ce2922ecca3357a47b55c107379.png" alt="S_{atm} \left(t_{FD} \right)"/> is the three-hourly solar radiation
 from the forcing data (W m<sup>-2</sup>), and
 <img class="math" src="../../_images/math/d691acd5b7e4c9545eb7d16d1dc4be532ca8dd2d.png" alt="\mu \left(t_{M} \right)"/> is the cosine of the solar zenith angle
-at model time step <img class="math" src="../../_images/math/cff4263e50ef4f3147a48c070515b8c91b2be0d7.png" alt="t_{M}"/>  (section 3.3). The term in the
-denominator of equation is the sum of the cosine of the solar zenith
-angle for each model time step falling within the six hour period. For
+at model time step <img class="math" src="../../_images/math/cff4263e50ef4f3147a48c070515b8c91b2be0d7.png" alt="t_{M}"/>  (section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#solar-zenith-angle"><span class="std std-numref">3.3</span></a>). The term in the
+denominator of equation (1) is the sum of the cosine of the solar zenith
+angle for each model time step falling within the three hour period. For
 numerical purposes, <img class="math" src="../../_images/math/e4ea637842323c6a427e076ce5d06ab2bbb481ff.png" alt="\mu \left(t_{M_{i} } \right)\ge 0.001"/>.</p>
 <p>The total incident solar radiation <img class="math" src="../../_images/math/d47b35e982b616f532ee42d8da668fb214c6e90a.png" alt="S_{atm}"/>  at the model time
 step <img class="math" src="../../_images/math/cff4263e50ef4f3147a48c070515b8c91b2be0d7.png" alt="t_{M}"/>  is then split into near-infrared and visible
@@ -180,7 +183,7 @@ radiation, is assumed to be</p>
 <img class="math" src="../../_images/math/e2b7f001abed24908c6f3e4503e23d79b2c78897.png" alt="a_{0} =0.17639,\, a_{1} =0.00380,\, a_{2} =-9.0039\times 10^{-6} ,\, a_{3} =8.1351\times 10^{-9}"/>
 and
 <img class="math" src="../../_images/math/391e3efc058e4ae9a1ba936f7025879becc9efcd.png" alt="b_{0} =0.29548,b_{1} =0.00504,b_{2} =-1.4957\times 10^{-5} ,b_{3} =1.4881\times 10^{-8}"/>
-are coefficients from polynomial fits to the placeCAM data.</p>
+are coefficients from polynomial fits to the CAM data.</p>
 <p>The additional atmospheric forcing variables required by <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-atmospheric-input-to-land-model"><span class="std std-numref">Table 2.4</span></a> are
 derived as follows. The atmospheric reference height <img class="math" src="../../_images/math/97a4d641063296092fe9841531b705e9e72eeadb.png" alt="z'_{atm}"/>
 (m) is set to 30 m. The directional wind components are derived as
@@ -195,7 +198,8 @@ temperature <img class="math" src="../../_images/math/2636863cfff550565bfc84f73d
 </div><p>where</p>
 <div class="math" id="equation-31.10">
 <p><span class="eqno">(10)<a class="headerlink" href="#equation-31.10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3d21fa1889a4b154115b4a92e4e127b1c62d44f9.png" alt="e_{atm} =\frac{P_{atm} q_{atm} }{0.622+0.378q_{atm} }"/></p>
-</div><p>and <img class="math" src="../../_images/math/011e5790a6c33043ceadca81d9657dde6c61d769.png" alt="\sigma"/>  is the Stefan-Boltzmann constant (W m<sup>-2</sup> K<img class="math" src="../../_images/math/35beb85612271a8031deafd402f9fb18cfd81fb2.png" alt="{}^{-4}"/>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>). The fraction of
+</div><p>and <img class="math" src="../../_images/math/011e5790a6c33043ceadca81d9657dde6c61d769.png" alt="\sigma"/>  is the Stefan-Boltzmann constant (W m<sup>-2</sup> K<sup>-4</sup>)
+(<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>). The fraction of
 precipitation <img class="math" src="../../_images/math/9dcbbef8e0f76051d388013b90a95bec3069e484.png" alt="P"/> (mm s<sup>-1</sup>) falling as rain and/or
 snow is</p>
 <div class="math" id="equation-31.11">
