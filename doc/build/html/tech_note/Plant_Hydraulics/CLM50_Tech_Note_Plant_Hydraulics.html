@@ -1,0 +1,470 @@
+
+
+<!doctype html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>11. Plant Hydraulics &#8212; clmdoc  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="12. Lake Model" href="../Lake/CLM50_Tech_Note_Lake.html" />
+    <link rel="prev" title="10. Photosynthetic Capacity" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../Lake/CLM50_Tech_Note_Lake.html" title="12. Lake Model"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html" title="10. Photosynthetic Capacity"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">11. Plant Hydraulics</a><ul>
+<li><a class="reference internal" href="#rooting-profiles">11.1. Rooting Profiles</a></li>
+<li><a class="reference internal" href="#plant-hydraulic-stress">11.2. Plant Hydraulic Stress</a><ul>
+<li><a class="reference internal" href="#plant-water-supply">11.2.1. Plant Water Supply</a><ul>
+<li><a class="reference internal" href="#stem-to-leaf">11.2.1.1. Stem-to-leaf</a></li>
+<li><a class="reference internal" href="#root-to-stem">11.2.1.2. Root-to-stem</a></li>
+<li><a class="reference internal" href="#soil-to-root">11.2.1.3. Soil-to-root</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#plant-water-demand">11.2.2. Plant Water Demand</a></li>
+<li><a class="reference internal" href="#vegetation-water-potential">11.2.3. Vegetation Water Potential</a></li>
+<li><a class="reference internal" href="#numerical-implementation">11.2.4. Numerical Implementation</a></li>
+<li><a class="reference internal" href="#flow-diagram-of-leaf-flux-calculations">11.2.5. Flow Diagram of Leaf Flux Calculations:</a></li>
+<li><a class="reference internal" href="#references">11.2.6. References</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html"
+                        title="previous chapter">10. Photosynthetic Capacity</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../Lake/CLM50_Tech_Note_Lake.html"
+                        title="next chapter">12. Lake Model</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/tech_note/Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="plant-hydraulics">
+<span id="rst-plant-hydraulics"></span><h1>11. Plant Hydraulics<a class="headerlink" href="#plant-hydraulics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rooting-profiles">
+<span id="id1"></span><h2>11.1. Rooting Profiles<a class="headerlink" href="#rooting-profiles" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="plant-hydraulic-stress">
+<span id="id2"></span><h2>11.2. Plant Hydraulic Stress<a class="headerlink" href="#plant-hydraulic-stress" title="Permalink to this headline">¶</a></h2>
+<p>The Plant Hydraulic Stress (PHS) routine explicitly models water transport
+through the vegetation according to a simple hydraulic framework following
+Darcy&#8217;s Law for porous media flow equations influenced by
+<a class="reference internal" href="#bonanetal2014"><span class="std std-ref">Bonan et al. (2014)</span></a>,
+<a class="reference internal" href="#chuangetal2006"><span class="std std-ref">Chuang et al. (2006)</span></a>,
+<a class="reference internal" href="#sperryetal1998"><span class="std std-ref">Sperry et al. (1998)</span></a>,
+<a class="reference internal" href="#sperryandlove2015"><span class="std std-ref">Sperry and Love (2015)</span></a>,
+<a class="reference internal" href="#williamsetal1996"><span class="std std-ref">Williams et al (1996)</span></a>.</p>
+<p>PHS solves for the vegetation water potential that matches water supply with
+transpiration demand. Water supply is modeled according to the circuit analog
+in <a class="reference internal" href="#figure-plant-hydraulic-circuit"><span class="std std-numref">Figure 11.1</span></a>. Transpiration demand is modeled
+relative to maximum transpiration by a transpiration loss function dependent
+on leaf water potential.</p>
+<div class="figure" id="id10">
+<span id="figure-plant-hydraulic-circuit"></span><img alt="../../_images/circuit.jpg" src="../../_images/circuit.jpg" />
+<p class="caption"><span class="caption-number">Figure 11.1 </span><span class="caption-text">Circuit diagram of plant hydraulics scheme</span></p>
+</div>
+<div class="section" id="plant-water-supply">
+<span id="id3"></span><h3>11.2.1. Plant Water Supply<a class="headerlink" href="#plant-water-supply" title="Permalink to this headline">¶</a></h3>
+<p>The supply equations are used to solve for vegetation water potential forced
+by transpiration demand and the set of layer-by-layer soil water potentials.
+The water supply is discretized into segments: soil-to-root, root-to-stem, and
+stem-to-leaf. There are typically several (1-49) soil-to-root flows operating
+in parallel, one per soil layer. There are two stem-to-leaf flows operating in
+parallel, corresponding to the sunlit and shaded &#8220;leaves&#8221;.</p>
+<p>In general the water fluxes (e.g. soil-to-root, root-to-stem, etc.) are
+modeled according to Darcy&#8217;s Law for porous media flow as:</p>
+<div class="math" id="equation-11.101">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-11.101" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4d7ea5494b3d7e4ff9b4f3ae180e5c9556d9f528.png" alt="q = kA\left( \psi_1 - \psi_2 \right)"/></p>
+</div><p><img class="math" src="../../_images/math/620a3ce6403ec82f1347af9985bc03f7a9382f4a.png" alt="q"/> is the flux of water (mmH<sub>2</sub>O) spanning the segment
+between <img class="math" src="../../_images/math/67fdd7a5f918cbf553bf02354a7b82e8bf56eb88.png" alt="\psi_1"/> and <img class="math" src="../../_images/math/7620f89bf8b957f4cea5b5d215d12d10ef925d47.png" alt="\psi_2"/></p>
+<p><img class="math" src="../../_images/math/0b7c1e16a3a8a849bb8ffdcdbf86f65fd1f30438.png" alt="k"/> is the hydraulic conductance (s<sup>-1</sup>)</p>
+<p><img class="math" src="../../_images/math/0043fe6507e9b1d112e07a2801e24927e267dd50.png" alt="A"/> is the area basis (m<sup>2</sup>/m<sup>2</sup>) relating the
+conducting area basis to ground area</p>
+<p><img class="math" src="../../_images/math/61d96c05bcaa3fe8b8446223ebd59f68182223eb.png" alt="\psi_1 - \psi_2"/> is the gradient in water potential (mmH<sub>2</sub>O)
+across the segment</p>
+<p>The segments in <a class="reference internal" href="#figure-plant-hydraulic-circuit"><span class="std std-numref">Figure 11.1</span></a> have variable resistance,
+as the water potentials become lower, hydraulic conductance decreases.  This is
+captured by multiplying the maximum segment conductance by a sigmoidal function
+capturing the percent loss of conductivity. The function uses two parameters to
+fit experimental vulnerability curves: the water potential at 50% loss of
+conductivity (<img class="math" src="../../_images/math/fc60ebfaeff708742627041614c2ce0b0715d092.png" alt="p50"/>) and a shape fitting parameter (<img class="math" src="../../_images/math/f330e54fd76a21140c67b3893aa4b7cad3b99677.png" alt="c_k"/>).</p>
+<div class="math" id="equation-11.102">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-11.102" title="Permalink to this equation">¶</a></span><img src="../../_images/math/68a74d64933f0c9bdd058d3689940507e1964de8.png" alt="k=k_{max}\cdot 2^{-\left(\dfrac{\psi_1}{p50}\right)^{c_k}}"/></p>
+</div><p><img class="math" src="../../_images/math/03431f57be389b9bd8fc2c3e43ec8854c2d68337.png" alt="k_{max}"/> is the maximum segment conductance (s-1)</p>
+<p><img class="math" src="../../_images/math/fc60ebfaeff708742627041614c2ce0b0715d092.png" alt="p50"/> is the water potential at 50% loss of conductivity (mmH2O)</p>
+<p><img class="math" src="../../_images/math/67fdd7a5f918cbf553bf02354a7b82e8bf56eb88.png" alt="\psi_1"/> is the water potential of the lower segment terminus (mmH2O)</p>
+<div class="section" id="stem-to-leaf">
+<span id="id4"></span><h4>11.2.1.1. Stem-to-leaf<a class="headerlink" href="#stem-to-leaf" title="Permalink to this headline">¶</a></h4>
+<p>The area basis and conductance parameterization varies by segment. There are two stem-to-leaf fluxes in parallel, from stem to sunlit leaf and from stem to shaded leaf (<img class="math" src="../../_images/math/f6e9d6966966d5941a07eafc7dfcf53beb0eaced.png" alt="q_{1a}"/> and <img class="math" src="../../_images/math/f6e9d6966966d5941a07eafc7dfcf53beb0eaced.png" alt="q_{1a}"/>).
+The water flux from stem-to-leaf is the product of the segment conductance, the conducting area basis, and the water potential gradient from stem to leaf. Stem-to-leaf conductance is defined as the maximum conductance multiplied by the percent of maximum conductance, as calculated by the sigmoidal vulnerability curve.
+The maximum conductance is a PFT parameter representing the maximum conductance of water from stem to leaf per unit leaf area.
+This parameter can be defined separately for sunlit and shaded segments and should already include the appropriate length scaling (in other words this is a conductance, not conductivity). The water potential gradient is the difference between leaf water potential and stem water potential. There is no gravity term, assuming a negligible difference in height across the segment. The area basis is the leaf area index (either sunlit or shaded).</p>
+<div class="math" id="equation-11.103">
+<p><span class="eqno">(3)<a class="headerlink" href="#equation-11.103" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8c107a016c8b221fb4389154739f5a2d02450203.png" alt="q_{1a}=k_{1a}\cdot\mbox{LAI}_{sun}\cdot\left(\psi_{stem}-\psi_{sunleaf} \right)"/></p>
+</div><div class="math" id="equation-11.104">
+<p><span class="eqno">(4)<a class="headerlink" href="#equation-11.104" title="Permalink to this equation">¶</a></span><img src="../../_images/math/136f9ff4f07e350581ad2b4bdd73a1b855311dc0.png" alt="q_{1b}=k_{1b}\cdot\mbox{LAI}_{shade}\cdot\left(\psi_{stem}-\psi_{shadeleaf} \right)"/></p>
+</div><div class="math" id="equation-11.105">
+<p><span class="eqno">(5)<a class="headerlink" href="#equation-11.105" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9483c8f194ec6248d8ae899800a40d803d801ed9.png" alt="k_{1a}=k_{1a,max}\cdot 2^{-\left(\dfrac{\psi_{stem}}{p50_1}\right)^{c_k}}"/></p>
+</div><div class="math" id="equation-11.106">
+<p><span class="eqno">(6)<a class="headerlink" href="#equation-11.106" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ce439c9b716836b999541789bce9952b7891081c.png" alt="k_{1b}=k_{1b,max}\cdot 2^{-\left(\dfrac{\psi_{stem}}{p50_1}\right)^{c_k}}"/></p>
+</div><p>Variables:</p>
+<p><img class="math" src="../../_images/math/f6e9d6966966d5941a07eafc7dfcf53beb0eaced.png" alt="q_{1a}"/> = flux of water (mmH2O/s) from stem to sunlit leaf</p>
+<p><img class="math" src="../../_images/math/37357529c3bf4f61c2ce2ec4bdf12ea35368e5d6.png" alt="q_{1b}"/> = flux of water (mmH2O/s) from stem to shaded leaf</p>
+<p><img class="math" src="../../_images/math/7663dfbf6c21d80f14f42d4d0dee22e255776378.png" alt="LAI_{sun}"/> = sunlit leaf area index (m2/m2)</p>
+<p><img class="math" src="../../_images/math/ce6d97f8ce710cf8689967ecfd7365c74adbe04d.png" alt="LAI_{shade}"/> = shaded leaf area index (m2/m2)</p>
+<p><img class="math" src="../../_images/math/a78e778c2a024fc6826c82591cdfdaf5f5778514.png" alt="\psi_{stem}"/> = stem water potential (mmH2O)</p>
+<p><img class="math" src="../../_images/math/cc51bc3fb55db4ec6caed7c31246a5790de64092.png" alt="\psi_{sunleaf}"/> = sunlit leaf water potential (mmH2O)</p>
+<p><img class="math" src="../../_images/math/00bc45748cf83ec8c1c23feb35b32f67f64141d9.png" alt="\psi_{shadeleaf}"/> = shaded leaf water potential (mmH2O)</p>
+<p>Parameters:</p>
+<p><img class="math" src="../../_images/math/0284c51c6e60c8c6a50ccefd7fba51485fed7d66.png" alt="k_{1a,max}"/> = maximum leaf conductance (s-1)</p>
+<p><img class="math" src="../../_images/math/5d862f7002008994cc45289ab7eb7254cf64feeb.png" alt="k_{1b,max}"/> = maximum leaf conductance (s-1)</p>
+<p><img class="math" src="../../_images/math/471def241f6540d82af5e0372de87f0585f9b136.png" alt="p50_{1}"/> = water potential at 50% loss of conductance (mmH2O)</p>
+<p><img class="math" src="../../_images/math/bd009b9d54b3c150e45e1c33821e4a98edef30a1.png" alt="c_{k}"/> = vulnerability curve shape-fitting parameter (-)</p>
+</div>
+<div class="section" id="root-to-stem">
+<span id="id5"></span><h4>11.2.1.2. Root-to-stem<a class="headerlink" href="#root-to-stem" title="Permalink to this headline">¶</a></h4>
+<p>There is one root-to-stem flux. This represents a flux from the root collar to the upper branch reaches. The water flux from root-to-stem is the product of the segment conductance, the conducting area basis, and the water potential gradient from root to stem. Root-to-stem conductance is defined as the maximum conductance multiplied by the percent of maximum conductance, as calculated by the sigmoidal vulnerability curve (two parameters). The maximum conductance is defined as the maximum root-to-stem conductivity per unit stem area (PFT parameter) divided by the length of the conducting path, which is taken to be the vegetation height. The area basis is the stem area index. The gradient in water potential is the difference between the root water potential and the stem water potential less the difference in gravitational potential.</p>
+<div class="math" id="equation-11.107">
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-11.107" title="Permalink to this equation">¶</a></span><img src="../../_images/math/192785ad51d66b306c0a16a145705b9f3c1e7c6d.png" alt="q_2=k_2 \cdot SAI \cdot \left( \psi_{root} - \psi_{stem} - \Delta \psi_z  \right)"/></p>
+</div><div class="math" id="equation-11.108">
+<p><span class="eqno">(8)<a class="headerlink" href="#equation-11.108" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2880385e55aad01e5d32d120aee26eb060d17406.png" alt="k_2=\dfrac{k_{2,max}}{z_2} \cdot 2^{-\left(\dfrac{\psi_{root}}{p50_2}\right)^{c_k}}"/></p>
+</div><p>Variables:</p>
+<p><img class="math" src="../../_images/math/a449e70fd5616b9900f85af5e01692e6cf12e819.png" alt="q_2"/> = flux of water (mmH2O/s) from root to stem</p>
+<p><img class="math" src="../../_images/math/b3de2b34169fa8aa262b23769e46c66bbfe12c8d.png" alt="SAI"/> = stem area index (m2/m2)</p>
+<p><img class="math" src="../../_images/math/3d69ea5c36773f425ce3ec7853418a3f214c9dcb.png" alt="\Delta\psi_z"/> = gravitational potential (mmH2O)</p>
+<p><img class="math" src="../../_images/math/411ed26b406367cf4f470263e6e718dc7c3dbbce.png" alt="\psi_{root}"/> = root water potential (mmH2O)</p>
+<p><img class="math" src="../../_images/math/a78e778c2a024fc6826c82591cdfdaf5f5778514.png" alt="\psi_{stem}"/> = stem water potential (mmH2O)</p>
+<p>Parameters:</p>
+<p><img class="math" src="../../_images/math/843f209642ecb9647a090bb07605b65b51f10cb5.png" alt="k_{2,max}"/> = maximum stem conductivity (m/s)</p>
+<p><img class="math" src="../../_images/math/6dbda5fc1842882ef4d5d97b5023ab71ece6d86e.png" alt="p50_2"/> = water potential at 50% loss of conductivity (mmH2O)</p>
+<p><img class="math" src="../../_images/math/6588308cf1730d73dec9fdb3be19c496298ed74e.png" alt="z_2"/> = vegetation height (m)</p>
+</div>
+<div class="section" id="soil-to-root">
+<span id="id6"></span><h4>11.2.1.3. Soil-to-root<a class="headerlink" href="#soil-to-root" title="Permalink to this headline">¶</a></h4>
+<p>There are several soil-to-root fluxes operating in parallel (one for each root-containing soil layer). Each represents a flux from the given soil layer to the root collar. The water flux from soil-to-root is the product of the segment conductance, the conducting area basis, and the water potential gradient from soil to root. The area basis is a proxy for root area index, defined as the summed leaf and stem area index multiplied by the root-to-shoot ratio (PFT parameter) multiplied by the layer root fraction. The root fraction comes from an empirical root profile (see section zqz).</p>
+<p>The gradient in water potential is the difference between the soil water potential and the root water potential less the difference in gravitational potential. There is only one root water potential to which all soil layers are connected in parallel. A soil-to-root flux can be either positive (vegetation water uptake) or negative (water deposition), depending on the relative values of the root and soil water potentials. This allows for the occurrence of hydraulic redistribution where water moves through vegetation tissue from one soil layer to another.</p>
+<p>Soil-to-root conductance is the result of two resistances in series, first across the soil-root interface and then through the root tissue. The root tissue conductance is defined as the maximum conductance multiplied by the percent of maximum conductance, as calculated by the sigmoidal vulnerability curve. The maximum conductance is defined as the maximum root-tissue conductivity (PFT parameter) divided by the length of the conducting path, which is taken to be the soil layer depth plus lateral root length.</p>
+<p>The soil-root interface conductance is defined as the soil conductivity divided by the conducting length from soil to root. The soil conductivity varies by soil layer and is calculated based on soil potential and soil properties, via the Brooks-Corey theory. The conducting length is computed by calculating the characteristic root spacing following Bonan-2014. The root spacing depends on total root biomass and PFT parameters defining root structure (see section zqz).</p>
+<div class="math" id="equation-11.109">
+<p><span class="eqno">(9)<a class="headerlink" href="#equation-11.109" title="Permalink to this equation">¶</a></span><img src="../../_images/math/303bb104cefbf4ed32affcf96204e98108c63a36.png" alt="q_{3,i}=k_{3,i} \cdot RAI \cdot \left(\psi_{soil,i}-\psi_{root} + \Delta\psi_{z,i} \right)"/></p>
+</div><div class="math" id="equation-11.110">
+<p><span class="eqno">(10)<a class="headerlink" href="#equation-11.110" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a9a9892561d2cc83a4d437e55d23f228857421b0.png" alt="RAI=\left(LAI+SAI \right) \cdot r_i \cdot f_{root-leaf}"/></p>
+</div><div class="math" id="equation-11.111">
+<p><span class="eqno">(11)<a class="headerlink" href="#equation-11.111" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c6286dcf10abb6bbf70e81f524ad9a80a998346e.png" alt="k_{3,i}=\dfrac{k_{r,i} \cdot k_{s,i}}{k_{r,i}+k_{s,i}}"/></p>
+</div><div class="math" id="equation-11.112">
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-11.112" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1a4ce4ec8094b95102e6b0e7e28045be6aa77a68.png" alt="k_{r,i}=\dfrac{k_{3,max}}{z_{3,i}} \cdot 2^{-\left(\dfrac{\psi_{soil,i}}{p50_3}\right)^{c_k}}"/></p>
+</div><div class="math" id="equation-11.113">
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-11.113" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b7c952d80c8bebefd73bee02b21c3ab49201a944.png" alt="k_{s,i} = \dfrac{k_{soil,i}}{dx_{root,i}}"/></p>
+</div><div class="math" id="equation-11.114">
+<p><span class="eqno">(14)<a class="headerlink" href="#equation-11.114" title="Permalink to this equation">¶</a></span><img src="../../_images/math/470c3e8ef9b6142be2981e81852812441ca3452a.png" alt="dx_{root,i} = \left(\pi*\mbox{root-length-density}_i\right)^{-0.5}"/></p>
+</div><div class="math" id="equation-11.115">
+<p><span class="eqno">(15)<a class="headerlink" href="#equation-11.115" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bad27afa03fa1e3c62dbe87bb064b71eb07c8cad.png" alt="\mbox{root-length-density} = \dfrac{\mbox{total root length}}{\mbox{soil volume}}"/></p>
+</div><p>Variables:</p>
+<p><img class="math" src="../../_images/math/2f00c5f537a2dbe3499d6a986a7105fb8b5620ed.png" alt="q_{3,i}"/> = flux of water (mmH2O/s) from soil layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> to root</p>
+<p><img class="math" src="../../_images/math/7528aa08b861fa217b9f90d4174daf9565bfa82b.png" alt="\Delta\psi_{z,i}"/> = change in gravitational potential from soil layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> to surface (mmH2O)</p>
+<p><img class="math" src="../../_images/math/29d76303dda219037b7b37f85bf40a44278a9bf2.png" alt="LAI"/> = total leaf area index (m2/m2)</p>
+<p><img class="math" src="../../_images/math/b3de2b34169fa8aa262b23769e46c66bbfe12c8d.png" alt="SAI"/> = stem area index (m2/m2)</p>
+<p><img class="math" src="../../_images/math/7c60979e7615d0fdd069b206fe6b2220777dfcad.png" alt="\psi_{soil,i}"/> = water potential in soil layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> (mmH2O)</p>
+<p><img class="math" src="../../_images/math/411ed26b406367cf4f470263e6e718dc7c3dbbce.png" alt="\psi_{root}"/> = root water potential (mmH2O)</p>
+<p><img class="math" src="../../_images/math/6832a6d61d1d8c896849ead2cf5e8a4709d33488.png" alt="z_{3,i}"/> = length of root tissue conducting path = soil layer depth + root lateral length (m)</p>
+<p><img class="math" src="../../_images/math/889fc7f9c8e35e08413407d53c89909849345138.png" alt="r_i"/> = root fraction in soil layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> (-)</p>
+<p><img class="math" src="../../_images/math/7b0bb428531b0e8fbac0db0ce8f0870e84397cfa.png" alt="k_{soil,i}"/> = Brooks-Corey soil conductivity in soil layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> (m/s)</p>
+<p>Parameters:</p>
+<p><img class="math" src="../../_images/math/1c734db30fc0180b436682406242d124b9c927bb.png" alt="f_{root-leaf}"/> = root-to-shoot ratio (-)</p>
+<p><img class="math" src="../../_images/math/98449aeaf0fa26a1a8c5b3292d1a5c8c136a1d06.png" alt="p50_3"/> = water potential at 50% loss of root tissue conductance (mmH2O)</p>
+<p><img class="math" src="../../_images/math/6f844fb7cf6dc623d109aa353b4f0cd1bdf4de9d.png" alt="ck"/> = shape-fitting parameter for vulnerability curve (-)</p>
+</div>
+</div>
+<div class="section" id="plant-water-demand">
+<span id="id7"></span><h3>11.2.2. Plant Water Demand<a class="headerlink" href="#plant-water-demand" title="Permalink to this headline">¶</a></h3>
+<p>Plant water demand depends on stomatal conductance, which is described in section <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#stomatal-resistance"><span class="std std-numref">9.1</span></a>.
+Here we describe the influence of PHS and the coupling of vegetation water demand and supply.
+PHS models vegetation water demand as transpiration attenuated by a transpiration loss function based on leaf water potential.
+Sunlit leaf transpiration is modeled as the maximum sunlit leaf transpiration multiplied by the percent of maximum transpiration as modeled by the sigmoidal loss function.
+The same follows for shaded leaf transpiration.
+Maximum stomatal conductance is calculated from the Medlyn model <a class="reference internal" href="#medlynetal2011"><span class="std std-ref">(Medlyn et al. 2011)</span></a> absent water stress and used to calculate the maximum transpiration (see section <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces"><span class="std std-numref">5.3</span></a>).
+Water stress is calculated as the ratio of attenuated stomatal conductance to maximum stomatal conductance.
+Water stress is calculated with distinct values for sunlit and shaded leaves.
+Vegetation water stress is calculated based on leaf water potential and is used to attenuate photosynthesis (see section <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#photosynthesis"><span class="std std-numref">9.2</span></a>)</p>
+<div class="math" id="equation-11.201">
+<p><span class="eqno">(16)<a class="headerlink" href="#equation-11.201" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0affb535618f78d8e8ee2618329d0ff29d908289.png" alt="E_{sun} = E_{sun,max} \cdot 2^{-\left(\dfrac{\psi_{sunleaf}}{p50_e}\right)^{c_k}}"/></p>
+</div><div class="math" id="equation-11.202">
+<p><span class="eqno">(17)<a class="headerlink" href="#equation-11.202" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9f6f57dcd261754c10089ce7511ca71c1cd1216d.png" alt="E_{shade} = E_{shade,max} \cdot 2^{-\left(\dfrac{\psi_{shadeleaf}}{p50_e}\right)^{c_k}}"/></p>
+</div><div class="math" id="equation-11.203">
+<p><span class="eqno">(18)<a class="headerlink" href="#equation-11.203" title="Permalink to this equation">¶</a></span><img src="../../_images/math/93b00393e487cc4c5f01cc492ed972eb94c4208e.png" alt="\beta_{t,sun} = \dfrac{g_{s,sun}}{g_{s,sun,\beta_t=1}}"/></p>
+</div><div class="math" id="equation-11.204">
+<p><span class="eqno">(19)<a class="headerlink" href="#equation-11.204" title="Permalink to this equation">¶</a></span><img src="../../_images/math/141b5f3694b7bce0ccbb049870e28cb503238c91.png" alt="\beta_{t,shade} = \dfrac{g_{s,shade}}{g_{s,shade,\beta_t=1}}"/></p>
+</div><p><img class="math" src="../../_images/math/6717d72bbd5ebd117c489471ad51e2cea0489e44.png" alt="E_{sun}"/> = sunlit leaf transpiration (mm/s)</p>
+<p><img class="math" src="../../_images/math/eedbc01778ee318eb868c1acaeff789df42bd75c.png" alt="E_{shade}"/> = shaded leaf transpiration (mm/s)</p>
+<p><img class="math" src="../../_images/math/255c05c9ff9010df2f6d4e81c711914113863e68.png" alt="E_{sun,max}"/> = sunlit leaf transpiration absent water stress (mm/s)</p>
+<p><img class="math" src="../../_images/math/f52bd84aaee01b31a97f2928f08a9822e9b06e2c.png" alt="E_{shade,max}"/> = shaded leaf transpiration absent water stress (mm/s)</p>
+<p><img class="math" src="../../_images/math/cc51bc3fb55db4ec6caed7c31246a5790de64092.png" alt="\psi_{sunleaf}"/> = sunlit leaf water potential (mmH2O)</p>
+<p><img class="math" src="../../_images/math/00bc45748cf83ec8c1c23feb35b32f67f64141d9.png" alt="\psi_{shadeleaf}"/> = shaded leaf water potential (mmH2O)</p>
+<p><img class="math" src="../../_images/math/fb6e582b7984cf2934e56a3030684b4bc1ee980c.png" alt="\beta_{t,sun}"/> = sunlit transpiration water stress (-)</p>
+<p><img class="math" src="../../_images/math/2a5bf10bb78a40df5be371b165d2986e554c47d3.png" alt="\beta_{t,shade}"/> = shaded transpiration water stress (-)</p>
+<p><img class="math" src="../../_images/math/c1e9843c1ddf9cfea8feb71697545c7d79e839c5.png" alt="g_{s,sun}"/> = stomatal conductance of water corresponding to <img class="math" src="../../_images/math/6717d72bbd5ebd117c489471ad51e2cea0489e44.png" alt="E_{sun}"/></p>
+<p><img class="math" src="../../_images/math/69c786a8a34ecac34f2bf249313aec59b98450df.png" alt="g_{s,shade}"/> = stomatal conductance of water corresponding to <img class="math" src="../../_images/math/eedbc01778ee318eb868c1acaeff789df42bd75c.png" alt="E_{shade}"/></p>
+<p><img class="math" src="../../_images/math/1356cc06dfcabca6e70df81f3a8b198a6a8eab47.png" alt="g_{s,sun,max}"/> = stomatal conductance of water corresponding to <img class="math" src="../../_images/math/255c05c9ff9010df2f6d4e81c711914113863e68.png" alt="E_{sun,max}"/></p>
+<p><img class="math" src="../../_images/math/a13a7885c6cc6b8f5ef7a8ac876fdc2a63c4f086.png" alt="g_{s,shade,max}"/> = stomatal conductance of water corresponding to <img class="math" src="../../_images/math/f52bd84aaee01b31a97f2928f08a9822e9b06e2c.png" alt="E_{shade,max}"/></p>
+</div>
+<div class="section" id="vegetation-water-potential">
+<span id="id8"></span><h3>11.2.3. Vegetation Water Potential<a class="headerlink" href="#vegetation-water-potential" title="Permalink to this headline">¶</a></h3>
+<p>Both plant water supply and demand are functions of vegetation water potential. PHS explicitly models root, stem, shaded leaf, and sunlit leaf water potential at each timestep. PHS iterates to find the vegetation water potential <img class="math" src="../../_images/math/499a2ee48b33448e80b97af9df9550828bdbfb59.png" alt="\psi"/> (vector) that satisfies continuity between the non-linear vegetation water supply and demand (equations <a class="reference internal" href="#equation-11.103">(3)</a>, <a class="reference internal" href="#equation-11.104">(4)</a>, <a class="reference internal" href="#equation-11.107">(7)</a>, <a class="reference internal" href="#equation-11.109">(9)</a>, <a class="reference internal" href="#equation-11.201">(16)</a>, <a class="reference internal" href="#equation-11.202">(17)</a>).</p>
+<div class="math" id="equation-11.301">
+<p><span class="eqno">(20)<a class="headerlink" href="#equation-11.301" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2943b30f9fe18143a87dc283f22005fbc2cd6cf9.png" alt="\psi=\left[\psi_{sunleaf},\psi_{shadeleaf},\psi_{stem},\psi_{root}\right]"/></p>
+</div><div class="math" id="equation-11.302">
+<p><span class="eqno">(21)<a class="headerlink" href="#equation-11.302" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fac7bed2b4f651ebefd97c9ec86b5e87f69d537b.png" alt="\begin{aligned}
+E_{sun}&amp;=q_{1a}\\
+E_{shade}&amp;=q_{1b}\\
+E_{sun}+E_{shade}&amp;=q_{1a}+q_{1b}\\
+&amp;=q_2\\
+&amp;=\sum_{i=1}^{nlevsoi}{q_{3,i}}
+\end{aligned}"/></p>
+</div><p>PHS finds the water potentials that match supply and demand. In the plant water transport equations <a class="reference internal" href="#equation-11.302">(21)</a>, the demand terms (left-hand side) are decreasing functions of absolute leaf water potential. As absolute leaf water potential becomes larger, water stress increases, causing a decrease in transpiration demand. The supply terms (right-hand side) are increasing functions of absolute leaf water potential. As absolute leaf water potential becomes larger, the gradients in water potential increase, causing an increase in vegetation water supply. PHS takes a Newton&#8217;s method approach to iteratively solve for the vegetation water potentials that satisfy continuity <a class="reference internal" href="#equation-11.302">(21)</a>.</p>
+</div>
+<div class="section" id="numerical-implementation">
+<span id="phs-numerical-implementation"></span><h3>11.2.4. Numerical Implementation<a class="headerlink" href="#numerical-implementation" title="Permalink to this headline">¶</a></h3>
+<p>The four plant water potential nodes are ( <img class="math" src="../../_images/math/411ed26b406367cf4f470263e6e718dc7c3dbbce.png" alt="\psi_{root}"/>, <img class="math" src="../../_images/math/88e85d57fcd4f299acba3d2df02bd46477b55da7.png" alt="\psi_{xylem}"/>, <img class="math" src="../../_images/math/00bc45748cf83ec8c1c23feb35b32f67f64141d9.png" alt="\psi_{shadeleaf}"/>, <img class="math" src="../../_images/math/cc51bc3fb55db4ec6caed7c31246a5790de64092.png" alt="\psi_{sunleaf}"/>).
+The fluxes between each pair of nodes are labeled in Figure 1.
+<img class="math" src="../../_images/math/6717d72bbd5ebd117c489471ad51e2cea0489e44.png" alt="E_{sun}"/> and <img class="math" src="../../_images/math/c9829fe6f4a1a864aeacbcac57bab9d0e1584eeb.png" alt="E_{sha}"/> are the transpiration from sunlit and shaded leaves, respectively.
+We use the circuit-analog model to calculate the vegetation water potential ( <img class="math" src="../../_images/math/499a2ee48b33448e80b97af9df9550828bdbfb59.png" alt="\psi"/>) for the four plant nodes, forced by soil matric potential and unstressed transpiration.
+The unstressed transpiration is acquired by running the photosynthesis model with <img class="math" src="../../_images/math/2ecd18afd05fd1c9155b8c2ad9e6cc9990cd0b54.png" alt="\beta_t=1"/>.
+The unstressed transpiration flux is attenuated based on the leaf-level vegetation water potential.
+Using the attenuated transpiration, we solve for <img class="math" src="../../_images/math/22ce0ab9a79ea8149e4961282491754ae065182e.png" alt="g_{s,stressed}"/> and output <img class="math" src="../../_images/math/bbc08f8adc197c6e3ef3f6aa8646e5eadfa6315e.png" alt="\beta_t=\dfrac{g_{s,stressed}}{g_{s,unstressed}}"/>.</p>
+<p>The continuity of water flow through the system yields four equations</p>
+<div class="math" id="equation-11.401">
+<p><span class="eqno">(22)<a class="headerlink" href="#equation-11.401" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ceee8d89f36226461b847adf1692f38ccf59d766.png" alt="\begin{aligned}
+E_{sun}&amp;=q_{1a}\\
+E_{shade}&amp;=q_{1b}\\
+q_{1a}+q_{1b}&amp;=q_2\\
+q_2&amp;=\sum_{i=1}^{nlevsoi}{q_{3,i}}
+\end{aligned}"/></p>
+</div><p>We seek the set of vegetation water potential values,</p>
+<div class="math" id="equation-11.402">
+<p><span class="eqno">(23)<a class="headerlink" href="#equation-11.402" title="Permalink to this equation">¶</a></span><img src="../../_images/math/76ee173f11fc1b104215d30568a2ea307aa06ab6.png" alt="\psi=\left[ \begin {array}{c}
+\psi_{sunleaf}\cr\psi_{shadeleaf}\cr\psi_{stem}\cr\psi_{root}
+\end {array} \right]"/></p>
+</div><p>that satisfies these equations, as forced by the soil moisture and atmospheric state.
+Each flux on the schematic can be represented in terms of the relevant water potentials. Defining the transpiration fluxes:</p>
+<div class="math" id="equation-11.403">
+<p><span class="eqno">(24)<a class="headerlink" href="#equation-11.403" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a19005e166d58e377079a98731c6217f3b747489.png" alt="\begin{aligned}
+E_{sun} &amp;= E_{sun,max} \cdot 2^{-\left(\dfrac{\psi_{sunleaf}}{p50_e}\right)^{c_k}} \\
+E_{shade} &amp;= E_{shade,max} \cdot 2^{-\left(\dfrac{\psi_{shadeleaf}}{p50_e}\right)^{c_k}}
+\end{aligned}"/></p>
+</div><p>Defining the water supply fluxes:</p>
+<div class="math" id="equation-11.404">
+<p><span class="eqno">(25)<a class="headerlink" href="#equation-11.404" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6a1915bc680b76d4f69aca0a1ff216dbfbe8f447.png" alt="\begin{aligned}
+q_{1a}&amp;=k_{1a,max}\cdot 2^{-\left(\dfrac{\psi_{stem}}{p50_1}\right)^{c_k}} \cdot\mbox{LAI}_{sun}\cdot\left(\psi_{stem}-\psi_{sunleaf} \right) \\
+q_{1b}&amp;=k_{1b,max}\cdot 2^{-\left(\dfrac{\psi_{stem}}{p50_1}\right)^{c_k}}\cdot\mbox{LAI}_{shade}\cdot\left(\psi_{stem}-\psi_{shadeleaf} \right) \\
+q_2&amp;=\dfrac{k_{2,max}}{z_2} \cdot 2^{-\left(\dfrac{\psi_{root}}{p50_2}\right)^{c_k}} \cdot SAI \cdot \left( \psi_{root} - \psi_{stem} - \Delta \psi_z  \right) \\
+q_{soil}&amp;=\sum_{i=1}^{nlevsoi}{q_{3,i}}=\sum_{i=1}^{nlevsoi}{k_{3,i}\cdot RAI\cdot\left(\psi_{soil,i}-\psi_{root} + \Delta\psi_{z,i} \right)}
+\end{aligned}"/></p>
+</div><p>We&#8217;re looking to find the vector <img class="math" src="../../_images/math/499a2ee48b33448e80b97af9df9550828bdbfb59.png" alt="\psi"/>
+that fits with soil and atmospheric forcings while satisfying water flow continuity.
+Due to the model non-linearity, we use a linearized explicit approach, iterating with Newton&#8217;s method.
+The initial guess is the solution for <img class="math" src="../../_images/math/499a2ee48b33448e80b97af9df9550828bdbfb59.png" alt="\psi"/> (vector) from the previous time step.
+The general framework, from iteration <cite>m</cite> to <cite>m+1</cite> is:</p>
+<div class="math" id="equation-11.405">
+<p><span class="eqno">(26)<a class="headerlink" href="#equation-11.405" title="Permalink to this equation">¶</a></span><img src="../../_images/math/07223bdb8a1ab8c3774deeb12a160d0db97e6c71.png" alt="q^{m+1}=q^m+\dfrac{\delta q}{\delta\psi}\Delta\psi \\
+\psi^{m+1}=\psi^{m}+\Delta\psi"/></p>
+</div><p>So for our first flux balance equation, at iteration <cite>m+1</cite>, we have:</p>
+<div class="math" id="equation-11.406">
+<p><span class="eqno">(27)<a class="headerlink" href="#equation-11.406" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a1ed523dbd240c7262aeb03b221f57813746ae2e.png" alt="E_{sun}^{m+1}=q_{1a}^{m+1}"/></p>
+</div><p>Which can be linearized to:</p>
+<div class="math" id="equation-11.407">
+<p><span class="eqno">(28)<a class="headerlink" href="#equation-11.407" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a9debf7f15edeb5e4992aead220c5369e624218a.png" alt="E_{sun}^{m}+\dfrac{\delta E_{sun}}{\delta\psi}\Delta\psi=q_{1a}^{m}+\dfrac{\delta q_{1a}}{\delta\psi}\Delta\psi"/></p>
+</div><p>And rearranged to be:</p>
+<div class="math" id="equation-11.408">
+<p><span class="eqno">(29)<a class="headerlink" href="#equation-11.408" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0de5edafd10c1ca42387318e39bbf5177cd74b7b.png" alt="\dfrac{\delta q_{1a}}{\delta\psi}\Delta\psi-\dfrac{\delta E_{sun}}{\delta\psi}\Delta\psi=E_{sun}^{m}-q_{1a}^{m}"/></p>
+</div><p>And for the other 3 flux balance equations:</p>
+<div class="math" id="equation-11.409">
+<p><span class="eqno">(30)<a class="headerlink" href="#equation-11.409" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4f5d3b5d60181f6c2fef953e0309704f196e53e5.png" alt="\begin{aligned}
+\dfrac{\delta q_{1b}}{\delta\psi}\Delta\psi-\dfrac{\delta E_{sha}}{\delta\psi}\Delta\psi&amp;=E_{sha}^{m}-q_{1b}^{m} \\
+\dfrac{\delta q_2}{\delta\psi}\Delta\psi-\dfrac{\delta q_{1a}}{\delta\psi}\Delta\psi-\dfrac{\delta q_{1b}}{\delta\psi}\Delta\psi&amp;=q_{1a}^{m}+q_{1b}^{m}-q_2^{m} \\
+\dfrac{\delta q_{soil}}{\delta\psi}\Delta\psi-\dfrac{\delta q_2}{\delta\psi}\Delta\psi&amp;=q_2^{m}-q_{soil}^{m}
+\end{aligned}"/></p>
+</div><p>Putting all four together in matrix form:</p>
+<div class="math" id="equation-11.410">
+<p><span class="eqno">(31)<a class="headerlink" href="#equation-11.410" title="Permalink to this equation">¶</a></span><img src="../../_images/math/aa5adf17b29c7e28bc3844a838ed9af177454d3c.png" alt="\left[ \begin {array}{c}
+\dfrac{\delta q_{1a}}{\delta\psi}-\dfrac{\delta E_{sun}}{\delta\psi} \cr
+\dfrac{\delta q_{1b}}{\delta\psi}-\dfrac{\delta E_{sha}}{\delta\psi} \cr
+\dfrac{\delta q_2}{\delta\psi}-\dfrac{\delta q_{1a}}{\delta\psi}-\dfrac{\delta q_{1b}}{\delta\psi} \cr
+\dfrac{\delta q_{soil}}{\delta\psi}-\dfrac{\delta q_2}{\delta\psi}
+\end {array} \right]
+\Delta\psi=
+\left[ \begin {array}{c}
+E_{sun}^{m}-q_{1a}^{m} \cr
+E_{sha}^{m}-q_{1b}^{m} \cr
+q_{1a}^{m}+q_{1b}^{m}-q_2^{m} \cr
+q_2^{m}-q_{soil}^{m}
+\end {array} \right]"/></p>
+</div><p>Now to expand the left-hand side, from generic <img class="math" src="../../_images/math/499a2ee48b33448e80b97af9df9550828bdbfb59.png" alt="\psi"/> to all four plant water potential nodes, noting that many derivatives are zero (e.g. <img class="math" src="../../_images/math/dbb82a52dad74ec16bf66e2c7ab1523c74e7f0e6.png" alt="\dfrac{\delta E_{sun}}{\delta\psi_{sha}}=0"/>)</p>
+<p>Introducing the notation:
+<img class="math" src="../../_images/math/270d0e5da9dbcadce82686066f0790e0e76eb210.png" alt="A\Delta\psi=b"/></p>
+<div class="math" id="equation-11.411">
+<p><span class="eqno">(32)<a class="headerlink" href="#equation-11.411" title="Permalink to this equation">¶</a></span><img src="../../_images/math/05944c07763a5a36c5d016f137423dbfa8c865fd.png" alt="\Delta\psi=\left[ \begin {array}{c}
+\Delta\psi_{sunleaf} \cr
+\Delta\psi_{shadeleaf} \cr
+\Delta\psi_{stem} \cr
+\Delta\psi_{root}
+\end {array} \right]"/></p>
+</div><div class="math" id="equation-11.412">
+<p><span class="eqno">(33)<a class="headerlink" href="#equation-11.412" title="Permalink to this equation">¶</a></span><img src="../../_images/math/17f95ac4a11edff14c67439da52968f03cd63e5d.png" alt="A=
+\left[ \begin {array}{cccc}
+\dfrac{\delta q_{1a}}{\delta \psi_{sun}}-\dfrac{\delta E_{sun}}{\delta \psi_{sun}}&amp;0&amp;\dfrac{\delta q_{1a}}{\delta \psi_{stem}}&amp;0\cr
+0&amp;\dfrac{\delta q_{1b}}{\delta \psi_{sha}}-\dfrac{\delta E_{sha}}{\delta \psi_{sha}}&amp;\dfrac{\delta q_{1b}}{\delta \psi_{stem}}&amp;0\cr
+-\dfrac{\delta q_{1a}}{\delta \psi_{sun}}&amp;
+-\dfrac{\delta q_{1b}}{\delta \psi_{sha}}&amp;
+\dfrac{\delta q_2}{\delta \psi_{stem}}-\dfrac{\delta q_{1a}}{\delta \psi_{stem}}-\dfrac{\delta q_{1b}}{\delta \psi_{stem}}&amp;
+\dfrac{\delta q_2}{\delta \psi_{root}}\cr
+0&amp;0&amp;-\dfrac{\delta q_2}{\delta \psi_{stem}}&amp;\dfrac{\delta q_{soil}}{\delta \psi_{root}}-\dfrac{\delta q_2}{\delta \psi_{root}}
+\end {array} \right]"/></p>
+</div><div class="math" id="equation-11.413">
+<p><span class="eqno">(34)<a class="headerlink" href="#equation-11.413" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c5e69bdd521e6abb7ca94475bd9eafaf656c5545.png" alt="b=
+\left[ \begin {array}{c}
+E_{sun}^{m}-q_{b1}^{m} \cr
+E_{sha}^{m}-q_{b2}^{m} \cr
+q_{b1}^{m}+q_{b2}^{m}-q_{stem}^{m} \cr
+q_{stem}^{m}-q_{soil}^{m}
+\end {array} \right]"/></p>
+</div><p>Now we compute all the entries for <img class="math" src="../../_images/math/0043fe6507e9b1d112e07a2801e24927e267dd50.png" alt="A"/> and <img class="math" src="../../_images/math/57c9d14bb082716df9000146882ce365335d08f1.png" alt="b"/> based on the soil moisture and maximum transpiration forcings and can solve to find:</p>
+<div class="math" id="equation-11.414">
+<p><span class="eqno">(35)<a class="headerlink" href="#equation-11.414" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ae79f22b0800eaa1657ef7d6797c594f04818dc6.png" alt="\Delta\psi=A^{-1}b"/></p>
+</div><div class="math" id="equation-11.415">
+<p><span class="eqno">(36)<a class="headerlink" href="#equation-11.415" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f429e8319140a3951aae15c1a77f840959c71304.png" alt="\psi_{m+1}=\psi_m+\Delta\psi"/></p>
+</div><p>We iterate until <img class="math" src="../../_images/math/f1592c0701878fc6be5e798a568c92fcde1deef6.png" alt="b\to 0"/>, signifying water flux balance through the system. The result is a final set of water potentials ( <img class="math" src="../../_images/math/411ed26b406367cf4f470263e6e718dc7c3dbbce.png" alt="\psi_{root}"/>, <img class="math" src="../../_images/math/88e85d57fcd4f299acba3d2df02bd46477b55da7.png" alt="\psi_{xylem}"/>, <img class="math" src="../../_images/math/00bc45748cf83ec8c1c23feb35b32f67f64141d9.png" alt="\psi_{shadeleaf}"/>, <img class="math" src="../../_images/math/cc51bc3fb55db4ec6caed7c31246a5790de64092.png" alt="\psi_{sunleaf}"/>) satisfying non-divergent water flux through the system.
+The magnitude of the water flux is driven by soil matric potential and unstressed ( <img class="math" src="../../_images/math/2ecd18afd05fd1c9155b8c2ad9e6cc9990cd0b54.png" alt="\beta_t=1"/>) transpiration.</p>
+<p>We use the transpiration solution (corresponding to the final solution for <img class="math" src="../../_images/math/499a2ee48b33448e80b97af9df9550828bdbfb59.png" alt="\psi"/>) to compute stomatal conductance. The stomatal conductance is then used to compute <img class="math" src="../../_images/math/3d5127e22b8dd2b04809679b8ccfbbdecaf15d08.png" alt="\beta_t"/>.</p>
+<div class="math" id="equation-11.416">
+<p><span class="eqno">(37)<a class="headerlink" href="#equation-11.416" title="Permalink to this equation">¶</a></span><img src="../../_images/math/93b00393e487cc4c5f01cc492ed972eb94c4208e.png" alt="\beta_{t,sun} = \dfrac{g_{s,sun}}{g_{s,sun,\beta_t=1}}"/></p>
+</div><div class="math" id="equation-11.417">
+<p><span class="eqno">(38)<a class="headerlink" href="#equation-11.417" title="Permalink to this equation">¶</a></span><img src="../../_images/math/141b5f3694b7bce0ccbb049870e28cb503238c91.png" alt="\beta_{t,shade} = \dfrac{g_{s,shade}}{g_{s,shade,\beta_t=1}}"/></p>
+</div><p>The <img class="math" src="../../_images/math/3d5127e22b8dd2b04809679b8ccfbbdecaf15d08.png" alt="\beta_t"/> values are used in the Photosynthesis module (see section <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#photosynthesis"><span class="std std-numref">9.2</span></a>) to apply water stress.
+The solution for <img class="math" src="../../_images/math/499a2ee48b33448e80b97af9df9550828bdbfb59.png" alt="\psi"/> is saved as a new variable (vegetation water potential) and is indicative of plant water status.
+The soil-to-root fluxes <img class="math" src="../../_images/math/15c4db3acf65f7045d082ecd95cd55291c231950.png" alt="\left( q_{3,1},q_{3,2},\mbox{...},q_{3,n}\right)"/> are used as the soil transpiration sink in the Richards&#8217; equation subsurface flow equations (see section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#soil-water"><span class="std std-numref">7.3</span></a>).</p>
+</div>
+<div class="section" id="flow-diagram-of-leaf-flux-calculations">
+<span id="id9"></span><h3>11.2.5. Flow Diagram of Leaf Flux Calculations:<a class="headerlink" href="#flow-diagram-of-leaf-flux-calculations" title="Permalink to this headline">¶</a></h3>
+<p>PHS runs nested in the loop that solves for sensible and latent heat fluxes and temperature for vegetated surfaces (see section <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces"><span class="std std-numref">5.3</span></a>).
+The scheme iterates for convergence of leaf temperature (<img class="math" src="../../_images/math/1c1e3c5d4e3de9bfd38e77f77600339d1d4a8a86.png" alt="T_l"/>), transpiration water stress (<img class="math" src="../../_images/math/3d5127e22b8dd2b04809679b8ccfbbdecaf15d08.png" alt="\beta_t"/>), and intercellular CO2 concentration (<img class="math" src="../../_images/math/ff90a5f025d9fd305aac19c8dd64fa15f0c789a1.png" alt="c_i"/>).
+PHS is forced by maximum transpiration (absent water stress, <img class="math" src="../../_images/math/2ecd18afd05fd1c9155b8c2ad9e6cc9990cd0b54.png" alt="\beta_t=1"/>), whereby we first solve for assimilation, stomatal conductance, and intercellular CO2 with <img class="math" src="../../_images/math/fb6e582b7984cf2934e56a3030684b4bc1ee980c.png" alt="\beta_{t,sun}"/> and <img class="math" src="../../_images/math/2a5bf10bb78a40df5be371b165d2986e554c47d3.png" alt="\beta_{t,shade}"/> both set to 1.
+This involves iterating to convergence of <img class="math" src="../../_images/math/ff90a5f025d9fd305aac19c8dd64fa15f0c789a1.png" alt="c_i"/> (see section <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#photosynthesis"><span class="std std-numref">9.2</span></a>).</p>
+<p>Next, using the solutions for <img class="math" src="../../_images/math/255c05c9ff9010df2f6d4e81c711914113863e68.png" alt="E_{sun,max}"/> and <img class="math" src="../../_images/math/f52bd84aaee01b31a97f2928f08a9822e9b06e2c.png" alt="E_{shade,max}"/>, PHS solves for <img class="math" src="../../_images/math/499a2ee48b33448e80b97af9df9550828bdbfb59.png" alt="\psi"/>, <img class="math" src="../../_images/math/fb6e582b7984cf2934e56a3030684b4bc1ee980c.png" alt="\beta_{t,sun}"/>, and <img class="math" src="../../_images/math/2a5bf10bb78a40df5be371b165d2986e554c47d3.png" alt="\beta_{t,shade}"/>.
+The values for <img class="math" src="../../_images/math/fb6e582b7984cf2934e56a3030684b4bc1ee980c.png" alt="\beta_{t,sun}"/>, and <img class="math" src="../../_images/math/2a5bf10bb78a40df5be371b165d2986e554c47d3.png" alt="\beta_{t,shade}"/> are inputs to the photosynthesis routine, which now solves for attenuated photosynthesis and stomatal conductance (reflecting water stress).
+Again this involves iterating to convergence of <img class="math" src="../../_images/math/ff90a5f025d9fd305aac19c8dd64fa15f0c789a1.png" alt="c_i"/>.
+Non-linearities between <img class="math" src="../../_images/math/3d5127e22b8dd2b04809679b8ccfbbdecaf15d08.png" alt="\beta_t"/> and transpiration require also iterating to convergence of <img class="math" src="../../_images/math/3d5127e22b8dd2b04809679b8ccfbbdecaf15d08.png" alt="\beta_t"/>.
+The outermost level of iteration works towards convergence of leaf temperature, reflecting leaf surface energy balance.</p>
+<div class="figure" id="id11">
+<span id="figure-phs-flow-diagram"></span><img alt="../../_images/flow.png" src="../../_images/flow.png" />
+<p class="caption"><span class="caption-number">Figure 11.2 </span><span class="caption-text">Flow diagram of leaf flux calculations</span></p>
+</div>
+</div>
+<div class="section" id="references">
+<span id="phs-refs"></span><h3>11.2.6. References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<p>Local references. Will copy over</p>
+<p id="bonanetal2014">Bonan, G.B., Williams, M., Fisher, R.A., and Oleson, K.W. 2014. Modeling stomatal conductance in the earth system: linking leaf water-use efficiency and water transport along the soil–plant–atmosphere continuum, Geosci. Model Dev., 7, 2193-2222, doi:10.5194/gmd-7-2193-2014.</p>
+<p id="chuangetal2006">Chuang Y.L., Oren R., Bertozzi A.L, Phillips N., Katul G.G. 2006. The porous media model for the hydraulic system of a conifer tree: Linking sap flux data to transpiration rate, Ecological Modelling, 191, 447-468, doi:10.1016/j.ecolmodel.2005.03.027.</p>
+<p id="medlynetal2011">Medlyn, B.E., Duursma, R.A., Eamus, D., Ellsworth, D.S., Prentice, I.C., Barton, C.V.M., Crous, K.Y., De Angelis, P., Freeman, M., and Wingate, L. (2011), Reconciling the optimal and empirical approaches to modelling stomatal conductance. Global Change Biology, 17: 2134–2144. doi:10.1111/j.1365-2486.2010.02375.x</p>
+<p id="sperryetal1998">Sperry, J.S., Adler, F.R., Campbell, G.S. and Comstock, J.P. (1998), Limitation of plant water use by rhizosphere and xylem conductance: results from a model. Plant, Cell &amp; Environment, 21: 347–359. doi:10.1046/j.1365-3040.1998.00287.x</p>
+<p id="sperryandlove2015">Sperry, J.S. and Love, D.M. 2015. What plant hydraulics can tell us about responses to climate-change droughts. New Phytol, 207: 14–27. doi:10.1111/nph.13354</p>
+<p id="williamsetal1996">Williams, M., Rastetter, E.B., Fernandes, D.N., Goulden, M.L., Wofsy, S.C., Shaver, G.R., Melillo, J.M., Munger, J.W., Fan, S.M. and Nadelhoffer, K.J. 1996. Modelling the soil-plant-atmosphere continuum in a Quercus–Acer stand at Harvard Forest: the regulation of stomatal conductance by light, nitrogen and soil/plant hydraulic properties. Plant, Cell &amp; Environment, 19: 911–927. doi:10.1111/j.1365-3040.1996.tb00456.x</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../Lake/CLM50_Tech_Note_Lake.html" title="12. Lake Model"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html" title="10. Photosynthetic Capacity"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+  </body>
+</html>
