@@ -57,11 +57,13 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">9. Stomatal Resistance and Photosynthesis</a><ul>
-<li><a class="reference internal" href="#stomatal-resistance">9.1. Stomatal resistance</a></li>
-<li><a class="reference internal" href="#photosynthesis">9.2. Photosynthesis</a></li>
-<li><a class="reference internal" href="#vcmax25-and-canopy-scaling">9.3. V<sub>cmax25</sub> and Canopy scaling</a></li>
-<li><a class="reference internal" href="#soil-water-stress">9.4. Soil water stress</a></li>
-<li><a class="reference internal" href="#numerical-implementation">9.5. Numerical implementation</a></li>
+<li><a class="reference internal" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5">9.1. Summary of CLM5.0 updates relative to the CLM4.5</a></li>
+<li><a class="reference internal" href="#introduction">9.2. Introduction</a></li>
+<li><a class="reference internal" href="#stomatal-resistance">9.3. Stomatal resistance</a></li>
+<li><a class="reference internal" href="#photosynthesis">9.4. Photosynthesis</a></li>
+<li><a class="reference internal" href="#vcmax25-and-canopy-scaling">9.5. V<sub>cmax25</sub> and Canopy scaling</a></li>
+<li><a class="reference internal" href="#soil-water-stress">9.6. Soil water stress</a></li>
+<li><a class="reference internal" href="#numerical-implementation">9.7. Numerical implementation</a></li>
 </ul>
 </li>
 </ul>
@@ -99,23 +101,41 @@
             
   <div class="section" id="stomatal-resistance-and-photosynthesis">
 <span id="rst-stomatal-resistance-and-photosynthesis"></span><h1>9. Stomatal Resistance and Photosynthesis<a class="headerlink" href="#stomatal-resistance-and-photosynthesis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary-of-clm5-0-updates-relative-to-the-clm4-5">
+<h2>9.1. Summary of CLM5.0 updates relative to the CLM4.5<a class="headerlink" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5" title="Permalink to this headline">¶</a></h2>
+<p>We describe here the complete photosynthesis and stomatal conductance parameterizations that
+appear in CLM5.0. Corresponding information for CLM4.5 appeared in the
+CLM4.5 Technical Note (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#olesonetal2013"><span class="std std-ref">Oleson et al. 2013</span></a>).</p>
+<p>CLM5 includes the following new changes to photosynthesis and stomatal conductance:</p>
+<ul class="simple">
+<li>Default stomatal conductance calculation uses the Medlyn conductance model</li>
+<li><img class="math" src="../../_images/math/3da678f750e5a4cdae4b8666696da4ca33d48a34.png" alt="V_{cmax}"/> is predicted by the LUNA model (Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">10</span></a>)</li>
+<li>Water stress is applied by the hydraulic conductance model (Chapter <a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html#rst-plant-hydraulics"><span class="std std-numref">11</span></a>)</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2>9.2. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Leaf stomatal resistance, which is needed for the water vapor flux
-(Chapter 5), is coupled to leaf photosynthesis similar to Collatz et al.
-(1991, 1992). These equations are solved separately for sunlit and
+(Chapter <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#rst-momentum-sensible-heat-and-latent-heat-fluxes"><span class="std std-numref">5</span></a>),
+is coupled to leaf photosynthesis similar to Collatz et al.
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1991"><span class="std std-ref">1991</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1992"><span class="std std-ref">1992</span></a>). These equations are solved separately for sunlit and
 shaded leaves using average absorbed photosynthetically active radiation
 for sunlit and shaded leaves
 [<img class="math" src="../../_images/math/98b3fdcec68e80f0301c0184e5d01913aa703703.png" alt="\phi ^{sun}"/> ,<img class="math" src="../../_images/math/a7f2303dba4c3d7bb89cffb1de3bb3d6d3b0e6c8.png" alt="\phi ^{sha}"/>  W m<sup>-2</sup>
-(section 4.1)] to give sunlit and shaded stomatal resistance
+(section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#solar-fluxes"><span class="std std-numref">4.1</span></a>)] to give sunlit and shaded stomatal resistance
 (<img class="math" src="../../_images/math/440a6ff2017c8b0fe02c2cc6adf8ebaae2c08769.png" alt="r_{s}^{sun}"/> ,<img class="math" src="../../_images/math/39857ea860786cf9cf2d6ec0f37b7d33658e236d.png" alt="r_{s}^{sha}"/> s m<sup>-1</sup>) and
 photosynthesis (<img class="math" src="../../_images/math/61a9786fbaab9c2eaae5a1e1dd955170642d283f.png" alt="A^{sun}"/> ,<img class="math" src="../../_images/math/6194803929e882da1bf8a676de7f95455107c1ac.png" alt="A^{sha}"/>  µmol CO<sub>2</sub> m<sup>-2</sup> s<sup>-1</sup>). Canopy
 photosynthesis is <img class="math" src="../../_images/math/84680c17166b883c3ab32892e46789b511e7edae.png" alt="A^{sun} L^{sun} +A^{sha} L^{sha}"/> , where
 <img class="math" src="../../_images/math/a427af4258582ea4c36417dde02d6f1b3ecac624.png" alt="L^{sun}"/>  and <img class="math" src="../../_images/math/263ad10af16fb9fd0144c45335fddf672ad5bf28.png" alt="L^{sha}"/>  are the sunlit and shaded leaf
-area indices (section 4.1). Canopy conductance is
+area indices (section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#solar-fluxes"><span class="std std-numref">4.1</span></a>). Canopy conductance is
 <img class="math" src="../../_images/math/3cd41f61dc118a25a65b0f76f54590879a305d6f.png" alt="\frac{1}{r_{b} +r_{s}^{sun} } L^{sun} +\frac{1}{r_{b} +r_{s}^{sha} } L^{sha}"/> ,
 where <img class="math" src="../../_images/math/6ad0fdfae7cfc23527a01a0ee23c06239ce147ed.png" alt="r_{b}"/>  is the leaf boundary layer resistance (section
-5.3). The equation set is described by Bonan et al. (2011).</p>
+<a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces"><span class="std std-numref">5.3</span></a>).
+The implementation is described by Bonan et al. (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2011"><span class="std std-ref">2011</span></a>), though different
+methods of calculating stomatal conductance and <img class="math" src="../../_images/math/3da678f750e5a4cdae4b8666696da4ca33d48a34.png" alt="V_{cmax}"/> are used in CLM5.</p>
+</div>
 <div class="section" id="stomatal-resistance">
-<span id="id1"></span><h2>9.1. Stomatal resistance<a class="headerlink" href="#stomatal-resistance" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>9.3. Stomatal resistance<a class="headerlink" href="#stomatal-resistance" title="Permalink to this headline">¶</a></h2>
 <p>Leaf stomatal resistance is calculated from the Ball-Berry conductance
 model as described by Collatz et al. (1991) and implemented in global
 climate models (Sellers et al. 1996). The model relates stomatal
@@ -427,7 +447,7 @@ atmospheric potential temperature (K).</p>
 V<sub>cmax25</sub> (<img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/>mol m<sup>-2</sup> s<sup>-1</sup>, calculated from equation for canopy top).</p>
 </div>
 <div class="section" id="photosynthesis">
-<span id="id2"></span><h2>9.2. Photosynthesis<a class="headerlink" href="#photosynthesis" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>9.4. Photosynthesis<a class="headerlink" href="#photosynthesis" title="Permalink to this headline">¶</a></h2>
 <p>Photosynthesis in C<sub>3</sub> plants is based on the model of
 Farquhar et al. (1980). Photosynthesis in C<sub>4</sub> plants is
 based on the model of Collatz et al. (1992). Bonan et al. (2011)
@@ -629,7 +649,7 @@ For lack of data, <img class="math" src="../../_images/math/b635b2e283d0573a44f6
 range <img class="math" src="../../_images/math/c49eb2b25d079f5fa07598ea81c4cb1cf551518a.png" alt="T_{10} -T_{f} \ge 11"/><sup>o</sup>C and <img class="math" src="../../_images/math/983643106b35fac39fea5c9b0a607d32df0532ff.png" alt="T_{10} -T_{f} \le 35"/><sup>o</sup>C.</p>
 </div>
 <div class="section" id="vcmax25-and-canopy-scaling">
-<span id="v-sub-cmax25-and-canopy-scaling"></span><h2>9.3. V<sub>cmax25</sub> and Canopy scaling<a class="headerlink" href="#vcmax25-and-canopy-scaling" title="Permalink to this headline">¶</a></h2>
+<span id="v-sub-cmax25-and-canopy-scaling"></span><h2>9.5. V<sub>cmax25</sub> and Canopy scaling<a class="headerlink" href="#vcmax25-and-canopy-scaling" title="Permalink to this headline">¶</a></h2>
 <p>The maximum rate of carboxylation at 25 <sup>o</sup>C varies with
 foliage nitrogen concentration and specific leaf area and is calculated
 as in Thornton and Zimmermann (2007). At 25ºC,</p>
@@ -709,7 +729,7 @@ positive for Northern Hemisphere latitudes and negative for Southern
 Hemisphere).</p>
 </div>
 <div class="section" id="soil-water-stress">
-<span id="id3"></span><h2>9.4. Soil water stress<a class="headerlink" href="#soil-water-stress" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>9.6. Soil water stress<a class="headerlink" href="#soil-water-stress" title="Permalink to this headline">¶</a></h2>
 <p>Soil water influences stomatal conductance directly by multiplying the
 minimum conductance by a soil water stress function <img class="math" src="../../_images/math/3fadeb2542ff7c7c6a7d4f3779dc1d68267a9485.png" alt="\beta _{t}"/>
 and also indirectly through <img class="math" src="../../_images/math/a2d86239c0276cf914b36e6041f8b757f422a616.png" alt="A_{n}"/>  in the C<sub>3</sub> and
@@ -754,7 +774,7 @@ densities of ice and liquid water (kg m<sup>-3</sup>) (Table 2.6),
 and <img class="math" src="../../_images/math/18a8202648d865786985b1bdb0926ae863cf8908.png" alt="\Delta z_{i}"/>  is the soil layer thickness (m) (section 6.1).</p>
 </div>
 <div class="section" id="numerical-implementation">
-<span id="numerical-implementation-photosynthesis"></span><h2>9.5. Numerical implementation<a class="headerlink" href="#numerical-implementation" title="Permalink to this headline">¶</a></h2>
+<span id="numerical-implementation-photosynthesis"></span><h2>9.7. Numerical implementation<a class="headerlink" href="#numerical-implementation" title="Permalink to this headline">¶</a></h2>
 <p>The CO<sub>2</sub> partial pressure at the leaf surface
 <img class="math" src="../../_images/math/2df3b0747a460da75b66e43a6d68b65839832afd.png" alt="c_{s}"/>  (Pa) and the vapor pressure at the leaf surface
 <img class="math" src="../../_images/math/e29fec438400a3aebf5ee24fcf3c92a1559d3148.png" alt="e_{s}"/>  (Pa), needed for the stomatal resistance model in
