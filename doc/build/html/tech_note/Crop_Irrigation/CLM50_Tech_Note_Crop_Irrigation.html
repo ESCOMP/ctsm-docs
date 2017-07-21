@@ -69,10 +69,10 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#allocation">25.2.4. Allocation</a><ul>
-<li><a class="reference internal" href="#leaf-emergence-to-grain-fill">25.2.4.1. Leaf emergence to grain fill</a></li>
-<li><a class="reference internal" href="#grain-fill-to-harvest">25.2.4.2. Grain fill to harvest</a></li>
+<li><a class="reference internal" href="#leaf-emergence-to-grain-fill">25.2.4.1. Leaf emergence</a></li>
+<li><a class="reference internal" href="#grain-fill-to-harvest">25.2.4.2. Grain fill</a></li>
 <li><a class="reference internal" href="#nitrogen-retranslocation-for-crops">25.2.4.3. Nitrogen retranslocation for crops</a></li>
-<li><a class="reference internal" href="#harvest-to-food-and-seed">25.2.4.4. Harvest to food and seed</a></li>
+<li><a class="reference internal" href="#harvest-to-food-and-seed">25.2.4.4. Harvest</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#other-features">25.2.5. Other Features</a><ul>
@@ -193,7 +193,7 @@ land management between crops. Each crop type has a rainfed and an irrigated
 pft that are on independent soil columns. Crop grid cell coverage is assigned from
 satellite data (similar to all natural pfts), and the managed crop type
 proportions within the crop area is based on the dataset created by
-(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#portmannetal2010"><span class="std std-ref">Portmann et al. 2010</span></a>) for present day. New in CLM5, crop area is
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#portmannetal2010"><span class="std std-ref">Portmann et al. (2010)</span></a> for present day. New in CLM5, crop area is
 extrapolated through time using the dataset provided by Land Use Model
 Intercomparison Project (LUMIP), which is part of CMIP6 Land use timeseries
 (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lawrenceetal2016"><span class="std std-ref">Lawrence et al. 2016</span></a>). For more details about how
@@ -225,9 +225,11 @@ Information detailing which parameters are used for each crop type is
 included in <a class="reference internal" href="#table-crop-plant-functional-types"><span class="std std-numref">Table 25.1</span></a>. It should be noted that pft-level history output merges
 all crop types into the actively managed crop type, so analysis
 of crop-specific output will require use of the land surface dataset to
-remap the yields of each actively and inactively managed crop type.</p>
+remap the yields of each actively and inactively managed crop type. Otherwise, the
+actively managed crop type will include yields for that crop type and all inactively
+managed crop types that are using the same parameter set.</p>
 <table border="1" class="docutils" id="id20">
-<span id="table-crop-plant-functional-types"></span><caption><span class="caption-number">Table 25.1 </span><span class="caption-text">Crop plant functional types (pfts) in CLM5BGCCROP.</span><a class="headerlink" href="#id20" title="Permalink to this table">¶</a></caption>
+<span id="table-crop-plant-functional-types"></span><caption><span class="caption-number">Table 25.1 </span><span class="caption-text">Crop plant functional types (pfts) included in CLM5BGCCROP.</span><a class="headerlink" href="#id20" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="4%" />
 <col width="37%" />
@@ -587,24 +589,24 @@ planting date (for the northern hemisphere) in <a class="reference internal" hre
 {GDD_{8} \ge GDD_{\min } }
 \end{array}"/></p>
 </div><p>where <img class="math" src="../../_images/math/b280256aead8a0b1d977c38fa63d622ef11e2d45.png" alt="{T}_{10d}"/> is the 10-day running mean of <img class="math" src="../../_images/math/06ccde8d150c96ad2f3c8f185200c0a64cea648c.png" alt="{T}_{2m}"/>, (the simulated 2-m air
-temperature at every model time step) and <img class="math" src="../../_images/math/d5e05a2d171d0390be7b0363ebf483dbf8840009.png" alt="T_{10d}^{\min}"/>  is
+temperature during each model time step) and <img class="math" src="../../_images/math/d5e05a2d171d0390be7b0363ebf483dbf8840009.png" alt="T_{10d}^{\min}"/>  is
 the 10-day running mean of <img class="math" src="../../_images/math/3d71e99fae035a0ff0ce33dddbac7cc305e07fdb.png" alt="T_{2m}^{\min }"/>  (the daily minimum of
-<img class="math" src="../../_images/math/06ccde8d150c96ad2f3c8f185200c0a64cea648c.png" alt="{T}_{2m}"/>. <img class="math" src="../../_images/math/57d65f931fe00dc305c435d10edc55e3f471ebda.png" alt="{T}_{p}"/> and <img class="math" src="../../_images/math/68b4585845b49b606c075867068c447236996f29.png" alt="T_{p}^{\min }"/>  are crop-specific coldest planting temperatures
+<img class="math" src="../../_images/math/06ccde8d150c96ad2f3c8f185200c0a64cea648c.png" alt="{T}_{2m}"/>). <img class="math" src="../../_images/math/57d65f931fe00dc305c435d10edc55e3f471ebda.png" alt="{T}_{p}"/> and <img class="math" src="../../_images/math/68b4585845b49b606c075867068c447236996f29.png" alt="T_{p}^{\min }"/>  are crop-specific coldest planting temperatures
 (<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 25.2</span></a>), <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.png" alt="{GDD}_{8}"/> is the 20-year running mean growing
 degree-days (units are degree-days or <sup>o</sup> days) tracked
-from April through September (NH) base 8<sup>o</sup> C with
+from April through September (NH) above 8<sup>o</sup> C with
 maximum daily increments of 30<sup>o</sup> days (see equation <a class="reference internal" href="#equation-25.3">(3)</a>), and
 <img class="math" src="../../_images/math/1030942ed010eba4595c1781a6dc46008d62eebd.png" alt="{GDD}_{min }"/>is the minimum growing degree day requirement
 (<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 25.2</span></a>). <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.png" alt="{GDD}_{8}"/> does not change as quickly as <img class="math" src="../../_images/math/b280256aead8a0b1d977c38fa63d622ef11e2d45.png" alt="{T}_{10d}"/> and <img class="math" src="../../_images/math/faa174c9625cfadbb9ea8a19138aa07e57b5c91c.png" alt="T_{10d}^{\min }"/>, so
-it determines whether the crop can be planted in a grid cell, while the
-two faster-changing variables determine when the crop may be planted.
+it determines whether it is warm enough for the crop to be planted in a grid cell, while the
+2-m air temperature variables determine the day when the crop may be planted if the <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.png" alt="{GDD}_{8}"/> threshold is met.
 If the requirements in equation <a class="reference internal" href="#equation-25.1">(1)</a> are not met by the maximum planting date,
 crops are still planted on the maximum planting date as long as  <img class="math" src="../../_images/math/27e4303fc16979d4a8583d91a00a7df1b341daf4.png" alt="{GDD}_{8} &gt; 0"/>. In
 the southern hemisphere (SH) the NH requirements apply 6 months later.</p>
 <p>At planting, each crop seed pool is assigned 3 gC m<sup>-2</sup> from its
-grain product pool. The seed carbon transferred to the leaves upon leaf emergence. An
+grain product pool. The seed carbon is transferred to the leaves upon leaf emergence. An
 equivalent amount of seed leaf N is assigned given the pft’s C to N
-ratio for leaves (<img class="math" src="../../_images/math/d06f9734cef2f0142828754a9e07f367bf14a581.png" alt="{CN}_{leaf}"/> in <a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 25.3</span></a>, this differs from AgroIBIS,
+ratio for leaves (<img class="math" src="../../_images/math/d06f9734cef2f0142828754a9e07f367bf14a581.png" alt="{CN}_{leaf}"/> in <a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 25.3</span></a>; this differs from AgroIBIS,
 which uses a seed leaf area index instead of seed C). The model updates the average growing degree-days necessary
 for the crop to reach vegetative and physiological maturity,
 <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.png" alt="{GDD}_{mat}"/>, according to the following AgroIBIS rules:</p>
@@ -616,11 +618,11 @@ GDD_{{\rm mat}}^{{\rm temp.soy}} =GDD_{{\rm 10}} &amp; {\rm \; \; \; and\; \; \;
 GDD_{{\rm mat}}^{{\rm rice}} =GDD_{{\rm 0}} &amp; {\rm \; \; \; and\; \; \; } &amp; GDD_{{\rm mat}}^{{\rm rice}} &lt;2100{}^\circ {\rm days} \\
 GDD_{{\rm mat}}^{{\rm trop.soy}} =GDD_{{\rm 10}} &amp; {\rm \; \; \; and\; \; \; } &amp; GDD_{{\rm mat}}^{{\rm trop.soy}} &lt;2100{}^\circ {\rm days}
 \end{array}"/></p>
-</div><p>where <img class="math" src="../../_images/math/298601b3b523a030f4f09a6964b9e336e662b7e2.png" alt="{GDD}_{10}"/> is the 20-year running mean growing
-degree-days tracked from April through September (NH) base
-10<sup>o</sup>C with maximum daily increments of
-30<sup>o</sup>days. Equation <a class="reference internal" href="#equation-25.3">(3)</a> shows how we calculate
-<img class="math" src="../../_images/math/ba6289c80d6de94f5398df4f867cf6d7f0c464fc.png" alt="{GDD}_{0}"/>, <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.png" alt="{GDD}_{8}"/>, and <img class="math" src="../../_images/math/298601b3b523a030f4f09a6964b9e336e662b7e2.png" alt="{GDD}_{10}"/>:</p>
+</div><p>where <img class="math" src="../../_images/math/ba6289c80d6de94f5398df4f867cf6d7f0c464fc.png" alt="{GDD}_{0}"/>, <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.png" alt="{GDD}_{8}"/>, and <img class="math" src="../../_images/math/298601b3b523a030f4f09a6964b9e336e662b7e2.png" alt="{GDD}_{10}"/> are the 20-year running mean growing
+degree-days tracked from April through September (NH) over 0<sup>o</sup>C, 8<sup>o</sup>C, and
+10<sup>o</sup>C, respectively, with maximum daily increments of
+26<sup>o</sup>days (for <img class="math" src="../../_images/math/ba6289c80d6de94f5398df4f867cf6d7f0c464fc.png" alt="{GDD}_{0}"/>) or 30<sup>o</sup>days (for <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.png" alt="{GDD}_{8}"/> and <img class="math" src="../../_images/math/298601b3b523a030f4f09a6964b9e336e662b7e2.png" alt="{GDD}_{10}"/>). Equation <a class="reference internal" href="#equation-25.3">(3)</a> shows how we calculate
+<img class="math" src="../../_images/math/ba6289c80d6de94f5398df4f867cf6d7f0c464fc.png" alt="{GDD}_{0}"/>, <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.png" alt="{GDD}_{8}"/>, and <img class="math" src="../../_images/math/298601b3b523a030f4f09a6964b9e336e662b7e2.png" alt="{GDD}_{10}"/> for each model timestep:</p>
 <div class="math" id="equation-25.3">
 <p><span class="eqno">(3)<a class="headerlink" href="#equation-25.3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/146e2a1c3ac3ebf0f01f5f82e3299e90be8e4fac.png" alt="\begin{array}{lll}
 GDD_{{\rm 0}} =GDD_{0} +T_{2{\rm m}} -T_{f} &amp; \quad {\rm \; \; \; where\; \; \; } &amp; 0 \le T_{2{\rm m}} -T_{f} \le 26{}^\circ {\rm days} \\
@@ -628,33 +630,34 @@ GDD_{{\rm 8}} =GDD_{8} +T_{2{\rm m}} -T_{f} -8 &amp; \quad {\rm \; \; \; where\;
 GDD_{{\rm 10}} =GDD_{10} +T_{2{\rm m}} -T_{f} -10 &amp; \quad {\rm \; \; \; where\; \; \; } &amp; 0 \le T_{2{\rm m}} -T_{f} -10\le 30{}^\circ {\rm days}
 \end{array}"/></p>
 </div><p>where, if <img class="math" src="../../_images/math/06ccde8d150c96ad2f3c8f185200c0a64cea648c.png" alt="{T}_{2m}"/> -  <img class="math" src="../../_images/math/69efff94fbd30e8c72d4f766ae48aa2d2d44d89b.png" alt="{T}_{f}"/> takes on values
-outside the above ranges, then it equals the minimum or maximum value in
-the range. Also  <img class="math" src="../../_images/math/69efff94fbd30e8c72d4f766ae48aa2d2d44d89b.png" alt="{T}_{f}"/> equals 273.15 K,
-<img class="math" src="../../_images/math/06ccde8d150c96ad2f3c8f185200c0a64cea648c.png" alt="{T}_{2m}"/> has units of K, and <em>GDD</em> has units of ºdays.</p>
+outside the above ranges within a day, then it equals the minimum or maximum value in
+the range for that day. <img class="math" src="../../_images/math/69efff94fbd30e8c72d4f766ae48aa2d2d44d89b.png" alt="{T}_{f}"/> is the freezing temperature of water and equals 273.15 K,
+<img class="math" src="../../_images/math/06ccde8d150c96ad2f3c8f185200c0a64cea648c.png" alt="{T}_{2m}"/> is the 2-m air temperature in units of K, and <em>GDD</em> is in units of ºdays.</p>
 </div>
 <div class="section" id="leaf-emergence">
 <span id="id6"></span><h4>25.2.3.2. Leaf emergence<a class="headerlink" href="#leaf-emergence" title="Permalink to this headline">¶</a></h4>
 <p>According to AgroIBIS, leaves may emerge when the growing degree-days of
-soil temperature to 0.05 m depth tracked since planting
-(<img class="math" src="../../_images/math/5a85a82b6545e2d02c3edb5993379b59edd36cb9.png" alt="GDD_{T_{soi} }"/> ) reaches 1 to 5% of <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.png" alt="{GDD}_{mat}"/>
-(<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 25.2</span></a>). The base temperature for <img class="math" src="../../_images/math/5a85a82b6545e2d02c3edb5993379b59edd36cb9.png" alt="GDD_{T_{soi} }"/>
-are listed in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 25.2</span></a>.
-Leaf onset occurs in the first
+soil temperature to 0.05 m depth (<img class="math" src="../../_images/math/5a85a82b6545e2d02c3edb5993379b59edd36cb9.png" alt="GDD_{T_{soi} }"/> ), which is tracked since planting,
+reaches 1 to 5% of <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.png" alt="{GDD}_{mat}"/>
+(see Phase 2 % <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.png" alt="{GDD}_{mat}"/> in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 25.2</span></a>). The base temperature threshold values for <img class="math" src="../../_images/math/5a85a82b6545e2d02c3edb5993379b59edd36cb9.png" alt="GDD_{T_{soi} }"/>
+are listed in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 25.2</span></a> (the same base temperature threshold values are also used for
+<img class="math" src="../../_images/math/3b21ca39b3741c1ebc11259162ca4e1f0cdfb859.png" alt="GDD_{T_{{\rm 2m}} }"/> in section <a class="reference internal" href="#grain-fill"><span class="std std-numref">25.2.3.3</span></a>), and leaf emergence (crop phenology phase 2)
+starts when this threshold is met. Leaf onset occurs in the first
 time step of phase 2, at which moment all seed C is transferred to leaf
-C. Subsequently, the leaf area index generally increases and reaches
-a maximum value during phase 2. Stem and root C are also increasing, based on
-the carbon allocation algorithem in section <a class="reference internal" href="#leaf-emergence-to-grain-fill"><span class="std std-numref">25.2.4.1</span></a>.</p>
+C. Subsequently, the leaf area index generally increases throughout phase 2 until it reaches
+a predetermined maximum value. Stem and root C also increase throughout phase 2 based on
+the carbon allocation algorithm in section <a class="reference internal" href="#leaf-emergence-to-grain-fill"><span class="std std-numref">25.2.4.1</span></a>.</p>
 </div>
 <div class="section" id="grain-fill">
 <span id="id7"></span><h4>25.2.3.3. Grain fill<a class="headerlink" href="#grain-fill" title="Permalink to this headline">¶</a></h4>
-<p>Phase 3 begins in one of two ways. The first potential trigger is based on temperature, similar to phase 2. A variable tracked since
-planting like <img class="math" src="../../_images/math/5a85a82b6545e2d02c3edb5993379b59edd36cb9.png" alt="GDD_{T_{soi} }"/>  but for 2-m air temperature,
-<img class="math" src="../../_images/math/3b21ca39b3741c1ebc11259162ca4e1f0cdfb859.png" alt="GDD_{T_{{\rm 2m}} }"/>, must reach a heat unit threshold, <em>h</em>,
-of 40 to 65% of  <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.png" alt="{GDD}_{mat}"/> (<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 25.2</span></a>).
+<p>The grain fill phase (phase 3) begins in one of two ways. The first potential trigger is based on temperature, similar to phase 2. A variable tracked since
+planting, similar to <img class="math" src="../../_images/math/5a85a82b6545e2d02c3edb5993379b59edd36cb9.png" alt="GDD_{T_{soi} }"/>  but for 2-m air temperature,
+<img class="math" src="../../_images/math/3b21ca39b3741c1ebc11259162ca4e1f0cdfb859.png" alt="GDD_{T_{{\rm 2m}} }"/>, must reach a heat unit threshold, <em>h</em>, of
+of 40 to 65% of  <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.png" alt="{GDD}_{mat}"/> (see Phase 3 % <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.png" alt="{GDD}_{mat}"/> in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 25.2</span></a>).
 For crops with the C4 photosynthetic pathway (temperate and tropical corn, sugarcane),
 the <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.png" alt="{GDD}_{mat}"/> is based on an empirical function and ranges between 950 and 1850.
 The second potential trigger for phase 3 is based on leaf area index.
-When the maximum value of leaf area index is reached in phase 2, phase 3 begins.
+When the maximum value of leaf area index is reached in phase 2 (<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 25.3</span></a>), phase 3 begins.
 In phase 3, the leaf area index begins to decline in
 response to a background litterfall rate calculated as the inverse of
 leaf longevity for the pft as done in the BGC part of the model.</p>
@@ -665,15 +668,7 @@ leaf longevity for the pft as done in the BGC part of the model.</p>
 <img class="math" src="../../_images/math/3b21ca39b3741c1ebc11259162ca4e1f0cdfb859.png" alt="GDD_{T_{{\rm 2m}} }"/> reaches 100% of <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.png" alt="{GDD}_{mat}"/> or
 the number of days past planting reaches a crop-specific maximum
 (<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 25.2</span></a>), then the crop is harvested.
-Harvest occurs in one time step using
-the BGC leaf offset algorithm. Variables track the flow of grain C and
-N to food and of live stem C and N to litter. Putting live
-stem C and N into the litter pool is in contrast to the approach for unmanaged PFTs which
-puts live stem C and N into dead stem pools first. Leaf and root C and N pools
-are routed to the litter pools in the same manner as natural vegetation. Whereas food C and N
-formerly was transferred to the litter pool, CLM5 routes food C and N
-to a grain product pool where the C and N decay to the atmosphere over one year,
-similar in structure to the wood product pools.</p>
+Harvest occurs in one time step using the BGC leaf offset algorithm.</p>
 <table border="1" class="docutils" id="id21">
 <span id="table-crop-phenology-parameters"></span><caption><span class="caption-number">Table 25.2 </span><span class="caption-text">Crop phenology and morphology parameters for the active crop plant functional types (pfts) in CLM5BGCCROP. Numbers in the first row correspond to the list of pfts in <a class="reference internal" href="#table-crop-plant-functional-types"><span class="std std-numref">Table 25.1</span></a>.</span><a class="headerlink" href="#id21" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -876,8 +871,8 @@ similar in structure to the wood product pools.</p>
 the minimum and maximum planting date in the Northern Hemisphere, the corresponding dates
 in the Southern Hemisphere apply 6 months later.
 <img class="math" src="../../_images/math/b635b2e283d0573a44f67b1c948e30bb8facc76d.png" alt="T_{p}"/> and <img class="math" src="../../_images/math/f89ea13368a7f0b02b4fe02a1cac155823514f9c.png" alt="T_{p}^{ min }"/> are crop-specific coldest planting temperatures.
-<img class="math" src="../../_images/math/2f0252dd7338c53e000e1f137b483aa545bb302c.png" alt="{GDD}_{min}"/> is the lowest (for planting) 20-year running mean growing degree-days base
-on the base temperature in the 7<sup>th</sup> row, tracked from April to September (NH).
+<img class="math" src="../../_images/math/2f0252dd7338c53e000e1f137b483aa545bb302c.png" alt="{GDD}_{min}"/> is the lowest (for planting) 20-year running mean growing degree-days based
+on the base temperature threshold in the 7<sup>th</sup> row, tracked from April to September (NH).
 <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.png" alt="{GDD}_{mat}"/> is a crop’s 20-year running mean growing
 degree-days needed for vegetative and physiological maturity. Harvest
 occurs at 100%<img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.png" alt="{GDD}_{mat}"/> or when the days past planting
@@ -886,13 +881,13 @@ are described in the text. <img class="math" src="../../_images/math/0154f42814b
 top-of-canopy height of a crop, <em>SLA</em> is specific leaf area. <img class="math" src="../../_images/math/ae1087201853e2dfb9c1ca60a1f6209712b6a6a1.png" alt="\chi _{L}"/> is the leaf
 orientation index, equals -1 for vertical, 0 for
 random, and 1 for horizontal leaf orientation.
-grperc is the growth respiration factor. flnr is the fraction of leaf N in Rubisco enzyme.
+grperc is the growth respiration factor. flnr is the fraction of leaf N in the Rubisco enzyme.
 fcur is the fraction of allocation that goes to currently displayed growth.</p>
 </div>
 </div>
 <div class="section" id="allocation">
 <span id="id9"></span><h3>25.2.4. Allocation<a class="headerlink" href="#allocation" title="Permalink to this headline">¶</a></h3>
-<p>Allocation responds to the same phases as phenology (section <a class="reference internal" href="#phenology"><span class="std std-numref">25.2.3</span></a>).
+<p>Allocation changes based on the crop phenology phases phenology (section <a class="reference internal" href="#phenology"><span class="std std-numref">25.2.3</span></a>).
 Simulated C assimilation begins every year upon leaf emergence in phase
 2 and ends with harvest at the end of phase 3; therefore, so does the
 allocation of such C to the crop’s leaf, live stem, fine root, and
@@ -901,29 +896,31 @@ reproductive pools.</p>
 tend to be lower during early growth stages and higher in later growth stages.
 In order to account for this seasonal change, two sets of C:N
 ratios are established in CLM for the leaf, stem, and fine root of
-crops. This modified C:N ratio approach accounts for the nitrogen
-retranslocation that occurs during phase 3 of crop growth. Leaf, stem, and root
-C:N ratios for phases 1 and 2 are calculated
+crops: one during the leaf emergence phase (phenology phase 2), and a second during
+grain fill phase (phenology phase 3). This modified C:N ratio approach accounts for the nitrogen
+retranslocation that occurs during the grain fill phase (phase 3) of crop growth. Leaf, stem, and root
+C:N ratios for phase 2 are calculated
 using the new CLM5 carbon and nitrogen allocation scheme
 (Chapter <a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html#rst-cn-allocation"><span class="std std-numref">19</span></a>), which provides a target C:N value
-and allows C:N to vary through time.
+(<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 25.3</span></a>) and allows C:N to vary through time.
 During grain fill (phase 3) of the crop growth cycle, a portion of the
 nitrogen in the plant tissues is moved to a storage pool to fulfill
 nitrogen demands of organ (reproductive pool) development, such that the
 resulting C:N ratio of the plant tissue is reflective of measurements at
 harvest. All C:N ratios were determined by calibration process, through
 comparisons of model output versus observations of plant carbon
-throughout the growth season.</p>
+throughout the growing season.</p>
 <p>The BGC part of the model keeps track of a term representing excess
-maintenance respiration that for perennial pfts or pfts with C storage
-may be extracted from later gross primary production. Later extraction
+maintenance respiration, which supplies the carbon required for maintenance respiration during periods of
+low photosynthesis (Chapter <a class="reference internal" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html#rst-plant-respiration"><span class="std std-numref">17</span></a>).
+Carbon supply for excess maintenance respiration
 cannot continue to happen after harvest for annual crops, so at harvest
-we turn the excess respiration pool into a flux that extracts
-CO<sub>2</sub> directly from the atmosphere. This way we eliminate
-any excess maintenance respiration remaining at harvest as if such
+the excess respiration pool is turned into a flux that extracts
+CO<sub>2</sub> directly from the atmosphere. This way
+any excess maintenance respiration remaining at harvest is eliminated as if such
 respiration had not taken place.</p>
 <div class="section" id="leaf-emergence-to-grain-fill">
-<span id="id10"></span><h4>25.2.4.1. Leaf emergence to grain fill<a class="headerlink" href="#leaf-emergence-to-grain-fill" title="Permalink to this headline">¶</a></h4>
+<span id="id10"></span><h4>25.2.4.1. Leaf emergence<a class="headerlink" href="#leaf-emergence-to-grain-fill" title="Permalink to this headline">¶</a></h4>
 <p>During phase 2, the allocation coefficients (fraction of available C) to
 each C pool are defined as:</p>
 <div class="math" id="equation-25.4">
@@ -936,9 +933,9 @@ section <a class="reference internal" href="#grain-fill"><span class="std std-nu
 exclusively to the fine roots.</p>
 </div>
 <div class="section" id="grain-fill-to-harvest">
-<span id="id11"></span><h4>25.2.4.2. Grain fill to harvest<a class="headerlink" href="#grain-fill-to-harvest" title="Permalink to this headline">¶</a></h4>
+<span id="id11"></span><h4>25.2.4.2. Grain fill<a class="headerlink" href="#grain-fill-to-harvest" title="Permalink to this headline">¶</a></h4>
 <p>The calculation of <img class="math" src="../../_images/math/591f4a2819c3190f4339e7388a8694666eb4bf92.png" alt="a_{froot}"/>  remains the same from phase 2 to
-phase 3. Other allocation coefficients change to:</p>
+phase 3. During grain fill (phase 3), other allocation coefficients change to:</p>
 <div class="math" id="equation-25.5">
 <p><span class="eqno">(5)<a class="headerlink" href="#equation-25.5" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7170d08c947956595200e3554451adc228e40aa0.png" alt="\begin{array}{ll}
 a_{leaf} =a_{leaf}^{i,3} &amp; {\rm when} \quad a_{leaf}^{i,3} \le a_{leaf}^{f} \quad {\rm else} \\
@@ -970,7 +967,7 @@ through retranslocation from leaves, stems, and roots. Nitrogen
 retranslocation is initiated at the beginning of the grain fill stage
 for all crops except soybean, for which retranslocation is after LAI decline.
 Nitrogen stored in the leaf and stem is moved into a storage
-retranslocation pool. For wheat and rice, nitrogen in roots is also
+retranslocation pool for all crops, and for wheat and rice, nitrogen in roots is also
 released into the retranslocation storage pool. The quantity of nitrogen
 mobilized depends on the C:N ratio of the plant tissue, and is
 calculated as</p>
@@ -985,25 +982,34 @@ root, respectively, <img class="math" src="../../_images/math/0fc0ed264497596ab8
 is the nitrogen in the plant leaf, stem, and fine root, respectively, and <img class="math" src="../../_images/math/080872e256b623a217cd680012841e36fd983623.png" alt="CN^f_{leaf}"/>,
 <img class="math" src="../../_images/math/79a0b510fb51fa49cb7fc525924a468c463f61cc.png" alt="CN^f_{stem}"/>, and <img class="math" src="../../_images/math/734357c5460f13d85127a26c8e80fdc2d07d81c1.png" alt="CN^f_{froot}"/> is the post-grain fill C:N
 ratio of the leaf, stem, and fine root respectively (<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 25.3</span></a>). Since
-C:N measurements are taken from mature crops, pre-grain development C:N
-ratios for leaves, stems, and roots are optimized to allow maximum
-nitrogen accumulation for later use during organ development. Post-grain
-fill C:N ratios are assigned the same as crop residue. Once excess
-nitrogen is moved into the retranslocated pool, during the remainder of
-the growing season the retranslocated pool is used first to meet plant
+C:N measurements are often taken from mature crops, pre-grain development C:N
+ratios for leaves, stems, and roots in the model are optimized to allow maximum
+nitrogen accumulation for later use during organ development, and post-grain
+fill C:N ratios are assigned the same as crop residue. After
+nitrogen is moved into the retranslocated pool,
+the nitrogen in this pool is used to meet plant
 nitrogen demand by assigning the available nitrogen from the
-retranslocated pool equal to the plant nitrogen demand. Once the
+retranslocated pool equal to the plant nitrogen demand for each organ (<img class="math" src="../../_images/math/24e76199642da7b2ec702f32ab579085130a6644.png" alt="{CN_{[organ]}^{f} }"/> in <a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 25.3</span></a>). Once the
 retranslocation pool is depleted, soil mineral nitrogen pool is used to
 fulfill plant nitrogen demands.</p>
 </div>
 <div class="section" id="harvest-to-food-and-seed">
-<span id="id13"></span><h4>25.2.4.4. Harvest to food and seed<a class="headerlink" href="#harvest-to-food-and-seed" title="Permalink to this headline">¶</a></h4>
-<p>In CLM5, the C and N required for crop seeding is removed from the grain
-product pool during harvest and used to seed crops in the subsequent year.
-Caluating the crop yields requires that you sum the GRAINC_TO_FOOD variable
-for each year. Additionally, harvest is not typically 100% efficient, so
+<span id="id13"></span><h4>25.2.4.4. Harvest<a class="headerlink" href="#harvest-to-food-and-seed" title="Permalink to this headline">¶</a></h4>
+<p>Variables track the flow of grain C and
+N to food and of all other plant pools, including live stem C and N, to litter. Putting live
+stem C and N into the litter pool is in contrast to the approach for unmanaged PFTs which
+puts live stem C and N into dead stem pools first. Leaf and root C and N pools
+are routed to the litter pools in the same manner as natural vegetation. Whereas food C and N
+was formerly transferred to the litter pool, CLM5 routes food C and N
+to a grain product pool where the C and N decay to the atmosphere over one year,
+similar in structure to the wood product pools.
+Additionally, CLM5 accounts for the C and N required for crop seeding by removing the seed C and N from the grain
+product pool during harvest. The crop seed pool is then used to seed crops in the subsequent year.
+Calcuating the crop yields (Equation <a class="reference internal" href="#equation-25.9">(9)</a>) requires that you sum the GRAINC_TO_FOOD variable
+for each year, and must account for the proportion of C in the dry crop weight.
+Here, we assume that grain C is 45% of the total dry weight. Additionally, harvest is not typically 100% efficient, so
 analysis needs to assume that harvest efficiency is less. We assume a harvest
-efficiency of 85%, and a grain C of 45% of the grain dry weight.</p>
+efficiency of 85%.</p>
 <div class="math" id="equation-25.9">
 <p><span class="eqno">(9)<a class="headerlink" href="#equation-25.9" title="Permalink to this equation">¶</a></span><img src="../../_images/math/edd0146a7198dba11f5e0d51d79cdd53b55d155d.png" alt="Grain\ yield(g.m^{-2})=\frac{\sum(GRAINC\_ TO\_ FOOD)*0.85}{0.45}"/></p>
 </div><table border="1" class="docutils" id="id22">
@@ -1204,8 +1210,9 @@ efficiency of 85%, and a grain C of 45% of the grain dry weight.</p>
 </tr>
 </tbody>
 </table>
-<p>Notes: Crop growth phases and corresponding variables are described in
-the text</p>
+<p>Notes: Crop growth phases and corresponding variables are described throughout
+the text. <img class="math" src="../../_images/math/d06f9734cef2f0142828754a9e07f367bf14a581.png" alt="{CN}_{leaf}"/>, <img class="math" src="../../_images/math/b2a2784c4d0616640f201112429458cd59ca3a3e.png" alt="{CN}_{stem}"/>, and <img class="math" src="../../_images/math/ecdc3ff5379e09fc1b25db78882669a65fc3e947.png" alt="{CN}_{froot}"/> are
+the target C:N ratios used during the leaf emergence phase (phase 2).</p>
 </div>
 </div>
 <div class="section" id="other-features">
@@ -1225,7 +1232,9 @@ and <img class="math" src="../../_images/math/5769a6b6169a224f0edf6d0fe358ee1f46
 {z_{top} =z_{top}^{\max } \left(\frac{L}{L_{\max } -1} \right)^{2} \ge 0.05{\rm \; where\; }\frac{L}{L_{\max } -1} \le 1} \\
 {z_{bot} =0.02{\rm m}}
 \end{array}"/></p>
-</div></div>
+</div><p>where <img class="math" src="../../_images/math/0154f42814b24ec090506c270051cc92daf34c93.png" alt="z_{top}^{\max }"/> is the maximum top-of-canopy height of the crop (<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 25.2</span></a>)
+and <img class="math" src="../../_images/math/875f1eb28207049ad3ed8969b3bb034582253d8e.png" alt="L_{\max }"/> is the maximum leaf area index (<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 25.3</span></a>).</p>
+</div>
 <div class="section" id="interactive-fertilization">
 <span id="id16"></span><h4>25.2.5.2. Interactive Fertilization<a class="headerlink" href="#interactive-fertilization" title="Permalink to this headline">¶</a></h4>
 <p>CLM simulates fertilization by adding nitrogen directly to the soil mineral nitrogen pool to meet
@@ -1247,27 +1256,27 @@ of CLM (e.g., CLM4) had rapid denitrification rates, fertilizer is applied slowl
 to minimize N loss (primarily through denitrification) and maximize plant uptake.
 The current implementation of CLM5 inherits this legacy, although denitrification rates
 are slower in the current version of the model (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#kovenetal2013"><span class="std std-ref">Koven et al. 2013</span></a>). As such,
-fertilizer application begins during the emergence phase of crop
-development and continues for 20 days, which helps reduce large losses
+fertilizer application begins during the leaf emergence phase of crop
+development (phase 2) and continues for 20 days, which helps reduce large losses
 of nitrogen from leaching and denitrification during the early stage of
 crop development. The 20-day period is chosen as an optimization to
 limit fertilizer application to the emergence stage. A fertilizer
-counter in seconds, <em>f</em>, is set as soon as the onset growth for crops
+counter in seconds, <em>f</em>, is set as soon as the leaf emergence phase for crops
 initiates:</p>
 <div class="math" id="equation-25.11">
 <p><span class="eqno">(11)<a class="headerlink" href="#equation-25.11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/186ad122673b852e7619a5c2a73a1a9bdd261b37.png" alt="f = n \times 86400"/></p>
-</div><p>where <em>n</em> is set to 20 fertilizer application days. When the crop enters
-phase 2 (leaf emergence to the beginning of grain fill) of its growth
+</div><p>where <em>n</em> is set to 20 fertilizer application days and 86400 is the number of seconds per day. When the crop enters
+phase 2 (leaf emergence) of its growth
 cycle, fertilizer application begins by initializing fertilizer amount
-to the total fertilizer at each grid cell divided by the initialized <em>f</em>.
+to the total fertilizer at each column within the grid cell divided by the initialized <em>f</em>.
 Fertilizer is applied and <em>f</em> is decremented each time step until a zero balance on
 the counter is reached.</p>
 </div>
 <div class="section" id="biological-nitrogen-fixation-for-soybeans">
 <span id="id17"></span><h4>25.2.5.3. Biological nitrogen fixation for soybeans<a class="headerlink" href="#biological-nitrogen-fixation-for-soybeans" title="Permalink to this headline">¶</a></h4>
 <p>Biological N fixation for soybeans is calculated by the fixation and uptake of
-nitrogen module (Chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">18</span></a>). Unlike natural
-vegetation, where a fraction of the vegetation are N fixers, all soybeans
+nitrogen module (Chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">18</span></a>) and is the same as N fixation in natural vegetation. Unlike natural
+vegetation, where a fraction of each pft are N fixers, all soybeans
 are treated as N fixers.</p>
 </div>
 <div class="section" id="latitudinal-variation-in-base-growth-tempereature">
@@ -1290,14 +1299,14 @@ and sugarcane.</p>
 <div class="section" id="separate-reproductive-pool">
 <span id="id18"></span><h4>25.2.5.5. Separate reproductive pool<a class="headerlink" href="#separate-reproductive-pool" title="Permalink to this headline">¶</a></h4>
 <p>One notable difference between natural vegetation and crops is the
-presence of a reproductive carbon pool (and nitrogen pool). Accounting
-for the reproductive pool helps determine whether crops are performing
+presence of reproductive carbon and nitrogen pools. Accounting
+for the reproductive pools helps determine whether crops are performing
 reasonably through yield calculations.
 The reproductive pool is maintained similarly to the leaf, stem,
 and fine root pools, but allocation of carbon and nitrogen does not
 begin until the grain fill stage of crop development. Equation <a class="reference internal" href="#equation-25.5">(5)</a> describes the
 carbon and nitrogen allocation coefficients to the reproductive pool.
-In CLM5BGCCROP, as allocation declines
+In CLM5BGCCROP, as allocation declines in stem, leaf, and root pools (see section <a class="reference internal" href="#grain-fill-to-harvest"><span class="std std-numref">25.2.4.2</span></a>)
 during the grain fill stage of growth, increasing amounts of carbon and
 nitrogen are available for grain development.</p>
 </div>
@@ -1344,7 +1353,7 @@ the soil is</p>
 <p><span class="eqno">(17)<a class="headerlink" href="#equation-25.65" title="Permalink to this equation">¶</a></span><img src="../../_images/math/eba14cb993118c0b93d73815941b64ebbe0b0e3b.png" alt="w_{avail} = \sum_{j=1}^{N_{irr}} \theta_{j} \Delta z_{j} \ ,"/></p>
 </div><p><img class="math" src="../../_images/math/1053fe505b22fcc879c182936b965971c8837e57.png" alt="N_{irr}"/> is the index of the soil layer corresponding to a specified
 depth <img class="math" src="../../_images/math/1f0eef2a9394a824ab5a910558d8c55c917b23fd.png" alt="z_{irrig}"/> (<a class="reference internal" href="#table-irrigation-parameters"><span class="std std-numref">Table 25.4</span></a>) and
-<img class="math" src="../../_images/math/8c1a7061a6a26cf6bbb53392039d2034fd9050fa.png" alt="\Delta z"/> is the thickness of the soil layer (section
+<img class="math" src="../../_images/math/2323d91704aed27da55bca4cd64c5a44bfe5a5ad.png" alt="\Delta z_{j}"/> is the thickness of the soil layer in layer <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/> (section
 <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#vertical-discretization"><span class="std std-numref">2.2</span></a>).  <img class="math" src="../../_images/math/e78528243bde20566109d8a558f3a877aba1fa97.png" alt="\theta_{j}"/> is the
 volumetric soil moisture in layer <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/> (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#soil-water"><span class="std std-numref">7.3</span></a>).
 <img class="math" src="../../_images/math/bcccb1c2d9db92b2b0697b4b8537e43f0e2eba86.png" alt="\theta_{target}"/> and
@@ -1358,7 +1367,7 @@ potential parameters <img class="math" src="../../_images/math/816c8302d3486b92e
 the irrigation period <img class="math" src="../../_images/math/ac2bc01c475cdbd0b167ae303dd83bc662fb601b.png" alt="T_{irrig}"/> (s).  Irrigation water is applied
 directly to the ground surface, bypassing canopy interception (i.e.,
 added to  <img class="math" src="../../_images/math/547ddd005d55ba0eac928924fa6dacd3f2ccc83e.png" alt="{q}_{grnd,liq}"/>: section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#canopy-water"><span class="std std-numref">7.1</span></a>).</p>
-<p>To conserve mass, irrigation is removed from river water storage (Chapter 11).
+<p>To conserve mass, irrigation is removed from river water storage (Chapter <a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html#rst-river-transport-model-rtm"><span class="std std-numref">14</span></a>).
 When river water storage is inadequate to meet irrigation demand,
 there are two options: 1) the additional water can be removed from the
 ocean model, or 2) the irrigation demand can be reduced such that

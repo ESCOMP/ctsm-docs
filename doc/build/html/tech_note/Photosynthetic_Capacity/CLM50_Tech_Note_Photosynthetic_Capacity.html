@@ -58,7 +58,14 @@
   <ul>
 <li><a class="reference internal" href="#">10. Photosynthetic Capacity</a><ul>
 <li><a class="reference internal" href="#model-inputs-and-parameter-estimations">10.1. Model inputs and parameter estimations</a></li>
-<li><a class="reference internal" href="#model-structure">10.2. Model structure</a></li>
+<li><a class="reference internal" href="#model-structure">10.2. Model structure</a><ul>
+<li><a class="reference internal" href="#plant-nitrogen">10.2.1. Plant Nitrogen</a></li>
+<li><a class="reference internal" href="#maximum-electron-transport-rate">10.2.2. Maximum electron transport rate</a></li>
+<li><a class="reference internal" href="#maximum-rate-of-carboxylation">10.2.3. Maximum rate of carboxylation</a></li>
+<li><a class="reference internal" href="#implementation-of-photosynthetic-capacity">10.2.4. Implementation of Photosynthetic Capacity</a></li>
+<li><a class="reference internal" href="#total-respiration">10.2.5. Total Respiration</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#numerical-scheme">10.3. Numerical scheme</a></li>
 </ul>
 </li>
@@ -135,6 +142,8 @@ we do not differentiate the photosynthetic capacity difference for sun-lit or sh
 </div>
 <div class="section" id="model-structure">
 <span id="id2"></span><h2>10.2. Model structure<a class="headerlink" href="#model-structure" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="plant-nitrogen">
+<h3>10.2.1. Plant Nitrogen<a class="headerlink" href="#plant-nitrogen" title="Permalink to this headline">¶</a></h3>
 <p>The structure of the LUNA model is adapted from Xu et al.(2012), where the plant nitrogen at the leaf level ( <img class="math" src="../../_images/math/d1853e5f844f280fc98c24444ce23183244b1399.png" alt="\text{LNC}_{a}"/>;  gN/ m <sup>2</sup> leaf) is divided into
 four pools: structural nitrogen( <img class="math" src="../../_images/math/227fd102078def4bf9ee005a9350c58d60b4828a.png" alt="N_{\text{str}}"/>;  gN/m <sup>2</sup> leaf),
 photosynthetic nitrogen ( <img class="math" src="../../_images/math/64a1a346f5c8840b1997d349418268e92ce8346c.png" alt="N_{\text{psn}}"/>; gN/ m:sup:<cite>2</cite> leaf),
@@ -168,6 +177,9 @@ use. Namely, the solutions of nitrogen allocations { <img class="math" src="../.
 <p>The gross photosynthesis, <img class="math" src="../../_images/math/0043fe6507e9b1d112e07a2801e24927e267dd50.png" alt="A"/>, was calculated with a coupled leaf gas  exchange model based on the Farquhar et al. (1980) model of
 photosynthesis and Ball&#8211;Berry-type stomatal conductance model (Ball et al., 1987). The maintenance respiration for photosynthetic enzymes, <img class="math" src="../../_images/math/4c1fa00a5b4798f5dc86132831bea50ef35884dc.png" alt="R_{\text{psn}}"/>, is
 calculated by the multiplication of total photosynthetic nitrogen ( <img class="math" src="../../_images/math/64a1a346f5c8840b1997d349418268e92ce8346c.png" alt="N_{\text{psn}}"/> ) and the maintenance respiration cost for photosynthetic enzymes.</p>
+</div>
+<div class="section" id="maximum-electron-transport-rate">
+<h3>10.2.2. Maximum electron transport rate<a class="headerlink" href="#maximum-electron-transport-rate" title="Permalink to this headline">¶</a></h3>
 <p>In the LUNA model, the maximum electron transport rate
 ( <img class="math" src="../../_images/math/b64cbc19ceffc60773fc2d186e262ad27bfa1ae8.png" alt="J_{\text{max}}"/>; <img class="math" src="../../_images/math/718985a1cbc237e77e3dcfe7e57f37232fdc8597.png" alt="{\mu} mol"/>  electron / m <sup>-2</sup>/s)
 is simulated to have a baseline allocation of nitrogen and additional
@@ -220,37 +232,74 @@ empirical expression of  leaf (1937),</p>
   \right)^{0.5}}"/></p>
 </div><p>where <img class="math" src="../../_images/math/68f276f24c69747354a647be35d555b8b904ef76.png" alt="\text{PAR}_{\text{{max}}}"/> ( <img class="math" src="../../_images/math/88a0c2fb97738a35b50be12c86c9634215c89aaa.png" alt="\mu mol"/>/m <sup>2</sup>/s) is the
 maximum photosynthetically active radiation during the day.</p>
+</div>
+<div class="section" id="maximum-rate-of-carboxylation">
+<h3>10.2.3. Maximum rate of carboxylation<a class="headerlink" href="#maximum-rate-of-carboxylation" title="Permalink to this headline">¶</a></h3>
+<p>The maximum rate of carboxylation at 25 <sup>o</sup>C varies with
+foliage nitrogen concentration and specific leaf area and is calculated
+as in Thornton and Zimmermann (2007). At 25ºC,</p>
+<div class="math" id="equation-10.11)">
+<p><span class="eqno">(11)<a class="headerlink" href="#equation-10.11)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8d960f1d2c80f0167f5e49b7f122c3c633e4ddf3.png" alt="V_{c\max 25} =N_{str} N_{cb} F_{NR} a_{R25}"/></p>
+</div><p>where <img class="math" src="../../_images/math/0192a1f8fe928b78a6eb9d5838338748e68c212f.png" alt="N_{str}"/> is the area-based leaf nitrogen concentration (g N
+m<sup>-2</sup> leaf area), <img class="math" src="../../_images/math/45d4d508cb55c692f334b8d438420cb6ef002aed.png" alt="N_{cb}"/>  is the fraction of leaf
+nitrogen in Rubisco (g N in Rubisco g<sup>-1</sup> N),
+<img class="math" src="../../_images/math/cc861e647c8ab0781257a4ce6de320cea61ed389.png" alt="F_{NR} =7.16"/> is the mass ratio of total Rubisco molecular mass
+to nitrogen in Rubisco (g Rubisco g<sup>-1</sup> N in Rubisco), and
+<img class="math" src="../../_images/math/a9693fdb21ba67297b3f1e48ca4ef93f98dd58b5.png" alt="a_{R25} =60"/> is the specific activity of Rubisco (µmol
+CO<sub>2</sub> g<sup>-1</sup> Rubisco s<sup>-1</sup>).</p>
+<p><img class="math" src="../../_images/math/51fcb1749c778828581b1841b12a2c599effd058.png" alt="V_{c\max 25}"/>  additionally varies with daylength (<img class="math" src="../../_images/math/bc48160391ca2675d4c75fec18dad8d859b930b3.png" alt="DYL"/>)
+using the function <img class="math" src="../../_images/math/ef591bc30bfa23e76c15d3a612d178e3982a2084.png" alt="f(DYL)"/>, which introduces seasonal variation
+to <img class="math" src="../../_images/math/ff692f7c76cfd984353c7092bf6421d00f28c4a1.png" alt="V_{c\max }"/></p>
+<div class="math" id="equation-10.12)">
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-10.12)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7bbd95f62c961c950ee50e0bce835435e3353a70.png" alt="f\left(DYL\right)=\frac{\left(DYL\right)^{2} }{\left(DYL_{\max } \right)^{2} }"/></p>
+</div><p>with <img class="math" src="../../_images/math/8616e0ab559129f1f4a71b2bb07564f0602d4770.png" alt="0.01\le f\left(DYL\right)\le 1"/>. Daylength (seconds) is
+given by</p>
+<div class="math" id="equation-10.13)">
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-10.13)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2effde7c4e35740461b23c6a02cda9587caace0b.png" alt="DYL=2\times 13750.9871\cos ^{-1} \left[\frac{-\sin \left(lat\right)\sin \left(decl\right)}{\cos \left(lat\right)\cos \left(decl\right)} \right]"/></p>
+</div><p>where <img class="math" src="../../_images/math/e3b742a565f6f12d8a831b05bf2eebdb8d1c8288.png" alt="lat"/> (latitude) and <img class="math" src="../../_images/math/654d401f07af65196fef2366d883e2d6ba47258c.png" alt="decl"/> (declination angle) are
+from section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#solar-zenith-angle"><span class="std std-numref">3.3</span></a>. Maximum daylength (<img class="math" src="../../_images/math/c80b999be48921e46fb7bc6ae58ec901b0fcbcd0.png" alt="DYL_{\max }"/> ) is calculated
+similarly but using the maximum declination angle for present-day
+orbital geometry (<img class="math" src="../../_images/math/50d6e780b5b859608e650113d8bb954183926a02.png" alt="\pm"/>23.4667º [<img class="math" src="../../_images/math/50d6e780b5b859608e650113d8bb954183926a02.png" alt="\pm"/>0.409571 radians],
+positive for Northern Hemisphere latitudes and negative for Southern
+Hemisphere).</p>
+</div>
+<div class="section" id="implementation-of-photosynthetic-capacity">
+<h3>10.2.4. Implementation of Photosynthetic Capacity<a class="headerlink" href="#implementation-of-photosynthetic-capacity" title="Permalink to this headline">¶</a></h3>
 <p>Based on Farquhar et al. (1980) and Wullschleger (1993), we can calculate the
 electron-limited photosynthetic rate under daily maximum radiation ( <img class="math" src="../../_images/math/4ff6e51f9c99a5a4c7d08919b0c8556a43970bc5.png" alt="W_{jx}"/>)
 and the Rubisco-limited photosynthetic rate ( <img class="math" src="../../_images/math/24f2c3cb9be960a3d1c50f0c341b51d5b5c3fa00.png" alt="W_{\mathrm{c}}"/>) as follows,</p>
-<div class="math" id="equation-10.11)">
-<p><span class="eqno">(11)<a class="headerlink" href="#equation-10.11)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b9c47fca868c56701f3a06c779b4a1eede0d1f27.png" alt="W_{J_{x}} = K_{j}J_{x} ,"/></p>
-</div><div class="math" id="equation-10.12)">
-<p><span class="eqno">(12)<a class="headerlink" href="#equation-10.12)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3648a8a41934500ddab64f0017556f06b81aa967.png" alt="W_{\mathrm{c}} = K_{\mathrm{c}} V_{{\mathrm{c}, \text{max}}},"/></p>
+<div class="math" id="equation-10.14)">
+<p><span class="eqno">(14)<a class="headerlink" href="#equation-10.14)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b9c47fca868c56701f3a06c779b4a1eede0d1f27.png" alt="W_{J_{x}} = K_{j}J_{x} ,"/></p>
+</div><div class="math" id="equation-10.15)">
+<p><span class="eqno">(15)<a class="headerlink" href="#equation-10.15)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3648a8a41934500ddab64f0017556f06b81aa967.png" alt="W_{\mathrm{c}} = K_{\mathrm{c}} V_{{\mathrm{c}, \text{max}}},"/></p>
 </div><p>where <img class="math" src="../../_images/math/78ce9bc59b64213bd970ae3d7d8cae16e6af7dcf.png" alt="K_{j}"/> and <img class="math" src="../../_images/math/810f1edae843473179be9562832b1570c877136f.png" alt="K_{\mathrm{c}}"/> as the conversion factors for
 <img class="math" src="../../_images/math/55af73483b6c9a950024afbca2ffb5c71e85597b.png" alt="J_{x}"/> and  <img class="math" src="../../_images/math/67926ca2238b0f6c36bd4975a905434fa62a33ee.png" alt="V_{{\mathrm{c}, \text{max}}}"/> ( <img class="math" src="../../_images/math/67926ca2238b0f6c36bd4975a905434fa62a33ee.png" alt="V_{{\mathrm{c}, \text{max}}}"/> to
 <img class="math" src="../../_images/math/24f2c3cb9be960a3d1c50f0c341b51d5b5c3fa00.png" alt="W_{\mathrm{c}}"/> and <img class="math" src="../../_images/math/55af73483b6c9a950024afbca2ffb5c71e85597b.png" alt="J_{x}"/> to <img class="math" src="../../_images/math/9d3c9ae895163ca5b9bf5abf9625809b866f7ac6.png" alt="W_{J_{x}}"/>), respectively. Based on
 Xu et al. (2012), Maire et al. (2012) and Walker et al. (2014), we
 assume that <img class="math" src="../../_images/math/24f2c3cb9be960a3d1c50f0c341b51d5b5c3fa00.png" alt="W_{\mathrm{c}}"/> is proportional to
 <img class="math" src="../../_images/math/9d3c9ae895163ca5b9bf5abf9625809b866f7ac6.png" alt="W_{J_{x}}"/>. Specifically, we have</p>
-<div class="math" id="equation-10.13)">
-<p><span class="eqno">(13)<a class="headerlink" href="#equation-10.13)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/dee597f8c7bd1cbefadf03d203e39ae82020b79c.png" alt="W_{\mathrm{c}}=t_{\alpha}t_{\mathrm{c}, j0}W_{J_{x}}"/></p>
+<div class="math" id="equation-10.16)">
+<p><span class="eqno">(16)<a class="headerlink" href="#equation-10.16)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/dee597f8c7bd1cbefadf03d203e39ae82020b79c.png" alt="W_{\mathrm{c}}=t_{\alpha}t_{\mathrm{c}, j0}W_{J_{x}}"/></p>
 </div><p>where <img class="math" src="../../_images/math/ac30713f428f76cc90e3ff2b0b5fcf3c12fcc295.png" alt="t_{\mathrm{c}, j0}"/> is the baseline ratio of <img class="math" src="../../_images/math/24f2c3cb9be960a3d1c50f0c341b51d5b5c3fa00.png" alt="W_{\mathrm{c}}"/> to
 <img class="math" src="../../_images/math/9d3c9ae895163ca5b9bf5abf9625809b866f7ac6.png" alt="W_{J_{x}}"/>. We recognize that this ratio may change depending on the
 nitrogen use efficiency of carboxylation and electron transport (Ainsworth and Rogers, 2007),
 therefore the LUNA model has the modification factor, <img class="math" src="../../_images/math/be089e81b36232e699fcaaad8c044238523ed4a1.png" alt="t_{\alpha}"/>, to adjust baseline
 the ratio depending on the nitrogen use efficiency for electron vs carboxylation (Ali et al 2016).</p>
+</div>
+<div class="section" id="total-respiration">
+<h3>10.2.5. Total Respiration<a class="headerlink" href="#total-respiration" title="Permalink to this headline">¶</a></h3>
 <p>Following Collatz et al.(1991a), the total respiration ( <img class="math" src="../../_images/math/400f0af4eb90c7f3d68766bc679fb7c75cfb7177.png" alt="R_{\mathrm{t}}"/>) is
 calculated in proportion to <img class="math" src="../../_images/math/1ebc6b9a3eaae75a8f05eb0e677244fc003e4ef6.png" alt="V_{\text{c,max}}"/>,</p>
-<div class="math" id="equation-10.14)">
-<p><span class="eqno">(14)<a class="headerlink" href="#equation-10.14)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4742c3b01542d2a0a1c9cf7aa73498a885ee1b6d.png" alt="R_{\mathrm{t}} = 0.015 V_{\text{c,max}}."/></p>
+<div class="math" id="equation-10.17)">
+<p><span class="eqno">(17)<a class="headerlink" href="#equation-10.17)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4742c3b01542d2a0a1c9cf7aa73498a885ee1b6d.png" alt="R_{\mathrm{t}} = 0.015 V_{\text{c,max}}."/></p>
 </div><p>Accounting for the daytime and nighttime temperature, the daily respirations is calculated as follows,</p>
-<div class="math" id="equation-10.15)">
-<p><span class="eqno">(15)<a class="headerlink" href="#equation-10.15)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/83d287531cd0f5d85005789fcb9f957e0876f8ae.png" alt="R_{\text{td}}={R}_{\mathrm{t}} [D_{\text{day}} + D_{\text{night}} f_{\mathrm{r}}{(T_{\text{night}})/f_{\mathrm{r}}{(T_{\text{day}})}}],"/></p>
+<div class="math" id="equation-10.18)">
+<p><span class="eqno">(18)<a class="headerlink" href="#equation-10.18)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/83d287531cd0f5d85005789fcb9f957e0876f8ae.png" alt="R_{\text{td}}={R}_{\mathrm{t}} [D_{\text{day}} + D_{\text{night}} f_{\mathrm{r}}{(T_{\text{night}})/f_{\mathrm{r}}{(T_{\text{day}})}}],"/></p>
 </div><p>where <img class="math" src="../../_images/math/b6202dbed8783ef6e9cf53f14224ec148e0442d9.png" alt="D_{\text{day}}"/> and <img class="math" src="../../_images/math/6cd40b0ea215ea50b3aa6631d552bc1aaf059df1.png" alt="D_{\text{night}}"/> are daytime and
 nighttime durations in seconds. <img class="math" src="../../_images/math/0b02089e293801566b7419c4d816dd857c6cc4ef.png" alt="f_{\mathrm{r}}(T_{\text{night}})"/> and
 <img class="math" src="../../_images/math/364ea397f61615c2c33313239f8337c4f772b085.png" alt="f_{\mathrm{r}}(T_{\text{day}})"/> are the temperature response functions for
 respiration [see Appendix B in Ali et al (2016) for details ].</p>
+</div>
 </div>
 <div class="section" id="numerical-scheme">
 <span id="id3"></span><h2>10.3. Numerical scheme<a class="headerlink" href="#numerical-scheme" title="Permalink to this headline">¶</a></h2>
