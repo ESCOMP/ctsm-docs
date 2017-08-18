@@ -109,10 +109,10 @@
 <p><strong>*Coordinating Lead Authors*</strong></p>
 <p><strong>David M. Lawrence, Rosie Fisher, Charles D. Koven, Keith W. Oleson, Sean Swenson</strong></p>
 <p><strong>*Lead Authors*</strong></p>
-<p><strong>Bardan Ghimire, Leo van Kampenhout, Daniel Kennedy, Erik Kluzek, Peter J. Lawrence, Fang Li, Hongyi Li, Danica Lombardozzi, Yaqiong Lu, Justin Perket, William J. Riley, William Sacks, Mingjie Shi, Will Wieder, Chonggang Xu</strong></p>
+<p><strong>Gordon Bonan, Bardan Ghimire, Leo van Kampenhout, Daniel Kennedy, Erik Kluzek, Peter J. Lawrence, Fang Li, Hongyi Li, Danica Lombardozzi, Yaqiong Lu, Justin Perket, William J. Riley, William Sacks, Mingjie Shi, Will Wieder, Chonggang Xu</strong></p>
 <p><strong>*Contributing Authors*</strong></p>
-<p><strong>Ben Andre, Ali Ashehad, Gautam Bisht, Gordon Bonan, Patrick Broxton, Michael Brunke, Jonathon Buzan, Martyn Clark, Tony Craig, Kyla Dahlin, Beth Drewniak, Louisa Emmons, Josh Fisher, Mark Flanner, Pierre Gentine, Jan Lenaerts, Sam Levis,
-L. Ruby Leung, William Lipscomb, Daniel M. Ricciuto, Ben Sanderson, Andrew Slater, Zachary M. Subin, Jinyun Tang, Ahmed Tawfik, Quinn Thomas, Simone Tilmes, Mariana Vertenstein, Francis Vitt, Xubin Zeng</strong></p>
+<p><strong>Ben Andre, Ali Ashehad, Andrew Badger, Gautam Bisht, Patrick Broxton, Michael Brunke, Jonathon Buzan, Martyn Clark, Tony Craig, Kyla Dahlin, Beth Drewniak, Louisa Emmons, Josh Fisher, Mark Flanner, Pierre Gentine, Jan Lenaerts, Sam Levis,
+L. Ruby Leung, William Lipscomb, Jon Pelletier, Daniel M. Ricciuto, Ben Sanderson, Andrew Slater, Zachary M. Subin, Jinyun Tang, Ahmed Tawfik, Quinn Thomas, Simone Tilmes, Mariana Vertenstein, Francis Vitt, Xubin Zeng</strong></p>
 <p>The National Center for Atmospheric Research (NCAR) is operated by the
 nonprofit University Corporation for Atmospheric Research (UCAR) under
 the sponsorship of the National Science Foundation. Any opinions,
@@ -204,17 +204,6 @@ Qian, Jon Radakovich, James Randerson, Nan Rosenbloom, Steve Running,
 Koichi Sakaguchi, Adam Schlosser, Andrew Slater, Reto Stöckli, Ying Sun, Quinn
 Thomas, Peter Thornton, Mariana Vertenstein, Nicholas Viovy, Aihui Wang, Guiling Wang,
 Charlie Zender, Xiaodong Zeng, and Xubin Zeng.</p>
-<p>Current affiliations for the authors are as follows:</p>
-<p>K.W. Oleson, D.M. Lawrence, G.B. Bonan, S.C. Swenson, R.
-Fisher, E. Kluzek, P.J. Lawrence, W. Sacks and M. Vertenstein (National Center for Atmospheric Research); B. Drewniak (Argonne
-National Laboratory); M. Huang, L.R. Leung (Pacific Northwest National
-Laboratory); C.D. Koven, W.J. Riley, and J. Tang (Lawrence Berkeley
-National Laboratory); F. Li (Chinese Academy of Sciences); Z.M. Subin
-(Princeton University); P.E. Thornton and D.M. Ricciuto (Oak Ridge
-National Laboratory); A. Bozbiyik (Bern University); C. Heald
-(Massachusetts Institute of Technology), W. Lipscomb (Los Alamos
-National Laboratory); Ying Sun and Z.-L. Yang (University of Texas at
-Austin)</p>
 <div class="section" id="introduction">
 <span id="rst-introduction"></span><h1>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <p>The purpose of this document is to fully describe the biogeophysical and
@@ -520,14 +509,47 @@ Community Earth System Model version 1.2 (CESM1.2).</p>
 </div>
 <div class="section" id="clm5-0">
 <h3>1.1.7. CLM5.0<a class="headerlink" href="#clm5-0" title="Permalink to this headline">¶</a></h3>
-<p>Developments for CLM5.0 build on the progress made in CLM4.5.  Much of the focus of development centered on a
-push towards more mechanistic treatment of several key processes, in addition to more comprehensive and explicit representation
-of land use and land-cover change.  In particular,</p>
-<p>To represent … Stomatal conductance is a function of prognostic (predicted) leaf water potential.  LWP is the result of atmospheric
-demand and supply from soil via resistance network.</p>
-<p>Dynamic land units.</p>
-<p>Included within the codebase of the release of CLM5.0 is a functionally supported version of the Functionally-Assembled Terrestrial Ecosystem Simulator (FATES,
-reference Fisher???).  This version of CLM5-FATES that is supported in this release is described here??? Short blurb on what FATES can do???</p>
+<p>Developments for CLM5.0 build on the progress made in CLM4.5.  Most major components of the model have been udpated with particularly
+notable changes made to soil and plant hydrology, snow density, river modeling, carbon and nitrogen cycling and coupling,
+and crop modeling.
+Much of the focus of development centered on a
+push towards more mechanistic treatment of key processes, in addition to more comprehensive and explicit representation
+of land use and land-cover change. Prior versions of CLM included relatively few options for physics parameterizations or structure.
+In CLM5, where new parameterizations or model decisions were made, in most cases, the CLM4.5 parameterization was maintained so that users could switch back and forth between different parameterizations via namelist control where appropriate or desirable.  Throughout the CLM5 Technical Descpription, in general only the default parameterization for any given process is described.  Readers are referred to the CLM4.5 or CLM4 Technical Descriptions for detailed descriptions of non-default parameterizations.</p>
+<p>The hydrology updates include the introduction of a dry surface layer-based soil evaporation resistance parameterization <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#swensonlawrence2014"><span class="std std-ref">(Swenson and Lawrence, 2014)</span></a> and a revised canopy interception parameterization.  Canopy interception is now divided into liquid and solid phases, with the intercepted snow subject to unloading events due to wind or above-freezing temperatures.  The snow-covered fraction of the canopy is used within the canopy radiation and surface albedo calculation.  Instead of applying a spatially uniform soil thickness, soil thickness can vary in space <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#brunkeetal2016"><span class="std std-ref">(Brunke et al. 2016</span></a> and <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#swensonlawrence2015"><span class="std std-ref">Swenson and Lawrence, 2015)</span></a> and is set to values within a range of 0.4m to 8.5m depth, derived from a spatially explicit soil thickness data product <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#pelletieretal2016"><span class="std std-ref">(Pelletier et al., 2016)</span></a>.  The explicit treatment of soil thickness allows for the deprecation of the unconfined aquifer parameterization used in CLM4.5, which is replaced with a zero flux boundary condition and explicit modeling of both the saturated and unsaturated zones.  The default model soil layer resolution is increased, especially within the top 3m, to more explicitly represent active layer thickness within the permafrost zone.  Roots are deepened for the broadleaf evergreen tropical tree and broadleaf deciduous tropical tree types.  Finally, an adaptive time-stepping solution to the Richard&#8217;s equation is introduced, which improves the accuracy and stability of the numerical soil water solution.  The River Transport Model (RTM) is replaced with the Model for Scale Adaptive River Transport (MOSART, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2013b"><span class="std std-ref">Li et al., 2013b)</span></a> in which surface runoff is routed across hillslopes and then discharged along with subsurface runoff into a tributary subnetwork before entering the main channel.</p>
+<p>Several changes are included that are mainly targeted at improving the simulation of surface mass balance over ice
+sheets.  The fresh snow density parameterization is updated to more realistically capture the temperature effects and to additionally account for wind effects on new snow density <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#vankampenhoutetal2017"><span class="std std-ref">(van Kampenhout et al., 2017)</span></a>.  The maximum number of snow layers and snow amount is increased from 5 layers and 1m snow water equivalent to 12 layers and 10m snow water equivalent to allow for the formation of firn in regions of persistent snow-cover (e.g., glaciers and ice sheets) <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#vankampenhoutetal2017"><span class="std std-ref">(van Kampenhout et al., 2017)</span></a>.  The CISM2 ice sheet model is active for Greenland by default with one-way coupling (surface mass balance impacts ice sheet dynamics, but ice sheet dynamics do not feedback onto surface elevation).  Two-way coupling can be activated through a namelist switch.  The introduction in CLM5 of the capability to
+dynamically adjust landunit weights means that a glacier can initiate, grow, shrink, or disappear during
+a simulation when two-way coupling is active.  Multiple elevation classes (10 elevation classes by default) and associated temperature, rain/snow partitioning, and downwelling longwave downscaling are used for glacier landunits to account for the strong topographic elevation heterogeneity over glaciers and ice sheets.</p>
+<p>A plant hydraulic stress routine is introduced which explicitly models water transport through the vegetation according to a simple hydraulic framework (Kennedy et al., to be submitted).  The water supply equations are used to solve for vegetation water potential forced by transpiration demand and a set of layer-by-layer soil water potentials.  Stomatal conductance, therefore, is a function of prognostic leaf water potential.  Water stress is calculated as the ratio of attenuated stomatal conductance to maximum stomatal conductance.  An emergent feature of the plant hydraulics is soil hydraulic redistribution.  In CLM5, maximum stomatal conductance is obtained from the Medlyn conductance model :ref:(Medlyn et al., 2011)&lt;Medlynetal2011&gt;`, rather than the Ball-Berry stomatal conductance model that was utilized in CLM4.5 and prior versions of the model. The Medlyn stomatal conductance model is preferred mainly for it&#8217;s more realistic behavior at low humidity levels <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#rogersetal2017"><span class="std std-ref">(Rogers et al., 2017)</span></a>. The stress deciduous vegetation phenology trigger is augmented with a antecedent precipitation requirement <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#dahlinetal2015"><span class="std std-ref">(Dahlin et al. 2015)</span></a>.</p>
+<p>Plant nutrient dynamics are substantially updated to resolve several deficiencies with the CLM4 and CLM4.5 nutrient cycling representation.  The Fixation and Update of Nitrogen (FUN) model (refs???) is adapted for CLM <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#shietal2016"><span class="std std-ref">(Shi et al., 2016)</span></a> to resolve the
+unrealistic feature that plants get nitrogen for free in CLM4 and CLM4.5.  With FUN, the fact that plants typically spend a
+significant fraction of their available carbon on nutrient aquisition is acounted for. The static plant carbon:nitrogen (C:N) ratios utilized in CLM4 and CLM4.5 are replaced with variable plant C:N ratios which
+allows plants to adjust their C:N ratio, and therefore their leaf nitrogen content, with the cost of N uptake <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#ghimireetal2016"><span class="std std-ref">(Ghimire et al. 2016)</span></a>.
+The implementation of a flexible C:N ratio means that the model no longer relies on instantaneous downregulation
+of potential photosynthesis rates based on soil mineral nitrogen availability to represent nutrient limitation.  Furthermore, stomatal conductance
+is now based on the N-limited photosynthesis rather than on potential photosynthesis. Finally, the Leaf Use of
+Nitrogen for Assimilation (LUNA, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#xuetal2012"><span class="std std-ref">(Xu et al., 2012</span></a> and <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#alietal2016"><span class="std std-ref">Ali et al., 2016)</span></a> model is incorporated.  The LUNA model calculates
+photosynthetic capacity based on optimization of the use of leaf nitrogen under different environmental conditions such that
+light capture, carboxylation, and respiration are co-limiting.  Allocation changes ... Fixation ???</p>
+<p>Representation of human management of the land (agriculture, wood harvest) is augmented in several ways. The CLM4.5 crop model is extended to operate globally through the addition of rice and sugarcane as well as tropical varieties of corn and soybean <span class="xref std std-ref">(Badger and Dirmeyer, 2015</span> and <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#levisetal2016"><span class="std std-ref">Levis et al., 2016</span></a>.  These crop types are added to the existing temperate corn, temperature soybean, spring wheat, and cotton crop types.
+Fertilization rates and irrigation equipped area updated based on crop type and geographic region through an input dataset.  The irrigation trigger is updated.  Additional minor changes include crop phenological triggers that
+vary by latitude for selected crop types, grain C and N is now removed at harvest to a 1-year product pool with
+the carbon for the next season&#8217;s crop seed removed from the grain carbon at harvest.  Through the introduction of
+the capability to dynamically adjust landunit weights during a simulation, the crop model can now be run coincidentally
+with prescribed land use, which significantly expands the capabilities of the model.  Mass-based rather than area-based wood harvest is applied. Several heat stress indices for both urban and rural areas are calculated and output by default <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#buzanetal2015"><span class="std std-ref">(Buzan et al., 2015)</span></a>.   A more sophisticated and realistic building space heating and air conditioning submodel that prognoses interior building air temperature and includes more realistic space heating and air conditioning wasteheat factors
+is incorporated.</p>
+<p>The fire model is the same as utilized in CLM4.5 except that a modified scheme is used to estimate the dependence of fire occurrence and spread on fuel wetness for non-peat fires outside cropland and tropical closed forests <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lilawrence2017"><span class="std std-ref">Li and Lawrence, 2017)</span></a> and the dependence of agricultural fires on fuel load is removed.</p>
+<p>Included with the release of CLM5.0 is a functionally supported version of the Functionally-Assembled Terrestrial Ecosystem Simulator (FATES, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisheretal2015"><span class="std std-ref">Fisher et al., 2015)</span></a>. A major motivation of this development is to allow the prediction of biome boundaries directly from plant physiological traits via their competitive interactions. The version of CLM5-FATES that is supported in this release is described here??? Short blurb on what FATES can do??? Note that the classical dynamic global vegetation model (DGVM) that has been available within CLM4 and CLM4.5 remains available, though it is largely untested.  The technical description of the CLM-DGVM can be found within the CLM4.5 Technical Description (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#olesonetal2013"><span class="std std-ref">Oleson et al. 2013)</span></a>.</p>
+<p>During the course of the development of CLM5.0, it became clear that the increasing complexity of the model combined with the increasing number and range
+of model development projects required updates to the underlying CLM infrastructure.  Many such software improvements
+are included in CLM5.0 including a partial transition to an object-oriented modular software structure, extraction of many hard coded model
+parameters into either the parameter file or the CLM namelist, which allows users to more readily calibrate the model for use at
+specific locations or to conduct parameter sensitivity studies.  As part of the effort to increase
+the scientific utility of the code, in most instances older generation parameterizations (i.e., the parameterizations
+available in CLM4 or CLM4.5) are retained under namelist switches, allowing the user to revert to CLM4.5
+from the same code base or to revert individual parameterizations where the old parameterizations are compatible with the new code.  Finally, multiple vertical soil layer structures
+are defined and it is relatively easy to add additional structures.</p>
 </div>
 </div>
 <div class="section" id="biogeophysical-and-biogeochemical-processes">
@@ -555,12 +577,12 @@ evaporation, canopy evaporation, transpiration) fluxes (Chapter <a class="refere
 within the column, sub-surface drainage, groundwater) (Chapter <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#rst-hydrology"><span class="std std-numref">7</span></a>)</li>
 <li>Snow hydrology (snow accumulation and melt, compaction, water
 transfer between snow layers) (Chapter <a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html#rst-snow-hydrology"><span class="std std-numref">8</span></a>)</li>
-<li>Stomatal physiology and photosynthesis (Chapter <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#rst-stomatal-resistance-and-photosynthesis"><span class="std std-numref">9</span></a>)</li>
-<li>Prognostic photosynthetic capacity (Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">10</span></a>)</li>
+<li>Stomatal physiology, photosythetic capacity, and photosynthesis (Chapters <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#rst-stomatal-resistance-and-photosynthesis"><span class="std std-numref">9</span></a> and
+<a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">10</span></a>)</li>
 <li>Plant hydraulics (Chapter :numref: <cite>rst_Plant Hydraulics</cite>)</li>
 <li>Lake temperatures and fluxes (Chapter <a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html#rst-lake-model"><span class="std std-numref">12</span></a>)</li>
 <li>Glacier processes (Chapter <a class="reference internal" href="../Glacier/CLM50_Tech_Note_Glacier.html#rst-glaciers"><span class="std std-numref">13</span></a>)</li>
-<li>Routing of runoff from rivers to ocean (Chapter <a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html#rst-river-transport-model-rtm"><span class="std std-numref">14</span></a>)</li>
+<li>River routing and river flow (Chapter <a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html#rst-river-transport-model-rtm"><span class="std std-numref">14</span></a>)</li>
 <li>Urban energy balance and climate (Chapter <a class="reference internal" href="../Urban/CLM50_Tech_Note_Urban.html#rst-urban-model-clmu"><span class="std std-numref">15</span></a>)</li>
 <li>Vegetation carbon and nitrogen allocation (Chapter <a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html#rst-cn-allocation"><span class="std std-numref">19</span></a>)</li>
 <li>Vegetation phenology (Chapter <a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html#rst-vegetation-phenology-and-turnover"><span class="std std-numref">20</span></a>)</li>
@@ -569,13 +591,12 @@ transfer between snow layers) (Chapter <a class="reference internal" href="../Sn
 <li>Fixation and uptake of nitrogen (Chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">18</span></a>)</li>
 <li>External nitrogen cycling including deposition,
 denitrification, leaching, and losses due to fire (Chapter <a class="reference internal" href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html#rst-external-nitrogen-cycle"><span class="std std-numref">22</span></a>)</li>
-<li>Plant mortality (Chapter <code class="xref std std-numref docutils literal"><span class="pre">rst_Plant</span> <span class="pre">Mortality</span></code>)</li>
+<li>Plant mortality (Chapter <code class="xref std std-numref docutils literal"><span class="pre">rst_Plant_Mortality</span></code>)</li>
 <li>Fire ignition, suppression, spread, and emissions, including natural, deforestation, and
 agricultural fire (Chapter <a class="reference internal" href="../Fire/CLM50_Tech_Note_Fire.html#rst-fire"><span class="std std-numref">23</span></a>)</li>
 <li>Methane production, oxidation, and emissions (Chapter <a class="reference internal" href="../Methane/CLM50_Tech_Note_Methane.html#rst-methane-model"><span class="std std-numref">24</span></a>)</li>
-<li>Crop dynamics and irrigation (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>)</li>
+<li>Crop dynamics, irrigation, and fertilization (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>)</li>
 <li>Land cover and land use change including wood harvest (Chapter <a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html#rst-transient-landcover-change"><span class="std std-numref">26</span></a>)</li>
-<li>Dynamic global vegetation distribution (Chapter <a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html#rst-dynamic-global-vegetation-model"><span class="std std-numref">27</span></a>)</li>
 <li>Biogenic volatile organic compound emissions (Chapter <a class="reference internal" href="../BVOCs/CLM50_Tech_Note_BVOCs.html#rst-biogenic-volatile-organic-compounds-bvocs"><span class="std std-numref">28</span></a>)</li>
 <li>Dust mobilization and deposition (Chapter <a class="reference internal" href="../Dust/CLM50_Tech_Note_Dust.html#rst-dust-model"><span class="std std-numref">29</span></a>)</li>
 <li>Carbon isotope fractionation (Chapter <a class="reference internal" href="../Isotopes/CLM50_Tech_Note_Isotopes.html#rst-carbon-isotopes"><span class="std std-numref">30</span></a>)</li>
