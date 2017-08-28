@@ -54,6 +54,34 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">18. Fixation and uptake of nitrogen</a><ul>
+<li><a class="reference internal" href="#introduction">18.1. Introduction</a></li>
+<li><a class="reference internal" href="#boundary-conditions-of-fun">18.2. Boundary conditions of FUN</a><ul>
+<li><a class="reference internal" href="#available-carbon">18.2.1. Available Carbon</a></li>
+<li><a class="reference internal" href="#available-soil-nitrogen">18.2.2. Available Soil Nitrogen</a></li>
+<li><a class="reference internal" href="#cost-of-nitrogen-fixation">18.2.3. Cost of Nitrogen Fixation</a></li>
+<li><a class="reference internal" href="#cost-of-active-uptake">18.2.4. Cost of Active Uptake</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#resolving-n-cost-across-simultaneous-uptake-streams">18.3. Resolving N cost across simultaneous uptake streams</a></li>
+<li><a class="reference internal" href="#nitrogen-retranslocation">18.4. Nitrogen Retranslocation</a><ul>
+<li><a class="reference internal" href="#free-retranslocation">18.4.1. Free Retranslocation</a></li>
+<li><a class="reference internal" href="#paid-for-retranslocation">18.4.2. Paid-for Retranslocation</a></li>
+<li><a class="reference internal" href="#outputs-of-retranslocation-algorithm">18.4.3. Outputs of Retranslocation algorithm.</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#carbon-expenditure-on-fixation-and-active-uptake">18.5. Carbon expenditure on fixation and active uptake.</a></li>
+<li><a class="reference internal" href="#modifications-to-allow-variation-in-c-n-ratios">18.6. Modifications to allow variation in C:N ratios</a><ul>
+<li><a class="reference internal" href="#response-of-c-expenditure-to-nitrogen-uptake-cost">18.6.1. Response of C expenditure to Nitrogen uptake cost</a></li>
+<li><a class="reference internal" href="#response-of-c-expenditure-to-plant-c-n-ratios">18.6.2. Response of C expenditure to plant C:N ratios</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html"
                         title="previous chapter">17. Plant Respiration</a></p>
@@ -87,6 +115,245 @@
             
   <div class="section" id="fixation-and-uptake-of-nitrogen">
 <span id="rst-fun"></span><h1>18. Fixation and uptake of nitrogen<a class="headerlink" href="#fixation-and-uptake-of-nitrogen" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>18.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The Fixation and Uptake of Nitrogen model is based on work by Fisher (J.) et al., (2008), Brzostek et al. (2015) and Shi et al. (2016).  The concept of FUN is that in most cases, Nitrogen uptake requires the expenditure of energy in the form of carbon, and further, that there are numerous potential sources of Nitrogen in the environment which a plant may exchange for carbon. The ratio of carbon expended to Nitrogen acquired is referred to here as the cost, or exchange rate,  of N acquisition (<img class="math" src="../../_images/math/126eab7d9f3f453d1eda495e1a0ab5ffc6d05ee6.png" alt="E_{nacq}"/>, gC/gN)). There are four pathways for N uptake:</p>
+<ol class="arabic simple">
+<li>Fixation by symbiotic bacteria in root nodules (for N fixing plants) (<img class="math" src="../../_images/math/db6b8631bec71bbe3b9e87f11658cfd4a5419af8.png" alt="fix"/>)</li>
+<li>Retranslocation of N from senescing tissues (<img class="math" src="../../_images/math/7dba65608289f50539142ce734350fb51f23c5f0.png" alt="ret"/>)</li>
+<li>Active uptake of Nitrogen by plant roots as nitrate (<img class="math" src="../../_images/math/a3ff1f2222bae5c63ccb45f541e5b7731cc84209.png" alt="NO"/><sub>3</sub>)  (<img class="math" src="../../_images/math/74cb01de7b787414fc5dfb11e183966f7f9eceb2.png" alt="act_{no3}"/>)</li>
+<li>Active uptake of Nitrogen by plant roots as ammonia (<img class="math" src="../../_images/math/e53dc43baeef21c165546013043b5963cacd0f14.png" alt="NH"/><sub>4</sub>) (<img class="math" src="../../_images/math/9301a53df00f9bbbf35a1c9a83a86de2d1088a2b.png" alt="act_{nh4}"/>)</li>
+</ol>
+<p>The notation suffix for each pathway is given in parentheses here. At each timestep, each of these pathways is associated with a cost term (<img class="math" src="../../_images/math/75af68efc358b63f87b916d359f6961530a71ff3.png" alt="cost_x"/>), a payment in carbon (<img class="math" src="../../_images/math/95968556f46f704e0ce635de662dd5474acebdee.png" alt="C_{nuptake,x}"/>), and an influx of Nitrogen (<img class="math" src="../../_images/math/de68ae7a08109bdf9daf974deb5cd625aa5f5406.png" alt="N_{uptake,x}"/>), any of which may be zero, and where <img class="math" src="../../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/> is one of the four uptake streams listed above (<img class="math" src="../../_images/math/db6b8631bec71bbe3b9e87f11658cfd4a5419af8.png" alt="fix"/>, <img class="math" src="../../_images/math/7dba65608289f50539142ce734350fb51f23c5f0.png" alt="ret"/>, <img class="math" src="../../_images/math/74cb01de7b787414fc5dfb11e183966f7f9eceb2.png" alt="act_{no3}"/> or <img class="math" src="../../_images/math/9301a53df00f9bbbf35a1c9a83a86de2d1088a2b.png" alt="act_{nh4}"/>).</p>
+</div>
+<div class="section" id="boundary-conditions-of-fun">
+<h2>18.2. Boundary conditions of FUN<a class="headerlink" href="#boundary-conditions-of-fun" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="available-carbon">
+<h3>18.2.1. Available Carbon<a class="headerlink" href="#available-carbon" title="Permalink to this headline">¶</a></h3>
+<p>The carbon available for FUN, <img class="math" src="../../_images/math/0465ca4900773f431db18719c9cafda3d50ca3f9.png" alt="C_{avail}"/> (gC m<sup>-2</sup>) is the total canopy  photosynthetic uptake (GPP), minus the maintenance respiration fluxes (<img class="math" src="../../_images/math/9204d2477d19d1975f452017d1cc2398ac0fc0ba.png" alt="m_r"/>) and multiplied by the time step in seconds (<img class="math" src="../../_images/math/d1d0c5bda433e26438f8a8dc129047eafde47723.png" alt="\delta t"/>). Thus, the remainder of this chapter considers fluxes per timestep, and integrates these fluxes as they are calculated.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/eb21dd4462a5c5847d77ef11952488a844663aee.png" alt="C_{avail} = (GPP - m_r) \delta t"/></p>
+</div></div></blockquote>
+<p>Growth respiration is thus only calculated on the part of the carbon uptake that remains after expenditure of C by the FUN module.</p>
+</div>
+<div class="section" id="available-soil-nitrogen">
+<h3>18.2.2. Available Soil Nitrogen<a class="headerlink" href="#available-soil-nitrogen" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="cost-of-nitrogen-fixation">
+<h3>18.2.3. Cost of Nitrogen Fixation<a class="headerlink" href="#cost-of-nitrogen-fixation" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="cost-of-active-uptake">
+<h3>18.2.4. Cost of Active Uptake<a class="headerlink" href="#cost-of-active-uptake" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="resolving-n-cost-across-simultaneous-uptake-streams">
+<h2>18.3. Resolving N cost across simultaneous uptake streams<a class="headerlink" href="#resolving-n-cost-across-simultaneous-uptake-streams" title="Permalink to this headline">¶</a></h2>
+<p>The total cost of N uptake is calculated based on the assumption that carbon is partitioned to each stream in proportion to the inverse of the cost of uptake. So, more expensive pathways receive less carbon. Earlier versions of FUN (Fisher et al. 2008) utilized a scheme whereby plants only took up N from the cheapest pathway. Brzostek et al. introduced a scheme for the simultaneous uptake from different pathways. Here we calcualate a &#8216;conductance&#8217; to N uptake (analagous to the inverse of the cost function conceptualized as a resistance term) <img class="math" src="../../_images/math/645f605e3cf1947ef1fa4e0839418e4bc8ffcd97.png" alt="N_{conductance}"/> ( gN/gC) as:</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/ad0fb68bba64521e0e19823502f8cac46f5f4e2f.png" alt="N_{conductance}=  \sum{(1/cost_{x})}"/></p>
+</div></div></blockquote>
+<p>From this, we then calculate the fraction of the carbon allocated to each pathway as</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/00c0e98c297fabf3a3eeec155c1c7ba995b3d69c.png" alt="C_{frac,x} = \frac{1/cost_{x}}{N_{conductance}}"/></p>
+</div></div></blockquote>
+<p>These fractions are used later, to calculate the carbon expended on different uptake pathways.  Next, the N acquired from each uptake stream per unit C spent (<img class="math" src="../../_images/math/9c09c4301a7ccdd6e76639cd2efb898db1d94c72.png" alt="N_{exch,x}"/>, gN/gC)  is determined as</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/de3ccaa5f033c847adc8dc2fdc2b9ab2806618c3.png" alt="N_{exch,x} = \frac{C_{frac,x}}{cost_{x}}"/></p>
+</div></div></blockquote>
+<p>We then determine the total amount of N uptake per unit C spent (<img class="math" src="../../_images/math/a4f4dff5c7f3a69fa1411d048006f2977fdda88d.png" alt="N_{exch,tot}"/>, gN/gC) as the sum of all the uptake streams.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/2b0a7de7cd17fa35a2ff67271da18f7010960335.png" alt="N_{exch,tot} = \sum{N_{exch,x}}"/></p>
+</div></div></blockquote>
+<p>and thus the subsequent overall N cost is</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/3e93491824125668b1f8e88dd4c60e43fe9763e5.png" alt="N_{cost,tot} = 1/{N_{exch,tot}}"/></p>
+</div></div></blockquote>
+<p>Throughout these calculations, <img class="math" src="../../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/> is the sum of the fixation and active uptake pathways. Retranslocation is determined via a different set of mechanisms, once the <img class="math" src="../../_images/math/7f48b2207cd2e948216559e958338037b6285792.png" alt="N_{cost,tot}"/> is known.</p>
+</div>
+<div class="section" id="nitrogen-retranslocation">
+<h2>18.4. Nitrogen Retranslocation<a class="headerlink" href="#nitrogen-retranslocation" title="Permalink to this headline">¶</a></h2>
+<p>The retranslocation uses an iterative algorithm to remove Nitrogen from each piece of falling litter.  There are two pathways for this, &#8216;free&#8217; uptake which removes the labile N pool, and &#8216;paid-for&#8217; uptake which uses C to extract N from increasingly more recalcitrant pools.</p>
+<p>At each timestep, the pool of carbon in falling leaves (<img class="math" src="../../_images/math/ea1e267b576089cc2fe6e4353d6a74036af1a300.png" alt="C_{fallingleaf}"/>, g m<sup>-2</sup>) is generated from the quantity of litterfall on that day (see Phenology chapter for details). The amount of N in the litter pool (<img class="math" src="../../_images/math/c81f26e8dae8a8c4db960077f77806da15a23760.png" alt="N_{fallingleaf}"/>, g m<sup>-2</sup>) is calculated as the total leaf N multiplied by the fraction of the leaf pool passed to litter that timestep.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/f52b1c482c79edb452be602ebff9ff187d6974bc.png" alt="N_{fallingleaf} = N_{leaf}.C_{fallingleaf}/C_{leaf}"/></p>
+</div></div></blockquote>
+<p>The carbon available at the beginning of the iterative retranslocation calculation is equal to the <img class="math" src="../../_images/math/0465ca4900773f431db18719c9cafda3d50ca3f9.png" alt="C_{avail}"/> input into FUN.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/b1eee4055960efed015bee32bb3353501988dadd.png" alt=""/></p>
+</div><p>C_{avail_retrans,0} = C_{avail}</p>
+</div></blockquote>
+<div class="section" id="free-retranslocation">
+<h3>18.4.1. Free Retranslocation<a class="headerlink" href="#free-retranslocation" title="Permalink to this headline">¶</a></h3>
+<p>Some part of the leaf Nitrogen pool is removed without the need for an C expenditure.  This &#8216;free&#8217; N uptake amount, (<img class="math" src="../../_images/math/f50faf80e0bb6e313a5324d5e294e3f5dbd48b83.png" alt="N_{retrans,free}"/>, gN m<sup>-2</sup>) is calculated as</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/d87de53624f8c487df61d30b15db8d9823c74595.png" alt="N_{retrans,free}  = max(N_{fallingleaf} -  (C_{fallingleaf}/CN_{litter,min} ),0.0)"/></p>
+</div></div></blockquote>
+<p>where <img class="math" src="../../_images/math/66df4558c53ecfc1a29400641c6f9b0c1f7b2274.png" alt="CN_{litter,min}"/> is the minimum C:N ratio of the falling litter (currently set to 1.5 x the target C:N ratio).</p>
+<p>The new <img class="math" src="../../_images/math/c81f26e8dae8a8c4db960077f77806da15a23760.png" alt="N_{fallingleaf}"/> (gN m<sup>-2</sup>) is then determined as</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/8a1db8a68dd584ec7f30d077a50120a36aa1c6fc.png" alt="N_{fallingleaf} = N_{fallingleaf} - N_{retrans,free}"/></p>
+</div></div></blockquote>
+<p>and the new litter C:N ratio as</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/880d19ee722502d82db4d0ca6e04dbf0f6f71825.png" alt="CN_{fallingleaf}=C_{fallingleaf}/N_{fallingleaf}"/></p>
+</div></div></blockquote>
+</div>
+<div class="section" id="paid-for-retranslocation">
+<h3>18.4.2. Paid-for Retranslocation<a class="headerlink" href="#paid-for-retranslocation" title="Permalink to this headline">¶</a></h3>
+<p>The remaining calculations conduct an iterative calculation to determine the degree to which N retranslocation from leaves is paid for as C:N ratios and thus cost increase as N is extracted.  The iteration continues until either</p>
+<ol class="arabic simple">
+<li>The cost of retranslocation (<img class="math" src="../../_images/math/92b8ae02c47f68f24c993fb7711b8dd32c34e934.png" alt="cost_{retrans}"/> increases beyond the cost of acquiring N from alternative pathways (<img class="math" src="../../_images/math/7f48b2207cd2e948216559e958338037b6285792.png" alt="N_{cost,tot}"/>).</li>
+<li><img class="math" src="../../_images/math/3fb53624ef53f39b08c512029c86e6ff090df2b7.png" alt="CN_{fallingleaf}"/> rises to a maximum level, after which no more extraction is possible (representing unavoidable N loss) or</li>
+<li>There is no more carbon left to pay for extraction.</li>
+</ol>
+<p>First we calculate the cost of extraction (<img class="math" src="../../_images/math/92b8ae02c47f68f24c993fb7711b8dd32c34e934.png" alt="cost_{retrans}"/>, gC/gN) for the current leaf C:N ratio as</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/b145c6913ad12240b76f1d7fc5e8f25d7c3a9d1b.png" alt="cost_{retrans}= k_{retrans} / (1/CN_{fallingleaf})^{1.3}"/></p>
+</div></div></blockquote>
+<p>where <img class="math" src="../../_images/math/0de60c5ca2a5b8133710af2d5a1173819c90ac85.png" alt="k_{retrans}"/>  is a parameter controlling the overall cost of resorption, which also increases exponentially as the C:N ratio increases <strong>Say something about 1.3 exponent</strong>).</p>
+<dl class="docutils">
+<dt>Next, we calculate the amount of C needed to be spent to increase the falling leaf C:N ratio by 1.0 in this iteration <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> (<img class="math" src="../../_images/math/30f4ca55f34cb2f6898343c9d091ee12c45ddb84.png" alt="C_{retrans_spent,i}"/>,  gC m<sup>-2</sup>) as:</dt>
+<dd><div class="first last math">
+<p><img src="../../_images/math/f8a903242233ee7113ba21abcb062a9159a03ced.png" alt="C_{retrans,spent,i}   = cost_{retrans}.(N_{fallingleaf} - C_{fallingleaf}/
+                        (CN_{fallingleaf} + 1.0))"/></p>
+</div></dd>
+</dl>
+<p>(wherein the retranslocation cost is assumed to not change over the increment of 1.0 in C:N ratio).   Next, we calculate whether this is larger than the remaining C available to spend.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/c6c12f0cdfea533fb8a29c60c025111f0cd2a29c.png" alt="C_{retrans,spent,i} = min(C_{retrans,spent,i}, C_{avail,retrans,i})"/></p>
+</div></div></blockquote>
+<p>The amount of N retranslocated from the leaf in this iteration (<img class="math" src="../../_images/math/3ed6bc12f2f49a98b801b3c94983e295e0e7e6e3.png" alt="N_{retrans_paid,i}"/>,  gN m<sup>-2</sup>) is calculated, checking that it does not fall below zero:</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/efae4d8af2a44c5e20fa12e2f4aa9c4fc9af3e1d.png" alt="N_{retrans,paid,i} = min(N_{fallingleaf},C_{retrans,spent,i} / cost_{retrans})"/></p>
+</div></div></blockquote>
+<p>The next step calculates the growth C which is accounted for by this amount of N extraction in this iteration (<img class="math" src="../../_images/math/b9309171633569d36c1aa51ba488e9110a668694.png" alt="C_{retrans,accounted,i}"/>).  This is calculated using the current plant C:N ratio, and also for the additional C which will need to be spent on growth respiration to build this amount of new tissue.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/9f7c0599b2fa091380114391456b82a45fd7843d.png" alt="C_{retrans,accounted,i} = N_{retrans,paid,i} . CN_{plant} . (1.0 + gr_{frac})"/></p>
+</div></div></blockquote>
+<p>Then the falling leaf N is updated:</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/1dc144667cb074fcabaf56f36759787c6e540ca1.png" alt="N_{fallingleaf}    = N_{fallingleaf} - N_{ret,i}"/></p>
+</div></div></blockquote>
+<p>and the <img class="math" src="../../_images/math/3fb53624ef53f39b08c512029c86e6ff090df2b7.png" alt="CN_{fallingleaf}"/> and cost_{retrans} are updated. The amount of available carbon that is either unspent on N acquisition nor accounted for by N uptake is updated:</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/65a071b7ddd487a5cc0247698ad49298f5031071.png" alt="C_{avail,retrans,i+1}  = C_{avail,retrans,i} - C_{retrans,spent,i} - C_{retrans,accounted,i}"/></p>
+</div></div></blockquote>
+</div>
+<div class="section" id="outputs-of-retranslocation-algorithm">
+<h3>18.4.3. Outputs of Retranslocation algorithm.<a class="headerlink" href="#outputs-of-retranslocation-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>The final output of the retranslocation calculation are the retranslocated N (<img class="math" src="../../_images/math/b8211beab8668dbe6474d996778ac9dfe572ee82.png" alt="N_{retrans}"/>,  gN m<sup>-2</sup>), C spent on retranslocation (<img class="math" src="../../_images/math/6f235e7eb001e6d0951919420796853f4b203033.png" alt="C_{retrans_paid}"/>,  gC m<sup>-2</sup>), and C accounted for by retranslocation (<img class="math" src="../../_images/math/99dae39798bd8918588082d3de2cf8165a2b37f3.png" alt="C_{retrans_accounted}"/>,  gC m<sup>-2</sup>).</p>
+<p>For paid-for uptake, we accumulate the total carbon spent on retranslocation (<img class="math" src="../../_images/math/1ebc3076643427d5fe0ab41a044ce6f2fbc915f8.png" alt="C_{spent_retrans}"/>),</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/daddd47061daf13b357f292624c3a4cd4d11e407.png" alt="C_{retrans,spent} = \sum{C_{retrans,i}}"/></p>
+</div></div></blockquote>
+<p>The total N acquired from retranslocation is</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/31e72cc747f3617caf59912d74a8de466d92024c.png" alt="N_{retrans} = N_{retrans,paid}+N_{retrans,free}"/></p>
+</div></div></blockquote>
+<p>where N acquired by paid-for retranslocation is</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/8ce8ede575fa99b5a7f505e3a3c54c19cdc2a68d.png" alt="N_{retrans,paid} = \sum{N_{retrans,paid,i}}"/></p>
+</div></div></blockquote>
+<p>The total carbon accounted for by retranslocation is the sum of the C accounted for by paid-for N uptake (<img class="math" src="../../_images/math/90c3717992484075f2b2cc3b8496ccd09a53530a.png" alt="N_{retrans_paid}"/>) and by free N uptake (<img class="math" src="../../_images/math/98e3d557131cf7d5b2df81583c035bc34ee3a79b.png" alt="N_{retrans_free}"/>).</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/cdc999dd6fcfcc359c95c5c53836700cb3e0f0f1.png" alt="C_{retrans,accounted} = \sum{C_{retrans,accounted,i}}+N_{retrans,free}.CN_{plant} . (1.0 + gr_{frac})"/></p>
+</div></div></blockquote>
+<p>The total available carbon in FUN to spend on fixation and active uptake (<img class="math" src="../../_images/math/066851002fcece949243511b576499c35813e8b8.png" alt="C_{tospend}"/>,  gC m<sup>-2</sup>) is calculated as the carbon available minus that account for by retranslocation:</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/fd51bf8c16b33275c76a5e35c1d2c590799049e6.png" alt="C_{tospend} = C_{avail} - C_{retrans,accounted}"/></p>
+</div></div></blockquote>
+</div>
+</div>
+<div class="section" id="carbon-expenditure-on-fixation-and-active-uptake">
+<h2>18.5. Carbon expenditure on fixation and active uptake.<a class="headerlink" href="#carbon-expenditure-on-fixation-and-active-uptake" title="Permalink to this headline">¶</a></h2>
+<p>At each model timestep, the overall cost of N uptake is calculated (see below) in terms of C:N ratios. The available carbon (<img class="math" src="../../_images/math/0465ca4900773f431db18719c9cafda3d50ca3f9.png" alt="C_{avail}"/>, g m<sup>-2</sup> s<sup>-1</sup>) is then allocated to two alternative outcomes, payment for N uptake, or conservation for growth. For each carbon conserved for growth, a corresponding quantity of N must be made available.  In the case where the plant target C:N ratio is fixed, the partitioning between carbon for growth (<img class="math" src="../../_images/math/88485d16a8f1c0a88039ee1520a08241a09b05ab.png" alt="C_{growth}"/>) and carbon for N uptake  (<img class="math" src="../../_images/math/7e161ab3f519d2b05a5e30780d4d8fda8fa45465.png" alt="C_{nuptake}"/>) is calculated by solving a system of simultaneous equations. First, the carbon available must equal the carbon spent on N uptake plus that saved for growth.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/f14813d6aa2a4cd22a2561985d288be645c95f38.png" alt="C_{growth}+C_{nuptake}=C_{avail}"/></p>
+</div></div></blockquote>
+<p>Second, the nitrogen acquired from expenditure of N (left hand side of term below) must equal the N that is required to match the growth carbon (right hand side of term below).</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/9611dd550518265098dcf51f1d8e17ebe1b1bbb1.png" alt="C_{nuptake}/N_{cost} =C_{growth}/CN_{target}"/></p>
+</div></div></blockquote>
+<p>The solution to these two equated terms can be used to estimate the ideal <img class="math" src="../../_images/math/7e161ab3f519d2b05a5e30780d4d8fda8fa45465.png" alt="C_{nuptake}"/> as follows,</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/31af62e3d8dbbf829a5d026d94fe67c37ef19fba.png" alt="C_{nuptake} =C_{tospend}/ ( (1.0+f_{gr}*(CN_{target} / N_{cost}) + 1) ."/></p>
+</div></div></blockquote>
+<p>and the other C and N fluxes can be determined following the logic above.</p>
+</div>
+<div class="section" id="modifications-to-allow-variation-in-c-n-ratios">
+<h2>18.6. Modifications to allow variation in C:N ratios<a class="headerlink" href="#modifications-to-allow-variation-in-c-n-ratios" title="Permalink to this headline">¶</a></h2>
+<p>The original FUN model as developed by Fisher et al. (2008) and Brzostek et al. (2015) assumes a fixed plant tissue C:N ratio. This means that in the case where N is especially limiting, all excess carbon will be utilized in an attempt to take up more Nitrogen. It has been repeatedly observed, however, that in these circumstances in real life, plants have some flexibility in the C:N stoichiometry of their tissues, and therefore, this assumption may not be realistic. <strong>lit review on CN ratios</strong></p>
+<p>Thus, in CLM5, we introduce the capacity for tissue C:N ratios to be prognostic, rather than static. Overall N and C availability (<img class="math" src="../../_images/math/5d0b78b9986e2423bd54bae76f472cee68f443cd.png" alt="N_uptake"/> and <img class="math" src="../../_images/math/88485d16a8f1c0a88039ee1520a08241a09b05ab.png" alt="C_{growth}"/>) and hence tissue C:N ratios, are both determined by FUN.  Allocation to individual tissues is discussed in the allocation chapter</p>
+<p>Here we introduce an algorithm which adjusts the C expenditure on uptake to allow varying tissue C:N ratios. Increasing C spent on uptake will directly reduce the C:N ratio, and reducing C spent on uptake (retaining more for tissue growth) will increase it. C spent on uptake is impacted by both the N cost in the environment, and the existing tissue C:N ratio of the plant.    The output of this algorithm is <img class="math" src="../../_images/math/15319c228c093414a22dc017270d93a64eb1d407.png" alt="\gamma_{FUN}"/>, the fraction of the ideal <img class="math" src="../../_images/math/7e161ab3f519d2b05a5e30780d4d8fda8fa45465.png" alt="C_{nuptake}"/> calculated from
+the FUN equation above (<strong>link equation</strong>).</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/4282dfb5131af55d4c8d9d4a2f383b36f8dbc49b.png" alt="C_{nuptake} = C_{nuptake}.\gamma_{FUN}"/></p>
+</div></div></blockquote>
+<div class="section" id="response-of-c-expenditure-to-nitrogen-uptake-cost">
+<h3>18.6.1. Response of C expenditure to Nitrogen uptake cost<a class="headerlink" href="#response-of-c-expenditure-to-nitrogen-uptake-cost" title="Permalink to this headline">¶</a></h3>
+<p>The environmental cost of Nitrogen (<img class="math" src="../../_images/math/7f48b2207cd2e948216559e958338037b6285792.png" alt="N_{cost,tot}"/>) is used to determine <img class="math" src="../../_images/math/15319c228c093414a22dc017270d93a64eb1d407.png" alt="\gamma_{FUN}"/>.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/7252f09dfd3348cac5f803798f0135376490996c.png" alt="\gamma_{FUN} = max(0.0,1.0 - (N_{cost,tot}-a_{cnflex})/b_{cnflex})"/></p>
+</div></div></blockquote>
+<p>where <img class="math" src="../../_images/math/966495f31e75d3ee569adbb892b77a1853dab0ea.png" alt="a_{cnflex}"/> and <img class="math" src="../../_images/math/ac658caf4fdb318c404883f92166209697598309.png" alt="b_{cnflex}"/> are parameters fitted to give flexible C:N ranges over the operating range of N costs of the model. Calibration of these parameters should be subject to future testing in idealized experimental settings; they are here intended as a placeholder to allow some flexible stoichiometry, in the absence of adequate understanding of this process.  Here <img class="math" src="../../_images/math/966495f31e75d3ee569adbb892b77a1853dab0ea.png" alt="a_{cnflex}"/> operates as the <img class="math" src="../../_images/math/7f48b2207cd2e948216559e958338037b6285792.png" alt="N_{cost,tot}"/> above which there is a modification in the C expenditure (to allow higher C:N ratios), and <img class="math" src="../../_images/math/ac658caf4fdb318c404883f92166209697598309.png" alt="b_{cnflex}"/> is the scalar which determines how much the C expenditure is modified for a given discrepancy between <img class="math" src="../../_images/math/966495f31e75d3ee569adbb892b77a1853dab0ea.png" alt="a_{cnflex}"/> and the actual cost of uptake.</p>
+</div>
+<div class="section" id="response-of-c-expenditure-to-plant-c-n-ratios">
+<h3>18.6.2. Response of C expenditure to plant C:N ratios<a class="headerlink" href="#response-of-c-expenditure-to-plant-c-n-ratios" title="Permalink to this headline">¶</a></h3>
+<p>We first calculate a <img class="math" src="../../_images/math/a6194ac1f08176f216e0d9c8d37d1f0c8518dea4.png" alt="\delta_{CN}"/>, which is the difference between the target C:N (<img class="math" src="../../_images/math/246484dcf38aeafd040c82641acaac5396fd755b.png" alt="target_{CN}"/>) a model parameter, and the existing C:N ratio (<img class="math" src="../../_images/math/4acf292cd3cdf81212e5a39876d9145824dd7ddb.png" alt="CN_{plant}"/>) <strong>This isn&#8217;t strictly how it is worked out. Need to remember why we use c_allometry instead</strong>.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/e89b88a6ae04a04c89582cf63040f53f62db9960.png" alt="CN_{plant} = \frac{C_{leaf} + C_{leaf,storage}}{N_{leaf} + N_{leaf,storage})}"/></p>
+</div></div></blockquote>
+<dl class="docutils">
+<dt>and</dt>
+<dd><div class="first last math">
+<p><img src="../../_images/math/3ad50e2798b8eaa59c096982c0d5b73e993672c9.png" alt="\delta_{CN} = CN_{plant} - target_{CN}"/></p>
+</div></dd>
+</dl>
+<p>We then modify <img class="math" src="../../_images/math/15319c228c093414a22dc017270d93a64eb1d407.png" alt="\gamma_{FUN}"/> to  account for situations where (even if N is expensive) plant C:N ratios have increased too far from the target. For situations where  <img class="math" src="../../_images/math/a6194ac1f08176f216e0d9c8d37d1f0c8518dea4.png" alt="\delta_{CN}"/> is positive and <img class="math" src="../../_images/math/15319c228c093414a22dc017270d93a64eb1d407.png" alt="\gamma_{FUN}"/> is &lt;1:</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/7f0667771dd6784052cbcebf8d2d1df9d543dc29.png" alt="\gamma_{FUN} = \gamma_{FUN}+(1-\gamma_{FUN}).min(1,\delta_{CN}/c_{flexcn})"/></p>
+</div></div></blockquote>
+<p>For situations where  <img class="math" src="../../_images/math/a6194ac1f08176f216e0d9c8d37d1f0c8518dea4.png" alt="\delta_{CN}"/> is negative, we reduce C spent on N uptake and retain more C for growth:</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/454ba9fd98376c89b8259765a923497846b1c253.png" alt="\gamma_{FUN} = \gamma_{FUN}+ 0.5.(delta_CN/c_{flexcn})"/></p>
+</div></div></blockquote>
+<p>We then restrict the degree to which C expenditure can be reduced ( to prevent unrea;istically high C:N ratios) as</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/05e6fd08321a8e1254b40865076ab5866839fb3a.png" alt="\gamma_{FUN} = max(min(1.0,\gamma_{FUN}),0.5)"/></p>
+</div></div></blockquote>
+</div>
+</div>
 </div>
 
 
