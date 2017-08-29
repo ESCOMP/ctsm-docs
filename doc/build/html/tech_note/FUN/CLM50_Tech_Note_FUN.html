@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>18. Fixation and uptake of nitrogen &#8212; clmdoc  documentation</title>
+    <title>18. Fixation and Uptake of Nitrogen (FUN) &#8212; clmdoc  documentation</title>
     
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -56,7 +56,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">18. Fixation and uptake of nitrogen</a><ul>
+<li><a class="reference internal" href="#">18. Fixation and Uptake of Nitrogen (FUN)</a><ul>
 <li><a class="reference internal" href="#introduction">18.1. Introduction</a></li>
 <li><a class="reference internal" href="#boundary-conditions-of-fun">18.2. Boundary conditions of FUN</a><ul>
 <li><a class="reference internal" href="#available-carbon">18.2.1. Available Carbon</a></li>
@@ -78,6 +78,9 @@
 <li><a class="reference internal" href="#response-of-c-expenditure-to-plant-c-n-ratios">18.6.2. Response of C expenditure to plant C:N ratios</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#calculation-of-n-uptake-streams-from-active-uptake-and-fixation">18.7. Calculation of N uptake streams from active uptake and fixation</a></li>
+<li><a class="reference internal" href="#types-of-n-uptake-streams">18.8. Types of N uptake streams</a></li>
+<li><a class="reference internal" href="#references">18.9. References</a></li>
 </ul>
 </li>
 </ul>
@@ -113,18 +116,24 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="fixation-and-uptake-of-nitrogen">
-<span id="rst-fun"></span><h1>18. Fixation and uptake of nitrogen<a class="headerlink" href="#fixation-and-uptake-of-nitrogen" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="fixation-and-uptake-of-nitrogen-fun">
+<span id="rst-fun"></span><h1>18. Fixation and Uptake of Nitrogen (FUN)<a class="headerlink" href="#fixation-and-uptake-of-nitrogen-fun" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>18.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>The Fixation and Uptake of Nitrogen model is based on work by Fisher (J.) et al., (2008), Brzostek et al. (2015) and Shi et al. (2016).  The concept of FUN is that in most cases, Nitrogen uptake requires the expenditure of energy in the form of carbon, and further, that there are numerous potential sources of Nitrogen in the environment which a plant may exchange for carbon. The ratio of carbon expended to Nitrogen acquired is referred to here as the cost, or exchange rate,  of N acquisition (<img class="math" src="../../_images/math/126eab7d9f3f453d1eda495e1a0ab5ffc6d05ee6.png" alt="E_{nacq}"/>, gC/gN)). There are four pathways for N uptake:</p>
+<p>The Fixation and Uptake of Nitrogen model is based on work by Fisher (J.) et al., (2008), Brzostek et al. (2015) and Shi et al. (2016).  The concept of FUN is that in most cases, Nitrogen uptake requires the expenditure of energy in the form of carbon, and further, that there are numerous potential sources of Nitrogen in the environment which a plant may exchange for carbon. The ratio of carbon expended to Nitrogen acquired is referred to here as the cost, or exchange rate,  of N acquisition (<img class="math" src="../../_images/math/126eab7d9f3f453d1eda495e1a0ab5ffc6d05ee6.png" alt="E_{nacq}"/>, gC/gN)). There are eight pathways for N uptake:</p>
 <ol class="arabic simple">
-<li>Fixation by symbiotic bacteria in root nodules (for N fixing plants) (<img class="math" src="../../_images/math/db6b8631bec71bbe3b9e87f11658cfd4a5419af8.png" alt="fix"/>)</li>
-<li>Retranslocation of N from senescing tissues (<img class="math" src="../../_images/math/7dba65608289f50539142ce734350fb51f23c5f0.png" alt="ret"/>)</li>
-<li>Active uptake of Nitrogen by plant roots as nitrate (<img class="math" src="../../_images/math/a3ff1f2222bae5c63ccb45f541e5b7731cc84209.png" alt="NO"/><sub>3</sub>)  (<img class="math" src="../../_images/math/74cb01de7b787414fc5dfb11e183966f7f9eceb2.png" alt="act_{no3}"/>)</li>
-<li>Active uptake of Nitrogen by plant roots as ammonia (<img class="math" src="../../_images/math/e53dc43baeef21c165546013043b5963cacd0f14.png" alt="NH"/><sub>4</sub>) (<img class="math" src="../../_images/math/9301a53df00f9bbbf35a1c9a83a86de2d1088a2b.png" alt="act_{nh4}"/>)</li>
+<li>Fixation by symbiotic bacteria in root nodules (for N fixing plants) (<img class="math" src="../../_images/math/7cb58384300729e6e86d72fe4123d7cee7033735.png" alt="_{fix}"/>)</li>
+<li>Retranslocation of N from senescing tissues (<img class="math" src="../../_images/math/fdde3f5e99bb4d53663f1ed5d8050ed65d490ec5.png" alt="_{ret}"/>)</li>
+<li>Active uptake of NH4 by arbuscular mycorrhizal plants (<img class="math" src="../../_images/math/e78b522995ba85a8653632bb43e4e72e82934e25.png" alt="_{active,nh4}"/>)</li>
+<li>Active uptake of NH4 by ectomycorrhizal plants (<img class="math" src="../../_images/math/e78b522995ba85a8653632bb43e4e72e82934e25.png" alt="_{active,nh4}"/>)</li>
+<li>Active uptake of NO3 by arbuscular mycorrhizal plants (<img class="math" src="../../_images/math/4d2b36acf1c15a56314b80e644fd45bf1d1d788c.png" alt="_{active,no3}"/>)</li>
+<li>Active uptake of NO3 by ectomycorrhizal plants (<img class="math" src="../../_images/math/4d2b36acf1c15a56314b80e644fd45bf1d1d788c.png" alt="_{active,no3}"/>)</li>
+<li>Nonmycorrhizal uptake of NH4 (<img class="math" src="../../_images/math/16b9d9d04793603687f2744c53e25991cdac09e1.png" alt="_{nonmyc,no3}"/>)</li>
+<li>Nonmycorrhizal uptake of NO3 (<img class="math" src="../../_images/math/6eda8b42f89c0ad01b40ac3bc841eeb541d6a03c.png" alt="_{nonmyc,nh4}"/>)</li>
 </ol>
-<p>The notation suffix for each pathway is given in parentheses here. At each timestep, each of these pathways is associated with a cost term (<img class="math" src="../../_images/math/75af68efc358b63f87b916d359f6961530a71ff3.png" alt="cost_x"/>), a payment in carbon (<img class="math" src="../../_images/math/95968556f46f704e0ce635de662dd5474acebdee.png" alt="C_{nuptake,x}"/>), and an influx of Nitrogen (<img class="math" src="../../_images/math/de68ae7a08109bdf9daf974deb5cd625aa5f5406.png" alt="N_{uptake,x}"/>), any of which may be zero, and where <img class="math" src="../../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/> is one of the four uptake streams listed above (<img class="math" src="../../_images/math/db6b8631bec71bbe3b9e87f11658cfd4a5419af8.png" alt="fix"/>, <img class="math" src="../../_images/math/7dba65608289f50539142ce734350fb51f23c5f0.png" alt="ret"/>, <img class="math" src="../../_images/math/74cb01de7b787414fc5dfb11e183966f7f9eceb2.png" alt="act_{no3}"/> or <img class="math" src="../../_images/math/9301a53df00f9bbbf35a1c9a83a86de2d1088a2b.png" alt="act_{nh4}"/>).</p>
+<p>The notation suffix for each pathway is given in parentheses here. At each timestep, each of these pathways is associated with a cost term (<img class="math" src="../../_images/math/88252d4e5134a358b369af9df702e4d06eb27a27.png" alt="N_{cost,x}"/>), a payment in carbon (<img class="math" src="../../_images/math/95968556f46f704e0ce635de662dd5474acebdee.png" alt="C_{nuptake,x}"/>), and an influx of Nitrogen (<img class="math" src="../../_images/math/de68ae7a08109bdf9daf974deb5cd625aa5f5406.png" alt="N_{uptake,x}"/>) where <img class="math" src="../../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/> is one of the eight uptake streams listed above.</p>
+<p>For each PFT, we define a fraction of the total C acquisition that can be used for N fixation (<img class="math" src="../../_images/math/e5cc1a9b4a1c019724f90bd689c58f17df3d5bbc.png" alt="f_{fixers}"/>), which is broadly equivalent to the fraction of a given PFT that is capable of fixing Nitrogen, and thus represents an upper limit on the amount to which fixation can be increased in low n conditions.  For each PFT, the cost calculation is conducted twice. Once where fixation is possible and once where it is not. (<img class="math" src="../../_images/math/e5cc1a9b4a1c019724f90bd689c58f17df3d5bbc.png" alt="f_{fixers}"/>)</p>
+<p>For all of the active uptake pathways, whose cost depends on varying concentrations of N through the soil profile, the costs and fluxes are also determined by soil layer <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/>.</p>
 </div>
 <div class="section" id="boundary-conditions-of-fun">
 <h2>18.2. Boundary conditions of FUN<a class="headerlink" href="#boundary-conditions-of-fun" title="Permalink to this headline">¶</a></h2>
@@ -142,9 +151,37 @@
 </div>
 <div class="section" id="cost-of-nitrogen-fixation">
 <h3>18.2.3. Cost of Nitrogen Fixation<a class="headerlink" href="#cost-of-nitrogen-fixation" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>The cost of fixation is derived from Houlton et al. (2008).</dt>
+<dd><div class="first last math">
+<p><img src="../../_images/math/ebeb6d444d4d6ab08341e57f2cf29d69923438c3.png" alt="N_{cost,fix} = -s_{fix}/(1.25 e^{a_{fix} + b_{fix} . t_{soil}  (1 - 0.5 t_{soil}/ c_{fix}) })"/></p>
+</div></dd>
+</dl>
+<p>Herein, <img class="math" src="../../_images/math/cabfb02031470667da69619b68d7e01e12b3304f.png" alt="a_{fix}"/>, <img class="math" src="../../_images/math/ae61b3bbd22d246df6eeac6a141591d7f8cbacf1.png" alt="b_{fix}"/> and <img class="math" src="../../_images/math/4d033624ebfb342010a12915eff0789c783b1c3c.png" alt="c_{fix}"/> are all parameters of the temperature response function of fixation reported by Houlton et al. (2008) (<img class="math" src="../../_images/math/54e012cd36dfd2e0d95281ae770255b1093cbf9e.png" alt="exp[a+bT_s(1-0.5T_s/c)"/>).   t_{soil} is the soil temperature in C. The values of these parameters are fitted to empirical data as a=-3.62 <img class="math" src="../../_images/math/50d6e780b5b859608e650113d8bb954183926a02.png" alt="\pm"/> 0.52, b=0.27:math:<cite>pm</cite> 0.04 and c=25.15 <img class="math" src="../../_images/math/50d6e780b5b859608e650113d8bb954183926a02.png" alt="\pm"/> 0.66. 1.25 converts from the temperature response function to a 0-1 limitation factor (as specifically employed by Houlton et al.).  This function is a &#8216;rate&#8217; of uptake for a given temperature. Here we assimilated the rate of fixation into the cost term by assuming that the rate is analagous to a conductance for N, and inverting the term to produce a cost/resistance analagoue. We then multiply this temperature term by the minimum cost at optimal temperature (<img class="math" src="../../_images/math/4054d06186ef524a53263155163a97ef7a245697.png" alt="s_{fix}"/>) to give a temperature limited cost in terms of C to N ratios.</p>
 </div>
 <div class="section" id="cost-of-active-uptake">
 <h3>18.2.4. Cost of Active Uptake<a class="headerlink" href="#cost-of-active-uptake" title="Permalink to this headline">¶</a></h3>
+<p>The cost of N uptake from soil, for each layer <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.png" alt="j"/>, is controlled by two uptake parameters that pertain respectively to the relationship between soil N content and N uptake, and root C density and N uptake.</p>
+<p>For non-mycorrhizal uptake:</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/2eabf7033dec6faec991de211164eee02d1d3d97.png" alt="N_{cost,nonmyc,j} = \frac{k_{n,nonmyc}}{N_{smin,j}} + \frac{k_{c,nonmyc}}{c_{root,j}}"/></p>
+</div></div></blockquote>
+<p>and for active uptake:</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/707a8a8773c1016f21f732e3455d41a9b452d5d9.png" alt="N_{cost,active,j} = \frac{k_{n,active}}{N_{smin,j}} + \frac{k_{c,active}}{c_{root,j}}"/></p>
+</div></div></blockquote>
+<p>where <img class="math" src="../../_images/math/4ef9129fb82cad69a32814a02fd7cecadaf3eedf.png" alt="k_{n,active}"/> varies according to whether we are considering ecto or arbuscular mycorrhizal uptake.</p>
+<blockquote>
+<div><div class="math" id="equation-18.2">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-18.2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/53d14c4b80e7bb680aa54f4fad8cd9acc58dbba8.png" alt="k_{n,active}  =
+\left\{\begin{array}{lr}
+k_{n,Eactive}&amp;  e = 1\\
+k_{n,Aactive}&amp;  e = 0
+\end{array}\right\}"/></p>
+</div></div></blockquote>
+<p>where m=1 pertains to the fraction of the PFT that is ecotmycorrhizal, as opposed to arbuscular mycorrhizal.</p>
 </div>
 </div>
 <div class="section" id="resolving-n-cost-across-simultaneous-uptake-streams">
@@ -152,17 +189,17 @@
 <p>The total cost of N uptake is calculated based on the assumption that carbon is partitioned to each stream in proportion to the inverse of the cost of uptake. So, more expensive pathways receive less carbon. Earlier versions of FUN (Fisher et al. 2008) utilized a scheme whereby plants only took up N from the cheapest pathway. Brzostek et al. introduced a scheme for the simultaneous uptake from different pathways. Here we calcualate a &#8216;conductance&#8217; to N uptake (analagous to the inverse of the cost function conceptualized as a resistance term) <img class="math" src="../../_images/math/645f605e3cf1947ef1fa4e0839418e4bc8ffcd97.png" alt="N_{conductance}"/> ( gN/gC) as:</p>
 <blockquote>
 <div><div class="math">
-<p><img src="../../_images/math/ad0fb68bba64521e0e19823502f8cac46f5f4e2f.png" alt="N_{conductance}=  \sum{(1/cost_{x})}"/></p>
+<p><img src="../../_images/math/cf2cb291374ed52db2b47b09946f87e248223d51.png" alt="N_{conductance,f}=  \sum{(1/N_{cost,x})}"/></p>
 </div></div></blockquote>
 <p>From this, we then calculate the fraction of the carbon allocated to each pathway as</p>
 <blockquote>
 <div><div class="math">
-<p><img src="../../_images/math/00c0e98c297fabf3a3eeec155c1c7ba995b3d69c.png" alt="C_{frac,x} = \frac{1/cost_{x}}{N_{conductance}}"/></p>
+<p><img src="../../_images/math/d7b3aaf452975884c0b9f0dad0a4f0c5c63a0ada.png" alt="C_{frac,x} = \frac{1/N_{cost,x}}{N_{conductance}}"/></p>
 </div></div></blockquote>
 <p>These fractions are used later, to calculate the carbon expended on different uptake pathways.  Next, the N acquired from each uptake stream per unit C spent (<img class="math" src="../../_images/math/9c09c4301a7ccdd6e76639cd2efb898db1d94c72.png" alt="N_{exch,x}"/>, gN/gC)  is determined as</p>
 <blockquote>
 <div><div class="math">
-<p><img src="../../_images/math/de3ccaa5f033c847adc8dc2fdc2b9ab2806618c3.png" alt="N_{exch,x} = \frac{C_{frac,x}}{cost_{x}}"/></p>
+<p><img src="../../_images/math/ca5d96aedc603cce5a57e4b9f80f6103e04b2b51.png" alt="N_{exch,x} = \frac{C_{frac,x}}{N_{cost,x}}"/></p>
 </div></div></blockquote>
 <p>We then determine the total amount of N uptake per unit C spent (<img class="math" src="../../_images/math/a4f4dff5c7f3a69fa1411d048006f2977fdda88d.png" alt="N_{exch,tot}"/>, gN/gC) as the sum of all the uptake streams.</p>
 <blockquote>
@@ -173,8 +210,8 @@
 <blockquote>
 <div><div class="math">
 <p><img src="../../_images/math/3e93491824125668b1f8e88dd4c60e43fe9763e5.png" alt="N_{cost,tot} = 1/{N_{exch,tot}}"/></p>
-</div></div></blockquote>
-<p>Throughout these calculations, <img class="math" src="../../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/> is the sum of the fixation and active uptake pathways. Retranslocation is determined via a different set of mechanisms, once the <img class="math" src="../../_images/math/7f48b2207cd2e948216559e958338037b6285792.png" alt="N_{cost,tot}"/> is known.</p>
+</div><p>Retranslocation is determined via a different set of mechanisms, once the <img class="math" src="../../_images/math/7f48b2207cd2e948216559e958338037b6285792.png" alt="N_{cost,tot}"/> is known.</p>
+</div></blockquote>
 </div>
 <div class="section" id="nitrogen-retranslocation">
 <h2>18.4. Nitrogen Retranslocation<a class="headerlink" href="#nitrogen-retranslocation" title="Permalink to this headline">¶</a></h2>
@@ -187,9 +224,8 @@
 <p>The carbon available at the beginning of the iterative retranslocation calculation is equal to the <img class="math" src="../../_images/math/0465ca4900773f431db18719c9cafda3d50ca3f9.png" alt="C_{avail}"/> input into FUN.</p>
 <blockquote>
 <div><div class="math">
-<p><img src="../../_images/math/b1eee4055960efed015bee32bb3353501988dadd.png" alt=""/></p>
-</div><p>C_{avail_retrans,0} = C_{avail}</p>
-</div></blockquote>
+<p><img src="../../_images/math/3f4b89a40884a6f5371f44f5bdd95eb52ef79653.png" alt="C_{avail,retrans,0} = C_{avail}"/></p>
+</div></div></blockquote>
 <div class="section" id="free-retranslocation">
 <h3>18.4.1. Free Retranslocation<a class="headerlink" href="#free-retranslocation" title="Permalink to this headline">¶</a></h3>
 <p>Some part of the leaf Nitrogen pool is removed without the need for an C expenditure.  This &#8216;free&#8217; N uptake amount, (<img class="math" src="../../_images/math/f50faf80e0bb6e313a5324d5e294e3f5dbd48b83.png" alt="N_{retrans,free}"/>, gN m<sup>-2</sup>) is calculated as</p>
@@ -337,22 +373,84 @@ the FUN equation above (<strong>link equation</strong>).</p>
 <p><img src="../../_images/math/3ad50e2798b8eaa59c096982c0d5b73e993672c9.png" alt="\delta_{CN} = CN_{plant} - target_{CN}"/></p>
 </div></dd>
 </dl>
-<p>We then modify <img class="math" src="../../_images/math/15319c228c093414a22dc017270d93a64eb1d407.png" alt="\gamma_{FUN}"/> to  account for situations where (even if N is expensive) plant C:N ratios have increased too far from the target. For situations where  <img class="math" src="../../_images/math/a6194ac1f08176f216e0d9c8d37d1f0c8518dea4.png" alt="\delta_{CN}"/> is positive and <img class="math" src="../../_images/math/15319c228c093414a22dc017270d93a64eb1d407.png" alt="\gamma_{FUN}"/> is &lt;1:</p>
+<p>We then increase <img class="math" src="../../_images/math/15319c228c093414a22dc017270d93a64eb1d407.png" alt="\gamma_{FUN}"/> to  account for situations where (even if N is expensive) plant C:N ratios have increased too far from the target.  Where  <img class="math" src="../../_images/math/a6194ac1f08176f216e0d9c8d37d1f0c8518dea4.png" alt="\delta_{CN}"/> is negative, we reduce C spent on N uptake and retain more C for growth</p>
 <blockquote>
-<div><div class="math">
-<p><img src="../../_images/math/7f0667771dd6784052cbcebf8d2d1df9d543dc29.png" alt="\gamma_{FUN} = \gamma_{FUN}+(1-\gamma_{FUN}).min(1,\delta_{CN}/c_{flexcn})"/></p>
+<div><div class="math" id="equation-7.23">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-7.23" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6e9d1bdaff9725580febf167bc1ebf49570d1282.png" alt="\gamma_{FUN}  =
+\left\{\begin{array}{lr}
+\gamma_{FUN}+ 0.5.(delta_{CN}/c_{flexcn})&amp; delta_{CN} &gt; 0\\
+\gamma_{FUN}+(1-\gamma_{FUN}).min(1,\delta_{CN}/c_{flexcn}) &amp;  delta_{CN} &lt; 0
+\end{array}\right\}"/></p>
 </div></div></blockquote>
-<p>For situations where  <img class="math" src="../../_images/math/a6194ac1f08176f216e0d9c8d37d1f0c8518dea4.png" alt="\delta_{CN}"/> is negative, we reduce C spent on N uptake and retain more C for growth:</p>
-<blockquote>
-<div><div class="math">
-<p><img src="../../_images/math/454ba9fd98376c89b8259765a923497846b1c253.png" alt="\gamma_{FUN} = \gamma_{FUN}+ 0.5.(delta_CN/c_{flexcn})"/></p>
-</div></div></blockquote>
-<p>We then restrict the degree to which C expenditure can be reduced ( to prevent unrea;istically high C:N ratios) as</p>
+<p>We then restrict the degree to which C expenditure can be reduced (to prevent unrealistically high C:N ratios) as</p>
 <blockquote>
 <div><div class="math">
 <p><img src="../../_images/math/05e6fd08321a8e1254b40865076ab5866839fb3a.png" alt="\gamma_{FUN} = max(min(1.0,\gamma_{FUN}),0.5)"/></p>
 </div></div></blockquote>
 </div>
+</div>
+<div class="section" id="calculation-of-n-uptake-streams-from-active-uptake-and-fixation">
+<h2>18.7. Calculation of N uptake streams from active uptake and fixation<a class="headerlink" href="#calculation-of-n-uptake-streams-from-active-uptake-and-fixation" title="Permalink to this headline">¶</a></h2>
+<p>Once the final <img class="math" src="../../_images/math/7e161ab3f519d2b05a5e30780d4d8fda8fa45465.png" alt="C_{nuptake}"/> is known, the fluxes of C to the individual pools can be derived as</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/bce19bf10382fe815477776e27b26573d66e8f12.png" alt="C_{nuptake,x}  = C_{frac,x}.C_{nuptake}"/></p>
+</div><div class="math">
+<p><img src="../../_images/math/fa685ae92b82a9a261b43dbbb2c8a546febbf28a.png" alt="N_{uptake,x}  = \frac{C_{nuptake}}{N_{cost}}"/></p>
+</div></div></blockquote>
+<p>Following this, we determine whether the extraction estimates exceed the pool size for each source of N.  Where <img class="math" src="../../_images/math/93bffd212827fbc82c4bf04a9f4d54d9d840987e.png" alt="N_{active,no3} + N_{nonmyc,no3} &gt; N_{avail,no3}"/>, we calculate the unmet uptake, <img class="math" src="../../_images/math/7283c45a46c63f5147a8de170e4c60aed38189dd.png" alt="N_{unmet,no3}"/></p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/ec2fa18a0c7dc5e66c8a268ecb33933753914977.png" alt="N_{unmet,no3}  = N_{active,no3} + N_{nonmyc,no3} - N_{avail,no3}"/></p>
+</div></div></blockquote>
+<p>then modify both fluxes to account</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/8b386c307010f23a72910df06463b40fcf96665b.png" alt="N_{active,no3} = N_{active,no3} +  N_{unmet,no3}.\frac{N_{active,no3}}{N_{active,no3}+N_{nonmyc,no3}}"/></p>
+</div><div class="math">
+<p><img src="../../_images/math/2a04d3abc7232d7ca718dd96f7fd4d63d79d329b.png" alt="N_{nonmyc,no3} = N_{nonmyc,no3} +  N_{unmet,no3}.\frac{N_{nonmyc,no3}}{N_{active,no3}+N_{nonmyc,no3}}"/></p>
+</div></div></blockquote>
+<p>and similarly, for NH4, where <img class="math" src="../../_images/math/08b032e409f761c40b5b233972a31f3aa5175108.png" alt="N_{active,nh4} + N_{nonmyc,nh4} &gt; N_{avail,nh4}"/>, we calculate the unmet uptake, <img class="math" src="../../_images/math/7283c45a46c63f5147a8de170e4c60aed38189dd.png" alt="N_{unmet,no3}"/></p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/87cf1b0548409c92bac5f60114ec0f5650e83854.png" alt="N_{unmet,nh4}  = N_{active,nh4} + N_{nonmyc,nh4} - N_{avail,nh4}"/></p>
+</div></div></blockquote>
+<p>then modify both fluxes to account</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/623648a2044dcb8c19ad1179f30c1ea4b794682a.png" alt="N_{active,nh4} = N_{active,nh4} +  N_{unmet,nh4}.\frac{N_{active,nh4}}{N_{active,nh4}+N_{nonmyc,nh4}}"/></p>
+</div><div class="math">
+<p><img src="../../_images/math/540aad1866fb058799236877e86f56cbb51bae42.png" alt="N_{nonmyc,nh4} = N_{nonmyc,nh4} +  N_{unmet,nh4}.\frac{N_{nonmyc,nh4}}{N_{active,nh4}+N_{nonmyc,nh4}}"/></p>
+</div></div></blockquote>
+<p>and then update the C spent to account for hte new lower N acquisition in that layer/pool.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/51b443467b54f12d41283cca0fab62056210df54.png" alt="C_{active,nh4} = N_{active,nh4}.N_{cost,active,nh4}\\
+C_{active,no3} = N_{active,no3}.N_{cost,active,no3}\\
+C_{nonmyc,no3} = N_{nonmyc,no3}.N_{cost,nonmyc,no3}\\
+C_{nonmyc,no3} = N_{nonmyc,no3}.N_{cost,nonmyc,no3}\\"/></p>
+</div></div></blockquote>
+<p>Following this, we determine how much carbon is accounted for for each soil layer.</p>
+<blockquote>
+<div><div class="math">
+<p><img src="../../_images/math/78a4685fc979c7c7ff6178ec03d06ed8f3e3592c.png" alt="C_{accounted,x,j}  =  C_{spent,j,x} - (N_{acquired,j,x}.CN_{plant}.(1.0+ gr_{frac}))"/></p>
+</div></div></blockquote>
+</div>
+<div class="section" id="types-of-n-uptake-streams">
+<h2>18.8. Types of N uptake streams<a class="headerlink" href="#types-of-n-uptake-streams" title="Permalink to this headline">¶</a></h2>
+<p>Arbuscular mycorrhizal fungi:
+Ectomycorrhizal fungi:
+Nonmycorrhizal plants.</p>
+<p>ECK_active (step 1) sets active components for Ectomycorrhizal fungi
+ACK_active (step 2) sets active components for Arbuscular fungi</p>
+<p>kc_nonmyc (step 1) sets nonmyc components for Ectomycorrhizal fungi
+kc_nonmyc (step 2) sets active components for Arbuscular fungi</p>
+<p>ACTIVE vs NONMYC
+ECTO vs ARBU for ACTIVE.</p>
+</div>
+<div class="section" id="references">
+<h2>18.9. References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>Houlton, B.Z., Wang, Y.P., Vitousek, P.M. and Field, C.B., 2008. A unifying framework for dinitrogen fixation in the terrestrial biosphere. Nature, 454(7202), p.327.</p>
 </div>
 </div>
 
