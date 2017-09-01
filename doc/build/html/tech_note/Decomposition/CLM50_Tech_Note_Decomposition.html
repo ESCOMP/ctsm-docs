@@ -64,7 +64,7 @@
 <li><a class="reference internal" href="#n-competition-between-plant-uptake-and-soil-immobilization-fluxes">21.5. N Competition between plant uptake and soil immobilization fluxes</a></li>
 <li><a class="reference internal" href="#final-decomposition-fluxes">21.6. Final Decomposition Fluxes</a></li>
 <li><a class="reference internal" href="#vertical-distribution-and-transport-of-decomposing-c-and-n-pools">21.7. Vertical Distribution and Transport of Decomposing C and N pools</a></li>
-<li><a class="reference internal" href="#model-equilibration">21.8. Model Equilibration</a></li>
+<li><a class="reference internal" href="#model-equilibration-and-its-acceleration">21.8. Model Equilibration and its Acceleration</a></li>
 </ul>
 </li>
 </ul>
@@ -114,9 +114,10 @@ structure used in CLM4.0, or a second pool structure, characterized by
 slower decomposition rates, based on the Century model (Parton et al.
 1988). In addition, the user can choose, at compile time, whether to
 allow <img class="math" src="../../_images/math/dd662f85f4f290309c855d1fa12b8c31e70c60dd.png" alt="{n}_{lev}"/> to equal 1, as in CLM4.0, or to equal the
-number of soil levels used for the soil hydrology (default 10).</p>
+number of soil levels used for the soil hydrological and thermal
+calculations (see Section  <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#soil-layers"><span class="std std-numref">2.2.1</span></a> for soil layering).</p>
 <div class="figure" id="id1">
-<span id="figure-schematic-of-decomposition-model-in-clm"></span><img alt="../../_images/image11.png" src="../../_images/image11.png" />
+<span id="figure-schematic-of-decomposition-model-in-clm"></span><img alt="../../_images/CLM4_vertsoil_soilstruct_drawing.png" src="../../_images/CLM4_vertsoil_soilstruct_drawing.png" />
 <p class="caption"><span class="caption-number">Figure 21.1 </span><span class="caption-text">Schematic of decomposition model in CLM.</span></p>
 </div>
 <p>Model is structured to allow different representations of the soil C and
@@ -146,9 +147,9 @@ pools. Further discussion of the vertical distribution of carbon inputs
 <img class="math" src="../../_images/math/84de6e913f00c086a429f5054d6f3b0e894a3c1c.png" alt="{R}_{i}"/>(z), vertical turnover times
 <img class="math" src="../../_images/math/b4d5f20acd7ee3ebf2f7c7446fb00235263a5682.png" alt="{k}_{j}"/>(z), and vertical transport <em>D(z)</em> is below.
 Discussion of the vertical model and analysis of both decomposition
-structures is in Koven et al (2013).</p>
+structures is in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#kovenetal2013"><span class="std std-ref">Koven et al. (2013)</span></a>.</p>
 <div class="figure" id="id2">
-<span id="figure-pool-structure"></span><img alt="../../_images/image21.png" src="../../_images/image21.png" />
+<span id="figure-pool-structure"></span><img alt="../../_images/soil_C_pools_CN_century.png" src="../../_images/soil_C_pools_CN_century.png" />
 <p class="caption"><span class="caption-number">Figure 21.2 </span><span class="caption-text">Pool structure, transitions, respired fractions (numbers at
 end of arrows), and turnover times (numbers in boxes) for the 2
 alternate soil decomposition models included in CLM.</span></p>
@@ -457,7 +458,9 @@ unitless) is calculated using a relationship from Andrén and Paustian
 <p><span class="eqno">(6)<a class="headerlink" href="#equation-21.6)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fad1dabb633428e4c7797b6213256a7f0e04c9fd.png" alt="r_{water} =\sum _{j=1}^{5}\left\{\begin{array}{l} {0\qquad {\rm for\; }\Psi _{j} &lt;\Psi _{\min } } \\ {\frac{\log \left({\Psi _{\min } \mathord{\left/ {\vphantom {\Psi _{\min }  \Psi _{j} }} \right. \kern-\nulldelimiterspace} \Psi _{j} } \right)}{\log \left({\Psi _{\min } \mathord{\left/ {\vphantom {\Psi _{\min }  \Psi _{\max } }} \right. \kern-\nulldelimiterspace} \Psi _{\max } } \right)} w_{soil,\, j} \qquad {\rm for\; }\Psi _{\min } \le \Psi _{j} \le \Psi _{\max } } \\ {1\qquad {\rm for\; }\Psi _{j} &gt;\Psi _{\max } \qquad \qquad } \end{array}\right\}"/></p>
 </div><p>where <img class="math" src="../../_images/math/fc92fcbb630b64ee5a861488f9fe568fc5b490c1.png" alt="{\Psi}_{j}"/> is the soil water potential in
 layer <em>j</em>, <img class="math" src="../../_images/math/a65f62ae4a2a93476502a8151e67cda956049a50.png" alt="{\Psi}_{min}"/> is a lower limit for soil
-water potential control on decomposition rate (set to -10 MPa).
+water potential control on decomposition rate (in CLM5, this was
+changed from a default value of -10 MPa in CLM4.5 and earlier to a
+default value of -2.5 MPa).
 <img class="math" src="../../_images/math/a24544e27aafaeb3353d74da4faa6e0fb53db6e7.png" alt="{\Psi}_{sat,j}"/> (MPa) is the saturated soil water
 potential, calculated using the multivariate regression model from Cosby et al. (1984):</p>
 <div class="math" id="equation-21.7)">
@@ -471,7 +474,7 @@ of Niu and Yang (2006),</p>
 <div class="math" id="equation-21.8)">
 <p><span class="eqno">(8)<a class="headerlink" href="#equation-21.8)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/92bac55ecc06979afd8f60819b81ac5a66efc638.png" alt="\psi \left(T\right)=-\frac{L_{f} \left(T-T_{f} \right)}{10^{3} T}"/></p>
 </div><p>An additional frozen decomposition limitation can be specified using a
-‘frozen Q<sub>10</sub> following Koven et al. (2011), however the
+‘frozen Q<sub>10</sub>&#8216; following <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#kovenetal2011"><span class="std std-ref">Koven et al. (2011)</span></a>, however the
 default value of this is the same as the unfrozen Q<sub>10</sub>
 value, and therefore the basic hypothesis is that frozen respiration is
 limited by liquid water availability, and can be modeled following the
@@ -497,12 +500,15 @@ of decomposition was shown by Jenkinson and Coleman (2008) to be an
 important term in fitting total C and 14C profiles, and implies that
 unresolved processes, such as priming effects, microscale anoxia, soil
 mineral surface and/or aggregate stabilization may be important in
-controlling the fate of carbon at depth (Koven et al. 2013). CLM
+controlling the fate of carbon at depth <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#kovenetal2013"><span class="std std-ref">Koven et al. (2013)</span></a>. CLM
 includes these unresolved depth controls via an exponential decrease in
 the soil turnover time with depth:</p>
 <div class="math" id="equation-21.9)">
 <p><span class="eqno">(9)<a class="headerlink" href="#equation-21.9)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/48cc0dac78fe5e5871900f9f712775aa7886e33f.png" alt="r_{depth} =\exp \left(-\frac{z}{z_{\tau } } \right)"/></p>
-</div><p>where <img class="math" src="../../_images/math/0a25c41ab6c3155e33c3183ee777afa0dcffcb94.png" alt="{z}_{\tau}"/> is the e-folding depth for decomposition, set by default to 0.5m.</p>
+</div><p>where <img class="math" src="../../_images/math/0a25c41ab6c3155e33c3183ee777afa0dcffcb94.png" alt="{z}_{\tau}"/> is the e-folding depth for decomposition. For
+CLM4.5, the default value of this was 0.5m. For CLM5, this has been
+changed to a default value of 10m, which effectively means that
+intrinsic decomposition rates may proceed as quickly at depth as at the surface.</p>
 <p>The combined decomposition rate scalar (<img class="math" src="../../_images/math/0485b462de2f2877ed2edef33f54dee0f3b45524.png" alt="{r}_{total}"/>,unitless) is:</p>
 <div class="math" id="equation-21.10)">
 <p><span class="eqno">(10)<a class="headerlink" href="#equation-21.10)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4165f67a65368d68299e72023fb4751ed7517e46.png" alt="r_{total} =r_{tsoil} r_{water} r_{oxygen} r_{depth} ."/></p>
@@ -741,29 +747,35 @@ value of the advection term is 0 cm/yr, such that transport is purely
 diffusive. Diffusive transport differs in rate between permafrost soils
 (where cryoturbation is the dominant transport term) and non-permafrost
 soils (where bioturbation dominates). For permafrost soils, a
-parameterization based on that of Koven et al. (2009) is used: the
+parameterization based on that of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#kovenetal2009"><span class="std std-ref">Koven et al. (2009)</span></a> is used: the
 diffusivity parameter is constant through the active layer, and
 decreases linearly from the base of the active layer to zero at a set
 depth (default 3m); the default permafrost diffusivity is 5
 cm<sup>2</sup>/yr. For non-permafrost soils, the default diffusivity
 is 1 cm<sup>2</sup>/yr.</p>
 </div>
-<div class="section" id="model-equilibration">
-<h2>21.8. Model Equilibration<a class="headerlink" href="#model-equilibration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="model-equilibration-and-its-acceleration">
+<h2>21.8. Model Equilibration and its Acceleration<a class="headerlink" href="#model-equilibration-and-its-acceleration" title="Permalink to this headline">¶</a></h2>
+<p>For transient experiments, it is usually assumed that the carbon cycle
+is starting from a point of relatively close equilibrium, i.e. that
+productivity is balanced by ecosystem carbon losses through
+respiratory and disturbance pathways.  In order to satisfy this
+assumption, the model is generally run until the productivity and loss
+terms find a stable long-term equilibrium; at this point the model is
+considered &#8216;spun up&#8217;.</p>
 <p>Because of the coupling between the slowest SOM pools and productivity
 through N downregulation of photosynthesis, equilibration of the model
 for initialization purposes will take an extremely long time in the
 standard mode. This is particularly true for the CENTURY-based
 decomposition cascade, which includes a passive pool. In order to
 rapidly equilibrate the model, a modified version of the “accelerated
-decomposition” (Thornton and Rosenbloom, 2005) is used. The fundamental
+decomposition” <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thorntonrosenbloom2005"><span class="std std-ref">(Thornton and Rosenbloon, 2005)</span></a> is used. The fundamental
 idea of this approach is to allow fluxes between the various pools (both
 turnover-defined and vertically-defined fluxes) adjust rapidly, while
 keeping the pool sizes themselves small so that they can fill quickly.
 To do this, the base decomposition rate  <img class="math" src="../../_images/math/b080f03feaa857af8b179862a6ba8f75112e2042.png" alt="{k}_{i}"/> for each
 pool <em>i</em> is accelerated by a term <img class="math" src="../../_images/math/c4ed28e782952ab2d26a1098bf4e10dea09ef6bb.png" alt="{a}_{i}"/> such that the slow
-pools are collapsed onto an approximately annual timescale (Koven et al.
-2013). Accelerating the pools beyond this timescale distorts the
+pools are collapsed onto an approximately annual timescale <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#kovenetal2013"><span class="std std-ref">Koven et al. (2013)</span></a>. Accelerating the pools beyond this timescale distorts the
 seasonal and/or diurnal cycles of decomposition and N mineralization,
 thus leading to a substantially different ecosystem productivity than
 the full model. For the vertical model, the vertical transport terms are
@@ -780,9 +792,18 @@ decomposition mode from the standard mode (by dividing the pools by
 accelerated decomposition mode are handled automatically by CLM upon
 loading from restart files (which preserve information about the mode of
 the model when restart files were written).</p>
-<p>The acceleration terms for the two decomposition cascades are shown in
-Tables 15.1 and 15.3.</p>
-</div>
+<p>The base acceleration terms for the two decomposition cascades are shown in
+Tables 15.1 and 15.3.  In addition to the base terms, CLM5 also
+includes a geographic term to the acceleration in order to apply
+larger values to high-latitude systems, where decomposition rates are
+particularly slow and thus equilibration can take significantly longer
+than in temperate or tropical climates.  This geographic term takes
+the form of a logistic equation, where <img class="math" src="../../_images/math/c4ed28e782952ab2d26a1098bf4e10dea09ef6bb.png" alt="{a}_{i}"/> is equal to the
+product of the base acceleration term and <img class="math" src="../../_images/math/05bfce0efa72f328f68e8e9f405e454d176896d3.png" alt="{a}_{l}"/> below:</p>
+<div class="math" id="equation-21.62)">
+<p><span class="eqno">(62)<a class="headerlink" href="#equation-21.62)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9e36067658627a79e8f80da309b8043203e78eee.png" alt="a_l = 1 + 50 / \left ( 1 + exp \left (-0.1 * (abs(latitude) -
+ 60 ) \right ) \right )"/></p>
+</div></div>
 </div>
 
 
