@@ -2,16 +2,12 @@
 
 <!doctype html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>20. Vegetation Phenology and Turnover &#8212; clmdoc  documentation</title>
-    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -35,7 +31,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -179,7 +175,7 @@ out of the transfer pool:</p>
 <div class="math" id="equation-ZEqnNum852972">
 <p><span class="eqno">(13)<a class="headerlink" href="#equation-ZEqnNum852972" title="Permalink to this equation">¶</a></span><img src="../../_images/math/17d28fa1f5aebe2a36fcbd1a5028c9301f6de8ce.png" alt="r_{xfer\_ on} =\left\{\begin{array}{l} {{2\mathord{\left/ {\vphantom {2 t_{onset} }} \right. \kern-\nulldelimiterspace} t_{onset} } \qquad {\rm for\; }t_{onset} \ne \Delta t} \\ {{1\mathord{\left/ {\vphantom {1 \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t} \qquad {\rm for\; }t_{onset} =\Delta t} \end{array}\right."/></p>
 </div><p>and <em>t</em><sub>onset</sub> (s) is the number of seconds remaining in
-the current phenology onset growth period (Figure 14.1). The form of Eq.
+the current phenology onset growth period (Figure 14.1). The form of Eq. <a class="reference internal" href="#equation-ZEqnNum852972">(13)</a>
 produces a flux from the transfer pool which declines linearly over the
 onset growth period, approaching zero flux in the final timestep.</p>
 </div>
@@ -460,13 +456,16 @@ previous offset period), an accumulated soil water index
 <div class="math" id="equation-ZEqnNum503826">
 <p><span class="eqno">(65)<a class="headerlink" href="#equation-ZEqnNum503826" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fd13c26db8d7041106c2c51e7d1cc78be39f37e0.png" alt="SWI_{sum}^{n} =\left\{\begin{array}{l} {SWI_{sum}^{n-1} +f_{day} \qquad {\rm for\; }\Psi _{s,3} \ge \Psi _{onset} } \\ {SWI_{sum}^{n-1} \qquad \qquad {\rm for\; }\Psi _{s,3} &lt;\Psi _{onset} } \end{array}\right."/></p>
 </div><p>where <img class="math" src="../../_images/math/334b0728f25dd84a28e483181038a307ea6e483e.png" alt="\Psi"/><sub>s,3</sub> is the soil water potential (MPa)
-in the third soil layer and <img class="math" src="../../_images/math/9084459b9b455b0f16df5864013a3f37fc1f33e3.png" alt="{\Psi}_{onset} = -2 MPa"/>
+in the third soil layer and <img class="math" src="../../_images/math/103767865555d7ea237a8c705a9ee97afd0107ba.png" alt="{\Psi}_{onset} = -0.6 MPa"/>
 is the onset soil water potential threshold. Onset triggering is
-possible once <img class="math" src="../../_images/math/d956f0a24aed5e1896d859ef3a0cc06050888beb.png" alt="{SWI}_{sum} &gt; 15"/>. If the cold climate
-growing degree-day accumulator is not active at the time when this
-threshold is reached (see below), and if the daylength is greater than 6
+possible once <img class="math" src="../../_images/math/d956f0a24aed5e1896d859ef3a0cc06050888beb.png" alt="{SWI}_{sum} &gt; 15"/>. To avoid spurious onset triggering due to
+soil moisture in the third soil layer exceeding the threshold due only to
+soil water suction of water from deeper in the soil column, an additional precipitation trigger is included which requires
+at least 20 mm of rain over the previous 10 days <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#dahlinetal2015"><span class="std std-ref">(Dahlin et al., 2015)</span></a>.  If the cold climate
+growing degree-day accumulator is not active at the time when the soil moisture and precipitation
+thresholds are reached (see below), and if the daylength is greater than 6
 hours, then onset is triggered. Except as noted below,
-<img class="math" src="../../_images/math/cf9edff7cfbc185b9ada843222f656c054936782.png" alt="{SWI}_{sum}"/> continues to accumulate according to Eq. during
+<img class="math" src="../../_images/math/cf9edff7cfbc185b9ada843222f656c054936782.png" alt="{SWI}_{sum}"/> continues to accumulate according to Eq. <a class="reference internal" href="#equation-ZEqnNum503826">(65)</a> during
 the dormant period if the daylength criterion prevents onset triggering,
 and onset is then triggered at the timestep when daylength exceeds 6
 hours.</p>
@@ -479,16 +478,16 @@ with subsequent accumulation calculated as:</p>
 <p><span class="eqno">(66)<a class="headerlink" href="#equation-20.66)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/de3106a79a67873823afe32957cfeb5ad23137ca.png" alt="FD_{sum}^{n} =\left\{\begin{array}{l} {FD_{sum}^{n-1} +f_{day} \qquad {\rm for\; }T_{s,3} &gt;TKFRZ} \\ {FD_{sum}^{n-1} \qquad \qquad {\rm for\; }T_{s,3} \le TKFRZ} \end{array}\right. ."/></p>
 </div><p>If <img class="math" src="../../_images/math/83e2a7313ce3dff414ca6eaf887d97d1678772d1.png" alt="{FD}_{sum} &gt; 15"/> during the dormant period, then a
 cold-climate onset triggering criterion is introduced, following exactly
-the growing degree-day summation (<img class="math" src="../../_images/math/432850313093cee98b372b9525458cadb09e613b.png" alt="{GDD}_{sum}"/>) logic of Eqs.
-and . At that time <img class="math" src="../../_images/math/cf9edff7cfbc185b9ada843222f656c054936782.png" alt="{SWI}_{sum}"/> is reset
+the growing degree-day summation (<img class="math" src="../../_images/math/432850313093cee98b372b9525458cadb09e613b.png" alt="{GDD}_{sum}"/>) logic of Eqs. <a class="reference internal" href="#equation-ZEqnNum510730">(46)</a>
+and <a class="reference internal" href="#equation-ZEqnNum598907">(47)</a>. At that time <img class="math" src="../../_images/math/cf9edff7cfbc185b9ada843222f656c054936782.png" alt="{SWI}_{sum}"/> is reset
 (<img class="math" src="../../_images/math/64a60bbb9014fb734f654944697b4f1fbdc0f74e.png" alt="{SWI}_{sum} = 0"/>). Onset triggering under these conditions
 depends on meeting all three of the following criteria:
 <img class="math" src="../../_images/math/d956f0a24aed5e1896d859ef3a0cc06050888beb.png" alt="{SWI}_{sum} &gt; 15"/>, <img class="math" src="../../_images/math/db474a35cd84b5cc6884bf99d8ab60baa4d6ee20.png" alt="{GDD}_{sum} &gt; {GDD}_{sum\_crit}"/>, and daylength greater than 6 hrs.</p>
 <p>The following control variables are set when a new onset growth period
 is initiated: <img class="math" src="../../_images/math/64a60bbb9014fb734f654944697b4f1fbdc0f74e.png" alt="{SWI}_{sum} = 0"/>, <img class="math" src="../../_images/math/7eea19cf3e66244edde1b800d3035cfbf6fa5f19.png" alt="{FD}_{sum} = 0"/>, <img class="math" src="../../_images/math/fefffbeef57fb17d258b98c12ec5e89dc064e6c3.png" alt="{GDD}_{sum} = 0"/>, <img class="math" src="../../_images/math/3102b88cac38a7bfaac29b8d1e50eb248968f80f.png" alt="{n}_{days\_active} = 0"/>, and
 <img class="math" src="../../_images/math/feca80bc675a5be3a2316bce16ab63c4887aec3a.png" alt="t_{onset} = 86400\cdot n_{days\_ on}"/> , where <img class="math" src="../../_images/math/314397070a8a655337f8c8788456f3c5860b0a6c.png" alt="{n}_{days\_on}"/> is set to a constant value of 30 days. Fluxes
-from storage into transfer pools occur in the timestep when a new onset growth period is initiated, and are handled identically to Eqs. - for
-carbon fluxes, and to Eqs. - for nitrogen fluxes. The onset counter is decremented on each time step after initiation of the onset period,
+from storage into transfer pools occur in the timestep when a new onset growth period is initiated, and are handled identically to Eqs. <a class="reference internal" href="#equation-ZEqnNum904388">(50)</a> -<a class="reference internal" href="#equation-ZEqnNum195642">(56)</a> for
+carbon fluxes, and to Eqs. <a class="reference internal" href="#equation-ZEqnNum812152">(57)</a> - <a class="reference internal" href="#equation-ZEqnNum605338">(62)</a> for nitrogen fluxes. The onset counter is decremented on each time step after initiation of the onset period,
 until it reaches zero, signaling the end of the onset period:</p>
 <div class="math" id="equation-20.67)">
 <p><span class="eqno">(67)<a class="headerlink" href="#equation-20.67)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/add3df57316df9b9d1a6befbb270a66882013f57.png" alt="t_{onfset}^{n} =t_{onfset}^{n-1} -\Delta t"/></p>
@@ -657,7 +656,7 @@ fractions used for carbon fluxes:</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

@@ -2,16 +2,12 @@
 
 <!doctype html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>7.3. Using PTCLM &#8212; clmdoc  documentation</title>
-    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -35,7 +31,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -49,7 +45,7 @@
           <a href="introduction-to-ptclm.html" title="7.1. What is PTCLM"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User’s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">7. Running PTCLM</a> &#187;</li> 
       </ul>
     </div>
@@ -101,13 +97,13 @@
   <div class="section" id="using-ptclm">
 <span id="using-ptclm-rst"></span><h1>7.3. Using PTCLM<a class="headerlink" href="#using-ptclm" title="Permalink to this headline">¶</a></h1>
 <p>There are three types of options to PTCLM1: required, setup/run-time, and dataset generation options.
-The three required options are the three settings that MUST be specified for PTCLM to work at all. The other settings have default values that will default to something useful. The setup/run-time options control how the simulation will be setup and run. The dataset generation options control the generation of datasets needed when PTCLM is run. Most options use a double dash &#8220;&#8211;&#8221; &#8220;longname&#8221; such as &#8220;&#8211;list&#8221;, but the most common options also have a short-name with a single dash (such as -m instead of &#8211;machine).</p>
+The three required options are the three settings that MUST be specified for PTCLM to work at all. The other settings have default values that will default to something useful. The setup/run-time options control how the simulation will be setup and run. The dataset generation options control the generation of datasets needed when PTCLM is run. Most options use a double dash “–” “longname” such as “–list”, but the most common options also have a short-name with a single dash (such as -m instead of –machine).</p>
 <p>The required options to PTCLM are: inputdata directory (-d), machine (-m) and site-name (-s).
-Inputdata directory is the directory where you have the CESM inputdata files, you need to have write access to this directory, so if you are running on a machine that you do NOT have write access to the standard inputdata location (such as NCAR yellowstone or LBNL hopper) you need to link the standard files to a location you do have control over. We recommend using the <code class="docutils literal"><span class="pre">scripts/link_dirtree</span></code> tool to do that. &#8220;machine&#8221; is the scripts name for the machine/compiler you will be using for your case. And finally site-name is the name of the site that you want to run for. Site-name can either be a valid supported dataset name or a Fluxnet site name from the list of sites you are running on (see the &#8211;sitegroupname for more information about the site lists).</p>
+Inputdata directory is the directory where you have the CESM inputdata files, you need to have write access to this directory, so if you are running on a machine that you do NOT have write access to the standard inputdata location (such as NCAR yellowstone or LBNL hopper) you need to link the standard files to a location you do have control over. We recommend using the <code class="docutils literal"><span class="pre">scripts/link_dirtree</span></code> tool to do that. “machine” is the scripts name for the machine/compiler you will be using for your case. And finally site-name is the name of the site that you want to run for. Site-name can either be a valid supported dataset name or a Fluxnet site name from the list of sites you are running on (see the –sitegroupname for more information about the site lists).</p>
 <p>After PTCLM is run a case directory where you can then setup, build and run your CESM case as normal.
 It also creates a <code class="docutils literal"><span class="pre">README.PTCLM</span></code> in that directory that documents the commandline options to PTCLM that were used to create it.</p>
-<p>After &#8220;help&#8221; the &#8220;list&#8221; option is one of the most useful options for getting help on using PTCLM.
-This option gives you information about some of the other options to PTCLM. To get a list of the machine, sites, and compsets that can be used for PTCLM use the &#8220;&#8211;list&#8221; option as follows.</p>
+<p>After “help” the “list” option is one of the most useful options for getting help on using PTCLM.
+This option gives you information about some of the other options to PTCLM. To get a list of the machine, sites, and compsets that can be used for PTCLM use the “–list” option as follows.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">scripts</span><span class="o">/</span><span class="n">ccsm_utils</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">lnd</span><span class="o">/</span><span class="n">clm</span><span class="o">/</span><span class="n">PTCLM</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">PTCLM</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="nb">list</span>
 </pre></div>
@@ -170,11 +166,11 @@ Next you actually run PTCLM1 which does the different things listed below:</p>
 It will populate $MYCSMDATA with new datasets it creates using the CLM tools.</p>
 </li>
 <li><p class="first">If a transient compset and PTCLM1 finds a _dynpftdata.txt file
-If you are running a transient compset (such as the &#8220;I_1850-2000_CN&#8221; compset) AND you there is a file in the PTCLM_sitedata directory under the PTCLM directory called $SITE_dynpftdata.txt it will use this file for the land-use changes.
+If you are running a transient compset (such as the “I_1850-2000_CN” compset) AND you there is a file in the PTCLM_sitedata directory under the PTCLM directory called $SITE_dynpftdata.txt it will use this file for the land-use changes.
 Otherwise it will leave land-use constant, unless you use the pftgrid option so it uses the global dataset for landuse changes.
 See the Section called Dynamic Land-Use Change Files for use by PTCLM for more information on this.
 There is a sample transient dataset called US-Ha1_dynpftdata.txt.
-Transient compsets, are compsets that create transient land-use change and forcing conditions such as: &#8216;I_1850-2000&#8217;, &#8216;I_1850-2000_CN&#8217;, &#8216;I_RCP8.5_CN&#8217;, &#8216;I_RCP6.0_CN&#8217;, &#8216;I_RCP4.5_CN&#8217;, or &#8216;I_RCP2.6_CN&#8217;.</p>
+Transient compsets, are compsets that create transient land-use change and forcing conditions such as: ‘I_1850-2000’, ‘I_1850-2000_CN’, ‘I_RCP8.5_CN’, ‘I_RCP6.0_CN’, ‘I_RCP4.5_CN’, or ‘I_RCP2.6_CN’.</p>
 </li>
 <li><p class="first">PTCLM creates a pft-physiology for you
 PTCLM1 will create a local copy of the pft-physiology specific for your site that you could then customize with changes specific for that site.</p>
@@ -194,20 +190,20 @@ You then customize your case as you would normally. See the Chapter 1 chapter fo
 <p>Next we discuss the setup and run-time options, dividing them up into setup, initial condition (IC), and run-time options.</p>
 <p>Configure options include:</p>
 <ul class="simple">
-<li>&#8211;compset=MYCOMPSET</li>
-<li>&#8211;caseidprefix=MYCASEID</li>
-<li>&#8211;cesm_root=BASE_CESM</li>
-<li>&#8211;namelist=NAMELIST</li>
-<li>&#8211;rmold</li>
-<li>&#8211;scratchroot=SCRATCHROOT</li>
-<li>&#8211;sitegroupname=SITEGROUP</li>
-<li>&#8211;QIAN_tower_yrs</li>
-<li>&#8211;useQIAN</li>
+<li>–compset=MYCOMPSET</li>
+<li>–caseidprefix=MYCASEID</li>
+<li>–cesm_root=BASE_CESM</li>
+<li>–namelist=NAMELIST</li>
+<li>–rmold</li>
+<li>–scratchroot=SCRATCHROOT</li>
+<li>–sitegroupname=SITEGROUP</li>
+<li>–QIAN_tower_yrs</li>
+<li>–useQIAN</li>
 </ul>
 <dl class="docutils">
 <dt><code class="docutils literal"><span class="pre">--compset</span></code></dt>
-<dd>The &#8220;-c&#8221; option is the most commonly used option after the required options, as it specifies the CESM scripts component set to use with PTCLM1.
-The default compset is the &#8220;ICN&#8221; compset with CN on for present day conditions.</dd>
+<dd>The “-c” option is the most commonly used option after the required options, as it specifies the CESM scripts component set to use with PTCLM1.
+The default compset is the “ICN” compset with CN on for present day conditions.</dd>
 <dt><code class="docutils literal"><span class="pre">--caseidprefix</span></code></dt>
 <dd>This option gives a prefix to include in the casename when the case is created, in case you want to customize your casenames a bit.
 By default, casenames are figured out based on the other options. The argument to this option can either be a name to prefix casenames with and/or a pathname to include.
@@ -221,8 +217,8 @@ Hence, if you want cases to appear in a specific directory you can give the path
 <dt><code class="docutils literal"><span class="pre">--scratchroot</span></code></dt>
 <dd>This option is ONLY valid when using one of the generic machines (the -m option). This passed onto <strong>create_newcase</strong> and gives the location where cases will be built and run.</dd>
 <dt><code class="docutils literal"><span class="pre">--sitegroupname</span></code></dt>
-<dd>In the PTCLM directory there is a subdirectory &#8220;PTCLM_sitedata&#8221; that contains files with the site, PFT and soil data information for groups of sites.
-These site groups are all separate ASCII files with the same prefix followed by a &#8220;_*data.txt&#8221; name. See <a class="reference external" href="CLM-URL">the Section called PTCLM Group Site Lists</a> for more information on these files. By default we have provided three different valid group names:</dd>
+<dd>In the PTCLM directory there is a subdirectory “PTCLM_sitedata” that contains files with the site, PFT and soil data information for groups of sites.
+These site groups are all separate ASCII files with the same prefix followed by a “_*data.txt” name. See <a class="reference external" href="CLM-URL">the Section called PTCLM Group Site Lists</a> for more information on these files. By default we have provided three different valid group names:</dd>
 </dl>
 <div class="section" id="example">
 <h3>7.3.2.1. EXAMPLE<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
@@ -230,19 +226,19 @@ These site groups are all separate ASCII files with the same prefix followed by 
 <p>Fluxnet-Canada</p>
 <p>The EXAMPLE is the group used by default and ONLY includes the US-UMB site as that is the only site we have data provided for.
 The other two site groups include the site information for all of both the AmeriFlux and Fluxnet-Canada sites.
-You can use the &#8220;sitegroupname&#8221; option to use one of the other lists, or you can create your own lists using the EXAMPLE file as an example.
-Your list of sites could be real world locations or could be theoretical &#8220;virtual&#8221; sites given to exercise CLM on differing biomes for example.
+You can use the “sitegroupname” option to use one of the other lists, or you can create your own lists using the EXAMPLE file as an example.
+Your list of sites could be real world locations or could be theoretical “virtual” sites given to exercise CLM on differing biomes for example.
 Note, see <a class="reference external" href="CLM-URL">the Section called Converting AmeriFlux Data for use by PTCLM</a> with permission information to use the US-UMB data.</p>
 <dl class="docutils">
 <dt><code class="docutils literal"><span class="pre">--useQIAN</span></code></dt>
 <dd>This option says to use the standard CLM global Qian T62 atmospheric forcing rather than any tower site forcing data available. Otherwise, PTCLM will try to find tower forcing data for the specific site entered.</dd>
 <dt><code class="docutils literal"><span class="pre">--QIAN_tower_yrs</span></code></dt>
-<dd>This option is used with the &#8220;useQIAN&#8221; option to set the years to cycle over for the Qian data. In this case Qian atmospheric forcing will be used, but the simulation will run over the same years that tower site is available for this site.</dd>
+<dd>This option is used with the “useQIAN” option to set the years to cycle over for the Qian data. In this case Qian atmospheric forcing will be used, but the simulation will run over the same years that tower site is available for this site.</dd>
 </dl>
 <p><strong>IC options include:</strong></p>
 <ul class="simple">
-<li>&#8211;coldstart</li>
-<li>&#8211;finidat=FINIDAT</li>
+<li>–coldstart</li>
+<li>–finidat=FINIDAT</li>
 </ul>
 <p>The coldstart option says to startup with OUT an initial condition file, while the finidat option explicitly gives the initial condition file to use. Obviously, the coldstart and finidat options can NOT be used together.</p>
 <dl class="docutils">
@@ -253,30 +249,30 @@ Note, see <a class="reference external" href="CLM-URL">the Section called Conver
 </dl>
 <p><strong>Run-time options include:</strong></p>
 <ul class="simple">
-<li>&#8211;debug</li>
-<li>&#8211;run_n=MYRUN_N</li>
-<li>&#8211;run_units=MYRUN_UNITS</li>
-<li>&#8211;stdurbpt</li>
-<li>&#8211;debug</li>
+<li>–debug</li>
+<li>–run_n=MYRUN_N</li>
+<li>–run_units=MYRUN_UNITS</li>
+<li>–stdurbpt</li>
+<li>–debug</li>
 </ul>
-<p>This option tells PTCLM to echo what it would do if it were run, but NOT actually run anything. So it will show you the dataset creation commands it would use. It does however, run <strong>create_newcase</strong>, but then it only displays the <strong>xmlchange</strong> commands and changes that it would do. Also note that if you give the &#8220;&#8211;rmold&#8221; option it won&#8217;t delete the case directory beforehand. Primarily this is intended for debugging the operation of PTCLM.</p>
+<p>This option tells PTCLM to echo what it would do if it were run, but NOT actually run anything. So it will show you the dataset creation commands it would use. It does however, run <strong>create_newcase</strong>, but then it only displays the <strong>xmlchange</strong> commands and changes that it would do. Also note that if you give the “–rmold” option it won’t delete the case directory beforehand. Primarily this is intended for debugging the operation of PTCLM.</p>
 <dl class="docutils">
 <dt><code class="docutils literal"><span class="pre">--run_n</span></code></dt>
-<dd>This option along with run_units is used to set the length for the simulation. &#8220;run_n&#8221; is the number of units to use. The default run length depends on the site, compset, and configuration.</dd>
+<dd>This option along with run_units is used to set the length for the simulation. “run_n” is the number of units to use. The default run length depends on the site, compset, and configuration.</dd>
 <dt><code class="docutils literal"><span class="pre">--run_units</span></code></dt>
-<dd>This option is the units of time to use for the length of the simulation. It is used along with &#8220;run_n&#8221; to set the length of the simulation. The default run length depends on the site, compset, and configuration.</dd>
+<dd>This option is the units of time to use for the length of the simulation. It is used along with “run_n” to set the length of the simulation. The default run length depends on the site, compset, and configuration.</dd>
 <dt><code class="docutils literal"><span class="pre">--stdurbpt</span></code></dt>
-<dd>This option turns on the &#8220;stdurbpt_pd&#8221; use-case for CLM_NML_USE_CASE. This option can NOT be used for compsets that set the use-case to something besides present-day.</dd>
+<dd>This option turns on the “stdurbpt_pd” use-case for CLM_NML_USE_CASE. This option can NOT be used for compsets that set the use-case to something besides present-day.</dd>
 </dl>
 <p><strong>The dataset generation options are:</strong></p>
 <ul class="simple">
-<li>&#8211;pftgrid</li>
-<li>&#8211;soilgrid</li>
-<li>&#8211;nopointdata</li>
-<li>&#8211;owritesrfaer</li>
+<li>–pftgrid</li>
+<li>–soilgrid</li>
+<li>–nopointdata</li>
+<li>–owritesrfaer</li>
 </ul>
-<p>The options that with a &#8220;grid&#8221; suffix all mean to create datasets using the global gridded information rather than using the site specific point data. By default the site specific point data is used. The &#8220;nopointdata&#8221; and &#8220;owritesrfaer&#8221; options have to do with file creation.</p>
-<p>Because supported single-point datasets already have the data created for them, you MUST use the &#8220;nopointdata&#8221; and &#8220;ndepgrid&#8221; options when you are using a supported single-point site. You must use &#8220;ndepgrid&#8221; even for a compset without CN. You also can NOT use the options: &#8220;soilgrid&#8221;, &#8220;pftgrid&#8221;, &#8220;aerdepgrid&#8221;, or &#8220;owritesrfaer&#8221;.</p>
+<p>The options that with a “grid” suffix all mean to create datasets using the global gridded information rather than using the site specific point data. By default the site specific point data is used. The “nopointdata” and “owritesrfaer” options have to do with file creation.</p>
+<p>Because supported single-point datasets already have the data created for them, you MUST use the “nopointdata” and “ndepgrid” options when you are using a supported single-point site. You must use “ndepgrid” even for a compset without CN. You also can NOT use the options: “soilgrid”, “pftgrid”, “aerdepgrid”, or “owritesrfaer”.</p>
 <dl class="docutils">
 <dt><code class="docutils literal"><span class="pre">--pftgrid</span></code></dt>
 <dd>This option says to use the PFT values provided on the global dataset rather than using the specific site based values from the PTCLM_sitedata/*_pftdata.txt file when creating the surface dataset.
@@ -285,9 +281,9 @@ This option must NOT be used when you you are using a site that is a supported s
 <dd>This option says to use the soil values provided on the global dataset rather than using the specific site based values from the PTCLM_sitedata/*_soildata.txt file when creating the surface dataset.
 This option must NOT be used when you you are using a site that is a supported single point dataset.</dd>
 <dt><code class="docutils literal"><span class="pre">--nopointdata</span></code></dt>
-<dd><p class="first">This option says to NOT create any input datasets &#8211; assume this step has already been done.
-If datasets weren&#8217;t already created, your case will fail when you try to run it.
-In general the first time you run PTCLM for a new site you want it to generate new datasets, but the next time and future times you want to use this option so that it doesn&#8217;t waste a lot of time rebuilding datasets over again.</p>
+<dd><p class="first">This option says to NOT create any input datasets – assume this step has already been done.
+If datasets weren’t already created, your case will fail when you try to run it.
+In general the first time you run PTCLM for a new site you want it to generate new datasets, but the next time and future times you want to use this option so that it doesn’t waste a lot of time rebuilding datasets over again.</p>
 <div class="last admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This option is required when you you are using a site that is a supported single point dataset.</p>
@@ -295,7 +291,7 @@ In general the first time you run PTCLM for a new site you want it to generate n
 </dd>
 <dt><code class="docutils literal"><span class="pre">--owritesrfaer</span></code></dt>
 <dd>This option says to overwrite any surface and/or aerosol deposition datasets that were already created.
-Otherwise, the creation of these files will be skipped if a file is already found (but it WILL create files if they don&#8217;t exist).
+Otherwise, the creation of these files will be skipped if a file is already found (but it WILL create files if they don’t exist).
 This option must NOT be used when you you are using a site that is a supported single point dataset.</dd>
 </dl>
 </div>
@@ -321,13 +317,13 @@ This option must NOT be used when you you are using a site that is a supported s
           <a href="introduction-to-ptclm.html" title="7.1. What is PTCLM"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User’s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >7. Running PTCLM</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>
