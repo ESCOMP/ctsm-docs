@@ -53,11 +53,12 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">19. Carbon and Nitrogen Allocation</a><ul>
-<li><a class="reference internal" href="#introduction">19.1. Introduction</a></li>
-<li><a class="reference internal" href="#carbon-allocation-for-maintenance-respiration-costs">19.2. Carbon Allocation for Maintenance Respiration Costs</a></li>
-<li><a class="reference internal" href="#carbon-and-nitrogen-stoichiometry-of-new-growth">19.3. Carbon and Nitrogen Stoichiometry of New Growth</a></li>
-<li><a class="reference internal" href="#carbon-allocation-to-new-growth">19.4. Carbon Allocation to New Growth</a></li>
-<li><a class="reference internal" href="#nitrogen-allocation">19.5. Nitrogen allocation</a></li>
+<li><a class="reference internal" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5">19.1. Summary of CLM5.0 updates relative to the CLM4.5</a></li>
+<li><a class="reference internal" href="#introduction">19.2. Introduction</a></li>
+<li><a class="reference internal" href="#carbon-allocation-to-cover-prior-timestep-maintenance-respiration-costs">19.3. Carbon Allocation to Cover Prior-Timestep Maintenance Respiration Costs</a></li>
+<li><a class="reference internal" href="#carbon-and-nitrogen-stoichiometry-of-new-growth">19.4. Carbon and Nitrogen Stoichiometry of New Growth</a></li>
+<li><a class="reference internal" href="#carbon-allocation-to-new-growth">19.5. Carbon Allocation to New Growth</a></li>
+<li><a class="reference internal" href="#nitrogen-allocation">19.6. Nitrogen allocation</a></li>
 </ul>
 </li>
 </ul>
@@ -95,25 +96,36 @@
             
   <div class="section" id="carbon-and-nitrogen-allocation">
 <span id="rst-cn-allocation"></span><h1>19. Carbon and Nitrogen Allocation<a class="headerlink" href="#carbon-and-nitrogen-allocation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary-of-clm5-0-updates-relative-to-the-clm4-5">
+<h2>19.1. Summary of CLM5.0 updates relative to the CLM4.5<a class="headerlink" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>CLM5 now defaults to a static allocation to woody biomass rather than the dynamic allocation term used in CLM4.5.  The dynamic allocation is stil lkept as an option, for details, see the CLM4.5 Tech Note.</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>CLM5 now includes flexible C:N ratios of all plant tissues, which allows allocation of carbon to occur separately from allocation of nitrogen, thus removing the requirement to downregulate photosynthesis based on the instantaneous stoichiometric needs of allocation.</li>
+</ul>
+</div></blockquote>
+</div>
 <div class="section" id="introduction">
-<h2>19.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2>19.2. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>The carbon and nitrogen allocation routines in CLM determine the fate of
 newly assimilated carbon, coming from the calculation of photosynthesis,
 and available mineral nitrogen, coming from plant uptake of mineral
 nitrogen in the soil or being drawn out of plant reserves. A significant change to CLM5 relative to prior versions is that allocation of carbon and nitrogen proceed independently rather than in a sequential manner.</p>
 </div>
-<div class="section" id="carbon-allocation-for-maintenance-respiration-costs">
-<h2>19.2. Carbon Allocation for Maintenance Respiration Costs<a class="headerlink" href="#carbon-allocation-for-maintenance-respiration-costs" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="carbon-allocation-to-cover-prior-timestep-maintenance-respiration-costs">
+<h2>19.3. Carbon Allocation to Cover Prior-Timestep Maintenance Respiration Costs<a class="headerlink" href="#carbon-allocation-to-cover-prior-timestep-maintenance-respiration-costs" title="Permalink to this headline">¶</a></h2>
 <p>Allocation of available carbon on each time step is prioritized, with
 first priority given to the demand for carbon to support maintenance
-respiration of live tissues (section 13.7). Second priority is to
-replenish the internal plant carbon pool that supports maintenance
-respiration during times when maintenance respiration exceeds
+respiration of live tissues (Chapter <a class="reference internal" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html#rst-plant-respiration"><span class="std std-numref">17</span></a>) and Nitrogen acquisition costs (Chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">18</span></a>). Second priority is to
+replenish the plant carbon deficit pool that balances maintenance
+respiration that occurs during times when maintenance respiration exceeds
 photosynthesis (e.g. at night, during winter for perennial vegetation,
 or during periods of drought stress) (Sprugel et al., 1995). Third
 priority is to support growth of new tissues, including allocation to
 storage pools from which new growth will be displayed in subsequent time
-steps.</p>
+steps, as well as growth respiration costs.</p>
 <p>The total maintenance respiration demand (<img class="math" src="../../_images/math/72dceed7cf2e601790cd6a1abac4a7b9285d14a5.png" alt="CF_{mr}"/>, gC
 m<sup>-2</sup> s<sup>-1</sup>) is calculated as a function of
 tissue mass and nitrogen concentration, and temperature (section 13.7).
@@ -158,7 +170,7 @@ set to 30 days) controlling the rate of replenishment of <img class="math" src="
 stoichiometrically associated with any nitrogen fluxes.</p>
 </div>
 <div class="section" id="carbon-and-nitrogen-stoichiometry-of-new-growth">
-<h2>19.3. Carbon and Nitrogen Stoichiometry of New Growth<a class="headerlink" href="#carbon-and-nitrogen-stoichiometry-of-new-growth" title="Permalink to this headline">¶</a></h2>
+<h2>19.4. Carbon and Nitrogen Stoichiometry of New Growth<a class="headerlink" href="#carbon-and-nitrogen-stoichiometry-of-new-growth" title="Permalink to this headline">¶</a></h2>
 <p>After accounting for the carbon cost of maintenance respiration, the
 remaining carbon flux from photosynthesis which can be allocated to new
 growth (<img class="math" src="../../_images/math/1d6bae9fe83985a82968cc6a5df7a8124f9a9e9d.png" alt="CF_{avail}"/>, gC m<sup>-2</sup> s<sup>-1</sup>) is</p>
@@ -175,17 +187,6 @@ follows:</p>
 13.1), while  <img class="math" src="../../_images/math/93f15c2a1138936b3a6aa034c79913a88baea910.png" alt="g_{l }"/> = 0.3 (unitless) is prescribed as a
 constant for all PFTs, based on construction costs for a range of woody
 and non-woody tissues (Larcher, 1995).</p>
-<p>The model includes a dynamic allocation scheme for woody vegetation
-(parameter <img class="math" src="../../_images/math/d45a57c115b764d7db97a31ce76c21dcceece933.png" alt="a_{3}"/> = -1, <a class="reference internal" href="#table-allocation-and-cn-ratio-parameters"><span class="std std-numref">Table 19.1</span></a>), in which case the
-ratio for carbon allocation between new stem and new leaf increases with
-increasing net primary production (NPP), as</p>
-<div class="math" id="equation-19.8">
-<p><span class="eqno">(8)<a class="headerlink" href="#equation-19.8" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5eabf04a6798ba5c2188cb22c76082693ad3c8a9.png" alt="a_{3} =\frac{2.7}{1+e^{-0.004NPP_{ann} -300} } -0.4"/></p>
-</div><p>where <img class="math" src="../../_images/math/e43a771de8f60c6033dbed9ea92d4e0db0683078.png" alt="NPP_{ann}"/> is the annual sum of NPP from the previous
-year. This mechanism has the effect of increasing woody allocation in
-favorable growth environments (Allen et al., 2005; Vanninen and Makela,
-2005) and during the phase of stand growth prior to canopy closure
-(Axelsson and Axelsson, 1986).</p>
 <span id="table-allocation-and-cn-ratio-parameters"></span><table border="1" class="docutils" id="id1">
 <caption><span class="caption-number">Table 19.1 </span><span class="caption-text">Allocation and target carbon:nitrogen ratio parameters</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -457,7 +458,7 @@ favorable growth environments (Allen et al., 2005; Vanninen and Makela,
 <p>Carbon to nitrogen ratios are defined for different tissue types as
 follows:</p>
 <div class="math" id="equation-19.9">
-<p><span class="eqno">(9)<a class="headerlink" href="#equation-19.9" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ba3990306e6cc31723a9d7cfa0918d1d7778924b.png" alt="\begin{array}{l} {CN_{leaf} =\_ {\rm \; C:N\; for\; leaf}} \\ {CN_{fr} =\_ {\rm \; C:N\; for\; fine\; root}} \\ {CN_{lw} =\_ {\rm \; C:N\; for\; live\; wood\; (in\; stem\; and\; coarse\; root)}} \\ {CN_{dw} =\_ {\rm \; C:N\; for\; dead\; wood\; (in\; stem\; and\; coarse\; root)}} \end{array}"/></p>
+<p><span class="eqno">(8)<a class="headerlink" href="#equation-19.9" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ba3990306e6cc31723a9d7cfa0918d1d7778924b.png" alt="\begin{array}{l} {CN_{leaf} =\_ {\rm \; C:N\; for\; leaf}} \\ {CN_{fr} =\_ {\rm \; C:N\; for\; fine\; root}} \\ {CN_{lw} =\_ {\rm \; C:N\; for\; live\; wood\; (in\; stem\; and\; coarse\; root)}} \\ {CN_{dw} =\_ {\rm \; C:N\; for\; dead\; wood\; (in\; stem\; and\; coarse\; root)}} \end{array}"/></p>
 </div><p>where all C:N parameters are defined as constants for a given PFT
 (<a class="reference internal" href="#table-allocation-and-cn-ratio-parameters"><span class="std std-numref">Table 19.1</span></a>).</p>
 <p>Given values for the parameters in and , total carbon and nitrogen
@@ -467,22 +468,22 @@ m<sup>-2</sup> s<sup>-1</sup>, respectively) can be expressed as
 functions of new leaf carbon allocation (<img class="math" src="../../_images/math/8f196e53bb81d27e43a61450fa98c3b0898f93b7.png" alt="CF_{GPP,leaf}"/>, gC
 m<sup>-2</sup> s<sup>-1</sup>):</p>
 <div class="math" id="equation-19.10">
-<p><span class="eqno">(10)<a class="headerlink" href="#equation-19.10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/80d28b3b098b5bd8d5db77f303d562eccd96349a.png" alt="\begin{array}{l} {CF_{alloc} =CF_{GPP,leaf} {\kern 1pt} C_{allom} } \\ {NF_{alloc} =CF_{GPP,leaf} {\kern 1pt} N_{allom} } \end{array}"/></p>
+<p><span class="eqno">(9)<a class="headerlink" href="#equation-19.10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/80d28b3b098b5bd8d5db77f303d562eccd96349a.png" alt="\begin{array}{l} {CF_{alloc} =CF_{GPP,leaf} {\kern 1pt} C_{allom} } \\ {NF_{alloc} =CF_{GPP,leaf} {\kern 1pt} N_{allom} } \end{array}"/></p>
 </div><p>where</p>
 <div class="math" id="equation-19.11">
-<p><span class="eqno">(11)<a class="headerlink" href="#equation-19.11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d7faa8a9df1c505aac56e13a4e00339d2eb94d35.png" alt="\begin{array}{l} {C_{allom} =\left\{\begin{array}{l} {\left(1+g_{1} \right)\left(1+a_{1} +a_{3} \left(1+a_{2} \right)\right)\qquad {\rm for\; woody\; PFT}} \\ {1+g_{1} +a_{1} \left(1+g_{1} \right)\qquad \qquad {\rm for\; non-woody\; PFT}} \end{array}\right. } \\ {} \end{array}"/></p>
+<p><span class="eqno">(10)<a class="headerlink" href="#equation-19.11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d7faa8a9df1c505aac56e13a4e00339d2eb94d35.png" alt="\begin{array}{l} {C_{allom} =\left\{\begin{array}{l} {\left(1+g_{1} \right)\left(1+a_{1} +a_{3} \left(1+a_{2} \right)\right)\qquad {\rm for\; woody\; PFT}} \\ {1+g_{1} +a_{1} \left(1+g_{1} \right)\qquad \qquad {\rm for\; non-woody\; PFT}} \end{array}\right. } \\ {} \end{array}"/></p>
 </div><div class="math" id="equation-19.12">
-<p><span class="eqno">(12)<a class="headerlink" href="#equation-19.12" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b014efa3c836956bdfeaf5f1d1a0cc6654713741.png" alt="N_{allom} =\left\{\begin{array}{l} {\frac{1}{CN_{leaf} } +\frac{a_{1} }{CN_{fr} } +\frac{a_{3} a_{4} \left(1+a_{2} \right)}{CN_{lw} } +} \\ {\qquad \frac{a_{3} \left(1-a_{4} \right)\left(1+a_{2} \right)}{CN_{dw} } \qquad {\rm for\; woody\; PFT}} \\ {\frac{1}{CN_{leaf} } +\frac{a_{1} }{CN_{fr} } \qquad \qquad \qquad {\rm for\; non-woody\; PFT.}} \end{array}\right."/></p>
+<p><span class="eqno">(11)<a class="headerlink" href="#equation-19.12" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b014efa3c836956bdfeaf5f1d1a0cc6654713741.png" alt="N_{allom} =\left\{\begin{array}{l} {\frac{1}{CN_{leaf} } +\frac{a_{1} }{CN_{fr} } +\frac{a_{3} a_{4} \left(1+a_{2} \right)}{CN_{lw} } +} \\ {\qquad \frac{a_{3} \left(1-a_{4} \right)\left(1+a_{2} \right)}{CN_{dw} } \qquad {\rm for\; woody\; PFT}} \\ {\frac{1}{CN_{leaf} } +\frac{a_{1} }{CN_{fr} } \qquad \qquad \qquad {\rm for\; non-woody\; PFT.}} \end{array}\right."/></p>
 </div><p>Since the C:N stoichiometry for new growth allocation is defined, from
 Eq. , as <img class="math" src="../../_images/math/872b5c6c9c2f531c9b0752964a8041f3d5cf9763.png" alt="C_{allom}"/>/ <img class="math" src="../../_images/math/29e955d516edc462716ac203a835389d0b86e818.png" alt="N_{allom}"/>, the total carbon available for new growth allocation
 (<img class="math" src="../../_images/math/fd1e448a2a191a38953906f763f7c8ebc43e5e5d.png" alt="CF_{avail\_alloc}"/>) can be used to calculate the total
 plant nitrogen demand for new growth ( <img class="math" src="../../_images/math/48689c55f4357a79758303aea3914a76fe4bae0b.png" alt="NF_{plant\_demand}"/>,
 gN m<sup>-2</sup> s<sup>-1</sup>) as:</p>
 <div class="math" id="equation-19.13">
-<p><span class="eqno">(13)<a class="headerlink" href="#equation-19.13" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3e9fc4af4ee644242882218237dfee38cf6da014.png" alt="NF_{plant\_ demand} =CF_{avail\_ alloc} \frac{N_{allom} }{C_{allom} } ."/></p>
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-19.13" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3e9fc4af4ee644242882218237dfee38cf6da014.png" alt="NF_{plant\_ demand} =CF_{avail\_ alloc} \frac{N_{allom} }{C_{allom} } ."/></p>
 </div></div>
 <div class="section" id="carbon-allocation-to-new-growth">
-<h2>19.4. Carbon Allocation to New Growth<a class="headerlink" href="#carbon-allocation-to-new-growth" title="Permalink to this headline">¶</a></h2>
+<h2>19.5. Carbon Allocation to New Growth<a class="headerlink" href="#carbon-allocation-to-new-growth" title="Permalink to this headline">¶</a></h2>
 <p>There are two carbon pools associated with each plant tissue – one which
 represents the currently displayed tissue, and another which represents
 carbon stored for display in a subsequent growth period. The nitrogen
@@ -494,66 +495,66 @@ storage for later display depends on the parameter <img class="math" src="../../
 storage pools (where storage is indicated with <em>_stor</em>) for the various
 tissue types are given as:</p>
 <div class="math" id="equation-19.14">
-<p><span class="eqno">(14)<a class="headerlink" href="#equation-19.14" title="Permalink to this equation">¶</a></span><img src="../../_images/math/54fbc3fc386925c10ae1e8ec35eb809afc1f4efb.png" alt="CF_{alloc,leaf} \_ =CF_{alloc,leaf\_ tot} f_{cur}"/></p>
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-19.14" title="Permalink to this equation">¶</a></span><img src="../../_images/math/54fbc3fc386925c10ae1e8ec35eb809afc1f4efb.png" alt="CF_{alloc,leaf} \_ =CF_{alloc,leaf\_ tot} f_{cur}"/></p>
 </div><div class="math" id="equation-19.15">
-<p><span class="eqno">(15)<a class="headerlink" href="#equation-19.15" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0b7bdf20d3673dab2f7960746a33e1332b7fbb6b.png" alt="CF_{alloc,leaf\_ stor} \_ =CF_{alloc,leaf\_ tot} \left(1-f_{cur} \right)"/></p>
+<p><span class="eqno">(14)<a class="headerlink" href="#equation-19.15" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0b7bdf20d3673dab2f7960746a33e1332b7fbb6b.png" alt="CF_{alloc,leaf\_ stor} \_ =CF_{alloc,leaf\_ tot} \left(1-f_{cur} \right)"/></p>
 </div><div class="math" id="equation-19.16">
-<p><span class="eqno">(16)<a class="headerlink" href="#equation-19.16" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ed183d7276a486dff6e2f54191797fa8443fb0c9.png" alt="CF_{alloc,froot} \_ =CF_{alloc,leaf\_ tot} a_{1} f_{cur}"/></p>
+<p><span class="eqno">(15)<a class="headerlink" href="#equation-19.16" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ed183d7276a486dff6e2f54191797fa8443fb0c9.png" alt="CF_{alloc,froot} \_ =CF_{alloc,leaf\_ tot} a_{1} f_{cur}"/></p>
 </div><div class="math" id="equation-19.17">
-<p><span class="eqno">(17)<a class="headerlink" href="#equation-19.17" title="Permalink to this equation">¶</a></span><img src="../../_images/math/df1046589f1561a3261245423c5a94863fdf26c2.png" alt="CF_{alloc,froot\_ stor} \_ =CF_{alloc,leaf\_ tot} a_{1} \left(1-f_{cur} \right)"/></p>
+<p><span class="eqno">(16)<a class="headerlink" href="#equation-19.17" title="Permalink to this equation">¶</a></span><img src="../../_images/math/df1046589f1561a3261245423c5a94863fdf26c2.png" alt="CF_{alloc,froot\_ stor} \_ =CF_{alloc,leaf\_ tot} a_{1} \left(1-f_{cur} \right)"/></p>
 </div><div class="math" id="equation-19.18">
-<p><span class="eqno">(18)<a class="headerlink" href="#equation-19.18" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1ea80988bbcc71117e783c82548567a579525a40.png" alt="CF_{alloc,livestem} \_ =CF_{alloc,leaf\_ tot} a_{3} a_{4} f_{cur}"/></p>
+<p><span class="eqno">(17)<a class="headerlink" href="#equation-19.18" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1ea80988bbcc71117e783c82548567a579525a40.png" alt="CF_{alloc,livestem} \_ =CF_{alloc,leaf\_ tot} a_{3} a_{4} f_{cur}"/></p>
 </div><div class="math" id="equation-19.19">
-<p><span class="eqno">(19)<a class="headerlink" href="#equation-19.19" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1235687b02a546a9c51276df019feb19feffdff1.png" alt="CF_{alloc,livestem\_ stor} \_ =CF_{alloc,leaf\_ tot} a_{3} a_{4} \left(1-f_{cur} \right)"/></p>
+<p><span class="eqno">(18)<a class="headerlink" href="#equation-19.19" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1235687b02a546a9c51276df019feb19feffdff1.png" alt="CF_{alloc,livestem\_ stor} \_ =CF_{alloc,leaf\_ tot} a_{3} a_{4} \left(1-f_{cur} \right)"/></p>
 </div><div class="math" id="equation-19.20">
-<p><span class="eqno">(20)<a class="headerlink" href="#equation-19.20" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6f6f529f79cd7c8bbd6aedeceaf640299ec6fc1b.png" alt="CF_{alloc,deadstem} \_ =CF_{alloc,leaf\_ tot} a_{3} \left(1-a_{4} \right)f_{cur}"/></p>
+<p><span class="eqno">(19)<a class="headerlink" href="#equation-19.20" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6f6f529f79cd7c8bbd6aedeceaf640299ec6fc1b.png" alt="CF_{alloc,deadstem} \_ =CF_{alloc,leaf\_ tot} a_{3} \left(1-a_{4} \right)f_{cur}"/></p>
 </div><div class="math" id="equation-19.21">
-<p><span class="eqno">(21)<a class="headerlink" href="#equation-19.21" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c064b6c6ae467db0f73205bfac2f6ed63c5cfc6d.png" alt="CF_{alloc,deadstem\_ stor} \_ =CF_{alloc,leaf\_ tot} a_{3} \left(1-a_{4} \right)\left(1-f_{cur} \right)"/></p>
+<p><span class="eqno">(20)<a class="headerlink" href="#equation-19.21" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c064b6c6ae467db0f73205bfac2f6ed63c5cfc6d.png" alt="CF_{alloc,deadstem\_ stor} \_ =CF_{alloc,leaf\_ tot} a_{3} \left(1-a_{4} \right)\left(1-f_{cur} \right)"/></p>
 </div><div class="math" id="equation-19.22">
-<p><span class="eqno">(22)<a class="headerlink" href="#equation-19.22" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6bd76d392bfa15529812577336531742d5622602.png" alt="CF_{alloc,livecroot} \_ =CF_{alloc,leaf\_ tot} a_{2} a_{3} a_{4} f_{cur}"/></p>
+<p><span class="eqno">(21)<a class="headerlink" href="#equation-19.22" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6bd76d392bfa15529812577336531742d5622602.png" alt="CF_{alloc,livecroot} \_ =CF_{alloc,leaf\_ tot} a_{2} a_{3} a_{4} f_{cur}"/></p>
 </div><div class="math" id="equation-19.23">
-<p><span class="eqno">(23)<a class="headerlink" href="#equation-19.23" title="Permalink to this equation">¶</a></span><img src="../../_images/math/135c853a5c71f7097e9e1bfdcb4691b7c1b722be.png" alt="CF_{alloc,livecroot\_ stor} \_ =CF_{alloc,leaf\_ tot} a_{2} a_{3} a_{4} \left(1-f_{cur} \right)"/></p>
+<p><span class="eqno">(22)<a class="headerlink" href="#equation-19.23" title="Permalink to this equation">¶</a></span><img src="../../_images/math/135c853a5c71f7097e9e1bfdcb4691b7c1b722be.png" alt="CF_{alloc,livecroot\_ stor} \_ =CF_{alloc,leaf\_ tot} a_{2} a_{3} a_{4} \left(1-f_{cur} \right)"/></p>
 </div><div class="math" id="equation-19.24">
-<p><span class="eqno">(24)<a class="headerlink" href="#equation-19.24" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b391343d4e8e0d9f45847c089c3dcf182f940481.png" alt="CF_{alloc,deadcroot} \_ =CF_{alloc,leaf\_ tot} a_{2} a_{3} \left(1-a_{4} \right)f_{cur}"/></p>
+<p><span class="eqno">(23)<a class="headerlink" href="#equation-19.24" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b391343d4e8e0d9f45847c089c3dcf182f940481.png" alt="CF_{alloc,deadcroot} \_ =CF_{alloc,leaf\_ tot} a_{2} a_{3} \left(1-a_{4} \right)f_{cur}"/></p>
 </div><div class="math" id="equation-19.25">
-<p><span class="eqno">(25)<a class="headerlink" href="#equation-19.25" title="Permalink to this equation">¶</a></span><img src="../../_images/math/756f4b652ed64f2c0b42874f7cf9c6c368185242.png" alt="CF_{alloc,deadcroot\_ stor} \_ =CF_{alloc,leaf\_ tot} a_{2} a_{3} \left(1-a_{4} \right)\left(1-f_{cur} \right)."/></p>
+<p><span class="eqno">(24)<a class="headerlink" href="#equation-19.25" title="Permalink to this equation">¶</a></span><img src="../../_images/math/756f4b652ed64f2c0b42874f7cf9c6c368185242.png" alt="CF_{alloc,deadcroot\_ stor} \_ =CF_{alloc,leaf\_ tot} a_{2} a_{3} \left(1-a_{4} \right)\left(1-f_{cur} \right)."/></p>
 </div></div>
 <div class="section" id="nitrogen-allocation">
-<h2>19.5. Nitrogen allocation<a class="headerlink" href="#nitrogen-allocation" title="Permalink to this headline">¶</a></h2>
+<h2>19.6. Nitrogen allocation<a class="headerlink" href="#nitrogen-allocation" title="Permalink to this headline">¶</a></h2>
 <p>The total flux of nitrogen to be allocated is given by the FUN model (Chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">18</span></a>).  This gives a total N to be allocated within a given timestep, <img class="math" src="../../_images/math/d498b23f28cbf69128f8fbec8ecfe0b3c5e0117e.png" alt="N_{supply}"/>.  The total N allocated for a given tissue <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> is the minimum between the supply and the demand:</p>
 <div class="math" id="equation-19.26">
-<p><span class="eqno">(26)<a class="headerlink" href="#equation-19.26" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9a9213ed49a10cf919d591f6ca2f245a95fd6771.png" alt="NF_{alloc,i} = min \left( NF_{demand, i}, NF_{supply, i} \right)"/></p>
+<p><span class="eqno">(25)<a class="headerlink" href="#equation-19.26" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9a9213ed49a10cf919d591f6ca2f245a95fd6771.png" alt="NF_{alloc,i} = min \left( NF_{demand, i}, NF_{supply, i} \right)"/></p>
 </div><p>The demand for each tissue, calculated for the tissue to remain on stoichiometry during growth, is:</p>
 <div class="math" id="equation-19.27">
-<p><span class="eqno">(27)<a class="headerlink" href="#equation-19.27" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4e3f2eafce20e504265e465a38239ce92f81b784.png" alt="NF_{demand,leaf} \_ =\frac{CF_{alloc,leaf\_ tot} }{CN_{leaf} } f_{cur}"/></p>
+<p><span class="eqno">(26)<a class="headerlink" href="#equation-19.27" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4e3f2eafce20e504265e465a38239ce92f81b784.png" alt="NF_{demand,leaf} \_ =\frac{CF_{alloc,leaf\_ tot} }{CN_{leaf} } f_{cur}"/></p>
 </div><div class="math" id="equation-19.28">
-<p><span class="eqno">(28)<a class="headerlink" href="#equation-19.28" title="Permalink to this equation">¶</a></span><img src="../../_images/math/37d44941474b6781a5e993aa60840ed2f90ecfca.png" alt="NF_{demand,leaf\_ stor} \_ =\frac{CF_{alloc,leaf\_ tot} }{CN_{leaf} } \left(1-f_{cur} \right)"/></p>
+<p><span class="eqno">(27)<a class="headerlink" href="#equation-19.28" title="Permalink to this equation">¶</a></span><img src="../../_images/math/37d44941474b6781a5e993aa60840ed2f90ecfca.png" alt="NF_{demand,leaf\_ stor} \_ =\frac{CF_{alloc,leaf\_ tot} }{CN_{leaf} } \left(1-f_{cur} \right)"/></p>
 </div><div class="math" id="equation-19.29">
-<p><span class="eqno">(29)<a class="headerlink" href="#equation-19.29" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7c71aea993b786e233daeb70c0562ee0c15ec725.png" alt="NF_{demand,froot} \_ =\frac{CF_{alloc,leaf\_ tot} a_{1} }{CN_{fr} } f_{cur}"/></p>
+<p><span class="eqno">(28)<a class="headerlink" href="#equation-19.29" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7c71aea993b786e233daeb70c0562ee0c15ec725.png" alt="NF_{demand,froot} \_ =\frac{CF_{alloc,leaf\_ tot} a_{1} }{CN_{fr} } f_{cur}"/></p>
 </div><div class="math" id="equation-19.30">
-<p><span class="eqno">(30)<a class="headerlink" href="#equation-19.30" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ea8c3509dbd83f0289b0fa3b6cacebb0913647f7.png" alt="NF_{demand,froot\_ stor} \_ =\frac{CF_{alloc,leaf\_ tot} a_{1} }{CN_{fr} } \left(1-f_{cur} \right)"/></p>
+<p><span class="eqno">(29)<a class="headerlink" href="#equation-19.30" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ea8c3509dbd83f0289b0fa3b6cacebb0913647f7.png" alt="NF_{demand,froot\_ stor} \_ =\frac{CF_{alloc,leaf\_ tot} a_{1} }{CN_{fr} } \left(1-f_{cur} \right)"/></p>
 </div><div class="math" id="equation-19.31">
-<p><span class="eqno">(31)<a class="headerlink" href="#equation-19.31" title="Permalink to this equation">¶</a></span><img src="../../_images/math/679d63d1ccadc44b254fb665fcd8db481112f038.png" alt="NF_{demand,livestem} \_ =\frac{CF_{alloc,leaf\_ tot} a_{3} a_{4} }{CN_{lw} } f_{cur}"/></p>
+<p><span class="eqno">(30)<a class="headerlink" href="#equation-19.31" title="Permalink to this equation">¶</a></span><img src="../../_images/math/679d63d1ccadc44b254fb665fcd8db481112f038.png" alt="NF_{demand,livestem} \_ =\frac{CF_{alloc,leaf\_ tot} a_{3} a_{4} }{CN_{lw} } f_{cur}"/></p>
 </div><div class="math" id="equation-19.32">
-<p><span class="eqno">(32)<a class="headerlink" href="#equation-19.32" title="Permalink to this equation">¶</a></span><img src="../../_images/math/45511fc8163dc7ee383a16931cdc294e879dc7dc.png" alt="NF_{demand,livestem\_ stor} \_ =\frac{CF_{alloc,leaf\_ tot} a_{3} a_{4} }{CN_{lw} } \left(1-f_{cur} \right)"/></p>
+<p><span class="eqno">(31)<a class="headerlink" href="#equation-19.32" title="Permalink to this equation">¶</a></span><img src="../../_images/math/45511fc8163dc7ee383a16931cdc294e879dc7dc.png" alt="NF_{demand,livestem\_ stor} \_ =\frac{CF_{alloc,leaf\_ tot} a_{3} a_{4} }{CN_{lw} } \left(1-f_{cur} \right)"/></p>
 </div><div class="math" id="equation-19.33">
-<p><span class="eqno">(33)<a class="headerlink" href="#equation-19.33" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0da7ecce88bdfc7f62f5a9c716e0cad815f8ee8d.png" alt="NF_{demand,deadstem} \_ =\frac{CF_{alloc,leaf\_ tot} a_{3} \left(1-a_{4} \right)}{CN_{dw} } f_{cur}"/></p>
+<p><span class="eqno">(32)<a class="headerlink" href="#equation-19.33" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0da7ecce88bdfc7f62f5a9c716e0cad815f8ee8d.png" alt="NF_{demand,deadstem} \_ =\frac{CF_{alloc,leaf\_ tot} a_{3} \left(1-a_{4} \right)}{CN_{dw} } f_{cur}"/></p>
 </div><div class="math" id="equation-19.34">
-<p><span class="eqno">(34)<a class="headerlink" href="#equation-19.34" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2102e610ad895c7efb19667143a0d6a3f45209f2.png" alt="NF_{demand,deadstem\_ stor} \_ =\frac{CF_{alloc,leaf\_ tot} a_{3} \left(1-a_{4} \right)}{CN_{dw} } \left(1-f_{cur} \right)"/></p>
+<p><span class="eqno">(33)<a class="headerlink" href="#equation-19.34" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2102e610ad895c7efb19667143a0d6a3f45209f2.png" alt="NF_{demand,deadstem\_ stor} \_ =\frac{CF_{alloc,leaf\_ tot} a_{3} \left(1-a_{4} \right)}{CN_{dw} } \left(1-f_{cur} \right)"/></p>
 </div><div class="math" id="equation-19.35">
-<p><span class="eqno">(35)<a class="headerlink" href="#equation-19.35" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2d8b1b8df7d88067b51d5b8561829edd618671c3.png" alt="NF_{demand,livecroot} \_ =\frac{CF_{alloc,leaf\_ tot} a_{2} a_{3} a_{4} }{CN_{lw} } f_{cur}"/></p>
+<p><span class="eqno">(34)<a class="headerlink" href="#equation-19.35" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2d8b1b8df7d88067b51d5b8561829edd618671c3.png" alt="NF_{demand,livecroot} \_ =\frac{CF_{alloc,leaf\_ tot} a_{2} a_{3} a_{4} }{CN_{lw} } f_{cur}"/></p>
 </div><div class="math" id="equation-19.36">
-<p><span class="eqno">(36)<a class="headerlink" href="#equation-19.36" title="Permalink to this equation">¶</a></span><img src="../../_images/math/714b0a4b73f9fe17cae48cb5943fe8cb7188af80.png" alt="NF_{demand,livecroot\_ stor} \_ =\frac{CF_{alloc,leaf\_ tot} a_{2} a_{3} a_{4} }{CN_{lw} } \left(1-f_{cur} \right)"/></p>
+<p><span class="eqno">(35)<a class="headerlink" href="#equation-19.36" title="Permalink to this equation">¶</a></span><img src="../../_images/math/714b0a4b73f9fe17cae48cb5943fe8cb7188af80.png" alt="NF_{demand,livecroot\_ stor} \_ =\frac{CF_{alloc,leaf\_ tot} a_{2} a_{3} a_{4} }{CN_{lw} } \left(1-f_{cur} \right)"/></p>
 </div><div class="math" id="equation-19.37">
-<p><span class="eqno">(37)<a class="headerlink" href="#equation-19.37" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8a47dc745cd9d2814c53cc496ac1212edb1596c0.png" alt="NF_{demand,deadcroot} \_ =\frac{CF_{alloc,leaf\_ tot} a_{2} a_{3} \left(1-a_{4} \right)}{CN_{dw} } f_{cur}"/></p>
+<p><span class="eqno">(36)<a class="headerlink" href="#equation-19.37" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8a47dc745cd9d2814c53cc496ac1212edb1596c0.png" alt="NF_{demand,deadcroot} \_ =\frac{CF_{alloc,leaf\_ tot} a_{2} a_{3} \left(1-a_{4} \right)}{CN_{dw} } f_{cur}"/></p>
 </div><div class="math" id="equation-19.38">
-<p><span class="eqno">(38)<a class="headerlink" href="#equation-19.38" title="Permalink to this equation">¶</a></span><img src="../../_images/math/82d8b144c78d2af4e6872e1fb02db418660ca9b6.png" alt="NF_{demand,deadcroot\_ stor} \_ =\frac{CF_{alloc,leaf} a_{2} a_{3} \left(1-a_{4} \right)}{CN_{dw} } \left(1-f_{cur} \right)."/></p>
-</div><p>After each pool’s demand is calculated, the total plant N demand is then the sum of each individual pool :math: <cite>i</cite> corresponding to each tissue:</p>
+<p><span class="eqno">(37)<a class="headerlink" href="#equation-19.38" title="Permalink to this equation">¶</a></span><img src="../../_images/math/82d8b144c78d2af4e6872e1fb02db418660ca9b6.png" alt="NF_{demand,deadcroot\_ stor} \_ =\frac{CF_{alloc,leaf} a_{2} a_{3} \left(1-a_{4} \right)}{CN_{dw} } \left(1-f_{cur} \right)."/></p>
+</div><p>After each pool’s demand is calculated, the total plant N demand is then the sum of each individual pool <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> corresponding to each tissue:</p>
 <div class="math" id="equation-19.39">
-<p><span class="eqno">(39)<a class="headerlink" href="#equation-19.39" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ffacd85551ec6a0639776911af678c91cd0f3111.png" alt="NF_{demand,tot} = \sum _{i=tissues} NF_{demand,i}"/></p>
-</div><p>and the total supply for each tissue :math: <cite>i</cite> is the product of the fractional demand and the total available N, calculated as the term :math: <cite>N_{uptake}</cite> equal to the sum of the eight N uptake streams described in the FUN model (Chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">18</span></a>).</p>
+<p><span class="eqno">(38)<a class="headerlink" href="#equation-19.39" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ffacd85551ec6a0639776911af678c91cd0f3111.png" alt="NF_{demand,tot} = \sum _{i=tissues} NF_{demand,i}"/></p>
+</div><p>and the total supply for each tissue <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> is the product of the fractional demand and the total available N, calculated as the term <img class="math" src="../../_images/math/fc9d9118efd21d90e73a1e5b288da71fd5a34c53.png" alt="N_{uptake}"/> equal to the sum of the eight N uptake streams described in the FUN model (Chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">18</span></a>).</p>
 <div class="math" id="equation-19.40">
-<p><span class="eqno">(40)<a class="headerlink" href="#equation-19.40" title="Permalink to this equation">¶</a></span><img src="../../_images/math/dae9e2524812918deca2507e57de72391bd4c188.png" alt="NF_{alloc,i} = N_{uptake} NF_{demand,i} / NF_{demand,tot}"/></p>
+<p><span class="eqno">(39)<a class="headerlink" href="#equation-19.40" title="Permalink to this equation">¶</a></span><img src="../../_images/math/dae9e2524812918deca2507e57de72391bd4c188.png" alt="NF_{alloc,i} = N_{uptake} NF_{demand,i} / NF_{demand,tot}"/></p>
 </div></div>
 </div>
 
