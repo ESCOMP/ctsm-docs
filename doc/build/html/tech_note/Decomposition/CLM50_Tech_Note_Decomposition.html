@@ -107,7 +107,7 @@ and soil organic matter (SOM) pools, each defined at
 compile time, between 2 contrasting hypotheses of decomposition as
 embodied by two separate decomposition submodels: the CLM-CN pool
 structure used in CLM4.0, or a second pool structure, characterized by
-slower decomposition rates, based on the Century model (Parton et al.
+slower decomposition rates, based on the fCentury model (Parton et al.
 1988). In addition, the user can choose, at compile time, whether to
 allow <img class="math" src="../../_images/math/dd662f85f4f290309c855d1fa12b8c31e70c60dd.png" alt="{n}_{lev}"/> to equal 1, as in CLM4.0, or to equal the
 number of soil levels used for the soil hydrological and thermal
@@ -599,38 +599,39 @@ as opposed to a potential flux.</p>
 </div>
 <div class="section" id="n-competition-between-plant-uptake-and-soil-immobilization-fluxes">
 <h2>21.5. N Competition between plant uptake and soil immobilization fluxes<a class="headerlink" href="#n-competition-between-plant-uptake-and-soil-immobilization-fluxes" title="Permalink to this headline">¶</a></h2>
-<p>Once <img class="math" src="../../_images/math/4ffc47c1f2390023cf03668b7e7b1ff471813916.png" alt="{NF}_{immob\_demand }"/> is known, the competition between
-plant and microbial nitrogen demand can be resolved. Mineral nitrogen in
+<p>Once <img class="math" src="../../_images/math/4ffc47c1f2390023cf03668b7e7b1ff471813916.png" alt="{NF}_{immob\_demand }"/> and <img class="math" src="../../_images/math/1e41d807db062823c1474024a053f94648b827a9.png" alt="{NF}_{nit\_demand }"/>  for each layer <em>j</em> are known, the competition between plant and microbial nitrogen demand can be resolved. Mineral nitrogen in
 the soil pool (<img class="math" src="../../_images/math/317848ff475c6052617db0adc8adfb904e6a5dc4.png" alt="{NS}_{sminn}"/>, gN m<sup>-2</sup>) at the
-beginning of the timestep is considered the available supply. Total
-demand for mineral nitrogen from this pool (<img class="math" src="../../_images/math/73bb7f5926f1d275cf1875818d2ce059cc004d1a.png" alt="{NF}_{total\_demand}"/>, gN m<sup>-2</sup> s<sup>-1</sup>) is:</p>
-<div class="math" id="equation-21.27)">
-<p><span class="eqno">(26)<a class="headerlink" href="#equation-21.27)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8ca1036f179ca6df3a852c79cc7fd66cabeb1a23.png" alt="NF_{total\_ demand} =NF_{immob\_ demand} +NF_{plant\_ demand\_ soil}"/></p>
-</div><p>If <img class="math" src="../../_images/math/73bb7f5926f1d275cf1875818d2ce059cc004d1a.png" alt="{NF}_{total\_demand}"/><img class="math" src="../../_images/math/4d26a3c646f81ab56cceb818c7801dd1f3cfaaf3.png" alt="\Delta"/><em>t</em> <img class="math" src="../../_images/math/863f524a433d6d1e5715f76f12040c654f10d86d.png" alt="&lt;"/>
-<img class="math" src="../../_images/math/317848ff475c6052617db0adc8adfb904e6a5dc4.png" alt="{NS}_{sminn}"/>, then the available pool is large enough to
-meet both plant and microbial demand, and neither plant growth nor
-immobilization steps in the decomposition cascade are limited by
-nitrogen availability in the timestep. In that case, the signaling
-variables <img class="math" src="../../_images/math/b4a1e7d30f7451c57d81dad66bcc2c51cc1b8c1b.png" alt="{f}_{plant\_demand}"/> and
-<img class="math" src="../../_images/math/5284f92fb74cf235a79c0deca20f3f4e779a08f1.png" alt="{f}_{immob\_demand}"/> are both set to 1.0, where
-<img class="math" src="../../_images/math/b4a1e7d30f7451c57d81dad66bcc2c51cc1b8c1b.png" alt="{f}_{plant\_demand}"/> is defined and used in section 15.4, and
-<img class="math" src="../../_images/math/5284f92fb74cf235a79c0deca20f3f4e779a08f1.png" alt="{f}_{immob\_demand}"/> is the fraction of potential
-immobilization demand that can be met given current supply of mineral nitrogen.</p>
-<p>If <img class="math" src="../../_images/math/73bb7f5926f1d275cf1875818d2ce059cc004d1a.png" alt="{NF}_{total\_demand}"/><img class="math" src="../../_images/math/4d26a3c646f81ab56cceb818c7801dd1f3cfaaf3.png" alt="\Delta"/><em>t</em>
-<img class="math" src="../../_images/math/3c80ce709ad80506b2b856e9f95a5df1e4da2359.png" alt="\mathrm{\ge}"/> <img class="math" src="../../_images/math/317848ff475c6052617db0adc8adfb904e6a5dc4.png" alt="{NS}_{sminn}"/>, then there is not enough
+beginning of the timestep is considered the available supply.</p>
+<p>Here, the <img class="math" src="../../_images/math/dfc8b884f0e88983ebc244496e5e053174527a13.png" alt="{NF}_{plant\_demand}"/> is the theoretical maximum demand for nitrogen by plants to meet the entire carbon uptake given an N cost of zero (and therefore represents the upper bound on N requirements). N uptake costs that are
+<img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.png" alt="&gt;"/> 0 imply that the plant will take up less N that it demands, ultimately. However, given the heuristic nature of the N competition algorithm, this discrepancy is not explicitly resolved here.</p>
+<p>The hypothetical plant nitrogen demand from the soil mineral pool is distributed between layers in proportion to the profile of available mineral N:</p>
+<div class="math" id="equation-21.291">
+<p><span class="eqno">(26)<a class="headerlink" href="#equation-21.291" title="Permalink to this equation">¶</a></span><img src="../../_images/math/78edfe111ea0733e4357e8d3a04b296912b447a5.png" alt="NF_{plant\_ demand,j} =  NF_{plant\_ demand} NS_{sminn\_ j}  / \sum _{j=1}^{nj}NS_{sminn,j}"/></p>
+</div><p>Plants first compete for ammonia (NH4).   For each soil layer (<em>j</em>), we calculate the total NH4 demand as:</p>
+<div class="math" id="equation-21.292">
+<p><span class="eqno">(27)<a class="headerlink" href="#equation-21.292" title="Permalink to this equation">¶</a></span><img src="../../_images/math/08aeed585a29560ac158f78df494718485a371af.png" alt="NF_{total\_ demand_nh4,j}  = NF_{immob\_ demand,j}  + NF_{immob\_ demand,j} + NF_{nit\_ demand,j}"/></p>
+</div><p>where
+If <img class="math" src="../../_images/math/811c8a441fc36a4f58f4eba11d0200856e50b065.png" alt="{NF}_{total\_demand,j}"/><img class="math" src="../../_images/math/4d26a3c646f81ab56cceb818c7801dd1f3cfaaf3.png" alt="\Delta"/><em>t</em> <img class="math" src="../../_images/math/863f524a433d6d1e5715f76f12040c654f10d86d.png" alt="&lt;"/>
+<img class="math" src="../../_images/math/cfd9aec087eccea787cbe00d6bce38e18ae5a8a7.png" alt="{NS}_{sminn,j}"/>, then the available pool is large enough to
+meet both the maximum plant and microbial demand, then immobilization proceeds at the maximum rate.</p>
+<div class="math" id="equation-21.29)">
+<p><span class="eqno">(28)<a class="headerlink" href="#equation-21.29)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9743b1adec903d109af50c23b0109e2627669693.png" alt="f_{immob\_demand,j} = 1.0"/></p>
+</div><p>where <img class="math" src="../../_images/math/b57e9d664c68b1565930097f6b37f479d4c4e636.png" alt="{f}_{immob\_demand,j}"/> is the fraction of potential immobilization demand that can be met given current supply of mineral nitrogen in this layer. We also set the actual nitrification flux to be the same as the potential flux (<img class="math" src="../../_images/math/3776703ef086433b64324e1d3b3b36a5e6f54b6f.png" alt="NF_{nit}"/> = <img class="math" src="../../_images/math/f2233919948007ae627a738fa183e8b6ccbd6abe.png" alt="NF_{nit\_ demand}"/>).</p>
+<p>If <img class="math" src="../../_images/math/811c8a441fc36a4f58f4eba11d0200856e50b065.png" alt="{NF}_{total\_demand,j}"/><img class="math" src="../../_images/math/4d26a3c646f81ab56cceb818c7801dd1f3cfaaf3.png" alt="\Delta"/><em>t</em>
+<img class="math" src="../../_images/math/3c80ce709ad80506b2b856e9f95a5df1e4da2359.png" alt="\mathrm{\ge}"/> <img class="math" src="../../_images/math/cfd9aec087eccea787cbe00d6bce38e18ae5a8a7.png" alt="{NS}_{sminn,j}"/>, then there is not enough
 mineral nitrogen to meet the combined demands for plant growth and
-heterotrophic immobilization, and both of these processes proceed at
-lower-than-potential rates, defined by the fractions
-<img class="math" src="../../_images/math/b4a1e7d30f7451c57d81dad66bcc2c51cc1b8c1b.png" alt="{f}_{plant\_demand}"/> and <img class="math" src="../../_images/math/5284f92fb74cf235a79c0deca20f3f4e779a08f1.png" alt="{f}_{immob\_demand}"/>,
-where:</p>
-<div class="math" id="equation-21.28)">
-<p><span class="eqno">(27)<a class="headerlink" href="#equation-21.28)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ea22fc57f1ed276a1c6d61c8ec31caf580b8700a.png" alt="f_{plant\_ demand} =f_{immob\_ demand} =\frac{NS_{sminn} }{\Delta t\, NF_{total\_ demand} }"/></p>
+heterotrophic immobilization, immobilization is reduced proportional to the discrepancy, by <img class="math" src="../../_images/math/84134b043a338f391178c66ad566f0588cb7e0d4.png" alt="f_{immob\_ demand,j}"/>, where</p>
+<div class="math" id="equation-21.30)">
+<p><span class="eqno">(29)<a class="headerlink" href="#equation-21.30)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/591c91f9e96f89930862ad57abbcf1f48c67b07f.png" alt="f_{immob\_ demand,j} = \frac{NS_{sminn,j} }{\Delta t\, NF_{total\_ demand,j} }"/></p>
+</div><p>The N available to the FUN model for plant uptake (<img class="math" src="../../_images/math/7f69fc4c4a28292d50fd3df068cc484c03f8fae3.png" alt="{NF}_ {plant\_ avail\_ sminn}"/> (gN m<sup>-2</sup>), which determines both the cost of N uptake, and the absolute limit on the N which is available for acquisition, is calculated as the total mineralized pool minus the actual immobilized flux:</p>
+<div class="math" id="equation-21.311)">
+<p><span class="eqno">(30)<a class="headerlink" href="#equation-21.311)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9714bc60594b7ccff4dc5b70fe965d49baa85e67.png" alt="NF_{plant\_ avail\_ sminn,j} = NS_{sminn,j} - f_{immob\_demand} NF_{immob\_ demand,j}"/></p>
 </div><p>This treatment of competition for nitrogen as a limiting resource is
 referred to a demand-based competition, where the fraction of the
 available resource that eventually flows to a particular process depends
 on the demand from that process in comparison to the total demand from
 all processes. Processes expressing a greater demand acquire a larger
-fraction of the available resource.</p>
+vfraction of the available resource.</p>
 </div>
 <div class="section" id="final-decomposition-fluxes">
 <h2>21.6. Final Decomposition Fluxes<a class="headerlink" href="#final-decomposition-fluxes" title="Permalink to this headline">¶</a></h2>
@@ -639,50 +640,50 @@ can be calculated. Actual carbon fluxes leaving the individual litter
 and SOM pools, again for the example of the CLM-CN pool structure (the
 CENTURY structure will be similar but, again without the different
 terminal step), are calculated as:</p>
-<div class="math" id="equation-21.29)">
-<p><span class="eqno">(28)<a class="headerlink" href="#equation-21.29)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f27b4d04d68a1e4426f89c9662ac331c714b256a.png" alt="CF_{Lit1} =\left\{\begin{array}{l} {CF_{pot,\, Lit1} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit1\to SOM1} &gt;0} \\ {CF_{pot,\, Lit1} \qquad {\rm for\; }NF_{pot\_ min,\, Lit1\to SOM1} \le 0} \end{array}\right\}"/></p>
-</div><div class="math" id="equation-21.30)">
-<p><span class="eqno">(29)<a class="headerlink" href="#equation-21.30)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/35366b1538f4ae810f915b53525192dc47001eb7.png" alt="CF_{Lit2} =\left\{\begin{array}{l} {CF_{pot,\, Lit2} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit2\to SOM2} &gt;0} \\ {CF_{pot,\, Lit2} \qquad {\rm for\; }NF_{pot\_ min,\, Lit2\to SOM2} \le 0} \end{array}\right\}"/></p>
-</div><div class="math" id="equation-21.31)">
-<p><span class="eqno">(30)<a class="headerlink" href="#equation-21.31)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/501529efb5674446959b943da3ef8ea819185868.png" alt="CF_{Lit3} =\left\{\begin{array}{l} {CF_{pot,\, Lit3} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit3\to SOM3} &gt;0} \\ {CF_{pot,\, Lit3} \qquad {\rm for\; }NF_{pot\_ min,\, Lit3\to SOM3} \le 0} \end{array}\right\}"/></p>
-</div><div class="math" id="equation-21.32)">
-<p><span class="eqno">(31)<a class="headerlink" href="#equation-21.32)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/da7b611a1e7dfd157eaa0fc5cccb5995177e0c0e.png" alt="CF_{SOM1} =\left\{\begin{array}{l} {CF_{pot,\, SOM1} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM1\to SOM2} &gt;0} \\ {CF_{pot,\, SOM1} \qquad {\rm for\; }NF_{pot\_ min,\, SOM1\to SOM2} \le 0} \end{array}\right\}"/></p>
+<div class="math" id="equation-21.32)">
+<p><span class="eqno">(31)<a class="headerlink" href="#equation-21.32)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f27b4d04d68a1e4426f89c9662ac331c714b256a.png" alt="CF_{Lit1} =\left\{\begin{array}{l} {CF_{pot,\, Lit1} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit1\to SOM1} &gt;0} \\ {CF_{pot,\, Lit1} \qquad {\rm for\; }NF_{pot\_ min,\, Lit1\to SOM1} \le 0} \end{array}\right\}"/></p>
 </div><div class="math" id="equation-21.33)">
-<p><span class="eqno">(32)<a class="headerlink" href="#equation-21.33)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fca91fe28bd60d5b04f842d198c69209b3d608f7.png" alt="CF_{SOM2} =\left\{\begin{array}{l} {CF_{pot,\, SOM2} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM2\to SOM3} &gt;0} \\ {CF_{pot,\, SOM2} \qquad {\rm for\; }NF_{pot\_ min,\, SOM2\to SOM3} \le 0} \end{array}\right\}"/></p>
+<p><span class="eqno">(32)<a class="headerlink" href="#equation-21.33)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/35366b1538f4ae810f915b53525192dc47001eb7.png" alt="CF_{Lit2} =\left\{\begin{array}{l} {CF_{pot,\, Lit2} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit2\to SOM2} &gt;0} \\ {CF_{pot,\, Lit2} \qquad {\rm for\; }NF_{pot\_ min,\, Lit2\to SOM2} \le 0} \end{array}\right\}"/></p>
 </div><div class="math" id="equation-21.34)">
-<p><span class="eqno">(33)<a class="headerlink" href="#equation-21.34)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5ceeebe02640730fc9b0b2bbdff3ae94afaca217.png" alt="CF_{SOM3} =\left\{\begin{array}{l} {CF_{pot,\, SOM3} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM3\to SOM4} &gt;0} \\ {CF_{pot,\, SOM3} \qquad {\rm for\; }NF_{pot\_ min,\, SOM3\to SOM4} \le 0} \end{array}\right\}"/></p>
+<p><span class="eqno">(33)<a class="headerlink" href="#equation-21.34)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/501529efb5674446959b943da3ef8ea819185868.png" alt="CF_{Lit3} =\left\{\begin{array}{l} {CF_{pot,\, Lit3} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit3\to SOM3} &gt;0} \\ {CF_{pot,\, Lit3} \qquad {\rm for\; }NF_{pot\_ min,\, Lit3\to SOM3} \le 0} \end{array}\right\}"/></p>
 </div><div class="math" id="equation-21.35)">
-<p><span class="eqno">(34)<a class="headerlink" href="#equation-21.35)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c584b5ee2cec83f23f49285456204ed17a07dead.png" alt="CF_{SOM4} =CF_{pot,\, SOM4}"/></p>
+<p><span class="eqno">(34)<a class="headerlink" href="#equation-21.35)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/da7b611a1e7dfd157eaa0fc5cccb5995177e0c0e.png" alt="CF_{SOM1} =\left\{\begin{array}{l} {CF_{pot,\, SOM1} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM1\to SOM2} &gt;0} \\ {CF_{pot,\, SOM1} \qquad {\rm for\; }NF_{pot\_ min,\, SOM1\to SOM2} \le 0} \end{array}\right\}"/></p>
+</div><div class="math" id="equation-21.36)">
+<p><span class="eqno">(35)<a class="headerlink" href="#equation-21.36)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fca91fe28bd60d5b04f842d198c69209b3d608f7.png" alt="CF_{SOM2} =\left\{\begin{array}{l} {CF_{pot,\, SOM2} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM2\to SOM3} &gt;0} \\ {CF_{pot,\, SOM2} \qquad {\rm for\; }NF_{pot\_ min,\, SOM2\to SOM3} \le 0} \end{array}\right\}"/></p>
+</div><div class="math" id="equation-21.37)">
+<p><span class="eqno">(36)<a class="headerlink" href="#equation-21.37)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5ceeebe02640730fc9b0b2bbdff3ae94afaca217.png" alt="CF_{SOM3} =\left\{\begin{array}{l} {CF_{pot,\, SOM3} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM3\to SOM4} &gt;0} \\ {CF_{pot,\, SOM3} \qquad {\rm for\; }NF_{pot\_ min,\, SOM3\to SOM4} \le 0} \end{array}\right\}"/></p>
+</div><div class="math" id="equation-21.38)">
+<p><span class="eqno">(37)<a class="headerlink" href="#equation-21.38)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c584b5ee2cec83f23f49285456204ed17a07dead.png" alt="CF_{SOM4} =CF_{pot,\, SOM4}"/></p>
 </div><p>Heterotrophic respiration fluxes (losses of carbon as
 CO<sub>2</sub> to the atmosphere) are:</p>
-<div class="math" id="equation-21.36)">
-<p><span class="eqno">(35)<a class="headerlink" href="#equation-21.36)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a8260a275457771efd0fb24bf20d626fc0813f71.png" alt="CF_{Lit1,\, HR} =CF_{Lit1} rf_{Lit1}"/></p>
-</div><div class="math" id="equation-21.37)">
-<p><span class="eqno">(36)<a class="headerlink" href="#equation-21.37)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c620ad1965d837a0a7d76be31dbe1503738d67e7.png" alt="CF_{Lit2,\, HR} =CF_{Lit2} rf_{Lit2}"/></p>
-</div><div class="math" id="equation-21.38)">
-<p><span class="eqno">(37)<a class="headerlink" href="#equation-21.38)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/224de4a33c7843c64665b7dc7d9fa872564f173a.png" alt="CF_{Lit3,\, HR} =CF_{Lit3} rf_{Lit3}"/></p>
-</div><div class="math" id="equation-21.39)">
-<p><span class="eqno">(38)<a class="headerlink" href="#equation-21.39)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/feaec227cbd098a89895661b26b88a298871f9d7.png" alt="CF_{SOM1,\, HR} =CF_{SOM1} rf_{SOM1}"/></p>
+<div class="math" id="equation-21.39)">
+<p><span class="eqno">(38)<a class="headerlink" href="#equation-21.39)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a8260a275457771efd0fb24bf20d626fc0813f71.png" alt="CF_{Lit1,\, HR} =CF_{Lit1} rf_{Lit1}"/></p>
 </div><div class="math" id="equation-21.40)">
-<p><span class="eqno">(39)<a class="headerlink" href="#equation-21.40)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/54011bcd0eb5f16dae38ec7ea6cee53837dc3bd6.png" alt="CF_{SOM2,\, HR} =CF_{SOM2} rf_{SOM2}"/></p>
+<p><span class="eqno">(39)<a class="headerlink" href="#equation-21.40)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c620ad1965d837a0a7d76be31dbe1503738d67e7.png" alt="CF_{Lit2,\, HR} =CF_{Lit2} rf_{Lit2}"/></p>
 </div><div class="math" id="equation-21.41)">
-<p><span class="eqno">(40)<a class="headerlink" href="#equation-21.41)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bf10f97907326a079e825548760321ed53e2cb60.png" alt="CF_{SOM3,\, HR} =CF_{SOM3} rf_{SOM3}"/></p>
+<p><span class="eqno">(40)<a class="headerlink" href="#equation-21.41)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/224de4a33c7843c64665b7dc7d9fa872564f173a.png" alt="CF_{Lit3,\, HR} =CF_{Lit3} rf_{Lit3}"/></p>
 </div><div class="math" id="equation-21.42)">
-<p><span class="eqno">(41)<a class="headerlink" href="#equation-21.42)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/adb6d28d3eaf9d04d7cc0c46c3513d3d947cf3d8.png" alt="CF_{SOM4,\, HR} =CF_{SOM4} rf_{SOM4}"/></p>
+<p><span class="eqno">(41)<a class="headerlink" href="#equation-21.42)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/feaec227cbd098a89895661b26b88a298871f9d7.png" alt="CF_{SOM1,\, HR} =CF_{SOM1} rf_{SOM1}"/></p>
+</div><div class="math" id="equation-21.43)">
+<p><span class="eqno">(42)<a class="headerlink" href="#equation-21.43)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/54011bcd0eb5f16dae38ec7ea6cee53837dc3bd6.png" alt="CF_{SOM2,\, HR} =CF_{SOM2} rf_{SOM2}"/></p>
+</div><div class="math" id="equation-21.44)">
+<p><span class="eqno">(43)<a class="headerlink" href="#equation-21.44)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bf10f97907326a079e825548760321ed53e2cb60.png" alt="CF_{SOM3,\, HR} =CF_{SOM3} rf_{SOM3}"/></p>
+</div><div class="math" id="equation-21.45)">
+<p><span class="eqno">(44)<a class="headerlink" href="#equation-21.45)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/adb6d28d3eaf9d04d7cc0c46c3513d3d947cf3d8.png" alt="CF_{SOM4,\, HR} =CF_{SOM4} rf_{SOM4}"/></p>
 </div><p>Transfers of carbon from upstream to downstream pools in the
 decomposition cascade are given as:</p>
-<div class="math" id="equation-21.43)">
-<p><span class="eqno">(42)<a class="headerlink" href="#equation-21.43)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/99707d902e9cdc921ebf80d00b9e2d0fec8160ab.png" alt="CF_{Lit1,\, SOM1} =CF_{Lit1} \left(1-rf_{Lit1} \right)"/></p>
-</div><div class="math" id="equation-21.44)">
-<p><span class="eqno">(43)<a class="headerlink" href="#equation-21.44)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6994579dfbc346aaa7e0bd96080052b4bcdc3956.png" alt="CF_{Lit2,\, SOM2} =CF_{Lit2} \left(1-rf_{Lit2} \right)"/></p>
-</div><div class="math" id="equation-21.45)">
-<p><span class="eqno">(44)<a class="headerlink" href="#equation-21.45)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c56826808dfb8cf5d526eb66a0e0bacd5ed97937.png" alt="CF_{Lit3,\, SOM3} =CF_{Lit3} \left(1-rf_{Lit3} \right)"/></p>
-</div><div class="math" id="equation-21.46)">
-<p><span class="eqno">(45)<a class="headerlink" href="#equation-21.46)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/032e58e7c06308b08ae37caac304b687826fc8da.png" alt="CF_{SOM1,\, SOM2} =CF_{SOM1} \left(1-rf_{SOM1} \right)"/></p>
+<div class="math" id="equation-21.46)">
+<p><span class="eqno">(45)<a class="headerlink" href="#equation-21.46)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/99707d902e9cdc921ebf80d00b9e2d0fec8160ab.png" alt="CF_{Lit1,\, SOM1} =CF_{Lit1} \left(1-rf_{Lit1} \right)"/></p>
 </div><div class="math" id="equation-21.47)">
-<p><span class="eqno">(46)<a class="headerlink" href="#equation-21.47)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3d8ea3fbe1eb6c8544c7f52230c0843339ec4562.png" alt="CF_{SOM2,\, SOM3} =CF_{SOM2} \left(1-rf_{SOM2} \right)"/></p>
+<p><span class="eqno">(46)<a class="headerlink" href="#equation-21.47)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6994579dfbc346aaa7e0bd96080052b4bcdc3956.png" alt="CF_{Lit2,\, SOM2} =CF_{Lit2} \left(1-rf_{Lit2} \right)"/></p>
 </div><div class="math" id="equation-21.48)">
-<p><span class="eqno">(47)<a class="headerlink" href="#equation-21.48)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/17bb2170f50b66c5c12faf9c779c5459fd1ef837.png" alt="CF_{SOM3,\, SOM4} =CF_{SOM3} \left(1-rf_{SOM3} \right)"/></p>
+<p><span class="eqno">(47)<a class="headerlink" href="#equation-21.48)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c56826808dfb8cf5d526eb66a0e0bacd5ed97937.png" alt="CF_{Lit3,\, SOM3} =CF_{Lit3} \left(1-rf_{Lit3} \right)"/></p>
+</div><div class="math" id="equation-21.49)">
+<p><span class="eqno">(48)<a class="headerlink" href="#equation-21.49)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/032e58e7c06308b08ae37caac304b687826fc8da.png" alt="CF_{SOM1,\, SOM2} =CF_{SOM1} \left(1-rf_{SOM1} \right)"/></p>
+</div><div class="math" id="equation-21.50)">
+<p><span class="eqno">(49)<a class="headerlink" href="#equation-21.50)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3d8ea3fbe1eb6c8544c7f52230c0843339ec4562.png" alt="CF_{SOM2,\, SOM3} =CF_{SOM2} \left(1-rf_{SOM2} \right)"/></p>
+</div><div class="math" id="equation-21.51)">
+<p><span class="eqno">(50)<a class="headerlink" href="#equation-21.51)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/17bb2170f50b66c5c12faf9c779c5459fd1ef837.png" alt="CF_{SOM3,\, SOM4} =CF_{SOM3} \left(1-rf_{SOM3} \right)"/></p>
 </div><p>In accounting for the fluxes of nitrogen between pools in the
 decomposition cascade and associated fluxes to or from the soil mineral
 nitrogen pool, the model first calculates a flux of nitrogen from an
@@ -691,35 +692,35 @@ the soil mineral nitrogen pool to the downstream pool (immobilization)
 or from the downstream pool to the soil mineral nitrogen pool
 (mineralization). Transfers of nitrogen from upstream to downstream
 pools in the decomposition cascade are given as:</p>
-<div class="math" id="equation-21.49)">
-<p><span class="eqno">(48)<a class="headerlink" href="#equation-21.49)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/653318a122d2e130368d0834c5a7267343f240ea.png" alt="NF_{Lit1,\, SOM1} ={CF_{Lit1} \mathord{\left/ {\vphantom {CF_{Lit1}  CN_{Lit1} }} \right. \kern-\nulldelimiterspace} CN_{Lit1} }"/></p>
-</div><div class="math" id="equation-21.50)">
-<p><span class="eqno">(49)<a class="headerlink" href="#equation-21.50)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0e9e77f38e9853b456aab8d3e23242defe013cba.png" alt="NF_{Lit2,\, SOM2} ={CF_{Lit2} \mathord{\left/ {\vphantom {CF_{Lit2}  CN_{Lit2} }} \right. \kern-\nulldelimiterspace} CN_{Lit2} }"/></p>
-</div><div class="math" id="equation-21.51)">
-<p><span class="eqno">(50)<a class="headerlink" href="#equation-21.51)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/631283f4ad14d4281c64d01f779b341b0cad8a52.png" alt="NF_{Lit3,\, SOM3} ={CF_{Lit3} \mathord{\left/ {\vphantom {CF_{Lit3}  CN_{Lit3} }} \right. \kern-\nulldelimiterspace} CN_{Lit3} }"/></p>
-</div><div class="math" id="equation-21.52)">
-<p><span class="eqno">(51)<a class="headerlink" href="#equation-21.52)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ff2df3e8a0e47fbd17e7014a8129bea7cdc55728.png" alt="NF_{SOM1,\, SOM2} ={CF_{SOM1} \mathord{\left/ {\vphantom {CF_{SOM1}  CN_{SOM1} }} \right. \kern-\nulldelimiterspace} CN_{SOM1} }"/></p>
+<div class="math" id="equation-21.52)">
+<p><span class="eqno">(51)<a class="headerlink" href="#equation-21.52)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/653318a122d2e130368d0834c5a7267343f240ea.png" alt="NF_{Lit1,\, SOM1} ={CF_{Lit1} \mathord{\left/ {\vphantom {CF_{Lit1}  CN_{Lit1} }} \right. \kern-\nulldelimiterspace} CN_{Lit1} }"/></p>
 </div><div class="math" id="equation-21.53)">
-<p><span class="eqno">(52)<a class="headerlink" href="#equation-21.53)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c43c9cd5c125cf3ef5b59a262b524aeb9bc24dfe.png" alt="NF_{SOM2,\, SOM3} ={CF_{SOM2} \mathord{\left/ {\vphantom {CF_{SOM2}  CN_{SOM2} }} \right. \kern-\nulldelimiterspace} CN_{SOM2} }"/></p>
+<p><span class="eqno">(52)<a class="headerlink" href="#equation-21.53)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0e9e77f38e9853b456aab8d3e23242defe013cba.png" alt="NF_{Lit2,\, SOM2} ={CF_{Lit2} \mathord{\left/ {\vphantom {CF_{Lit2}  CN_{Lit2} }} \right. \kern-\nulldelimiterspace} CN_{Lit2} }"/></p>
 </div><div class="math" id="equation-21.54)">
-<p><span class="eqno">(53)<a class="headerlink" href="#equation-21.54)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/344bd4e4278c28f57a0715f1dda76d05e1b680bd.png" alt="NF_{SOM3,\, SOM4} ={CF_{SOM3} \mathord{\left/ {\vphantom {CF_{SOM3}  CN_{SOM3} }} \right. \kern-\nulldelimiterspace} CN_{SOM3} }"/></p>
+<p><span class="eqno">(53)<a class="headerlink" href="#equation-21.54)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/631283f4ad14d4281c64d01f779b341b0cad8a52.png" alt="NF_{Lit3,\, SOM3} ={CF_{Lit3} \mathord{\left/ {\vphantom {CF_{Lit3}  CN_{Lit3} }} \right. \kern-\nulldelimiterspace} CN_{Lit3} }"/></p>
+</div><div class="math" id="equation-21.55)">
+<p><span class="eqno">(54)<a class="headerlink" href="#equation-21.55)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ff2df3e8a0e47fbd17e7014a8129bea7cdc55728.png" alt="NF_{SOM1,\, SOM2} ={CF_{SOM1} \mathord{\left/ {\vphantom {CF_{SOM1}  CN_{SOM1} }} \right. \kern-\nulldelimiterspace} CN_{SOM1} }"/></p>
+</div><div class="math" id="equation-21.56)">
+<p><span class="eqno">(55)<a class="headerlink" href="#equation-21.56)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c43c9cd5c125cf3ef5b59a262b524aeb9bc24dfe.png" alt="NF_{SOM2,\, SOM3} ={CF_{SOM2} \mathord{\left/ {\vphantom {CF_{SOM2}  CN_{SOM2} }} \right. \kern-\nulldelimiterspace} CN_{SOM2} }"/></p>
+</div><div class="math" id="equation-21.57)">
+<p><span class="eqno">(56)<a class="headerlink" href="#equation-21.57)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/344bd4e4278c28f57a0715f1dda76d05e1b680bd.png" alt="NF_{SOM3,\, SOM4} ={CF_{SOM3} \mathord{\left/ {\vphantom {CF_{SOM3}  CN_{SOM3} }} \right. \kern-\nulldelimiterspace} CN_{SOM3} }"/></p>
 </div><p>Corresponding fluxes to or from the soil mineral nitrogen pool depend on
 whether the decomposition step is an immobilization flux or a
 mineralization flux:</p>
-<div class="math" id="equation-21.55)">
-<p><span class="eqno">(54)<a class="headerlink" href="#equation-21.55)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/167b56a44ebdab9a8d1b89380da4fb4663d7995d.png" alt="NF_{sminn,\, Lit1\to SOM1} =\left\{\begin{array}{l} {NF_{pot\_ min,\, Lit1\to SOM1} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit1\to SOM1} &gt;0} \\ {NF_{pot\_ min,\, Lit1\to SOM1} \qquad {\rm for\; }NF_{pot\_ min,\, Lit1\to SOM1} \le 0} \end{array}\right\}"/></p>
-</div><div class="math" id="equation-21.56)">
-<p><span class="eqno">(55)<a class="headerlink" href="#equation-21.56)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/05933b7012465aea5ef34e1e18eb7be0ed4e9a4c.png" alt="NF_{sminn,\, Lit2\to SOM2} =\left\{\begin{array}{l} {NF_{pot\_ min,\, Lit2\to SOM2} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit2\to SOM2} &gt;0} \\ {NF_{pot\_ min,\, Lit2\to SOM2} \qquad {\rm for\; }NF_{pot\_ min,\, Lit2\to SOM2} \le 0} \end{array}\right\}"/></p>
-</div><div class="math" id="equation-21.57)">
-<p><span class="eqno">(56)<a class="headerlink" href="#equation-21.57)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d819a39fe75a4124fef117131958bbf9f2b92ffb.png" alt="NF_{sminn,\, Lit3\to SOM3} =\left\{\begin{array}{l} {NF_{pot\_ min,\, Lit3\to SOM3} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit3\to SOM3} &gt;0} \\ {NF_{pot\_ min,\, Lit3\to SOM3} \qquad {\rm for\; }NF_{pot\_ min,\, Lit3\to SOM3} \le 0} \end{array}\right\}"/></p>
-</div><div class="math" id="equation-21.58)">
-<p><span class="eqno">(57)<a class="headerlink" href="#equation-21.58)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bfe4109c09d7fc8afdd7dcdf47c6ccf1be9565fc.png" alt="NF_{sminn,SOM1\to SOM2} =\left\{\begin{array}{l} {NF_{pot\_ min,\, SOM1\to SOM2} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM1\to SOM2} &gt;0} \\ {NF_{pot\_ min,\, SOM1\to SOM2} \qquad {\rm for\; }NF_{pot\_ min,\, SOM1\to SOM2} \le 0} \end{array}\right\}"/></p>
+<div class="math" id="equation-21.58)">
+<p><span class="eqno">(57)<a class="headerlink" href="#equation-21.58)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/167b56a44ebdab9a8d1b89380da4fb4663d7995d.png" alt="NF_{sminn,\, Lit1\to SOM1} =\left\{\begin{array}{l} {NF_{pot\_ min,\, Lit1\to SOM1} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit1\to SOM1} &gt;0} \\ {NF_{pot\_ min,\, Lit1\to SOM1} \qquad {\rm for\; }NF_{pot\_ min,\, Lit1\to SOM1} \le 0} \end{array}\right\}"/></p>
 </div><div class="math" id="equation-21.59)">
-<p><span class="eqno">(58)<a class="headerlink" href="#equation-21.59)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3aeead54ef357b600546e0c32c22733e64f2114f.png" alt="NF_{sminn,SOM2\to SOM3} =\left\{\begin{array}{l} {NF_{pot\_ min,\, SOM2\to SOM3} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM2\to SOM3} &gt;0} \\ {NF_{pot\_ min,\, SOM2\to SOM3} \qquad {\rm for\; }NF_{pot\_ min,\, SOM2\to SOM3} \le 0} \end{array}\right\}"/></p>
+<p><span class="eqno">(58)<a class="headerlink" href="#equation-21.59)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/05933b7012465aea5ef34e1e18eb7be0ed4e9a4c.png" alt="NF_{sminn,\, Lit2\to SOM2} =\left\{\begin{array}{l} {NF_{pot\_ min,\, Lit2\to SOM2} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit2\to SOM2} &gt;0} \\ {NF_{pot\_ min,\, Lit2\to SOM2} \qquad {\rm for\; }NF_{pot\_ min,\, Lit2\to SOM2} \le 0} \end{array}\right\}"/></p>
 </div><div class="math" id="equation-21.60)">
-<p><span class="eqno">(59)<a class="headerlink" href="#equation-21.60)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/740af61e3f3b6346c1dfa2befcfac0cd6ac7a18d.png" alt="NF_{sminn,SOM3\to SOM4} =\left\{\begin{array}{l} {NF_{pot\_ min,\, SOM3\to SOM4} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM3\to SOM4} &gt;0} \\ {NF_{pot\_ min,\, SOM3\to SOM4} \qquad {\rm for\; }NF_{pot\_ min,\, SOM3\to SOM4} \le 0} \end{array}\right\}"/></p>
+<p><span class="eqno">(59)<a class="headerlink" href="#equation-21.60)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d819a39fe75a4124fef117131958bbf9f2b92ffb.png" alt="NF_{sminn,\, Lit3\to SOM3} =\left\{\begin{array}{l} {NF_{pot\_ min,\, Lit3\to SOM3} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, Lit3\to SOM3} &gt;0} \\ {NF_{pot\_ min,\, Lit3\to SOM3} \qquad {\rm for\; }NF_{pot\_ min,\, Lit3\to SOM3} \le 0} \end{array}\right\}"/></p>
 </div><div class="math" id="equation-21.61)">
-<p><span class="eqno">(60)<a class="headerlink" href="#equation-21.61)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7493456ba2069f55d82c5c33bdc9fbb3ac820dc3.png" alt="NF_{sminn,\, SOM4} =NF_{pot\_ min,\, SOM4}"/></p>
+<p><span class="eqno">(60)<a class="headerlink" href="#equation-21.61)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bfe4109c09d7fc8afdd7dcdf47c6ccf1be9565fc.png" alt="NF_{sminn,SOM1\to SOM2} =\left\{\begin{array}{l} {NF_{pot\_ min,\, SOM1\to SOM2} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM1\to SOM2} &gt;0} \\ {NF_{pot\_ min,\, SOM1\to SOM2} \qquad {\rm for\; }NF_{pot\_ min,\, SOM1\to SOM2} \le 0} \end{array}\right\}"/></p>
+</div><div class="math" id="equation-21.62)">
+<p><span class="eqno">(61)<a class="headerlink" href="#equation-21.62)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3aeead54ef357b600546e0c32c22733e64f2114f.png" alt="NF_{sminn,SOM2\to SOM3} =\left\{\begin{array}{l} {NF_{pot\_ min,\, SOM2\to SOM3} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM2\to SOM3} &gt;0} \\ {NF_{pot\_ min,\, SOM2\to SOM3} \qquad {\rm for\; }NF_{pot\_ min,\, SOM2\to SOM3} \le 0} \end{array}\right\}"/></p>
+</div><div class="math" id="equation-21.63)">
+<p><span class="eqno">(62)<a class="headerlink" href="#equation-21.63)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/740af61e3f3b6346c1dfa2befcfac0cd6ac7a18d.png" alt="NF_{sminn,SOM3\to SOM4} =\left\{\begin{array}{l} {NF_{pot\_ min,\, SOM3\to SOM4} f_{immob\_ demand} \qquad {\rm for\; }NF_{pot\_ min,\, SOM3\to SOM4} &gt;0} \\ {NF_{pot\_ min,\, SOM3\to SOM4} \qquad {\rm for\; }NF_{pot\_ min,\, SOM3\to SOM4} \le 0} \end{array}\right\}"/></p>
+</div><div class="math" id="equation-21.64)">
+<p><span class="eqno">(63)<a class="headerlink" href="#equation-21.64)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7493456ba2069f55d82c5c33bdc9fbb3ac820dc3.png" alt="NF_{sminn,\, SOM4} =NF_{pot\_ min,\, SOM4}"/></p>
 </div></div>
 <div class="section" id="vertical-distribution-and-transport-of-decomposing-c-and-n-pools">
 <h2>21.7. Vertical Distribution and Transport of Decomposing C and N pools<a class="headerlink" href="#vertical-distribution-and-transport-of-decomposing-c-and-n-pools" title="Permalink to this headline">¶</a></h2>
@@ -794,8 +795,8 @@ particularly slow and thus equilibration can take significantly longer
 than in temperate or tropical climates.  This geographic term takes
 the form of a logistic equation, where <img class="math" src="../../_images/math/c4ed28e782952ab2d26a1098bf4e10dea09ef6bb.png" alt="{a}_{i}"/> is equal to the
 product of the base acceleration term and <img class="math" src="../../_images/math/05bfce0efa72f328f68e8e9f405e454d176896d3.png" alt="{a}_{l}"/> below:</p>
-<div class="math" id="equation-21.62)">
-<p><span class="eqno">(61)<a class="headerlink" href="#equation-21.62)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9e36067658627a79e8f80da309b8043203e78eee.png" alt="a_l = 1 + 50 / \left ( 1 + exp \left (-0.1 * (abs(latitude) -
+<div class="math" id="equation-21.65)">
+<p><span class="eqno">(64)<a class="headerlink" href="#equation-21.65)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9e36067658627a79e8f80da309b8043203e78eee.png" alt="a_l = 1 + 50 / \left ( 1 + exp \left (-0.1 * (abs(latitude) -
  60 ) \right ) \right )"/></p>
 </div></div>
 </div>
