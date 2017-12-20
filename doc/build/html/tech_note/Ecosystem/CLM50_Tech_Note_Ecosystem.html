@@ -2,16 +2,12 @@
 
 <!doctype html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>2. Surface Characterization, Vertical Discretization, and Model Input Requirements &#8212; clmdoc  documentation</title>
-    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -35,7 +31,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -213,8 +209,8 @@ within a grid cell can either be prescribed as time-invariant fields
 (e.g., using the present day dataset described in section 21.3.3) or can
 evolve with time if the model is run in transient landcover mode
 (Chapter <a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html#rst-transient-landcover-change"><span class="std std-numref">26</span></a>).</p>
-<table border="1" class="docutils" id="id15">
-<span id="table-plant-functional-types"></span><caption><span class="caption-number">Table 2.1 </span><span class="caption-text">Plant functional types</span><a class="headerlink" href="#id15" title="Permalink to this table">¶</a></caption>
+<span id="table-plant-functional-types"></span><table border="1" class="docutils" id="id15">
+<caption><span class="caption-number">Table 2.1 </span><span class="caption-text">Plant functional types</span><a class="headerlink" href="#id15" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="77%" />
 <col width="23%" />
@@ -315,176 +311,14 @@ evolve with time if the model is run in transient landcover mode
 <div class="section" id="vegetation-structure">
 <span id="id4"></span><h3>2.1.3. Vegetation Structure<a class="headerlink" href="#vegetation-structure" title="Permalink to this headline">¶</a></h3>
 <p>Vegetation structure is defined by leaf and stem area indices
-(<img class="math" src="../../_images/math/1d80bdc3860076663247aef716a56e699051aa05.png" alt="L,\, S"/>) and canopy top and bottom heights (<img class="math" src="../../_images/math/d2aa3d510eaf95bba5962287c2992d7fa693e14d.png" alt="z_{top}"/>,<img class="math" src="../../_images/math/2e4724ec58153a39a5f61b74a8094b3b344f6aee.png" alt="z_{bot}"/> )
-(<a class="reference internal" href="#table-prescribed-plant-functional-type-heights"><span class="std std-numref">Table 2.2</span></a>). Separate leaf and
+(<img class="math" src="../../_images/math/1d80bdc3860076663247aef716a56e699051aa05.png" alt="L,\, S"/>) and canopy top and bottom heights (<img class="math" src="../../_images/math/d2aa3d510eaf95bba5962287c2992d7fa693e14d.png" alt="z_{top}"/>,<img class="math" src="../../_images/math/2e4724ec58153a39a5f61b74a8094b3b344f6aee.png" alt="z_{bot}"/> ).
+Separate leaf and
 stem area indices and canopy heights are prescribed or calculated for each PFT. Daily leaf
 and stem area indices are obtained from griddeddatasets of monthly values (section
-<a class="reference internal" href="#surface-data"><span class="std std-numref">2.3.3</span></a>). Canopy top and bottom heights are also obtained from gridded datasets.
-However, these are currently invariant in space and time and were obtained from PFT-specific
-values (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2002a"><span class="std std-ref">Bonan et al. 2002a</span></a>). When the biogeochemistry model is active,
+<a class="reference internal" href="#surface-data"><span class="std std-numref">2.3.3</span></a>). Canopy top and bottom heights are from ICESat (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#simardetal2011"><span class="std std-ref">Simard et al. (2011)</span></a>.
+When the biogeochemistry model is active,
 vegetation state (LAI, SAI, canopy top and bottom heights) are calculated prognostically
 (see Chapter <a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html#rst-vegetation-phenology-and-turnover"><span class="std std-numref">20</span></a>).</p>
-<table border="1" class="docutils" id="id16">
-<span id="table-prescribed-plant-functional-type-heights"></span><caption><span class="caption-number">Table 2.2 </span><span class="caption-text">Prescribed plant functional type heights</span><a class="headerlink" href="#id16" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col width="42%" />
-<col width="29%" />
-<col width="29%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Plant functional type</th>
-<th class="head"><img class="math" src="../../_images/math/d2aa3d510eaf95bba5962287c2992d7fa693e14d.png" alt="z_{top}"/>  (m)</th>
-<th class="head"><img class="math" src="../../_images/math/2e4724ec58153a39a5f61b74a8094b3b344f6aee.png" alt="z_{bot}"/>  (m)</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>NET Temperate</td>
-<td>17</td>
-<td>8.5</td>
-</tr>
-<tr class="row-odd"><td>NET Boreal</td>
-<td>17</td>
-<td>8.5</td>
-</tr>
-<tr class="row-even"><td>NDT Boreal</td>
-<td>14</td>
-<td>7</td>
-</tr>
-<tr class="row-odd"><td>BET Tropical</td>
-<td>35</td>
-<td>1</td>
-</tr>
-<tr class="row-even"><td>BET temperate</td>
-<td>35</td>
-<td>1</td>
-</tr>
-<tr class="row-odd"><td>BDT tropical</td>
-<td>18</td>
-<td>10</td>
-</tr>
-<tr class="row-even"><td>BDT temperate</td>
-<td>20</td>
-<td>11.5</td>
-</tr>
-<tr class="row-odd"><td>BDT boreal</td>
-<td>20</td>
-<td>11.5</td>
-</tr>
-<tr class="row-even"><td>BES temperate</td>
-<td>0.5</td>
-<td>0.1</td>
-</tr>
-<tr class="row-odd"><td>BDS temperate</td>
-<td>0.5</td>
-<td>0.1</td>
-</tr>
-<tr class="row-even"><td>BDS boreal</td>
-<td>0.5</td>
-<td>0.1</td>
-</tr>
-<tr class="row-odd"><td>C<img class="math" src="../../_images/math/39381da093c8d403d3bea6081dce494b3380f873.png" alt="{}_{3}"/> arctic grass</td>
-<td>0.5</td>
-<td>0.01</td>
-</tr>
-<tr class="row-even"><td>C<img class="math" src="../../_images/math/39381da093c8d403d3bea6081dce494b3380f873.png" alt="{}_{3}"/> grass</td>
-<td>0.5</td>
-<td>0.01</td>
-</tr>
-<tr class="row-odd"><td>C<img class="math" src="../../_images/math/c74f989434a5b247fbec923c6d6d1f3fff0fa4f7.png" alt="{}_{4}"/> grass</td>
-<td>0.5</td>
-<td>0.01</td>
-</tr>
-<tr class="row-even"><td>Crop R</td>
-<td>0.5</td>
-<td>0.01</td>
-</tr>
-<tr class="row-odd"><td>Crop I</td>
-<td>0.5</td>
-<td>0.01</td>
-</tr>
-<tr class="row-even"><td><sup>1</sup>Corn R</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-</tr>
-<tr class="row-odd"><td><sup>1</sup>Corn I</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><sup>1</sup>Temp Cereal R</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-</tr>
-<tr class="row-odd"><td><sup>1</sup>Temp Cereal I</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><sup>1</sup>Winter Cereal R</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-</tr>
-<tr class="row-odd"><td><sup>1</sup>Winter Cereal I</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><sup>1</sup>Soybean R</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-</tr>
-<tr class="row-odd"><td><sup>1</sup>Soybean I</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-<td><ul class="first last simple">
-<li></li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p><sup>1</sup>Determined by the crop model (Chapter <a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">25</span></a>)</p>
 </div>
 <div class="section" id="phenology-and-vegetation-burial-by-snow">
 <span id="id5"></span><h3>2.1.4. Phenology and vegetation burial by snow<a class="headerlink" href="#phenology-and-vegetation-burial-by-snow" title="Permalink to this headline">¶</a></h3>
@@ -517,7 +351,7 @@ be completely buried by snow (m). For numerical reasons, exposed leaf and stem a
 <div class="section" id="soil-layers">
 <span id="id7"></span><h3>2.2.1. Soil Layers<a class="headerlink" href="#soil-layers" title="Permalink to this headline">¶</a></h3>
 <p>The soil column can be discretized into an arbitrary number of layers.  The default
-vertical discretization (<a class="reference internal" href="#table-soil-layer-structure"><span class="std std-numref">Table 2.3</span></a>) uses
+vertical discretization (<a class="reference internal" href="#table-soil-layer-structure"><span class="std std-numref">Table 2.2</span></a>) uses
 <img class="math" src="../../_images/math/eef2514c81ff8624290daeb8a4a043853195e0b3.png" alt="N_{levgrnd} = 25"/> layers, of which <img class="math" src="../../_images/math/0710381a82de02d01a2cbadf9d0276c18adcd5ac.png" alt="N_{levsoi} = 20"/> are hydrologically and
 biogeochemically active.  The deepest 5 layers are only included in the thermodynamical
 calculations (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lawrenceetal2008"><span class="std std-ref">Lawrence et al. 2008</span></a>) described in Chapter
@@ -525,8 +359,8 @@ calculations (<a class="reference internal" href="../References/CLM50_Tech_Note_
 <p>The layer structure of the soil is described by the node depth, <img class="math" src="../../_images/math/5c6a6f366d550318f46ac322944a966f3e695c78.png" alt="z_{i}"/>
 (m), the thickness of each layer, <img class="math" src="../../_images/math/18a8202648d865786985b1bdb0926ae863cf8908.png" alt="\Delta z_{i}"/>  (m), and the depths
 at the layer interfaces <img class="math" src="../../_images/math/0f05595bd04bb93531f2471a1afe9fe485b8b086.png" alt="z_{h,\, i}"/>  (m).</p>
-<table border="1" class="docutils" id="id17">
-<span id="table-soil-layer-structure"></span><caption><span class="caption-number">Table 2.3 </span><span class="caption-text">Soil layer structure</span><a class="headerlink" href="#id17" title="Permalink to this table">¶</a></caption>
+<span id="table-soil-layer-structure"></span><table border="1" class="docutils" id="id16">
+<caption><span class="caption-number">Table 2.2 </span><span class="caption-text">Soil layer structure</span><a class="headerlink" href="#id16" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="19%" />
 <col width="22%" />
@@ -684,22 +518,22 @@ specified, subject to the constraint <img class="math" src="../../_images/math/7
 <span id="id9"></span><h2>2.3. Model Input Requirements<a class="headerlink" href="#model-input-requirements" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="atmospheric-coupling">
 <span id="id10"></span><h3>2.3.1. Atmospheric Coupling<a class="headerlink" href="#atmospheric-coupling" title="Permalink to this headline">¶</a></h3>
-<p>The current state of the atmosphere (<a class="reference internal" href="#table-atmospheric-input-to-land-model"><span class="std std-numref">Table 2.4</span></a>)
+<p>The current state of the atmosphere (<a class="reference internal" href="#table-atmospheric-input-to-land-model"><span class="std std-numref">Table 2.3</span></a>)
 at a given time step is
 used to force the land model. This atmospheric state is provided by an
 atmospheric model in coupled mode or from an observed dataset in land-only
-mode (Chapter <a class="reference internal" href="../Land-Only_Mode/CLM50_Tech_Note_Land-Only_Mode.html#rst-land-only-mode"><span class="std std-numref">31</span></a>). The land model then initiates a full set of
+mode (Chapter <a class="reference internal" href="../Land-Only_Mode/CLM50_Tech_Note_Land-Only_Mode.html#rst-land-only-mode"><span class="std std-numref">32</span></a>). The land model then initiates a full set of
 calculations for surface energy, constituent, momentum, and radiative
 fluxes. The land model calculations are implemented in two steps. The
 land model proceeds with the calculation of surface energy, constituent,
 momentum, and radiative fluxes using the snow and soil hydrologic states
 from the previous time step. The land model then updates the soil and
 snow hydrology calculations based on these fluxes. These fields are
-passed to the atmosphere (<a class="reference internal" href="#table-land-model-output-to-atmospheric-model"><span class="std std-numref">Table 2.5</span></a>). The albedos sent to the atmosphere
+passed to the atmosphere (<a class="reference internal" href="#table-land-model-output-to-atmospheric-model"><span class="std std-numref">Table 2.4</span></a>). The albedos sent to the atmosphere
 are for the solar zenith angle at the next time step but with surface
 conditions from the current time step.</p>
-<table border="1" class="docutils" id="id18">
-<span id="table-atmospheric-input-to-land-model"></span><caption><span class="caption-number">Table 2.4 </span><span class="caption-text">Atmospheric input to land model</span><a class="headerlink" href="#id18" title="Permalink to this table">¶</a></caption>
+<span id="table-atmospheric-input-to-land-model"></span><table border="1" class="docutils" id="id17">
+<caption><span class="caption-number">Table 2.3 </span><span class="caption-text">Atmospheric input to land model</span><a class="headerlink" href="#id17" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="36%" />
 <col width="32%" />
@@ -716,71 +550,75 @@ conditions from the current time step.</p>
 <td><img class="math" src="../../_images/math/97a4d641063296092fe9841531b705e9e72eeadb.png" alt="z'_{atm}"/></td>
 <td>m</td>
 </tr>
-<tr class="row-odd"><td>Zonal wind at <img class="math" src="../../_images/math/2a246e5313725bee0aa4297740e58959a417a42b.png" alt="z_{atm}"/></td>
+<tr class="row-odd"><td>Atmosphere model’s surface height</td>
+<td><img class="math" src="../../_images/math/9a6bd2d6589213729059dbe5514b732bb102a7ea.png" alt="z_{surf,atm}"/></td>
+<td>m</td>
+</tr>
+<tr class="row-even"><td>Zonal wind at <img class="math" src="../../_images/math/2a246e5313725bee0aa4297740e58959a417a42b.png" alt="z_{atm}"/></td>
 <td><img class="math" src="../../_images/math/9ffcba9696377c29c7ae3732d5549a459247f5c8.png" alt="u_{atm}"/></td>
 <td>m s<sup>-1</sup></td>
 </tr>
-<tr class="row-even"><td>Meridional wind at <img class="math" src="../../_images/math/2a246e5313725bee0aa4297740e58959a417a42b.png" alt="z_{atm}"/></td>
+<tr class="row-odd"><td>Meridional wind at <img class="math" src="../../_images/math/2a246e5313725bee0aa4297740e58959a417a42b.png" alt="z_{atm}"/></td>
 <td><img class="math" src="../../_images/math/ece928846883442ecb9fa4ee5289c165209828dd.png" alt="v_{atm}"/></td>
 <td>m s<sup>-1</sup></td>
 </tr>
-<tr class="row-odd"><td>Potential temperature</td>
+<tr class="row-even"><td>Potential temperature</td>
 <td><img class="math" src="../../_images/math/3dc071dced9e6d4d3535029e6edb980f14dea3d5.png" alt="\overline{\theta _{atm} }"/></td>
 <td>K</td>
 </tr>
-<tr class="row-even"><td>Specific humidity at <img class="math" src="../../_images/math/2a246e5313725bee0aa4297740e58959a417a42b.png" alt="z_{atm}"/></td>
+<tr class="row-odd"><td>Specific humidity at <img class="math" src="../../_images/math/2a246e5313725bee0aa4297740e58959a417a42b.png" alt="z_{atm}"/></td>
 <td><img class="math" src="../../_images/math/a54750e213d3b891fa2093cc89a7ca6e16f28111.png" alt="q_{atm}"/></td>
 <td>kg kg<sup>-1</sup></td>
 </tr>
-<tr class="row-odd"><td>Pressure at <img class="math" src="../../_images/math/2a246e5313725bee0aa4297740e58959a417a42b.png" alt="z_{atm}"/></td>
+<tr class="row-even"><td>Pressure at <img class="math" src="../../_images/math/2a246e5313725bee0aa4297740e58959a417a42b.png" alt="z_{atm}"/></td>
 <td><img class="math" src="../../_images/math/3d0543e288c667d28eb58a68a70dafbe05d11255.png" alt="P_{atm}"/></td>
 <td>Pa</td>
 </tr>
-<tr class="row-even"><td>Temperature at <img class="math" src="../../_images/math/2a246e5313725bee0aa4297740e58959a417a42b.png" alt="z_{atm}"/></td>
+<tr class="row-odd"><td>Temperature at <img class="math" src="../../_images/math/2a246e5313725bee0aa4297740e58959a417a42b.png" alt="z_{atm}"/></td>
 <td><img class="math" src="../../_images/math/2636863cfff550565bfc84f73dc9991bb0aa3d31.png" alt="T_{atm}"/></td>
 <td>K</td>
 </tr>
-<tr class="row-odd"><td>Incident longwave radiation</td>
+<tr class="row-even"><td>Incident longwave radiation</td>
 <td><img class="math" src="../../_images/math/472a10bc1f860b13e32a7c46d63c467dfa5cfffa.png" alt="L_{atm} \, \downarrow"/></td>
 <td>W m<sup>-2</sup></td>
 </tr>
-<tr class="row-even"><td><sup>2</sup>Liquid precipitation</td>
+<tr class="row-odd"><td><sup>2</sup>Liquid precipitation</td>
 <td><img class="math" src="../../_images/math/43e9a978c2c013603f21a25558bdd04a2da09abb.png" alt="q_{rain}"/></td>
 <td>mm s<sup>-1</sup></td>
 </tr>
-<tr class="row-odd"><td><sup>2</sup>Solid precipitation</td>
+<tr class="row-even"><td><sup>2</sup>Solid precipitation</td>
 <td><img class="math" src="../../_images/math/9e3a93d40819f3cda6b4d99a456ba6a669ddf573.png" alt="q_{sno}"/></td>
 <td>mm s<sup>-1</sup></td>
 </tr>
-<tr class="row-even"><td>Incident direct beam visible solar radiation</td>
+<tr class="row-odd"><td>Incident direct beam visible solar radiation</td>
 <td><img class="math" src="../../_images/math/e17b8e06c31aaf25405d6c74126ef27beb8aef37.png" alt="S_{atm} \, \downarrow _{vis}^{\mu }"/></td>
 <td>W m<sup>-2</sup></td>
 </tr>
-<tr class="row-odd"><td>Incident direct beam near-infrared solar radiation</td>
+<tr class="row-even"><td>Incident direct beam near-infrared solar radiation</td>
 <td><img class="math" src="../../_images/math/5ad2d03fd0a463351709b840c50a6bdbae44a9d7.png" alt="S_{atm} \, \downarrow _{nir}^{\mu }"/></td>
 <td>W m<sup>-2</sup></td>
 </tr>
-<tr class="row-even"><td>Incident diffuse visible solar radiation</td>
+<tr class="row-odd"><td>Incident diffuse visible solar radiation</td>
 <td><img class="math" src="../../_images/math/cf58fc6832e794f5da017957af8a8034b497382f.png" alt="S_{atm} \, \downarrow _{vis}"/></td>
 <td>W m<sup>-2</sup></td>
 </tr>
-<tr class="row-odd"><td>Incident diffuse near-infrared solar radiation</td>
+<tr class="row-even"><td>Incident diffuse near-infrared solar radiation</td>
 <td><img class="math" src="../../_images/math/7a0af12938d50fbde6308c61f72cd1a6f8764df8.png" alt="S_{atm} \, \downarrow _{nir}"/></td>
 <td>W m<sup>-2</sup></td>
 </tr>
-<tr class="row-even"><td>Carbon dioxide (CO:sub:<cite>2</cite>) concentration</td>
+<tr class="row-odd"><td>Carbon dioxide (CO<sub>2</sub>) concentration</td>
 <td><img class="math" src="../../_images/math/c385158ed383a02d38f18cda1203c686a835149e.png" alt="c_{a}"/></td>
 <td>ppmv</td>
 </tr>
-<tr class="row-odd"><td><sup>3</sup>Aerosol deposition rate</td>
+<tr class="row-even"><td><sup>3</sup>Aerosol deposition rate</td>
 <td><img class="math" src="../../_images/math/27bcfd9a5c36395acf7124e8a65c09f3870ca4e5.png" alt="D_{sp}"/></td>
 <td>kg m<sup>-2</sup> s<sup>-1</sup></td>
 </tr>
-<tr class="row-even"><td><sup>4</sup>Nitrogen deposition rate</td>
+<tr class="row-odd"><td><sup>4</sup>Nitrogen deposition rate</td>
 <td><img class="math" src="../../_images/math/701d9c24c3e0f4f605360b1f4bd264af0eae0978.png" alt="NF_{ndep\_ s{\it min}n}"/></td>
 <td>g (N) m<sup>-2</sup> yr<sup>-1</sup></td>
 </tr>
-<tr class="row-odd"><td><sup>5</sup>Lightning frequency</td>
+<tr class="row-even"><td><sup>5</sup>Lightning frequency</td>
 <td><img class="math" src="../../_images/math/039fec3dee89381752c2b529c738ddd519ea8966.png" alt="I_{l}"/></td>
 <td>flash km<sup>-2</sup> hr<sup>-1</sup></td>
 </tr>
@@ -796,7 +634,7 @@ reference heights for temperature, wind, and specific humidity
 (<img class="math" src="../../_images/math/2e4e021b2940ccc8bdee1f60087febe22cc99d42.png" alt="z_{atm,\, h}"/> , <img class="math" src="../../_images/math/a2dafde42550965b6eb6dd5150d195a72400e026.png" alt="z_{atm,\, {\it m}}"/> ,
 <img class="math" src="../../_images/math/a37a63aa2ad5c33b63b9ac4fe6971414324a31b0.png" alt="z_{atm,\, w}"/> ) are required. These are set equal
 to<img class="math" src="../../_images/math/2a246e5313725bee0aa4297740e58959a417a42b.png" alt="z_{atm}"/> .</p>
-<p><sup>2</sup>The placeCAM provides convective and large-scale liquid
+<p><sup>2</sup>CAM provides convective and large-scale liquid
 and solid precipitation, which are added to yield total liquid
 precipitation <img class="math" src="../../_images/math/43e9a978c2c013603f21a25558bdd04a2da09abb.png" alt="q_{rain}"/>  and solid precipitation
 <img class="math" src="../../_images/math/9e3a93d40819f3cda6b4d99a456ba6a669ddf573.png" alt="q_{sno}"/> .</p>
@@ -842,7 +680,7 @@ required but is calculated directly from
 <img class="math" src="../../_images/math/c2d1736f9f999c6eb1e4a3ac9c05d09909a1c708.png" alt="\rho _{atm} =\frac{P_{atm} -0.378e_{atm} }{R_{da} T_{atm} }"/>
 where <img class="math" src="../../_images/math/3d0543e288c667d28eb58a68a70dafbe05d11255.png" alt="P_{atm}"/>  is atmospheric pressure (Pa), <img class="math" src="../../_images/math/6bfb53ecd18e2e1fd183f64a68f6aa4ce9917b27.png" alt="e_{atm}"/>  is
 atmospheric vapor pressure (Pa), <img class="math" src="../../_images/math/f6534a44b54424f40cc6484e7b8b441f4c8f61a2.png" alt="R_{da}"/>  is the gas constant for
-dry air (J kg<sup>-1</sup> K<sup>-1</sup>) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>), and
+dry air (J kg<sup>-1</sup> K<sup>-1</sup>) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>), and
 <img class="math" src="../../_images/math/2636863cfff550565bfc84f73dc9991bb0aa3d31.png" alt="T_{atm}"/>  is the atmospheric temperature (K). The atmospheric
 vapor pressure <img class="math" src="../../_images/math/6bfb53ecd18e2e1fd183f64a68f6aa4ce9917b27.png" alt="e_{atm}"/>  is derived from atmospheric specific
 humidity <img class="math" src="../../_images/math/a54750e213d3b891fa2093cc89a7ca6e16f28111.png" alt="q_{atm}"/>  (kg kg<sup>-1</sup>) as
@@ -850,8 +688,8 @@ humidity <img class="math" src="../../_images/math/a54750e213d3b891fa2093cc89a7c
 <p>The O<sub>2</sub> partial pressure (Pa) is required but is
 calculated from molar ratio and the atmospheric pressure
 <img class="math" src="../../_images/math/3d0543e288c667d28eb58a68a70dafbe05d11255.png" alt="P_{atm}"/>  as <img class="math" src="../../_images/math/e6d59ff080421665fd47f7069545c967df0d6545.png" alt="o_{i} =0.209P_{atm}"/> .</p>
-<table border="1" class="docutils" id="id19">
-<span id="table-land-model-output-to-atmospheric-model"></span><caption><span class="caption-number">Table 2.5 </span><span class="caption-text">Land model output to atmospheric model</span><a class="headerlink" href="#id19" title="Permalink to this table">¶</a></caption>
+<span id="table-land-model-output-to-atmospheric-model"></span><table border="1" class="docutils" id="id18">
+<caption><span class="caption-number">Table 2.4 </span><span class="caption-text">Land model output to atmospheric model</span><a class="headerlink" href="#id18" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="26%" />
 <col width="32%" />
@@ -932,33 +770,37 @@ calculated from molar ratio and the atmospheric pressure
 <td><img class="math" src="../../_images/math/354efe599f1ac338c4d6d1793165f46a6b6bdf37.png" alt="q_{2m}"/></td>
 <td>kg kg<sup>-1</sup></td>
 </tr>
-<tr class="row-even"><td>Snow water equivalent</td>
+<tr class="row-even"><td>Wind speed at 10 meter height</td>
+<td><img class="math" src="../../_images/math/348e9f14ea86597613e85d7076ba0d2120992369.png" alt="u_{10m}"/></td>
+<td>m s<sup>-1</sup></td>
+</tr>
+<tr class="row-odd"><td>Snow water equivalent</td>
 <td><img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.png" alt="W_{sno}"/></td>
 <td>m</td>
 </tr>
-<tr class="row-odd"><td>Aerodynamic resistance</td>
+<tr class="row-even"><td>Aerodynamic resistance</td>
 <td><img class="math" src="../../_images/math/7c953667333686f584c3ae983e6bf27771451095.png" alt="r_{am}"/></td>
 <td>s m<sup>-1</sup></td>
 </tr>
-<tr class="row-even"><td>Friction velocity</td>
+<tr class="row-odd"><td>Friction velocity</td>
 <td><img class="math" src="../../_images/math/0d674e7d8fec40bf9a08eea2a7f1f4a389c27959.png" alt="u_{*}"/></td>
 <td>m s<sup>-1</sup></td>
 </tr>
-<tr class="row-odd"><td><sup>2</sup>Dust flux</td>
+<tr class="row-even"><td><sup>2</sup>Dust flux</td>
 <td><img class="math" src="../../_images/math/9709a4abf24e4730222814d5a44fc66e6a9f114b.png" alt="F_{j}"/></td>
 <td>kg m<sup>-2</sup> s<sup>-1</sup></td>
 </tr>
-<tr class="row-even"><td>Net ecosystem exchange</td>
+<tr class="row-odd"><td>Net ecosystem exchange</td>
 <td>NEE</td>
 <td>kgCO<sub>2</sub> m<sup>-2</sup> s<sup>-1</sup></td>
 </tr>
 </tbody>
 </table>
 <p><sup>1</sup><img class="math" src="../../_images/math/d0dfc30d53cbaaaafd80fa169fd6ca803e01f2fb.png" alt="\lambda _{vap}"/>  is the latent heat of
-vaporization (J kg<sup>-1</sup>) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>) and <img class="math" src="../../_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/>  is
+vaporization (J kg<sup>-1</sup>) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>) and <img class="math" src="../../_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/>  is
 either the latent heat of vaporization <img class="math" src="../../_images/math/d0dfc30d53cbaaaafd80fa169fd6ca803e01f2fb.png" alt="\lambda _{vap}"/>  or latent
 heat of sublimation <img class="math" src="../../_images/math/d41253ec9277535795f2300e8d7a0892de3ab5dc.png" alt="\lambda _{sub}"/>  (J kg<sup>-1</sup>)
-(<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>) depending on the liquid water and ice content of the top
+(<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>) depending on the liquid water and ice content of the top
 snow/soil layer (section 5.4).</p>
 <p><sup>2</sup>There are <img class="math" src="../../_images/math/6270ac89836ffc46b901c8e6f13fd26d40c847e6.png" alt="j=1,\ldots ,4"/> dust transport bins.</p>
 </div>
@@ -1008,8 +850,8 @@ ice contents are initialized as <img class="math" src="../../_images/math/ff5262
 <img class="math" src="../../_images/math/da05935b8fc8a955b089165a0e5be795bcdc2f8d.png" alt="w_{liq,\, i} =\Delta z_{i} \rho _{liq} \theta _{i}"/>  and
 <img class="math" src="../../_images/math/33ee0bc67f681b03aefb5d9ca27f7b1f0a46ee7c.png" alt="w_{ice,\, i} =0"/> for <img class="math" src="../../_images/math/c4ddf53787e07b6852b381fec070c9f59017f918.png" alt="T_{i} &gt;T_{f}"/> , where
 <img class="math" src="../../_images/math/ae7476424b9c81c6a026c0c3f4406cb00b3ee2d2.png" alt="\rho _{ice}"/>  and <img class="math" src="../../_images/math/99459ae3ea5d5e40e141953e3b5f47c1c193f392.png" alt="\rho _{liq}"/>  are the densities of ice
-and liquid water (kg m<sup>-3</sup>) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>), and <img class="math" src="../../_images/math/43b4fcc8ffe3a239dcb50c726aa6d8e7700f94a5.png" alt="T_{f}"/>
-is the freezing temperature of water (K) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>). All vegetated and
+and liquid water (kg m<sup>-3</sup>) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>), and <img class="math" src="../../_images/math/43b4fcc8ffe3a239dcb50c726aa6d8e7700f94a5.png" alt="T_{f}"/>
+is the freezing temperature of water (K) (<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>). All vegetated and
 glacier land units are initialized with water stored in the unconfined
 aquifer and unsaturated soil <img class="math" src="../../_images/math/824fd2e998f1722fcdc1e91d95724791c7a0072c.png" alt="W_{a} =4000"/> mm and water table
 depth <img class="math" src="../../_images/math/6b063ee474888544e76a46e42cc2a51da754f707.png" alt="z_{\nabla }"/>  at five meters below the soil column.</p>
@@ -1017,7 +859,7 @@ depth <img class="math" src="../../_images/math/6b063ee474888544e76a46e42cc2a51d
 <div class="section" id="surface-data">
 <span id="id12"></span><h3>2.3.3. Surface Data<a class="headerlink" href="#surface-data" title="Permalink to this headline">¶</a></h3>
 <p>Required surface data for each land grid cell are listed in
-<a class="reference internal" href="#table-surface-data-required-for-clm-and-their-base-spatial-resolution"><span class="std std-numref">Table 2.6</span></a>
+<a class="reference internal" href="#table-surface-data-required-for-clm-and-their-base-spatial-resolution"><span class="std std-numref">Table 2.5</span></a>
 and include the glacier, lake, and urban fractions of the grid cell
 (vegetated and crop occupy the remainder), the fractional cover of each
 plant functional type (PFT), monthly leaf and stem area index and canopy
@@ -1028,10 +870,10 @@ factors, population density, gross domestic production, peat area
 fraction, and peak month of agricultural burning. Optional surface data
 include crop irrigation and managed crops. All fields are aggregated to
 the model’s grid from high-resolution input datasets (
-<a class="reference internal" href="#table-surface-data-required-for-clm-and-their-base-spatial-resolution"><span class="std std-numref">Table 2.6</span></a>) that
+<a class="reference internal" href="#table-surface-data-required-for-clm-and-their-base-spatial-resolution"><span class="std std-numref">Table 2.5</span></a>) that
 are obtained from a variety of sources described below.</p>
-<table border="1" class="docutils" id="id20">
-<span id="table-surface-data-required-for-clm-and-their-base-spatial-resolution"></span><caption><span class="caption-number">Table 2.6 </span><span class="caption-text">Surface data required for CLM and their base spatial resolution</span><a class="headerlink" href="#id20" title="Permalink to this table">¶</a></caption>
+<span id="table-surface-data-required-for-clm-and-their-base-spatial-resolution"></span><table border="1" class="docutils" id="id19">
+<caption><span class="caption-number">Table 2.5 </span><span class="caption-text">Surface data required for CLM and their base spatial resolution</span><a class="headerlink" href="#id19" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="62%" />
 <col width="38%" />
@@ -1263,9 +1105,9 @@ or biogeochemical parameterizations have either been obtained from the
 literature or calibrated based on comparisons with observations. These
 are described in the text. Physical constants, generally shared by all
 of the components in the coupled modeling system, are presented in
-<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>.</p>
-<table border="1" class="colwidths-given docutils" id="id21">
-<span id="table-physical-constants"></span><caption><span class="caption-number">Table 2.7 </span><span class="caption-text">Physical constants</span><a class="headerlink" href="#id21" title="Permalink to this table">¶</a></caption>
+<a class="reference internal" href="#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>.</p>
+<span id="table-physical-constants"></span><table border="1" class="colwidths-given docutils" id="id20">
+<caption><span class="caption-number">Table 2.6 </span><span class="caption-text">Physical constants</span><a class="headerlink" href="#id20" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="40%" />
 <col width="20%" />
@@ -1385,17 +1227,17 @@ of the components in the coupled modeling system, are presented in
 <td><img class="math" src="../../_images/math/8d444351bc5c5e19d44e98bf5cf2d8692bd24914.png" alt="\lambda _{vap} +L_{f}"/></td>
 <td>J kg <sup>-1</sup></td>
 </tr>
-<tr class="row-odd"><td><sup>1</sup> &#8220;Thermal conductivity of water&#8221;</td>
+<tr class="row-odd"><td><sup>1</sup> “Thermal conductivity of water”</td>
 <td><img class="math" src="../../_images/math/aec81c0cab3354859546d5e95ccf6413f0f536e7.png" alt="\lambda _{liq}"/></td>
 <td>0.57</td>
 <td>W m <sup>-1</sup> K <sup>-1</sup></td>
 </tr>
-<tr class="row-even"><td><sup>1</sup> &#8220;Thermal conductivity of ice&#8221;</td>
+<tr class="row-even"><td><sup>1</sup> “Thermal conductivity of ice”</td>
 <td><img class="math" src="../../_images/math/77ece06837e4a15ba73bdd5be7f3089491c87e7c.png" alt="\lambda _{ice}"/></td>
 <td>2.29</td>
 <td>W m <sup>-1</sup> K <sup>-1</sup></td>
 </tr>
-<tr class="row-odd"><td><sup>1</sup> &#8220;Thermal conductivity of air&#8221;</td>
+<tr class="row-odd"><td><sup>1</sup> “Thermal conductivity of air”</td>
 <td><img class="math" src="../../_images/math/14db3a73c759659de42d2322150a41f237a67f14.png" alt="\lambda _{air}"/></td>
 <td>0.023 W m <sup>-1</sup> K <sup>-1</sup></td>
 <td>&#160;</td>
@@ -1436,7 +1278,7 @@ of the components in the coupled modeling system, are presented in
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

@@ -2,16 +2,12 @@
 
 <!doctype html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>3.1. What are the CLM tools &#8212; clmdoc  documentation</title>
-    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -35,7 +31,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -49,7 +45,7 @@
           <a href="index.html" title="3. Using CLM tools"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User’s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">3. Using CLM tools</a> &#187;</li> 
       </ul>
     </div>
@@ -102,11 +98,11 @@
 <p>There are several tools provided with CLM that allow you to create your own input datasets at resolutions you choose, or to interpolate initial conditions to a different resolution, or used to compare CLM history files between different cases.
 The tools are all available in the <code class="docutils literal"><span class="pre">models/lnd/clm/tools</span></code> directory.
 Most of the tools are FORTRAN stand-alone programs in their own directory, but there is also a suite of NCL scripts in the <code class="docutils literal"><span class="pre">shared/ncl_scripts</span></code> directory, and some of the tools are scripts that may also call the ESMF regridding program.
-Some of the NCL scripts are very specialized and not meant for general use, and we won&#8217;t document them here.
+Some of the NCL scripts are very specialized and not meant for general use, and we won’t document them here.
 They still contain documentation in the script itself and the README file in the tools directory.</p>
 <p>The tools are divided into three directories for three categories: clm4_0, clm4_5, and shared.
 The first two are of course for tools that are designed to work with either the CLM4.0 or CLM4.5 versions of the model.
-The last one are shared utilities that can be used by either, or have a &#8220;-phys&#8221; option so you can specify which version you want to use.</p>
+The last one are shared utilities that can be used by either, or have a “-phys” option so you can specify which version you want to use.</p>
 <p>The list of generally important scripts and programs are as follows.</p>
 <ol class="arabic simple">
 <li><em>tools/cprnc</em> (relative to top level directory) to compare NetCDF files with a time axis.</li>
@@ -114,7 +110,7 @@ The last one are shared utilities that can be used by either, or have a &#8220;-
 <li><em>shared/mkmapdata</em> to create SCRIP mapping data file from SCRIP grid files (uses ESMF).</li>
 <li><em>shared/gen_domain</em> to create a domain file for datm from a mapping file. The domain file is then used by BOTH datm AND CLM to define the grid and land-mask.</li>
 <li><em>mksurfdata_map</em> to create surface datasets from grid datasets (clm4_0 and clm4_5 versions).</li>
-<li><em>shared/mkprocdata_map</em> to interpolate output unstructured grids (such as the CAM HOMME dy-core &#8220;ne&#8221; grids like ne30np4) into a 2D regular lat/long grid format that can be plotted easily. Can be used by either clm4_0 or clm4_5.</li>
+<li><em>shared/mkprocdata_map</em> to interpolate output unstructured grids (such as the CAM HOMME dy-core “ne” grids like ne30np4) into a 2D regular lat/long grid format that can be plotted easily. Can be used by either clm4_0 or clm4_5.</li>
 </ol>
 <p>In the sections to come we will go into detailed description of how to use each of these tools in turn.
 First, however we will discuss the common environment variables and options that are used by all of the FORTRAN tools.
@@ -131,9 +127,9 @@ Hence, you create a namelist and then run them by redirecting the namelist file 
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">program</span> <span class="o">&lt;</span> <span class="n">namelist</span>
 </pre></div>
 </div>
-<p>For programs with namelists there is at least one sample namelist with the name &#8220;program&#8221;.namelist (i.e.
+<p>For programs with namelists there is at least one sample namelist with the name “program”.namelist (i.e.
 <code class="docutils literal"><span class="pre">mksurfdata_map.namelist</span></code> for the <strong>mksurfdata_map</strong> program).
-There may also be other sample namelists that end in a different name besides &#8220;namelist&#8221;.
+There may also be other sample namelists that end in a different name besides “namelist”.
 Namelists that you create should be similar to the example namelist.
 The namelist values are also documented along with the other namelists in the:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>models/lnd/clm/bld/namelist_files/namelist_definition.xml`` file
@@ -159,9 +155,9 @@ For example, on the NCAR machine yellowstone there are 16 processors per node, b
 <h2>3.1.4. Using NCL<a class="headerlink" href="#using-ncl" title="Permalink to this headline">¶</a></h2>
 <p>In the tools directory <code class="docutils literal"><span class="pre">models/lnd/clm/tools/shared/ncl_scripts</span></code> and in a few other locations there are scripts that use NCAR Command Language (NCL).
 Unlike the FORTRAN tools, you will need to get a copy of NCL in order to use them.
-You also won&#8217;t have to build an executable in order to use them, hence no Makefile is provided.
+You also won’t have to build an executable in order to use them, hence no Makefile is provided.
 NCL is provided for free download as either binaries or source code from: <a class="reference external" href="http://www.ncl.ucar.edu/">http://www.ncl.ucar.edu/</a>.
-The NCL web-site also contains documentation on NCL and it&#8217;s use. These scripts are stand-alone and at most use environment variables to control how to use them. In some cases there are perl scripts with command line arguments that call the NCL scripts to control what they do.</p>
+The NCL web-site also contains documentation on NCL and it’s use. These scripts are stand-alone and at most use environment variables to control how to use them. In some cases there are perl scripts with command line arguments that call the NCL scripts to control what they do.</p>
 </div>
 </div>
 
@@ -184,13 +180,13 @@ The NCL web-site also contains documentation on NCL and it&#8217;s use. These sc
           <a href="index.html" title="3. Using CLM tools"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User’s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >3. Using CLM tools</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

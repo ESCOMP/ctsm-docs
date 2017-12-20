@@ -2,16 +2,12 @@
 
 <!doctype html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>6. Soil and Snow Temperatures &#8212; clmdoc  documentation</title>
-    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -35,7 +31,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -135,7 +131,7 @@ phase change and then readjusted for phase change (section <a class="reference i
 <span id="numerical-solution-temperature"></span><h2>6.1. Numerical Solution<a class="headerlink" href="#numerical-solution" title="Permalink to this headline">¶</a></h2>
 <p>The soil column is discretized into 25 layers (section
 <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#vertical-discretization"><span class="std std-numref">2.2</span></a>) where <img class="math" src="../../_images/math/eef2514c81ff8624290daeb8a4a043853195e0b3.png" alt="N_{levgrnd} = 25"/> is the
-number of soil layers (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-soil-layer-structure"><span class="std std-numref">Table 2.3</span></a>).</p>
+number of soil layers (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-soil-layer-structure"><span class="std std-numref">Table 2.2</span></a>).</p>
 <p>The overlying snow pack is modeled with up to five layers depending on
 the total snow depth. The layers from top to bottom are indexed in the
 Fortran code as <img class="math" src="../../_images/math/56bc0df0bb8029351dbd88a2354158a96e9ccc36.png" alt="i=-4,-3,-2,-1,0"/>, which permits the accumulation
@@ -261,7 +257,7 @@ interface of two layers</p>
 <p><img class="math" src="../../_images/math/ea1aac58a6b8c1f19e83a67278501e4a56dc76a0.png" alt="z_{h}"/> . The layer thickness is <img class="math" src="../../_images/math/8c1a7061a6a26cf6bbb53392039d2034fd9050fa.png" alt="\Delta z"/>. The heat fluxes
 <img class="math" src="../../_images/math/3d8e956dc9d46fac26758db5c22447218fcd2bcc.png" alt="F_{i-1}"/>  and <img class="math" src="../../_images/math/7f0c47fab61cc2004c71e68c86d989d1182b2037.png" alt="F_{i}"/>  are defined as positive upwards.</p>
 <div class="figure" id="id5">
-<span id="figure-soil-temperature-schematic"></span><img alt="../../_images/image19.png" src="../../_images/image19.png" />
+<span id="figure-soil-temperature-schematic"></span><img alt="../../_images/image17.png" src="../../_images/image17.png" />
 <p class="caption"><span class="caption-number">Figure 6.1 </span><span class="caption-text">Schematic diagram of numerical scheme used to solve for soil temperature.</span></p>
 </div>
 <p>The energy balance for the <img class="math" src="../../_images/math/f9c7e15593ad4687b34e86ead55cdd095ee0b7b5.png" alt="i^{th}"/>  layer is</p>
@@ -333,7 +329,7 @@ derivative of the heat flux <img class="math" src="../../_images/math/293fb39e1b
 </div><p>and the partial derivatives of the sensible and latent heat fluxes are
 given by equations and for non-vegetated surfaces, and by equations and
 for vegetated surfaces. <img class="math" src="../../_images/math/011e5790a6c33043ceadca81d9657dde6c61d769.png" alt="\sigma"/>  is the Stefan-Boltzmann constant
-(W m<sup>-2</sup> K<sup>-4</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>) and
+(W m<sup>-2</sup> K<sup>-4</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>) and
 <img class="math" src="../../_images/math/c8f76d253525fa9dc6c13b5dd9c3ec074157fcb3.png" alt="\varepsilon _{g}"/>  is the ground emissivity (section
 <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#longwave-fluxes"><span class="std std-numref">4.2</span></a>). For purposes of computing <img class="math" src="../../_images/math/293fb39e1b93282c804a86186e721b32f829f1b2.png" alt="h"/> and
 <img class="math" src="../../_images/math/58b8ccc47d94181e3ce89c1feb72af6afb596997.png" alt="\frac{\partial h}{\partial T_{g} }"/> , the term <img class="math" src="../../_images/math/76f1d8ace30435987c01a00ca53a71cba1f40e6c.png" alt="\lambda"/>
@@ -342,7 +338,7 @@ is arbitrarily assumed to be</p>
 <p><span class="eqno">(25)<a class="headerlink" href="#equation-6.28" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ef8d7e5a30619184d49661c398fab1b078a8e182.png" alt="\lambda =\left\{\begin{array}{l} {\lambda _{sub} \qquad {\rm if\; }w_{liq,\, snl+1} =0{\rm \; and\; }w_{ice,\, snl+1} &gt;0} \\ {\lambda _{vap} \qquad {\rm otherwise}} \end{array}\right\}"/></p>
 </div><p>where <img class="math" src="../../_images/math/d41253ec9277535795f2300e8d7a0892de3ab5dc.png" alt="\lambda _{sub}"/>  and <img class="math" src="../../_images/math/d0dfc30d53cbaaaafd80fa169fd6ca803e01f2fb.png" alt="\lambda _{vap}"/>  are the
 latent heat of sublimation and vaporization, respectively (J
-kg<sup>-1</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>), and <img class="math" src="../../_images/math/37aa7da37be0305136884c1ba038b60d4fc78971.png" alt="w_{liq,\, snl+1}"/>
+kg<sup>-1</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>), and <img class="math" src="../../_images/math/37aa7da37be0305136884c1ba038b60d4fc78971.png" alt="w_{liq,\, snl+1}"/>
 and <img class="math" src="../../_images/math/a6a084c0535430ccec846f90a1de0dde2d1d5c23.png" alt="w_{ice,\, snl+1}"/>  are the liquid water and ice contents of the
 top snow/soil layer, respectively (kg m<sup>-2</sup>)
 (Chapter <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#rst-hydrology"><span class="std std-numref">7</span></a>).</p>
@@ -448,7 +444,7 @@ T_{i}^{n+1} &lt;T_{f} {\rm \; and\; }w_{liq,\, i} &gt;w_{liq,\, \max ,\, i} &amp
 of the tridiagonal equation set, <img class="math" src="../../_images/math/62dd7c28a92e1857ebeb44a2a4e9b2ef2a1945b7.png" alt="w_{ice,\, i}"/>  and
 <img class="math" src="../../_images/math/cf0c9f644eb986b4243f04daec8e133cf676124a.png" alt="w_{liq,\, i}"/>  are the mass of ice and liquid water (kg
 m<sup>-2</sup>) in each snow/soil layer, respectively, and <img class="math" src="../../_images/math/43b4fcc8ffe3a239dcb50c726aa6d8e7700f94a5.png" alt="T_{f}"/>
-is the freezing temperature of water (K) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>).
+is the freezing temperature of water (K) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>).
 For the freezing process in soil layers, the concept of supercooled soil
 water from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#niuyang2006"><span class="std std-ref">Niu and Yang (2006)</span></a> is adopted. The supercooled
 soil water is the liquid water that coexists with ice over a wide range of
@@ -460,8 +456,8 @@ depression equation</p>
 layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.png" alt="i"/> (kg m<sup>-2</sup>) when the soil temperature
 <img class="math" src="../../_images/math/27d3051333351004a42e41ee5a73760e14557bc3.png" alt="T_{i}"/>  is below the freezing temperature <img class="math" src="../../_images/math/43b4fcc8ffe3a239dcb50c726aa6d8e7700f94a5.png" alt="T_{f}"/> ,
 <img class="math" src="../../_images/math/109dddbaf55b74649550dc767260a74fd0a393a0.png" alt="L_{f}"/>  is the latent heat of fusion (J kg<sup>-1</sup>)
-(<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>), <img class="math" src="../../_images/math/307b3725cbb03398131f9ca542d79aff4933195f.png" alt="g"/> is the gravitational acceleration (m
-s<sup>-2</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>), and <img class="math" src="../../_images/math/d038d42f45d2591441f134df283c226e8b888b74.png" alt="\psi _{sat,\, i}"/>  and
+(<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>), <img class="math" src="../../_images/math/307b3725cbb03398131f9ca542d79aff4933195f.png" alt="g"/> is the gravitational acceleration (m
+s<sup>-2</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>), and <img class="math" src="../../_images/math/d038d42f45d2591441f134df283c226e8b888b74.png" alt="\psi _{sat,\, i}"/>  and
 <img class="math" src="../../_images/math/aa34843018d4497f87bc54446f1d65b979960451.png" alt="B_{i}"/>  are the soil texture-dependent saturated matric potential
 (mm) and <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#clapphornberger1978"><span class="std std-ref">Clapp and Hornberger (1978)</span></a> exponent
 (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#soil-water"><span class="std std-numref">7.3</span></a>).</p>
@@ -613,7 +609,7 @@ ground layers (typical of saturated granitic rock;
 <div class="math" id="equation-6.79">
 <p><span class="eqno">(77)<a class="headerlink" href="#equation-6.79" title="Permalink to this equation">¶</a></span><img src="../../_images/math/32a1a8c309269369ac7799c86426454ccd9d4497.png" alt="\lambda _{i} =\left\{\begin{array}{l} {\lambda _{liq,\, i} \qquad T_{i} \ge T_{f} } \\ {\lambda _{ice,\, i} \qquad T_{i} &lt;T_{f} } \end{array}\right\}"/></p>
 </div><p>where <img class="math" src="../../_images/math/aec81c0cab3354859546d5e95ccf6413f0f536e7.png" alt="\lambda _{liq}"/>  and <img class="math" src="../../_images/math/77ece06837e4a15ba73bdd5be7f3089491c87e7c.png" alt="\lambda _{ice}"/>  are the
-thermal conductivities of liquid water and ice, respectively (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>). The saturated thermal conductivity <img class="math" src="../../_images/math/12355f3878c3698d2a693a3a257941006bf265cc.png" alt="\lambda _{sat,\, i}"/>  (W
+thermal conductivities of liquid water and ice, respectively (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>). The saturated thermal conductivity <img class="math" src="../../_images/math/12355f3878c3698d2a693a3a257941006bf265cc.png" alt="\lambda _{sat,\, i}"/>  (W
 m<sup>-1</sup> K<sup>-1</sup>) depends on the thermal
 conductivities of the soil solid, liquid water, and ice constituents</p>
 <div class="math" id="equation-6.80">
@@ -657,7 +653,7 @@ S_{r,\, i} &amp;\qquad T_{i} &lt;T_{f}
 K<sup>-1</sup>) for snow is from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#jordan1991"><span class="std std-ref">Jordan (1991)</span></a></p>
 <div class="math" id="equation-6.87">
 <p><span class="eqno">(85)<a class="headerlink" href="#equation-6.87" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9f409061e601c97c9947b25baf87c7c076f8c4de.png" alt="\lambda _{i} =\lambda _{air} +\left(7.75\times 10^{-5} \rho _{sno,\, i} +1.105\times 10^{-6} \rho _{sno,\, i}^{2} \right)\left(\lambda _{ice} -\lambda _{air} \right)"/></p>
-</div><p>where <img class="math" src="../../_images/math/14db3a73c759659de42d2322150a41f237a67f14.png" alt="\lambda _{air}"/>  is the thermal conductivity of air (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>)
+</div><p>where <img class="math" src="../../_images/math/14db3a73c759659de42d2322150a41f237a67f14.png" alt="\lambda _{air}"/>  is the thermal conductivity of air (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>)
 and <img class="math" src="../../_images/math/c8eb3cb3183f19acb704a49adb7cd7fd3c2b3a43.png" alt="\rho _{sno,\, i}"/>  is the bulk density of snow (kg m<sup>-3</sup>)</p>
 <div class="math" id="equation-6.88">
 <p><span class="eqno">(86)<a class="headerlink" href="#equation-6.88" title="Permalink to this equation">¶</a></span><img src="../../_images/math/cd864a45d0012b7a1f05facc4ce44d0dd2c7afe6.png" alt="\rho _{sno,\, i} =\frac{w_{ice,\, i} +w_{liq,\, i} }{\Delta z_{i} } ."/></p>
@@ -668,7 +664,7 @@ heat capacities of the soil solid, liquid water, and ice constituents</p>
 <p><span class="eqno">(87)<a class="headerlink" href="#equation-6.89" title="Permalink to this equation">¶</a></span><img src="../../_images/math/cd005ffd7a536231207dbd905c999f8331f23cbc.png" alt="c_{i} =c_{s,\, i} \left(1-\theta _{sat,\, i} \right)+\frac{w_{ice,\, i} }{\Delta z_{i} } C_{ice} +\frac{w_{liq,\, i} }{\Delta z_{i} } C_{liq}"/></p>
 </div><p>where <img class="math" src="../../_images/math/a653c64ec4106487cbf5297df1d1b8bf99caf767.png" alt="C_{liq}"/>  and <img class="math" src="../../_images/math/da78b5c0d95e31278b7c638575299c6b9aba9b64.png" alt="C_{ice}"/>  are the specific heat
 capacities (J kg<sup>-1</sup> K<sup>-1</sup>) of liquid water
-and ice, respectively (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>). The heat capacity of soil solids
+and ice, respectively (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.6</span></a>). The heat capacity of soil solids
 <img class="math" src="../../_images/math/78821cfcae7215710d0e0dfca2744f56caceac16.png" alt="c_{s,i}"/> (J m<sup>-3</sup> K<sup>-1</sup>) is</p>
 <div class="math" id="equation-6.90">
 <p><span class="eqno">(88)<a class="headerlink" href="#equation-6.90" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e6f7287068233041b91e5fbb7e1891540dc8f6ec.png" alt="c_{s,i} =(1-f_{om,i} )c_{s,\min ,i} +f_{om,i} c_{s,om}"/></p>
@@ -719,7 +715,7 @@ the top layer is a blend of ice and soil heat capacity</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

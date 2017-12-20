@@ -2,16 +2,12 @@
 
 <!doctype html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>11. Plant Hydraulics &#8212; clmdoc  documentation</title>
-    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -35,7 +31,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -129,8 +125,8 @@ the soil surface) (section <a class="reference internal" href="../Ecosystem/CLM5
 converts from m to cm, and <img class="math" src="../../_images/math/410a9d0df9c135dd73b269cba7ef04dcfd932b1f.png" alt="\beta"/> is a plant-dependent root
 distribution parameter adopted from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#jacksonetal1996"><span class="std std-ref">Jackson et al. (1996)</span></a>
 (<a class="reference internal" href="#table-plant-functional-type-root-distribution-parameters"><span class="std std-numref">Table 11.1</span></a>).</p>
-<table border="1" class="docutils" id="id12">
-<span id="table-plant-functional-type-root-distribution-parameters"></span><caption><span class="caption-number">Table 11.1 </span><span class="caption-text">Plant functional type root distribution parameters</span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
+<span id="table-plant-functional-type-root-distribution-parameters"></span><table border="1" class="docutils" id="id12">
+<caption><span class="caption-number">Table 11.1 </span><span class="caption-text">Plant functional type root distribution parameters</span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="65%" />
 <col width="35%" />
@@ -244,7 +240,7 @@ the soil (<a class="reference internal" href="../References/CLM50_Tech_Note_Refe
 <span id="id4"></span><h2>11.2. Plant Hydraulic Stress<a class="headerlink" href="#plant-hydraulic-stress" title="Permalink to this headline">¶</a></h2>
 <p>The Plant Hydraulic Stress (PHS) routine explicitly models water transport
 through the vegetation according to a simple hydraulic framework following
-Darcy&#8217;s Law for porous media flow equations influenced by
+Darcy’s Law for porous media flow equations influenced by
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2014"><span class="std std-ref">Bonan et al. (2014)</span></a>,
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#chuangetal2006"><span class="std std-ref">Chuang et al. (2006)</span></a>,
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sperryetal1998"><span class="std std-ref">Sperry et al. (1998)</span></a>,
@@ -266,9 +262,9 @@ by transpiration demand and the set of layer-by-layer soil water potentials.
 The water supply is discretized into segments: soil-to-root, root-to-stem, and
 stem-to-leaf. There are typically several (1-49) soil-to-root flows operating
 in parallel, one per soil layer. There are two stem-to-leaf flows operating in
-parallel, corresponding to the sunlit and shaded &#8220;leaves&#8221;.</p>
+parallel, corresponding to the sunlit and shaded “leaves”.</p>
 <p>In general the water fluxes (e.g. soil-to-root, root-to-stem, etc.) are
-modeled according to Darcy&#8217;s Law for porous media flow as:</p>
+modeled according to Darcy’s Law for porous media flow as:</p>
 <div class="math" id="equation-11.101">
 <p><span class="eqno">(6)<a class="headerlink" href="#equation-11.101" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4d7ea5494b3d7e4ff9b4f3ae180e5c9556d9f528.png" alt="q = kA\left( \psi_1 - \psi_2 \right)"/></p>
 </div><p><img class="math" src="../../_images/math/620a3ce6403ec82f1347af9985bc03f7a9382f4a.png" alt="q"/> is the flux of water (mmH<sub>2</sub>O) spanning the segment
@@ -459,7 +455,7 @@ E_{sun}+E_{shade}&amp;=q_{1a}+q_{1b}\\
 &amp;=q_2\\
 &amp;=\sum_{i=1}^{nlevsoi}{q_{3,i}}
 \end{aligned}"/></p>
-</div><p>PHS finds the water potentials that match supply and demand. In the plant water transport equations <a class="reference internal" href="#equation-11.302">(24)</a>, the demand terms (left-hand side) are decreasing functions of absolute leaf water potential. As absolute leaf water potential becomes larger, water stress increases, causing a decrease in transpiration demand. The supply terms (right-hand side) are increasing functions of absolute leaf water potential. As absolute leaf water potential becomes larger, the gradients in water potential increase, causing an increase in vegetation water supply. PHS takes a Newton&#8217;s method approach to iteratively solve for the vegetation water potentials that satisfy continuity <a class="reference internal" href="#equation-11.302">(24)</a>.</p>
+</div><p>PHS finds the water potentials that match supply and demand. In the plant water transport equations <a class="reference internal" href="#equation-11.302">(24)</a>, the demand terms (left-hand side) are decreasing functions of absolute leaf water potential. As absolute leaf water potential becomes larger, water stress increases, causing a decrease in transpiration demand. The supply terms (right-hand side) are increasing functions of absolute leaf water potential. As absolute leaf water potential becomes larger, the gradients in water potential increase, causing an increase in vegetation water supply. PHS takes a Newton’s method approach to iteratively solve for the vegetation water potentials that satisfy continuity <a class="reference internal" href="#equation-11.302">(24)</a>.</p>
 </div>
 <div class="section" id="numerical-implementation">
 <span id="phs-numerical-implementation"></span><h3>11.2.4. Numerical Implementation<a class="headerlink" href="#numerical-implementation" title="Permalink to this headline">¶</a></h3>
@@ -498,9 +494,9 @@ q_{1b}&amp;=k_{1b,max}\cdot 2^{-\left(\dfrac{\psi_{stem}}{p50_1}\right)^{c_k}}\c
 q_2&amp;=\dfrac{k_{2,max}}{z_2} \cdot 2^{-\left(\dfrac{\psi_{root}}{p50_2}\right)^{c_k}} \cdot SAI \cdot \left( \psi_{root} - \psi_{stem} - \Delta \psi_z  \right) \\
 q_{soil}&amp;=\sum_{i=1}^{nlevsoi}{q_{3,i}}=\sum_{i=1}^{nlevsoi}{k_{3,i}\cdot RAI\cdot\left(\psi_{soil,i}-\psi_{root} + \Delta\psi_{z,i} \right)}
 \end{aligned}"/></p>
-</div><p>We&#8217;re looking to find the vector <img class="math" src="../../_images/math/499a2ee48b33448e80b97af9df9550828bdbfb59.png" alt="\psi"/>
+</div><p>We’re looking to find the vector <img class="math" src="../../_images/math/499a2ee48b33448e80b97af9df9550828bdbfb59.png" alt="\psi"/>
 that fits with soil and atmospheric forcings while satisfying water flow continuity.
-Due to the model non-linearity, we use a linearized explicit approach, iterating with Newton&#8217;s method.
+Due to the model non-linearity, we use a linearized explicit approach, iterating with Newton’s method.
 The initial guess is the solution for <img class="math" src="../../_images/math/499a2ee48b33448e80b97af9df9550828bdbfb59.png" alt="\psi"/> (vector) from the previous time step.
 The general framework, from iteration <cite>m</cite> to <cite>m+1</cite> is:</p>
 <div class="math" id="equation-11.405">
@@ -580,7 +576,7 @@ The magnitude of the water flux is driven by soil matric potential and unstresse
 <p><span class="eqno">(41)<a class="headerlink" href="#equation-11.417" title="Permalink to this equation">¶</a></span><img src="../../_images/math/141b5f3694b7bce0ccbb049870e28cb503238c91.png" alt="\beta_{t,shade} = \dfrac{g_{s,shade}}{g_{s,shade,\beta_t=1}}"/></p>
 </div><p>The <img class="math" src="../../_images/math/3d5127e22b8dd2b04809679b8ccfbbdecaf15d08.png" alt="\beta_t"/> values are used in the Photosynthesis module (see section <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#photosynthesis"><span class="std std-numref">9.4</span></a>) to apply water stress.
 The solution for <img class="math" src="../../_images/math/499a2ee48b33448e80b97af9df9550828bdbfb59.png" alt="\psi"/> is saved as a new variable (vegetation water potential) and is indicative of plant water status.
-The soil-to-root fluxes <img class="math" src="../../_images/math/15c4db3acf65f7045d082ecd95cd55291c231950.png" alt="\left( q_{3,1},q_{3,2},\mbox{...},q_{3,n}\right)"/> are used as the soil transpiration sink in the Richards&#8217; equation subsurface flow equations (see section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#soil-water"><span class="std std-numref">7.3</span></a>).</p>
+The soil-to-root fluxes <img class="math" src="../../_images/math/15c4db3acf65f7045d082ecd95cd55291c231950.png" alt="\left( q_{3,1},q_{3,2},\mbox{...},q_{3,n}\right)"/> are used as the soil transpiration sink in the Richards’ equation subsurface flow equations (see section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#soil-water"><span class="std std-numref">7.3</span></a>).</p>
 </div>
 <div class="section" id="flow-diagram-of-leaf-flux-calculations">
 <span id="id11"></span><h3>11.2.5. Flow Diagram of Leaf Flux Calculations:<a class="headerlink" href="#flow-diagram-of-leaf-flux-calculations" title="Permalink to this headline">¶</a></h3>
@@ -625,7 +621,7 @@ The outermost level of iteration works towards convergence of leaf temperature, 
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

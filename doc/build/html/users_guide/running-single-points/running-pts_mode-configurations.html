@@ -2,16 +2,12 @@
 
 <!doctype html>
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>6.2. Running a single point using global data - PTS_MODE &#8212; clmdoc  documentation</title>
-    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -35,7 +31,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -49,7 +45,7 @@
           <a href="single-point-and-regional-grid-configurations.html" title="6.1. Single and Regional Grid Configurations"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User’s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">6. Running Single Point Regional Cases</a> &#187;</li> 
       </ul>
     </div>
@@ -98,7 +94,7 @@
 <span id="pts-mode"></span><h1>6.2. Running a single point using global data - PTS_MODE<a class="headerlink" href="#running-a-single-point-using-global-data-pts-mode" title="Permalink to this headline">¶</a></h1>
 <p><code class="docutils literal"><span class="pre">PTS_MODE</span></code> enables you to run the model using global datasets, but just picking a single point from those datasets and operating on it.
 It can be a very quick way to do fast simulations and get a quick turnaround.</p>
-<p>To setup a <code class="docutils literal"><span class="pre">PTS_MODE</span></code> simulation you use the &#8220;-pts_lat&#8221; and &#8220;-pts_lon&#8221; arguments to <strong>create_newcase</strong> to give the latitude and longitude of the point you want to simulate for (the code will pick the point on the global grid nearest to the point you give. Here&#8217;s an example to setup a simulation for the nearest point at 2-degree resolution to Boulder Colorado.</p>
+<p>To setup a <code class="docutils literal"><span class="pre">PTS_MODE</span></code> simulation you use the “-pts_lat” and “-pts_lon” arguments to <strong>create_newcase</strong> to give the latitude and longitude of the point you want to simulate for (the code will pick the point on the global grid nearest to the point you give. Here’s an example to setup a simulation for the nearest point at 2-degree resolution to Boulder Colorado.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">scripts</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">create_newcase</span> <span class="o">-</span><span class="n">case</span> <span class="n">testPTS_MODE</span> <span class="o">-</span><span class="n">res</span> <span class="n">f19_g16</span> <span class="o">-</span><span class="n">compset</span> <span class="n">I1850CRUCLM45BGC</span> <span class="o">-</span><span class="n">pts_lat</span> <span class="mf">40.0</span> <span class="o">-</span><span class="n">pts_lon</span> <span class="o">-</span><span class="mi">105</span>
 <span class="o">&gt;</span> <span class="n">cd</span> <span class="n">testPTS_MODE</span>
@@ -114,7 +110,7 @@ It can be a very quick way to do fast simulations and get a quick turnaround.</p
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last"><code class="docutils literal"><span class="pre">PTS_MODE</span></code> currently does NOT restart nor is it able to startup from global initial condition files. See bugs &#8220;1017 and 1025&#8221; in the <a class="reference external" href="CLM-URL">models/lnd/clm/doc/KnownLimitationss</a> file.</p>
+<p class="last"><code class="docutils literal"><span class="pre">PTS_MODE</span></code> currently does NOT restart nor is it able to startup from global initial condition files. See bugs “1017 and 1025” in the <a class="reference external" href="CLM-URL">models/lnd/clm/doc/KnownLimitationss</a> file.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -127,9 +123,9 @@ When running a single grid point you can only use a single processor.
 You might also want to set the <code class="docutils literal"><span class="pre">env_build.xml</span></code> variable: <code class="docutils literal"><span class="pre">MPILIB=mpi-serial</span></code> to <code class="docutils literal"><span class="pre">TRUE</span></code> so that you can also run interactively without having to use MPI to start up your job.</p>
 <p>On many machines, batch queues have a minimum number of nodes or processors that can be used.
 On these machines you may have to change the queue and possibly the time-limits of the job, to get it to run in the batch queue.
-On the NCAR machine, yellowstone, this is done for you automatically, and the &#8220;caldera&#8221; queue is used for such single-processor simulations.
-Another way to get around this problem is to run the job interactively using <code class="docutils literal"><span class="pre">MPILIB=mpi-serial</span></code> so that you don&#8217;t submit the job to the batch queue.
-For single point mode you also may want to consider using a smaller workstation or cluster, rather than a super-computer, because you can&#8217;t take advantage of the multi-processing power of the super-computer anyway.</p>
+On the NCAR machine, yellowstone, this is done for you automatically, and the “caldera” queue is used for such single-processor simulations.
+Another way to get around this problem is to run the job interactively using <code class="docutils literal"><span class="pre">MPILIB=mpi-serial</span></code> so that you don’t submit the job to the batch queue.
+For single point mode you also may want to consider using a smaller workstation or cluster, rather than a super-computer, because you can’t take advantage of the multi-processing power of the super-computer anyway.</p>
 </div>
 </div>
 
@@ -152,13 +148,13 @@ For single point mode you also may want to consider using a smaller workstation 
           <a href="single-point-and-regional-grid-configurations.html" title="6.1. Single and Regional Grid Configurations"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User&#8217;s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >CLM User’s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >6. Running Single Point Regional Cases</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>
