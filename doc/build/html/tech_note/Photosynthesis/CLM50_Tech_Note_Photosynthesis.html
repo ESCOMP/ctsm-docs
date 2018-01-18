@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>9. Stomatal Resistance and Photosynthesis &#8212; clmdoc  documentation</title>
+    <title>2.9. Stomatal Resistance and Photosynthesis &#8212; clmdoc  documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="10. Photosynthetic Capacity" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html" />
-    <link rel="prev" title="8. Snow Hydrology" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html" />
+    <link rel="next" title="2.10. Photosynthetic Capacity" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html" />
+    <link rel="prev" title="2.8. Snow Hydrology" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
@@ -39,36 +39,36 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html" title="10. Photosynthetic Capacity"
+          <a href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html" title="2.10. Photosynthetic Capacity"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html" title="8. Snow Hydrology"
+          <a href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html" title="2.8. Snow Hydrology"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">2. CLM Technical Note</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">9. Stomatal Resistance and Photosynthesis</a><ul>
-<li><a class="reference internal" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5">9.1. Summary of CLM5.0 updates relative to the CLM4.5</a></li>
-<li><a class="reference internal" href="#introduction">9.2. Introduction</a></li>
-<li><a class="reference internal" href="#stomatal-resistance">9.3. Stomatal resistance</a></li>
-<li><a class="reference internal" href="#photosynthesis">9.4. Photosynthesis</a></li>
-<li><a class="reference internal" href="#canopy-scaling">9.5. Canopy scaling</a></li>
-<li><a class="reference internal" href="#numerical-implementation">9.6. Numerical implementation</a></li>
+<li><a class="reference internal" href="#">2.9. Stomatal Resistance and Photosynthesis</a><ul>
+<li><a class="reference internal" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5">2.9.1. Summary of CLM5.0 updates relative to the CLM4.5</a></li>
+<li><a class="reference internal" href="#introduction">2.9.2. Introduction</a></li>
+<li><a class="reference internal" href="#stomatal-resistance">2.9.3. Stomatal resistance</a></li>
+<li><a class="reference internal" href="#photosynthesis">2.9.4. Photosynthesis</a></li>
+<li><a class="reference internal" href="#canopy-scaling">2.9.5. Canopy scaling</a></li>
+<li><a class="reference internal" href="#numerical-implementation">2.9.6. Numerical implementation</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html"
-                        title="previous chapter">8. Snow Hydrology</a></p>
+                        title="previous chapter">2.8. Snow Hydrology</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html"
-                        title="next chapter">10. Photosynthetic Capacity</a></p>
+                        title="next chapter">2.10. Photosynthetic Capacity</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -95,44 +95,44 @@
           <div class="body" role="main">
             
   <div class="section" id="stomatal-resistance-and-photosynthesis">
-<span id="rst-stomatal-resistance-and-photosynthesis"></span><h1>9. Stomatal Resistance and Photosynthesis<a class="headerlink" href="#stomatal-resistance-and-photosynthesis" title="Permalink to this headline">¶</a></h1>
+<span id="rst-stomatal-resistance-and-photosynthesis"></span><h1>2.9. Stomatal Resistance and Photosynthesis<a class="headerlink" href="#stomatal-resistance-and-photosynthesis" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="summary-of-clm5-0-updates-relative-to-the-clm4-5">
-<h2>9.1. Summary of CLM5.0 updates relative to the CLM4.5<a class="headerlink" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5" title="Permalink to this headline">¶</a></h2>
+<h2>2.9.1. Summary of CLM5.0 updates relative to the CLM4.5<a class="headerlink" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5" title="Permalink to this headline">¶</a></h2>
 <p>We describe here the complete photosynthesis and stomatal conductance parameterizations that
 appear in CLM5.0. Corresponding information for CLM4.5 appeared in the
 CLM4.5 Technical Note (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#olesonetal2013"><span class="std std-ref">Oleson et al. 2013</span></a>).</p>
 <p>CLM5 includes the following new changes to photosynthesis and stomatal conductance:</p>
 <ul class="simple">
 <li>Default stomatal conductance calculation uses the Medlyn conductance model</li>
-<li><img class="math" src="../../_images/math/68d572478c9ac43c966fda1620c69e4114d633e9.png" alt="J_{max}"/> is predicted by the LUNA model (Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">10</span></a>)</li>
-<li>Leaf N concentration and the fraction of leaf N in Rubisco used to calculate <img class="math" src="../../_images/math/ec33f487edf3bac016ce1ce6d551223f2cbdf70d.png" alt="V_{cmax25}"/> are determined by the LUNA model (Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">10</span></a>)</li>
-<li>Water stress is applied by the hydraulic conductance model (Chapter <a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html#rst-plant-hydraulics"><span class="std std-numref">11</span></a>)</li>
+<li><img class="math" src="../../_images/math/68d572478c9ac43c966fda1620c69e4114d633e9.png" alt="J_{max}"/> is predicted by the LUNA model (Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>)</li>
+<li>Leaf N concentration and the fraction of leaf N in Rubisco used to calculate <img class="math" src="../../_images/math/ec33f487edf3bac016ce1ce6d551223f2cbdf70d.png" alt="V_{cmax25}"/> are determined by the LUNA model (Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>)</li>
+<li>Water stress is applied by the hydraulic conductance model (Chapter <a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html#rst-plant-hydraulics"><span class="std std-numref">2.11</span></a>)</li>
 </ul>
 </div>
 <div class="section" id="introduction">
-<h2>9.2. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2>2.9.2. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Leaf stomatal resistance, which is needed for the water vapor flux
-(Chapter <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#rst-momentum-sensible-heat-and-latent-heat-fluxes"><span class="std std-numref">5</span></a>),
+(Chapter <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#rst-momentum-sensible-heat-and-latent-heat-fluxes"><span class="std std-numref">2.5</span></a>),
 is coupled to leaf photosynthesis similar to Collatz et al.
 (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1991"><span class="std std-ref">1991</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1992"><span class="std std-ref">1992</span></a>). These equations are solved separately for sunlit and
 shaded leaves using average absorbed photosynthetically active radiation
 for sunlit and shaded leaves
 [<img class="math" src="../../_images/math/98b3fdcec68e80f0301c0184e5d01913aa703703.png" alt="\phi ^{sun}"/> ,<img class="math" src="../../_images/math/a7f2303dba4c3d7bb89cffb1de3bb3d6d3b0e6c8.png" alt="\phi ^{sha}"/>  W m<sup>-2</sup>
-(section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#solar-fluxes"><span class="std std-numref">4.1</span></a>)] to give sunlit and shaded stomatal resistance
+(section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#solar-fluxes"><span class="std std-numref">2.4.1</span></a>)] to give sunlit and shaded stomatal resistance
 (<img class="math" src="../../_images/math/440a6ff2017c8b0fe02c2cc6adf8ebaae2c08769.png" alt="r_{s}^{sun}"/> ,<img class="math" src="../../_images/math/39857ea860786cf9cf2d6ec0f37b7d33658e236d.png" alt="r_{s}^{sha}"/> s m<sup>-1</sup>) and
 photosynthesis (<img class="math" src="../../_images/math/61a9786fbaab9c2eaae5a1e1dd955170642d283f.png" alt="A^{sun}"/> ,<img class="math" src="../../_images/math/6194803929e882da1bf8a676de7f95455107c1ac.png" alt="A^{sha}"/>  µmol CO<sub>2</sub> m<sup>-2</sup> s<sup>-1</sup>). Canopy
 photosynthesis is <img class="math" src="../../_images/math/84680c17166b883c3ab32892e46789b511e7edae.png" alt="A^{sun} L^{sun} +A^{sha} L^{sha}"/> , where
 <img class="math" src="../../_images/math/a427af4258582ea4c36417dde02d6f1b3ecac624.png" alt="L^{sun}"/>  and <img class="math" src="../../_images/math/263ad10af16fb9fd0144c45335fddf672ad5bf28.png" alt="L^{sha}"/>  are the sunlit and shaded leaf
-area indices (section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#solar-fluxes"><span class="std std-numref">4.1</span></a>). Canopy conductance is
+area indices (section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#solar-fluxes"><span class="std std-numref">2.4.1</span></a>). Canopy conductance is
 <img class="math" src="../../_images/math/3cd41f61dc118a25a65b0f76f54590879a305d6f.png" alt="\frac{1}{r_{b} +r_{s}^{sun} } L^{sun} +\frac{1}{r_{b} +r_{s}^{sha} } L^{sha}"/> ,
 where <img class="math" src="../../_images/math/6ad0fdfae7cfc23527a01a0ee23c06239ce147ed.png" alt="r_{b}"/>  is the leaf boundary layer resistance (section
-<a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces"><span class="std std-numref">5.3</span></a>).
+<a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces"><span class="std std-numref">2.5.3</span></a>).
 The implementation is described by Bonan et al. (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2011"><span class="std std-ref">2011</span></a>), though different
 methods of calculating stomatal conductance, <img class="math" src="../../_images/math/68d572478c9ac43c966fda1620c69e4114d633e9.png" alt="J_{max}"/>, and the nitrogen variables
 used to calculate <img class="math" src="../../_images/math/ec33f487edf3bac016ce1ce6d551223f2cbdf70d.png" alt="V_{cmax25}"/> are used in CLM5.</p>
 </div>
 <div class="section" id="stomatal-resistance">
-<span id="id1"></span><h2>9.3. Stomatal resistance<a class="headerlink" href="#stomatal-resistance" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>2.9.3. Stomatal resistance<a class="headerlink" href="#stomatal-resistance" title="Permalink to this headline">¶</a></h2>
 <p>CLM5 calculates stomatal conductance using the Medlyn stomatal conductance model (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#medlynetal2011"><span class="std std-ref">Medlyn et al. 2011</span></a>).
 Previous versions of CLM calculated leaf stomatal resistance is using the Ball-Berry conductance
 model as described by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1991"><span class="std std-ref">Collatz et al. (1991)</span></a> and implemented in global
@@ -149,7 +149,7 @@ photosynthesis (<img class="math" src="../../_images/math/d79e8a2c7ce54906c2b255
 s<sup>-1</sup>), <img class="math" src="../../_images/math/2df3b0747a460da75b66e43a6d68b65839832afd.png" alt="c_{s}"/> is the CO<sub>2</sub> partial
 pressure at the leaf surface (Pa), <img class="math" src="../../_images/math/3d0543e288c667d28eb58a68a70dafbe05d11255.png" alt="P_{atm}"/> is the atmospheric
 pressure (Pa), and <img class="math" src="../../_images/math/3cf5aa5abe312e6fd4996975341a43aa566e8d8d.png" alt="D"/> is the vapor pressure deficit at the leaf surface (Pa).
-<img class="math" src="../../_images/math/bcf85f26a8138bf5dba32c03f895a973398a40ee.png" alt="g_{1}"/> is a plant functional type dependent parameter (<a class="reference internal" href="#table-plant-functional-type-pft-stomatal-conductance-parameters"><span class="std std-numref">Table 9.1</span></a>)
+<img class="math" src="../../_images/math/bcf85f26a8138bf5dba32c03f895a973398a40ee.png" alt="g_{1}"/> is a plant functional type dependent parameter (<a class="reference internal" href="#table-plant-functional-type-pft-stomatal-conductance-parameters"><span class="std std-numref">Table 2.21</span></a>)
 and can be calculated as</p>
 <div class="math" id="equation-9.2">
 <p><span class="eqno">(2)<a class="headerlink" href="#equation-9.2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/25a948d06a4625bcd0a0a07bbd36fa892132d187.png" alt="g_{1} = {\sqrt{\frac{3\Gamma\lambda}{1.6}}}"/></p>
@@ -173,7 +173,7 @@ where <img class="math" src="../../_images/math/31b2472cd96c0cb2ef7e1564c650e1eb
 kmol<sup>-1</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.7</span></a>) and <img class="math" src="../../_images/math/906178b0bee16df0e6217d4336b94f054cefaf04.png" alt="\theta _{atm}"/> is the
 atmospheric potential temperature (K).</p>
 <span id="table-plant-functional-type-pft-stomatal-conductance-parameters"></span><table border="1" class="docutils" id="id4">
-<caption><span class="caption-number">Table 9.1 </span><span class="caption-text">Plant functional type (PFT) stomatal conductance parameters.</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-number">Table 2.21 </span><span class="caption-text">Plant functional type (PFT) stomatal conductance parameters.</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="64%" />
 <col width="36%" />
@@ -254,7 +254,7 @@ atmospheric potential temperature (K).</p>
 </table>
 </div>
 <div class="section" id="photosynthesis">
-<span id="id2"></span><h2>9.4. Photosynthesis<a class="headerlink" href="#photosynthesis" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>2.9.4. Photosynthesis<a class="headerlink" href="#photosynthesis" title="Permalink to this headline">¶</a></h2>
 <p>Photosynthesis in C<sub>3</sub> plants is based on the model of
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#farquharetal1980"><span class="std std-ref">Farquhar et al. (1980)</span></a>. Photosynthesis in C<sub>4</sub> plants is
 based on the model of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1992"><span class="std std-ref">Collatz et al. (1992)</span></a>. <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2011"><span class="std std-ref">Bonan et al. (2011)</span></a>
@@ -285,7 +285,7 @@ is the O<sub>2</sub> partial pressure (Pa). <img class="math" src="../../_images
 CO<sub>2</sub> and O<sub>2</sub>. <img class="math" src="../../_images/math/4220bbe1740433932b3775a1a4c00821388269fb.png" alt="\Gamma _{\*}"/>  (Pa) is
 the CO<sub>2</sub> compensation point. <img class="math" src="../../_images/math/ff692f7c76cfd984353c7092bf6421d00f28c4a1.png" alt="V_{c\max }"/>  is the
 maximum rate of carboxylation (µmol m<sup>-2</sup>
-s<sup>-1</sup>, Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">10</span></a>)
+s<sup>-1</sup>, Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>)
 and <img class="math" src="../../_images/math/55af73483b6c9a950024afbca2ffb5c71e85597b.png" alt="J_{x}"/> is the electron transport rate (µmol
 m<sup>-2</sup> s<sup>-1</sup>). <img class="math" src="../../_images/math/b635b2e283d0573a44f67b1c948e30bb8facc76d.png" alt="T_{p}"/>  is the triose
 phosphate utilization rate (µmol m<sup>-2</sup> s<sup>-1</sup>),
@@ -295,7 +295,7 @@ taken as <img class="math" src="../../_images/math/9c8e705514c092a1ca3c4334717e5
 rate <img class="math" src="../../_images/math/f0df63c3b42d7026838cd057180bdc4c7e2781d0.png" alt="A_{j}"/>  varies with <img class="math" src="../../_images/math/c2f31c22645274c375eff7920cfdfdc18d60341f.png" alt="\phi"/>  in relation to the quantum
 efficiency (<img class="math" src="../../_images/math/9646d6165bbbdfc3cb6b33848df5c3b2b5a459df.png" alt="\alpha =0.05"/> mol CO<sub>2</sub>
 mol<sup>-1</sup> photon). <img class="math" src="../../_images/math/c2f31c22645274c375eff7920cfdfdc18d60341f.png" alt="\phi"/>  is the absorbed
-photosynthetically active radiation (W m<sup>-2</sup>) (section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#solar-fluxes"><span class="std std-numref">4.1</span></a>)
+photosynthetically active radiation (W m<sup>-2</sup>) (section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#solar-fluxes"><span class="std std-numref">2.4.1</span></a>)
 , which is converted to photosynthetic photon flux assuming 4.6
 <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/> mol photons per joule. <img class="math" src="../../_images/math/d8dc4ea501dfdb759b428aa83b43c105f6860374.png" alt="k_{p}"/>  is the initial slope
 of C<sub>4</sub> CO<sub>2</sub> response curve.</p>
@@ -305,7 +305,7 @@ expression is the smaller of the two roots of the equation</p>
 <div class="math" id="equation-9.7">
 <p><span class="eqno">(7)<a class="headerlink" href="#equation-9.7" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bb1290c46a42d97dec41cbc4ff414fb89d1542b6.png" alt="\Theta _{PSII} J_{x}^{2} -\left(I_{PSII} +J_{\max } \right)J_{x}+I_{PSII} J_{\max } =0"/></p>
 </div><p>where <img class="math" src="../../_images/math/dd200ee66d3097cdb48398eaf6ce550cebaf6405.png" alt="J_{\max }"/>  is the maximum potential rate of electron
-transport (<img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/>mol m<sup>-2</sup> s<sup>-1</sup>, Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">10</span></a>),
+transport (<img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/>mol m<sup>-2</sup> s<sup>-1</sup>, Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>),
 <img class="math" src="../../_images/math/73d4a0655f66bb5be4876bc54ba2c720151a1fd7.png" alt="I_{PSII}"/>  is the light utilized in electron transport by
 photosystem II (µmol m<sup>-2</sup> s<sup>-1</sup>), and
 <img class="math" src="../../_images/math/fdc89dfa153706681a905b934365d0de04e5cc57.png" alt="\Theta _{PSII}"/>  is a curvature parameter. For a given amount of
@@ -347,13 +347,13 @@ C<sub>4</sub> plants, <img class="math" src="../../_images/math/9781505167910e84
 However, when the biogeochemistry is active, <img class="math" src="../../_images/math/214e9efc79e6a8b60ba0e2d69c77663dab0b51fb.png" alt="R_{d25}"/>  is
 calculated from leaf nitrogen as <img class="math" src="../../_images/math/a880f132331f5b5961dd2af21cf4bf1f0b8fd598.png" alt="R_{d25} = 0.2577LNC_{a}"/>,
 where <img class="math" src="../../_images/math/5162963de9c0e3e1d640c0b24c9608a9af822761.png" alt="LNC_{a}"/> is the area-based leaf nitrogen concentration
-(g N m<sup>-2</sup> leaf area, Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">10</span></a>),
+(g N m<sup>-2</sup> leaf area, Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>),
 and 0.2577 <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/>mol CO<sub>2</sub> g<sup>-1</sup> N s<sup>-1</sup> is the base respiration rate.
 [this doesn’t look correct based on the code, which lists two options; verify with Rosie]
 The parameters <img class="math" src="../../_images/math/51fcb1749c778828581b1841b12a2c599effd058.png" alt="V_{c\max 25}"/>,
 <img class="math" src="../../_images/math/a6ef851376b6186e5726a73868a40873b07e9412.png" alt="J_{\max 25}"/>, <img class="math" src="../../_images/math/6bc9a39473803d2030ae0074c0c538e0db557aaa.png" alt="T_{p25}"/>, <img class="math" src="../../_images/math/446cc62930217cdba9fd855795c697abb6da2e96.png" alt="k_{p25}"/>, and
 <img class="math" src="../../_images/math/214e9efc79e6a8b60ba0e2d69c77663dab0b51fb.png" alt="R_{d25}"/> are scaled over the canopy for sunlit and shaded leaves
-(section <a class="reference internal" href="#canopy-scaling"><span class="std std-numref">9.5</span></a>). In C<sub>3</sub> plants, these are adjusted for leaf temperature,
+(section <a class="reference internal" href="#canopy-scaling"><span class="std std-numref">2.9.5</span></a>). In C<sub>3</sub> plants, these are adjusted for leaf temperature,
 <img class="math" src="../../_images/math/3efef87edc3556a1263d4b17bdc4ec1544510b1f.png" alt="T_{v}"/> (K), as:</p>
 <div class="math" id="equation-9.10">
 <p><span class="eqno">(10)<a class="headerlink" href="#equation-9.10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3825e6476b8e3e62367c3e236572db4f7eb7ae07.png" alt="\begin{array}{rcl} {V_{c\max } } &amp; {=} &amp; {V_{c\max 25} \; f\left(T_{v} \right)f_{H} \left(T_{v} \right)} \\ {J_{\max } } &amp; {=} &amp; {J_{\max 25} \; f\left(T_{v} \right)f_{H} \left(T_{v} \right)} \\ {T_{p} } &amp; {=} &amp; {T_{p25} \; f\left(T_{v} \right)f_{H} \left(T_{v} \right)} \\ {R_{d} } &amp; {=} &amp; {R_{d25} \; f\left(T_{v} \right)f_{H} \left(T_{v} \right)} \\ {K_{c} } &amp; {=} &amp; {K_{c25} \; f\left(T_{v} \right)} \\ {K_{o} } &amp; {=} &amp; {K_{o25} \; f\left(T_{v} \right)} \\ {\Gamma } &amp; {=} &amp; {\Gamma _{25} \; f\left(T_{v} \right)} \end{array}"/></p>
@@ -363,7 +363,7 @@ The parameters <img class="math" src="../../_images/math/51fcb1749c778828581b184
 </div><p>and</p>
 <div class="math" id="equation-9.12">
 <p><span class="eqno">(12)<a class="headerlink" href="#equation-9.12" title="Permalink to this equation">¶</a></span><img src="../../_images/math/879baa8ab3cc5d75c5492edd8778998ebc1e641d.png" alt="f_{H} \left(T_{v} \right)=\frac{1+\exp \left(\frac{298.15\Delta S-\Delta H_{d} }{298.15\times 0.001R_{gas} } \right)}{1+\exp \left(\frac{\Delta ST_{v} -\Delta H_{d} }{0.001R_{gas} T_{v} } \right)}  ."/></p>
-</div><p><a class="reference internal" href="#table-temperature-dependence-parameters-for-c3-photosynthesis"><span class="std std-numref">Table 9.2</span></a>
+</div><p><a class="reference internal" href="#table-temperature-dependence-parameters-for-c3-photosynthesis"><span class="std std-numref">Table 2.22</span></a>
 lists parameter values for <img class="math" src="../../_images/math/4640db3faf7ad024718cc860a893e5be7b4ebeb3.png" alt="\Delta H_{a}"/>  and
 <img class="math" src="../../_images/math/3fcd66a3299b7710a2fcf560293a2f6f7a45677a.png" alt="\Delta H_{d}"/> . <img class="math" src="../../_images/math/4f7e754cd6e4898f509957391e4205c8db58ac7b.png" alt="\Delta S"/> is calculated
 separately for <img class="math" src="../../_images/math/ff692f7c76cfd984353c7092bf6421d00f28c4a1.png" alt="V_{c\max }"/> and <img class="math" src="../../_images/math/61617b90027f7563ebd07670701d689a12e169f8.png" alt="J_{max }"/>
@@ -388,7 +388,7 @@ K<sup>-1</sup> and <img class="math" src="../../_images/math/415ed073c27842e2517
 <p><span class="eqno">(15)<a class="headerlink" href="#equation-9.15" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9c872176c3bcedfc8ac26815d7a0c6ae5c674d10.png" alt="k_{p} =k_{p25} \, Q_{10} ^{(T_{v} -298.15)/10}"/></p>
 </div><p>with <img class="math" src="../../_images/math/e3014b4899b3183a16fdbf401dab6189a197f613.png" alt="Q_{10} =2"/>.</p>
 <span id="table-temperature-dependence-parameters-for-c3-photosynthesis"></span><table border="1" class="docutils" id="id5">
-<caption><span class="caption-number">Table 9.2 </span><span class="caption-text">Temperature dependence parameters for C3 photosynthesis.</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
+<caption><span class="caption-number">Table 2.22 </span><span class="caption-text">Temperature dependence parameters for C3 photosynthesis.</span><a class="headerlink" href="#id5" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="16%" />
 <col width="42%" />
@@ -450,10 +450,10 @@ For lack of data, <img class="math" src="../../_images/math/b635b2e283d0573a44f6
 range <img class="math" src="../../_images/math/c49eb2b25d079f5fa07598ea81c4cb1cf551518a.png" alt="T_{10} -T_{f} \ge 11"/><sup>o</sup>C and <img class="math" src="../../_images/math/983643106b35fac39fea5c9b0a607d32df0532ff.png" alt="T_{10} -T_{f} \le 35"/><sup>o</sup>C.</p>
 </div>
 <div class="section" id="canopy-scaling">
-<span id="id3"></span><h2>9.5. Canopy scaling<a class="headerlink" href="#canopy-scaling" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>2.9.5. Canopy scaling<a class="headerlink" href="#canopy-scaling" title="Permalink to this headline">¶</a></h2>
 <p><img class="math" src="../../_images/math/51fcb1749c778828581b1841b12a2c599effd058.png" alt="V_{c\max 25}"/>  is calculated separately for sunlit and shaded
 leaves using an exponential profile to area-based leaf nitrogen
-(<img class="math" src="../../_images/math/5162963de9c0e3e1d640c0b24c9608a9af822761.png" alt="LNC_{a}"/>, see Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">10</span></a> ),
+(<img class="math" src="../../_images/math/5162963de9c0e3e1d640c0b24c9608a9af822761.png" alt="LNC_{a}"/>, see Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a> ),
 as in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2011"><span class="std std-ref">Bonan et al. (2011)</span></a>. <img class="math" src="../../_images/math/51fcb1749c778828581b1841b12a2c599effd058.png" alt="V_{c\max 25}"/>  at
 cumulative leaf area index <img class="math" src="../../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.png" alt="x"/> from the canopy top scales directly
 with <img class="math" src="../../_images/math/5162963de9c0e3e1d640c0b24c9608a9af822761.png" alt="LNC_{a}"/> , which decreases exponentially with greater
@@ -476,7 +476,7 @@ shaded leaves is</p>
 <p><span class="eqno">(22)<a class="headerlink" href="#equation-9.23" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6031391f2b7bc3e6122e05142990a569cbc6acd8.png" alt="\bar{V}_{c\; \max 25}^{sha} ={V_{c\; \max 25}^{sha} \mathord{\left/ {\vphantom {V_{c\; \max 25}^{sha}  L^{sha} }} \right. \kern-\nulldelimiterspace} L^{sha} } ."/></p>
 </div><p>This integration is over all leaf area (<img class="math" src="../../_images/math/ae2b750f71e1fc0daaa3de9a85d42794d7cd1326.png" alt="L"/>) with
 <img class="math" src="../../_images/math/117394e381948515406839390c2aa7f88b30bcff.png" alt="f_{sun} (x)=\exp \left(-Kx\right)"/> and <img class="math" src="../../_images/math/684381a21cd73ebbf43b63a087d3f7410ee99ce8.png" alt="K"/> the direct beam
-extinction coefficient (equation <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#equation-4.8">(8)</a> in chapter <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#rst-radiative-fluxes"><span class="std std-numref">4</span></a>). Photosynthetic parameters
+extinction coefficient (equation <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#equation-4.8">(8)</a> in chapter <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#rst-radiative-fluxes"><span class="std std-numref">2.4</span></a>). Photosynthetic parameters
 <img class="math" src="../../_images/math/a6ef851376b6186e5726a73868a40873b07e9412.png" alt="J_{\max 25}"/> , <img class="math" src="../../_images/math/6bc9a39473803d2030ae0074c0c538e0db557aaa.png" alt="T_{p25}"/> , <img class="math" src="../../_images/math/446cc62930217cdba9fd855795c697abb6da2e96.png" alt="k_{p25}"/>, and
 <img class="math" src="../../_images/math/214e9efc79e6a8b60ba0e2d69c77663dab0b51fb.png" alt="R_{d25}"/>  scale similarly.</p>
 <p>The model uses <img class="math" src="../../_images/math/cbf3223306c7e424b59f6dd0eb8938c70ca4e89d.png" alt="K_{n} =0.30"/> to match an explicit multi-layer canopy, as in
@@ -491,7 +491,7 @@ arises from absorption of scattered radiation by shaded leaves and can
 be tuned out with higher <img class="math" src="../../_images/math/af986caabafad17117779d4410677f66bdcd858b.png" alt="K_{n}"/>.</p>
 </div>
 <div class="section" id="numerical-implementation">
-<span id="numerical-implementation-photosynthesis"></span><h2>9.6. Numerical implementation<a class="headerlink" href="#numerical-implementation" title="Permalink to this headline">¶</a></h2>
+<span id="numerical-implementation-photosynthesis"></span><h2>2.9.6. Numerical implementation<a class="headerlink" href="#numerical-implementation" title="Permalink to this headline">¶</a></h2>
 <p>The CO<sub>2</sub> partial pressure at the leaf surface,
 <img class="math" src="../../_images/math/2df3b0747a460da75b66e43a6d68b65839832afd.png" alt="c_{s}"/>  (Pa), and the vapor pressure at the leaf surface,
 <img class="math" src="../../_images/math/e29fec438400a3aebf5ee24fcf3c92a1559d3148.png" alt="e_{s}"/>  (Pa), needed for the stomatal resistance model in
@@ -505,7 +505,7 @@ CO<sub>2</sub> and water vapor at the leaf surface so that</p>
 <div class="math" id="equation-9.32">
 <p><span class="eqno">(24)<a class="headerlink" href="#equation-9.32" title="Permalink to this equation">¶</a></span><img src="../../_images/math/73a019904c735a30d92849509d4cf48d2ab084fa.png" alt="\frac{e_{a} -e_{i} }{r_{b} +r_{s} } =\frac{e_{a} -e_{s} }{r_{b} } =\frac{e_{s} -e_{i} }{r_{s} }"/></p>
 </div><p>where <img class="math" src="../../_images/math/6ad0fdfae7cfc23527a01a0ee23c06239ce147ed.png" alt="r_{b}"/>  is leaf boundary layer resistance (s
-m<sup>2</sup> <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/> mol<sup>-1</sup>) (section <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces"><span class="std std-numref">5.3</span></a>), the
+m<sup>2</sup> <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.png" alt="\mu"/> mol<sup>-1</sup>) (section <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces"><span class="std std-numref">2.5.3</span></a>), the
 terms 1.4 and 1.6 are the ratios of diffusivity of CO<sub>2</sub> to
 H<sub>2</sub>O for the leaf boundary layer resistance and stomatal
 resistance,
@@ -519,7 +519,7 @@ determined from</p>
 <div class="math" id="equation-9.33">
 <p><span class="eqno">(25)<a class="headerlink" href="#equation-9.33" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fd400b39bcfb66784bbf1e20d297a93c22ce9e1e.png" alt="e_{a} =\frac{P_{atm} q_{s} }{0.622}"/></p>
 </div><p>where <img class="math" src="../../_images/math/1480deb70f714cf2c008ad495b1326396bb9ce53.png" alt="q_{s}"/>  is the specific humidity of canopy air (kg
-kg<sup>-1</sup>, section <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces"><span class="std std-numref">5.3</span></a>).
+kg<sup>-1</sup>, section <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces"><span class="std std-numref">2.5.3</span></a>).
 Equations and are solved for
 <img class="math" src="../../_images/math/2df3b0747a460da75b66e43a6d68b65839832afd.png" alt="c_{s}"/>  and <img class="math" src="../../_images/math/e29fec438400a3aebf5ee24fcf3c92a1559d3148.png" alt="e_{s}"/></p>
 <div class="math" id="equation-9.34">
@@ -550,7 +550,7 @@ to address the non-linearity of light profiles, photosynthesis, and
 stomatal conductance in the plant canopy. In the multi-layer canopy,
 sunlit (<img class="math" src="../../_images/math/68b054c0d42d18d77e847b36797d0f78e40b5bc4.png" alt="A_{n}^{sun}"/> , <img class="math" src="../../_images/math/440a6ff2017c8b0fe02c2cc6adf8ebaae2c08769.png" alt="r_{s}^{sun}"/> ) and shaded
 (<img class="math" src="../../_images/math/f1a887d55fe983bbcdc08ab4e00dd6040d67a2c4.png" alt="A_{n}^{sha}"/> , <img class="math" src="../../_images/math/39857ea860786cf9cf2d6ec0f37b7d33658e236d.png" alt="r_{s}^{sha}"/> ) leaves are explicitly
-resolved at depths in the canopy using a light profile (Chapter <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#rst-radiative-fluxes"><span class="std std-numref">4</span></a>). In
+resolved at depths in the canopy using a light profile (Chapter <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#rst-radiative-fluxes"><span class="std std-numref">2.4</span></a>). In
 this case, <img class="math" src="../../_images/math/51fcb1749c778828581b1841b12a2c599effd058.png" alt="V_{c\max 25}"/>  is not integrated over the canopy, but
 is instead given explicitly for each canopy layer using equation <a class="reference internal" href="#equation-9.18">(18)</a>. This
 also uses the <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lloydetal2010"><span class="std std-ref">Lloyd et al. (2010)</span></a> relationship whereby
@@ -576,13 +576,13 @@ leaf area.</p>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html" title="10. Photosynthetic Capacity"
+          <a href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html" title="2.10. Photosynthetic Capacity"
              >next</a> |</li>
         <li class="right" >
-          <a href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html" title="8. Snow Hydrology"
+          <a href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html" title="2.8. Snow Hydrology"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../index.html" >2. CLM Technical Note</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

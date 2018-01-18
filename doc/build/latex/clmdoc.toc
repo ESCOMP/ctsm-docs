@@ -1,0 +1,496 @@
+\select@language {english}
+\contentsline {chapter}{\numberline {1}CLM User\IeC {\textquoteright }s Guide}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}Overview}{3}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Introduction}{3}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}What is New with CLM4.5}{4}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.3}Overview of User\IeC {\textquoteright }s Guide}{4}{subsection.1.1.3}
+\contentsline {subsection}{\numberline {1.1.4}Best Practices}{5}{subsection.1.1.4}
+\contentsline {subsection}{\numberline {1.1.5}How To Use This Document}{6}{subsection.1.1.5}
+\contentsline {subsection}{\numberline {1.1.6}Quickstart}{6}{subsection.1.1.6}
+\contentsline {subsection}{\numberline {1.1.7}Scientific Validation}{8}{subsection.1.1.7}
+\contentsline {subsubsection}{Standard Configuration and Namelist Options that are Validated}{9}{subsubsection*.4}
+\contentsline {subsubsection}{Configure Modes NOT scientifically validated, documented, supported or, in some cases, even advised to be used:}{9}{subsubsection*.5}
+\contentsline {subsubsection}{Namelist options that should NOT be exercised:}{9}{subsubsection*.6}
+\contentsline {subsubsection}{Build-Namelist options that should NOT be exercised:}{9}{subsubsection*.7}
+\contentsline {subsubsection}{Namelist items that should NOT be exercised:}{9}{subsubsection*.8}
+\contentsline {subsection}{\numberline {1.1.8}Getting Help}{10}{subsection.1.1.8}
+\contentsline {subsubsection}{The CESM User\IeC {\textquoteright }s-Guide}{10}{subsubsection*.9}
+\contentsline {subsubsection}{The CESM Bulletin Board}{10}{subsubsection*.10}
+\contentsline {subsubsection}{The CLM web pages}{10}{subsubsection*.11}
+\contentsline {subsubsection}{Reporting bugs in CLM4.5}{11}{subsubsection*.12}
+\contentsline {subsubsection}{Some Acronym\IeC {\textquoteright }s and Terms We\IeC {\textquoteright }ll be Using}{11}{subsubsection*.13}
+\contentsline {section}{\numberline {1.2}Setting Up and Running a Case}{12}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Choosing a compset}{12}{subsection.1.2.1}
+\contentsline {subsubsection}{Compsets coupled to data atmosphere and stub ocean/sea-ice (\IeC {\textquotedblleft }I\IeC {\textquotedblright } compsets)}{12}{subsubsection*.14}
+\contentsline {subsubsection}{Compsets coupled to active atmosphere with data ocean}{16}{subsubsection*.15}
+\contentsline {subsubsection}{Fully coupled compsets with fully active ocean, sea-ice, and atmosphere}{16}{subsubsection*.16}
+\contentsline {subsubsection}{Conclusion to choosing a compset}{16}{subsubsection*.17}
+\contentsline {subsection}{\numberline {1.2.2}Customizing CLM\IeC {\textquoteright }s Configuration}{17}{subsection.1.2.2}
+\contentsline {subsubsection}{CLM Script configuration items}{17}{subsubsection*.18}
+\contentsline {subsubsection}{User Namelist}{24}{subsubsection*.19}
+\contentsline {paragraph}{Example: user\_nl\_clm namelist file}{24}{paragraph*.20}
+\contentsline {paragraph}{Precedence of Options}{25}{paragraph*.21}
+\contentsline {paragraph}{Setting Your Initial Conditions File}{26}{paragraph*.22}
+\contentsline {paragraph}{Doing a hybrid simulation to provide initial conditions}{26}{paragraph*.23}
+\contentsline {paragraph}{Doing a branch simulation to provide initial conditions}{26}{paragraph*.24}
+\contentsline {paragraph}{Providing a finidat file in your user\_nl\_clm file}{27}{paragraph*.25}
+\contentsline {paragraph}{Adding a finidat file to the XML database}{27}{paragraph*.26}
+\contentsline {paragraph}{Other noteworthy configuration items}{27}{paragraph*.27}
+\contentsline {paragraph}{Downloading DATM Forcing Data}{28}{paragraph*.28}
+\contentsline {paragraph}{Customizing via the build script files}{29}{paragraph*.29}
+\contentsline {paragraph}{More information on the CLM configure script}{29}{paragraph*.30}
+\contentsline {subparagraph}{Help on CLM configure}{29}{subparagraph*.31}
+\contentsline {subsection}{\numberline {1.2.3}Customizing CLM\IeC {\textquoteright }s namelist}{31}{subsection.1.2.3}
+\contentsline {subsubsection}{Definition of Namelist items and their default values}{31}{subsubsection*.32}
+\contentsline {paragraph}{List of fields that can be added to your output history files by namelist}{31}{paragraph*.33}
+\contentsline {paragraph}{Definition of CLM history variables}{31}{paragraph*.34}
+\contentsline {paragraph}{Table 1-3. CLM History Fields}{32}{paragraph*.35}
+\contentsline {subsubsection}{Examples of using different namelist features}{32}{subsubsection*.36}
+\contentsline {paragraph}{The default namelist}{32}{paragraph*.37}
+\contentsline {paragraph}{Example 1-2. Default CLM Namelist}{32}{paragraph*.38}
+\contentsline {paragraph}{Adding/removing fields on your primary history file}{33}{paragraph*.39}
+\contentsline {paragraph}{Example 1-3. Example user\_nl\_clm namelist adding and removing fields on primary history file}{33}{paragraph*.40}
+\contentsline {paragraph}{Adding auxiliary history files and changing output frequency}{33}{paragraph*.41}
+\contentsline {paragraph}{Example: user\_nl\_clm namelist adding auxiliary history files and changing output frequency}{34}{paragraph*.42}
+\contentsline {paragraph}{Removing all history fields}{34}{paragraph*.43}
+\contentsline {paragraph}{Example 1-5. Example user\_nl\_clm namelist removing all history fields}{34}{paragraph*.44}
+\contentsline {paragraph}{Various ways to change history output averaging flags}{34}{paragraph*.45}
+\contentsline {paragraph}{Example: user\_nl\_clm namelist with various ways to average history fields}{35}{paragraph*.46}
+\contentsline {paragraph}{Outputting history files as a vector in order to analyze the plant function types within gridcells}{35}{paragraph*.47}
+\contentsline {paragraph}{Example: user\_nl\_clm namelist outputting some files in 1D Vector format}{36}{paragraph*.48}
+\contentsline {subsection}{\numberline {1.2.4}Customizing the DATM namelist}{36}{subsection.1.2.4}
+\contentsline {subsubsection}{CLMCRUNCEP mode and it\IeC {\textquoteright }s DATM settings}{38}{subsubsection*.49}
+\contentsline {subsubsection}{CLM\_QIAN mode and it\IeC {\textquoteright }s DATM settings}{38}{subsubsection*.50}
+\contentsline {subsubsection}{CLM1PT mode and it\IeC {\textquoteright }s DATM settings}{38}{subsubsection*.51}
+\contentsline {subsubsection}{CPLHIST3HrWx mode and it\IeC {\textquoteright }s DATM settings}{38}{subsubsection*.52}
+\contentsline {section}{\numberline {1.3}Using CLM tools}{39}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}What are the CLM tools}{39}{subsection.1.3.1}
+\contentsline {subsubsection}{Running FORTRAN tools with namelists}{40}{subsubsection*.53}
+\contentsline {subsubsection}{Running FORTRAN tools with command line options}{40}{subsubsection*.54}
+\contentsline {subsubsection}{Running FORTRAN tools built with SMP=TRUE}{40}{subsubsection*.55}
+\contentsline {subsubsection}{Using NCL}{40}{subsubsection*.56}
+\contentsline {subsection}{\numberline {1.3.2}Building the CLM tools}{40}{subsection.1.3.2}
+\contentsline {subsection}{\numberline {1.3.3}Creating input for surface dataset generation}{44}{subsection.1.3.3}
+\contentsline {subsubsection}{1. Generating SCRIP grid files}{44}{subsubsection*.57}
+\contentsline {paragraph}{Using mknocnmap.pl to create grid and maps for single-point regional grids}{44}{paragraph*.58}
+\contentsline {subsubsection}{2. Creating mapping files for mksurfdata\_map}{44}{subsubsection*.59}
+\contentsline {paragraph}{Figure 2-3. Details of running mkmapdata.sh}{46}{paragraph*.60}
+\contentsline {subsection}{\numberline {1.3.4}Creating Surface Datasets}{46}{subsection.1.3.4}
+\contentsline {subsubsection}{Figure 2-1. Data Flow for Creation of Surface Datasets from Raw SCRIP Grid Files}{46}{subsubsection*.61}
+\contentsline {subsubsection}{Creating a Complete Set of Files for Input to CLM}{46}{subsubsection*.62}
+\contentsline {subsection}{\numberline {1.3.5}Datasets for Observational Sites}{53}{subsection.1.3.5}
+\contentsline {subsection}{\numberline {1.3.6}Creating CLM domain files}{53}{subsection.1.3.6}
+\contentsline {subsubsection}{Figure 2-4. Global Domain file creation}{54}{subsubsection*.63}
+\contentsline {subsubsection}{Figure 2-5. Domain file creation using mknoocnmap.pl}{54}{subsubsection*.64}
+\contentsline {subsection}{\numberline {1.3.7}Comparing History Files}{54}{subsection.1.3.7}
+\contentsline {section}{\numberline {1.4}Adding New Resolutions}{55}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}Adding New Resolutions}{55}{subsection.1.4.1}
+\contentsline {subsection}{\numberline {1.4.2}Managing Your Data Own Files}{55}{subsection.1.4.2}
+\contentsline {subsection}{\numberline {1.4.3}Adding Resolution Names}{57}{subsection.1.4.3}
+\contentsline {subsection}{\numberline {1.4.4}Changing Default Filenames}{57}{subsection.1.4.4}
+\contentsline {subsubsection}{What are the required files?}{58}{subsubsection*.65}
+\contentsline {paragraph}{Table 3-1. Required Files for Different Configurations and Simulation Types}{58}{paragraph*.66}
+\contentsline {section}{\numberline {1.5}Running Special Cases}{58}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}What is a special case?}{58}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}Running the prognostic crop model}{58}{subsection.1.5.2}
+\contentsline {subsubsection}{Example: Crop Simulation}{59}{subsubsection*.67}
+\contentsline {subsection}{\numberline {1.5.3}Running with irrigation}{59}{subsection.1.5.3}
+\contentsline {subsubsection}{Example: Irrigation Simulation}{59}{subsubsection*.68}
+\contentsline {subsection}{\numberline {1.5.4}Spinning up the Satellite Phenology Model}{59}{subsection.1.5.4}
+\contentsline {subsection}{\numberline {1.5.5}Spinup of CLM4.5-BGC}{60}{subsection.1.5.5}
+\contentsline {subsubsection}{Example:: AD\_SPINUP Simulation for CLM4.5-BGC}{60}{subsubsection*.69}
+\contentsline {subsubsection}{Example: Final CLMBGC Spinup Simulation for CLM4.5-BGC}{60}{subsubsection*.70}
+\contentsline {subsection}{\numberline {1.5.6}Running with MOAR data}{61}{subsection.1.5.6}
+\contentsline {subsubsection}{Example: Simulation with MOAR Data on yellowstone}{61}{subsubsection*.71}
+\contentsline {subsection}{\numberline {1.5.7}Running with atmospheric forcing from a previous simulation}{62}{subsection.1.5.7}
+\contentsline {subsubsection}{Example: Fully Coupled Simulation to Create Data to Force Next Example Simulation}{62}{subsubsection*.72}
+\contentsline {subsubsection}{Example: Simulation Forced with Data from the Previous Simulation}{62}{subsubsection*.73}
+\contentsline {subsection}{\numberline {1.5.8}Running with historical CO2 forcing}{63}{subsection.1.5.8}
+\contentsline {subsubsection}{Example: Transient Simulation with Historical CO2}{64}{subsubsection*.74}
+\contentsline {section}{\numberline {1.6}Running Single Point Regional Cases}{66}{section.1.6}
+\contentsline {subsection}{\numberline {1.6.1}Single and Regional Grid Configurations}{66}{subsection.1.6.1}
+\contentsline {subsubsection}{Choosing the right single point options}{67}{subsubsection*.75}
+\contentsline {subsection}{\numberline {1.6.2}Running a single point using global data - PTS\_MODE}{67}{subsection.1.6.2}
+\contentsline {subsubsection}{Running on in a single processor}{68}{subsubsection*.76}
+\contentsline {subsection}{\numberline {1.6.3}Running Single Point Configurations}{68}{subsection.1.6.3}
+\contentsline {subsubsection}{Example: Running CLM over a single-point test site in Brazil with the default Qian atmosphere data forcing.}{69}{subsubsection*.77}
+\contentsline {subsubsection}{Example: Running CLM over the single-point of Mexicocity Mexico with the default Qian atmosphere data forcing.}{69}{subsubsection*.78}
+\contentsline {paragraph}{Using Supported Single-point Datasets that have their own Atmospheric Forcing}{69}{paragraph*.79}
+\contentsline {subsubsection}{Example: Running CLM over the single-point of Vancouver Canada with supplied atmospheric forcing data for Vancouver.}{70}{subsubsection*.80}
+\contentsline {paragraph}{Creating your own single-point dataset}{71}{paragraph*.81}
+\contentsline {subsubsection}{Example: Using CLM\_USRDAT\_NAME to run a simulation using user datasets for a specific region over Alaska}{71}{subsubsection*.82}
+\contentsline {subsubsection}{Example: Creating a surface dataset for a single point}{72}{subsubsection*.83}
+\contentsline {subsubsection}{Example: Setting up a case from the single-point surface dataset just created}{72}{subsubsection*.84}
+\contentsline {section}{\numberline {1.7}Running PTCLM}{73}{section.1.7}
+\contentsline {subsection}{\numberline {1.7.1}What is PTCLM}{73}{subsection.1.7.1}
+\contentsline {subsection}{\numberline {1.7.2}Details of PTCLM}{73}{subsection.1.7.2}
+\contentsline {subsubsection}{Example 6-1. Example of running PTCLM1 for US-UMB on yellowstone}{75}{subsubsection*.86}
+\contentsline {subsection}{\numberline {1.7.3}Using PTCLM}{75}{subsection.1.7.3}
+\contentsline {subsubsection}{Steps in running PTCLM}{76}{subsubsection*.87}
+\contentsline {subsubsection}{PTCLM options}{77}{subsubsection*.88}
+\contentsline {paragraph}{EXAMPLE}{78}{paragraph*.89}
+\contentsline {subsection}{\numberline {1.7.4}Examples of using PTCLM}{79}{subsection.1.7.4}
+\contentsline {subsubsection}{Example: Running PTCLM for the Mexicocity supported single point dataset}{80}{subsubsection*.90}
+\contentsline {subsubsection}{Example: Running PTCLM for a spinup simulation with Qian data for tower years.}{80}{subsubsection*.91}
+\contentsline {subsubsection}{Example: Running PTCLM on a user-defined machine with global PFT and soil types dataset}{80}{subsubsection*.92}
+\contentsline {subsection}{\numberline {1.7.5}Adding PTCLM Site Data}{81}{subsection.1.7.5}
+\contentsline {subsubsection}{Dynamic Land-Use Change Files for use by PTCLM}{81}{subsubsection*.93}
+\contentsline {subsubsection}{Converting AmeriFlux Data for use by PTCLM}{82}{subsubsection*.94}
+\contentsline {subsubsection}{Example: PTCLM transient example over a shorter time period}{82}{subsubsection*.95}
+\contentsline {section}{\numberline {1.8}Troubleshooting}{83}{section.1.8}
+\contentsline {subsection}{\numberline {1.8.1}Trouble Shooting}{83}{subsection.1.8.1}
+\contentsline {subsubsection}{Setup Problems}{83}{subsubsection*.96}
+\contentsline {paragraph}{Example: Missing datasets}{83}{paragraph*.97}
+\contentsline {subsubsection}{Build problems}{84}{subsubsection*.98}
+\contentsline {subsubsection}{Run Time Problems}{85}{subsubsection*.99}
+\contentsline {paragraph}{Tracking Problems by Querying Log Files}{85}{paragraph*.100}
+\contentsline {paragraph}{The coupler log file}{85}{paragraph*.101}
+\contentsline {paragraph}{The cesm log file}{86}{paragraph*.102}
+\contentsline {paragraph}{The CLM log file}{89}{paragraph*.103}
+\contentsline {paragraph}{The DATM log file}{89}{paragraph*.104}
+\contentsline {paragraph}{The batch log files}{89}{paragraph*.105}
+\contentsline {subsubsection}{General Advice on Debugging Run time Problems}{90}{subsubsection*.106}
+\contentsline {paragraph}{Run in DEBUG mode}{90}{paragraph*.107}
+\contentsline {paragraph}{Run with a smaller set of processors}{90}{paragraph*.108}
+\contentsline {paragraph}{Run in serial mode with a single processor}{90}{paragraph*.109}
+\contentsline {paragraph}{Run at a lower resolution}{91}{paragraph*.110}
+\contentsline {paragraph}{Run a simpler case}{91}{paragraph*.111}
+\contentsline {paragraph}{Run with a debugger}{91}{paragraph*.112}
+\contentsline {chapter}{\numberline {2}CLM Technical Note}{93}{chapter.2}
+\contentsline {section}{\numberline {2.1}Introduction}{96}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Model History}{96}{subsection.2.1.1}
+\contentsline {subsubsection}{Inception of CLM}{96}{subsubsection*.113}
+\contentsline {subsubsection}{CLM2}{97}{subsubsection*.114}
+\contentsline {subsubsection}{CLM3}{97}{subsubsection*.115}
+\contentsline {subsubsection}{CLM3.5}{98}{subsubsection*.116}
+\contentsline {subsubsection}{CLM4}{98}{subsubsection*.117}
+\contentsline {subsubsection}{CLM4.5}{99}{subsubsection*.118}
+\contentsline {subsubsection}{CLM5.0}{100}{subsubsection*.119}
+\contentsline {subsection}{\numberline {2.1.2}Biogeophysical and Biogeochemical Processes}{102}{subsection.2.1.2}
+\contentsline {section}{\numberline {2.2}Surface Characterization, Vertical Discretization, and Model Input Requirements}{103}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Surface Characterization}{103}{subsection.2.2.1}
+\contentsline {subsubsection}{Surface Heterogeneity and Data Structure}{103}{subsubsection*.120}
+\contentsline {subsubsection}{Vegetation Composition}{105}{subsubsection*.121}
+\contentsline {subsubsection}{Vegetation Structure}{106}{subsubsection*.122}
+\contentsline {subsubsection}{Phenology and vegetation burial by snow}{107}{subsubsection*.123}
+\contentsline {subsection}{\numberline {2.2.2}Vertical Discretization}{107}{subsection.2.2.2}
+\contentsline {subsubsection}{Soil Layers}{107}{subsubsection*.126}
+\contentsline {subsubsection}{Depth to Bedrock}{108}{subsubsection*.127}
+\contentsline {subsection}{\numberline {2.2.3}Model Input Requirements}{108}{subsection.2.2.3}
+\contentsline {subsubsection}{Atmospheric Coupling}{108}{subsubsection*.128}
+\contentsline {subsubsection}{Initialization}{110}{subsubsection*.129}
+\contentsline {subsubsection}{Surface Data}{111}{subsubsection*.130}
+\contentsline {subsubsection}{Adjustable Parameters and Physical Constants}{113}{subsubsection*.131}
+\contentsline {section}{\numberline {2.3}Surface Albedos}{114}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Canopy Radiative Transfer}{114}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Ground Albedos}{120}{subsection.2.3.2}
+\contentsline {subsubsection}{Snow Albedo}{121}{subsubsection*.193}
+\contentsline {subsubsection}{Snowpack Optical Properties}{123}{subsubsection*.202}
+\contentsline {subsubsection}{Snow Aging}{124}{subsubsection*.205}
+\contentsline {subsection}{\numberline {2.3.3}Solar Zenith Angle}{125}{subsection.2.3.3}
+\contentsline {section}{\numberline {2.4}Radiative Fluxes}{127}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Solar Fluxes}{127}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Longwave Fluxes}{129}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}Momentum, Sensible Heat, and Latent Heat Fluxes}{131}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Monin-Obukhov Similarity Theory}{132}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Sensible and Latent Heat Fluxes for Non-Vegetated Surfaces}{138}{subsection.2.5.2}
+\contentsline {subsection}{\numberline {2.5.3}Sensible and Latent Heat Fluxes and Temperature for Vegetated Surfaces}{141}{subsection.2.5.3}
+\contentsline {subsubsection}{Theory}{141}{subsubsection*.327}
+\contentsline {subsubsection}{Numerical Implementation}{148}{subsubsection*.370}
+\contentsline {subsection}{\numberline {2.5.4}Update of Ground Sensible and Latent Heat Fluxes}{150}{subsection.2.5.4}
+\contentsline {subsection}{\numberline {2.5.5}Saturation Vapor Pressure}{151}{subsection.2.5.5}
+\contentsline {section}{\numberline {2.6}Soil and Snow Temperatures}{152}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}Numerical Solution}{153}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {2.6.2}Phase Change}{160}{subsection.2.6.2}
+\contentsline {subsubsection}{Soil and Snow Layers}{160}{subsubsection*.450}
+\contentsline {subsubsection}{Surface Water}{162}{subsubsection*.472}
+\contentsline {subsection}{\numberline {2.6.3}Soil and Snow Thermal Properties}{162}{subsection.2.6.3}
+\contentsline {section}{\numberline {2.7}Hydrology}{164}{section.2.7}
+\contentsline {subsection}{\numberline {2.7.1}Canopy Water}{165}{subsection.2.7.1}
+\contentsline {subsection}{\numberline {2.7.2}Surface Runoff, Surface Water Storage, and Infiltration}{167}{subsection.2.7.2}
+\contentsline {subsubsection}{Surface Runoff}{167}{subsubsection*.519}
+\contentsline {subsubsection}{Surface Water Storage}{167}{subsubsection*.522}
+\contentsline {subsubsection}{Infiltration}{168}{subsubsection*.528}
+\contentsline {subsection}{\numberline {2.7.3}Soil Water}{169}{subsection.2.7.3}
+\contentsline {subsubsection}{Hydraulic Properties}{169}{subsubsection*.543}
+\contentsline {subsubsection}{Numerical Solution}{171}{subsubsection*.557}
+\contentsline {paragraph}{Equation set for layer \(i=1\)}{174}{paragraph*.583}
+\contentsline {paragraph}{Equation set for layers \(i=2,\ldots ,N_{levsoi} -1\)}{175}{paragraph*.589}
+\contentsline {paragraph}{Equation set for layer \(i=N_{levsoi}\)}{175}{paragraph*.594}
+\contentsline {paragraph}{Adaptive Time Stepping}{176}{paragraph*.599}
+\contentsline {subsection}{\numberline {2.7.4}Frozen Soils and Perched Water Table}{176}{subsection.2.7.4}
+\contentsline {subsection}{\numberline {2.7.5}Lateral Sub-surface Runoff}{177}{subsection.2.7.5}
+\contentsline {subsection}{\numberline {2.7.6}Runoff from glaciers and snow-capped surfaces}{177}{subsection.2.7.6}
+\contentsline {section}{\numberline {2.8}Snow Hydrology}{178}{section.2.8}
+\contentsline {subsection}{\numberline {2.8.1}Snow Covered Area Fraction}{178}{subsection.2.8.1}
+\contentsline {subsection}{\numberline {2.8.2}Ice Content}{180}{subsection.2.8.2}
+\contentsline {subsection}{\numberline {2.8.3}Water Content}{181}{subsection.2.8.3}
+\contentsline {subsection}{\numberline {2.8.4}Black and organic carbon and mineral dust within snow}{182}{subsection.2.8.4}
+\contentsline {subsection}{\numberline {2.8.5}Initialization of snow layer}{183}{subsection.2.8.5}
+\contentsline {subsection}{\numberline {2.8.6}Snow Compaction}{183}{subsection.2.8.6}
+\contentsline {subsection}{\numberline {2.8.7}Snow Layer Combination and Subdivision}{184}{subsection.2.8.7}
+\contentsline {subsubsection}{Combination}{185}{subsubsection*.654}
+\contentsline {subsubsection}{Subdivision}{186}{subsubsection*.666}
+\contentsline {section}{\numberline {2.9}Stomatal Resistance and Photosynthesis}{187}{section.2.9}
+\contentsline {subsection}{\numberline {2.9.1}Summary of CLM5.0 updates relative to the CLM4.5}{187}{subsection.2.9.1}
+\contentsline {subsection}{\numberline {2.9.2}Introduction}{187}{subsection.2.9.2}
+\contentsline {subsection}{\numberline {2.9.3}Stomatal resistance}{187}{subsection.2.9.3}
+\contentsline {subsection}{\numberline {2.9.4}Photosynthesis}{188}{subsection.2.9.4}
+\contentsline {subsection}{\numberline {2.9.5}Canopy scaling}{191}{subsection.2.9.5}
+\contentsline {subsection}{\numberline {2.9.6}Numerical implementation}{191}{subsection.2.9.6}
+\contentsline {section}{\numberline {2.10}Photosynthetic Capacity}{192}{section.2.10}
+\contentsline {subsection}{\numberline {2.10.1}Model inputs and parameter estimations}{193}{subsection.2.10.1}
+\contentsline {subsection}{\numberline {2.10.2}Model structure}{193}{subsection.2.10.2}
+\contentsline {subsubsection}{Plant Nitrogen}{193}{subsubsection*.699}
+\contentsline {subsubsection}{Maximum electron transport rate}{194}{subsubsection*.704}
+\contentsline {subsubsection}{Maximum rate of carboxylation}{195}{subsubsection*.711}
+\contentsline {subsubsection}{Implementation of Photosynthetic Capacity}{195}{subsubsection*.715}
+\contentsline {subsubsection}{Total Respiration}{195}{subsubsection*.719}
+\contentsline {subsection}{\numberline {2.10.3}Numerical scheme}{196}{subsection.2.10.3}
+\contentsline {section}{\numberline {2.11}Plant Hydraulics}{196}{section.2.11}
+\contentsline {subsection}{\numberline {2.11.1}Roots}{196}{subsection.2.11.1}
+\contentsline {subsubsection}{Vertical Root Distribution}{196}{subsubsection*.722}
+\contentsline {subsubsection}{Root Spacing}{197}{subsubsection*.724}
+\contentsline {subsection}{\numberline {2.11.2}Plant Hydraulic Stress}{197}{subsection.2.11.2}
+\contentsline {subsubsection}{Plant Water Supply}{197}{subsubsection*.729}
+\contentsline {paragraph}{Stem-to-leaf}{199}{paragraph*.732}
+\contentsline {paragraph}{Root-to-stem}{200}{paragraph*.737}
+\contentsline {paragraph}{Soil-to-root}{200}{paragraph*.740}
+\contentsline {subsubsection}{Plant Water Demand}{202}{subsubsection*.746}
+\contentsline {subsubsection}{Vegetation Water Potential}{202}{subsubsection*.751}
+\contentsline {subsubsection}{Numerical Implementation}{203}{subsubsection*.754}
+\contentsline {subsubsection}{Flow Diagram of Leaf Flux Calculations:}{205}{subsubsection*.772}
+\contentsline {section}{\numberline {2.12}Lake Model}{206}{section.2.12}
+\contentsline {subsection}{\numberline {2.12.1}Vertical Discretization}{206}{subsection.2.12.1}
+\contentsline {subsection}{\numberline {2.12.2}External Data}{206}{subsection.2.12.2}
+\contentsline {subsection}{\numberline {2.12.3}Surface Albedo}{208}{subsection.2.12.3}
+\contentsline {subsection}{\numberline {2.12.4}Surface Fluxes and Surface Temperature}{208}{subsection.2.12.4}
+\contentsline {subsubsection}{Surface Properties}{208}{subsubsection*.775}
+\contentsline {subsubsection}{Surface Flux Solution}{209}{subsubsection*.780}
+\contentsline {subsection}{\numberline {2.12.5}Lake Temperature}{212}{subsection.2.12.5}
+\contentsline {subsubsection}{Introduction}{212}{subsubsection*.799}
+\contentsline {subsubsection}{Overview of Changes from CLM4}{212}{subsubsection*.803}
+\contentsline {subsubsection}{Boundary Conditions}{213}{subsubsection*.804}
+\contentsline {subsubsection}{Eddy Diffusivity and Thermal Conductivities}{213}{subsubsection*.806}
+\contentsline {subsubsection}{Radiation Penetration}{214}{subsubsection*.817}
+\contentsline {subsubsection}{Heat Capacities}{215}{subsubsection*.821}
+\contentsline {subsubsection}{Crank-Nicholson Solution}{215}{subsubsection*.823}
+\contentsline {subsubsection}{Phase Change}{215}{subsubsection*.828}
+\contentsline {subsubsection}{Convection}{216}{subsubsection*.834}
+\contentsline {subsubsection}{Energy Conservation}{217}{subsubsection*.840}
+\contentsline {subsection}{\numberline {2.12.6}Lake Hydrology}{218}{subsection.2.12.6}
+\contentsline {subsubsection}{Overview}{218}{subsubsection*.843}
+\contentsline {subsubsection}{Water Balance}{218}{subsubsection*.844}
+\contentsline {subsubsection}{Precipitation, Evaporation, and Runoff}{218}{subsubsection*.846}
+\contentsline {subsubsection}{Soil Hydrology}{219}{subsubsection*.849}
+\contentsline {subsubsection}{Modifications to Snow Layer Logic}{219}{subsubsection*.853}
+\contentsline {section}{\numberline {2.13}Glaciers}{220}{section.2.13}
+\contentsline {subsection}{\numberline {2.13.1}Overview}{220}{subsection.2.13.1}
+\contentsline {subsection}{\numberline {2.13.2}Multiple elevation class scheme}{220}{subsection.2.13.2}
+\contentsline {subsection}{\numberline {2.13.3}Computation of the surface mass balance}{221}{subsection.2.13.3}
+\contentsline {section}{\numberline {2.14}Model for Scale Adaptive River Transport (MOSART)}{222}{section.2.14}
+\contentsline {subsection}{\numberline {2.14.1}Overview}{222}{subsection.2.14.1}
+\contentsline {subsection}{\numberline {2.14.2}Routing Processes}{222}{subsection.2.14.2}
+\contentsline {subsection}{\numberline {2.14.3}Numerical Solution}{223}{subsection.2.14.3}
+\contentsline {subsection}{\numberline {2.14.4}Parameters and Input Data}{224}{subsection.2.14.4}
+\contentsline {subsection}{\numberline {2.14.5}Difference between CLM5.0 and CLM4.5}{225}{subsection.2.14.5}
+\contentsline {section}{\numberline {2.15}Urban Model (CLMU)}{225}{section.2.15}
+\contentsline {section}{\numberline {2.16}CN Pools}{228}{section.2.16}
+\contentsline {subsection}{\numberline {2.16.1}Introduction}{228}{subsection.2.16.1}
+\contentsline {subsection}{\numberline {2.16.2}Tissue Stoichiometry}{228}{subsection.2.16.2}
+\contentsline {section}{\numberline {2.17}Plant Respiration}{230}{section.2.17}
+\contentsline {subsection}{\numberline {2.17.1}Autotrophic Respiration}{230}{subsection.2.17.1}
+\contentsline {subsubsection}{Maintenance Respiration}{230}{subsubsection*.859}
+\contentsline {subsubsection}{Growth Respiration}{231}{subsubsection*.865}
+\contentsline {section}{\numberline {2.18}Fixation and Uptake of Nitrogen (FUN)}{231}{section.2.18}
+\contentsline {subsection}{\numberline {2.18.1}Introduction}{231}{subsection.2.18.1}
+\contentsline {subsection}{\numberline {2.18.2}Boundary conditions of FUN}{232}{subsection.2.18.2}
+\contentsline {subsubsection}{Available Carbon}{232}{subsubsection*.866}
+\contentsline {subsubsection}{Available Soil Nitrogen}{232}{subsubsection*.867}
+\contentsline {subsubsection}{Cost of Nitrogen Fixation}{232}{subsubsection*.868}
+\contentsline {subsubsection}{Cost of Active Uptake}{232}{subsubsection*.869}
+\contentsline {subsection}{\numberline {2.18.3}Resolving N cost across simultaneous uptake streams}{233}{subsection.2.18.3}
+\contentsline {subsection}{\numberline {2.18.4}Nitrogen Retranslocation}{234}{subsection.2.18.4}
+\contentsline {subsubsection}{Free Retranslocation}{234}{subsubsection*.871}
+\contentsline {subsubsection}{Paid-for Retranslocation}{234}{subsubsection*.872}
+\contentsline {subsubsection}{Outputs of Retranslocation algorithm.}{235}{subsubsection*.873}
+\contentsline {subsection}{\numberline {2.18.5}Carbon expenditure on fixation and active uptake.}{236}{subsection.2.18.5}
+\contentsline {subsection}{\numberline {2.18.6}Modifications to allow variation in C:N ratios}{237}{subsection.2.18.6}
+\contentsline {subsubsection}{Response of C expenditure to Nitrogen uptake cost}{237}{subsubsection*.874}
+\contentsline {subsubsection}{Response of C expenditure to plant C:N ratios}{237}{subsubsection*.875}
+\contentsline {subsection}{\numberline {2.18.7}Calculation of N uptake streams from active uptake and fixation}{238}{subsection.2.18.7}
+\contentsline {subsection}{\numberline {2.18.8}Types of N uptake streams}{239}{subsection.2.18.8}
+\contentsline {section}{\numberline {2.19}Carbon and Nitrogen Allocation}{239}{section.2.19}
+\contentsline {subsection}{\numberline {2.19.1}Introduction}{239}{subsection.2.19.1}
+\contentsline {subsection}{\numberline {2.19.2}Carbon Allocation for Maintenance Respiration Costs}{239}{subsection.2.19.2}
+\contentsline {subsection}{\numberline {2.19.3}Carbon and Nitrogen Stoichiometry of New Growth}{240}{subsection.2.19.3}
+\contentsline {subsection}{\numberline {2.19.4}Carbon Allocation to New Growth}{242}{subsection.2.19.4}
+\contentsline {subsection}{\numberline {2.19.5}Nitrogen allocation}{243}{subsection.2.19.5}
+\contentsline {section}{\numberline {2.20}Vegetation Phenology and Turnover}{244}{section.2.20}
+\contentsline {subsection}{\numberline {2.20.1}General Phenology Flux Parameterization}{244}{subsection.2.20.1}
+\contentsline {subsubsection}{14.1.1 Onset Periods}{244}{subsubsection*.916}
+\contentsline {subsubsection}{14.1.2 Offset Periods}{246}{subsubsection*.930}
+\contentsline {subsubsection}{14.1.3 Background Onset Growth}{247}{subsubsection*.937}
+\contentsline {subsubsection}{14.1.4 Background Litterfall}{248}{subsubsection*.950}
+\contentsline {subsubsection}{14.1.5 Livewood Turnover}{249}{subsubsection*.956}
+\contentsline {subsection}{\numberline {2.20.2}Evergreen Phenology}{249}{subsection.2.20.2}
+\contentsline {subsection}{\numberline {2.20.3}Seasonal-Deciduous Phenology}{250}{subsection.2.20.3}
+\contentsline {subsubsection}{14.3.1 Seasonal-Deciduous Onset Trigger}{250}{subsubsection*.966}
+\contentsline {subsubsection}{14.3.2 Seasonal-Deciduous Offset Trigger}{252}{subsubsection*.985}
+\contentsline {subsection}{\numberline {2.20.4}Stress-Deciduous Phenology}{252}{subsection.2.20.4}
+\contentsline {subsubsection}{14.4.1 Stress-Deciduous Onset Triggers}{252}{subsubsection*.987}
+\contentsline {subsubsection}{14.4.2 Stress-Deciduous Offset Triggers}{253}{subsubsection*.991}
+\contentsline {subsubsection}{14.4.3 Stress-Deciduous: Long Growing Season}{253}{subsubsection*.995}
+\contentsline {subsection}{\numberline {2.20.5}Litterfall Fluxes Merged to the Column Level}{255}{subsection.2.20.5}
+\contentsline {section}{\numberline {2.21}Decomposition}{256}{section.2.21}
+\contentsline {subsection}{\numberline {2.21.1}CLM-CN Pool Structure, Rate Constants and Parameters}{256}{subsection.2.21.1}
+\contentsline {subsection}{\numberline {2.21.2}Century-based Pool Structure, Rate Constants and Parameters}{260}{subsection.2.21.2}
+\contentsline {subsection}{\numberline {2.21.3}Environmental modifiers on decomposition rate}{261}{subsection.2.21.3}
+\contentsline {subsection}{\numberline {2.21.4}N-limitation of Decomposition Fluxes}{262}{subsection.2.21.4}
+\contentsline {subsection}{\numberline {2.21.5}N Competition between plant uptake and soil immobilization fluxes}{263}{subsection.2.21.5}
+\contentsline {subsection}{\numberline {2.21.6}Final Decomposition Fluxes}{264}{subsection.2.21.6}
+\contentsline {subsection}{\numberline {2.21.7}Vertical Distribution and Transport of Decomposing C and N pools}{267}{subsection.2.21.7}
+\contentsline {subsection}{\numberline {2.21.8}Model Equilibration and its Acceleration}{267}{subsection.2.21.8}
+\contentsline {section}{\numberline {2.22}External Nitrogen Cycle}{268}{section.2.22}
+\contentsline {subsection}{\numberline {2.22.1}Summary of CLM5.0 updates relative to CLM4.5}{268}{subsection.2.22.1}
+\contentsline {subsection}{\numberline {2.22.2}Overview}{268}{subsection.2.22.2}
+\contentsline {subsection}{\numberline {2.22.3}Atmospheric Nitrogen Deposition}{269}{subsection.2.22.3}
+\contentsline {subsection}{\numberline {2.22.4}Biological Nitrogen Fixation}{269}{subsection.2.22.4}
+\contentsline {subsection}{\numberline {2.22.5}Nitrification and Denitrification Losses of Nitrogen}{269}{subsection.2.22.5}
+\contentsline {subsection}{\numberline {2.22.6}Leaching Losses of Nitrogen}{271}{subsection.2.22.6}
+\contentsline {subsection}{\numberline {2.22.7}Losses of Nitrogen Due to Fire}{272}{subsection.2.22.7}
+\contentsline {section}{\numberline {2.23}Fire}{272}{section.2.23}
+\contentsline {subsection}{\numberline {2.23.1}Non-peat fires outside cropland and tropical closed forest}{272}{subsection.2.23.1}
+\contentsline {subsubsection}{Fire counts}{272}{subsubsection*.1098}
+\contentsline {subsubsection}{Average spread area of a fire}{274}{subsubsection*.1111}
+\contentsline {subsubsection}{Fire impact}{275}{subsubsection*.1124}
+\contentsline {subsection}{\numberline {2.23.2}Agricultural fires}{276}{subsection.2.23.2}
+\contentsline {subsection}{\numberline {2.23.3}Deforestation fires}{277}{subsection.2.23.3}
+\contentsline {subsection}{\numberline {2.23.4}Peat fires}{277}{subsection.2.23.4}
+\contentsline {subsection}{\numberline {2.23.5}Fire trace gas and aerosol emissions}{278}{subsection.2.23.5}
+\contentsline {section}{\numberline {2.24}Methane Model}{279}{section.2.24}
+\contentsline {subsection}{\numberline {2.24.1}Methane Model Structure and Flow}{279}{subsection.2.24.1}
+\contentsline {subsection}{\numberline {2.24.2}Governing Mass-Balance Relationship}{280}{subsection.2.24.2}
+\contentsline {subsection}{\numberline {2.24.3}CH$_{\text {4}}$ Production}{280}{subsection.2.24.3}
+\contentsline {subsection}{\numberline {2.24.4}Ebullition}{284}{subsection.2.24.4}
+\contentsline {subsection}{\numberline {2.24.5}Aerenchyma Transport}{284}{subsection.2.24.5}
+\contentsline {subsection}{\numberline {2.24.6}CH$_{\text {4}}$ Oxidation}{285}{subsection.2.24.6}
+\contentsline {subsection}{\numberline {2.24.7}Reactive Transport Solution}{285}{subsection.2.24.7}
+\contentsline {subsubsection}{Competition for CH$_{\text {4}}$ and O$_{\text {2}}$}{285}{subsubsection*.1151}
+\contentsline {subsubsection}{CH$_{\text {4}}$ and O$_{\text {2}}$ Source Terms}{285}{subsubsection*.1152}
+\contentsline {subsubsection}{Aqueous and Gaseous Diffusion}{285}{subsubsection*.1153}
+\contentsline {subsubsection}{Boundary Conditions}{286}{subsubsection*.1157}
+\contentsline {subsubsection}{Crank-Nicholson Solution}{286}{subsubsection*.1158}
+\contentsline {subsubsection}{Interface between water table and unsaturated zone}{287}{subsubsection*.1162}
+\contentsline {subsection}{\numberline {2.24.8}Inundated Fraction Prediction}{287}{subsection.2.24.8}
+\contentsline {subsection}{\numberline {2.24.9}Seasonal Inundation}{288}{subsection.2.24.9}
+\contentsline {section}{\numberline {2.25}Crops and Irrigation}{288}{section.2.25}
+\contentsline {subsection}{\numberline {2.25.1}Summary of CLM5.0 updates relative to the CLM4.5}{288}{subsection.2.25.1}
+\contentsline {subsection}{\numberline {2.25.2}The crop model}{289}{subsection.2.25.2}
+\contentsline {subsubsection}{Introduction}{289}{subsubsection*.1167}
+\contentsline {subsubsection}{Crop plant functional types}{289}{subsubsection*.1168}
+\contentsline {subsubsection}{Phenology}{291}{subsubsection*.1169}
+\contentsline {paragraph}{Planting}{291}{paragraph*.1170}
+\contentsline {paragraph}{Leaf emergence}{292}{paragraph*.1174}
+\contentsline {paragraph}{Grain fill}{292}{paragraph*.1175}
+\contentsline {paragraph}{Harvest}{292}{paragraph*.1176}
+\contentsline {subsubsection}{Allocation}{293}{subsubsection*.1177}
+\contentsline {paragraph}{Leaf emergence}{294}{paragraph*.1178}
+\contentsline {paragraph}{Grain fill}{294}{paragraph*.1180}
+\contentsline {paragraph}{Nitrogen retranslocation for crops}{295}{paragraph*.1182}
+\contentsline {paragraph}{Harvest}{295}{paragraph*.1186}
+\contentsline {subsubsection}{Other Features}{296}{subsubsection*.1188}
+\contentsline {paragraph}{Physical Crop Characteristics}{296}{paragraph*.1189}
+\contentsline {paragraph}{Interactive Fertilization}{296}{paragraph*.1191}
+\contentsline {paragraph}{Biological nitrogen fixation for soybeans}{297}{paragraph*.1193}
+\contentsline {paragraph}{Latitudinal variation in base growth tempereature}{297}{paragraph*.1194}
+\contentsline {paragraph}{Separate reproductive pool}{297}{paragraph*.1196}
+\contentsline {subsection}{\numberline {2.25.3}The irrigation model}{298}{subsection.2.25.3}
+\contentsline {section}{\numberline {2.26}Transient Land Use and Land Cover Change}{299}{section.2.26}
+\contentsline {subsection}{\numberline {2.26.1}Annual Transient Land Use and Land Cover Data and Time Interpolation}{299}{subsection.2.26.1}
+\contentsline {subsection}{\numberline {2.26.2}Mass and Energy Conservation}{300}{subsection.2.26.2}
+\contentsline {subsection}{\numberline {2.26.3}Annual Transient Land Cover Dataset Development}{300}{subsection.2.26.3}
+\contentsline {subsubsection}{LUH2 Transient Land Use and Land Cover Change Dataset}{301}{subsubsection*.1209}
+\contentsline {subsubsection}{Representing LUH2 Land Use and Land Cover Change in CLM5}{301}{subsubsection*.1210}
+\contentsline {section}{\numberline {2.27}Dynamic Global Vegetation}{305}{section.2.27}
+\contentsline {subsection}{\numberline {2.27.1}What has changed}{305}{subsection.2.27.1}
+\contentsline {section}{\numberline {2.28}Technical Documentation for FATES}{305}{section.2.28}
+\contentsline {subsection}{\numberline {2.28.1}Introduction}{305}{subsection.2.28.1}
+\contentsline {subsection}{\numberline {2.28.2}The representation of ecosystem heterogeneity in FATES}{306}{subsection.2.28.2}
+\contentsline {subsubsection}{Cohortized representation of tree populations}{306}{subsubsection*.1211}
+\contentsline {subsubsection}{Discretization of cohorts and patches}{307}{subsubsection*.1212}
+\contentsline {subsubsection}{Linked Lists: the general code structure of FATES}{308}{subsubsection*.1213}
+\contentsline {subsubsection}{Indices used in FATES}{309}{subsubsection*.1214}
+\contentsline {subsubsection}{Cohort State Variables}{309}{subsubsection*.1215}
+\contentsline {subsubsection}{Patch State Variables}{310}{subsubsection*.1216}
+\contentsline {subsubsection}{Model Structure}{310}{subsubsection*.1217}
+\contentsline {subsection}{\numberline {2.28.3}Initialization of vegetation from bare ground}{311}{subsection.2.28.3}
+\contentsline {subsection}{\numberline {2.28.4}Allocation of biomass}{311}{subsection.2.28.4}
+\contentsline {subsection}{\numberline {2.28.5}Canopy Structure and the Perfect Plasticity Approximation}{313}{subsection.2.28.5}
+\contentsline {subsubsection}{Horizontal Canopy Spread}{315}{subsubsection*.1218}
+\contentsline {subsubsection}{Definition of Leaf and Stem Area Profile}{315}{subsubsection*.1219}
+\contentsline {subsubsection}{Burial of leaf area by snow}{317}{subsubsection*.1220}
+\contentsline {subsection}{\numberline {2.28.6}Radiation Transfer}{318}{subsection.2.28.6}
+\contentsline {subsubsection}{Fundamental Radiation Transfer Theory}{318}{subsubsection*.1221}
+\contentsline {subsubsection}{Resolution of radiation transfer theory within the FATES canopy structure}{320}{subsubsection*.1222}
+\contentsline {subsection}{\numberline {2.28.7}Photosynthesis}{323}{subsection.2.28.7}
+\contentsline {subsubsection}{Fundamental photosynthetic physiology theory}{323}{subsubsection*.1223}
+\contentsline {subsubsection}{Resolution of the photosynthesis theory within the FATES canopy structure.}{324}{subsubsection*.1224}
+\contentsline {subsubsection}{Variation in plant physiology with canopy depth}{325}{subsubsection*.1225}
+\contentsline {subsubsection}{Water Stress on gas exchange}{325}{subsubsection*.1226}
+\contentsline {paragraph}{Variation of water stress and water uptake within tiles}{326}{paragraph*.1227}
+\contentsline {subsubsection}{Aggregation of assimilated carbon into cohorts}{326}{subsubsection*.1228}
+\contentsline {subsection}{\numberline {2.28.8}Plant respiration}{327}{subsection.2.28.8}
+\contentsline {subsection}{\numberline {2.28.9}Stomatal Conductance}{329}{subsection.2.28.9}
+\contentsline {subsubsection}{Fundamental stomatal conductance theory}{329}{subsubsection*.1229}
+\contentsline {subsubsection}{Resolution of stomatal conductance theory in the FATES canopy structure}{329}{subsubsection*.1230}
+\contentsline {subsection}{\numberline {2.28.10}Allocation and Growth}{330}{subsection.2.28.10}
+\contentsline {subsubsection}{Tissue maintenance demand}{330}{subsubsection*.1231}
+\contentsline {subsubsection}{Allocation to storage and turnover}{330}{subsubsection*.1232}
+\contentsline {subsubsection}{Allocation to Seeds}{331}{subsubsection*.1233}
+\contentsline {subsubsection}{Allocation to growing pools}{331}{subsubsection*.1234}
+\contentsline {subsubsection}{Integration of allocated fluxes}{333}{subsubsection*.1235}
+\contentsline {subsection}{\numberline {2.28.11}Control of Leaf Area Index}{333}{subsection.2.28.11}
+\contentsline {subsection}{\numberline {2.28.12}Phenology}{334}{subsection.2.28.12}
+\contentsline {subsubsection}{Cold Deciduous Phenology}{334}{subsubsection*.1236}
+\contentsline {paragraph}{Cold Leaf-out timing}{334}{paragraph*.1237}
+\contentsline {paragraph}{Cold Leaf-off timing}{335}{paragraph*.1238}
+\contentsline {paragraph}{Global implementation modifications}{335}{paragraph*.1239}
+\contentsline {subsubsection}{Drought-deciduous Phenology: TBD}{335}{subsubsection*.1240}
+\contentsline {subsubsection}{Carbon Dynamics of deciduous plants}{335}{subsubsection*.1241}
+\contentsline {subsection}{\numberline {2.28.13}Seed Dynamics and Recruitment}{336}{subsection.2.28.13}
+\contentsline {subsection}{\numberline {2.28.14}Litter Production and Fragmentation}{337}{subsection.2.28.14}
+\contentsline {subsubsection}{Litter Inputs}{338}{subsubsection*.1242}
+\contentsline {subsubsection}{Litter Outputs}{338}{subsubsection*.1243}
+\contentsline {subsubsection}{Flux into decompsition cascade}{339}{subsubsection*.1244}
+\contentsline {subsection}{\numberline {2.28.15}Plant Mortality}{339}{subsection.2.28.15}
+\contentsline {subsection}{\numberline {2.28.16}Fire (SPITFIRE)}{340}{subsection.2.28.16}
+\contentsline {subsubsection}{Properties of fuel load}{340}{subsubsection*.1245}
+\contentsline {subsubsection}{Nesterov Index}{341}{subsubsection*.1246}
+\contentsline {subsubsection}{Fuel properties}{341}{subsubsection*.1247}
+\contentsline {paragraph}{Dead Fuel Moisture Content}{341}{paragraph*.1248}
+\contentsline {paragraph}{Live grass moisture Content}{341}{paragraph*.1249}
+\contentsline {paragraph}{Patch Fuel Moisture}{342}{paragraph*.1250}
+\contentsline {paragraph}{Effective Fuel Moisture Content}{342}{paragraph*.1251}
+\contentsline {paragraph}{Patch Fuel Moisture of Extinction}{342}{paragraph*.1252}
+\contentsline {paragraph}{Patch Fuel Bulk Density}{342}{paragraph*.1253}
+\contentsline {paragraph}{Patch Fuel Surface Area to Volume}{342}{paragraph*.1254}
+\contentsline {subsubsection}{Forward rate of spread}{343}{subsubsection*.1255}
+\contentsline {subsubsection}{Fuel Consumption}{343}{subsubsection*.1256}
+\contentsline {subsubsection}{Fire Intensity}{344}{subsubsection*.1257}
+\contentsline {subsubsection}{Fire Duration}{344}{subsubsection*.1258}
+\contentsline {subsubsection}{Fire Danger Index}{344}{subsubsection*.1259}
+\contentsline {subsubsection}{Area Burned}{344}{subsubsection*.1260}
+\contentsline {subsubsection}{Crown Damage}{345}{subsubsection*.1261}
+\contentsline {subsubsection}{Cambial Damage and Kill}{345}{subsubsection*.1262}
+\contentsline {section}{\numberline {2.29}Biogenic Volatile Organic Compounds (BVOCs)}{346}{section.2.29}
+\contentsline {section}{\numberline {2.30}Dust Model}{347}{section.2.30}
+\contentsline {section}{\numberline {2.31}Carbon Isotopes}{349}{section.2.31}
+\contentsline {subsection}{\numberline {2.31.1}General Form for Calculating $^{\text {13}}$C and $^{\text {14}}$C Flux}{349}{subsection.2.31.1}
+\contentsline {subsection}{\numberline {2.31.2}Isotope Symbols, Units, and Reference Standards}{349}{subsection.2.31.2}
+\contentsline {subsection}{\numberline {2.31.3}Carbon Isotope Discrimination During Photosynthesis}{350}{subsection.2.31.3}
+\contentsline {subsection}{\numberline {2.31.4}$^{\text {14}}$C radioactive decay and historical atmospheric $^{\text {14}}$C and $^{\text {13}}$C concentrations}{351}{subsection.2.31.4}
+\contentsline {section}{\numberline {2.32}Land-Only Mode}{351}{section.2.32}
+\contentsline {subsection}{\numberline {2.32.1}Anomaly Forcing}{353}{subsection.2.32.1}
+\contentsline {section}{\numberline {2.33}References}{354}{section.2.33}
+\contentsline {chapter}{\numberline {3}Indices and tables}{383}{chapter.3}

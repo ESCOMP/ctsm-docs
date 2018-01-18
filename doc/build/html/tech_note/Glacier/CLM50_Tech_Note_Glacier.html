@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>13. Glaciers &#8212; clmdoc  documentation</title>
+    <title>2.13. Glaciers &#8212; clmdoc  documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="14. Model for Scale Adaptive River Transport (MOSART)" href="../MOSART/CLM50_Tech_Note_MOSART.html" />
-    <link rel="prev" title="12. Lake Model" href="../Lake/CLM50_Tech_Note_Lake.html" />
+    <link rel="next" title="2.14. Model for Scale Adaptive River Transport (MOSART)" href="../MOSART/CLM50_Tech_Note_MOSART.html" />
+    <link rel="prev" title="2.12. Lake Model" href="../Lake/CLM50_Tech_Note_Lake.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
@@ -39,33 +39,33 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../MOSART/CLM50_Tech_Note_MOSART.html" title="14. Model for Scale Adaptive River Transport (MOSART)"
+          <a href="../MOSART/CLM50_Tech_Note_MOSART.html" title="2.14. Model for Scale Adaptive River Transport (MOSART)"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../Lake/CLM50_Tech_Note_Lake.html" title="12. Lake Model"
+          <a href="../Lake/CLM50_Tech_Note_Lake.html" title="2.12. Lake Model"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">CLM Technical Note</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">2. CLM Technical Note</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">13. Glaciers</a><ul>
-<li><a class="reference internal" href="#overview">13.1. Overview</a></li>
-<li><a class="reference internal" href="#multiple-elevation-class-scheme">13.2. Multiple elevation class scheme</a></li>
-<li><a class="reference internal" href="#computation-of-the-surface-mass-balance">13.3. Computation of the surface mass balance</a></li>
+<li><a class="reference internal" href="#">2.13. Glaciers</a><ul>
+<li><a class="reference internal" href="#overview">2.13.1. Overview</a></li>
+<li><a class="reference internal" href="#multiple-elevation-class-scheme">2.13.2. Multiple elevation class scheme</a></li>
+<li><a class="reference internal" href="#computation-of-the-surface-mass-balance">2.13.3. Computation of the surface mass balance</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="../Lake/CLM50_Tech_Note_Lake.html"
-                        title="previous chapter">12. Lake Model</a></p>
+                        title="previous chapter">2.12. Lake Model</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../MOSART/CLM50_Tech_Note_MOSART.html"
-                        title="next chapter">14. Model for Scale Adaptive River Transport (MOSART)</a></p>
+                        title="next chapter">2.14. Model for Scale Adaptive River Transport (MOSART)</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -92,21 +92,21 @@
           <div class="body" role="main">
             
   <div class="section" id="glaciers">
-<span id="rst-glaciers"></span><h1>13. Glaciers<a class="headerlink" href="#glaciers" title="Permalink to this headline">¶</a></h1>
+<span id="rst-glaciers"></span><h1>2.13. Glaciers<a class="headerlink" href="#glaciers" title="Permalink to this headline">¶</a></h1>
 <p>This chapter describes features of CLM that are specific to coupling to
 an ice sheet model (in the CESM context, this is the Glimmer-CISM model;
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lipscombsacks2012"><span class="std std-ref">Lipscomb and Sacks (2012)</span></a> provide documentation
 and user’s guide for Glimmer-CISM). General information about glacier
 land units can be found elsewhere in this document (see Chapter
-<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#rst-surface-characterization-vertical-discretization-and-model-input-requirements"><span class="std std-numref">2</span></a> for an overview).</p>
+<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#rst-surface-characterization-vertical-discretization-and-model-input-requirements"><span class="std std-numref">2.2</span></a> for an overview).</p>
 <div class="section" id="overview">
-<span id="overview-glaciers"></span><h2>13.1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<span id="overview-glaciers"></span><h2>2.13.1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>CLM is responsible for computing three quantities that are passed to the
 ice sheet model:</p>
 <ol class="arabic simple">
 <li>Surface mass balance (SMB) –&nbsp;the net annual accumulation/ablation of
 mass at the upper surface (section
-<a class="reference internal" href="#computation-of-the-surface-mass-balance"><span class="std std-numref">13.3</span></a>)</li>
+<a class="reference internal" href="#computation-of-the-surface-mass-balance"><span class="std std-numref">2.13.3</span></a>)</li>
 <li>Ground surface temperature, which serves as an upper boundary
 condition for Glimmer-CISM’s temperature calculation</li>
 <li>Surface topography, which currently is fixed in time, and is provided
@@ -156,9 +156,9 @@ larger elevation changes, two-way coupling is highly desirable. A
 two-way coupling scheme is under development.</p>
 </div>
 <div class="section" id="multiple-elevation-class-scheme">
-<span id="id1"></span><h2>13.2. Multiple elevation class scheme<a class="headerlink" href="#multiple-elevation-class-scheme" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>2.13.2. Multiple elevation class scheme<a class="headerlink" href="#multiple-elevation-class-scheme" title="Permalink to this headline">¶</a></h2>
 <p>In the typical operation of CLM, the glacier land unit contains a single
-column (section <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#surface-heterogeneity-and-data-structure"><span class="std std-numref">2.1.1</span></a>).
+column (section <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#surface-heterogeneity-and-data-structure"><span class="std std-numref">2.2.1.1</span></a>).
 However, when running CESM with an active ice
 sheet model, the glacier land unit is replaced by a glacier_mec land
 unit, where “mec” denotes “multiple elevation classes”. In most ways,
@@ -201,7 +201,7 @@ the land and the atmosphere, but are included for potential forcing of
 Glimmer-CISM.</p>
 </div>
 <div class="section" id="computation-of-the-surface-mass-balance">
-<span id="id2"></span><h2>13.3. Computation of the surface mass balance<a class="headerlink" href="#computation-of-the-surface-mass-balance" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>2.13.3. Computation of the surface mass balance<a class="headerlink" href="#computation-of-the-surface-mass-balance" title="Permalink to this headline">¶</a></h2>
 <p>The SMB of a glacier or ice sheet is the net annual
 accumulation/ablation of mass at the upper surface. Ablation is defined
 as the mass of water that runs off to the ocean. Not all the surface
@@ -262,13 +262,13 @@ the SMB passed to Glimmer-CISM.</p>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../MOSART/CLM50_Tech_Note_MOSART.html" title="14. Model for Scale Adaptive River Transport (MOSART)"
+          <a href="../MOSART/CLM50_Tech_Note_MOSART.html" title="2.14. Model for Scale Adaptive River Transport (MOSART)"
              >next</a> |</li>
         <li class="right" >
-          <a href="../Lake/CLM50_Tech_Note_Lake.html" title="12. Lake Model"
+          <a href="../Lake/CLM50_Tech_Note_Lake.html" title="2.12. Lake Model"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >CLM Technical Note</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="../index.html" >2. CLM Technical Note</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
