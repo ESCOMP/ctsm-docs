@@ -130,22 +130,25 @@ medium density urban areas.</p>
 variability in the soil and snow state variables within a single land
 unit. For example, the vegetated land unit could contain several columns
 with independently evolving vertical profiles of soil water and
-temperature. Similarly, the managed vegetation land unit can be
-divided into two columns, irrigated and non-irrigated. The default snow/soil
-column is represented by 25 layers for ground (with up to 20 of these layers classified as soil layers and the remaining layers classified as bedrock layers)  and up to 10 layers
-for snow, depending on snow depth. The central characteristic of the
-column subgrid level is that this is where the state variables for water
-and energy in the soil and snow are defined, as well as the fluxes of
-these components within the soil and snow. Regardless of the number and
-type of PFTs occupying space on the column, the column physics operates
-with a single set of upper boundary fluxes, as well as a single set of
-transpiration fluxes from multiple soil levels. These boundary fluxes
-are weighted averages over all PFTs. Currently, for glacier, lake, and
-vegetated land units, a single column is assigned to each land unit. The
-crop land unit is split into irrigated and unirrigated columns with a
-single crop occupying each column. The urban land units have five
-columns (roof, sunlit walls and shaded walls, and pervious and
-impervious canyon floor) (Oleson et al. 2010b).</p>
+temperature. Similarly, the managed vegetation land unit can be divided
+into two columns, irrigated and non-irrigated. The default snow/soil
+column is represented by 25 layers for ground (with up to 20 of these
+layers classified as soil layers and the remaining layers classified as
+bedrock layers) and up to 10 layers for snow, depending on snow
+depth. The central characteristic of the column subgrid level is that
+this is where the state variables for water and energy in the soil and
+snow are defined, as well as the fluxes of these components within the
+soil and snow. Regardless of the number and type of PFTs occupying space
+on the column, the column physics operates with a single set of upper
+boundary fluxes, as well as a single set of transpiration fluxes from
+multiple soil levels. These boundary fluxes are weighted averages over
+all PFTs. Currently, for lake and vegetated land units, a single column
+is assigned to each land unit. The crop land unit is split into
+irrigated and unirrigated columns with a single crop occupying each
+column. The urban land units have five columns (roof, sunlit walls and
+shaded walls, and pervious and impervious canyon floor) (Oleson et
+al. 2010b). The glacier land unit is separated into up to 10 elevation
+classes.</p>
 <div class="figure" id="id14">
 <span id="figure-clm-subgrid-hierarchy"></span><img alt="../../_images/image1.png" src="../../_images/image1.png" />
 <p class="caption"><span class="caption-number">Figure 2.2 </span><span class="caption-text">Configuration of the CLM subgrid hierarchy.  Box in upper right shows hypothetical subgrid distribution for a single grid cell.  Note that the Crop land unit is only used when the model is run with the crop model active. Abbreviations: TBD – Tall Building District; HD – High Density; MD – Medium Density, G – Glacier, L – Lake, U – Urban, C – Crop, V – Vegetated, PFT – Plant Functional Type, Irr – Irrigated, UIrr – Unirrigated.  Red arrows indicate allowed land unit transitions.  Purple arrows indicate allowed patch-level transitions.</span></p>
@@ -672,7 +675,16 @@ to<img class="math" src="../../_images/math/2a246e5313725bee0aa4297740e58959a417
 <p><sup>2</sup>CAM provides convective and large-scale liquid
 and solid precipitation, which are added to yield total liquid
 precipitation <img class="math" src="../../_images/math/43e9a978c2c013603f21a25558bdd04a2da09abb.svg" alt="q_{rain}"/>  and solid precipitation
-<img class="math" src="../../_images/math/9e3a93d40819f3cda6b4d99a456ba6a669ddf573.svg" alt="q_{sno}"/> .</p>
+<img class="math" src="../../_images/math/9e3a93d40819f3cda6b4d99a456ba6a669ddf573.svg" alt="q_{sno}"/> .
+However, in CLM5, the atmosphere’s partitioning into liquid and solid
+precipitation is ignored. Instead, CLM repartitions total precipitation
+using a linear ramp. For most landunits, this ramp generates all snow
+below <img class="math" src="../../_images/math/1d52d58f8146833e4ddda38f2e609cdaad5c406c.svg" alt="0 \textdegree C"/>, all rain above <img class="math" src="../../_images/math/0cfd7e4b783e9fcfa578c3a3cf6c44eb647db84e.svg" alt="2 \textdegree C"/>,
+and a mix of rain and snow for intermediate temperatures. For glaciers,
+the end points of the ramp are <img class="math" src="../../_images/math/60f21ec5775d3ebd061c9a60a9924146c9b5ac9b.svg" alt="-2 \textdegree C"/> and <img class="math" src="../../_images/math/b20ab1a24de243eb7dcf1e726b50264ca9e71407.svg" alt="0
+\textdegree C"/>, respectively. Changes to the phase of precipitation are
+accompanied by a sensible heat flux (positive or negative) to conserve
+energy.</p>
 <p><sup>3</sup>There are 14 aerosol deposition rates required depending
 on species and affinity for bonding with water; 8 of these are dust
 deposition rates (dry and wet rates for 4 dust size bins,
@@ -992,12 +1004,11 @@ caps, icefields and mountain glaciers) were taken from the first
 globally complete glacier inventory, the Randolph Glacier Inventory
 version 1.0 (RGIv1.0: <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#arendtetal2012"><span class="std std-ref">Arendt et al. 2012</span></a>).
 Vector data for the Greenland Ice Sheet were provided by Frank Paul and
-Tobias Bolch (University of Zurich: <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#rastneretal2012"><span class="std std-ref">Rastner et al. 2012</span></a>).
-Antarctic Ice Sheet data were provided by
-Andrew Bliss (University of Alaska) and were extracted from the
-Scientific Committee on Antarctic Research (SCAR) Antarctic Digital
-Database version 5.0. Floating ice is only provided for the Antarctic
-and does not include the small area of Arctic ice shelves. High spatial
+Tobias Bolch (University of Zurich: <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#rastneretal2012"><span class="std std-ref">Rastner et al. 2012</span></a>).  Antarctic Ice Sheet data were provided by Andrew
+Bliss (University of Alaska) and were extracted from the Scientific
+Committee on Antarctic Research (SCAR) Antarctic Digital Database
+version 5.0. Floating ice is only provided for the Antarctic and does
+not include the small area of Arctic ice shelves. High spatial
 resolution vector data were then processed to determine the area of
 glacier, ice sheet and floating ice within 30-second grid cells
 globally. The 30-second glacier, ice sheet and Antarctic ice shelf masks
@@ -1014,8 +1025,12 @@ by elevation and areal ice sheet fractional coverage by elevation. Ice
 fractions were binned at 100 meter intervals, with bin edges defined
 from 0 to 6000 meters (plus one top bin encompassing all remaining
 high-elevation ice, primarily in the Himalaya). These distributions by
-elevation are needed when running CLM4 with multiple glacier elevation
-classes.</p>
+elevation are used to divide each glacier land unit into columns based
+on elevation class.</p>
+<p>When running with the CISM ice sheet model, CISM dictates glacier areas
+and elevations in its domain, overriding the values specified by CLM’s
+datasets. In typical CLM5 configurations, this means that CISM dictates
+glacier areas and elevations over Greenland.</p>
 <p>Percent lake and lake depth are area-averaged from the 90-second
 resolution data of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#kourzeneva2009"><span class="std std-ref">Kourzeneva (2009, 2010)</span></a> to the 0.05<sup>o</sup>
 resolution using the MODIS land-mask. Percent urban is derived from
