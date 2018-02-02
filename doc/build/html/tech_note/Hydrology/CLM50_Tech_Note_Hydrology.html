@@ -131,7 +131,7 @@ ET from vegetation (Chapter <a class="reference internal" href="../Fluxes/CLM50_
 <img class="math" src="../../_images/math/c86d9001609fddf539c70885af9a292cf766aae1.svg" alt="q_{h2osfc}"/>  is runoff from surface water storage (section <a class="reference internal" href="#surface-runoff"><span class="std std-numref">2.7.2.1</span></a>),
 <img class="math" src="../../_images/math/47eae552082d6b70fde3b9926d4770952f63362c.svg" alt="q_{drai}"/>  is sub-surface drainage (section <a class="reference internal" href="#lateral-sub-surface-runoff"><span class="std std-numref">2.7.5</span></a>),
 <img class="math" src="../../_images/math/e667285d49e1651ab47c8d1cf5a3f359680f724c.svg" alt="q_{rgwl}"/>  and <img class="math" src="../../_images/math/ba7afa35bedd43cbbf2b9e1dfb3a5a59f5db67bb.svg" alt="q_{snwcp,ice}"/>  are liquid and solid runoff
-from glaciers, wetlands, and lakes, and runoff from other surface types
+from glaciers and lakes, and runoff from other surface types
 due to snow capping (section <a class="reference internal" href="#runoff-from-glaciers-and-snow-capped-surfaces"><span class="std std-numref">2.7.6</span></a>) (all in kg m<sup>-2</sup>
 s<sup>-1</sup>), <img class="math" src="../../_images/math/b4b7bdc2ad44350d666a3e6babf24940dbaabb4a.svg" alt="N_{levsoi}"/>  is the number of soil layers
 (note that hydrology calculations are only done over soil layers 1 to
@@ -192,7 +192,7 @@ They are defined by</p>
 <div class="math" id="equation-7.10">
 <p><span class="eqno">(12)<a class="headerlink" href="#equation-7.10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/36799d0e1868bb45f214280b6e277228f83f59c2.svg" alt="W_{can,\,liq}^{max } =p_{liq}\left(L+S\right)"/></p>
 </div><div class="math" id="equation-7.11">
-<p><span class="eqno">(13)<a class="headerlink" href="#equation-7.11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/76f7cbec3706097bc582d0b3b8f058a100032863.svg" alt="W_{can,\,sno}^{max } =p_{ice}\left(L+S\right)."/></p>
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-7.11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/10ace97d1f460874b7dedbf8e77f4fed5595fbbb.svg" alt="W_{can,\,sno}^{max } =p_{sno}\left(L+S\right)."/></p>
 </div><p>The maximum storage of liquid water is <img class="math" src="../../_images/math/eadd954d4e21e30b8c9215451a93ef7bdd1e7848.svg" alt="p_{liq}=0.1"/> kg m<sup>-2</sup>
 (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#dickinsonetal1993"><span class="std std-ref">Dickinson et al. 1993</span></a>), and that of snow
 is <img class="math" src="../../_images/math/7e251c1c51183f414620d4bde29967d3b066b661.svg" alt="p_{sno}=6"/> kg m<sup>-2</sup>, consistent with reported
@@ -315,7 +315,7 @@ m<sup>-1</sup>.</p>
 <span id="id4"></span><h3>2.7.2.2. Surface Water Storage<a class="headerlink" href="#surface-water-storage" title="Permalink to this headline">¶</a></h3>
 <p>A surface water store has been added to the model to represent wetlands
 and small, sub-grid scale water bodies. As a result, the wetland land
-unit has been removed. The state variables for surface water are the
+unit has been removed as of CLM4.5. The state variables for surface water are the
 mass of water <img class="math" src="../../_images/math/5bca08250617fb048417e5caa4f3c05d5697fd37.svg" alt="W_{sfc}"/>  (kg m<sup>-2</sup>) and temperature
 <img class="math" src="../../_images/math/9b9e52ad5d51efa1748c0e5c3fd28a492ef33273.svg" alt="T_{h2osfc}"/>  (Chapter <a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#rst-soil-and-snow-temperatures"><span class="std std-numref">2.6</span></a>).
 Surface water storage and outflow are
@@ -875,15 +875,14 @@ for dew <img class="math" src="../../_images/math/60e6994744ea27c1b8ed0128fddefe
 <div class="section" id="runoff-from-glaciers-and-snow-capped-surfaces">
 <span id="id11"></span><h2>2.7.6. Runoff from glaciers and snow-capped surfaces<a class="headerlink" href="#runoff-from-glaciers-and-snow-capped-surfaces" title="Permalink to this headline">¶</a></h2>
 <p>All surfaces are constrained to have a snow water equivalent
-<img class="math" src="../../_images/math/cc92dc8b69102c9993fcddeb3af580e39749fed1.svg" alt="W_{sno} \le 1000"/> kg m<sup>-2</sup>. For snow-capped
-surfaces, the solid and liquid precipitation reaching the snow surface
-and dew in solid or liquid form, is separated into solid
-<img class="math" src="../../_images/math/ba7afa35bedd43cbbf2b9e1dfb3a5a59f5db67bb.svg" alt="q_{snwcp,ice}"/> and liquid <img class="math" src="../../_images/math/9677e22d4c8a1b8db6549c7fd9db55e12f51ad77.svg" alt="q_{snwcp,liq}"/>  runoff terms</p>
-<div class="math" id="equation-7.178">
-<p><span class="eqno">(110)<a class="headerlink" href="#equation-7.178" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8e4d0e1845690c925c1acef53ee50b4e65e8bb96.svg" alt="q_{snwcp,ice} =q_{grnd,ice} +q_{frost}"/></p>
-</div><div class="math" id="equation-7.179">
-<p><span class="eqno">(111)<a class="headerlink" href="#equation-7.179" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c59ee2adf60d54013dd687f3e29d2ddae3851ca1.svg" alt="q_{snwcp,liq} =q_{grnd,liq} +q_{dew}"/></p>
-</div><p>and snow pack properties are unchanged. The <img class="math" src="../../_images/math/ba7afa35bedd43cbbf2b9e1dfb3a5a59f5db67bb.svg" alt="q_{snwcp,ice}"/>
+<img class="math" src="../../_images/math/5788e7b76a45e431e502dffa84087018369cc4a1.svg" alt="W_{sno} \le W_{cap} = 10,000"/> kg m<sup>-2</sup>. For snow-capped
+columns, any addition of mass at the top (precipitation, dew/riping) is
+balanced by an equally large mass flux at the bottom of the snow column.
+This so-called capping flux is separated into solid
+<img class="math" src="../../_images/math/ba7afa35bedd43cbbf2b9e1dfb3a5a59f5db67bb.svg" alt="q_{snwcp,ice}"/> and liquid <img class="math" src="../../_images/math/9677e22d4c8a1b8db6549c7fd9db55e12f51ad77.svg" alt="q_{snwcp,liq}"/>  runoff terms.
+The partitioning of these phases is based on the phase ratio in the bottom snow
+layer at the time of the capping, such that phase ratio in this layer is unaltered.</p>
+<p>The <img class="math" src="../../_images/math/ba7afa35bedd43cbbf2b9e1dfb3a5a59f5db67bb.svg" alt="q_{snwcp,ice}"/>
 runoff is sent to the River Transport Model (RTM) (Chapter 11) where it
 is routed to the ocean as an ice stream and, if applicable, the ice is
 melted there.</p>
@@ -893,17 +892,16 @@ runoff term <img class="math" src="../../_images/math/e667285d49e1651ab47c8d1cf5
 For glacier surfaces the runoff term <img class="math" src="../../_images/math/e667285d49e1651ab47c8d1cf5a3f359680f724c.svg" alt="q_{rgwl}"/>  is calculated
 from the residual of the water balance</p>
 <div class="math" id="equation-7.180">
-<p><span class="eqno">(112)<a class="headerlink" href="#equation-7.180" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b9f38ab7cc6e613aa9dc2a29e27429656bdac9aa.svg" alt="q_{rgwl} =q_{grnd,ice} +q_{grnd,liq} -E_{g} -E_{v} -\frac{\left(W_{b}^{n+1} -W_{b}^{n} \right)}{\Delta t} -q_{snwcp,ice}"/></p>
+<p><span class="eqno">(110)<a class="headerlink" href="#equation-7.180" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b9f38ab7cc6e613aa9dc2a29e27429656bdac9aa.svg" alt="q_{rgwl} =q_{grnd,ice} +q_{grnd,liq} -E_{g} -E_{v} -\frac{\left(W_{b}^{n+1} -W_{b}^{n} \right)}{\Delta t} -q_{snwcp,ice}"/></p>
 </div><p>where <img class="math" src="../../_images/math/e5490f8affcb364a3ee2de69fe67cfe7f1c21e71.svg" alt="W_{b}^{n}"/>  and <img class="math" src="../../_images/math/556548e86be18c5a6efb0c6ed06abaeed9720822.svg" alt="W_{b}^{n+1}"/>  are the water balances
 at the beginning and ending of the time step defined as</p>
 <div class="math" id="equation-7.181">
-<p><span class="eqno">(113)<a class="headerlink" href="#equation-7.181" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fd7ec628e7c37b93c117841a681acde796bebdf9.svg" alt="W_{b} =W_{can} +W_{sno} +\sum _{i=1}^{N}\left(w_{ice,i} +w_{liq,i} \right) ."/></p>
+<p><span class="eqno">(111)<a class="headerlink" href="#equation-7.181" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fd7ec628e7c37b93c117841a681acde796bebdf9.svg" alt="W_{b} =W_{can} +W_{sno} +\sum _{i=1}^{N}\left(w_{ice,i} +w_{liq,i} \right) ."/></p>
 </div><p>Currently, glaciers are non-vegetated and <img class="math" src="../../_images/math/83f4a37820159c1a8c8deceb7f0f44cfd076c088.svg" alt="E_{v} =W_{can} =0"/>.
 The contribution of lake runoff to <img class="math" src="../../_images/math/e667285d49e1651ab47c8d1cf5a3f359680f724c.svg" alt="q_{rgwl}"/>  is described in
 section <a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html#precipitation-evaporation-and-runoff-lake"><span class="std std-numref">2.12.6.3</span></a>. The runoff
 term <img class="math" src="../../_images/math/e667285d49e1651ab47c8d1cf5a3f359680f724c.svg" alt="q_{rgwl}"/>  may be negative for glaciers and lakes, which reduces
 the total amount of runoff available to the river routing model (Chapter <a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html#rst-river-transport-model-rtm"><span class="std std-numref">2.14</span></a>).</p>
-<p>&gt;</p>
 </div>
 </div>
 

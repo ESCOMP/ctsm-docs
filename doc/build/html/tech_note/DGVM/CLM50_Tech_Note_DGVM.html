@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>2.27. Dynamic Global Vegetation &#8212; clmdoc  documentation</title>
+    <title>2.28. Dynamic Global Vegetation &#8212; clmdoc  documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="2.29. Biogenic Volatile Organic Compounds (BVOCs)" href="../BVOCs/CLM50_Tech_Note_BVOCs.html" />
-    <link rel="prev" title="2.26. Transient Land Use and Land Cover Change" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html" />
+    <link rel="next" title="2.30. Biogenic Volatile Organic Compounds (BVOCs)" href="../BVOCs/CLM50_Tech_Note_BVOCs.html" />
+    <link rel="prev" title="2.27. Transient Land Use and Land Cover Change" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
@@ -39,10 +39,10 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../BVOCs/CLM50_Tech_Note_BVOCs.html" title="2.29. Biogenic Volatile Organic Compounds (BVOCs)"
+          <a href="../BVOCs/CLM50_Tech_Note_BVOCs.html" title="2.30. Biogenic Volatile Organic Compounds (BVOCs)"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html" title="2.26. Transient Land Use and Land Cover Change"
+          <a href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html" title="2.27. Transient Land Use and Land Cover Change"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">2. CLM Technical Note</a> &#187;</li> 
@@ -52,101 +52,101 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">2.27. Dynamic Global Vegetation</a><ul>
-<li><a class="reference internal" href="#what-has-changed">2.27.1. What has changed</a></li>
+<li><a class="reference internal" href="#">2.28. Dynamic Global Vegetation</a><ul>
+<li><a class="reference internal" href="#what-has-changed">2.28.1. What has changed</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#technical-documentation-for-fates">2.28. Technical Documentation for FATES</a><ul>
-<li><a class="reference internal" href="#introduction">2.28.1. Introduction</a></li>
-<li><a class="reference internal" href="#the-representation-of-ecosystem-heterogeneity-in-fates">2.28.2. The representation of ecosystem heterogeneity in FATES</a><ul>
-<li><a class="reference internal" href="#cohortized-representation-of-tree-populations">2.28.2.1. Cohortized representation of tree populations</a></li>
-<li><a class="reference internal" href="#discretization-of-cohorts-and-patches">2.28.2.2. Discretization of cohorts and patches</a></li>
-<li><a class="reference internal" href="#linked-lists-the-general-code-structure-of-fates">2.28.2.3. Linked Lists: the general code structure of FATES</a></li>
-<li><a class="reference internal" href="#indices-used-in-fates">2.28.2.4. Indices used in FATES</a></li>
-<li><a class="reference internal" href="#cohort-state-variables">2.28.2.5. Cohort State Variables</a></li>
-<li><a class="reference internal" href="#patch-state-variables">2.28.2.6. Patch State Variables</a></li>
-<li><a class="reference internal" href="#model-structure">2.28.2.7. Model Structure</a></li>
+<li><a class="reference internal" href="#technical-documentation-for-fates">2.29. Technical Documentation for FATES</a><ul>
+<li><a class="reference internal" href="#introduction">2.29.1. Introduction</a></li>
+<li><a class="reference internal" href="#the-representation-of-ecosystem-heterogeneity-in-fates">2.29.2. The representation of ecosystem heterogeneity in FATES</a><ul>
+<li><a class="reference internal" href="#cohortized-representation-of-tree-populations">2.29.2.1. Cohortized representation of tree populations</a></li>
+<li><a class="reference internal" href="#discretization-of-cohorts-and-patches">2.29.2.2. Discretization of cohorts and patches</a></li>
+<li><a class="reference internal" href="#linked-lists-the-general-code-structure-of-fates">2.29.2.3. Linked Lists: the general code structure of FATES</a></li>
+<li><a class="reference internal" href="#indices-used-in-fates">2.29.2.4. Indices used in FATES</a></li>
+<li><a class="reference internal" href="#cohort-state-variables">2.29.2.5. Cohort State Variables</a></li>
+<li><a class="reference internal" href="#patch-state-variables">2.29.2.6. Patch State Variables</a></li>
+<li><a class="reference internal" href="#model-structure">2.29.2.7. Model Structure</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#initialization-of-vegetation-from-bare-ground">2.28.3. Initialization of vegetation from bare ground</a></li>
-<li><a class="reference internal" href="#allocation-of-biomass">2.28.4. Allocation of biomass</a></li>
-<li><a class="reference internal" href="#canopy-structure-and-the-perfect-plasticity-approximation">2.28.5. Canopy Structure and the Perfect Plasticity Approximation</a><ul>
-<li><a class="reference internal" href="#horizontal-canopy-spread">2.28.5.1. Horizontal Canopy Spread</a></li>
-<li><a class="reference internal" href="#definition-of-leaf-and-stem-area-profile">2.28.5.2. Definition of Leaf and Stem Area Profile</a></li>
-<li><a class="reference internal" href="#burial-of-leaf-area-by-snow">2.28.5.3. Burial of leaf area by snow</a></li>
+<li><a class="reference internal" href="#initialization-of-vegetation-from-bare-ground">2.29.3. Initialization of vegetation from bare ground</a></li>
+<li><a class="reference internal" href="#allocation-of-biomass">2.29.4. Allocation of biomass</a></li>
+<li><a class="reference internal" href="#canopy-structure-and-the-perfect-plasticity-approximation">2.29.5. Canopy Structure and the Perfect Plasticity Approximation</a><ul>
+<li><a class="reference internal" href="#horizontal-canopy-spread">2.29.5.1. Horizontal Canopy Spread</a></li>
+<li><a class="reference internal" href="#definition-of-leaf-and-stem-area-profile">2.29.5.2. Definition of Leaf and Stem Area Profile</a></li>
+<li><a class="reference internal" href="#burial-of-leaf-area-by-snow">2.29.5.3. Burial of leaf area by snow</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#radiation-transfer">2.28.6. Radiation Transfer</a><ul>
-<li><a class="reference internal" href="#fundamental-radiation-transfer-theory">2.28.6.1. Fundamental Radiation Transfer Theory</a></li>
-<li><a class="reference internal" href="#resolution-of-radiation-transfer-theory-within-the-fates-canopy-structure">2.28.6.2. Resolution of radiation transfer theory within the FATES canopy structure</a></li>
+<li><a class="reference internal" href="#radiation-transfer">2.29.6. Radiation Transfer</a><ul>
+<li><a class="reference internal" href="#fundamental-radiation-transfer-theory">2.29.6.1. Fundamental Radiation Transfer Theory</a></li>
+<li><a class="reference internal" href="#resolution-of-radiation-transfer-theory-within-the-fates-canopy-structure">2.29.6.2. Resolution of radiation transfer theory within the FATES canopy structure</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#photosynthesis">2.28.7. Photosynthesis</a><ul>
-<li><a class="reference internal" href="#fundamental-photosynthetic-physiology-theory">2.28.7.1. Fundamental photosynthetic physiology theory</a></li>
-<li><a class="reference internal" href="#resolution-of-the-photosynthesis-theory-within-the-fates-canopy-structure">2.28.7.2. Resolution of the photosynthesis theory within the FATES canopy structure.</a></li>
-<li><a class="reference internal" href="#variation-in-plant-physiology-with-canopy-depth">2.28.7.3. Variation in plant physiology with canopy depth</a></li>
-<li><a class="reference internal" href="#water-stress-on-gas-exchange">2.28.7.4. Water Stress on gas exchange</a><ul>
-<li><a class="reference internal" href="#variation-of-water-stress-and-water-uptake-within-tiles">2.28.7.4.1. Variation of water stress and water uptake within tiles</a></li>
+<li><a class="reference internal" href="#photosynthesis">2.29.7. Photosynthesis</a><ul>
+<li><a class="reference internal" href="#fundamental-photosynthetic-physiology-theory">2.29.7.1. Fundamental photosynthetic physiology theory</a></li>
+<li><a class="reference internal" href="#resolution-of-the-photosynthesis-theory-within-the-fates-canopy-structure">2.29.7.2. Resolution of the photosynthesis theory within the FATES canopy structure.</a></li>
+<li><a class="reference internal" href="#variation-in-plant-physiology-with-canopy-depth">2.29.7.3. Variation in plant physiology with canopy depth</a></li>
+<li><a class="reference internal" href="#water-stress-on-gas-exchange">2.29.7.4. Water Stress on gas exchange</a><ul>
+<li><a class="reference internal" href="#variation-of-water-stress-and-water-uptake-within-tiles">2.29.7.4.1. Variation of water stress and water uptake within tiles</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#aggregation-of-assimilated-carbon-into-cohorts">2.28.7.5. Aggregation of assimilated carbon into cohorts</a></li>
+<li><a class="reference internal" href="#aggregation-of-assimilated-carbon-into-cohorts">2.29.7.5. Aggregation of assimilated carbon into cohorts</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#plant-respiration">2.28.8. Plant respiration</a></li>
-<li><a class="reference internal" href="#stomatal-conductance">2.28.9. Stomatal Conductance</a><ul>
-<li><a class="reference internal" href="#fundamental-stomatal-conductance-theory">2.28.9.1. Fundamental stomatal conductance theory</a></li>
-<li><a class="reference internal" href="#resolution-of-stomatal-conductance-theory-in-the-fates-canopy-structure">2.28.9.2. Resolution of stomatal conductance theory in the FATES canopy structure</a></li>
+<li><a class="reference internal" href="#plant-respiration">2.29.8. Plant respiration</a></li>
+<li><a class="reference internal" href="#stomatal-conductance">2.29.9. Stomatal Conductance</a><ul>
+<li><a class="reference internal" href="#fundamental-stomatal-conductance-theory">2.29.9.1. Fundamental stomatal conductance theory</a></li>
+<li><a class="reference internal" href="#resolution-of-stomatal-conductance-theory-in-the-fates-canopy-structure">2.29.9.2. Resolution of stomatal conductance theory in the FATES canopy structure</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#allocation-and-growth">2.28.10. Allocation and Growth</a><ul>
-<li><a class="reference internal" href="#tissue-maintenance-demand">2.28.10.1. Tissue maintenance demand</a></li>
-<li><a class="reference internal" href="#allocation-to-storage-and-turnover">2.28.10.2. Allocation to storage and turnover</a></li>
-<li><a class="reference internal" href="#allocation-to-seeds">2.28.10.3. Allocation to Seeds</a></li>
-<li><a class="reference internal" href="#allocation-to-growing-pools">2.28.10.4. Allocation to growing pools</a></li>
-<li><a class="reference internal" href="#integration-of-allocated-fluxes">2.28.10.5. Integration of allocated fluxes</a></li>
+<li><a class="reference internal" href="#allocation-and-growth">2.29.10. Allocation and Growth</a><ul>
+<li><a class="reference internal" href="#tissue-maintenance-demand">2.29.10.1. Tissue maintenance demand</a></li>
+<li><a class="reference internal" href="#allocation-to-storage-and-turnover">2.29.10.2. Allocation to storage and turnover</a></li>
+<li><a class="reference internal" href="#allocation-to-seeds">2.29.10.3. Allocation to Seeds</a></li>
+<li><a class="reference internal" href="#allocation-to-growing-pools">2.29.10.4. Allocation to growing pools</a></li>
+<li><a class="reference internal" href="#integration-of-allocated-fluxes">2.29.10.5. Integration of allocated fluxes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#control-of-leaf-area-index">2.28.11. Control of Leaf Area Index</a></li>
-<li><a class="reference internal" href="#phenology">2.28.12. Phenology</a><ul>
-<li><a class="reference internal" href="#cold-deciduous-phenology">2.28.12.1. Cold Deciduous Phenology</a><ul>
-<li><a class="reference internal" href="#cold-leaf-out-timing">2.28.12.1.1. Cold Leaf-out timing</a></li>
-<li><a class="reference internal" href="#cold-leaf-off-timing">2.28.12.1.2. Cold Leaf-off timing</a></li>
-<li><a class="reference internal" href="#global-implementation-modifications">2.28.12.1.3. Global implementation modifications</a></li>
+<li><a class="reference internal" href="#control-of-leaf-area-index">2.29.11. Control of Leaf Area Index</a></li>
+<li><a class="reference internal" href="#phenology">2.29.12. Phenology</a><ul>
+<li><a class="reference internal" href="#cold-deciduous-phenology">2.29.12.1. Cold Deciduous Phenology</a><ul>
+<li><a class="reference internal" href="#cold-leaf-out-timing">2.29.12.1.1. Cold Leaf-out timing</a></li>
+<li><a class="reference internal" href="#cold-leaf-off-timing">2.29.12.1.2. Cold Leaf-off timing</a></li>
+<li><a class="reference internal" href="#global-implementation-modifications">2.29.12.1.3. Global implementation modifications</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#drought-deciduous-phenology-tbd">2.28.12.2. Drought-deciduous Phenology: TBD</a></li>
-<li><a class="reference internal" href="#carbon-dynamics-of-deciduous-plants">2.28.12.3. Carbon Dynamics of deciduous plants</a></li>
+<li><a class="reference internal" href="#drought-deciduous-phenology-tbd">2.29.12.2. Drought-deciduous Phenology: TBD</a></li>
+<li><a class="reference internal" href="#carbon-dynamics-of-deciduous-plants">2.29.12.3. Carbon Dynamics of deciduous plants</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#seed-dynamics-and-recruitment">2.28.13. Seed Dynamics and Recruitment</a></li>
-<li><a class="reference internal" href="#litter-production-and-fragmentation">2.28.14. Litter Production and Fragmentation</a><ul>
-<li><a class="reference internal" href="#litter-inputs">2.28.14.1. Litter Inputs</a></li>
-<li><a class="reference internal" href="#litter-outputs">2.28.14.2. Litter Outputs</a></li>
-<li><a class="reference internal" href="#flux-into-decompsition-cascade">2.28.14.3. Flux into decompsition cascade</a></li>
+<li><a class="reference internal" href="#seed-dynamics-and-recruitment">2.29.13. Seed Dynamics and Recruitment</a></li>
+<li><a class="reference internal" href="#litter-production-and-fragmentation">2.29.14. Litter Production and Fragmentation</a><ul>
+<li><a class="reference internal" href="#litter-inputs">2.29.14.1. Litter Inputs</a></li>
+<li><a class="reference internal" href="#litter-outputs">2.29.14.2. Litter Outputs</a></li>
+<li><a class="reference internal" href="#flux-into-decompsition-cascade">2.29.14.3. Flux into decompsition cascade</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#plant-mortality">2.28.15. Plant Mortality</a></li>
-<li><a class="reference internal" href="#fire-spitfire">2.28.16. Fire (SPITFIRE)</a><ul>
-<li><a class="reference internal" href="#properties-of-fuel-load">2.28.16.1. Properties of fuel load</a></li>
-<li><a class="reference internal" href="#nesterov-index">2.28.16.2. Nesterov Index</a></li>
-<li><a class="reference internal" href="#fuel-properties">2.28.16.3. Fuel properties</a><ul>
-<li><a class="reference internal" href="#dead-fuel-moisture-content">2.28.16.3.1. Dead Fuel Moisture Content</a></li>
-<li><a class="reference internal" href="#live-grass-moisture-content">2.28.16.3.2. Live grass moisture Content</a></li>
-<li><a class="reference internal" href="#patch-fuel-moisture">2.28.16.3.3. Patch Fuel Moisture</a></li>
-<li><a class="reference internal" href="#effective-fuel-moisture-content">2.28.16.3.4. Effective Fuel Moisture Content</a></li>
-<li><a class="reference internal" href="#patch-fuel-moisture-of-extinction">2.28.16.3.5. Patch Fuel Moisture of Extinction</a></li>
-<li><a class="reference internal" href="#patch-fuel-bulk-density">2.28.16.3.6. Patch Fuel Bulk Density</a></li>
-<li><a class="reference internal" href="#patch-fuel-surface-area-to-volume">2.28.16.3.7. Patch Fuel Surface Area to Volume</a></li>
+<li><a class="reference internal" href="#plant-mortality">2.29.15. Plant Mortality</a></li>
+<li><a class="reference internal" href="#fire-spitfire">2.29.16. Fire (SPITFIRE)</a><ul>
+<li><a class="reference internal" href="#properties-of-fuel-load">2.29.16.1. Properties of fuel load</a></li>
+<li><a class="reference internal" href="#nesterov-index">2.29.16.2. Nesterov Index</a></li>
+<li><a class="reference internal" href="#fuel-properties">2.29.16.3. Fuel properties</a><ul>
+<li><a class="reference internal" href="#dead-fuel-moisture-content">2.29.16.3.1. Dead Fuel Moisture Content</a></li>
+<li><a class="reference internal" href="#live-grass-moisture-content">2.29.16.3.2. Live grass moisture Content</a></li>
+<li><a class="reference internal" href="#patch-fuel-moisture">2.29.16.3.3. Patch Fuel Moisture</a></li>
+<li><a class="reference internal" href="#effective-fuel-moisture-content">2.29.16.3.4. Effective Fuel Moisture Content</a></li>
+<li><a class="reference internal" href="#patch-fuel-moisture-of-extinction">2.29.16.3.5. Patch Fuel Moisture of Extinction</a></li>
+<li><a class="reference internal" href="#patch-fuel-bulk-density">2.29.16.3.6. Patch Fuel Bulk Density</a></li>
+<li><a class="reference internal" href="#patch-fuel-surface-area-to-volume">2.29.16.3.7. Patch Fuel Surface Area to Volume</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#forward-rate-of-spread">2.28.16.4. Forward rate of spread</a></li>
-<li><a class="reference internal" href="#fuel-consumption">2.28.16.5. Fuel Consumption</a></li>
-<li><a class="reference internal" href="#fire-intensity">2.28.16.6. Fire Intensity</a></li>
-<li><a class="reference internal" href="#fire-duration">2.28.16.7. Fire Duration</a></li>
-<li><a class="reference internal" href="#fire-danger-index">2.28.16.8. Fire Danger Index</a></li>
-<li><a class="reference internal" href="#area-burned">2.28.16.9. Area Burned</a></li>
-<li><a class="reference internal" href="#crown-damage">2.28.16.10. Crown Damage</a></li>
-<li><a class="reference internal" href="#cambial-damage-and-kill">2.28.16.11. Cambial Damage and Kill</a></li>
+<li><a class="reference internal" href="#forward-rate-of-spread">2.29.16.4. Forward rate of spread</a></li>
+<li><a class="reference internal" href="#fuel-consumption">2.29.16.5. Fuel Consumption</a></li>
+<li><a class="reference internal" href="#fire-intensity">2.29.16.6. Fire Intensity</a></li>
+<li><a class="reference internal" href="#fire-duration">2.29.16.7. Fire Duration</a></li>
+<li><a class="reference internal" href="#fire-danger-index">2.29.16.8. Fire Danger Index</a></li>
+<li><a class="reference internal" href="#area-burned">2.29.16.9. Area Burned</a></li>
+<li><a class="reference internal" href="#crown-damage">2.29.16.10. Crown Damage</a></li>
+<li><a class="reference internal" href="#cambial-damage-and-kill">2.29.16.11. Cambial Damage and Kill</a></li>
 </ul>
 </li>
 </ul>
@@ -155,10 +155,10 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html"
-                        title="previous chapter">2.26. Transient Land Use and Land Cover Change</a></p>
+                        title="previous chapter">2.27. Transient Land Use and Land Cover Change</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../BVOCs/CLM50_Tech_Note_BVOCs.html"
-                        title="next chapter">2.29. Biogenic Volatile Organic Compounds (BVOCs)</a></p>
+                        title="next chapter">2.30. Biogenic Volatile Organic Compounds (BVOCs)</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -185,37 +185,31 @@
           <div class="body" role="main">
             
   <div class="section" id="dynamic-global-vegetation">
-<span id="rst-dynamic-global-vegetation-model"></span><h1>2.27. Dynamic Global Vegetation<a class="headerlink" href="#dynamic-global-vegetation" title="Permalink to this headline">¶</a></h1>
+<span id="rst-dynamic-global-vegetation-model"></span><h1>2.28. Dynamic Global Vegetation<a class="headerlink" href="#dynamic-global-vegetation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-has-changed">
-<h2>2.27.1. What has changed<a class="headerlink" href="#what-has-changed" title="Permalink to this headline">¶</a></h2>
+<h2>2.28.1. What has changed<a class="headerlink" href="#what-has-changed" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Deprecation of the dynamic global vegetation model (DGVM): The CLM5.0 model contains the legancy ‘CNDV’ code, which runs the CLM4(CN) model in combination with the LPJ-derived dynamics vegetation model introduced in CLM3. While this capacity has not technically been removed from the model, the DGVM has not been tested in the development of CLM5 and is no longer scientifically supported.</li>
-<li>Introduction of FATES: The Functionally Assembled Terrestrial Ecosystem Simulator (FATES) is the actively developed DGVM for the CLM5. See</li>
+<li>Deprecation of the dynamic global vegetation model (DGVM): The CLM5.0 model contains the legacy ‘CNDV’ code, which runs the CLM biogeochemistry model in combination with the LPJ-derived dynamics vegetation model introduced in CLM3. While this capacity has not technically been removed from the model, the DGVM has not been tested in the development of CLM5 and is no longer scientifically supported.</li>
+<li>Introduction of FATES: The Functionally Assembled Terrestrial Ecosystem Simulator (FATES) is the actively developed DGVM for the CLM5.</li>
 </ul>
 </div>
 </div>
 <div class="section" id="technical-documentation-for-fates">
-<span id="rst-fates"></span><h1>2.28. Technical Documentation for FATES<a class="headerlink" href="#technical-documentation-for-fates" title="Permalink to this headline">¶</a></h1>
+<span id="rst-fates"></span><h1>2.29. Technical Documentation for FATES<a class="headerlink" href="#technical-documentation-for-fates" title="Permalink to this headline">¶</a></h1>
 <p>FATES is the “Functionally Assembled Terrestrial Ecosystem Simulator”. It is an external module which can run within a given “Host Land Model” (HLM). Currently (November 2017) implementations are supported in both the Community Land Model(CLM) and in the land model of the E3SM Dept. of Energy Earth System Model.</p>
 <p>FATES was derived from the CLM Ecosystem Demography model (CLM(ED)), which was documented in:</p>
-<dl class="docutils">
-<dt>Fisher RA, Muszala S, Verteinstein M, Lawrence P, Xu C, McDowell NG,</dt>
-<dd>Knox RG, Koven C, Holm J, Rogers BM, Lawrence D. Taking off the
-training wheels: the properties of a dynamic vegetation model without
-climate envelopes. Geoscientific Model Development Discussions. 2015
-Apr 1;8(4).</dd>
-</dl>
+<p>Fisher, R. A., Muszala, S., Verteinstein, M., Lawrence, P., Xu, C., McDowell, N. G., Knox, R. G., Koven, C., Holm, J., Rogers, B. M., Spessa, A., Lawrence, D., and Bonan, G.: Taking off the training wheels: the properties of a dynamic vegetation model without climate envelopes, CLM4.5(ED), Geosci. Model Dev., 8, 3593-3619, <a class="reference external" href="https://doi.org/10.5194/gmd-8-3593-2015">https://doi.org/10.5194/gmd-8-3593-2015</a>, 2015.</p>
 <p>and this technical note was first published as an appendix to that paper.</p>
 <p><a class="reference external" href="https://pdfs.semanticscholar.org/396c/b9f172cb681421ed78325a2237bfb428eece.pdf">https://pdfs.semanticscholar.org/396c/b9f172cb681421ed78325a2237bfb428eece.pdf</a></p>
 <div class="section" id="introduction">
-<h2>2.28.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>The Ecosystem Demography (‘ED’), concept within FATES is derived from the work of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#mc-2001"><span class="std std-ref">Moorcroft et al. (2001)</span></a></p>
 <p>and is a cohort model of vegetation competition and co-existence, allowing a representation of the biosphere which accounts for the division of the land surface into successional stages, and for competition for light between height structured cohorts of representative trees of various plant functional types.</p>
 <p>The implementation of the Ecosystem Demography
 concept within FATES links the surface flux and canopy physiology concepts in the CLM/E3SM
 with numerous additional developments necessary to accommodate the new
 model also documented here. These include a version of the SPITFIRE
-(Spread and InTensity of Fire) model of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. (2010)</span></a>, and an adoption of the concept of
+(Spread and InTensity of Fire) model of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. (2010)</span></a>, and an adoption of the concept of
 <cite>Perfect Plasticity Approximation</cite> approach of
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#purves2008"><span class="std std-ref">Purves et al. 2008</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lichstein2011"><span class="std std-ref">Lichstein et al. 2011</span></a> and <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#weng2014"><span class="std std-ref">Weng et al. 2014</span></a>, in accounting
 for the spatial arrangement of crowns. Novel algorithms accounting for
@@ -226,12 +220,12 @@ radiation transfer, for drought-deciduous and cold-deciduous phenology,
 for carbon storage allocation, and for tree mortality under carbon
 stress, are also included and presented here.</p>
 <p>Numerous other implementations of the
-Ecosystem Demography concept exist (See Fisher et al. 2017 for a review of these) Therefore, to avoid confusion between the
+Ecosystem Demography concept exist (See <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisheretal2018"><span class="std std-ref">Fisher et al. (2018)</span></a> for a review of these) Therefore, to avoid confusion between the
 concept of ‘Ecosystem Demography’ and the implementation of this concept
-in different models, the CLM(ED) implementation described by Fisher et al. (2015) will hereafter be called ‘FATES’ (the Functionally Assembled Terrestrial Ecosystem Simulator).</p>
+in different models, the CLM(ED) implementation described by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisheretal2015"><span class="std std-ref">Fisher et al. (2015)</span></a> will hereafter be called ‘FATES’ (the Functionally Assembled Terrestrial Ecosystem Simulator).</p>
 </div>
 <div class="section" id="the-representation-of-ecosystem-heterogeneity-in-fates">
-<h2>2.28.2. The representation of ecosystem heterogeneity in FATES<a class="headerlink" href="#the-representation-of-ecosystem-heterogeneity-in-fates" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.2. The representation of ecosystem heterogeneity in FATES<a class="headerlink" href="#the-representation-of-ecosystem-heterogeneity-in-fates" title="Permalink to this headline">¶</a></h2>
 <p>The terrestrial surface of the Earth is heterogeneous for many reasons, driven
 by variations in climate, edaphic history, ecological variability,
 geological forcing and human interventions. Land surface models
@@ -271,7 +265,7 @@ history.</strong></p>
 <p>The ‘patch’ organizational structure in CLM thus replaces the previous
 ‘PFT’ structure in the organization heirarchy. The original hierarchical
 land surface organizational structure of CLM as described in
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#oleson2013"><span class="std std-ref">Oleson et al. 2013</span></a> may be depicted as:</p>
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#olesonetal2013"><span class="std std-ref">Oleson et al. 2013</span></a> may be depicted as:</p>
 <div class="math">
 <p><img src="../../_images/math/e9180c518ddd93289aa5b5d0fc5db0f7580d8299.svg" alt="\mathbf{gridcell} \left\{
 \begin{array}{cc}
@@ -313,7 +307,7 @@ equivalent of grouping together all those areas of a gridcell that are
 ‘canopy gaps’, into a single entity, and all those areas that are
 ‘mature forest’ into a single entity.</p>
 <div class="section" id="cohortized-representation-of-tree-populations">
-<h3>2.28.2.1. Cohortized representation of tree populations<a class="headerlink" href="#cohortized-representation-of-tree-populations" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.2.1. Cohortized representation of tree populations<a class="headerlink" href="#cohortized-representation-of-tree-populations" title="Permalink to this headline">¶</a></h3>
 <p>Each common-disturbance-history patch is a notional ecosystem that might
 in reality contain numerous individual plants which vary in their
 physiological attributes, in height and in spatial position. One way of
@@ -374,7 +368,7 @@ described as follows:</p>
 \end{array}\right."/></p>
 </div></div>
 <div class="section" id="discretization-of-cohorts-and-patches">
-<h3>2.28.2.2. Discretization of cohorts and patches<a class="headerlink" href="#discretization-of-cohorts-and-patches" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.2.2. Discretization of cohorts and patches<a class="headerlink" href="#discretization-of-cohorts-and-patches" title="Permalink to this headline">¶</a></h3>
 <p>Newly disturbed land and newly recruited seedlings can in theory be
 generated at each new model timestep as the result of germination and
 disturbance processes. If the new patches and cohorts established at
@@ -450,7 +444,7 @@ co-occupy patch <img class="math" src="../../_images/math/21736df275793e73d4849d
 with mass conservation .</p>
 </div>
 <div class="section" id="linked-lists-the-general-code-structure-of-fates">
-<h3>2.28.2.3. Linked Lists: the general code structure of FATES<a class="headerlink" href="#linked-lists-the-general-code-structure-of-fates" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.2.3. Linked Lists: the general code structure of FATES<a class="headerlink" href="#linked-lists-the-general-code-structure-of-fates" title="Permalink to this headline">¶</a></h3>
 <p><a class="footnote-reference" href="#id12" id="id4">[4]</a> The number of patches in each natural vegetation column and the
 number of cohorts in any given patch are variable through time because
 they are re-calculated for each daily timestep of the model. The more
@@ -479,7 +473,7 @@ iterate until a null pointer is encountered.</p>
 <p>Using this structure, it is therefore possible to have an unbounded upper limit on cohort number, and also to easily alter the ordering of  cohorts if, for example, a cohort of one functional type begins to  grow faster than a competitor of another functional type, and the cohort list can easily be re-ordered by altering the pointer structure. Each cohort has <cite>pointers</cite> indicating to which patch and gridcell it belongs. The patch system is analogous to the cohort system, except that patches are ordered in terms of their relative age, with pointers to older and younger patches where cp<img class="math" src="../../_images/math/982fd096f65177167a283cab057cca953ff27405.svg" alt="_1"/> is the oldest:</p>
 </div>
 <div class="section" id="indices-used-in-fates">
-<h3>2.28.2.4. Indices used in FATES<a class="headerlink" href="#indices-used-in-fates" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.2.4. Indices used in FATES<a class="headerlink" href="#indices-used-in-fates" title="Permalink to this headline">¶</a></h3>
 <p>Some of the indices used in FATES are similar to those used in the
 standard CLM4.5 model; column (<img class="math" src="../../_images/math/ae12a24f88803b5895632e4848d87d46483c492c.svg" alt="c"/>), land unit(<img class="math" src="../../_images/math/b359488b993294ebbc2c7b30ab8f749dcbc6826d.svg" alt="l"/>), grid
 cell(<img class="math" src="../../_images/math/307b3725cbb03398131f9ca542d79aff4933195f.svg" alt="g"/>) and soil layer (<img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.svg" alt="j"/>). On account of the
@@ -528,7 +522,7 @@ equations that follow, they are listed here.</p>
 </table>
 </div>
 <div class="section" id="cohort-state-variables">
-<h3>2.28.2.5. Cohort State Variables<a class="headerlink" href="#cohort-state-variables" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.2.5. Cohort State Variables<a class="headerlink" href="#cohort-state-variables" title="Permalink to this headline">¶</a></h3>
 <p>The unit of allometry in the ED model is the cohort. Each cohort
 represents a group of plants with similar functional types and heights
 that occupy portions of column with similar disturbance histories. The
@@ -649,7 +643,7 @@ cohort belong?</td>
 </table>
 </div>
 <div class="section" id="patch-state-variables">
-<h3>2.28.2.6. Patch State Variables<a class="headerlink" href="#patch-state-variables" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.2.6. Patch State Variables<a class="headerlink" href="#patch-state-variables" title="Permalink to this headline">¶</a></h3>
 <p>A patch, as discuss earlier, is a fraction of the landscape which
 contains ecosystems with similar structure and disturbance history. A
 patch has no spatial location. The state variables, which are
@@ -776,7 +770,7 @@ patch}}"/></td>
 </table>
 </div>
 <div class="section" id="model-structure">
-<h3>2.28.2.7. Model Structure<a class="headerlink" href="#model-structure" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.2.7. Model Structure<a class="headerlink" href="#model-structure" title="Permalink to this headline">¶</a></h3>
 <p>Code concerned with the Ecosystem Demography model interfaces with the
 CLM model in four ways: i) During initialization, ii) During the
 calculation of surface processes (albedo, radiation absorption, canopy
@@ -791,7 +785,7 @@ and passed into the ED code as the major driver of vegetation dynamics.</p>
 </div>
 </div>
 <div class="section" id="initialization-of-vegetation-from-bare-ground">
-<h2>2.28.3. Initialization of vegetation from bare ground<a class="headerlink" href="#initialization-of-vegetation-from-bare-ground" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.3. Initialization of vegetation from bare ground<a class="headerlink" href="#initialization-of-vegetation-from-bare-ground" title="Permalink to this headline">¶</a></h2>
 <p>[5]_If the model is restarted from a bare ground state (as opposed to a
 pre-existing vegetation state), the state variables above are
 initialized as follows. First, the number of plants per PFT is allocated
@@ -874,7 +868,7 @@ m<img class="math" src="../../_images/math/39d5a479110f40fa3f7a4162b260e967f3e55
 <p>[table:init]</p>
 </div>
 <div class="section" id="allocation-of-biomass">
-<h2>2.28.4. Allocation of biomass<a class="headerlink" href="#allocation-of-biomass" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.4. Allocation of biomass<a class="headerlink" href="#allocation-of-biomass" title="Permalink to this headline">¶</a></h2>
 <p>[6]_Total live biomass <img class="math" src="../../_images/math/8edbc0cbac39db1a871dd74904a11a72af295e84.svg" alt="b_{alive}"/> is the state variable of the model
 that describes the sum of the three live biomass pools leaf
 <img class="math" src="../../_images/math/179772fb3e33ac84ae333190f8e72f709d719891.svg" alt="b_{leaf}"/>, root <img class="math" src="../../_images/math/c2f3e47b6de785c797be377f16a1a0a791cfca9c.svg" alt="b_{root}"/> and sapwood <img class="math" src="../../_images/math/0005deffa0b9eebe172e8326050fb90d41668186.svg" alt="b_{sw}"/> (all
@@ -1022,7 +1016,7 @@ leaf mass</td>
 <p>[table:allom]</p>
 </div>
 <div class="section" id="canopy-structure-and-the-perfect-plasticity-approximation">
-<h2>2.28.5. Canopy Structure and the Perfect Plasticity Approximation<a class="headerlink" href="#canopy-structure-and-the-perfect-plasticity-approximation" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.5. Canopy Structure and the Perfect Plasticity Approximation<a class="headerlink" href="#canopy-structure-and-the-perfect-plasticity-approximation" title="Permalink to this headline">¶</a></h2>
 <p>[7]_During initialization and every subsequent daily ED timestep, the canopy
 structure model is called to determine how the leaf area of the
 different cohorts is arranged relative to the incoming radiation, which
@@ -1035,7 +1029,7 @@ performance in ED-like cohort based models, since they determine how
 light resources are partitioned between competing plants of varying
 heights, which has a very significant impact on how vegetation
 distribution emerges from competition
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisher2010"><span class="std std-ref">Fisher et al. 2010</span></a>.</p>
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisheretal2010"><span class="std std-ref">Fisher et al. 2010</span></a>.</p>
 <p>The standard ED1.0 model makes a simple ‘flat disk’ assumption, that the
 leaf area of each cohort is spread in an homogenous layer at one exact
 height across entire the ground area represented by each patch. FATES has diverged from this representation due to (at least) two problematic emergent properties that we identified as generating unrealistic behaviours espetially for large-area patches.</p>
@@ -1111,7 +1105,7 @@ fraction of each cohort is demoted to the understorey.</p>
 (i.e., <img class="math" src="../../_images/math/a8ade6f386c6ca869b512c2ac8a2748c5445b7db.svg" alt="A_{canopy}"/> - <img class="math" src="../../_images/math/3812bc4d0f5eaf559983dd6871bd4ab498524606.svg" alt="A_p"/>) is moved into the understorey.
 For each cohort already in the canopy, we determine a fraction of trees
 that are moved from the canopy (<img class="math" src="../../_images/math/14ea477b5e55b67cf78da3c8a2aaf1f147b5a368.svg" alt="L_c"/>) to the understorey.
-<img class="math" src="../../_images/math/14ea477b5e55b67cf78da3c8a2aaf1f147b5a368.svg" alt="L_c"/> is calculated as <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisher2010"><span class="std std-ref">Fisher et al. 2010</span></a></p>
+<img class="math" src="../../_images/math/14ea477b5e55b67cf78da3c8a2aaf1f147b5a368.svg" alt="L_c"/> is calculated as <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisheretal2010"><span class="std std-ref">Fisher et al. 2010</span></a></p>
 <div class="math">
 <p><img src="../../_images/math/f4d18c8174824edc316397727bc8a66e47a2beb0.svg" alt="L_{c}= \frac{A_{loss,patch} w_{coh}}{\sum_{coh=1}^{nc,patch}{w_{coh}}} ,"/></p>
 </div><p>where <img class="math" src="../../_images/math/774146da457827d352427b4f8c280503436e612f.svg" alt="w_{coh}"/> is a weighting of each cohort determined by basal
@@ -1137,7 +1131,7 @@ canopy area may change due to the variations of canopy spread values (
 fractions of cohorts are demoted or promoted. Further details can be
 found in the code references in the footnote.</p>
 <div class="section" id="horizontal-canopy-spread">
-<h3>2.28.5.1. Horizontal Canopy Spread<a class="headerlink" href="#horizontal-canopy-spread" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.5.1. Horizontal Canopy Spread<a class="headerlink" href="#horizontal-canopy-spread" title="Permalink to this headline">¶</a></h3>
 <p><a class="footnote-reference" href="#id16" id="id5">[8]</a><a class="reference internal" href="../References/CLM50_Tech_Note_References.html#purves2008"><span class="std std-ref">Purves et al. 2008</span></a> estimated the ratio between canopy and
 stem diameter <img class="math" src="../../_images/math/31419d8e711dc3a1d662f84d8805c8b6a0888277.svg" alt="c_{p}"/> as 0.1 m cm<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/> for canopy trees
 in North American forests, but this estimate was made on trees in closed
@@ -1190,7 +1184,7 @@ However, the model is relatively insensitive to the choice of either
 <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.svg" alt="i"/> or <img class="math" src="../../_images/math/fbaf818c5595ffd51541145a733428589c4b2cbf.svg" alt="A_{t}"/>.</p>
 </div>
 <div class="section" id="definition-of-leaf-and-stem-area-profile">
-<h3>2.28.5.2. Definition of Leaf and Stem Area Profile<a class="headerlink" href="#definition-of-leaf-and-stem-area-profile" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.5.2. Definition of Leaf and Stem Area Profile<a class="headerlink" href="#definition-of-leaf-and-stem-area-profile" title="Permalink to this headline">¶</a></h3>
 <p>[9]_Within each patch, the model defines and tracks cohorts of multiple
 plant functional types that exist either in the canopy or understorey.
 Light on the top leaf surface of each cohort in the canopy is the same,
@@ -1307,7 +1301,7 @@ leaf and stem area profiles,</p>
 <p><img src="../../_images/math/52093577ef27fad754aba0eff810850da0aad34a.svg" alt="\mathit{sai}_{Cl,ft,z} = \sum_{coh=1}^{coh=ncoh} \mathit{sai}_{z,coh}"/></p>
 </div></div>
 <div class="section" id="burial-of-leaf-area-by-snow">
-<h3>2.28.5.3. Burial of leaf area by snow<a class="headerlink" href="#burial-of-leaf-area-by-snow" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.5.3. Burial of leaf area by snow<a class="headerlink" href="#burial-of-leaf-area-by-snow" title="Permalink to this headline">¶</a></h3>
 <p>The calculations above all pertain to the total leaf and stem area
 indices which charecterize the vegetation structure. In addition, the
 model must know when the vegetation is covered by snow, and by how much,
@@ -1455,9 +1449,9 @@ biomass</td>
 </div>
 </div>
 <div class="section" id="radiation-transfer">
-<h2>2.28.6. Radiation Transfer<a class="headerlink" href="#radiation-transfer" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.6. Radiation Transfer<a class="headerlink" href="#radiation-transfer" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="fundamental-radiation-transfer-theory">
-<h3>2.28.6.1. Fundamental Radiation Transfer Theory<a class="headerlink" href="#fundamental-radiation-transfer-theory" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.6.1. Fundamental Radiation Transfer Theory<a class="headerlink" href="#fundamental-radiation-transfer-theory" title="Permalink to this headline">¶</a></h3>
 <p>[10]_The first interaction of the land surface with the properties of
 vegetation concerns the partitioning of energy into that which is
 absorbed by vegetation, reflected back into the atmosphere, and absorbed
@@ -1640,7 +1634,7 @@ fractions, (required by the photosynthesis calculations), is</p>
 <p><img src="../../_images/math/63439a380c1ec6767d49cc7190b33706f0d14178.svg" alt="abs_{sun,z} =  abs_{dif,z} \cdot f_{sun}+ abs_{dir,z}"/></p>
 </div></div>
 <div class="section" id="resolution-of-radiation-transfer-theory-within-the-fates-canopy-structure">
-<h3>2.28.6.2. Resolution of radiation transfer theory within the FATES canopy structure<a class="headerlink" href="#resolution-of-radiation-transfer-theory-within-the-fates-canopy-structure" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.6.2. Resolution of radiation transfer theory within the FATES canopy structure<a class="headerlink" href="#resolution-of-radiation-transfer-theory-within-the-fates-canopy-structure" title="Permalink to this headline">¶</a></h3>
 <p>The radiation transfer theory above, was described with reference to a
 single canopy of one plant functional type, for the sake of clarity of
 explanation. The FATES model, however, calculates radiative and
@@ -1650,7 +1644,7 @@ profile section. Firstly, we denote two or more canopy layers (denoted
 <img class="math" src="../../_images/math/0de9906df440adf3b445d55b4a1d21c5193d99c2.svg" alt="C_l"/>). The concept of a ‘canopy layer’ refers to the idea that
 plants are organized into discrete over and under-stories, as predicted
 by the Perfect Plasticity Approximation
-(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#purves2008"><span class="std std-ref">Purves et al. 2008</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisher2010"><span class="std std-ref">Fisher et al. 2010</span></a>). Within each canopy layer
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#purves2008"><span class="std std-ref">Purves et al. 2008</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisheretal2010"><span class="std std-ref">Fisher et al. 2010</span></a>). Within each canopy layer
 there potentially exist multiple cohorts of different plant functional
 types and heights. Within each canopy layer, <img class="math" src="../../_images/math/0de9906df440adf3b445d55b4a1d21c5193d99c2.svg" alt="C_l"/>, and functional
 type, <img class="math" src="../../_images/math/a24ee28474317f37ac0cdf19f3328e0da2cbc211.svg" alt="ft"/>, the model resolves numerous leaf layers <img class="math" src="../../_images/math/683f2dd9129a91d21aaf1c04afa6f78b39d4cb0a.svg" alt="z"/>,
@@ -1810,17 +1804,17 @@ diffuse</td>
 </div>
 </div>
 <div class="section" id="photosynthesis">
-<h2>2.28.7. Photosynthesis<a class="headerlink" href="#photosynthesis" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.7. Photosynthesis<a class="headerlink" href="#photosynthesis" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="fundamental-photosynthetic-physiology-theory">
-<h3>2.28.7.1. Fundamental photosynthetic physiology theory<a class="headerlink" href="#fundamental-photosynthetic-physiology-theory" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.7.1. Fundamental photosynthetic physiology theory<a class="headerlink" href="#fundamental-photosynthetic-physiology-theory" title="Permalink to this headline">¶</a></h3>
 <p>[11]_In this section we describe the physiological basis of the
 photosynthesis model before describing its application to the FATES
 canopy structure. This description in this section is largely repeated
 from the Oleson et al. CLM4.5 technical note but included here for
 comparison with its implementation in FATES. Photosynthesis in C3
-plants is based on the model of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#farquhar1980"><span class="std std-ref">Farquhar 1980</span></a> as
-modified by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatz1991"><span class="std std-ref">Collatz et al. 1991</span></a>. Photosynthetic assimilation
-in C4 plants is based on the model of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatz1991"><span class="std std-ref">Collatz et al. 1991</span></a>.
+plants is based on the model of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#farquharetal1980"><span class="std std-ref">Farquhar 1980</span></a> as
+modified by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1991"><span class="std std-ref">Collatz et al. (1991)</span></a>. Photosynthetic assimilation
+in C4 plants is based on the model of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1991"><span class="std std-ref">Collatz et al. (1991)</span></a>.
 In both models, leaf photosynthesis, <img class="math" src="../../_images/math/3b5acfc54c840dbe57bbb3cb12d3886f4f261090.svg" alt="\textrm{gpp}"/>
 (<img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.svg" alt="\mu"/>mol CO<img class="math" src="../../_images/math/ba312cf0eeebc5f3ecc40ece2c744c499d75dc2d.svg" alt="_2"/> m<img class="math" src="../../_images/math/39d5a479110f40fa3f7a4162b260e967f3e555bf.svg" alt="^{-2}"/> s<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/>) is
 calculated as the minimum of three potentially limiting fluxes,
@@ -1843,7 +1837,7 @@ partial pressure (Pa). <img class="math" src="../../_images/math/6ab7a1be8674825
 Michaelis-Menten constants (Pa) for CO<img class="math" src="../../_images/math/bb24541895bbe61f03ab83032effbbdcddfe5e82.svg" alt="_{2}"/> and
 O<img class="math" src="../../_images/math/bb24541895bbe61f03ab83032effbbdcddfe5e82.svg" alt="_{2}"/>. These vary with vegetation temperature <img class="math" src="../../_images/math/aab999ec1b2a7c55baae697a51624a7a1bb84700.svg" alt="T_v"/>
 (<img class="math" src="../../_images/math/7704078e79da130af3dc588bc3e8f70a8833fbb1.svg" alt="^{o}"/>C) according to an Arrhenious function described in
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#oleson2013"><span class="std std-ref">Oleson et al. 2013</span></a>. <img class="math" src="../../_images/math/9efec3259ccba58325f5fe0a4b4a2188050dbd12.svg" alt="V_{c,max}"/> is the leaf layer
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#olesonetal2013"><span class="std std-ref">Oleson et al. 2013</span></a>. <img class="math" src="../../_images/math/9efec3259ccba58325f5fe0a4b4a2188050dbd12.svg" alt="V_{c,max}"/> is the leaf layer
 photosynthetic capacity (<img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.svg" alt="\mu"/> mol CO<img class="math" src="../../_images/math/ba312cf0eeebc5f3ecc40ece2c744c499d75dc2d.svg" alt="_2"/> m<img class="math" src="../../_images/math/39d5a479110f40fa3f7a4162b260e967f3e555bf.svg" alt="^{-2}"/>
 s<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/>).</p>
 <p>The maximum rate of carboxylation allowed by the capacity to regenerate
@@ -1902,10 +1896,10 @@ CO<img class="math" src="../../_images/math/bb24541895bbe61f03ab83032effbbdcddfe
 <p><img src="../../_images/math/3ecd3e34eec9f69077e319f959d8c89eb2138d7c.svg" alt="\Gamma_* = \frac{1}{2} \frac{K_c}{K_o}0.21o_i"/></p>
 </div><p>where the term 0.21 represents the ratio of maximum rates of oxygenation
 to carboxylation, which is virtually constant with temperature
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#farquhar1980"><span class="std std-ref">Farquhar, 1980</span></a>.</p>
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#farquharetal1980"><span class="std std-ref">Farquhar, 1980</span></a>.</p>
 </div>
 <div class="section" id="resolution-of-the-photosynthesis-theory-within-the-fates-canopy-structure">
-<h3>2.28.7.2. Resolution of the photosynthesis theory within the FATES canopy structure.<a class="headerlink" href="#resolution-of-the-photosynthesis-theory-within-the-fates-canopy-structure" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.7.2. Resolution of the photosynthesis theory within the FATES canopy structure.<a class="headerlink" href="#resolution-of-the-photosynthesis-theory-within-the-fates-canopy-structure" title="Permalink to this headline">¶</a></h3>
 <p>The photosynthesis scheme is modified from the CLM4.5 model to give
 estimates of photosynthesis, respiration and stomatal conductance for a
 three dimenstional matrix indexed by canopy level (<img class="math" src="../../_images/math/0de9906df440adf3b445d55b4a1d21c5193d99c2.svg" alt="C_l"/>), plant
@@ -1965,10 +1959,10 @@ s<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5
 \end{array} \right."/></p>
 </div></div>
 <div class="section" id="variation-in-plant-physiology-with-canopy-depth">
-<h3>2.28.7.3. Variation in plant physiology with canopy depth<a class="headerlink" href="#variation-in-plant-physiology-with-canopy-depth" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.7.3. Variation in plant physiology with canopy depth<a class="headerlink" href="#variation-in-plant-physiology-with-canopy-depth" title="Permalink to this headline">¶</a></h3>
 <p>Both <img class="math" src="../../_images/math/9efec3259ccba58325f5fe0a4b4a2188050dbd12.svg" alt="V_{c,max}"/> and <img class="math" src="../../_images/math/68d572478c9ac43c966fda1620c69e4114d633e9.svg" alt="J_{max}"/> vary with vertical depth in
 the canopy on account of the well-documented reduction in canopy
-nitrogen through the leaf profile, see <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonan2012"><span class="std std-ref">Bonan et al. 2012</span></a> for
+nitrogen through the leaf profile, see <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2012"><span class="std std-ref">Bonan et al. 2012</span></a> for
 details). Thus, both <img class="math" src="../../_images/math/9efec3259ccba58325f5fe0a4b4a2188050dbd12.svg" alt="V_{c,max}"/> and <img class="math" src="../../_images/math/68d572478c9ac43c966fda1620c69e4114d633e9.svg" alt="J_{max}"/> are indexed
 by by <img class="math" src="../../_images/math/0de9906df440adf3b445d55b4a1d21c5193d99c2.svg" alt="C_l"/>, <img class="math" src="../../_images/math/a24ee28474317f37ac0cdf19f3328e0da2cbc211.svg" alt="ft"/> and <img class="math" src="../../_images/math/683f2dd9129a91d21aaf1c04afa6f78b39d4cb0a.svg" alt="z"/> according to the nitrogen
 decay coefficient <img class="math" src="../../_images/math/beaf10cbf9832043d8d46b0a58d9859c0726eee2.svg" alt="K_n"/> and the amount of vegetation area shading
@@ -2003,7 +1997,7 @@ V_{above,Cl,ft,z}=  \sum_{1}^{z}  V_{Cl,ft,z} + V_{canopy,Cl-1} &amp; \textrm{fo
 <p><img src="../../_images/math/f4a4d42a0cb3e67f44f6668475938ffca36086f4.svg" alt="V_{canopy,Cl} =  \sum_{ft=1}^{\emph{npft}} {\sum_{z=1}^{nz(ft)} (V_{Cl,ft,z} \cdot  \it{pft}_{wt,Cl,ft,1}).}"/></p>
 </div><p><img class="math" src="../../_images/math/af986caabafad17117779d4410677f66bdcd858b.svg" alt="K_{n}"/> is the coefficient of nitrogen decay with canopy depth.
 The value of this parameter is taken from the work of
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lloyd2010"><span class="std std-ref">Lloyd et al. 2010</span></a> who determined, from 204 vertical profiles
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lloydetal2010"><span class="std std-ref">Lloyd et al. 2010</span></a> who determined, from 204 vertical profiles
 of leaf traits, that the decay rate of N through canopies of tropical
 rainforests was a function of the <img class="math" src="../../_images/math/3da678f750e5a4cdae4b8666696da4ca33d48a34.svg" alt="V_{cmax}"/> at the top of the
 canopy. They obtain the following term to predict <img class="math" src="../../_images/math/af986caabafad17117779d4410677f66bdcd858b.svg" alt="K_{n}"/>,</p>
@@ -2013,7 +2007,7 @@ canopy. They obtain the following term to predict <img class="math" src="../../_
 m<img class="math" src="../../_images/math/39d5a479110f40fa3f7a4162b260e967f3e555bf.svg" alt="^{-2}"/> s<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/>.</p>
 </div>
 <div class="section" id="water-stress-on-gas-exchange">
-<h3>2.28.7.4. Water Stress on gas exchange<a class="headerlink" href="#water-stress-on-gas-exchange" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.7.4. Water Stress on gas exchange<a class="headerlink" href="#water-stress-on-gas-exchange" title="Permalink to this headline">¶</a></h3>
 <p><a class="footnote-reference" href="#id20" id="id6">[12]</a> The top of canopy leaf photosynthetic capacity, <img class="math" src="../../_images/math/7ede047c99738041457bd256974d6bb7fbf92e5b.svg" alt="V_{c,max0}"/>, is
 also adjusted for the availability of water to plants as</p>
 <div class="math">
@@ -2044,7 +2038,7 @@ water in the soil layer (<img class="math" src="../../_images/math/c3d5d00f068b0
 on the calculation of soil matric potential, see the CLM4.5 technical
 note.</p>
 <div class="section" id="variation-of-water-stress-and-water-uptake-within-tiles">
-<h4>2.28.7.4.1. Variation of water stress and water uptake within tiles<a class="headerlink" href="#variation-of-water-stress-and-water-uptake-within-tiles" title="Permalink to this headline">¶</a></h4>
+<h4>2.29.7.4.1. Variation of water stress and water uptake within tiles<a class="headerlink" href="#variation-of-water-stress-and-water-uptake-within-tiles" title="Permalink to this headline">¶</a></h4>
 <p>The remaining drivers of the photosynthesis model remain constant
 (atmospheric CO<img class="math" src="../../_images/math/ba312cf0eeebc5f3ecc40ece2c744c499d75dc2d.svg" alt="_2"/> and O<img class="math" src="../../_images/math/81d4e21093a294aaab4f441ff172923d688c9b7e.svg" alt="^2"/> and canopy temperature)
 throughout the canopy, except for the water stress index
@@ -2077,7 +2071,7 @@ canopy conductance for plant functional type <img class="math" src="../../_image
 </div></div>
 </div>
 <div class="section" id="aggregation-of-assimilated-carbon-into-cohorts">
-<h3>2.28.7.5. Aggregation of assimilated carbon into cohorts<a class="headerlink" href="#aggregation-of-assimilated-carbon-into-cohorts" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.7.5. Aggregation of assimilated carbon into cohorts<a class="headerlink" href="#aggregation-of-assimilated-carbon-into-cohorts" title="Permalink to this headline">¶</a></h3>
 <p>The derivation of photosynthetic rates per leaf layer, as above, give us
 the estimated rate of assimilation for a unit area of leaf at a given
 point in the canopy in <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.svg" alt="\mu"/>mol CO<img class="math" src="../../_images/math/ba312cf0eeebc5f3ecc40ece2c744c499d75dc2d.svg" alt="_2"/> m<img class="math" src="../../_images/math/39d5a479110f40fa3f7a4162b260e967f3e555bf.svg" alt="^{-2}"/>
@@ -2192,7 +2186,7 @@ open</td>
 </div>
 </div>
 <div class="section" id="plant-respiration">
-<h2>2.28.8. Plant respiration<a class="headerlink" href="#plant-respiration" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.8. Plant respiration<a class="headerlink" href="#plant-respiration" title="Permalink to this headline">¶</a></h2>
 <p>[13]_Plant respiration per individual <img class="math" src="../../_images/math/e6ea95833e271d812c352d82dbd5223f642110b9.svg" alt="R_{plant,coh}"/> (KgC individual
 <img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/> s<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/>) is the sum of two terms, growth and
 maintenance respiration <img class="math" src="../../_images/math/a7f2dca3260c079dec93116f0738c5e5fd09259b.svg" alt="R_{g,coh}"/> and <img class="math" src="../../_images/math/93243525479680ea6b2199d1003f07d6799b3ac2.svg" alt="R_{m,coh}"/></p>
@@ -2346,18 +2340,18 @@ Fraction</td>
 </table>
 </div>
 <div class="section" id="stomatal-conductance">
-<h2>2.28.9. Stomatal Conductance<a class="headerlink" href="#stomatal-conductance" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.9. Stomatal Conductance<a class="headerlink" href="#stomatal-conductance" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="fundamental-stomatal-conductance-theory">
-<h3>2.28.9.1. Fundamental stomatal conductance theory<a class="headerlink" href="#fundamental-stomatal-conductance-theory" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.9.1. Fundamental stomatal conductance theory<a class="headerlink" href="#fundamental-stomatal-conductance-theory" title="Permalink to this headline">¶</a></h3>
 <p>[14]_Stomatal conductance is unchanged in concept from the CLM4.5 approach.
 Leaf stomatal resistance is calculated from the Ball-Berry conductance
-model as described by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatz1991"><span class="std std-ref">Collatz et al. 1991</span></a> and implemented in
+model as described by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1991"><span class="std std-ref">Collatz et al. (1991)</span></a> and implemented in
 a global climate model by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellers1996"><span class="std std-ref">Sellers et al. 1996</span></a>. The model
 relates stomatal conductance (i.e., the inverse of resistance) to net
 leaf photosynthesis, scaled by the relative humidity at the leaf surface
 and the CO<img class="math" src="../../_images/math/ba312cf0eeebc5f3ecc40ece2c744c499d75dc2d.svg" alt="_2"/> concentration at the leaf surface. The primary
 difference between the CLM implementation and that used by
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatz1991"><span class="std std-ref">Collatz et al. 1991</span></a> and <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellers1996"><span class="std std-ref">Sellers et al. 1996</span></a> is
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1991"><span class="std std-ref">Collatz et al. (1991)</span></a> and <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellers1996"><span class="std std-ref">Sellers et al. (1996)</span></a> is
 that they used net photosynthesis (i.e., leaf photosynthesis minus leaf
 respiration) instead of gross photosynthesis. As implemented here,
 stomatal conductance equals the minimum conductance (<img class="math" src="../../_images/math/57c9d14bb082716df9000146882ce365335d08f1.svg" alt="b"/>) when
@@ -2380,13 +2374,13 @@ the leaf at the vegetation temperature conductance (<img class="math" src="../..
 m<img class="math" src="../../_images/math/39d5a479110f40fa3f7a4162b260e967f3e555bf.svg" alt="^{-2}"/> s<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/>) when <img class="math" src="../../_images/math/0043fe6507e9b1d112e07a2801e24927e267dd50.svg" alt="A"/> = 0 . Typical values
 are <img class="math" src="../../_images/math/061f6ad08f3dd3a5331964a6d75612ff6ba750b3.svg" alt="m_{ft}"/> = 9 for C<img class="math" src="../../_images/math/2912b78af320853e0afcf706763b5d39b26b5c1e.svg" alt="_3"/> plants and <img class="math" src="../../_images/math/061f6ad08f3dd3a5331964a6d75612ff6ba750b3.svg" alt="m_{ft}"/> = 4
 for C<img class="math" src="../../_images/math/284796e299f67ddec30ffb68aa85adb566a054af.svg" alt="_4"/> plants (
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatz1991"><span class="std std-ref">Collatz et al. 1991</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatz1992"><span class="std std-ref">Collatz, 1992</span></a>, <span class="xref std std-ref">Sellers et al 1996&lt;sellers1996&gt;)</span>.
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1991"><span class="std std-ref">Collatz et al. 1991</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1992"><span class="std std-ref">Collatz, 1992</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellersetal1996"><span class="std std-ref">Sellers et al 1996</span></a>).
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellers1996"><span class="std std-ref">Sellers et al. 1996</span></a> used <img class="math" src="../../_images/math/57c9d14bb082716df9000146882ce365335d08f1.svg" alt="b"/> = 10000 for C<img class="math" src="../../_images/math/2912b78af320853e0afcf706763b5d39b26b5c1e.svg" alt="_3"/>
 plants and <img class="math" src="../../_images/math/57c9d14bb082716df9000146882ce365335d08f1.svg" alt="b"/> = 40000 for C<img class="math" src="../../_images/math/284796e299f67ddec30ffb68aa85adb566a054af.svg" alt="_4"/> plants. Here, <img class="math" src="../../_images/math/57c9d14bb082716df9000146882ce365335d08f1.svg" alt="b"/>
 was chosen to give a maximum stomatal resistance of 20000 s
 m<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/>. These terms are nevertheless plant strategy dependent,
 and have been found to vary widely with plant type
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#medlyn2011"><span class="std std-ref">Medlyn et al. 2001</span></a>.</p>
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#medlynetal2011"><span class="std std-ref">Medlyn et al. 2011</span></a>.</p>
 <p>Resistance is converted from units of s m<img class="math" src="../../_images/math/82136ee031543ffa2750efa024c488ecc6227358.svg" alt="^2 \mu"/>
 mol<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/> to s m<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/> as: 1 s m<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/> =
 <img class="math" src="../../_images/math/074d93b5190e5b7f1c2e25d25eec3a0af508dbca.svg" alt="1\times 10^{-9}"/>R<img class="math" src="../../_images/math/ecd58fe2b01d34eb4564f4e7dfff7c3853953e05.svg" alt="_{\rm{gas}} \theta_{\rm{atm}}P_{\rm{atm}}"/>
@@ -2396,7 +2390,7 @@ kmol<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5
 potential temperature (K).</p>
 </div>
 <div class="section" id="resolution-of-stomatal-conductance-theory-in-the-fates-canopy-structure">
-<h3>2.28.9.2. Resolution of stomatal conductance theory in the FATES canopy structure<a class="headerlink" href="#resolution-of-stomatal-conductance-theory-in-the-fates-canopy-structure" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.9.2. Resolution of stomatal conductance theory in the FATES canopy structure<a class="headerlink" href="#resolution-of-stomatal-conductance-theory-in-the-fates-canopy-structure" title="Permalink to this headline">¶</a></h3>
 <p>The stomatal conductance is calculated, as with photosynthesis, for each
 canopy, PFT and leaf layer. The CLM code requires a single canopy
 conductance estimate to be generated from the multi-layer multi-PFT
@@ -2442,7 +2436,7 @@ cohort.</p>
 </div>
 </div>
 <div class="section" id="allocation-and-growth">
-<h2>2.28.10. Allocation and Growth<a class="headerlink" href="#allocation-and-growth" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.10. Allocation and Growth<a class="headerlink" href="#allocation-and-growth" title="Permalink to this headline">¶</a></h2>
 <p>[15]_Total assimilation carbon enters the ED model each day as a
 cohort-specific Net Primary Productivity <img class="math" src="../../_images/math/206468cf91aebd27c952add5ebbd9f9d4e66a019.svg" alt="\mathit{NPP}_{coh}"/>,
 which is calculated as</p>
@@ -2457,7 +2451,7 @@ All fluxes here are first converted into in KgC
 individual<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/> year<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/> and ultimately integrated
 using a timesteps of 1/365 years for each day.</p>
 <div class="section" id="tissue-maintenance-demand">
-<h3>2.28.10.1. Tissue maintenance demand<a class="headerlink" href="#tissue-maintenance-demand" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.10.1. Tissue maintenance demand<a class="headerlink" href="#tissue-maintenance-demand" title="Permalink to this headline">¶</a></h3>
 <p>We calculate a ‘tissue maintenance’ flux. The magnitude of this flux is
 such that the quantity of biomass in each pool will remain constant,
 given background turnover rates. For roots, this maintenenace demand is
@@ -2481,7 +2475,7 @@ phenology section. The total quantity of maintenance demand
 <p><img src="../../_images/math/9eaf6c114999fa831243639a1b045c0e11c5d9e2.svg" alt="t_{md,coh}  = l_{md,coh} + r_{md,coh}"/></p>
 </div></div>
 <div class="section" id="allocation-to-storage-and-turnover">
-<h3>2.28.10.2. Allocation to storage and turnover<a class="headerlink" href="#allocation-to-storage-and-turnover" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.10.2. Allocation to storage and turnover<a class="headerlink" href="#allocation-to-storage-and-turnover" title="Permalink to this headline">¶</a></h3>
 <p>The model must now determine whether the NPP input is sufficient to meet
 the maintenance demand and keep tissue levels constant. To determine
 this, we introduce the idea of ‘carbon balance’ <img class="math" src="../../_images/math/5c7eb694781647dae9074ec3a690a67df03a4a77.svg" alt="C_{bal,coh}"/> (KgC
@@ -2546,7 +2540,7 @@ and leaf biomass, ameliorated by the leaf trimming fraction (see
 </div><p><img class="math" src="../../_images/math/41c3fc0c0930fc9bc42034fb463616e5a392230f.svg" alt="\rho_{ft}"/> is the wood density, in g cm<img class="math" src="../../_images/math/63f1abef10d871b0f01ad2943a36ee29c4d5fe09.svg" alt="^{3}"/>.</p>
 </div>
 <div class="section" id="allocation-to-seeds">
-<h3>2.28.10.3. Allocation to Seeds<a class="headerlink" href="#allocation-to-seeds" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.10.3. Allocation to Seeds<a class="headerlink" href="#allocation-to-seeds" title="Permalink to this headline">¶</a></h3>
 <p>The fraction remaining for growth (expansion of live and structural
 tissues) <img class="math" src="../../_images/math/f45b7c5c0d702c8e1c2c239628dae66c37297818.svg" alt="f_{growth}"/> is 1 minus that allocated to seeds.</p>
 <div class="math">
@@ -2567,7 +2561,7 @@ KgC individual <img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4d
 <p><img src="../../_images/math/f00794972f266b82ba6673cc8f7b29c935e0da89.svg" alt="p_{seed,coh} = C_{growth}\cdot f_{seed,coh}"/></p>
 </div></div>
 <div class="section" id="allocation-to-growing-pools">
-<h3>2.28.10.4. Allocation to growing pools<a class="headerlink" href="#allocation-to-growing-pools" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.10.4. Allocation to growing pools<a class="headerlink" href="#allocation-to-growing-pools" title="Permalink to this headline">¶</a></h3>
 <p><a class="footnote-reference" href="#id24" id="id7">[16]</a> The carbon is then partitioned into carbon available to grow the
 <img class="math" src="../../_images/math/8edbc0cbac39db1a871dd74904a11a72af295e84.svg" alt="b_{alive}"/> and <img class="math" src="../../_images/math/71dccd9530db083a27227b2e8896161eb2d0ffc1.svg" alt="b_{struc}"/> pools. A fraction <img class="math" src="../../_images/math/5bcfdb335c43e57b476da9df085a49fd1b8c6057.svg" alt="v_{a}"/>
 is available to live biomass pools, and a fraction <img class="math" src="../../_images/math/ffa485ba3bba65dc4ea76bef2b0ce4f115d4a5eb.svg" alt="v_{s}"/> is
@@ -2635,7 +2629,7 @@ structural biomass pools are maintained in this algorithm, which
 diverges from the methodology currently deployed in the CLM4.5.</p>
 </div>
 <div class="section" id="integration-of-allocated-fluxes">
-<h3>2.28.10.5. Integration of allocated fluxes<a class="headerlink" href="#integration-of-allocated-fluxes" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.10.5. Integration of allocated fluxes<a class="headerlink" href="#integration-of-allocated-fluxes" title="Permalink to this headline">¶</a></h3>
 <p>All of the flux calculations generate differential of the biomass state
 variables against time (in years). To integrate these differential rates
 into changes in the state variables, we use a simple simple forward
@@ -2722,7 +2716,7 @@ habit?</td>
 </div>
 </div>
 <div class="section" id="control-of-leaf-area-index">
-<h2>2.28.11. Control of Leaf Area Index<a class="headerlink" href="#control-of-leaf-area-index" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.11. Control of Leaf Area Index<a class="headerlink" href="#control-of-leaf-area-index" title="Permalink to this headline">¶</a></h2>
 <p>[17]_The leaf area <img class="math" src="../../_images/math/03f38de32e51203eb036d95117493aabc9fe6e0a.svg" alt="A_{leaf}"/> (m:math:<cite>^{-2}</cite>) of each cohort is
 calculated from leaf biomass <img class="math" src="../../_images/math/606f3cb2bc61a6eef0e25cdf1c3311ac92f9cbea.svg" alt="b_{leaf,coh}"/> (kgC
 individual<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/>) and specific leaf area (SLA, m<img class="math" src="../../_images/math/81d4e21093a294aaab4f441ff172923d688c9b7e.svg" alt="^2"/> kg
@@ -2820,11 +2814,11 @@ can be reduced</td>
 </table>
 </div>
 <div class="section" id="phenology">
-<h2>2.28.12. Phenology<a class="headerlink" href="#phenology" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.12. Phenology<a class="headerlink" href="#phenology" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="cold-deciduous-phenology">
-<h3>2.28.12.1. Cold Deciduous Phenology<a class="headerlink" href="#cold-deciduous-phenology" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.12.1. Cold Deciduous Phenology<a class="headerlink" href="#cold-deciduous-phenology" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="cold-leaf-out-timing">
-<h4>2.28.12.1.1. Cold Leaf-out timing<a class="headerlink" href="#cold-leaf-out-timing" title="Permalink to this headline">¶</a></h4>
+<h4>2.29.12.1.1. Cold Leaf-out timing<a class="headerlink" href="#cold-leaf-out-timing" title="Permalink to this headline">¶</a></h4>
 <p><a class="footnote-reference" href="#id26" id="id8">[18]</a>. The phenology model of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#botta2000"><span class="std std-ref">Botta et al. 2000</span></a> is used in
 FATES to determine the leaf-on timing. The Botta et al. model was
 verified against satellite data and is one of the only globally verified
@@ -2858,7 +2852,7 @@ S_{phen,grid} = 2
 \end{array}"/></p>
 </div></div>
 <div class="section" id="cold-leaf-off-timing">
-<h4>2.28.12.1.2. Cold Leaf-off timing<a class="headerlink" href="#cold-leaf-off-timing" title="Permalink to this headline">¶</a></h4>
+<h4>2.29.12.1.2. Cold Leaf-off timing<a class="headerlink" href="#cold-leaf-off-timing" title="Permalink to this headline">¶</a></h4>
 <p>The leaf-off model is taken from the Sheffield Dynamic Vegetation Model
 (SDGVM) and is similar to that for LPJ
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sitch2003"><span class="std std-ref">Sitch et al. 2003</span></a> and IBIS
@@ -2874,7 +2868,7 @@ S_{phen,grid} = 1
 \end{array}"/></p>
 </div></div>
 <div class="section" id="global-implementation-modifications">
-<h4>2.28.12.1.3. Global implementation modifications<a class="headerlink" href="#global-implementation-modifications" title="Permalink to this headline">¶</a></h4>
+<h4>2.29.12.1.3. Global implementation modifications<a class="headerlink" href="#global-implementation-modifications" title="Permalink to this headline">¶</a></h4>
 <p>Because of the global implementation of the cold-deciduous phenology
 scheme, adjustments must be made to account for the possibility of
 cold-deciduous plants experiencing situations where no chilling period
@@ -2896,7 +2890,7 @@ and only allow GDD accumulation while the leaves are off.</p>
 </div>
 </div>
 <div class="section" id="drought-deciduous-phenology-tbd">
-<h3>2.28.12.2. Drought-deciduous Phenology: TBD<a class="headerlink" href="#drought-deciduous-phenology-tbd" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.12.2. Drought-deciduous Phenology: TBD<a class="headerlink" href="#drought-deciduous-phenology-tbd" title="Permalink to this headline">¶</a></h3>
 <p>In the current version of the model, a drought deciduous algorithm
 exists, but is not yet operational, due to issue detected in the existing
 CN and soil moisture modules, which also affect the behaviour of the
@@ -2904,7 +2898,7 @@ native ED drought deciduous model. This is a priority to address before
 the science tag is released.</p>
 </div>
 <div class="section" id="carbon-dynamics-of-deciduous-plants">
-<h3>2.28.12.3. Carbon Dynamics of deciduous plants<a class="headerlink" href="#carbon-dynamics-of-deciduous-plants" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.12.3. Carbon Dynamics of deciduous plants<a class="headerlink" href="#carbon-dynamics-of-deciduous-plants" title="Permalink to this headline">¶</a></h3>
 <p>[19]_In the present version, leaf expansion and senescence happen over the
 course of a single day. This is clearly not an empirically robust
 representation of leaf behaviour, whereby leaf expansion occurs over a
@@ -2986,7 +2980,7 @@ days</td>
 </div>
 </div>
 <div class="section" id="seed-dynamics-and-recruitment">
-<h2>2.28.13. Seed Dynamics and Recruitment<a class="headerlink" href="#seed-dynamics-and-recruitment" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.13. Seed Dynamics and Recruitment<a class="headerlink" href="#seed-dynamics-and-recruitment" title="Permalink to this headline">¶</a></h2>
 <p>[20]_The production of seeds and their subsequent germination is a process
 that must be captured explicitly or implicitly in vegetation models. FATES contains a seed bank model designed to allow the dynamics of
 seed production and germination to be simulated independently. In the
@@ -3083,7 +3077,7 @@ reproduction</td>
 </table>
 </div>
 <div class="section" id="litter-production-and-fragmentation">
-<h2>2.28.14. Litter Production and Fragmentation<a class="headerlink" href="#litter-production-and-fragmentation" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.14. Litter Production and Fragmentation<a class="headerlink" href="#litter-production-and-fragmentation" title="Permalink to this headline">¶</a></h2>
 <div class="line-block">
 <div class="line">The original CLM4.5 model contains streams of carbon pertaining to
 different chemical properties of litter (lignin, cellulose and labile
@@ -3124,7 +3118,7 @@ year<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5
 </div><div class="math">
 <p><img src="../../_images/math/11681cf7a39b7a29f7b70b5e5ae49af49e33e959.svg" alt="\frac{\delta l_{root,out,ft} }{ \delta t } = l_{root,in,ft} - l_{root,out,ft}"/></p>
 </div><div class="section" id="litter-inputs">
-<h3>2.28.14.1. Litter Inputs<a class="headerlink" href="#litter-inputs" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.14.1. Litter Inputs<a class="headerlink" href="#litter-inputs" title="Permalink to this headline">¶</a></h3>
 <p>[21]_Inputs into the litter pools come from tissue turnover, mortality of
 canopy trees, mortality of understorey trees, mortality of seeds, and
 leaf senescence of deciduous plants.</p>
@@ -3150,7 +3144,7 @@ assigned to each (<img class="math" src="../../_images/math/be5207bfc2b3a21bd2af
 <p><img src="../../_images/math/b2c82479d5730d51509968f9f94d6261dc389e74.svg" alt="\mathit{CWD}_{BG,in,lsc} =\Big(f_{lsc}.(1-f_{ag})\sum_{i=1}^{n_{coh,ft}}n_{coh}w_{md,coh}  + M_{t,coh}.(b_{struc,coh}+b_{sw,coh})\Big)/\sum_{p=1}^{n_{pat}}A_p"/></p>
 </div></div>
 <div class="section" id="litter-outputs">
-<h3>2.28.14.2. Litter Outputs<a class="headerlink" href="#litter-outputs" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.14.2. Litter Outputs<a class="headerlink" href="#litter-outputs" title="Permalink to this headline">¶</a></h3>
 <p>[22]_The fragmenting litter pool is available for burning but not for
 respiration or decomposition. Fragmentation rates are calculated
 according to a maximum fragmentation rate (<img class="math" src="../../_images/math/30e77e9d8ed7c2bebf48bcbf05a209434ce7b32c.svg" alt="\alpha_{cwd,lsc}"/> or
@@ -3177,7 +3171,7 @@ sensitivity analyses of the model outputs.</p>
 <p><img src="../../_images/math/f19702017e646b2b2ed738bedfe8db5b9eb19804.svg" alt="l_{root,out,ft} = l_{root,ft}.\alpha_{root,ft}.S_{tw}"/></p>
 </div></div>
 <div class="section" id="flux-into-decompsition-cascade">
-<h3>2.28.14.3. Flux into decompsition cascade<a class="headerlink" href="#flux-into-decompsition-cascade" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.14.3. Flux into decompsition cascade<a class="headerlink" href="#flux-into-decompsition-cascade" title="Permalink to this headline">¶</a></h3>
 <p>[23]_Upon fragmentation and release from the litter pool, carbon is
 transferred into the labile, lignin and cellulose decomposition pools.
 These pools are vertically resolved in the biogeochemistry model. The
@@ -3322,7 +3316,7 @@ to soil layer z</td>
 </div>
 </div>
 <div class="section" id="plant-mortality">
-<h2>2.28.15. Plant Mortality<a class="headerlink" href="#plant-mortality" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.15. Plant Mortality<a class="headerlink" href="#plant-mortality" title="Permalink to this headline">¶</a></h2>
 <p>Total plant mortality per cohort <img class="math" src="../../_images/math/7d72d88ee064f36b60b6df5a25fd552933ddfaaa.svg" alt="M_{t,coh}"/>, (fraction
 year<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/>) is simulated as the sum of four additive terms,</p>
 <div class="math">
@@ -3339,9 +3333,9 @@ fraction of trees in a landscape that die when the mean condition of a
 given cohort triggers mortality. This parameter is needed to scale from
 individual-level mortality simulation to grid-cell average conditions.</p>
 <p>Mechanistic simulation of hydraulic failure is not undertaken on account
-of it’s mechanistic complexity (see <span class="xref std std-ref">McDowell et al. 2013&lt;mcdowell2013&gt;`for
+of it’s mechanistic complexity (see <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#mcdowelletal2013"><span class="std std-ref">McDowell et al. 2013</span></a> for
 details). Instead, we use a proxy for hydraulic failure induced
-mortality (:math:`M_{hf,coh}</span>) that uses a water potential threshold
+mortality (<img class="math" src="../../_images/math/94153c7bc6510d535f264c4b1ba5df110e107b87.svg" alt="M_{hf,coh}"/>) that uses a water potential threshold
 beyond mortality is triggered, such that the tolerance of low water
 potentials is a function of plant functional type (as expressed via the
 <img class="math" src="../../_images/math/4067ce6b20b114940fb62ae997e342503766791e.svg" alt="\psi_c"/> parameter). For each day that the aggregate water
@@ -3389,13 +3383,13 @@ fire modelling section.</p>
 </table>
 </div>
 <div class="section" id="fire-spitfire">
-<h2>2.28.16. Fire (SPITFIRE)<a class="headerlink" href="#fire-spitfire" title="Permalink to this headline">¶</a></h2>
+<h2>2.29.16. Fire (SPITFIRE)<a class="headerlink" href="#fire-spitfire" title="Permalink to this headline">¶</a></h2>
 <p>[24]_The influence of fire on vegetation is estimated using the SPITFIRE
 model, which has been modified for use in ED following it’s original
 implementation in the LPJ-SPITFIRE model
-(<span class="xref std std-ref">Thonicke et al. 2010</span>). This model as
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#pfeiffer2013"><span class="std std-ref">Pfeiffer et al. 2013</span></a>). This model as
 described is substantially different from the existing CLM4.5 fire model
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#li2012"><span class="std std-ref">Li et al. 2012</span></a>, however, further developments are
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2012a"><span class="std std-ref">Li et al. 2012</span></a>, however, further developments are
 intended to increase the merging of SPITFIRE’s natural vegetation fire
 scheme with the fire suppression, forest-clearing and peat fire
 estimations in the existing model. The coupling to the ED model allows
@@ -3412,7 +3406,7 @@ meaning that different litter pools and vegetation charecteristics of
 open and closed forests can be represented effectively (we omit the
 <cite>patch</cite> subscript throughout for simplicity).</p>
 <div class="section" id="properties-of-fuel-load">
-<h3>2.28.16.1. Properties of fuel load<a class="headerlink" href="#properties-of-fuel-load" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.16.1. Properties of fuel load<a class="headerlink" href="#properties-of-fuel-load" title="Permalink to this headline">¶</a></h3>
 <p>Many fire processes are impacted by the properties of the litter pool in
 the SPITFIRE model. There are one live (live grasses) and five dead fuel
 categories (dead leaf litter and four pools of coarse woody debris).
@@ -3420,7 +3414,7 @@ Coarse woody debris is classified into 1h, 10h, 100h, and 1000h fuels,
 defined by the order of magnitude of time required for fuel to lose
 (or gain) 63% of the difference between its current moisture content and
 the equilibrium moisture content under defined atmospheric conditions.
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>. For the purposes of describing
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>. For the purposes of describing
 the behaviour of fire, we introduce a new index ‘fuel class’ <em>fc</em>, the
 values of which correspond to each of the six possible fuel categories
 as follows.</p>
@@ -3465,11 +3459,11 @@ as follows.</p>
 </table>
 </div>
 <div class="section" id="nesterov-index">
-<h3>2.28.16.2. Nesterov Index<a class="headerlink" href="#nesterov-index" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.16.2. Nesterov Index<a class="headerlink" href="#nesterov-index" title="Permalink to this headline">¶</a></h3>
 <p>Dead fuel moisture (<img class="math" src="../../_images/math/75930c3e4a442b83a40d7a6ce844ddddf6ebd85f.svg" alt="\emph{moist}_{df,fc}"/>), and several other
 properties of fire behaviour, are a function of the ‘Nesterov Index’
 (<img class="math" src="../../_images/math/4a16ae333ef273d59fcbb7b7495ff6bfd59c9b86.svg" alt="N_{I}"/>) which is an accumulation over time of a function of
-temperature and humidity (Eqn 5, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>).</p>
+temperature and humidity (Eqn 5, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>).</p>
 <div class="math">
 <p><img src="../../_images/math/c035e1c72b482aba64eac65c27431a718cdf5f9b.svg" alt="N_{I}=\sum{\textrm{max}(T_{d}(T_{d}-D),0)}"/></p>
 </div><p>where <img class="math" src="../../_images/math/cc4c64d07217f10ed77674df83f24643edb93540.svg" alt="T_{d}"/> is the daily mean temperature in <img class="math" src="../../_images/math/7704078e79da130af3dc588bc3e8f70a8833fbb1.svg" alt="^{o}"/>C and
@@ -3481,7 +3475,7 @@ D&amp;=&amp;\frac{237.70\upsilon}{17.27-\upsilon}\end{aligned}"/></p>
 </div><p>where <img class="math" src="../../_images/math/b9fc30a68d6b3e744bee9e4fa56b2e432c3a124d.svg" alt="RH"/> is the relative humidity (%).</p>
 </div>
 <div class="section" id="fuel-properties">
-<h3>2.28.16.3. Fuel properties<a class="headerlink" href="#fuel-properties" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.16.3. Fuel properties<a class="headerlink" href="#fuel-properties" title="Permalink to this headline">¶</a></h3>
 <p>Total fuel load <img class="math" src="../../_images/math/07ea678feadd95d2fd2f6b614ea3f79a74fda4ba.svg" alt="F_{tot,patch}"/> for a given patch is the sum of
 the above ground coarse woody debris and the leaf litter, plus the alive
 grass leaf biomass <img class="math" src="../../_images/math/18baead18c91010b2527bdc3613100428118e82d.svg" alt="b_{l,grass}"/> multiplied by the non-mineral
@@ -3493,7 +3487,7 @@ average properties of the fuel load. Typically, these are calculated in
 the absence of 1000-h fuels because these do not contribute greatly to
 fire spread properties.</p>
 <div class="section" id="dead-fuel-moisture-content">
-<h4>2.28.16.3.1. Dead Fuel Moisture Content<a class="headerlink" href="#dead-fuel-moisture-content" title="Permalink to this headline">¶</a></h4>
+<h4>2.29.16.3.1. Dead Fuel Moisture Content<a class="headerlink" href="#dead-fuel-moisture-content" title="Permalink to this headline">¶</a></h4>
 <p>Dead fuel moisture is calculated as</p>
 <div class="math">
 <p><img src="../../_images/math/65e0bb33d95c9e0b74016ba5bd996a768a7c213c.svg" alt="\emph{moist}_{df,fc}=e^{-\alpha_{fmc,fc}N_{I}}"/></p>
@@ -3501,17 +3495,17 @@ fire spread properties.</p>
 content varies between the first four dead fuel classes.</p>
 </div>
 <div class="section" id="live-grass-moisture-content">
-<h4>2.28.16.3.2. Live grass moisture Content<a class="headerlink" href="#live-grass-moisture-content" title="Permalink to this headline">¶</a></h4>
+<h4>2.29.16.3.2. Live grass moisture Content<a class="headerlink" href="#live-grass-moisture-content" title="Permalink to this headline">¶</a></h4>
 <p>The live grass fractional moisture content(<img class="math" src="../../_images/math/5c7892c7ebf3e0f6dfbcaf00fe4f973ee590ea73.svg" alt="\emph{moist}_{lg}"/>)
 is a function of the soil moisture content. (Equation B2 in
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>)</p>
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>)</p>
 <div class="math">
 <p><img src="../../_images/math/d836b2ab6155b3e0632a6dd2f54d774b67f321eb.svg" alt="\emph{moist}_{lg}=\textrm{max}(0.0,\frac{10}{9}\theta_{30}-\frac{1}{9})"/></p>
 </div><p>where <img class="math" src="../../_images/math/7f79072de3a5a4146beac7039b7d7071555e688c.svg" alt="\theta_{30}"/> is the fractional moisture content of the top
 30cm of soil.</p>
 </div>
 <div class="section" id="patch-fuel-moisture">
-<h4>2.28.16.3.3. Patch Fuel Moisture<a class="headerlink" href="#patch-fuel-moisture" title="Permalink to this headline">¶</a></h4>
+<h4>2.29.16.3.3. Patch Fuel Moisture<a class="headerlink" href="#patch-fuel-moisture" title="Permalink to this headline">¶</a></h4>
 <p>The total patch fuel moisture is based on the weighted average of the
 different moisture contents associated with each of the different live
 grass and dead fuel types available (except 1000-h fuels).</p>
@@ -3519,7 +3513,7 @@ grass and dead fuel types available (except 1000-h fuels).</p>
 <p><img src="../../_images/math/eb75d85f411b3d303cdf0be1ea6ea37a4b6d337e.svg" alt="F_{m,patch}=\sum_{fc=1}^{fc=4}  \frac{F_{fc}}{F_{tot}}\emph{moist}_{df,fc}+\frac{b_{l,grass}}{F_{tot}}\emph{moist}_{lg}"/></p>
 </div></div>
 <div class="section" id="effective-fuel-moisture-content">
-<h4>2.28.16.3.4. Effective Fuel Moisture Content<a class="headerlink" href="#effective-fuel-moisture-content" title="Permalink to this headline">¶</a></h4>
+<h4>2.29.16.3.4. Effective Fuel Moisture Content<a class="headerlink" href="#effective-fuel-moisture-content" title="Permalink to this headline">¶</a></h4>
 <p>Effective Fuel Moisture Content is used for calculations of fuel
 consumed, and is a function of the ratio of dead fuel moisture content
 <img class="math" src="../../_images/math/04ade224bc550f2e6f31e663aa5074e499a72481.svg" alt="M_{df,fc}"/> and the moisture of extinction factor,
@@ -3531,14 +3525,14 @@ consumed, and is a function of the ratio of dead fuel moisture content
 <p><img src="../../_images/math/47e55378ae08426f446bab472cc9d1bc25bf6eae.svg" alt="m_{ef,fc}=0.524-0.066\log_{10}{\sigma_{fc}}"/></p>
 </div></div>
 <div class="section" id="patch-fuel-moisture-of-extinction">
-<h4>2.28.16.3.5. Patch Fuel Moisture of Extinction<a class="headerlink" href="#patch-fuel-moisture-of-extinction" title="Permalink to this headline">¶</a></h4>
+<h4>2.29.16.3.5. Patch Fuel Moisture of Extinction<a class="headerlink" href="#patch-fuel-moisture-of-extinction" title="Permalink to this headline">¶</a></h4>
 <p>The patch ‘moisture of extinction’ factor (<img class="math" src="../../_images/math/dfa252a9076d2645ac3833422e6ed44e6d6b836a.svg" alt="F_{mef}"/>) is the
 weighted average of the <img class="math" src="../../_images/math/9bee43a72bcf379d832b9211efc97518b50862f7.svg" alt="m_{ef}"/> of the different fuel classes</p>
 <div class="math">
 <p><img src="../../_images/math/a27c5946bd88b75d236232c1ec755c207f34082b.svg" alt="F_{mef,patch}=\sum_{fc=1}^{fc=5}  \frac{F_{fc}}{F_{tot}}m_{ef,fc}+\frac{b_{l,grass}}{F_{tot}}m_{ef,grass}"/></p>
 </div></div>
 <div class="section" id="patch-fuel-bulk-density">
-<h4>2.28.16.3.6. Patch Fuel Bulk Density<a class="headerlink" href="#patch-fuel-bulk-density" title="Permalink to this headline">¶</a></h4>
+<h4>2.29.16.3.6. Patch Fuel Bulk Density<a class="headerlink" href="#patch-fuel-bulk-density" title="Permalink to this headline">¶</a></h4>
 <p>The patch fuel bulk density is the weighted average of the bulk density
 of the different fuel classes (except 1000-h fuels).</p>
 <div class="math">
@@ -3547,7 +3541,7 @@ of the different fuel classes (except 1000-h fuels).</p>
 class (kG m<img class="math" src="../../_images/math/704ece9527a4f3d54bd4af0aa6e92781ad9fe92e.svg" alt="^{-3}"/>)</p>
 </div>
 <div class="section" id="patch-fuel-surface-area-to-volume">
-<h4>2.28.16.3.7. Patch Fuel Surface Area to Volume<a class="headerlink" href="#patch-fuel-surface-area-to-volume" title="Permalink to this headline">¶</a></h4>
+<h4>2.29.16.3.7. Patch Fuel Surface Area to Volume<a class="headerlink" href="#patch-fuel-surface-area-to-volume" title="Permalink to this headline">¶</a></h4>
 <p>The patch surface area to volume ratio (<img class="math" src="../../_images/math/1560ddfa350e9b31f7ea44f0a2e370aff33102bc.svg" alt="F_{\sigma}"/>) is the
 weighted average of the surface area to volume ratios
 (<img class="math" src="../../_images/math/9a772a249becba4ad9b9c594a82aee535bced672.svg" alt="\sigma_{fuel}"/>) of the different fuel classes (except 1000-h
@@ -3557,7 +3551,7 @@ fuels).</p>
 </div></div>
 </div>
 <div class="section" id="forward-rate-of-spread">
-<h3>2.28.16.4. Forward rate of spread<a class="headerlink" href="#forward-rate-of-spread" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.16.4. Forward rate of spread<a class="headerlink" href="#forward-rate-of-spread" title="Permalink to this headline">¶</a></h3>
 <p>For each patch and each day, we calculate the rate of forward spread of
 the fire <em>ros</em><img class="math" src="../../_images/math/28b52ebb7439840491284765330585d27ead1a7e.svg" alt="_{f}"/> (nominally in the direction of the wind).</p>
 <div class="math">
@@ -3565,7 +3559,7 @@ the fire <em>ros</em><img class="math" src="../../_images/math/28b52ebb743984049
 </div><p><img class="math" src="../../_images/math/d4f7399ef89f6b5cb3961f8b0610b6eaa156391f.svg" alt="e_{ps}"/> is the effective heating number
 (<img class="math" src="../../_images/math/68553a3b2ad151a52c7447e5b2af5e19371dd835.svg" alt="e^{\frac{-4.528}{F_{\sigma,patch}}}"/>). <img class="math" src="../../_images/math/c2a807b48bc9c17fd418b6426c707c9fe2671326.svg" alt="q_{ig}"/> is the
 heat of pre-ignition (<img class="math" src="../../_images/math/d629a2c744ffe0676ab9aaca1aa46492ed0c016f.svg" alt="581+2594F_{m}"/>). <img class="math" src="../../_images/math/cbbcd3b143286162aaf4d862782b6eefdcb23a3c.svg" alt="x_{i}"/> is the
-propagating flux calculated as (see <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>
+propagating flux calculated as (see <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>
 Appendix A).</p>
 <div class="math">
 <p><img src="../../_images/math/f90a38ae1367ff320d8f8542d4ad673a06748071.svg" alt="x_{i}= \left\{ \begin{array}{ll}
@@ -3584,7 +3578,7 @@ surface-area-volume ratio <img class="math" src="../../_images/math/9ec544915946
 <img class="math" src="../../_images/math/db7052d9e64d8492397d05b5381bad998a4df96d.svg" alt="\beta=\frac{F_{bd}/p_{d}}{0.200395F_{\sigma,patch}^{-0.8189}}"/>
 where <img class="math" src="../../_images/math/9c2fc77e95ee74ad2fdfea582f4fe6d54804ac39.svg" alt="p_{d}"/> is the particle density (513).</p>
 <p><img class="math" src="../../_images/math/3e44280120768fbfb7c60e5ae8cbed5285212e08.svg" alt="i_{r}"/> is the reaction intensity, calculated using the following
-set of expressions (from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a> Appendix A).:</p>
+set of expressions (from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a> Appendix A).:</p>
 <div class="math">
 <p><img src="../../_images/math/4811e91b5f8d098760504edb1b30d278e70601c5.svg" alt="\begin{aligned}
 i_{r}&amp;=&amp;\Gamma_{opt}F_{tot}Hd_{moist}d_{miner}\\
@@ -3600,11 +3594,11 @@ a&amp;=&amp;8.9033F_{\sigma,patch}^{-0.7913}\end{aligned}"/></p>
 <img class="math" src="../../_images/math/6caa5634f7aa2521750bb3922a28f73f60d0b1de.svg" alt="d_{miner}"/> 0.41739).</p>
 </div>
 <div class="section" id="fuel-consumption">
-<h3>2.28.16.5. Fuel Consumption<a class="headerlink" href="#fuel-consumption" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.16.5. Fuel Consumption<a class="headerlink" href="#fuel-consumption" title="Permalink to this headline">¶</a></h3>
 <p>The fuel consumption (fraction of biomass pools) of each dead biomass
 pool in the area affected by fire on a given day (<img class="math" src="../../_images/math/f31386bc819e7b58da978b6c6361f198d237f91b.svg" alt="f_{c,dead,fc}"/>)
 is a function of effective fuel moisture <img class="math" src="../../_images/math/245549fb3d23e8c7952f010bc2d691e1ecb9f56d.svg" alt="E_{moist,fc}"/> and size
-class <em>fc</em> (Eqn B1, B4 and B5, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>). The
+class <em>fc</em> (Eqn B1, B4 and B5, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>). The
 fraction of each fuel class that is consumed decreases as its moisture
 content relative to its moisture of extinction (<img class="math" src="../../_images/math/245549fb3d23e8c7952f010bc2d691e1ecb9f56d.svg" alt="E_{moist,fc}"/>)
 increases.</p>
@@ -3630,12 +3624,12 @@ intensity, is then given by</p>
 <img class="math" src="../../_images/math/cd0b28ed3d1f30a61ec243ae2eae40ea8b652614.svg" alt="f_{ctot,patch}"/> used in the fire intensity calculation.</p>
 </div>
 <div class="section" id="fire-intensity">
-<h3>2.28.16.6. Fire Intensity<a class="headerlink" href="#fire-intensity" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.16.6. Fire Intensity<a class="headerlink" href="#fire-intensity" title="Permalink to this headline">¶</a></h3>
 <p>Fire intensity at the front of the burning area (<img class="math" src="../../_images/math/bbb27716721a1cf325778ec6d362b9626364fba4.svg" alt="I_{surface}"/>, kW
 m<img class="math" src="../../_images/math/39d5a479110f40fa3f7a4162b260e967f3e555bf.svg" alt="^{-2}"/>) is a function of the total fuel consumed
 (<img class="math" src="../../_images/math/cd0b28ed3d1f30a61ec243ae2eae40ea8b652614.svg" alt="f_{ctot,patch}"/>) and the rate of spread at the front of the
 fire, <img class="math" src="../../_images/math/b06066eee60b1e100d6dac137f1fedcf0a1cdb04.svg" alt="\mathit{ros}_{f}"/> (m min<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/>) (Eqn 15
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>)</p>
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>)</p>
 <div class="math">
 <p><img src="../../_images/math/f13b0e60151df1296c3a6f6148a64fd0b2c5733d.svg" alt="I_{surface}=\frac{0.001}{60}f_{energy} f_{ctot,patch}\mathit{ros}_{f}"/></p>
 </div><p>where <img class="math" src="../../_images/math/ad1438dc8a641d5257f437e755aa89ff367aa3a7.svg" alt="f_{energy}"/> is the energy content of fuel (kJ/kG - the
@@ -3644,16 +3638,16 @@ ignition is successful. If the fire intensity is greater than 50kw/m
 then the ignition is successful.</p>
 </div>
 <div class="section" id="fire-duration">
-<h3>2.28.16.7. Fire Duration<a class="headerlink" href="#fire-duration" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.16.7. Fire Duration<a class="headerlink" href="#fire-duration" title="Permalink to this headline">¶</a></h3>
 <p>Fire duration is a function of the fire danger index with a maximum
 length of <img class="math" src="../../_images/math/b2890c7b5374c197073c421e17c316d1a28a8dfc.svg" alt="F_{dur,max}"/> (240 minutes in
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a> Eqn 14, derived from Canadian Forest
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a> Eqn 14, derived from Canadian Forest
 Fire Behaviour Predictions Systems)</p>
 <div class="math">
 <p><img src="../../_images/math/e73a57eb825dde3900472c86799833b77156ab98.svg" alt="D_{f}=\textrm{min}\Big(F_{dur,max},\frac{F_{dur,max}}{1+F_{dur,max}e^{-11.06fdi}}\Big)"/></p>
 </div></div>
 <div class="section" id="fire-danger-index">
-<h3>2.28.16.8. Fire Danger Index<a class="headerlink" href="#fire-danger-index" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.16.8. Fire Danger Index<a class="headerlink" href="#fire-danger-index" title="Permalink to this headline">¶</a></h3>
 <p>Fire danger index (<em>fdi</em>) is a representation of the effect of
 meteorological conditions on the likelihood of a fire. It is calculated
 for each gridcell as a function of the Nesterov Index .
@@ -3664,7 +3658,7 @@ for each gridcell as a function of the Nesterov Index .
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#venevsky2002"><span class="std std-ref">Venevsky et al. 2002</span></a>.</p>
 </div>
 <div class="section" id="area-burned">
-<h3>2.28.16.9. Area Burned<a class="headerlink" href="#area-burned" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.16.9. Area Burned<a class="headerlink" href="#area-burned" title="Permalink to this headline">¶</a></h3>
 <p>Total area burnt is assumed to be in the shape of an ellipse, whose
 major axis <img class="math" src="../../_images/math/9bc1ba6459684b8fe2c69a5063fa078d735c912f.svg" alt="f_{length}"/> (m) is determined by the forward and
 backward rates of spread (<img class="math" src="../../_images/math/92e66e83e4482e02ba3ea7335717341b84afbf1b.svg" alt="ros_{f}"/> and <img class="math" src="../../_images/math/4abd75284b09ffac22e70f9d21353c9129afcec1.svg" alt="ros_{b}"/>
@@ -3672,29 +3666,29 @@ respectively).</p>
 <div class="math">
 <p><img src="../../_images/math/137b5f7f5f22678ebabdb3b7c15737fc1277d1d2.svg" alt="f_{length}=F_{d}(ros_{b}+ros_{f})"/></p>
 </div><p><img class="math" src="../../_images/math/4abd75284b09ffac22e70f9d21353c9129afcec1.svg" alt="ros_{b}"/> is a function of <img class="math" src="../../_images/math/92e66e83e4482e02ba3ea7335717341b84afbf1b.svg" alt="ros_{f}"/> and windspeed (Eqn 10
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>)</p>
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>)</p>
 <div class="math">
 <p><img src="../../_images/math/7bd0181c148a311d744d85eaddcc7c1e93e9127f.svg" alt="ros_{b}=ros_{f}e^{-0.72W}"/></p>
 </div><p>The minor axis to major axis ratio <img class="math" src="../../_images/math/8721bd85f08b04935eb9e6a418bd2b82b042c646.svg" alt="l_{b}"/> of the ellipse is
 determined by the windspeed. If the windspeed (<img class="math" src="../../_images/math/953bde2ab2fca30897f66185e5b37b73747b8b46.svg" alt="W"/>) is less than
 16.67 ms<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/> then <img class="math" src="../../_images/math/8f29ee3459159d3a0279b05964d2431a76d1e85c.svg" alt="l_{b}=1"/>. Otherwise (Eqn 12 and 13,
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>)</p>
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>)</p>
 <div class="math">
 <p><img src="../../_images/math/c5acf3ceefb9355d37e1accb80907aa0f675f95b.svg" alt="l_{b}=\textrm{min}\Big(8,f_{tree}(1.0+8.729(1.0-e^{-0.108W})^{2.155})+(f_{grass}(1.1+3.6W^{0.0464}))\Big)"/></p>
 </div><p><img class="math" src="../../_images/math/3ca67d28eaf61b3ca80159558603c5187acbef5d.svg" alt="f_{grass}"/> and <img class="math" src="../../_images/math/60ee81b998df77ceebd7e6193245d5f487114479.svg" alt="f_{tree}"/> are the fractions of the patch
 surface covered by grass and trees respectively.</p>
 <p>The total area burned (<img class="math" src="../../_images/math/395bbb87a2e6e13a041fbb873aca807a7e1992b5.svg" alt="A_{burn}"/> in m<img class="math" src="../../_images/math/e8ea39e613fb6b8e5e8df1eba4d77a0a6940729a.svg" alt="^{2}"/>) is therefore
-(Eqn 11, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>)</p>
+(Eqn 11, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>)</p>
 <div class="math">
 <p><img src="../../_images/math/ce2f477b5ab844a6f59be5a712e348397a4fd33c.svg" alt="A_{burn}=\frac{n_{f}\frac{3.1416}{4l_{b}}(f_{length}^{2}))}{10000}"/></p>
 </div><p>where <img class="math" src="../../_images/math/272442118c6b3b0b3f2ef0a15a75db23426c8db3.svg" alt="n_{f}"/> is the number of fires.</p>
 </div>
 <div class="section" id="crown-damage">
-<h3>2.28.16.10. Crown Damage<a class="headerlink" href="#crown-damage" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.16.10. Crown Damage<a class="headerlink" href="#crown-damage" title="Permalink to this headline">¶</a></h3>
 <p><img class="math" src="../../_images/math/bd009b9d54b3c150e45e1c33821e4a98edef30a1.svg" alt="c_{k}"/> is the fraction of the crown which is consumed by the
 fire. This is calculated from scorch height <img class="math" src="../../_images/math/afc38e614bc07cce459c927603ecec162b7299f4.svg" alt="H_{s}"/>, tree height
 <img class="math" src="../../_images/math/293fb39e1b93282c804a86186e721b32f829f1b2.svg" alt="h"/> and the crown fraction parameter <img class="math" src="../../_images/math/229c7ff72689799ce57284f4cd0b010c6a83f1fa.svg" alt="F_{crown}"/> (Eqn 17
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>):</p>
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>):</p>
 <div class="math">
 <p><img src="../../_images/math/32811904a29315872f327673c9b31fcbf96e89cb.svg" alt="c_{k} = \left\{ \begin{array}{ll}
 0 &amp; \textrm{for $H_{s}&lt;(h-hF_{crown})$}\\
@@ -3704,14 +3698,14 @@ fire. This is calculated from scorch height <img class="math" src="../../_images
 </div><p>The scorch height <img class="math" src="../../_images/math/afc38e614bc07cce459c927603ecec162b7299f4.svg" alt="H_{s}"/> (m) is a function of the fire intensity,
 following <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#byram1959"><span class="std std-ref">Byram, 1959</span></a>, and is proportional to a plant
 functional type specific parameter <img class="math" src="../../_images/math/e756877a6f0b6fb11495a0665a4a1076a8149a5c.svg" alt="\alpha_{s,ft}"/> (Eqn 16
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>):</p>
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>):</p>
 <div class="math">
 <p><img src="../../_images/math/593b941bd967ce144f40b5fb5e5950ed43865915.svg" alt="H_{s}=\sum_{FT=1}^{NPFT}{\alpha_{s,p}\cdot f_{biomass,ft}} I_{surface}^{0.667}"/></p>
 </div><p>where <img class="math" src="../../_images/math/28459b800743c2952524826899b90dfc9bbc82ff.svg" alt="f_{biomass,ft}"/> is the fraction of the above-ground
 biomass in each plant functional type.</p>
 </div>
 <div class="section" id="cambial-damage-and-kill">
-<h3>2.28.16.11. Cambial Damage and Kill<a class="headerlink" href="#cambial-damage-and-kill" title="Permalink to this headline">¶</a></h3>
+<h3>2.29.16.11. Cambial Damage and Kill<a class="headerlink" href="#cambial-damage-and-kill" title="Permalink to this headline">¶</a></h3>
 <p>The cambial kill is a function of the fuel consumed <img class="math" src="../../_images/math/7b6ae3f4f4d75f97208aa6ab5e38de8b2042f940.svg" alt="f_{c,tot}"/>,
 the bark thickness <img class="math" src="../../_images/math/5e17be9ab409efdb0bd6542e712878430a4e6147.svg" alt="t_{b}"/>, and <img class="math" src="../../_images/math/39e983a5a05c4561b8340283e4981c08b945161e.svg" alt="\tau_{l}"/>, the duration of
 cambial heating (minutes) (Eqn 8, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#peterson1986"><span class="std std-ref">Peterson and Ryan 1986</span></a>):</p>
@@ -3719,17 +3713,17 @@ cambial heating (minutes) (Eqn 8, <a class="reference internal" href="../Referen
 <p><img src="../../_images/math/93617f23725734599a7d9b140da515667b7d1a03.svg" alt="\tau_{l}=\sum_{fc=1}^{fc=5}39.4F_{p,c}\frac{10000}{0.45}(1-(1-f_{c,dead,fc})^{0.5})"/></p>
 </div><p>Bark thickness is a linear function of tree diameter <img class="math" src="../../_images/math/7068f88b9dfb346344c7af383f174d051a00b180.svg" alt="dbh_{coh}"/>,
 defined by PFT-specific parameters <img class="math" src="../../_images/math/16558f40a027507135a3a5479c760284af6c38ff.svg" alt="\beta_{1,bt}"/> and
-<img class="math" src="../../_images/math/3c7a935b2dd7952bb94c2f81aadd7cab8f28a2ea.svg" alt="\beta_{2,bt}"/> (Eqn 21 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>):</p>
+<img class="math" src="../../_images/math/3c7a935b2dd7952bb94c2f81aadd7cab8f28a2ea.svg" alt="\beta_{2,bt}"/> (Eqn 21 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>):</p>
 <div class="math">
 <p><img src="../../_images/math/469776014955509bb915ee124bae6eddbab7540a.svg" alt="t_{b,coh}=\beta_{1,bt,ft}+\beta_{2,bt,ft}dbh_{coh}"/></p>
 </div><p>The critical time for cambial kill, <img class="math" src="../../_images/math/9cc5159165bd118027a513d6b0c7fc46427a3310.svg" alt="\tau_{c}"/> (minutes) is given
-as (Eqn 20 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>):</p>
+as (Eqn 20 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>):</p>
 <div class="math">
 <p><img src="../../_images/math/600f41aee219d179c9df1c5982ea246cf3e6783c.svg" alt="\tau_{c}=2.9t_{b}^{2}"/></p>
 </div><p>The mortality rate caused by cambial heating <img class="math" src="../../_images/math/3bf8a0b3c934225e4fb40d2570e23cbdb1fc889e.svg" alt="\tau_{pm}"/> of trees
 within the area affected by fire is a function of the ratio between
 <img class="math" src="../../_images/math/39e983a5a05c4561b8340283e4981c08b945161e.svg" alt="\tau_{l}"/> and <img class="math" src="../../_images/math/9cc5159165bd118027a513d6b0c7fc46427a3310.svg" alt="\tau_{c}"/> (Eqn 19,
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonicke2010"><span class="std std-ref">Thonicke et al. 2010</span></a>):</p>
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>):</p>
 <div class="math">
 <p><img src="../../_images/math/0f5d457c20a10fff4e8a3f1a3d49b939fa55188e.svg" alt="\tau_{pm} = \left\{ \begin{array}{ll}
 1.0 &amp; \textrm{for } \tau_{1}/\tau_{c}\geq \textrm{2.0}\\
@@ -4027,10 +4021,10 @@ subroutine</td></tr>
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../BVOCs/CLM50_Tech_Note_BVOCs.html" title="2.29. Biogenic Volatile Organic Compounds (BVOCs)"
+          <a href="../BVOCs/CLM50_Tech_Note_BVOCs.html" title="2.30. Biogenic Volatile Organic Compounds (BVOCs)"
              >next</a> |</li>
         <li class="right" >
-          <a href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html" title="2.26. Transient Land Use and Land Cover Change"
+          <a href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html" title="2.27. Transient Land Use and Land Cover Change"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >2. CLM Technical Note</a> &#187;</li> 

@@ -28,7 +28,7 @@ ET from vegetation (Chapter :numref:`rst_Momentum, Sensible Heat, and Latent Hea
 :math:`q_{h2osfc}`  is runoff from surface water storage (section :numref:`Surface Runoff`),
 :math:`q_{drai}`  is sub-surface drainage (section :numref:`Lateral Sub-surface Runoff`),
 :math:`q_{rgwl}`  and :math:`q_{snwcp,ice}`  are liquid and solid runoff
-from glaciers, wetlands, and lakes, and runoff from other surface types
+from glaciers and lakes, and runoff from other surface types
 due to snow capping (section :numref:`Runoff from glaciers and snow-capped surfaces`) (all in kg m\ :sup:`-2`
 s\ :sup:`-1`), :math:`N_{levsoi}`  is the number of soil layers
 (note that hydrology calculations are only done over soil layers 1 to
@@ -78,6 +78,7 @@ respectively
    :label: 7.3b
 
    f_{pi,\,ice} =\alpha_{sno} \ \left\{1-\exp \left[-0.5\left(L+S\right)\right]\right\} \ ,
+
 and :math:`L` and :math:`S` are the exposed leaf and stem area index,
 respectively (section :numref:`Phenology and vegetation burial by snow`), and 
 the :math:`\alpha`\'s scale the fractional area of a leaf that collects water 
@@ -137,7 +138,7 @@ They are defined by
 .. math::
    :label: 7.11
 
-   W_{can,\,sno}^{max } =p_{ice}\left(L+S\right).
+   W_{can,\,sno}^{max } =p_{sno}\left(L+S\right).
 
 The maximum storage of liquid water is :math:`p_{liq}=0.1` kg m\ :sup:`-2` 
 (:ref:`Dickinson et al. 1993 <Dickinsonetal1993>`), and that of snow 
@@ -334,7 +335,7 @@ Surface Water Storage
 
 A surface water store has been added to the model to represent wetlands
 and small, sub-grid scale water bodies. As a result, the wetland land
-unit has been removed. The state variables for surface water are the
+unit has been removed as of CLM4.5. The state variables for surface water are the
 mass of water :math:`W_{sfc}`  (kg m\ :sup:`-2`) and temperature
 :math:`T_{h2osfc}`  (Chapter :numref:`rst_Soil and Snow Temperatures`). 
 Surface water storage and outflow are
@@ -1240,22 +1241,15 @@ Runoff from glaciers and snow-capped surfaces
 -------------------------------------------------
 
 All surfaces are constrained to have a snow water equivalent
-:math:`W_{sno} \le 1000` kg m\ :sup:`-2`. For snow-capped
-surfaces, the solid and liquid precipitation reaching the snow surface
-and dew in solid or liquid form, is separated into solid
-:math:`q_{snwcp,ice}` \ and liquid :math:`q_{snwcp,liq}`  runoff terms
+:math:`W_{sno} \le W_{cap} = 10,000` kg m\ :sup:`-2`. For snow-capped
+columns, any addition of mass at the top (precipitation, dew/riping) is 
+balanced by an equally large mass flux at the bottom of the snow column. 
+This so-called capping flux is separated into solid
+:math:`q_{snwcp,ice}` \ and liquid :math:`q_{snwcp,liq}`  runoff terms.
+The partitioning of these phases is based on the phase ratio in the bottom snow 
+layer at the time of the capping, such that phase ratio in this layer is unaltered.
 
-.. math::
-   :label: 7.178
-
-   q_{snwcp,ice} =q_{grnd,ice} +q_{frost}
-
-.. math::
-   :label: 7.179
-
-   q_{snwcp,liq} =q_{grnd,liq} +q_{dew}
-
-and snow pack properties are unchanged. The :math:`q_{snwcp,ice}` 
+The :math:`q_{snwcp,ice}` 
 runoff is sent to the River Transport Model (RTM) (Chapter 11) where it
 is routed to the ocean as an ice stream and, if applicable, the ice is
 melted there.
@@ -1284,5 +1278,3 @@ The contribution of lake runoff to :math:`q_{rgwl}`  is described in
 section :numref:`Precipitation, Evaporation, and Runoff Lake`. The runoff 
 term :math:`q_{rgwl}`  may be negative for glaciers and lakes, which reduces 
 the total amount of runoff available to the river routing model (Chapter :numref:`rst_River Transport Model (RTM)`).
-
->

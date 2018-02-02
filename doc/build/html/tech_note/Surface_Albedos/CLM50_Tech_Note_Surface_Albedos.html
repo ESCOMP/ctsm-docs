@@ -644,17 +644,17 @@ combinations of “soil” and snow albedos</p>
 </div><p>where <img class="math" src="../../_images/math/f946f3426bf2cf588dbe5a9a9c77396e913a4a80.svg" alt="f_{sno}"/>  is the fraction of the ground covered with snow
 (section <a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html#snow-covered-area-fraction"><span class="std std-numref">2.8.1</span></a>).</p>
 <p><img class="math" src="../../_images/math/77cc10a23f36a4434cd4d5cf164f7f169f7469a5.svg" alt="\alpha _{soi,\, \Lambda }^{\mu }"/>  and
-<img class="math" src="../../_images/math/67a4d338036745c05814516191399685a856bae9.svg" alt="\alpha _{soi,\, \Lambda }"/>  vary with glacier, lake, wetland, and
+<img class="math" src="../../_images/math/67a4d338036745c05814516191399685a856bae9.svg" alt="\alpha _{soi,\, \Lambda }"/>  vary with glacier, lake, and
 soil surfaces. Glacier albedos are from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#paterson1994"><span class="std std-ref">Paterson (1994)</span></a></p>
 <div class="math">
 <p><img src="../../_images/math/ff0ff9aeebfd61de93ca693b7228062a45a6ccbe.svg" alt="\alpha _{soi,\, vis}^{\mu } =\alpha _{soi,\, vis} =0.6"/></p>
 </div><div class="math">
 <p><img src="../../_images/math/87e8a506964692a8b701a2a3d10ffd91bd184735.svg" alt="\alpha _{soi,\, nir}^{\mu } =\alpha _{soi,\, nir} =0.4."/></p>
-</div><p>Unfrozen lake and wetland albedos depend on the cosine of the solar
+</div><p>Unfrozen lake albedos depend on the cosine of the solar
 zenith angle <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.svg" alt="\mu"/></p>
 <div class="math" id="equation-3.60">
 <p><span class="eqno">(60)<a class="headerlink" href="#equation-3.60" title="Permalink to this equation">¶</a></span><img src="../../_images/math/383d43206975b4d5a05b567efdefd71cf3006f1c.svg" alt="\alpha _{soi,\, \Lambda }^{\mu } =\alpha _{soi,\, \Lambda } =0.05\left(\mu +0.15\right)^{-1} ."/></p>
-</div><p>Frozen lake and wetland albedos are from NCAR LSM (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonan1996"><span class="std std-ref">Bonan 1996</span></a>)</p>
+</div><p>Frozen lake albedos are from NCAR LSM (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonan1996"><span class="std std-ref">Bonan 1996</span></a>)</p>
 <div class="math">
 <p><img src="../../_images/math/2520cf7091668a46dde7d29af918ea06f083f177.svg" alt="\alpha _{soi,\, vis}^{\mu } =\alpha _{soi,\, vis} =0.60"/></p>
 </div><div class="math">
@@ -1334,8 +1334,12 @@ each time step <em>t</em> as</p>
 <div class="math" id="equation-3.72">
 <p><span class="eqno">(72)<a class="headerlink" href="#equation-3.72" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a185613cbeaf95852247f1cd061863ca43228259.svg" alt="r_{e} \left(t\right)=\left[r_{e} \left(t-1\right)+dr_{e,\, dry} +dr_{e,\, wet} \right]f_{old} +r_{e,\, 0} f_{new} +r_{e,\, rfz} f_{rfrz}"/></p>
 </div><p>Here, the effective radius of freshly-fallen snow
-(<img class="math" src="../../_images/math/4ce5d83f88b201c01813fc574d1befee42e50e94.svg" alt="r_{e,0}"/>) is fixed globally at 54.5 <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.svg" alt="\mu"/> m (corresponding to a specific surface area of 60 m<sup>2</sup> kg<sup>-1</sup>), and the effective
-radius of refrozen liquid water (<img class="math" src="../../_images/math/fa5c123199756fa0d2e037eb83361bea98efc177.svg" alt="r_{e,rfz}"/>) is set to 1000<img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.svg" alt="\mu"/> m.</p>
+(<img class="math" src="../../_images/math/4ce5d83f88b201c01813fc574d1befee42e50e94.svg" alt="r_{e,0}"/>) is based on a simple linear temperature-relationship.
+Below -30 degrees Celsius, a minimum value is enforced of 54.5 <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.svg" alt="\mu"/> m
+(corresponding to a specific surface area of 60 m<sup>2</sup> kg<sup>-1</sup>).
+Above 0 degrees Celsius, a maximum value is enforced of 204.5  <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.svg" alt="\mu"/> m.
+Between -30 and 0 a linear ramp is used.</p>
+<p>The effective radius of refrozen liquid water (<img class="math" src="../../_images/math/fa5c123199756fa0d2e037eb83361bea98efc177.svg" alt="r_{e,rfz}"/>) is set to 1000<img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.svg" alt="\mu"/> m.</p>
 <p>Dry snow aging is based on a microphysical model described by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#flannerzender2006"><span class="std std-ref">Flanner
 and Zender (2006)</span></a>. This model simulates diffusive vapor flux
 amongst collections of ice crystals with various size and inter-particle
