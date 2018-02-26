@@ -53,11 +53,16 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">2.27. Transient Land Use and Land Cover Change</a><ul>
-<li><a class="reference internal" href="#annual-transient-land-use-and-land-cover-data-and-time-interpolation">2.27.1. Annual Transient Land Use and Land Cover Data and Time Interpolation</a></li>
-<li><a class="reference internal" href="#mass-and-energy-conservation">2.27.2. Mass and Energy Conservation</a></li>
-<li><a class="reference internal" href="#annual-transient-land-cover-dataset-development">2.27.3. Annual Transient Land Cover Dataset Development</a><ul>
-<li><a class="reference internal" href="#luh2-transient-land-use-and-land-cover-change-dataset">2.27.3.1. LUH2 Transient Land Use and Land Cover Change Dataset</a></li>
-<li><a class="reference internal" href="#representing-luh2-land-use-and-land-cover-change-in-clm5">2.27.3.2. Representing LUH2 Land Use and Land Cover Change in CLM5</a></li>
+<li><a class="reference internal" href="#annual-transient-land-use-and-land-cover-data">2.27.1. Annual Transient Land Use and Land Cover Data</a></li>
+<li><a class="reference internal" href="#reconciling-changes-in-area">2.27.2. Reconciling Changes in Area</a></li>
+<li><a class="reference internal" href="#mass-and-energy-conservation">2.27.3. Mass and Energy Conservation</a><ul>
+<li><a class="reference internal" href="#water-and-energy-conservation">2.27.3.1. Water and Energy Conservation</a></li>
+<li><a class="reference internal" href="#carbon-and-nitrogen-conservation">2.27.3.2. Carbon and Nitrogen Conservation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#annual-transient-land-cover-dataset-development">2.27.4. Annual Transient Land Cover Dataset Development</a><ul>
+<li><a class="reference internal" href="#luh2-transient-land-use-and-land-cover-change-dataset">2.27.4.1. LUH2 Transient Land Use and Land Cover Change Dataset</a></li>
+<li><a class="reference internal" href="#representing-luh2-land-use-and-land-cover-change-in-clm5">2.27.4.2. Representing LUH2 Land Use and Land Cover Change in CLM5</a></li>
 </ul>
 </li>
 </ul>
@@ -98,123 +103,205 @@
   <div class="section" id="transient-land-use-and-land-cover-change">
 <span id="rst-transient-landcover-change"></span><h1>2.27. Transient Land Use and Land Cover Change<a class="headerlink" href="#transient-land-use-and-land-cover-change" title="Permalink to this headline">¶</a></h1>
 <p>CLM includes a treatment of mass and energy fluxes associated with
-prescribed temporal land use and land cover change (LULCC). The model uses an annual
-time series of the spatial distribution of the natural and crop land units
-of each grid cell, in combination with the distribution of PFTs and CFTs
-that exist in those land units. Additional land use is prescribed through annual
-crop specific management of nitrogen fertilizer and irrigation described further
-in Chapter 25, and through wood harvest on tree PFTs. For changes in the distributions
-of natural and crop vegetation CLM diagnoses the change in area of the PFTs and CFTs
-on January 1st of each model year and then performs mass and energy balance accounting
-necessary to represent the expansion and contraction of the PFT and CFT areas. The
-biogeophysical impacts of LULCC are simulated through changes
-in surface properties which in turn impact the surface albedo, hydrology, and roughness
-which then impact fluxes of energy, moisture and momentum to the atmosphere under the
-altered properties. Additionally changes in energy and moisture associated with changes
-in the natural and crop vegetation distribution are accounted for through small
-fluxes to the atmosphere. The biogeochemical impacts of LULCC
-are simulated through changes in CLM carbon pools and fluxes as shown in Figure xx.x and
-described further in Chapter 16.</p>
-<div class="section" id="annual-transient-land-use-and-land-cover-data-and-time-interpolation">
-<h2>2.27.1. Annual Transient Land Use and Land Cover Data and Time Interpolation<a class="headerlink" href="#annual-transient-land-use-and-land-cover-data-and-time-interpolation" title="Permalink to this headline">¶</a></h2>
-<p>The changes in area over time associated with changes in natural and crop
-vegetation and the land use on that vegetation are prescribed through a forcing dataset,
-referred to here as the <em>landuse.timeseries</em> dataset. The <em>landuse.timeseries</em> dataset
-consists of an annual time series of global grids, where each annual time slice describes
-the fractional area occupied by all PFTs and CFTs along with the nitrogen fertilizer and
-irrigation fraction of each crop CFT, and the annual wood harvest applied to tree PFTs.
-Changes in area of PFTs and CFTs are performed annually on the first time step of January
-1st of the year. Fertilizer application, irrigation and wood harvest for each PFT and CFT
-are performed at each model time step depending on rules from the crop and natural vegetation
-phenology models. The irrigation fraction is set annually however fertlizer application and
-wood harvest are set from a time-interpolation of the application rates from the two bracketing
-annual time slices in the <em>landuse.timeseries</em> dataset.</p>
-<p>As a special case, when the time dimension of the <em>landuse.timeseries</em> dataset
-starts at a later year than the current model time step, the first time
-slice from the <em>landuse.timeseries</em> dataset is used to represent the current time
-step PFT and CFT fractional area distributions. Similarly, when the time
-dimension of the <em>landuse.timeseries</em> dataset stops at an earlier year than the
-current model time step, the last time slice of the <em>landuse.timeseries</em> dataset is
-used. Thus, the simulation will have invariant representations of PFT and CFT
-distributions through time for the periods prior to and following the
-time duration of the <em>landuse.timeseries</em> dataset, with transient PFT and CFT distributions
-during the period covered by the <em>landuse.timeseries</em> dataset.</p>
-<p>The following equations capture this logic, where <img class="math" src="../../_images/math/90254843cacffcbe34b3b12526cdf4718b7e7c30.svg" alt="year_{cur}"/>  is
-the calendar year for the current timestep,
-<img class="math" src="../../_images/math/99ef586bf735843cd740449f600b9733ae3e7360.svg" alt="landuse.timeseries\_ year(1)"/> and
-<img class="math" src="../../_images/math/369ebc6fd1afbcd1681a347d8713e306c4593668.svg" alt="landuse.timeseries\_ year(nyears)"/> are the first and last calendar years in
-the <em>landuse.timeseries</em> dataset, respectively, <img class="math" src="../../_images/math/5b1037a6e07ae4a04d6699988482e31c09e2697d.svg" alt="nyears"/> is the number of
-years in the <em>landuse.timeseries</em> dataset, <img class="math" src="../../_images/math/6a54220b05bec11f3f6e2a24c354e471415cca29.svg" alt="nt_{1}"/>  and <img class="math" src="../../_images/math/d213b0f9a320936f2533c189304f7b388e02c884.svg" alt="nt_{2}"/>
-are the two bracketing years used in the interpolation
-algorithm, and <img class="math" src="../../_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.svg" alt="n"/> is the index value for the
-<img class="math" src="../../_images/math/20188d7686a45252153b0e3416e8aafc716dd903.svg" alt="landuse.timeseries\_ year"/> array corresponding to
-<img class="math" src="../../_images/math/bd50e06e6719d592fc9d0ca229a9686a444d4697.svg" alt="landuse.timeseries\_ year(n)=year_{cur}"/> :</p>
-<div class="math" id="equation-26.1)">
-<p><span class="eqno">(1)<a class="headerlink" href="#equation-26.1)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b2f0d7db746c8b30524ce040be5fbd5e70b4d26b.svg" alt="nt_{1} =\left\{\begin{array}{l} {1\qquad {\rm for}\qquad year_{cur} &lt;landuse.timeseries\_ year(1)} \\ {n\qquad {\rm for}\qquad landuse.timeseries\_ year(1)\le year_{cur} &lt;landuse.timeseries\_ year(nyears)} \\ {nyears\qquad {\rm for}\qquad year_{cur} \ge landuse.timeseries\_ year(nyears)} \end{array}\right\}"/></p>
-</div><div class="math" id="equation-26.2)">
-<p><span class="eqno">(2)<a class="headerlink" href="#equation-26.2)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6ca08c040e82676b3c7190f57412bfc073e73c4c.svg" alt="nt_{2} =\left\{\begin{array}{l} {1\qquad {\rm for}\qquad year_{cur} &lt;landuse.timeseries\_ year(1)} \\ {n+1\qquad {\rm for}\qquad landuse.timeseries\_ year(1)\le year_{cur} &lt;landuse.timeseries\_ year(nyears)} \\ {nyears\qquad {\rm for}\qquad year_{cur} \ge landuse.timeseries\_ year(nyears)} \end{array}\right\}"/></p>
-</div><p>Interpolation of fertilizer and wood harvest rates between annual time slices in the <em>landuse.timeseries</em>
-dataset uses a simple linear algorithm, based on the conversion of the
-current time step information into a floating-point value for the number
-of calendar days since January 1 of the current model year
-(<img class="math" src="../../_images/math/e50c28d0d0cd50a81dd6459119206ded765f04b5.svg" alt="cday"/>). The interpolation weight for the current time step
-<img class="math" src="../../_images/math/858e85b866321f960a44d8a38d62c6f110ced7a9.svg" alt="tw_{cday}"/> is</p>
-<div class="math" id="equation-26.3)">
-<p><span class="eqno">(3)<a class="headerlink" href="#equation-26.3)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d946327d44015006e637d1b430558a8397313a63.svg" alt="tw_{cday} =\frac{366-cday}{365}"/></p>
-</div><p>where the numerator is 366 instead of 365 because the time manager
-function for CLM returns a value of <img class="math" src="../../_images/math/43a833511666bfe6c3320534a01cc1154bb35128.svg" alt="cday=1.0"/> for midnight
-Greenwich mean time on January 1. With weights <img class="math" src="../../_images/math/50f3c9fc326052db444f372e3891a1e25b50fae0.svg" alt="w_{p} (nt_{1} )"/>
-and <img class="math" src="../../_images/math/949a4b09f720fe4631ba7c61740412231b900014.svg" alt="w_{p} (nt_{2} )"/> obtained from the <em>landuse.timeseries</em> dataset for fertilizer and wood harvest
-<em>p</em> at the bracketing annual time slices
-<img class="math" src="../../_images/math/6a54220b05bec11f3f6e2a24c354e471415cca29.svg" alt="nt_{1}"/> and <img class="math" src="../../_images/math/d213b0f9a320936f2533c189304f7b388e02c884.svg" alt="nt_{2}"/> , the interpolated
-application rate for the current time step (<img class="math" src="../../_images/math/cf2159db5f8a8c60ed44acf049d88aa32fd0e7fb.svg" alt="w_{p,t}"/> ) is</p>
-<div class="math" id="equation-26.4)">
-<p><span class="eqno">(4)<a class="headerlink" href="#equation-26.4)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ff3245f71fde01863af403cdaf7e9156d4cd75f4.svg" alt="w_{p,t} =tw_{cday} \left[w_{p} \left(nt_{1} \right)-w_{p} \left(nt_{2} \right)\right]+w_{p} \left(nt_{2} \right)"/></p>
-</div><p>The form of this equation is designed to improve roundoff accuracy
-performance, and guarantees <img class="math" src="../../_images/math/cf2159db5f8a8c60ed44acf049d88aa32fd0e7fb.svg" alt="w_{p,t}"/>  stays in the range [0,1].
-Note that values for <img class="math" src="../../_images/math/50f3c9fc326052db444f372e3891a1e25b50fae0.svg" alt="w_{p} (nt_{1} )"/>, <img class="math" src="../../_images/math/949a4b09f720fe4631ba7c61740412231b900014.svg" alt="w_{p} (nt_{2} )"/>,
-and <img class="math" src="../../_images/math/cf2159db5f8a8c60ed44acf049d88aa32fd0e7fb.svg" alt="w_{p,t}"/> are fractional weights at the
-column level of the subgrid hierarchy.</p>
-<p>The change in weight for a fertilizer or wood harvest rate between the current and previous time
-steps (<img class="math" src="../../_images/math/32ac109720b341a562ff0c9d31d36551b1c3d08d.svg" alt="\Delta w_{p}"/> ) is</p>
-<div class="math" id="equation-26.5)">
-<p><span class="eqno">(5)<a class="headerlink" href="#equation-26.5)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f5a8d159223fe8c4faab3c8e6522c0ec28d75e25.svg" alt="\Delta w_{p} =w_{p}^{n} -w_{p}^{n-1}"/></p>
-</div><p>where <em>n</em> denotes the current time step. The rate of application
-increases for <img class="math" src="../../_images/math/23025f8b4abc92b2c09fc8a964562c3ed3ab0541.svg" alt="\Delta w_{p} &gt;0"/> and decreases for
-<img class="math" src="../../_images/math/a9492bf66c9a541e8d4d1f5512515658d54279a3.svg" alt="\Delta w_{p} &lt;0"/>.</p>
+prescribed temporal land use and land cover change (LULCC). The model
+uses an annual time series of the spatial distribution of the natural
+and crop land units of each grid cell, in combination with the
+distribution of PFTs and CFTs that exist in those land units. Additional
+land use is prescribed through annual crop-specific management of
+nitrogen fertilizer and irrigation (described further in
+<a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html#rst-crops-and-irrigation"><span class="std std-numref">2.26</span></a>), and through wood harvest on tree
+PFTs. For changes in the distributions of natural and crop vegetation,
+CLM diagnoses the change in area of the PFTs and CFTs on January 1 of
+each model year and then performs mass and energy balance accounting
+necessary to represent the expansion and contraction of the PFT and CFT
+areas. The biogeophysical impacts of LULCC are simulated through changes
+in surface properties which in turn impact the surface albedo,
+hydrology, and roughness which then impact fluxes of energy, moisture
+and momentum to the atmosphere under the altered
+properties. Additionally, changes in energy and moisture associated with
+changes in the natural and crop vegetation distribution are accounted
+for through small fluxes to the river and atmosphere. The biogeochemical
+impacts of LULCC are simulated through changes in CLM carbon pools and
+fluxes (see also Chapter <a class="reference internal" href="../CN_Pools/CLM50_Tech_Note_CN_Pools.html#rst-cn-pools"><span class="std std-numref">2.16</span></a>).</p>
+<p>CLM can also respond to changes in ice sheet areas and elevations when
+it is coupled to an evolving ice sheet model (in the CESM context, this
+is the Community Ice Sheet Model, CISM; see also Chapter
+<a class="reference internal" href="../Glacier/CLM50_Tech_Note_Glacier.html#rst-glaciers"><span class="std std-numref">2.13</span></a>). Conservation of water, energy, carbon and
+nitrogen is handled similarly for glacier-vegetation transitions as for
+natural vegetation-crop transitions.</p>
+<div class="section" id="annual-transient-land-use-and-land-cover-data">
+<span id="transient-land-use-and-land-cover-data"></span><h2>2.27.1. Annual Transient Land Use and Land Cover Data<a class="headerlink" href="#annual-transient-land-use-and-land-cover-data" title="Permalink to this headline">¶</a></h2>
+<p>The changes in area over time associated with changes in natural and crop vegetation and
+the land use on that vegetation are prescribed through a forcing dataset, referred to here
+as the <em>landuse.timeseries</em> dataset. The <em>landuse.timeseries</em> dataset consists of an
+annual time series of global grids, where each annual time slice describes the fractional
+area occupied by all PFTs and CFTs along with the nitrogen fertilizer and irrigation
+fraction of each crop CFT, and the annual wood harvest applied to tree PFTs. Changes in
+area of PFTs and CFTs are performed annually on the first time step of January 1 of the
+year. Wood harvest for each PFT is also performed on the first time step of the
+year. Fertilizer application and irrigation for each CFT are performed at each model time
+step depending on rules from the crop model. Fertilizer application rates are set
+annually. The irrigation fraction is also set annually; irrigated crops are placed on
+separate columns from their unirrigated counterparts, so changes in irrigated fraction
+triggers the changes in subgrid areas discussed below (sections <a class="reference internal" href="#transient-landcover-reconciling-changes-in-area"><span class="std std-numref">2.27.2</span></a> and <a class="reference internal" href="#transient-landcover-mass-and-energy-conservation"><span class="std std-numref">2.27.3</span></a>).</p>
+<p>As a special case, when the time dimension of the <em>landuse.timeseries</em> dataset starts at a
+later year than the current model time step, the first time slice from the
+<em>landuse.timeseries</em> dataset is used to represent the current time step PFT and CFT
+fractional area distributions. Similarly, when the time dimension of the
+<em>landuse.timeseries</em> dataset stops at an earlier year than the current model time step,
+the last time slice of the <em>landuse.timeseries</em> dataset is used. Thus, the simulation will
+have invariant representations of PFT and CFT distributions through time for the periods
+prior to and following the time duration of the <em>landuse.timeseries</em> dataset, with
+transient PFT and CFT distributions during the period covered by the <em>landuse.timeseries</em>
+dataset.</p>
+</div>
+<div class="section" id="reconciling-changes-in-area">
+<span id="transient-landcover-reconciling-changes-in-area"></span><h2>2.27.2. Reconciling Changes in Area<a class="headerlink" href="#reconciling-changes-in-area" title="Permalink to this headline">¶</a></h2>
+<p>In the first time step of January 1, changes in land unit weights can
+potentially come from two sources: Changes in the area of the crop land
+unit come from the <em>landuse.timeseries</em> dataset (section
+<a class="reference internal" href="#transient-land-use-and-land-cover-data"><span class="std std-numref">2.27.1</span></a>), and changes in the
+area of the glacier land unit come from the ice sheet model. The areas
+of other land units are then adjusted so that the total land unit area
+remains 100%.</p>
+<p>If the total land unit area of glaciers and crops has decreased, then
+the natural vegetated landunit is increased to fill in the abandoned
+land. If the total land unit area of glaciers and crops has increased,
+then other land unit areas are decreased in a specified order until the
+total is once again 100%. The order of decrease is: natural vegetation,
+crop, urban medium density, urban high density, urban tall building
+district, wetland, lake.</p>
+<p>These rules have two important implications:</p>
+<ol class="arabic simple">
+<li>We always match CISM’s glacier areas exactly, even if that means a
+disagreement with prescribed crop areas. This is needed for
+conservation when CISM is evolving in two-way-coupled mode.</li>
+<li>For land units other than crop, glacier and natural vegetation, their
+areas can decrease (due to encroaching crops or glaciers), but can
+never increase. So, for example, if a grid cell starts as 5% lake,
+crops expand to fill the entire grid cell, then later crop area
+decreases, the lake area will not return: instead, the abandoned
+cropland will become entirely natural vegetation.</li>
+</ol>
+<p>For all levels of the subgrid hierarchy (land unit, column and patch),
+we only track net changes in area, not gross transitions. So, for
+example, if part of a gridcell experiences an increase in glacier area
+while another part of that gridcell experiences an equal decrease in
+glacier area (in the same glacier elevation class), CLM acts as if there
+were no changes. As another example, consider a gridcell containing
+natural vegetation, crop and glacier. If there is a decrease in glacier
+area and an equal increase in crop area, CLM will assume that the crop
+expands into the old glacier area, and nothing happened to the natural
+vegetation area. A more realistic alternative would be that the crop
+expanded into natural vegetation, and natural vegetation expanded into
+glacier. The final areas will be correct in these cases, but the
+adjustments of carbon and nitrogen states (section <a class="reference internal" href="#transient-landcover-carbon-and-nitrogen-conservation"><span class="std std-numref">2.27.3.2</span></a>) will be less accurate than what
+would be obtained with a full tracking of gross transitions.</p>
 </div>
 <div class="section" id="mass-and-energy-conservation">
-<h2>2.27.2. Mass and Energy Conservation<a class="headerlink" href="#mass-and-energy-conservation" title="Permalink to this headline">¶</a></h2>
-<p>Mass conservation is maintained across PFT and CFT weight transitions by
-summing up all the carbon, nitrogen, water and energy state variables to get the total vegetated land
-units value before (<img class="math" src="../../_images/math/2fb353d42aacf9dc2e25e75812ce3849934e6510.svg" alt="W_{tot,1}"/> ) and after
-(<img class="math" src="../../_images/math/7974e5d3705eeb12d53edba3387b8dbaa4a0c948.svg" alt="W_{tot,2}"/> ) the new PFT and CFT weights are calculated. Transitions are performed on above ground
-variables first and then at the land unit level for below ground variables second. For example the hydrological
-balance is calculated,
-<img class="math" src="../../_images/math/2fb353d42aacf9dc2e25e75812ce3849934e6510.svg" alt="W_{tot,1}"/>  is</p>
-<div class="math" id="equation-26.6)">
-<p><span class="eqno">(6)<a class="headerlink" href="#equation-26.6)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8304cbf48359b251adf03b1faebd516d0f962270.svg" alt="W_{tot,1} =W_{a} +W_{sno} +\sum _{i=1}^{N_{levgrnd} }\left(w_{liq,i} +w_{ice,i} \right) +\sum _{j=1}^{npft}\left(W_{can,j} wt_{j,1} \right)"/></p>
-</div><p>where <img class="math" src="../../_images/math/91fbfb72ff73d153e6b6f357f2bc6e55bbf25918.svg" alt="W_{a}"/>  is the aquifer water, <img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.svg" alt="W_{sno}"/>  is the snow
-water, <img class="math" src="../../_images/math/9b38021be899f869dcb9a2eec54e1034d941bd39.svg" alt="w_{liq,i}"/>  and <img class="math" src="../../_images/math/fd8a0fbaf8024407f6cf74f5e9187a713d94776d.svg" alt="w_{ice,i}"/> are the liquid and ice
-soil water contents, <img class="math" src="../../_images/math/ca9a19a33a7e4dd74b0de98b9c1822d449907a81.svg" alt="W_{can,j}"/> is the canopy water content for
-PFT and CFT <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.svg" alt="j"/>, and <img class="math" src="../../_images/math/bd1657fc1f7bb893f4e8737526f7148864232ff6.svg" alt="wt_{j,1}"/>  is the PFT or CFT weight for
-<img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.svg" alt="j"/>. For the situation where PFT and CFT weights are changing, any difference
-between <img class="math" src="../../_images/math/2fb353d42aacf9dc2e25e75812ce3849934e6510.svg" alt="W_{tot,1}"/>  and <img class="math" src="../../_images/math/7974e5d3705eeb12d53edba3387b8dbaa4a0c948.svg" alt="W_{tot,2}"/> are due to
-differences in the total canopy water before and after the PFT and CFT weight
-change. To ensure conservation, the typically very small
-difference between <img class="math" src="../../_images/math/7974e5d3705eeb12d53edba3387b8dbaa4a0c948.svg" alt="W_{tot,2}"/> and <img class="math" src="../../_images/math/2fb353d42aacf9dc2e25e75812ce3849934e6510.svg" alt="W_{tot,1}"/>  is
-subtracted from the grid cell runoff</p>
-<div class="math" id="equation-26.7)">
-<p><span class="eqno">(7)<a class="headerlink" href="#equation-26.7)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8ab5304ba044b94be209149a0e60f377ae1403e5.svg" alt="R_{liq} =R_{liq} +W_{tot,2} -W_{tot,1} ."/></p>
-</div><p>Total energy is unperturbed in this case and therefore an energy
-conservation treatment is not required. Changing the area of natural and crop land units
-in association with the change in PFTs and CFTs results in changes in the soil/snow columns
-and land unit area. To address these additional changes, conservation of mass and
-energy among the soil/snow columns and land units is performed as a secondary calculation once
-all above ground PFT and CFT changes have been done.</p>
+<span id="transient-landcover-mass-and-energy-conservation"></span><h2>2.27.3. Mass and Energy Conservation<a class="headerlink" href="#mass-and-energy-conservation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="water-and-energy-conservation">
+<span id="transient-landcover-water-and-energy-conservation"></span><h3>2.27.3.1. Water and Energy Conservation<a class="headerlink" href="#water-and-energy-conservation" title="Permalink to this headline">¶</a></h3>
+<p>When subgrid areas change, the water and energy states remain unchanged
+on a per-area basis. This can lead to changes in the total gridcell
+water and energy content.</p>
+<p>For example, consider a gridcell with two columns: column 1 has a water
+mass of 1 kg m<sup>-2</sup> and column 2 has a water mass of 2 kg m<sup>-2</sup> for a given water state variable, where these are expressed
+per unit column area. If column 1 increases in area at the expense of
+column 2, then column 1 will still have a water mass of 1 kg m<sup>-2</sup>, but now expressed over the new column area. This results in a
+decrease in the total gridcell water content.</p>
+<p>Water and energy are conserved by summing up the total water and energy
+content of each gridcell before and after a change in area. Differences
+in liquid and ice water content are balanced by liquid and ice runoff
+terms, which can be either positive or negative. (Negative runoff is
+effectively a withdrawal of water from the ocean.) Differences in energy
+content are balanced by a sensible heat flux term, which again can be
+either positive or negative. These balancing fluxes are spread evenly
+throughout the following year.</p>
+<p>There is a special case when a given crop column type newly comes into
+existence - for example, when temperate corn first comes into existence
+in a gridcell. In this case, the column’s below-ground temperature and
+water states are copied from the natural vegetated column in its
+gridcell, so that these state variables begin in a close-to-spun-up
+state. Other state variables (most of which spin up relatively quickly)
+begin at their cold start initialization values. This initialization is
+not necessary for the two other land unit types that currently can
+grow - natural vegetation and glacier: Those land unit types are always
+active, even when they have zero area on the gridcell, so their state
+variables will be spun up immediately when they come into
+existence. After this initialization, the conservation code described
+above takes effect.</p>
+</div>
+<div class="section" id="carbon-and-nitrogen-conservation">
+<span id="transient-landcover-carbon-and-nitrogen-conservation"></span><h3>2.27.3.2. Carbon and Nitrogen Conservation<a class="headerlink" href="#carbon-and-nitrogen-conservation" title="Permalink to this headline">¶</a></h3>
+<p>Because of the long timescales involved with below-ground carbon and
+nitrogen dynamics, it is more important that these state variables be
+adjusted properly when subgrid areas change. Carbon and nitrogen
+variables are adjusted with the following three-step process:</p>
+<ol class="arabic simple">
+<li>Patch-level (i.e., vegetation) state variables are adjusted for any
+changes in patch areas; this may lead to fluxes into column-level
+(i.e., soil) state variables</li>
+<li>Column-level (i.e., soil) state variables are updated based on the
+fluxes generated in (1)</li>
+<li>Column-level (i.e., soil) state variables are adjusted for any
+changes in column areas</li>
+</ol>
+<p>First, patch-level (i.e., vegetation) state variables are adjusted for
+any changes in patch areas. This includes changes in column or land unit
+areas, even if the relative proportions of each patch remain constant:
+the relevant quantities are the patch weights relative to the
+gridcell.</p>
+<p>For a patch that decreases in area, the carbon and nitrogen density on
+the remaining patch area remains the same as before (i.e., expressed as
+g per m<sup>2</sup> patch area). Because the area has decreased, this
+represents a decrease in total carbon or nitrogen mass (i.e., expressed
+as g per m<sup>2</sup> gridcell area). The lost mass meets a variety of
+fates: some is immediately lost to the atmosphere, some is sent to
+product pools (which are lost to the atmosphere over longer time
+scales), and some is sent to litter pools.</p>
+<p>For a patch that increases in area, the carbon and nitrogen density on
+the new patch area is decreased in order to conserve mass. This decrease
+is basically proportional to the relative increase in patch
+area. However, a small amount of seed carbon and nitrogen is added to
+the leaf and dead stem pools in the new patch area.</p>
+<p>Next, column-level (i.e., soil) state variables are updated based on any
+fluxes to soil pools due to decreases in patch areas. This step is
+needed so that any lost vegetation carbon and nitrogen is conserved when
+column areas are changing.</p>
+<p>Finally, column-level state variables are adjusted for any changes in
+column areas. Similarly to patches, for a column that decreases in area,
+the carbon and nitrogen density on the remaining column area remains the
+same as before (i.e., expressed as g per m<sup>2</sup> column area). This
+represents a decrease in total carbon or nitrogen mass on the gridcell,
+and this lost mass is tracked for each gridcell. After these mass losses
+are summed for all shrinking columns, they are distributed amongst the
+growing columns in order to conserve mass. Thus, a growing column’s new
+carbon density will be a weighted sum of its original carbon density and
+the carbon densities of all shrinking columns in its gridcell.</p>
+<p>This operation makes some simplifying assumptions. First, as described
+in section <a class="reference internal" href="#transient-landcover-reconciling-changes-in-area"><span class="std std-numref">2.27.2</span></a>, we
+only track net area changes, not gross changes. Second, we assume that
+growing columns all grow proportionally into each of the shrinking
+columns.</p>
+<p>Non-vegetated land units (e.g., glacier) do not typically track soil
+carbon and nitrogen. When columns from these land units initially
+shrink, they are assumed to contribute zero carbon and
+nitrogen. However, when they grow into previously-vegetated areas, they
+store any pre-existing soil carbon and nitrogen from the shrinking
+columns. This stored carbon and nitrogen will remain unchanged until the
+column later shrinks, at which point it will contribute to the carbon
+and nitrogen in the growing columns (exactly as would happen for a
+vegetated column).</p>
+<p>In contrast to water and energy (section <a class="reference internal" href="#transient-landcover-water-and-energy-conservation"><span class="std std-numref">2.27.3.1</span></a>), no special treatment is needed for
+carbon and nitrogen states in columns that newly come into
+existence. The state of a new column is derived from a weighted average
+of the states of shrinking columns. This behavior falls out from the
+above general rules.</p>
+</div>
 </div>
 <div class="section" id="annual-transient-land-cover-dataset-development">
-<h2>2.27.3. Annual Transient Land Cover Dataset Development<a class="headerlink" href="#annual-transient-land-cover-dataset-development" title="Permalink to this headline">¶</a></h2>
+<h2>2.27.4. Annual Transient Land Cover Dataset Development<a class="headerlink" href="#annual-transient-land-cover-dataset-development" title="Permalink to this headline">¶</a></h2>
 <p>This section describes the development of the <em>landuse.timeseries</em> dataset.
 Development of this dataset involves the translation of
 harmonized datasets of LULCC for the historical period and
@@ -223,7 +310,7 @@ Concentration Pathway (RCP) scenarios. Additionally, LULCC time
 series are to be generated for the Last Millennium and the extension beyond 2100 experiments
 of CMIP6.</p>
 <div class="section" id="luh2-transient-land-use-and-land-cover-change-dataset">
-<h3>2.27.3.1. LUH2 Transient Land Use and Land Cover Change Dataset<a class="headerlink" href="#luh2-transient-land-use-and-land-cover-change-dataset" title="Permalink to this headline">¶</a></h3>
+<h3>2.27.4.1. LUH2 Transient Land Use and Land Cover Change Dataset<a class="headerlink" href="#luh2-transient-land-use-and-land-cover-change-dataset" title="Permalink to this headline">¶</a></h3>
 <p>To coordinate the processing and consistency of LULCC data between
 the historical period (1850-2015) and the six
 SSP-RCP (2016-2100) scenarios derived from Integrated
@@ -272,7 +359,7 @@ prescribed for each Crop land unit in a grid cell individually for each year of 
 and crop management are both prescribed spatially on the same 0.25 degree grid as the land use class transitions.</p>
 </div>
 <div class="section" id="representing-luh2-land-use-and-land-cover-change-in-clm5">
-<h3>2.27.3.2. Representing LUH2 Land Use and Land Cover Change in CLM5<a class="headerlink" href="#representing-luh2-land-use-and-land-cover-change-in-clm5" title="Permalink to this headline">¶</a></h3>
+<h3>2.27.4.2. Representing LUH2 Land Use and Land Cover Change in CLM5<a class="headerlink" href="#representing-luh2-land-use-and-land-cover-change-in-clm5" title="Permalink to this headline">¶</a></h3>
 <p>To represent the LUH2 transient LULCC dataset in CLM5, the annual fractional
 composition of the twelve land units specified in the dataset needs to be
 faithfully represented with a corresponding PFT and CFT mosaics of CLM.
@@ -344,7 +431,7 @@ data files in the mksurfdata_map tool.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
   </body>
 </html>
