@@ -1258,14 +1258,13 @@ calculated as</p>
 </div><p>Finally, the leaf area in each leaf layer pertaining to this cohort is
 thus</p>
 <div class="math">
-<p><img src="../../_images/math/baaf7f761a2f023cf4651cabc7230fe48db9d0a2.svg" alt="\mathit{lai}_{z,coh}  = \left\{ \begin{array}{ll}
-   \delta_{vai} \cdot f_{leaf,coh} \frac{A_{canopy,coh}}{A_{canopy,patch}}&amp; \textrm{for $i=1,..., i=n_{z,coh}-1$}\\
-  &amp;\\
-   \delta_{vai} \cdot f_{leaf,coh} \frac{A_{canopy,coh}}{A_{canopy,patch}}\cdot r_{vai}&amp; \textrm{for $i=n_{z,coh}$}\\
-  \end{array} \right.
-
-and the stem area index is"/></p>
-</div><div class="math">
+<p><img src="../../_images/math/e61e0642bc0fab179104fa6e669c7cd7bdc4e232.svg" alt="\mathit{lai}_{z,coh}  = \left\{ \begin{array}{ll}
+ \delta_{vai} \cdot f_{leaf,coh} \frac{A_{canopy,coh}}{A_{canopy,patch}}&amp; \textrm{for $i=1,..., i=n_{z,coh}-1$}\\
+&amp;\\
+ \delta_{vai} \cdot f_{leaf,coh} \frac{A_{canopy,coh}}{A_{canopy,patch}}\cdot r_{vai}&amp; \textrm{for $i=n_{z,coh}$}\\
+\end{array} \right."/></p>
+</div><p>and the stem area index is</p>
+<div class="math">
 <p><img src="../../_images/math/99fc29606cd8a5e0f085815ecd2b00119660c5c0.svg" alt="\mathit{sai}_{z,coh}  = \left\{ \begin{array}{ll}
  \delta_{vai} \cdot (1-f_{leaf,coh})\frac{A_{canopy,coh}}{A_{canopy,patch}}&amp; \textrm{for $i=1,..., i=n_{z,coh}-1$}\\
 &amp;\\
@@ -3463,7 +3462,7 @@ as follows.</p>
 <p>Dead fuel moisture (<img class="math" src="../../_images/math/75930c3e4a442b83a40d7a6ce844ddddf6ebd85f.svg" alt="\emph{moist}_{df,fc}"/>), and several other
 properties of fire behaviour, are a function of the ‘Nesterov Index’
 (<img class="math" src="../../_images/math/4a16ae333ef273d59fcbb7b7495ff6bfd59c9b86.svg" alt="N_{I}"/>) which is an accumulation over time of a function of
-temperature and humidity (Eqn 5, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>).</p>
+temperature and humidity (Eqn 5, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>),</p>
 <div class="math">
 <p><img src="../../_images/math/c035e1c72b482aba64eac65c27431a718cdf5f9b.svg" alt="N_{I}=\sum{\textrm{max}(T_{d}(T_{d}-D),0)}"/></p>
 </div><p>where <img class="math" src="../../_images/math/cc4c64d07217f10ed77674df83f24643edb93540.svg" alt="T_{d}"/> is the daily mean temperature in <img class="math" src="../../_images/math/7704078e79da130af3dc588bc3e8f70a8833fbb1.svg" alt="^{o}"/>C and
@@ -3473,6 +3472,7 @@ temperature and humidity (Eqn 5, <a class="reference internal" href="../Referenc
 \upsilon&amp;=&amp;\frac{17.27T_{d}}{237.70+T_{d}}+\log(RH/100)\\
 D&amp;=&amp;\frac{237.70\upsilon}{17.27-\upsilon}\end{aligned}"/></p>
 </div><p>where <img class="math" src="../../_images/math/b9fc30a68d6b3e744bee9e4fa56b2e432c3a124d.svg" alt="RH"/> is the relative humidity (%).</p>
+<p>On days when the total precipitation exceeds 3.0mm, the Nesterov index accumulator is reset back to zero.</p>
 </div>
 <div class="section" id="fuel-properties">
 <h3>2.29.16.3. Fuel properties<a class="headerlink" href="#fuel-properties" title="Permalink to this headline">¶</a></h3>
@@ -3555,17 +3555,14 @@ fuels).</p>
 <p>For each patch and each day, we calculate the rate of forward spread of
 the fire <em>ros</em><img class="math" src="../../_images/math/28b52ebb7439840491284765330585d27ead1a7e.svg" alt="_{f}"/> (nominally in the direction of the wind).</p>
 <div class="math">
-<p><img src="../../_images/math/a2046e11b99448946167c37b6c86b61082053d8e.svg" alt="\emph{ros}_{f}=\frac{i_{r}x_{i}(1-\phi_{w})}{F_{bd,patch}e_{ps}q_{ig}}"/></p>
+<p><img src="../../_images/math/89b5a3337f2b6608051f4bb3518ff026f2ffcbd6.svg" alt="\emph{ros}_{f}=\frac{i_{r}x_{i}(1+\phi_{w})}{F_{bd,patch}e_{ps}q_{ig}}"/></p>
 </div><p><img class="math" src="../../_images/math/d4f7399ef89f6b5cb3961f8b0610b6eaa156391f.svg" alt="e_{ps}"/> is the effective heating number
 (<img class="math" src="../../_images/math/68553a3b2ad151a52c7447e5b2af5e19371dd835.svg" alt="e^{\frac{-4.528}{F_{\sigma,patch}}}"/>). <img class="math" src="../../_images/math/c2a807b48bc9c17fd418b6426c707c9fe2671326.svg" alt="q_{ig}"/> is the
 heat of pre-ignition (<img class="math" src="../../_images/math/d629a2c744ffe0676ab9aaca1aa46492ed0c016f.svg" alt="581+2594F_{m}"/>). <img class="math" src="../../_images/math/cbbcd3b143286162aaf4d862782b6eefdcb23a3c.svg" alt="x_{i}"/> is the
 propagating flux calculated as (see <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>
 Appendix A).</p>
 <div class="math">
-<p><img src="../../_images/math/f90a38ae1367ff320d8f8542d4ad673a06748071.svg" alt="x_{i}= \left\{ \begin{array}{ll}
-0.0&amp; \textrm{for $F_{\sigma,patch}&lt;0.00001$}\\
-\frac{e^{0.792+3.7597F_{\sigma,patch}^{0.5}(\frac{F_{bd,patch}}{p_{d}}+0.1)}}{192+7.9095F_{\sigma,patch}} &amp; \textrm{for $F_{\sigma,patch}\geq 0.00001$}\\
-\end{array} \right."/></p>
+<p><img src="../../_images/math/fb92f6e4f74bbc939a92486cc803ace66866b9b4.svg" alt="x_{i}= \frac{e^{0.792+3.7597F_{\sigma,patch}^{0.5}(\frac{F_{bd,patch}}{p_{d}}+0.1)}}{192+7.9095F_{\sigma,patch}}"/></p>
 </div><p><img class="math" src="../../_images/math/2670fe5ff04559803861cbd1c0718dc0c1896eea.svg" alt="\phi_{w}"/> is the influence of windspeed on rate of spread.</p>
 <div class="math">
 <p><img src="../../_images/math/10c257796f9496bf1d08184517adcee2f1b4bad8.svg" alt="\phi_{w}=cb_{w}^{b}.\beta^{-e}"/></p>
@@ -3632,9 +3629,9 @@ fire, <img class="math" src="../../_images/math/b06066eee60b1e100d6dac137f1fedcf
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>)</p>
 <div class="math">
 <p><img src="../../_images/math/f13b0e60151df1296c3a6f6148a64fd0b2c5733d.svg" alt="I_{surface}=\frac{0.001}{60}f_{energy} f_{ctot,patch}\mathit{ros}_{f}"/></p>
-</div><p>where <img class="math" src="../../_images/math/ad1438dc8a641d5257f437e755aa89ff367aa3a7.svg" alt="f_{energy}"/> is the energy content of fuel (kJ/kG - the
-same for alll fuel classes). Fire intensity is used to define whether an
-ignition is successful. If the fire intensity is greater than 50kw/m
+</div><p>where <img class="math" src="../../_images/math/ad1438dc8a641d5257f437e755aa89ff367aa3a7.svg" alt="f_{energy}"/> is the energy content of fuel (Kj/Kg - the
+same, 18000 Kj/Kg for all fuel classes). Fire intensity is used to define whether an
+ignition is successful. If the fire intensity is greater than 50Kw/m
 then the ignition is successful.</p>
 </div>
 <div class="section" id="fire-duration">
@@ -3668,7 +3665,7 @@ respectively).</p>
 </div><p><img class="math" src="../../_images/math/4abd75284b09ffac22e70f9d21353c9129afcec1.svg" alt="ros_{b}"/> is a function of <img class="math" src="../../_images/math/92e66e83e4482e02ba3ea7335717341b84afbf1b.svg" alt="ros_{f}"/> and windspeed (Eqn 10
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>)</p>
 <div class="math">
-<p><img src="../../_images/math/7bd0181c148a311d744d85eaddcc7c1e93e9127f.svg" alt="ros_{b}=ros_{f}e^{-0.72W}"/></p>
+<p><img src="../../_images/math/8671a303c48e847c4da22c447673132371585f27.svg" alt="ros_{b}=ros_{f}e^{-0.012W}"/></p>
 </div><p>The minor axis to major axis ratio <img class="math" src="../../_images/math/8721bd85f08b04935eb9e6a418bd2b82b042c646.svg" alt="l_{b}"/> of the ellipse is
 determined by the windspeed. If the windspeed (<img class="math" src="../../_images/math/953bde2ab2fca30897f66185e5b37b73747b8b46.svg" alt="W"/>) is less than
 16.67 ms<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/> then <img class="math" src="../../_images/math/8f29ee3459159d3a0279b05964d2431a76d1e85c.svg" alt="l_{b}=1"/>. Otherwise (Eqn 12 and 13,
