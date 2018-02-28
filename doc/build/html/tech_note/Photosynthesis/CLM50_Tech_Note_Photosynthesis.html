@@ -104,7 +104,7 @@ CLM4.5 Technical Note (<a class="reference internal" href="../References/CLM50_T
 <p>CLM5 includes the following new changes to photosynthesis and stomatal conductance:</p>
 <ul class="simple">
 <li>Default stomatal conductance calculation uses the Medlyn conductance model</li>
-<li><img class="math" src="../../_images/math/68d572478c9ac43c966fda1620c69e4114d633e9.svg" alt="J_{max}"/> is predicted by the LUNA model (Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>)</li>
+<li><img class="math" src="../../_images/math/9efec3259ccba58325f5fe0a4b4a2188050dbd12.svg" alt="V_{c,max}"/> and <img class="math" src="../../_images/math/68d572478c9ac43c966fda1620c69e4114d633e9.svg" alt="J_{max}"/> at 25 <sup>o</sup>C: are now prognostic, and predicted via optimality by the LUNA model (Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>)</li>
 <li>Leaf N concentration and the fraction of leaf N in Rubisco used to calculate <img class="math" src="../../_images/math/ec33f487edf3bac016ce1ce6d551223f2cbdf70d.svg" alt="V_{cmax25}"/> are determined by the LUNA model (Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>)</li>
 <li>Water stress is applied by the hydraulic conductance model (Chapter <a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html#rst-plant-hydraulics"><span class="std std-numref">2.11</span></a>)</li>
 </ul>
@@ -326,29 +326,24 @@ depend on temperature. Values at 25 <sup>o</sup> C are
 <img class="math" src="../../_images/math/1a2ab1fdb6bf1861d38e13b2227fb48662360351.svg" alt="K_{o25} =278.4\times 10^{-3} P_{atm}"/>, and
 <img class="math" src="../../_images/math/dd781ef087bf5143f3a4e337afba7aa925fd4f97.svg" alt="\Gamma _{25} {\rm =42}.75\times 10^{-6} P_{atm}"/>.
 <img class="math" src="../../_images/math/ff692f7c76cfd984353c7092bf6421d00f28c4a1.svg" alt="V_{c\max }"/>, <img class="math" src="../../_images/math/dd200ee66d3097cdb48398eaf6ce550cebaf6405.svg" alt="J_{\max }"/>, <img class="math" src="../../_images/math/b635b2e283d0573a44f67b1c948e30bb8facc76d.svg" alt="T_{p}"/>, <img class="math" src="../../_images/math/d8dc4ea501dfdb759b428aa83b43c105f6860374.svg" alt="k_{p}"/>,
-and <img class="math" src="../../_images/math/28ffde16505a7806fee98ac30e10a8babec462e0.svg" alt="R_{d}"/> also vary with temperature. Parameter values at 25
-[verify with Rosie that LUNA doesn’t do this otherwise]
-<sup>o</sup>C are calculated from <img class="math" src="../../_images/math/ff692f7c76cfd984353c7092bf6421d00f28c4a1.svg" alt="V_{c\max }"/> at 25
-<sup>o</sup>C: <img class="math" src="../../_images/math/9d417d444a800eaeec7589feb7e20dc94bda4e80.svg" alt="J_{\max 25} =1.97V_{c\max 25}"/>,
+and <img class="math" src="../../_images/math/28ffde16505a7806fee98ac30e10a8babec462e0.svg" alt="R_{d}"/> also vary with temperature.</p>
+<p><img class="math" src="../../_images/math/a6ef851376b6186e5726a73868a40873b07e9412.svg" alt="J_{\max 25}"/>  at 25 <sup>o</sup>C: is calculated by the LUNA model (Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>)</p>
+<p>Parameter values at 25 <sup>o</sup>C are calculated from <img class="math" src="../../_images/math/ff692f7c76cfd984353c7092bf6421d00f28c4a1.svg" alt="V_{c\max }"/> at 25
+<sup>o</sup>C:, including:
 <img class="math" src="../../_images/math/d041ee8b8adc013eebc1af88f884f16faa3057a6.svg" alt="T_{p25} =0.167V_{c\max 25}"/>, and
 <img class="math" src="../../_images/math/e796d38b7a8a5d06d5ecccc1cf7de74d66e093f0.svg" alt="R_{d25} =0.015V_{c\max 25}"/> (C<sub>3</sub>) and
-<img class="math" src="../../_images/math/afc6dd9a8b0fa6f9f8f7290817389e0800b2a106.svg" alt="R_{d25} =0.025V_{c\max 25}"/> (C<sub>4</sub>). For
-C<sub>4</sub> plants, <img class="math" src="../../_images/math/9781505167910e84293ecc122c26068d431ef2ad.svg" alt="k_{p25} =20000\; V_{c\max 25}"/>.
-However, when the biogeochemistry is active, <img class="math" src="../../_images/math/214e9efc79e6a8b60ba0e2d69c77663dab0b51fb.svg" alt="R_{d25}"/>  is
-calculated from leaf nitrogen as <img class="math" src="../../_images/math/a880f132331f5b5961dd2af21cf4bf1f0b8fd598.svg" alt="R_{d25} = 0.2577LNC_{a}"/>,
-where <img class="math" src="../../_images/math/5162963de9c0e3e1d640c0b24c9608a9af822761.svg" alt="LNC_{a}"/> is the area-based leaf nitrogen concentration
-(g N m<sup>-2</sup> leaf area, Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>),
-and 0.2577 <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.svg" alt="\mu"/>mol CO<sub>2</sub> g<sup>-1</sup> N s<sup>-1</sup> is the base respiration rate.
-[this doesn’t look correct based on the code, which lists two options; verify with Rosie]
-The parameters <img class="math" src="../../_images/math/51fcb1749c778828581b1841b12a2c599effd058.svg" alt="V_{c\max 25}"/>,
+<img class="math" src="../../_images/math/afc6dd9a8b0fa6f9f8f7290817389e0800b2a106.svg" alt="R_{d25} =0.025V_{c\max 25}"/> (C<sub>4</sub>).</p>
+<p>For C<sub>4</sub> plants, <img class="math" src="../../_images/math/9781505167910e84293ecc122c26068d431ef2ad.svg" alt="k_{p25} =20000\; V_{c\max 25}"/>.</p>
+<p>However, when the biogeochemistry is active (the default mode), <img class="math" src="../../_images/math/214e9efc79e6a8b60ba0e2d69c77663dab0b51fb.svg" alt="R_{d25}"/>  is
+calculated from leaf nitrogen as described in (Chapter <a class="reference internal" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html#rst-plant-respiration"><span class="std std-numref">2.17</span></a>)</p>
+<p>The parameters <img class="math" src="../../_images/math/51fcb1749c778828581b1841b12a2c599effd058.svg" alt="V_{c\max 25}"/>,
 <img class="math" src="../../_images/math/a6ef851376b6186e5726a73868a40873b07e9412.svg" alt="J_{\max 25}"/>, <img class="math" src="../../_images/math/6bc9a39473803d2030ae0074c0c538e0db557aaa.svg" alt="T_{p25}"/>, <img class="math" src="../../_images/math/446cc62930217cdba9fd855795c697abb6da2e96.svg" alt="k_{p25}"/>, and
 <img class="math" src="../../_images/math/214e9efc79e6a8b60ba0e2d69c77663dab0b51fb.svg" alt="R_{d25}"/> are scaled over the canopy for sunlit and shaded leaves
 (section <a class="reference internal" href="#canopy-scaling"><span class="std std-numref">2.9.5</span></a>). In C<sub>3</sub> plants, these are adjusted for leaf temperature,
 <img class="math" src="../../_images/math/3efef87edc3556a1263d4b17bdc4ec1544510b1f.svg" alt="T_{v}"/> (K), as:</p>
 <div class="math" id="equation-9.10">
 <p><span class="eqno">(9)<a class="headerlink" href="#equation-9.10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3825e6476b8e3e62367c3e236572db4f7eb7ae07.svg" alt="\begin{array}{rcl} {V_{c\max } } &amp; {=} &amp; {V_{c\max 25} \; f\left(T_{v} \right)f_{H} \left(T_{v} \right)} \\ {J_{\max } } &amp; {=} &amp; {J_{\max 25} \; f\left(T_{v} \right)f_{H} \left(T_{v} \right)} \\ {T_{p} } &amp; {=} &amp; {T_{p25} \; f\left(T_{v} \right)f_{H} \left(T_{v} \right)} \\ {R_{d} } &amp; {=} &amp; {R_{d25} \; f\left(T_{v} \right)f_{H} \left(T_{v} \right)} \\ {K_{c} } &amp; {=} &amp; {K_{c25} \; f\left(T_{v} \right)} \\ {K_{o} } &amp; {=} &amp; {K_{o25} \; f\left(T_{v} \right)} \\ {\Gamma } &amp; {=} &amp; {\Gamma _{25} \; f\left(T_{v} \right)} \end{array}"/></p>
-</div><p>[check with Rosie about Rd equation above and below (eq. 14)] with</p>
-<div class="math" id="equation-9.11">
+</div><div class="math" id="equation-9.11">
 <p><span class="eqno">(10)<a class="headerlink" href="#equation-9.11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/156e92b3804da765545cb1e66a41d57fcf80e064.svg" alt="f\left(T_{v} \right)=\; \exp \left[\frac{\Delta H_{a} }{298.15\times 0.001R_{gas} } \left(1-\frac{298.15}{T_{v} } \right)\right]"/></p>
 </div><p>and</p>
 <div class="math" id="equation-9.12">
@@ -441,44 +436,20 @@ range <img class="math" src="../../_images/math/c49eb2b25d079f5fa07598ea81c4cb1c
 </div>
 <div class="section" id="canopy-scaling">
 <span id="id3"></span><h2>2.9.5. Canopy scaling<a class="headerlink" href="#canopy-scaling" title="Permalink to this headline">¶</a></h2>
-<p><img class="math" src="../../_images/math/51fcb1749c778828581b1841b12a2c599effd058.svg" alt="V_{c\max 25}"/>  is calculated separately for sunlit and shaded
-leaves using an exponential profile to area-based leaf nitrogen
-(<img class="math" src="../../_images/math/5162963de9c0e3e1d640c0b24c9608a9af822761.svg" alt="LNC_{a}"/>, see Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a> ),
-as in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2011"><span class="std std-ref">Bonan et al. (2011)</span></a>. <img class="math" src="../../_images/math/51fcb1749c778828581b1841b12a2c599effd058.svg" alt="V_{c\max 25}"/>  at
-cumulative leaf area index <img class="math" src="../../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.svg" alt="x"/> from the canopy top scales directly
-with <img class="math" src="../../_images/math/5162963de9c0e3e1d640c0b24c9608a9af822761.svg" alt="LNC_{a}"/> , which decreases exponentially with greater
-cumulative leaf area, so that [Verify with Rosie- different based on Vcmax option 0, 3, &amp; 4]</p>
-<div class="math" id="equation-9.18">
-<p><span class="eqno">(17)<a class="headerlink" href="#equation-9.18" title="Permalink to this equation">¶</a></span><img src="../../_images/math/290b05ea87be3f69be43c556a6e8b24ede018df7.svg" alt="V_{c\; \max 25}^{} \left(x\right)=V_{c\; \max 25}^{} \left(0\right)e^{-K_{n} x}"/></p>
-</div><p>where <img class="math" src="../../_images/math/69700db5212e1207ed3d041d85633e869aced84b.svg" alt="V_{c\; \max 25}^{} \left(0\right)"/> is defined at the top of
-the canopy using <img class="math" src="../../_images/math/571534ed10cb9786d60ea13f041ac04167e71990.svg" alt="SLA_{0}"/>, which is the specific leaf area at
-the canopy top and <img class="math" src="../../_images/math/af986caabafad17117779d4410677f66bdcd858b.svg" alt="K_{n}"/>  is the decay
-coefficient for nitrogen. The canopy integrated value for sunlit and
-shaded leaves is</p>
-<div class="math" id="equation-9.20">
-<p><span class="eqno">(18)<a class="headerlink" href="#equation-9.20" title="Permalink to this equation">¶</a></span><img src="../../_images/math/64d74b06d1ac773c3862002a53575c12ad87ead5.svg" alt="\begin{array}{rcl} {V_{c\; \max 25}^{sun} } &amp; {=} &amp; {\int _{0}^{L}V_{c\; \max 25}^{} \left(x\right)f_{sun} \left(x\right)\,  dx} \\ {} &amp; {=} &amp; {V_{c\; \max 25}^{} \left(0\right)\left[1-e^{-\left(K_{n} +K\right)L} \right]\frac{1}{K_{n} +K} } \end{array}"/></p>
-</div><div class="math" id="equation-9.21">
-<p><span class="eqno">(19)<a class="headerlink" href="#equation-9.21" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4fc0cd171ee865f57a1ca320ff50e3dd606a5b09.svg" alt="\begin{array}{rcl} {V_{c\; \max 25}^{sha} } &amp; {=} &amp; {\int _{0}^{L}V_{c\; \max 25}^{} \left(x\right)\left[1-f_{sun} \left(x\right)\right] \, dx} \\ {} &amp; {=} &amp; {V_{c\; \max 25}^{} \left(0\right)\left\{\left[1-e^{-K_{n} L} \right]\frac{1}{K_{n} } -\left[1-e^{-\left(K_{n} +K\right)L} \right]\frac{1}{K_{n} +K} \right\}} \end{array}"/></p>
-</div><p>and the average value for the sunlit and shaded leaves is</p>
-<div class="math" id="equation-9.22">
-<p><span class="eqno">(20)<a class="headerlink" href="#equation-9.22" title="Permalink to this equation">¶</a></span><img src="../../_images/math/303e0aedf2e302425ad60d59891f75220f4c955e.svg" alt="\bar{V}_{c\; \max 25}^{sun} ={V_{c\; \max 25}^{sun} \mathord{\left/ {\vphantom {V_{c\; \max 25}^{sun}  L^{sun} }} \right. \kern-\nulldelimiterspace} L^{sun} }"/></p>
-</div><div class="math" id="equation-9.23">
-<p><span class="eqno">(21)<a class="headerlink" href="#equation-9.23" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6031391f2b7bc3e6122e05142990a569cbc6acd8.svg" alt="\bar{V}_{c\; \max 25}^{sha} ={V_{c\; \max 25}^{sha} \mathord{\left/ {\vphantom {V_{c\; \max 25}^{sha}  L^{sha} }} \right. \kern-\nulldelimiterspace} L^{sha} } ."/></p>
-</div><p>This integration is over all leaf area (<img class="math" src="../../_images/math/ae2b750f71e1fc0daaa3de9a85d42794d7cd1326.svg" alt="L"/>) with
-<img class="math" src="../../_images/math/117394e381948515406839390c2aa7f88b30bcff.svg" alt="f_{sun} (x)=\exp \left(-Kx\right)"/> and <img class="math" src="../../_images/math/684381a21cd73ebbf43b63a087d3f7410ee99ce8.svg" alt="K"/> the direct beam
-extinction coefficient (equation <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#equation-4.8">(8)</a> in chapter <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#rst-radiative-fluxes"><span class="std std-numref">2.4</span></a>). Photosynthetic parameters
+<p>When LUNA is on, the <img class="math" src="../../_images/math/51fcb1749c778828581b1841b12a2c599effd058.svg" alt="V_{c\max 25}"/> for sun leaves is scaled to the shaded leaves
 <img class="math" src="../../_images/math/a6ef851376b6186e5726a73868a40873b07e9412.svg" alt="J_{\max 25}"/> , <img class="math" src="../../_images/math/6bc9a39473803d2030ae0074c0c538e0db557aaa.svg" alt="T_{p25}"/> , <img class="math" src="../../_images/math/446cc62930217cdba9fd855795c697abb6da2e96.svg" alt="k_{p25}"/>, and
 <img class="math" src="../../_images/math/214e9efc79e6a8b60ba0e2d69c77663dab0b51fb.svg" alt="R_{d25}"/>  scale similarly.</p>
-<p>The model uses <img class="math" src="../../_images/math/cbf3223306c7e424b59f6dd0eb8938c70ca4e89d.svg" alt="K_{n} =0.30"/> to match an explicit multi-layer canopy, as in
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2012"><span class="std std-ref">Bonan et al. (2012)</span></a>.
-The value <img class="math" src="../../_images/math/928287bd584923b38337ba98f1d00e1bcff837de.svg" alt="K_{n} = 0.11"/> chosen by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2011"><span class="std std-ref">Bonan et al. (2011)</span></a> is
-consistent with observationally-derived estimates for forests, mostly
-tropical, and provides a gradient in V<sub>cmax</sub> similar to
-the original CLM4 specific leaf area scaling. However,
-<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2012"><span class="std std-ref">Bonan et al. (2012)</span></a> showed that the sunlit/shaded canopy parameterization does not
-match an explicit multi-layer canopy parameterization. The discrepancy
-arises from absorption of scattered radiation by shaded leaves and can
-be tuned out with higher <img class="math" src="../../_images/math/af986caabafad17117779d4410677f66bdcd858b.svg" alt="K_{n}"/>.</p>
+<div class="math" id="equation-9.18">
+<p><span class="eqno">(17)<a class="headerlink" href="#equation-9.18" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e55a55c7780c7e68aac290cd4c5cc04fe389619e.svg" alt="\begin{array}{rcl}
+{V_{c\max 25 sha}} &amp; {=} &amp; {V_{c\max 25 sha} \frac{i_{v,sha}}{i_{v,sun}}}  \\
+{J_{\max 25 sha}}  &amp; {=} &amp; {J_{\max 25 sun}  \frac{i_{v,sha}}{i_{v,sun}}}  \\
+{T_{p sha}}        &amp; {=} &amp; {T_{p sun}        \frac{i_{v,sha}}{i_{v,sun}}}  \end{array}"/></p>
+</div><p>Where <img class="math" src="../../_images/math/d125d0231bb841f3c13d0f51510bda36ba666de3.svg" alt="i_{v,sun}"/> and <img class="math" src="../../_images/math/4270770273963db22ee006f4a4d9841d54530cfc.svg" alt="i_{v,sha}"/> are the leaf-to-canopy scaling coefficients of the twostream radiation model, calculated as</p>
+<div class="math" id="equation-9.19">
+<p><span class="eqno">(18)<a class="headerlink" href="#equation-9.19" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4d3860b747ca881a6ec0d11690e6f5deae37f696.svg" alt="i_{v,sun} = \frac{(1 - e^{-(k_{n,ext}+k_{b,ext})*lai_e)} / (k_{n,ext}+k_{b,ext})}{f_{sun}*lai_e}\\
+i_{v,sha} = \frac{(1 - e^{-(k_{n,ext}+k_{b,ext})*lai_e)} / (k_{n,ext}+k_{b,ext})}{(1 - f_{sun})*lai_e}"/></p>
+</div><p>k_{n,ext} is the extinction coefficient for N through the canopy (0.3).  k_{b,ext} is the direct beam extinction coefficient calculated in the surface albedo routine, and <img class="math" src="../../_images/math/2a7615fb8909b89712c70aa93d131b1864703cd2.svg" alt="f_{sun}"/> is the fraction of sunlit leaves, both derived from Chapter <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#rst-surface-albedos"><span class="std std-numref">2.3</span></a>.</p>
+<p>When LUNA is off, scaling defaults to the mechanism used in CLM4.5.</p>
 </div>
 <div class="section" id="numerical-implementation">
 <span id="numerical-implementation-photosynthesis"></span><h2>2.9.6. Numerical implementation<a class="headerlink" href="#numerical-implementation" title="Permalink to this headline">¶</a></h2>
@@ -490,10 +461,10 @@ equation <a class="reference internal" href="#equation-9.1">(1)</a>, and the int
 are calculated assuming there is negligible capacity to store
 CO<sub>2</sub> and water vapor at the leaf surface so that</p>
 <div class="math" id="equation-9.31">
-<p><span class="eqno">(22)<a class="headerlink" href="#equation-9.31" title="Permalink to this equation">¶</a></span><img src="../../_images/math/cc1f2bfe4432d635e5a410c73871e53af94f56c5.svg" alt="A_{n} =\frac{c_{a} -c_{i} }{\left(1.4r_{b} +1.6r_{s} \right)P_{atm} } =\frac{c_{a} -c_{s} }{1.4r_{b} P_{atm} } =\frac{c_{s} -c_{i} }{1.6r_{s} P_{atm} }"/></p>
+<p><span class="eqno">(19)<a class="headerlink" href="#equation-9.31" title="Permalink to this equation">¶</a></span><img src="../../_images/math/cc1f2bfe4432d635e5a410c73871e53af94f56c5.svg" alt="A_{n} =\frac{c_{a} -c_{i} }{\left(1.4r_{b} +1.6r_{s} \right)P_{atm} } =\frac{c_{a} -c_{s} }{1.4r_{b} P_{atm} } =\frac{c_{s} -c_{i} }{1.6r_{s} P_{atm} }"/></p>
 </div><p>and the transpiration fluxes are related as</p>
 <div class="math" id="equation-9.32">
-<p><span class="eqno">(23)<a class="headerlink" href="#equation-9.32" title="Permalink to this equation">¶</a></span><img src="../../_images/math/73a019904c735a30d92849509d4cf48d2ab084fa.svg" alt="\frac{e_{a} -e_{i} }{r_{b} +r_{s} } =\frac{e_{a} -e_{s} }{r_{b} } =\frac{e_{s} -e_{i} }{r_{s} }"/></p>
+<p><span class="eqno">(20)<a class="headerlink" href="#equation-9.32" title="Permalink to this equation">¶</a></span><img src="../../_images/math/73a019904c735a30d92849509d4cf48d2ab084fa.svg" alt="\frac{e_{a} -e_{i} }{r_{b} +r_{s} } =\frac{e_{a} -e_{s} }{r_{b} } =\frac{e_{s} -e_{i} }{r_{s} }"/></p>
 </div><p>where <img class="math" src="../../_images/math/6ad0fdfae7cfc23527a01a0ee23c06239ce147ed.svg" alt="r_{b}"/>  is leaf boundary layer resistance (s
 m<sup>2</sup> <img class="math" src="../../_images/math/d79e8a2c7ce54906c2b25549da38bdbe02cf40d6.svg" alt="\mu"/> mol<sup>-1</sup>) (section <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces"><span class="std std-numref">2.5.3</span></a>), the
 terms 1.4 and 1.6 are the ratios of diffusivity of CO<sub>2</sub> to
@@ -507,35 +478,35 @@ saturation vapor pressure (Pa) evaluated at the leaf temperature
 The vapor pressure of air in the plant canopy <img class="math" src="../../_images/math/110ee9bc012b31ae3232774b8558993001a7e365.svg" alt="e_{a}"/>  (Pa) is
 determined from</p>
 <div class="math" id="equation-9.33">
-<p><span class="eqno">(24)<a class="headerlink" href="#equation-9.33" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fd400b39bcfb66784bbf1e20d297a93c22ce9e1e.svg" alt="e_{a} =\frac{P_{atm} q_{s} }{0.622}"/></p>
+<p><span class="eqno">(21)<a class="headerlink" href="#equation-9.33" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fd400b39bcfb66784bbf1e20d297a93c22ce9e1e.svg" alt="e_{a} =\frac{P_{atm} q_{s} }{0.622}"/></p>
 </div><p>where <img class="math" src="../../_images/math/1480deb70f714cf2c008ad495b1326396bb9ce53.svg" alt="q_{s}"/>  is the specific humidity of canopy air (kg
 kg<sup>-1</sup>, section <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces"><span class="std std-numref">2.5.3</span></a>).
 Equations and are solved for
 <img class="math" src="../../_images/math/2df3b0747a460da75b66e43a6d68b65839832afd.svg" alt="c_{s}"/>  and <img class="math" src="../../_images/math/e29fec438400a3aebf5ee24fcf3c92a1559d3148.svg" alt="e_{s}"/></p>
 <div class="math" id="equation-9.34">
-<p><span class="eqno">(25)<a class="headerlink" href="#equation-9.34" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3307271ccae5e69ea7aeccb49b560417fe2baf0e.svg" alt="c_{s} =c_{a} -1.4r_{b} P_{atm} A_{n}"/></p>
+<p><span class="eqno">(22)<a class="headerlink" href="#equation-9.34" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3307271ccae5e69ea7aeccb49b560417fe2baf0e.svg" alt="c_{s} =c_{a} -1.4r_{b} P_{atm} A_{n}"/></p>
 </div><div class="math" id="equation-9.35">
-<p><span class="eqno">(26)<a class="headerlink" href="#equation-9.35" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ceae8b0b312398ce08d98d63993688dc3b811ab5.svg" alt="e_{s} =\frac{e_{a} r_{s} +e_{i} r_{b} }{r_{b} +r_{s} }"/></p>
-</div><p>Substitution of equation <a class="reference internal" href="#equation-9.35">(26)</a> into equation <a class="reference internal" href="#equation-9.1">(1)</a> gives an expression for stomatal
+<p><span class="eqno">(23)<a class="headerlink" href="#equation-9.35" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ceae8b0b312398ce08d98d63993688dc3b811ab5.svg" alt="e_{s} =\frac{e_{a} r_{s} +e_{i} r_{b} }{r_{b} +r_{s} }"/></p>
+</div><p>Substitution of equation <a class="reference internal" href="#equation-9.35">(23)</a> into equation <a class="reference internal" href="#equation-9.1">(1)</a> gives an expression for stomatal
 resistance (<img class="math" src="../../_images/math/e721dbeba30d192186d5d6e26fadcfb396c88bdc.svg" alt="r_{s}"/> ) as a function of photosynthesis
 (<img class="math" src="../../_images/math/a2d86239c0276cf914b36e6041f8b757f422a616.svg" alt="A_{n}"/> ), given here in terms of conductance with
 <img class="math" src="../../_images/math/4d63eecbb1bbaffc23e5f042751d9dca12228599.svg" alt="g_{s} =1/r_{s}"/>  and <img class="math" src="../../_images/math/0e5d6d3940824136e83e54070de952cbca7cbad0.svg" alt="g_{b} =1/r_{b}"/></p>
 <div class="math" id="equation-9.36">
-<p><span class="eqno">(27)<a class="headerlink" href="#equation-9.36" title="Permalink to this equation">¶</a></span><img src="../../_images/math/16d1f921657ac9174c7f78a260b006d6bbedc69a.svg" alt="g_{s}^{2} + bg_{s} + c = 0"/></p>
+<p><span class="eqno">(24)<a class="headerlink" href="#equation-9.36" title="Permalink to this equation">¶</a></span><img src="../../_images/math/16d1f921657ac9174c7f78a260b006d6bbedc69a.svg" alt="g_{s}^{2} + bg_{s} + c = 0"/></p>
 </div><p>where</p>
 <div class="math" id="equation-9.37">
-<p><span class="eqno">(28)<a class="headerlink" href="#equation-9.37" title="Permalink to this equation">¶</a></span><img src="../../_images/math/74d34ca21b2b9be27d60eab5e6e7132d69e149cc.svg" alt="b = 2(g_{o} * 10^{-6} + d) + \frac{(g_{1}d)^{2}}{g_{b}*10^{-6}D}
+<p><span class="eqno">(25)<a class="headerlink" href="#equation-9.37" title="Permalink to this equation">¶</a></span><img src="../../_images/math/74d34ca21b2b9be27d60eab5e6e7132d69e149cc.svg" alt="b = 2(g_{o} * 10^{-6} + d) + \frac{(g_{1}d)^{2}}{g_{b}*10^{-6}D}
 
 c = (g_{o}*10^{-6})^{2} + [2g_{o}*10^{-6} + d \frac{1-g_{1}^{2}} {D}]d"/></p>
 </div><p>and</p>
 <div class="math" id="equation-9.38">
-<p><span class="eqno">(29)<a class="headerlink" href="#equation-9.38" title="Permalink to this equation">¶</a></span><img src="../../_images/math/091a55fe249569d6fe5d3cda7ef086a466e5c330.svg" alt="d = \frac {1.6 A_{n}} {c_{s} / P_{atm} * 10^{6}}
+<p><span class="eqno">(26)<a class="headerlink" href="#equation-9.38" title="Permalink to this equation">¶</a></span><img src="../../_images/math/091a55fe249569d6fe5d3cda7ef086a466e5c330.svg" alt="d = \frac {1.6 A_{n}} {c_{s} / P_{atm} * 10^{6}}
 
 D = \frac {e_{i} - e_{a}} {1000}"/></p>
-</div><p>Stomatal conductance, as solved by equation <a class="reference internal" href="#equation-9.36">(27)</a> (mol m <sup>-2</sup> s <sup>-1</sup>), is the larger of the two roots that satisfy the
+</div><p>Stomatal conductance, as solved by equation <a class="reference internal" href="#equation-9.36">(24)</a> (mol m <sup>-2</sup> s <sup>-1</sup>), is the larger of the two roots that satisfy the
 quadratic equation. Values for <img class="math" src="../../_images/math/a7b6fc7cf3b7d8308fb6119be8734e19d599d519.svg" alt="c_{i}"/>  are given by</p>
 <div class="math" id="equation-9.39">
-<p><span class="eqno">(30)<a class="headerlink" href="#equation-9.39" title="Permalink to this equation">¶</a></span><img src="../../_images/math/04df1a33dad75a2d3a14c361eb9a9b2d14bedd5b.svg" alt="c_{i} =c_{a} -\left(1.4r_{b} +1.6r_{s} \right)P_{atm} A{}_{n}"/></p>
+<p><span class="eqno">(27)<a class="headerlink" href="#equation-9.39" title="Permalink to this equation">¶</a></span><img src="../../_images/math/04df1a33dad75a2d3a14c361eb9a9b2d14bedd5b.svg" alt="c_{i} =c_{a} -\left(1.4r_{b} +1.6r_{s} \right)P_{atm} A{}_{n}"/></p>
 </div><p>The equations for <img class="math" src="../../_images/math/a7b6fc7cf3b7d8308fb6119be8734e19d599d519.svg" alt="c_{i}"/> , <img class="math" src="../../_images/math/2df3b0747a460da75b66e43a6d68b65839832afd.svg" alt="c_{s}"/> , <img class="math" src="../../_images/math/e721dbeba30d192186d5d6e26fadcfb396c88bdc.svg" alt="r_{s}"/> , and
 <img class="math" src="../../_images/math/a2d86239c0276cf914b36e6041f8b757f422a616.svg" alt="A_{n}"/>  are solved iteratively until <img class="math" src="../../_images/math/a7b6fc7cf3b7d8308fb6119be8734e19d599d519.svg" alt="c_{i}"/>  converges.
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sunetal2012"><span class="std std-ref">Sun et al. (2012)</span></a> pointed out that the CLM4 numerical approach does not
@@ -571,7 +542,7 @@ combines the secant method and Brent’s method to solve for
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2017, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>
