@@ -95,6 +95,14 @@
             
   <div class="section" id="plant-respiration">
 <span id="rst-plant-respiration"></span><h1>2.17. Plant Respiration<a class="headerlink" href="#plant-respiration" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>CLM5 includes changes to plant respiration including</dt>
+<dd><ul class="first last simple">
+<li>A new leaf respiration algorithm based on Atkin et al. (2016)</li>
+<li>A lower growth respiration coefficient, based on Atkin et al. (2017)</li>
+</ul>
+</dd>
+</dl>
 <div class="section" id="autotrophic-respiration">
 <h2>2.17.1. Autotrophic Respiration<a class="headerlink" href="#autotrophic-respiration" title="Permalink to this headline">¶</a></h2>
 <p>The model treats maintenance and growth respiration fluxes separately,
@@ -105,7 +113,7 @@ live tissue, while growth respiration is defined as the additional
 carbon cost for the synthesis of new growth.</p>
 <div class="section" id="maintenance-respiration">
 <h3>2.17.1.1. Maintenance Respiration<a class="headerlink" href="#maintenance-respiration" title="Permalink to this headline">¶</a></h3>
-<p>Atkin et al. (2016) propose a model for respiration that is based on the leaf nitrogen content per unit area (<img class="math" src="../../_images/math/7654700edbd7ff33a76c9c7b35d5e615c0c120b9.svg" alt="NS_{narea}"/> (gN m <sup>2</sup> leaf), with an intercept parameter that is PFT dependant, and an acclimation term that depends upon the average temperature of the previous 10 day period <img class="math" src="../../_images/math/81de1cc75885d4e5c7354c00cd45f457ccbe9737.svg" alt="t_{2m,10days}"/>, in Celsius.</p>
+<p>Atkin et al. (2016) propose a model for leaf respiration that is based on the leaf nitrogen content per unit area (<img class="math" src="../../_images/math/7654700edbd7ff33a76c9c7b35d5e615c0c120b9.svg" alt="NS_{narea}"/> (gN m <sup>2</sup> leaf), with an intercept parameter that is PFT dependant, and an acclimation term that depends upon the average temperature of the previous 10 day period <img class="math" src="../../_images/math/81de1cc75885d4e5c7354c00cd45f457ccbe9737.svg" alt="t_{2m,10days}"/>, in Celsius.</p>
 <div class="math" id="equation-17.46)">
 <p><span class="eqno">(1)<a class="headerlink" href="#equation-17.46)" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ae479080457338c275f1798c3a61ade9b4d1059d.svg" alt="CF_{mr\_ leaf} =  i_{atkin,pft} + (NS_{narea}  0.2061) - (0.0402 (t_{2m,10days}))"/></p>
 </div><p>The temperature dependance of leaf maintenance (dark) respiration is described in Chapter <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#rst-stomatal-resistance-and-photosynthesis"><span class="std std-numref">2.9</span></a>.</p>
@@ -192,8 +200,9 @@ common base maintenance respiration rate for all live tissue types.</p>
 <h3>2.17.1.2. Growth Respiration<a class="headerlink" href="#growth-respiration" title="Permalink to this headline">¶</a></h3>
 <p>Growth respiration is calculated as a factor of 0.11 times the total
 carbon allocation to new growth (<img class="math" src="../../_images/math/52e6e0780750c4e0cadd152c5ba0b3cd609ded40.svg" alt="CF_{growth}"/>, after allocating carbon for N acquisition,
-Chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">2.18</span></a>.)on a given timestep, based on construction costs
-for a range of woody and non-woody tissues (Atkin et al. in prep). For new
+Chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">2.18</span></a>.) on a given timestep, based on construction costs
+for a range of woody and non-woody tissues, with estimates of the growth
+respiration flux revised downswards following  (Atkin et al. 2017). For new
 carbon and nitrogen allocation that enters storage pools for subsequent
 display, it is not clear what fraction of the associated growth
 respiration should occur at the time of initial allocation, and what
