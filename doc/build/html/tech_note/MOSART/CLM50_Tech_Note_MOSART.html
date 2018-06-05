@@ -100,9 +100,9 @@
 <p>MOSART is a river transport model designed for applications across local,
 regional and global scales <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2013b"><span class="std std-ref">(Li et al., 2013b)</span></a>. A
 major purpose of MOSART is to provide freshwater input for the ocean
-model in coupled Earth system model. MOSART also provides an effective
+model in coupled Earth System Models. MOSART also provides an effective
 way of evaluating and diagnosing the soil hydrology simulated by land
-surface models through direction comparison of the simulated river flow
+surface models through direct comparison of the simulated river flow
 with observations of natural streamflow at gauging stations
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2015a"><span class="std std-ref">(Li et al., 2015a)</span></a>.  Moreover, MOSART provides a
 modeling framework for representing riverine transport and transformation
@@ -114,9 +114,9 @@ conditions ( <a class="reference internal" href="../References/CLM50_Tech_Note_R
 <p>MOSART divides each spatial unit such as a lat/lon grid or watershed into
 three categories of hydrologic units (as shown in
 <a class="reference internal" href="#figure-mosart-conceptual-diagram"><span class="std std-numref">Figure 2.12</span></a>): hillslopes
-that contribute both surface and subsurface runoff into tributaries,
+that convert both surface and subsurface runoff into tributaries,
 tributaries that discharge into a single main channel, and the main channel
-connects the local spatial unit with upstream/downstream units through the
+that connects the local spatial unit with upstream/downstream units through the
 river network. MOSART assumes that all the tributaries within a spatial unit
 can be treated as a single hypothetical sub-network channel with a transport
 capacity equivalent to all the tributaries combined. Correspondingly, three
@@ -131,19 +131,19 @@ and discharges the water to its downstream spatial unit or the ocean.</p>
 <div class="figure" id="figure-mosart-conceptual-diagram">
 <a class="reference internal image-reference" href="../../_images/mosart_diagram.png"><img alt="../../_images/mosart_diagram.png" src="../../_images/mosart_diagram.png" style="width: 800px; height: 400px;" /></a>
 </div>
-<p>MOSART only route positive runoff, although negative runoff could be generated
+<p>MOSART only routes positive runoff, although negative runoff can be generated
 occasionally by the land model (e.g., <img class="math" src="../../_images/math/17545a98a5b300d11d882f72264a48ad0fc66274.svg" alt="q_{gwl}"/>). Negative runoff in any
 runoff component including  <img class="math" src="../../_images/math/1fe0132537bf2e10b9422fba2f69755483f60cdf.svg" alt="q_{sur}"/>,  <img class="math" src="../../_images/math/4442c0ab06fac81c01e14c0b270c28e7b8ed7e1c.svg" alt="q_{sub}"/>,  <img class="math" src="../../_images/math/17545a98a5b300d11d882f72264a48ad0fc66274.svg" alt="q_{gwl}"/>
 is not routed through MOSART, but instead is mapped directly from the spatial unit
 where it is generated at any time step to the coupler.</p>
 <p>In MOSART, the travel velocities of water across hillslopes, sub-network and main
-channel are all estimated using the Manning’s equation with different levels of
+channel are all estimated using Manning’s equation with different levels of
 simplifications. Generally the Manning’s equation is in the form of</p>
 <div class="math" id="equation-14.1">
 <p><span class="eqno">(1)<a class="headerlink" href="#equation-14.1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5ee81fef7950c541f2414c5c711ef2c590898464.svg" alt="V = \frac{R^{\frac{2}{3}} S_{f}}{n}"/></p>
-</div><p>where  :math: <cite>V</cite> is the travel velocity (m s <sup>-1</sup> ),  <img class="math" src="../../_images/math/a00254b18ffa992f0ef19f6e6e095b83c8f85e94.svg" alt="R"/> is the hydraulic
-radius (m). <img class="math" src="../../_images/math/5df684f03598df6c8e727c1a7cf403b9dd003252.svg" alt="S_{f}"/>  is the friction slope, and  accounting for the effects
-of gravity, friction, inertia and other forces onthe water. If the channel slope
+</div><p>where  <img class="math" src="../../_images/math/fae0e7a73748991e5540d874416000583f64f58e.svg" alt="V"/> is the travel velocity (m s <sup>-1</sup> ),  <img class="math" src="../../_images/math/a00254b18ffa992f0ef19f6e6e095b83c8f85e94.svg" alt="R"/> is the hydraulic
+radius (m). <img class="math" src="../../_images/math/5df684f03598df6c8e727c1a7cf403b9dd003252.svg" alt="S_{f}"/>  is the friction slope that accounts for the effects
+of gravity, friction, inertia and other forces on the water. If the channel slope
 is steep enough, the gravity force dominates over the others so one can approximate
 <img class="math" src="../../_images/math/5df684f03598df6c8e727c1a7cf403b9dd003252.svg" alt="S_{f}"/> by the channel bed slope <img class="math" src="../../_images/math/1dbc400fcc213305415872f9f625cd2828f97a00.svg" alt="S"/> , which is the key assumption
 underpinning the kinematic wave method. <img class="math" src="../../_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.svg" alt="n"/>  is the Manning’s roughness
@@ -163,7 +163,7 @@ sub-network channel routing respectively, and <img class="math" src="../../_imag
 <p><span class="eqno">(3)<a class="headerlink" href="#equation-14.3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e75dc09b6a46e71901901bbabd0a3c402cf086aa.svg" alt="R_{r} = \frac{A_{r}}{P_{r}}"/></p>
 </div><p>where <img class="math" src="../../_images/math/a9720568e06f8a49ac808be51bef18fb4a6ecf73.svg" alt="A_{r}"/> (m <sup>2</sup> ) is the wetted area defined as the part of the
 channel cross-section area below the water surface,  <img class="math" src="../../_images/math/d7b40162edb0b89059aabb00a46dda02582917b1.svg" alt="P_{r}"/> (m) is the
-wetted perimeter (m), the perimeter confines in the wetted area.</p>
+wetted perimeter, the perimeter confined in the wetted area.</p>
 <p>For hillslopes, sub-network and main channels, a common continuity equation can
 be written as</p>
 <div class="math" id="equation-14.4">
@@ -191,14 +191,14 @@ scheme and a local time-stepping algorithm. There are two levels of
 subcycling. For convenience, we denote <img class="math" src="../../_images/math/c1b7d20fbcb6e7bf28ed1d85c84639ff465e2d44.svg" alt="T_{inputs}"/> (s),
 <img class="math" src="../../_images/math/889a06e2ef93d425352642bd75d54115128652b3.svg" alt="T_{mosart}"/> (s), <img class="math" src="../../_images/math/64c15ae77b75b779eebc9d63465087e9cd48db2e.svg" alt="T_{hillslope}"/> (s) and
 <img class="math" src="../../_images/math/0f6ec5b0c2aa9ba2d9ddae497ce732649e2494f8.svg" alt="T_{channel}"/> (s) as the time steps of runoff inputs (from CLM
-to MOSART via the flux coupler), MOSART routing, hillslope routing and
-channel routing respectively. The first level of subcycling is between
+to MOSART via the flux coupler), MOSART routing, hillslope routing, and
+channel routing, respectively. The first level of subcycling is between
 the runoff inputs and MOSART routing. If <img class="math" src="../../_images/math/c1b7d20fbcb6e7bf28ed1d85c84639ff465e2d44.svg" alt="T_{inputs}"/> is 10800s
 and <img class="math" src="../../_images/math/889a06e2ef93d425352642bd75d54115128652b3.svg" alt="T_{mosart}"/> is 3600s, three MOSART time steps will be
 invoked each time the runoff inputs are updated. The second level of
 subcycling is between the hillslope routing and channel routing. This
 is to account for the fact that the travel velocity of water across
-hillslope is usually much slower than that in the channels.
+hillslopes is usually much slower than that in the channels.
 <img class="math" src="../../_images/math/64c15ae77b75b779eebc9d63465087e9cd48db2e.svg" alt="T_{hillslope}"/> is usually set as the same as <img class="math" src="../../_images/math/889a06e2ef93d425352642bd75d54115128652b3.svg" alt="T_{mosart}"/>,
 but within each time step of hillslope routing there are a few time
 steps for channel routing, i.e.,
@@ -211,7 +211,7 @@ step of local channel routing is given as
 <img class="math" src="../../_images/math/3378857b053e085134f0cfd8c9723729b850274a.svg" alt="T_{local}=T_{channel}/D_{local}"/>.  <img class="math" src="../../_images/math/9aa647db76d76b00c0806641498a89c655379c21.svg" alt="D_{local}"/> is
 currently estimated empirically as a function of local channel slope,
 width, length and upstream drainage area. If MOSART crashes due to a
-numerical issue, we recommend to increase <img class="math" src="../../_images/math/4d160a4634c2c6b06e0e832a15f31e581d8f9edd.svg" alt="D_{levelH2R}"/> and, if
+numerical issue, we recommend increasing <img class="math" src="../../_images/math/4d160a4634c2c6b06e0e832a15f31e581d8f9edd.svg" alt="D_{levelH2R}"/> and, if
 the issue remains, reducing <img class="math" src="../../_images/math/889a06e2ef93d425352642bd75d54115128652b3.svg" alt="T_{mosart}"/>.</p>
 </div>
 <div class="section" id="parameters-and-input-data">
@@ -219,7 +219,7 @@ the issue remains, reducing <img class="math" src="../../_images/math/889a06e2ef
 <p>MOSART is supported by a comprehensive, global hydrography dataset at 0.5
 <sup>o</sup> resolution. As such, the fundamental spatial unit of MOSART is a 0.5
 <sup>o</sup> lat/lon grid.  The topographic parameters (such as flow direction,
-channel length, topographic and channel slopes etc.) were derived using the
+channel length, topographic and channel slopes, etc.) were derived using the
 Dominant River Tracing (DRT) algorithm (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#wuetal2011"><span class="std std-ref">Wu et al., 2011</span></a> ;
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#wuetal2012"><span class="std std-ref">Wu et al. 2012</span></a>). The DRT algorithm produces the topographic
 parameters in a scale-consistent way to preserve/upscale the key features of
@@ -237,7 +237,7 @@ on the methodology to derive channel geometry and the Manning’s roughness
 coefficients, please refer to
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#getiranaetal2012"><span class="std std-ref">Getirana et al. (2012)</span></a> . The full list of
 parameters included in this global hydrography dataset is provided in
-the <a class="reference internal" href="#table-mosart-parameters"><span class="std std-numref">Table 2.25</span></a>.  Evaluation of global simulations
+<a class="reference internal" href="#table-mosart-parameters"><span class="std std-numref">Table 2.25</span></a>.  Evaluation of global simulations
 by MOSART using the aforementioned parameters is described in
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2015b"><span class="std std-ref">Li et al. (2015b)</span></a> .</p>
 <span id="table-mosart-parameters"></span><table border="1" class="docutils" id="id3">
@@ -315,15 +315,15 @@ by MOSART using the aforementioned parameters is described in
 river routing, whilst in CLM5.0, MOSART is an added option for river routing
 based on the more physically-based kinematic wave method.</p>
 <p>2. Runoff treatment: In RTM runoff is routed regardless of its sign so
-negative streamflow can be simulated at times. MOSART routes only nonnegative
+negative streamflow can be simulated at times. MOSART routes only non-negative
 runoff and always produces positive streamflow, which is important for
-future extension for modeling riverine heat and biogeochemical fluxes.</p>
-<p>3. Input parameters: RTM in CLM4.5 only requires one layer of spatial variable
-of channel velocity, whilst MOSART in CLM5.0 requires 13 parameters that
+future extensions to model riverine heat and biogeochemical fluxes.</p>
+<p>3. Input parameters: RTM in CLM4.5 only requires one layer of a spatially varying
+variable of channel velocity, whilst MOSART in CLM5.0 requires 13 parameters that
 are all available globally at 0.5 <sup>o</sup> resolution.</p>
 <p>4. Outputs: RTM only produces streamflow simulation, whilst MOSART
-additionally simulates the time-varying channel velocities and channel
-water depth and channel surface water variation.</p>
+additionally simulates the time-varying channel velocities, channel water depth, and
+channel surface water variations.</p>
 </div>
 </div>
 
