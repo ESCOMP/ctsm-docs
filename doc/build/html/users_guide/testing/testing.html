@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>1. Testing &#8212; clmdoc  documentation</title>
+    <title>1.9.1. Testing &#8212; clmdoc release-clm5.0.01 documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '',
+        VERSION:     'release-clm5.0.01',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,6 +24,8 @@
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="2. CLM Technical Note" href="../../tech_note/index.html" />
+    <link rel="prev" title="1.9. Testing" href="index.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
@@ -36,20 +38,34 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="../../tech_note/index.html" title="2. CLM Technical Note"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="1.9. Testing"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">1.9. Testing</a> &#187;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">1. Testing</a><ul>
-<li><a class="reference internal" href="#cime-testing-scripts">1.1. CIME Testing scripts</a></li>
-<li><a class="reference internal" href="#testing-ptclm">1.2. Testing PTCLM</a></li>
+<li><a class="reference internal" href="#">1.9.1. Testing</a><ul>
+<li><a class="reference internal" href="#cime-testing-scripts">1.9.1.1. CIME Testing scripts</a></li>
+<li><a class="reference internal" href="#testing-ptclm">1.9.1.2. Testing PTCLM</a></li>
 </ul>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">1.9. Testing</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../../tech_note/index.html"
+                        title="next chapter">2. CLM Technical Note</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -76,7 +92,7 @@
           <div class="body" role="main">
             
   <div class="section" id="testing">
-<span id="id1"></span><h1>1. Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>1.9.1. Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
 <p>Technically, you could use the customization we gave in <a class="reference external" href="CLM-URL">Chapter 1</a> to test various configuration and namelist options for CLM.
 Sometimes, it’s also useful to have automated tests though to test that restarts give exactly the same results as without a restart.
 It’s also useful to have automated tests to run over a wide variety of configurations, resolutions, and namelist options.
@@ -86,37 +102,37 @@ The first are the CESM test scripts, which utilize the <strong>create_newcase</s
 The second are a set of stand-alone scripts that use the CLM <strong>configure</strong> and <strong>build-namelist</strong> scripts to build and test the model as well as testing the CLM tools as well.
 Below we will go into further details of how to use both methods.</p>
 <div class="section" id="cime-testing-scripts">
-<h2>1.1. CIME Testing scripts<a class="headerlink" href="#cime-testing-scripts" title="Permalink to this headline">¶</a></h2>
+<h2>1.9.1.1. CIME Testing scripts<a class="headerlink" href="#cime-testing-scripts" title="Permalink to this headline">¶</a></h2>
 <p>We first introduce the test scripts that work for all CESM components.
 The CIME script <strong>create_test</strong> runs a specific type of test, at a given resolution, for a given compset using a given machine.
 There is a list of different tests, but the “ERI” tests do several things at once, running from startup, as well as doing exact branch and restart tests.
-So to run “ERI” testing at 2-degree with the I1850CRUCLM45 compset on yellowstone_intel you do the following.</p>
+So to run “ERI” testing at 2-degree with the I1850CRUCLM45 compset on cheyenne_intel you do the following.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts
-&gt; ./create_test -testname ERI.f19_g16.I1850CRUCLM45.yellowstone_intel
-&gt; cd ERI.f19_g16.I1850CRUCLM45.yellowstone_intel.$id
-&gt; ./ERI.f19_g16.I1850CRUCLM45.yellowstone_intel.$id.build
-&gt; ERI.f19_g16.I1850CRUCLM45.yellowstone_intel.$id.submit
+&gt; ./create_test -testname ERI.f19_g17_gl4.I1850CRUCLM45.cheyenne_intel
+&gt; cd ERI.f19_g17_gl4.I1850CRUCLM45.cheyenne_intel.$id
+&gt; ./ERI.f19_g17_gl4.I1850CRUCLM45.cheyenne_intel.$id.build
+&gt; ERI.f19_g17_gl4.I1850CRUCLM45.cheyenne_intel.$id.submit
 </pre></div>
 </div>
 <p>When the test is done it will update the file TestStatus with either a PASS or FAIL message.</p>
-<p>We already have a standard list of tests for clm (the “aux_clm” list of tests). To run the CLM yellowstone intel compiler test list, for the same machine and compiler you would do the following:</p>
+<p>We already have a standard list of tests for clm (the “aux_clm” list of tests). To run the CLM cheyenne intel compiler test list, for the same machine and compiler you would do the following:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts
-&gt; ./create_test -xml_mach yellowstone -xml_compiler intel -xml_category aux_clm  -mach yellowstone -compiler intel
+&gt; ./create_test -xml_mach cheyenne -xml_compiler intel -xml_category aux_clm  -mach cheyenne -compiler intel
 # Normally it will submit the jobs as they are ready, but if it&#39;s interrupted you
 # may need to submit by hand as follows...
 # Submit the suite of tests (note $id refers to the integer job number for this job)
-&gt; ./cs.submit.$id.yellowstone
+&gt; ./cs.submit.$id.cheyenne
 # Later check the tests with...
 &gt; ./cs.status.$id
 # The above will give a PASS or FAIL message for each test.
 </pre></div>
 </div>
-<p>For more information on doing testing with the CESM scripts see the <a class="reference external" href="CLM-URL">CESM1.2.0 User’s Guide</a> on testing.</p>
+<p>For more information on doing testing with the CESM scripts see the <a class="reference external" href="CLM-URL">+|cesmrelease| User’s Guide</a> on testing.</p>
 </div>
 <div class="section" id="testing-ptclm">
-<h2>1.2. Testing PTCLM<a class="headerlink" href="#testing-ptclm" title="Permalink to this headline">¶</a></h2>
+<h2>1.9.1.2. Testing PTCLM<a class="headerlink" href="#testing-ptclm" title="Permalink to this headline">¶</a></h2>
 <p>There is a simple test script for PTCLM called <code class="docutils literal"><span class="pre">testcases.csh</span></code> in the PTCLM directory (<code class="docutils literal"><span class="pre">scripts/ccsm_utils/Tools/lnd/clm/PTCLM</span></code>).
-The test script is setup to run on the machines: yellowstone, frankfurt, yong, and titan.
+The test script is setup to run on the machines: cheyenne, frankfurt, yong, and titan.
 You simply run the script interactively.
 The script will write out the status of tests to a file called: <code class="docutils literal"><span class="pre">tc.job#.status</span></code>.</p>
 <p>There are a few environment variables that can be used with <code class="docutils literal"><span class="pre">testcases.csh</span></code> to change it’s operation.</p>
@@ -139,7 +155,15 @@ The script will write out the status of tests to a file called: <code class="doc
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li> 
+        <li class="right" >
+          <a href="../../tech_note/index.html" title="2. CLM Technical Note"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="1.9. Testing"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >1.9. Testing</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

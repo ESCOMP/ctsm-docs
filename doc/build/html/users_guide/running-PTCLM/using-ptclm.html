@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>1.7.3. Using PTCLM &#8212; clmdoc  documentation</title>
+    <title>1.7.3. Using PTCLM &#8212; clmdoc release-clm5.0.01 documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '',
+        VERSION:     'release-clm5.0.01',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -44,8 +44,8 @@
         <li class="right" >
           <a href="introduction-to-ptclm.html" title="1.7.1. What is PTCLM"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. CLM User’s Guide</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">1.7. Running PTCLM</a> &#187;</li> 
       </ul>
     </div>
@@ -99,7 +99,7 @@
 <p>There are three types of options to PTCLM1: required, setup/run-time, and dataset generation options.
 The three required options are the three settings that MUST be specified for PTCLM to work at all. The other settings have default values that will default to something useful. The setup/run-time options control how the simulation will be setup and run. The dataset generation options control the generation of datasets needed when PTCLM is run. Most options use a double dash “–” “longname” such as “–list”, but the most common options also have a short-name with a single dash (such as -m instead of –machine).</p>
 <p>The required options to PTCLM are: inputdata directory (-d), machine (-m) and site-name (-s).
-Inputdata directory is the directory where you have the CESM inputdata files, you need to have write access to this directory, so if you are running on a machine that you do NOT have write access to the standard inputdata location (such as NCAR yellowstone or LBNL hopper) you need to link the standard files to a location you do have control over. We recommend using the <code class="docutils literal"><span class="pre">scripts/link_dirtree</span></code> tool to do that. “machine” is the scripts name for the machine/compiler you will be using for your case. And finally site-name is the name of the site that you want to run for. Site-name can either be a valid supported dataset name or a Fluxnet site name from the list of sites you are running on (see the –sitegroupname for more information about the site lists).</p>
+Inputdata directory is the directory where you have the CESM inputdata files, you need to have write access to this directory, so if you are running on a machine that you do NOT have write access to the standard inputdata location (such as NCAR cheyenne or LBNL hopper) you need to link the standard files to a location you do have control over. We recommend using the <code class="docutils literal"><span class="pre">scripts/link_dirtree</span></code> tool to do that. “machine” is the scripts name for the machine/compiler you will be using for your case. And finally site-name is the name of the site that you want to run for. Site-name can either be a valid supported dataset name or a Fluxnet site name from the list of sites you are running on (see the –sitegroupname for more information about the site lists).</p>
 <p>After PTCLM is run a case directory where you can then setup, build and run your CESM case as normal.
 It also creates a <code class="docutils literal"><span class="pre">README.PTCLM</span></code> in that directory that documents the commandline options to PTCLM that were used to create it.</p>
 <p>After “help” the “list” option is one of the most useful options for getting help on using PTCLM.
@@ -119,7 +119,7 @@ This option gives you information about some of the other options to PTCLM. To g
 <p>You need to setup an inputdata directory where you have write access to it.
 Normally, for NCAR machines the data is on an inputdata where the user does NOT have write access to it.
 A way that you can get around this is to use the <strong>link_dirtree</strong> script to create softlinks from the normal location to a location you have write access to.
-So for example on yellowstone:</p>
+So for example on cheyenne:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; setenv CSMDATA $CESMDATAROOT/inputdata
 &gt; setenv MYCSMDATA $HOME/inputdata
 &gt; mkdir $MYCSMDATA
@@ -131,13 +131,13 @@ So for example on yellowstone:</p>
 </li>
 <li><p class="first">Build the CLM tools
 Next you need to make sure all the CLM FORTRAN tools are built.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">models</span><span class="o">/</span><span class="n">lnd</span><span class="o">/</span><span class="n">clm</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">clm4_5</span><span class="o">/</span><span class="n">mksurfdata_map</span>
-<span class="o">&gt;</span> <span class="n">gmake</span>
-<span class="o">&gt;</span> <span class="n">gmake</span> <span class="n">clean</span>
-<span class="o">&gt;</span> <span class="n">cd</span> <span class="o">../../../../../../</span><span class="n">tools</span><span class="o">/</span><span class="n">mapping</span><span class="o">/</span><span class="n">gen_domain_files</span><span class="o">/</span><span class="n">src</span>
-<span class="o">&gt;</span> <span class="o">../../../../</span><span class="n">scripts</span><span class="o">/</span><span class="n">ccsm_utils</span><span class="o">/</span><span class="n">Machines</span><span class="o">/</span><span class="n">configure</span> <span class="o">-</span><span class="n">mach</span> <span class="n">yellowstone</span> <span class="o">-</span><span class="n">compiler</span> <span class="n">intel</span>
-<span class="o">&gt;</span> <span class="n">gmake</span>
-<span class="o">&gt;</span> <span class="n">gmake</span> <span class="n">clean</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/tools/+|version|/mksurfdata_map
+&gt; gmake
+&gt; gmake clean
+&gt; cd ../../../../../../tools/mapping/gen_domain_files/src
+&gt; ../../../../scripts/ccsm_utils/Machines/configure -mach cheyenne -compiler intel
+&gt; gmake
+&gt; gmake clean
 </pre></div>
 </div>
 </li>
@@ -158,7 +158,7 @@ Next you actually run PTCLM1 which does the different things listed below:</p>
 </dl>
 <p>For example, the casename for the following will be:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts
-&gt; ./PTCLM.py -m yellowstone_intel -s US-UMB -d $MYCSMDATA -c ICRUCLM45BGC --use QIAN &quot;US-UMB_I_2000_CN_QIAN&quot;
+&gt; ./PTCLM.py -m cheyenne_intel -s US-UMB -d $MYCSMDATA -c ICRUCLM45BGC --use QIAN &quot;US-UMB_I_2000_CN_QIAN&quot;
 </pre></div>
 </div>
 </li>
@@ -316,8 +316,8 @@ This option must NOT be used when you you are using a site that is a supported s
         <li class="right" >
           <a href="introduction-to-ptclm.html" title="1.7.1. What is PTCLM"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. CLM User’s Guide</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >1.7. Running PTCLM</a> &#187;</li> 
       </ul>
     </div>

@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>1.5.8. Running with historical CO2 forcing &#8212; clmdoc  documentation</title>
+    <title>1.5.7. Running with historical CO2 forcing &#8212; clmdoc release-clm5.0.01 documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '',
+        VERSION:     'release-clm5.0.01',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -25,7 +25,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="1.6. Running Single Point Regional Cases" href="../running-single-points/index.html" />
-    <link rel="prev" title="1.5.7. Running with atmospheric forcing from a previous simulation" href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" />
+    <link rel="prev" title="1.5.6. Running with atmospheric forcing from a previous simulation" href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
@@ -42,10 +42,10 @@
           <a href="../running-single-points/index.html" title="1.6. Running Single Point Regional Cases"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" title="1.5.7. Running with atmospheric forcing from a previous simulation"
+          <a href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" title="1.5.6. Running with atmospheric forcing from a previous simulation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. CLM User’s Guide</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">1.5. Running Special Cases</a> &#187;</li> 
       </ul>
     </div>
@@ -53,15 +53,15 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">1.5.8. Running with historical CO2 forcing</a><ul>
-<li><a class="reference internal" href="#example-transient-simulation-with-historical-co2">1.5.8.1. Example: Transient Simulation with Historical CO2</a></li>
+<li><a class="reference internal" href="#">1.5.7. Running with historical CO2 forcing</a><ul>
+<li><a class="reference internal" href="#example-transient-simulation-with-historical-co2">1.5.7.1. Example: Transient Simulation with Historical CO2</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html"
-                        title="previous chapter">1.5.7. Running with atmospheric forcing from a previous simulation</a></p>
+                        title="previous chapter">1.5.6. Running with atmospheric forcing from a previous simulation</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../running-single-points/index.html"
                         title="next chapter">1.6. Running Single Point Regional Cases</a></p>
@@ -91,7 +91,7 @@
           <div class="body" role="main">
             
   <div class="section" id="running-with-historical-co2-forcing">
-<span id="id1"></span><h1>1.5.8. Running with historical CO2 forcing<a class="headerlink" href="#running-with-historical-co2-forcing" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>1.5.7. Running with historical CO2 forcing<a class="headerlink" href="#running-with-historical-co2-forcing" title="Permalink to this headline">¶</a></h1>
 <p>In this case you want to run a simulation with stand-alone CLM responding to changes in CO2 for a historical period.
 For this example, we will start with the “I_1850-2000_CN” compset that has transient: land-use, Nitrogen and Aerosol deposition already.
 You could also use another compset if you didn’t want these other features to be transient.
@@ -116,11 +116,11 @@ The domain file is a CF-compliant NetCDF file that has information on the grid p
 The datafile is a CF-compliant NetCDF file with the data that will be mapped.
 The streams text file is the XML-like file that tells datm how to find the files and how to map the variables datm knows about to the variable names on the NetCDF files. Note, that in our case the domain file and the data file are the same file. In other cases, the domain file may be separate from the data file.</p>
 <p>First we are going to create a case, and we will edit the <code class="docutils literal"><span class="pre">user_nl_datm</span></code> so that we add a CO2 data stream in.
-There is a streams text file available in <code class="docutils literal"><span class="pre">models/lnd/clm/doc/UsersGuide/co2_streams.txt</span></code>, that includes file with a CO2 time-series from 1765 to 2007.</p>
+There is a streams text file available in <code class="docutils literal"><span class="pre">$CTSMROOT/doc/UsersGuide/co2_streams.txt</span></code>, that includes file with a CO2 time-series from 1765 to 2007.</p>
 <div class="section" id="example-transient-simulation-with-historical-co2">
-<h2>1.5.8.1. Example: Transient Simulation with Historical CO2<a class="headerlink" href="#example-transient-simulation-with-historical-co2" title="Permalink to this headline">¶</a></h2>
+<h2>1.5.7.1. Example: Transient Simulation with Historical CO2<a class="headerlink" href="#example-transient-simulation-with-historical-co2" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts
-&gt; ./create_newcase -case DATM_CO2_TSERIES -res f19_g16 -compset I20TRCRUCLM45BGC
+&gt; ./create_newcase -case DATM_CO2_TSERIES -res f19_g17_gl4 -compset I20TRCRUCLM45BGC
 &gt; cd DATM_CO2_TSERIES
 
 # Set CCSM_BGC to CO2A so that CO2 will be passed from atmosphere to land
@@ -135,7 +135,7 @@ There is a streams text file available in <code class="docutils literal"><span c
    &lt;general_comment&gt;
       This is a streams file to pass historical CO2 from datm8 to the other
       surface models. It reads in a historical dataset derived from data used
-      by CAM. The getco2_historical.ncl script in models/lnd/clm2/tools/ncl_scripts
+      by CAM. The getco2_historical.ncl script in $CTSMROOT2/tools/ncl_scripts
       was used to convert the CAM file to a streams compatible format (adding domain
       information and making CO2 have latitude/longitude even if only for a single
       point.
@@ -192,7 +192,7 @@ EOF
 </pre></div>
 </div>
 <p>The first thing we will do is to edit the <code class="docutils literal"><span class="pre">user_nl_datm</span></code> file to add a CO2 file stream in.
-To do this we will copy a <code class="docutils literal"><span class="pre">user_nl_datm</span></code> in with the changes needed. The file <code class="docutils literal"><span class="pre">addco2_user_nl_datm.user_nl</span></code> is in <code class="docutils literal"><span class="pre">models/lnd/clm/doc/UsersGuide</span></code> and looks like this…</p>
+To do this we will copy a <code class="docutils literal"><span class="pre">user_nl_datm</span></code> in with the changes needed. The file <code class="docutils literal"><span class="pre">addco2_user_nl_datm.user_nl</span></code> is in <code class="docutils literal"><span class="pre">$CTSMROOT/doc/UsersGuide</span></code> and looks like this…</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dtlimit</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span>
 <span class="n">fillalgo</span> <span class="o">=</span> <span class="s1">&#39;nn&#39;</span><span class="p">,</span><span class="s1">&#39;nn&#39;</span><span class="p">,</span><span class="s1">&#39;nn&#39;</span><span class="p">,</span><span class="s1">&#39;nn&#39;</span><span class="p">,</span><span class="s1">&#39;nn&#39;</span>
 <span class="n">fillmask</span> <span class="o">=</span> <span class="s1">&#39;nomask&#39;</span><span class="p">,</span><span class="s1">&#39;nomask&#39;</span><span class="p">,</span><span class="s1">&#39;nomask&#39;</span><span class="p">,</span><span class="s1">&#39;nomask&#39;</span><span class="p">,</span><span class="s1">&#39;nomask&#39;</span>
@@ -206,14 +206,14 @@ To do this we will copy a <code class="docutils literal"><span class="pre">user_
 </pre></div>
 </div>
 <p>You just copy this into your case directory. But, also compare it to the version in <code class="docutils literal"><span class="pre">CaseDocs</span></code> to make sure the changes are just to add in the new CO2 stream. Check to see that filenames, and start, end and align years are correct.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cp</span> <span class="o">../../</span><span class="n">models</span><span class="o">/</span><span class="n">lnd</span><span class="o">/</span><span class="n">clm</span><span class="o">/</span><span class="n">doc</span><span class="o">/</span><span class="n">UsersGuide</span><span class="o">/</span><span class="n">addco2_user_nl_datm</span><span class="o">.</span><span class="n">user_nl</span> <span class="n">user_nl_datm</span>
-<span class="o">&gt;</span> <span class="n">diff</span> <span class="n">user_nl_datm</span> <span class="n">CaseDocs</span><span class="o">/</span><span class="n">datm_atm_in</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cp ../../$CTSMROOT/doc/UsersGuide/addco2_user_nl_datm.user_nl user_nl_datm
+&gt; diff user_nl_datm CaseDocs/datm_atm_in
 </pre></div>
 </div>
 <p>Once, you’ve done that you can build and run your case normally.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This procedure assumes you are using a <code class="docutils literal"><span class="pre">I20TRCRUCLM45BGC</span></code> compset out of the box, with <code class="docutils literal"><span class="pre">DATM_PRESAERO</span></code> equal to trans_1850-2000. So it assumes standard CLM4.5 CRUNCEP atmosphere forcing, and transient prescribed aerosols from streams files. If your case changes anything here your <code class="docutils literal"><span class="pre">user_nl_datm</span></code> file will need to be adjusted to work with it.</p>
+<p class="last">This procedure assumes you are using a <code class="docutils literal"><span class="pre">I20TRCRUCLM45BGC</span></code> compset out of the box, with <code class="docutils literal"><span class="pre">DATM_PRESAERO</span></code> equal to trans_1850-2000. So it assumes standard +|version| CRUNCEP atmosphere forcing, and transient prescribed aerosols from streams files. If your case changes anything here your <code class="docutils literal"><span class="pre">user_nl_datm</span></code> file will need to be adjusted to work with it.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -243,10 +243,10 @@ To do this we will copy a <code class="docutils literal"><span class="pre">user_
           <a href="../running-single-points/index.html" title="1.6. Running Single Point Regional Cases"
              >next</a> |</li>
         <li class="right" >
-          <a href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" title="1.5.7. Running with atmospheric forcing from a previous simulation"
+          <a href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" title="1.5.6. Running with atmospheric forcing from a previous simulation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. CLM User’s Guide</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >1.5. Running Special Cases</a> &#187;</li> 
       </ul>
     </div>

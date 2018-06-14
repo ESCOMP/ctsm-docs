@@ -36,6 +36,6 @@ $(window).resize(function(){
         $("li.nav-item-0 a").text("Top");
     }
     else {
-        $("li.nav-item-0 a").text("clmdoc  documentation");
+        $("li.nav-item-0 a").text("clmdoc release-clm5.0.01 documentation");
     }
 });

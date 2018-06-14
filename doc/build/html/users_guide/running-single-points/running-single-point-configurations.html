@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>1.6.3. Running Single Point Configurations &#8212; clmdoc  documentation</title>
+    <title>1.6.3. Running Single Point Configurations &#8212; clmdoc release-clm5.0.01 documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '',
+        VERSION:     'release-clm5.0.01',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -44,8 +44,8 @@
         <li class="right" >
           <a href="running-pts_mode-configurations.html" title="1.6.2. Running a single point using global data - PTS_MODE"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. CLM User’s Guide</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">1.6. Running Single Point Regional Cases</a> &#187;</li> 
       </ul>
     </div>
@@ -107,8 +107,8 @@
 CLM supports a a small number of out-of-the-box single-point and regional datasets.
 However, users can create their own dataset.</p>
 <p>To get the list of supported dataset resolutions do this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">models</span><span class="o">/</span><span class="n">lnd</span><span class="o">/</span><span class="n">clm</span><span class="o">/</span><span class="n">doc</span>
-<span class="o">&gt;</span> <span class="o">../</span><span class="n">bld</span><span class="o">/</span><span class="n">build</span><span class="o">-</span><span class="n">namelist</span> <span class="o">-</span><span class="n">res</span> <span class="nb">list</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/doc
+&gt; ../bld/build-namelist -res list
 </pre></div>
 </div>
 <p>Which results in the following:</p>
@@ -210,7 +210,7 @@ EOF
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">If you don’t set the start-year and run-length carefully as shown above the model will abort with a “dtlimit error” in the atmosphere model (see bug 1110 in the <a class="reference external" href="CLM-URL">models/lnd/clm/doc/KnownLimitationss</a> file for documentation on this). Since, the forcing data for this site (and the MexicoCity site) is less than a year, the model won’t be able to run for a full year. The <code class="docutils literal"><span class="pre">1x1_urbanc_alpha</span></code> site has data for more than a full year, but neither year is complete hence, it has the same problem (see the problem for this site above).</p>
+<p class="last">If you don’t set the start-year and run-length carefully as shown above the model will abort with a “dtlimit error” in the atmosphere model (see bug 1110 in the <a class="reference external" href="CLM-URL">$CTSMROOT/doc/KnownLimitationss</a> file for documentation on this). Since, the forcing data for this site (and the MexicoCity site) is less than a year, the model won’t be able to run for a full year. The <code class="docutils literal"><span class="pre">1x1_urbanc_alpha</span></code> site has data for more than a full year, but neither year is complete hence, it has the same problem (see the problem for this site above).</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -254,17 +254,17 @@ We have an example of such datafiles in the repository for a specific region ove
 &gt; setenv GRIDNAME 1x1_boulderCO
 &gt; setenv CDATE    `date +%y%m%d`
 # Create the SCRIP grid file for the location and create a unity mapping file for it.
-&gt; cd models/lnd/clm/tools/shared/mkmapdata
+&gt; cd $CTSMROOT/tools/mkmapdata
 &gt; ./mknoocnmap.pl -p 40,255 -n $GRIDNAME
 # Set pointer to MAPFILE just created that will be used later
 &gt; setenv MAPFILE `pwd`/map_${GRIDNAME}_noocean_to_${GRIDNAME}_nomask_aave_da_${CDATE}.nc
 # create the mapping files needed by mksurfdata_map.
-&gt; cd ../../shared/mkmapdata
+&gt; cd ../.././mkmapdata
 &gt; setenv GRIDFILE ../mkmapgrids/SCRIPgrid_${GRIDNAME}_nomask_${CDATE}.nc
 &gt; ./mkmapdata.sh -r $GRIDNAME -f $GRIDFILE -t regional
 # create the domain file
 &gt; cd ../../../../tools/mapping/gen_domain_files/src
-&gt; ../../../scripts/ccsm_utils/Machines/configure -mach yellowstone -compiler intel
+&gt; ../../../scripts/ccsm_utils/Machines/configure -mach cheyenne -compiler intel
 &gt; gmake
 &gt; cd ..
 &gt; setenv OCNDOM domain.ocn_noocean.nc
@@ -273,7 +273,7 @@ We have an example of such datafiles in the repository for a specific region ove
 # Save the location where the domain file was created
 &gt; setenv GENDOM_PATH `pwd`
 # Finally create the surface dataset
-&gt; cd ../../../../lnd/clm/tools/clm4_5/mksurfdata_map/src
+&gt; cd ../../../../lnd/clm/tools/+|version|/mksurfdata_map/src
 &gt; gmake
 &gt; cd ..
 &gt; ./mksurfdata.pl -r usrspec -usr_gname $GRIDNAME -usr_gdate $CDATE
@@ -291,11 +291,11 @@ We have an example of such datafiles in the repository for a specific region ove
 &gt; ./link_dirtree $CSMDATA $MYCSMDATA
 # Copy the file you created above to your new $MYCSMDATA location following the CLMUSRDAT
 # naming convention (leave off the creation date)
-&gt; cp $CESMROOT/models/lnd/clm/tools/clm4_5/mksurfdata_map/surfdata_${GRIDNAME}_simyr1850_$CDATE.nc \
+&gt; cp $CESMROOT/$CTSMROOT/tools/+|version|/mksurfdata_map/surfdata_${GRIDNAME}_simyr1850_$CDATE.nc \
 $MYCSMDATA/lnd/clm2/surfdata_map/surfdata_${GRIDNAME}_simyr1850.nc
 &gt; cd $CESMROOT/scripts
-&gt; ./create_newcase -case my_usernldatasets_test -res CLM_USRDAT -compset I1850CRUCLM45BGC \
--mach yellowstone_intel
+&gt; ./create_newcase -case my_usernldatasets_test -res CLM_USRDAT -compset I1850Clm50BgcCropCru \
+-mach cheyenne_intel
 &gt; cd my_usernldatasets_test
 &gt; ./xmlchange DIN_LOC_ROOT=$MYCSMDATA
 # Set the path to the location of gen_domain set in the creation step above
@@ -330,8 +330,8 @@ $MYCSMDATA/lnd/clm2/surfdata_map/surfdata_${GRIDNAME}_simyr1850.nc
         <li class="right" >
           <a href="running-pts_mode-configurations.html" title="1.6.2. Running a single point using global data - PTS_MODE"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc  documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. CLM User’s Guide</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >1.6. Running Single Point Regional Cases</a> &#187;</li> 
       </ul>
     </div>
