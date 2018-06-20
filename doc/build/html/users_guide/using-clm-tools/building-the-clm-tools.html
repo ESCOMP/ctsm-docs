@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="1.3.3. Creating input for surface dataset generation" href="creating-input-for-surface-dataset-generation.html" />
+    <link rel="next" title="1.3.4. Creating input for surface dataset generation" href="creating-input-for-surface-dataset-generation.html" />
     <link rel="prev" title="1.3.1. What are the CLM tools" href="what-are-the-clm-tools.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
@@ -39,7 +39,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="creating-input-for-surface-dataset-generation.html" title="1.3.3. Creating input for surface dataset generation"
+          <a href="creating-input-for-surface-dataset-generation.html" title="1.3.4. Creating input for surface dataset generation"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="what-are-the-clm-tools.html" title="1.3.1. What are the CLM tools"
@@ -51,12 +51,18 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">1.3.2. Building the CLM tools</a></li>
+<li><a class="reference internal" href="#building-the-clm-tools-that-use-the-cime-configure-build-system">1.3.3. Building the CLM tools that use the CIME configure/build system</a></li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="what-are-the-clm-tools.html"
                         title="previous chapter">1.3.1. What are the CLM tools</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="creating-input-for-surface-dataset-generation.html"
-                        title="next chapter">1.3.3. Creating input for surface dataset generation</a></p>
+                        title="next chapter">1.3.4. Creating input for surface dataset generation</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -84,23 +90,22 @@
             
   <div class="section" id="building-the-clm-tools">
 <h1>1.3.2. Building the CLM tools<a class="headerlink" href="#building-the-clm-tools" title="Permalink to this headline">¶</a></h1>
-<p>The FORTRAN tools all have similar makefiles, and similar options for building.
-All of the Makefiles use GNU Make extensions and thus require that you use GNU make to use them.
+<p>The CLM FORTRAN tools all have similar makefiles, and similar options for building.  The tools
+<strong>cprnc</strong> and <strong>gen_domain</strong> use the CIME configure/build system which is described in the next section.</p>
+<p>The Makefiles (for <strong>mksurfdata_map</strong> and <strong>mkprocdata_map</strong>) use GNU Make extensions and thus require that you use GNU make to use them.
 They also auto detect the type of platform you are on, using “uname -s” and set the compiler, compiler flags and such accordingly.
 There are also environment variables that can be set to set things that must be customized.
 All the tools use NetCDF and hence require the path to the NetCDF libraries and include files.
 On some platforms (such as Linux) multiple compilers can be used, and hence there are env variables that can be set to change the FORTRAN and/or “C” compilers used.
-The tools other than cprnc also allow finer control, by also allowing the user to add compiler flags they choose, for both FORTRAN and “C”, as well as picking the compiler, linker and and add linker options.
-Finally the tools other than <strong>cprnc</strong> allow you to turn optimization on (which is off by default but on for the <strong>mksurfdata_map</strong> and <strong>interpinic</strong> programs) with the OPT flag so that the tool will run faster.
-To get even faster performance, the <strong>interpinic</strong>, program allows you to also use the SMP to turn on multiple shared memory processors.
-When <code class="docutils literal"><span class="pre">SMP=TRUE</span></code> you set the number of threads used by the program with the <code class="docutils literal"><span class="pre">OMP_NUM_THREADS</span></code> environment variable.</p>
-<p>Options used by all: <strong>cprnc</strong>, <strong>interpinic</strong>, and <strong>mksurfdata_map</strong></p>
+The tools also allow finer control, by also allowing the user to add compiler flags they choose, for both FORTRAN and “C”, as well as picking the compiler, linker and and add linker options.
+Finally the tools allow you to turn optimization on (which is off by default but on for <strong>mksurfdata_map</strong>) with the OPT flag so that the tool will run faster.</p>
+<p>Options used by all:  <strong>mksurfdata_map</strong></p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">LIB_NETCDF</span></code> – sets the location of the NetCDF library.</li>
 <li><code class="docutils literal"><span class="pre">INC_NETCDF</span></code> – sets the location of the NetCDF include files.</li>
 <li><code class="docutils literal"><span class="pre">USER_FC</span></code> – sets the name of the FORTRAN compiler.</li>
 </ul>
-<p>Options used by: <strong>interpinic</strong>, <strong>mkprocdata_map</strong>, <strong>mkmapgrids</strong>, and <strong>mksurfdata_map</strong></p>
+<p>Options used by: <strong>mkprocdata_map</strong>, and <strong>mksurfdata_map</strong></p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">MOD_NETCDF</span></code> – sets the location of the NetCDF FORTRAN module.</li>
 <li><code class="docutils literal"><span class="pre">USER_LINKER</span></code> – sets the name of the linker to use.</li>
@@ -116,11 +121,6 @@ When <code class="docutils literal"><span class="pre">SMP=TRUE</span></code> you
 <li><code class="docutils literal"><span class="pre">Makefile</span></code> – customized makefile options for this particular tool.</li>
 <li><code class="docutils literal"><span class="pre">mkDepends</span></code> – figure out dependencies between source files, so make can compile in order..</li>
 <li><code class="docutils literal"><span class="pre">Makefile.common</span></code> – General tool Makefile that should be the same between all tools.</li>
-</ul>
-<p>Options used only by <strong>cprnc</strong>:</p>
-<ul class="simple">
-<li><code class="docutils literal"><span class="pre">EXEDIR</span></code> – sets the location where the executable will be built.</li>
-<li><code class="docutils literal"><span class="pre">VPATH</span></code> – colon delimited path list to find the source files.</li>
 </ul>
 <p>More details on each environment variable.</p>
 <dl class="docutils">
@@ -153,7 +153,7 @@ When <code class="docutils literal"><span class="pre">SMP=TRUE</span></code> you
 </div>
 <dl class="docutils">
 <dt><code class="docutils literal"><span class="pre">OPT</span></code></dt>
-<dd>This variable flags if compiler optimization should be used when compiling the tool. It can be set to either <code class="docutils literal"><span class="pre">TRUE</span></code> or <code class="docutils literal"><span class="pre">FALSE</span></code>, by default it is set to <code class="docutils literal"><span class="pre">FALSE</span></code> for <strong>mkmapgrids</strong> and <code class="docutils literal"><span class="pre">TRUE</span></code> for <strong>mksurfdata_map</strong>, <strong>mkprocdata_map</strong> and <strong>interpinic</strong>. Turning this on should make the tool run much faster.</dd>
+<dd>This variable flags if compiler optimization should be used when compiling the tool. It can be set to either <code class="docutils literal"><span class="pre">TRUE</span></code> or <code class="docutils literal"><span class="pre">FALSE</span></code>, by default it is set to for both <strong>mksurfdata_map</strong> and <strong>mkprocdata_map</strong>. Turning this on should make the tool run much faster.</dd>
 </dl>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -170,14 +170,10 @@ When <code class="docutils literal"><span class="pre">SMP=TRUE</span></code> you
 <dd>The <code class="docutils literal"><span class="pre">Makefile.common</span></code> is the copy of the general GNU Makefile for all the CLM tools. This file should be identical between the different tools. This file has different sections of compiler options for different Operating Systems and compilers.</dd>
 <dt><code class="docutils literal"><span class="pre">mkDepends</span></code></dt>
 <dd>The <code class="docutils literal"><span class="pre">mkDepends</span></code> is the copy of the perl script used by the <code class="docutils literal"><span class="pre">Makefile.common</span></code> to figure out the dependencies between the source files so that it can compile in the necessary order. This file should be identical between the different tools.</dd>
-<dt><code class="docutils literal"><span class="pre">EXEDIR</span></code></dt>
-<dd>The cprnc tool uses this variable to set the location of where the executable will be built. The default is the current directory.</dd>
-<dt><code class="docutils literal"><span class="pre">VPATH</span></code></dt>
-<dd>The <strong>cprnc</strong> tool uses this variable to set the colon delimited pathnames of where the source code exists. The default is the current directory.</dd>
 </dl>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">There are several files that are copies of the original files from either models``/lnd/clm/src/util_share``, <code class="docutils literal"><span class="pre">models/csm_share/shr</span></code>, or copies from other tool directories. By having copies the tools can all be made stand-alone, but any changes to the originals will have to be put into the tool directories as well.</p>
+<p class="last">There are several files that are copies of the original files. By having copies the tools can all be made stand-alone, but any changes to the originals will have to be put into the tool directories as well.</p>
 </div>
 <p>The <em>README.filecopies</em> (which can be found in <code class="docutils literal"><span class="pre">$CTSMROOT/tools</span></code>) is repeated here.</p>
 <pre class="literal-block">
@@ -222,6 +218,13 @@ II. Files with differences
 
 </pre>
 </div>
+<div class="section" id="building-the-clm-tools-that-use-the-cime-configure-build-system">
+<h1>1.3.3. Building the CLM tools that use the CIME configure/build system<a class="headerlink" href="#building-the-clm-tools-that-use-the-cime-configure-build-system" title="Permalink to this headline">¶</a></h1>
+<p><strong>cprnc</strong> and <em>gen_domain*</em> both use the CIME configure/build system rather than the CLM specific version described above.</p>
+<p>See <a class="reference external" href="http://esmci.github.io/cime/users_guide/grids.html?highlight=gen_domain#adding-grids">CIME documentation on adding grids</a> for
+more information on adding grids, creating mapping files,  and running <strong>gen_domain</strong>. Also see the CIME file:
+<code class="docutils literal"><span class="pre">$CTSMROOT/tools/mapping/gen_domain_files/INSTALL</span></code> for how to build <strong>gen_domain</strong>.</p>
+</div>
 
 
           </div>
@@ -236,7 +239,7 @@ II. Files with differences
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="creating-input-for-surface-dataset-generation.html" title="1.3.3. Creating input for surface dataset generation"
+          <a href="creating-input-for-surface-dataset-generation.html" title="1.3.4. Creating input for surface dataset generation"
              >next</a> |</li>
         <li class="right" >
           <a href="what-are-the-clm-tools.html" title="1.3.1. What are the CLM tools"
