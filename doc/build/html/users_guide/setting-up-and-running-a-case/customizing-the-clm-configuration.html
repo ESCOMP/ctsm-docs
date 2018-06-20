@@ -109,25 +109,31 @@
             
   <span class="target" id="configuring-clm"></span><div class="section" id="customizing-clm-s-configuration">
 <h1>1.2.2. Customizing CLM’s Configuration<a class="headerlink" href="#customizing-clm-s-configuration" title="Permalink to this headline">¶</a></h1>
-<p>The “Creating a Case” section of the CESM2.0.0 <a class="reference external" href="link-CESM-UG">Scripts User’s-Guide</a> gives instructions on creating a case. What is of interest here is how to customize your use of CLM for the case that you created.</p>
-<p>For CLM when <strong>preview_namelist</strong>, <strong>$CASE.build</strong>, or <strong>$CASE.run</strong> are called there are two steps that take place:</p>
+<p>The section of the CESM2.0.0 Quickstart <a class="reference external" href="https://escomp.github.io/cesm/release-cesm2/quickstart.html#create-a-case">CESM Create a Case</a> gives instructions on creating a case.
+Also see a similar section in the CIME User’s-Guide <a class="reference external" href="http://esmci.github.io/cime/users_guide/create-a-case.html">CIME Create a case</a>.
+What is of interest here is how to customize your use of CLM for the case that you created.</p>
+<p>For CLM when <strong>preview_namelist</strong>, <strong>case.build</strong>, or <strong>case.run</strong> are called there are two steps that take place:</p>
 <ol class="arabic simple">
-<li>The CLM “<strong>configure</strong>” script is called to setup the build-time configuration for CLM (more information on <strong>configure</strong> is given in <a class="reference external" href="CLM-URL">the Section called More information on the CLM configure script</a>). The env variables for <strong>configure</strong> are locked after the <strong>$CASE.build</strong> step. So the results of the CLM <strong>configure</strong> are locked after the build has taken place.</li>
+<li>The CLM “<strong>configure</strong>” script is called to setup the build-time configuration for CLM (more information on <strong>configure</strong> is given in <a class="reference external" href="CLM-URL">the Section called More information on the CLM configure script</a>). The env variables for <strong>configure</strong> are locked after the <strong>case.build</strong> step. So the results of the CLM <strong>configure</strong> are locked after the build has taken place.</li>
 <li>The CLM “<strong>build-namelist</strong>” script is called to generate the run-time namelist for CLM (more information on <strong>build-namelist</strong> is given below in <a class="reference external" href="CLM-URL">the Section called Definition of Namelist items and their default values</a>.</li>
 </ol>
-<p>When customizing your case at the <em>8cesm_setup*</em> step you are able to modify the process by effecting either one or both of these steps. The CLM “<strong>configure</strong>” and “<strong>build-namelist</strong>” scripts are both available in the “$CTSMROOT/bld” directory in the distribution. Both of these scripts have a “-help” option that is useful to examine to see what types of options you can give either of them.</p>
+<p>When customizing your case at the <strong>case.setup</strong> step you are able to modify the process by effecting either one or both of these steps. The CLM “<strong>configure</strong>” and “<strong>build-namelist</strong>” scripts are both available in the “$CTSMROOT/bld” directory in the distribution. Both of these scripts have a “-help” option that is useful to examine to see what types of options you can give either of them.</p>
 <p>There are five different types of customization for the configuration that we will discuss: clm5.0 in CESM2.0.0 build-time options, clm5.0 in CESM2.0.0 run-time options, User Namelist, other noteworthy CESM2.0.0 configuration items, the CLM <strong>configure</strong> script options, and the CLM <strong>build-namelist</strong> script options.</p>
-<p>Information on all of the script, configuration, build and run items is found under <code class="docutils literal"><span class="pre">scripts/ccsm_utils/Case.template</span></code> in the <a class="reference external" href="CLM-URL">config_definition.xml</a> file.</p>
+<p>Information on all of the CLM script, configuration, build and run items is found under <code class="docutils literal"><span class="pre">$CTSMROOT/cime_config/config_component.xml</span></code>.
+See <a class="reference external" href="http://www.cesm.ucar.edu/models/cesm2/component_settings/clm4_5_input.html">CLM CASEROOT Variable Definitions</a>.</p>
 <div class="section" id="clm-script-configuration-items">
 <h2>1.2.2.1. CLM Script configuration items<a class="headerlink" href="#clm-script-configuration-items" title="Permalink to this headline">¶</a></h2>
 <p>Below we list each of the CESM configuration items that are specific to CLM. All of these are available in your: <code class="docutils literal"><span class="pre">env_build.xml</span></code> and <code class="docutils literal"><span class="pre">env_run.xml</span></code> files.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CLM_CONFIG_OPTS</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CLM_ACCELERATED_SPINUP</span>
 <span class="n">CLM_BLDNML_OPTS</span>
-<span class="n">CLM_NAMELIST_OPTS</span>
+<span class="n">CLM_CO2_TYPE</span>
+<span class="n">CLM_CONFIG_OPTS</span>
+<span class="n">CLM_CPPDEFS</span>
 <span class="n">CLM_FORCE_COLDSTART</span>
+<span class="n">CLM_NAMELIST_OPTS</span>
 <span class="n">CLM_NML_USE_CASE</span>
 <span class="n">CLM_USRDAT_NAME</span>
-<span class="n">CLM_CO2_TYPE</span>
+<span class="n">COMP_LND</span>
 </pre></div>
 </div>
 <p>For the precedence of the different options to <strong>build-namelist</strong> see the section on precedence below.</p>
@@ -139,13 +145,13 @@ It is important to note that some compsets, may already put a value into the <co
 You can still add more options to your <code class="docutils literal"><span class="pre">CLM_CONFIG_OPTS</span></code> but make sure you add to what is already there rather than replacing it.
 Hence, we recommend using the “-append” option to the xmlchange script.
 In <a class="reference external" href="CLM-URL">the Section called More information on the CLM configure script</a> below we will go into more details on options that can be customized in the CLM “<strong>configure</strong>” script.
-It’s also important to note that the <strong>clm.buildnml.csh</strong> script may already invoke certain CLM <strong>configure</strong> options and as such those command line options are NOT going to be available to change at this step (nor would you want to change them).
+It’s also important to note that the <strong>$CTSMROOT/cime_config/buildnml</strong> script may already invoke certain CLM <strong>configure</strong> options and as such those command line options are NOT going to be available to change at this step (nor would you want to change them).
 The options to CLM <strong>configure</strong> are given with the “-help” option which is given in <a class="reference external" href="CLM-URL">the Section called More information on the CLM configure script</a>.
-.. note:: <code class="docutils literal"><span class="pre">CLM_CONFIG_OPTS</span></code> is locked after the <strong>$CASE.build</strong> script is run. If you want to change something in <code class="docutils literal"><span class="pre">CLM_CONFIG_OPTS</span></code> you’ll need to clean the build and rerun <strong>$CASE.build</strong>. The other env variables can be changed at run-time so are never locked.</dd>
+.. note:: <code class="docutils literal"><span class="pre">CLM_CONFIG_OPTS</span></code> is locked after the <strong>case.build</strong> script is run. If you want to change something in <code class="docutils literal"><span class="pre">CLM_CONFIG_OPTS</span></code> you’ll need to clean the build and rerun <strong>case.build</strong>. The other env variables can be changed at run-time so are never locked.</dd>
 <dt>CLM_NML_USE_CASE</dt>
 <dd><p class="first"><code class="docutils literal"><span class="pre">CLM_NML_USE_CASE</span></code> is used to set a particular set of conditions that set multiple namelist items, all centering around a particular usage of the model. To list the valid options do the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/doc
-&gt; ../bld/build-namelist -use_case list
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT
+&gt; ./bld/build-namelist -use_case list
 </pre></div>
 </div>
 <p>The output of the above command is:</p>
@@ -200,7 +206,7 @@ stdurbpt_pd = Standard Urban Point Namelist Settings
 </dd>
 <dt>CLM_BLDNML_OPTS</dt>
 <dd><p class="first">The option CLM_BLDNML_OPTS is for passing options to the CLM “build-namelist” script.
-As with the CLM “configure” script the CLM clm.buildnml.csh may already invoke certain options and as such those options will NOT be available to be set here. The best way to see what options can be sent to the “build-namelist” script is to do</p>
+As with the CLM “configure” script the CLM $CTSMROOT/cime_config/buildnml may already invoke certain options and as such those options will NOT be available to be set here. The best way to see what options can be sent to the “build-namelist” script is to do</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/bld
 &gt; ./build-namelist -help
 </pre></div>
@@ -348,7 +354,7 @@ Note: The precedence for setting the values of namelist variables is (highest to
 </div>
 </dd>
 </dl>
-<p>The <strong>clm.buildnml.csh</strong> script already sets the resolution and mask as well as the CLM <strong>configure</strong> file, and defines an input namelist and namelist input file, and the output namelist directory, and sets the start-type (from <code class="docutils literal"><span class="pre">RUN_TYPE</span></code>), namelist options (from <code class="docutils literal"><span class="pre">CLM_NAMELIST_OPTS</span></code>), co2_ppmv (from <code class="docutils literal"><span class="pre">CCSM_CO2_PPMV</span></code>, co2_type (from <code class="docutils literal"><span class="pre">CLM_CO2_TYPE</span></code>), lnd_frac (from <code class="docutils literal"><span class="pre">LND_DOMAIN_PATH</span></code> and <code class="docutils literal"><span class="pre">LND_DOMAIN_FILE</span></code>), l_ncpl (from <code class="docutils literal"><span class="pre">LND_NCPL</span></code>, glc_grid, glc_smb, glc_nec (from <code class="docutils literal"><span class="pre">GLC_GRID</span></code>, <code class="docutils literal"><span class="pre">GLC_SMB</span></code>, and <code class="docutils literal"><span class="pre">GLC_NEC</span></code>), and “clm_usr_name” is set (to <code class="docutils literal"><span class="pre">CLM_USRDAT_NAME</span> <span class="pre">&gt;``when</span> <span class="pre">the</span> <span class="pre">grid</span> <span class="pre">is</span> <span class="pre">set</span> <span class="pre">to</span> <span class="pre">``CLM_USRDAT_NAME</span></code>.
+<p>The <strong>$CTSMROOT/cime_config/buildnml</strong> script already sets the resolution and mask as well as the CLM <strong>configure</strong> file, and defines an input namelist and namelist input file, and the output namelist directory, and sets the start-type (from <code class="docutils literal"><span class="pre">RUN_TYPE</span></code>), namelist options (from <code class="docutils literal"><span class="pre">CLM_NAMELIST_OPTS</span></code>), co2_ppmv (from <code class="docutils literal"><span class="pre">CCSM_CO2_PPMV</span></code>, co2_type (from <code class="docutils literal"><span class="pre">CLM_CO2_TYPE</span></code>), lnd_frac (from <code class="docutils literal"><span class="pre">LND_DOMAIN_PATH</span></code> and <code class="docutils literal"><span class="pre">LND_DOMAIN_FILE</span></code>), l_ncpl (from <code class="docutils literal"><span class="pre">LND_NCPL</span></code>, glc_grid, glc_smb, glc_nec (from <code class="docutils literal"><span class="pre">GLC_GRID</span></code>, <code class="docutils literal"><span class="pre">GLC_SMB</span></code>, and <code class="docutils literal"><span class="pre">GLC_NEC</span></code>), and “clm_usr_name” is set (to <code class="docutils literal"><span class="pre">CLM_USRDAT_NAME</span> <span class="pre">&gt;``when</span> <span class="pre">the</span> <span class="pre">grid</span> <span class="pre">is</span> <span class="pre">set</span> <span class="pre">to</span> <span class="pre">``CLM_USRDAT_NAME</span></code>.
 Hence only the following different options can be set:</p>
 <p>1.
 -bgc_spinup</p>
@@ -366,7 +372,7 @@ Hence only the following different options can be set:</p>
 <li>-verbose</li>
 </ol>
 <p>“-bgc_spinup” is an option only available for clm5.0 for any configuration when CN is turned on (so either CLMCN or CLMBGC). It can be set to “on” or “off”. If “on” the model will go into Accelerated Decomposition mode, while for “off” (the default) it will have standard decomposition rates. If you are starting up from initial condition files the model will check what mode the initial condition file is in and do the appropriate action on the first time-step to change the Carbon pools to the appropriate spinup setting. See <a class="reference external" href="CLM-URL">the Section called Spinning up the |version| biogeochemistry (CLMBGC spinup) in Chapter 4</a> for an example using this option.</p>
-<p>“-chk_res” ensures that the resolution chosen is supported by CLM. If the resolution is NOT supported it will cause the CLM <strong>build-namelist</strong> to abort when run. So when either <strong>preview_namelist</strong>, <strong>$CASE.build</strong> or <strong>$CASE.run</strong> is executed it will abort early. Since, the CESM scripts only support certain resolutions anyway, in general this option is NOT needed in the context of running CESM cases.</p>
+<p>“-chk_res” ensures that the resolution chosen is supported by CLM. If the resolution is NOT supported it will cause the CLM <strong>build-namelist</strong> to abort when run. So when either <strong>preview_namelist</strong>, <strong>case.build</strong> or <strong>case.run</strong> is executed it will abort early. Since, the CESM scripts only support certain resolutions anyway, in general this option is NOT needed in the context of running CESM cases.</p>
 <p>“-clm_demand” asks the <strong>build-namelist</strong> step to require that the list of variables entered be set. Typically, this is used to require that optional filenames be used and ensure they are set before continuing. For example, you may want to require that fpftdyn be set to get dynamically changing vegetation types. To do this you would do the following.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; ./xmlchange CLM_BLDNML_OPTS=&quot;-clm_demand fpftdyn&quot;``
 </pre></div>
@@ -383,7 +389,9 @@ Hence only the following different options can be set:</p>
 <p>“-drydep” adds the dry-deposition namelist to the driver. This is a driver namelist, but adding the option here has CLM <strong>build-namelist</strong> create the <code class="docutils literal"><span class="pre">drv_flds_in</span></code> file that the driver will copy over and use. Invoking this option does have an impact on performance even for I compsets and will slow the model down. It’s also only useful when running with an active atmosphere model that makes use of this information.</p>
 <p>“-ignore_ic_date” ignores the Initial Conditions (IC) date completely for finding initial condition files to startup from. Without this option or the “-ignore_ic_year” option below, the date of the file comes into play.</p>
 <p>“-ignore_ic_year” ignores the Initial Conditions (IC) year for finding initial condition files to startup from. The date is used, but the year is ignored. Without this option or the “-ignore_ic_date” option below, the date and year of the file comes into play.</p>
-<p>When “-irrig” is used <strong>build-namelist</strong> will try to find surface datasets that have the irrigation model enabled.</p>
+<p>When “-irrig on” is used <strong>build-namelist</strong> will try to find surface datasets that have the irrigation model enabled (when running
+with Sattellitte Phenology). When running with the prognostic crop model on, “-irrig on” will turn irrigate crops on, while “-irrig off”
+will manage all crop areas as rain-fed without irrigation.</p>
 <p>“no-megan” means do NOT add the MEGAN model Biogenic Volatile Organic Compounds (BVOC) namelist to the driver. This namelist is created by default, so normally this WILL be done. This is a driver namelist, so unless “no-megan” is specified the CLM <strong>build-namelist</strong> will create the <code class="docutils literal"><span class="pre">drv_flds_in</span></code> file that the driver will copy over and use (if you are running with CAM and CAM produces this file as well, it’s file will have precedence).</p>
 <p>“-note” adds a note to the bottom of the namelist file, that gives the details of how <strong>build-namelist</strong> was called, giving the specific command-line options given to it.</p>
 <p>“-rcp” is used to set the representative concentration pathway for the future scenarios you want the data-sets to simulate conditions for, in the input datasets. To list the valid options do the following:</p>
@@ -436,7 +444,7 @@ For more information on how to send CO2 from the data atmosphere model see <a cl
 </div>
 <div class="section" id="user-namelist">
 <h2>1.2.2.2. User Namelist<a class="headerlink" href="#user-namelist" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">CLM_NAMELIST_OPTS</span></code> as described above allows you to set any extra namelist items you would like to appear in your namelist. However, it only allows you a single line to enter namelist items, and strings must be quoted with &amp;apos; which is a bit awkward. If you have a long list of namelist items you want to set (such as a long list of history fields) a convenient way to do it is to add to the <code class="docutils literal"><span class="pre">user_nl_clm</span></code> that is created after the <strong>cesm_setup</strong> command runs. The file needs to be in valid FORTRAN namelist format (with the exception that the namelist name &amp;namelist and the end of namelist marker “/” are excluded”. The <strong>preview_namelist</strong> or <strong>$CASE.run</strong> step will abort if there are syntax errors. All the variable names must be valid and the values must be valid for the datatype and any restrictions for valid values for that variable. Here’s an example <code class="docutils literal"><span class="pre">user_nl_clm</span></code> namelist that sets a bunch of history file related items, to create output history files monthly, daily, every six and 1 hours.</p>
+<p><code class="docutils literal"><span class="pre">CLM_NAMELIST_OPTS</span></code> as described above allows you to set any extra namelist items you would like to appear in your namelist. However, it only allows you a single line to enter namelist items, and strings must be quoted with &amp;apos; which is a bit awkward. If you have a long list of namelist items you want to set (such as a long list of history fields) a convenient way to do it is to add to the <code class="docutils literal"><span class="pre">user_nl_clm</span></code> that is created after the <strong>case.setup</strong> command runs. The file needs to be in valid FORTRAN namelist format (with the exception that the namelist name &amp;namelist and the end of namelist marker “/” are excluded”. The <strong>preview_namelist</strong> or <strong>case.run</strong> step will abort if there are syntax errors. All the variable names must be valid and the values must be valid for the datatype and any restrictions for valid values for that variable. Here’s an example <code class="docutils literal"><span class="pre">user_nl_clm</span></code> namelist that sets a bunch of history file related items, to create output history files monthly, daily, every six and 1 hours.</p>
 <div class="section" id="example-user-nl-clm-namelist-file">
 <h3>1.2.2.2.1. Example: user_nl_clm namelist file<a class="headerlink" href="#example-user-nl-clm-namelist-file" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default"><div class="highlight"><pre><span></span>!----------------------------------------------------------------------------------
@@ -507,15 +515,15 @@ hist_nhtfrq = 0, -24, -6, -1
 <li><p class="first"><a class="reference external" href="CLM-URL">the Section called Providing a finidat file in your user_nl_clm file</a></p>
 </li>
 <li><p class="first"><a class="reference external" href="CLM-URL">the Section called Adding a finidat file to the XML database</a></p>
-<p><strong>Note:</strong> Your initial condition file MUST agree with the surface dataset you are using to run the simulation. If the two files do NOT agree you will get a run-time about a mis-match in PFT weights, or in the number of PFT’s or columns. To get around this you’ll need to use the <a class="reference external" href="CLM-URL">Section called Using interpinic to interpolate initial conditions to different resolutions in Chapter 2</a> to interpolate your initial condition dataset.</p>
+<p><strong>Note:</strong> Your initial condition file MUST agree with the surface dataset you are using to run the simulation. If the two files do NOT agree you will get a run-time about a mis-match in PFT weights, or in the number of PFT’s or columns.  To get around this you’ll need to add the “use_init_interp=T” namelist flag in your namelist so that the initial conditions will be interpolated on startup.**</p>
 </li>
 </ul>
 </div>
 <div class="section" id="doing-a-hybrid-simulation-to-provide-initial-conditions">
 <h3>1.2.2.2.4. Doing a hybrid simulation to provide initial conditions<a class="headerlink" href="#doing-a-hybrid-simulation-to-provide-initial-conditions" title="Permalink to this headline">¶</a></h3>
-<p>The first option is to setup a hybrid simulation and give a <code class="docutils literal"><span class="pre">RUN_REFCASE</span></code> and <code class="docutils literal"><span class="pre">RUN_REFDATE</span></code> to specify the reference case simulation name to use. When you setup most cases, at the standard resolutions of “f09” or “f19” it will already do this for you. For example, if you run an “I2000CN” compset at “f09_g17_gl4” resolution the following settings will already be done for you.</p>
-<p><code class="docutils literal"><span class="pre">./xmlchange</span> <span class="pre">RUN_TYPE=hybrid,RUN_REFCASE=I2000CN_f09_g17_gl4_c100503,RUN_REFDATE=0001-01-01,GET_REFCASE=TRUE</span></code></p>
-<p>Setting the <code class="docutils literal"><span class="pre">GET_REFCASE</span></code> option to <code class="docutils literal"><span class="pre">TRUE</span> <span class="pre">means</span></code> it will copy the files from the: <code class="docutils literal"><span class="pre">$DIN_LOC_ROOT/ccsm4_init/I2000CN_f09_g17_gl4_c100503/0001-01-01</span></code> directory. Note, that the <code class="docutils literal"><span class="pre">RUN_REFCASE</span></code> and <code class="docutils literal"><span class="pre">RUN_REFDATE</span></code> variables are expanded to get the directory name above. If you do NOT set <code class="docutils literal"><span class="pre">GET_REFCASE</span></code> to <code class="docutils literal"><span class="pre">TRUE</span></code> then you will need to have placed the file in your run directory yourself. In either case, the file is expected to be named: <code class="docutils literal"><span class="pre">$RUN_REFCASE.clm2.r.$RUN_REFDATE-00000.nc</span></code> with the variables expanded of course.</p>
+<p>The first option is to setup a hybrid simulation and give a <code class="docutils literal"><span class="pre">RUN_REFCASE</span></code> and <code class="docutils literal"><span class="pre">RUN_REFDATE</span></code> to specify the reference case simulation name to use. When you setup coupled cases (assuming a CESM checkout), at the standard resolution of “f09” it will already do this for you. For example, if you run an “B1850” compset at “f09_g17_gl4” resolution the following settings will already be done for you.</p>
+<p><code class="docutils literal"><span class="pre">./xmlchange</span> <span class="pre">RUN_TYPE=hybrid,RUN_REFCASE=b.e20.B1850.f09_g17.pi_control.all.297,RUN_REFDATE=0130-01-01,GET_REFCASE=TRUE</span></code></p>
+<p>Setting the <code class="docutils literal"><span class="pre">GET_REFCASE</span></code> option to <code class="docutils literal"><span class="pre">TRUE</span> <span class="pre">means</span></code> it will copy the files from the RUN_REFDIR usually under: <code class="docutils literal"><span class="pre">$DIN_LOC_ROOT/cesm2_init/$RUN_REFCASE/$RUN_REFDATE</span></code> directory. Note, that the <code class="docutils literal"><span class="pre">RUN_REFCASE</span></code> and <code class="docutils literal"><span class="pre">RUN_REFDATE</span></code> variables are expanded to get the directory name above. If you do NOT set <code class="docutils literal"><span class="pre">GET_REFCASE</span></code> to <code class="docutils literal"><span class="pre">TRUE</span></code> then you will need to have placed the file in your run directory yourself. In either case, the file is expected to be named: <code class="docutils literal"><span class="pre">$RUN_REFCASE.clm2.r.$RUN_REFDATE-00000.nc</span></code> with the variables expanded of course.</p>
 </div>
 <div class="section" id="doing-a-branch-simulation-to-provide-initial-conditions">
 <h3>1.2.2.2.5. Doing a branch simulation to provide initial conditions<a class="headerlink" href="#doing-a-branch-simulation-to-provide-initial-conditions" title="Permalink to this headline">¶</a></h3>
@@ -536,10 +544,11 @@ hist_nhtfrq = 0, -24, -6, -1
 <div class="section" id="other-noteworthy-configuration-items">
 <h3>1.2.2.2.8. Other noteworthy configuration items<a class="headerlink" href="#other-noteworthy-configuration-items" title="Permalink to this headline">¶</a></h3>
 <p>For running “I” cases there are several other noteworthy configuration items that you may want to work with.
-Most of these involve settings for the DATM, but one <code class="docutils literal"><span class="pre">CCSM_CO2_PPMV</span></code> applies to all models.
+Most of these involve settings for the DATM, but one <code class="docutils literal"><span class="pre">CCSM_CO2_PPMV</span></code> applies to all models.  The list of DATM
+settings is <a class="reference external" href="http://esmci.github.io/cime/data_models/data-atm.html">here</a>.
 If you are running an B, E, or F case that doesn’t use the DATM obviously the DATM_* settings will not be used. All of the settings below are in your <code class="docutils literal"><span class="pre">env_build.xml</span></code> and <code class="docutils literal"><span class="pre">env_run.xml</span></code> files</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CCSM_CO2_PPMV</span>
-<span class="n">CCSM_VOC</span>
+<span class="n">CCSM_BGC</span>
 <span class="n">DATM_MODE</span>
 <span class="n">DATM_PRESAERO</span>
 <span class="n">DATM_CLMNCEP_YR_ALIGN</span>
@@ -554,22 +563,27 @@ If you are running an B, E, or F case that doesn’t use the DATM obviously the 
 <dl class="docutils">
 <dt><code class="docutils literal"><span class="pre">CCSM_CO2_PPMV</span></code></dt>
 <dd>Sets the mixing ratio of CO2 in parts per million by volume for ALL CESM components to use. Note that most compsets already set this value to something reasonable. Also note that some compsets may tell the atmosphere model to override this value with either historic or ramped values. If the CCSM_BGC variable is set to something other than “none” the atmosphere model will determine CO2, and CLM will listen and use what the atmosphere sends it. On the CLM side the namelist item co2_type tells CLM to use the value sent from the atmosphere rather than a value set on it’s own namelist.</dd>
-<dt><code class="docutils literal"><span class="pre">CCSM_VOC</span></code></dt>
-<dd>Enables passing of the Volatile Organic Compounds (VOC) from CLM to the atmospheric model. This of course is only important if the atmosphere model is a fully active model that can use these fields in it’s chemistry calculations.</dd>
 <dt><code class="docutils literal"><span class="pre">DATM_MODE</span></code></dt>
-<dd><p class="first">Sets the mode that the DATM model should run in this determines how data is handled as well as what the source of the data will be. Many of the modes are setup specifically to be used for ocean and/or sea-ice modeling. The modes that are designed for use by CLM are:</p>
+<dd><p class="first">Sets the mode that the DATM model should run in this determines how data is handled as well as what the source of the data will be. Many of the modes are setup specifically to be used for ocean and/or sea-ice modeling. The modes that are designed for use by CLM are (CLM_QIAN, CLMCRUNCEP, CLMCRUNCEPv7, CLMGSWP3v1 and CLM1PT):</p>
 <div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">CLMCRUNCEP</span>
+<span class="n">CLMCRUNCEPv7</span>
+<span class="n">CLMGSWP3v1</span>
 <span class="n">CLM_QIAN</span>
-<span class="n">CLM1PT</span><span class="o">&gt;</span>
-<span class="n">CPLHIST3HrWx</span>
+<span class="n">CLM1PT</span>
+<span class="n">CPLHISTForcing</span>
 </pre></div>
 </div>
 </dd>
 <dt><code class="docutils literal"><span class="pre">CLMCRUNCEP</span></code></dt>
-<dd>The standard mode for clm5.0 of using global atmospheric data that was developed by CRU using NCEP data from 1901 to 2010.
+<dd>The standard mode for CLM4.5 of using global atmospheric data that was developed by CRU using NCEP data from 1901 to 2010 (version 4 of this series).
 See <a class="reference external" href="CLM-URL">the Section called CLMCRUNCEP mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal"><span class="pre">CLMCRUNCEP</span></code> mode.</dd>
+<dt><code class="docutils literal"><span class="pre">CLMCRUNCEPv7</span></code></dt>
+<dd>Version 7 of the CRUNCEP data from 1901 to 2016.
+See <a class="reference external" href="CLM-URL">the Section called CLMCRUNCEPv7 mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal"><span class="pre">CLMCRUNCEP</span></code> mode.</dd>
+<dt><code class="docutils literal"><span class="pre">CLMGSWP3v1</span></code></dt>
+<dd>GSWP3 version 1 forcing data based on NCEP reanalysis with bias corrections by GSWP3 from 1901 to 2010.</dd>
 <dt><code class="docutils literal"><span class="pre">CLM_QIAN</span></code></dt>
-<dd>The standard mode for CLM4.0 of using global atmospheric data that was developed by Qian et. al. for CLM using NCEP data from 1948 to 2004. See the <a class="reference external" href="CLM-URL">Section called CLM_QIAN mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> mode. <code class="docutils literal"><span class="pre">CLM1PT</span></code> is for the special cases where we have single-point tower data for particular sites. Right now we only have data for three urban locations: MexicoCity Mexico, Vancouver Canada, and the urban-c alpha site. And we have data for the US-UMB AmeriFlux tower site for University of Michigan Biological Station. See <a class="reference external" href="CLM-URL">the Section called CLM1PT mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal"><span class="pre">CLM1PT</span></code> mode. <code class="docutils literal"><span class="pre">CPLHIST3HrWx</span></code> is for running with atmospheric forcing from a previous CESM simulation. See <a class="reference external" href="CLM-URL">the Section called CPLHIST3HrWx mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal"><span class="pre">CPLHIST3HrWx</span></code> mode.</dd>
+<dd>The standard mode for CLM4.0 of using global atmospheric data that was developed by Qian et. al. for CLM using NCEP data from 1948 to 2004. See the <a class="reference external" href="CLM-URL">Section called CLM_QIAN mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> mode. <code class="docutils literal"><span class="pre">CLM1PT</span></code> is for the special cases where we have single-point tower data for particular sites. Right now we only have data for three urban locations: MexicoCity Mexico, Vancouver Canada, and the urban-c alpha site. And we have data for the US-UMB AmeriFlux tower site for University of Michigan Biological Station. See <a class="reference external" href="CLM-URL">the Section called CLM1PT mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal"><span class="pre">CLM1PT</span></code> mode. <code class="docutils literal"><span class="pre">CPLHISTForcing</span></code> is for running with atmospheric forcing from a previous CESM simulation. See <a class="reference external" href="CLM-URL">the Section called CPLHISTForcing mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal"><span class="pre">CPLHISTForcing</span></code> mode.</dd>
 <dt><code class="docutils literal"><span class="pre">DATM_PRESAERO</span></code></dt>
 <dd><p class="first">sets the prescribed aerosol mode for the data atmosphere model. The list of valid options include:</p>
 <p><code class="docutils literal"><span class="pre">clim_1850</span></code> = constant year 1850 conditions</p>
@@ -588,11 +602,11 @@ See <a class="reference external" href="CLM-URL">the Section called CLMCRUNCEP m
 <dt>DATM_CLMNCEP_YR_ALIGN</dt>
 <dd><code class="docutils literal"><span class="pre">DATM_CLMNCEP_YR_START</span></code> and <code class="docutils literal"><span class="pre">DATM_CLMNCEP_YR_END</span></code> determine the range of years to cycle the atmospheric data over, and <code class="docutils literal"><span class="pre">DATM_CLMNCEP_YR_ALIGN</span></code> determines which year in that range of years the simulation will start with.</dd>
 <dt>DATM_CPL_CASE</dt>
-<dd><code class="docutils literal"><span class="pre">DATM_CPL_CASE</span></code> sets the casename to use for the <code class="docutils literal"><span class="pre">CPLHIST3HrWx</span></code> mode.</dd>
+<dd><code class="docutils literal"><span class="pre">DATM_CPL_CASE</span></code> sets the casename to use for the <code class="docutils literal"><span class="pre">CPLHISTForcing</span></code> mode.</dd>
 <dt>DATM_CPL_YR_START</dt>
-<dd><code class="docutils literal"><span class="pre">DATM_CPL_YR_START</span></code> sets the beginning year to cycle the atmospheric data over for the <code class="docutils literal"><span class="pre">CPLHIST3HrWx</span></code> mode.</dd>
+<dd><code class="docutils literal"><span class="pre">DATM_CPL_YR_START</span></code> sets the beginning year to cycle the atmospheric data over for the <code class="docutils literal"><span class="pre">CPLHISTForcing</span></code> mode.</dd>
 <dt>DATM_CPL_YR_END</dt>
-<dd><code class="docutils literal"><span class="pre">DATM_CPL_YR_END</span></code> sets the ending year to cycle the atmospheric data over for the <code class="docutils literal"><span class="pre">CPLHIST3HrWx</span></code> mode.</dd>
+<dd><code class="docutils literal"><span class="pre">DATM_CPL_YR_END</span></code> sets the ending year to cycle the atmospheric data over for the <code class="docutils literal"><span class="pre">CPLHISTForcing</span></code> mode.</dd>
 <dt>DATM_CPL_YR_ALIGN</dt>
 <dd><code class="docutils literal"><span class="pre">DATM_CPL_YR_START</span></code> and <code class="docutils literal"><span class="pre">DATM_CPL_YR_END</span></code> determine the range of years to cycle the atmospheric data over, and <code class="docutils literal"><span class="pre">DATM_CPL_YR_ALIGN</span></code> determines which year in that range of years the simulation will start with.</dd>
 </dl>
@@ -601,13 +615,13 @@ See <a class="reference external" href="CLM-URL">the Section called CLMCRUNCEP m
 <h3>1.2.2.2.9. Downloading DATM Forcing Data<a class="headerlink" href="#downloading-datm-forcing-data" title="Permalink to this headline">¶</a></h3>
 <p>In Chapter One of the <a class="reference external" href="link-to-CESM-UG">CESM User’s Guide</a> there is a section on “Downloading input data”. The normal process of setting up cases will use the “scripts/ccsm_utils/Tools/check_input_data” script to retrieve data from the CESM subversion inputdata repository. This is true for the standard <cite>CLM_QIAN</cite> forcing as well.</p>
 <p>The <cite>CLMCRUNCEP</cite> data is uploaded into the subversion inputdata repository as well – but as it is 1.1 Terabytes of data downloading it is problematic (<em>IT WILL TAKE SEVERAL DAYS TO DOWNLOAD THE ENTIRE DATASET USING SUBVERSION</em>). Because of it’s size you may also need to download it onto a separate disk space. We have done that on cheyenne for example where it resides in <code class="docutils literal"><span class="pre">$ENV{CESMROOT}/lmwg</span></code> while the rest of the input data resides in <code class="docutils literal"><span class="pre">$ENV{CESMDATAROOT}/inputdata</span></code>. The data is also already available on: janus, franklin, and hopper. If you download the data, we recommend that you break your download into several chunks, by setting up a case and setting the year range for <code class="docutils literal"><span class="pre">DATM_CPL_YR_START</span></code> and <code class="docutils literal"><span class="pre">DATM_CPL_YR_END</span></code> in say 20 year sections over 1901 to 2010, and then use <strong>check_input_data</strong> to export the data.</p>
-<p>The <code class="docutils literal"><span class="pre">CPLHIST3HrWx</span></code> DATM forcing data is unique – because it is large compared to the rest of the input data, and we only have a disk copy on cheyenne. The DATM assumes the path for the previous NCAR machine cheyenne of <code class="docutils literal"><span class="pre">/glade/p/cesm/shared_outputdata/cases/ccsm4/$DATM_CPLHIST_CASE</span></code> for the data. So you will need to change this path in order to run on any other machine. You can download the data itself from NCAR HPSS from <code class="docutils literal"><span class="pre">/CCSM/csm/$DATM_CPLHIST_CASE</span></code>.</p>
+<p>The <code class="docutils literal"><span class="pre">CPLHISTForcing</span></code> DATM forcing data is unique – because it is large compared to the rest of the input data, and we only have a disk copy on cheyenne. The DATM assumes the path for the previous NCAR machine cheyenne of <code class="docutils literal"><span class="pre">/glade/p/cesm/shared_outputdata/cases/ccsm4/$DATM_CPLHIST_CASE</span></code> for the data. So you will need to change this path in order to run on any other machine. You can download the data itself from NCAR HPSS from <code class="docutils literal"><span class="pre">/CCSM/csm/$DATM_CPLHIST_CASE</span></code>.</p>
 </div>
 <div class="section" id="customizing-via-the-build-script-files">
 <h3>1.2.2.2.10. Customizing via the build script files<a class="headerlink" href="#customizing-via-the-build-script-files" title="Permalink to this headline">¶</a></h3>
-<p>The final thing that the user may wish to do before <strong>cesm_setup</strong> is run is to edit the build script files which determine the configuration and namelist. The variables in <code class="docutils literal"><span class="pre">env_build.xml</span></code> or <code class="docutils literal"><span class="pre">env_run.xml</span></code> typically mean you will NOT have to edit build script files. But, there are rare instances where it is useful to do so. The build script files are copied to your case directory and are available under Buildconf. The list of build script files you might wish to edit are:</p>
+<p>The final thing that the user may wish to do before <strong>case.setup</strong> is run is to edit the build script files which determine the configuration and namelist. The variables in <code class="docutils literal"><span class="pre">env_build.xml</span></code> or <code class="docutils literal"><span class="pre">env_run.xml</span></code> typically mean you will NOT have to edit build script files. But, there are rare instances where it is useful to do so. The build script files are copied to your case directory and are available under Buildconf. The list of build script files you might wish to edit are:</p>
 <p><strong>clm.buildexe.csh</strong>
-<strong>clm.buildnml.csh</strong>
+<strong>$CTSMROOT/cime_config/buildnml</strong>
 <strong>datm.buildexe.csh</strong>
 <strong>datm.buildnml.csh</strong></p>
 </div>
@@ -692,7 +706,7 @@ OPTIONS
 </pre></div>
 </div>
 <p>We’ve given details on how to use the options in env_build.xml and env_run.xml to interact with the CLM “configure” and “build-namelist” scripts, as well as giving a good understanding of how these scripts work and the options to them.
-In the next section we give further details on the CLM namelist. You could customize the namelist for these options after “cesm_setup” is run.</p>
+In the next section we give further details on the CLM namelist. You could customize the namelist for these options after “case.setup” is run.</p>
 </div>
 </div>
 </div>

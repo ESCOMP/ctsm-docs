@@ -54,10 +54,12 @@
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">1.2.4. Customizing the DATM namelist</a><ul>
-<li><a class="reference internal" href="#clmcruncep-mode-and-it-s-datm-settings">1.2.4.1. CLMCRUNCEP mode and it’s DATM settings</a></li>
-<li><a class="reference internal" href="#clm-qian-mode-and-it-s-datm-settings">1.2.4.2. CLM_QIAN mode and it’s DATM settings</a></li>
-<li><a class="reference internal" href="#clm1pt-mode-and-it-s-datm-settings">1.2.4.3. CLM1PT mode and it’s DATM settings</a></li>
-<li><a class="reference internal" href="#cplhist3hrwx-mode-and-it-s-datm-settings">1.2.4.4. CPLHIST3HrWx mode and it’s DATM settings</a></li>
+<li><a class="reference internal" href="#clmgswp3v1-mode-and-it-s-datm-settings">1.2.4.1. CLMGSWP3v1 mode and it’s DATM settings</a></li>
+<li><a class="reference internal" href="#clmcruncepv7-mode-and-it-s-datm-settings">1.2.4.2. CLMCRUNCEPv7 mode and it’s DATM settings</a></li>
+<li><a class="reference internal" href="#clmcruncep-mode-and-it-s-datm-settings">1.2.4.3. CLMCRUNCEP mode and it’s DATM settings</a></li>
+<li><a class="reference internal" href="#clm-qian-mode-and-it-s-datm-settings">1.2.4.4. CLM_QIAN mode and it’s DATM settings</a></li>
+<li><a class="reference internal" href="#clm1pt-mode-and-it-s-datm-settings">1.2.4.5. CLM1PT mode and it’s DATM settings</a></li>
+<li><a class="reference internal" href="#cplhistforcing-mode-and-it-s-datm-settings">1.2.4.6. CPLHISTForcing mode and it’s DATM settings</a></li>
 </ul>
 </li>
 </ul>
@@ -100,7 +102,7 @@
 <li><strong>DATM Main Namelist and Stream Namlist gorup</strong> (<code class="docutils literal"><span class="pre">datm_in</span></code>)</li>
 <li><strong>DATM stream files</strong></li>
 </ol>
-<p>The <a class="reference external" href="CLM-URL">Data Model Documentation</a> gives the details of all the options for the data models and for DATM specifically.
+<p>The <a class="reference external" href="http://esmci.github.io/cime/data_models/data-atm.html">Data Model Documentation</a> gives the details of all the options for the data models and for DATM specifically.
 It goes into detail on all namelist items both for DATM and for DATM streams.
 So here we won’t list ALL of the DATM namelist options, nor go into great details about stream files.
 But, we will talk about a few of the different options that are relevant for running with CLM.
@@ -141,9 +143,17 @@ The extend modes is used have it use the last time-step of the forcing data once
 <p class="last">For nearest and linear the time-stamps of the data should correspond to the middle of the interval the data is measured for. Either make sure the time-stamps on the datafiles is set this way, or use the <code class="docutils literal"><span class="pre">offset</span></code> described above to set it.</p>
 </div>
 <p>In the sections below we go over each of the relevant <code class="docutils literal"><span class="pre">DATM_MODE</span></code> options and what the above DATM settings are for each. This gives you examples of actual usage for the settings. We also describe in what ways you might want to customize them for your own case.</p>
-<div class="section" id="clmcruncep-mode-and-it-s-datm-settings">
-<h2>1.2.4.1. CLMCRUNCEP mode and it’s DATM settings<a class="headerlink" href="#clmcruncep-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
-<p>In <code class="docutils literal"><span class="pre">CLMCRUNCEP</span></code> mode the CRUNCEP dataset is used and all of it’s data is on a 6-hourly interval.
+<div class="section" id="clmgswp3v1-mode-and-it-s-datm-settings">
+<h2>1.2.4.1. CLMGSWP3v1 mode and it’s DATM settings<a class="headerlink" href="#clmgswp3v1-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
+<p>In <code class="docutils literal"><span class="pre">CLMGSWP3v1</span></code> mode the GSWP3 NCEP forcing dataset is used and all of it’s data is on a 3-hourly interval.
+Like <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> the dataset is divided into those three data streams: solar, precipitation, and everything else (temperature, pressure, humidity, Long-Wave down and wind).
+The time-stamps of the data were also adjusted so that they are the beginning of the interval for solar, and the middle for the other two.
+Because, of this the <code class="docutils literal"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal"><span class="pre">tintalgo</span></code> is: <code class="docutils literal"><span class="pre">coszen</span></code>, <code class="docutils literal"><span class="pre">nearest</span></code>, and <code class="docutils literal"><span class="pre">linear</span></code> for the solar, precipitation and other data respectively.
+<code class="docutils literal"><span class="pre">taxmode</span></code> is set to <code class="docutils literal"><span class="pre">cycle</span></code> and <code class="docutils literal"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal"><span class="pre">bilinear</span></code> so that the data is spatially interpolated from the input exact half degree grid to the grid the atmosphere model is being run at (to run at this same model resolution use the 360x720cru_360x720cru resolution).</p>
+</div>
+<div class="section" id="clmcruncepv7-mode-and-it-s-datm-settings">
+<h2>1.2.4.2. CLMCRUNCEPv7 mode and it’s DATM settings<a class="headerlink" href="#clmcruncepv7-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
+<p>In <code class="docutils literal"><span class="pre">CLMCRUNCEPv7</span></code> mode the CRUNCEP dataset is used and all of it’s data is on a 6-hourly interval.
 Like <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> the dataset is divided into those three data streams: solar, precipitation, and everything else (temperature, pressure, humidity and wind).
 The time-stamps of the data were also adjusted so that they are the beginning of the interval for solar, and the middle for the other two.
 Because, of this the <code class="docutils literal"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal"><span class="pre">tintalgo</span></code> is: <code class="docutils literal"><span class="pre">coszen</span></code>, <code class="docutils literal"><span class="pre">nearest</span></code>, and <code class="docutils literal"><span class="pre">linear</span></code> for the solar, precipitation and other data respectively.
@@ -154,8 +164,12 @@ Because, of this the <code class="docutils literal"><span class="pre">offset</sp
 </div>
 <p>For more information on CRUNCEP forcing see <a class="reference external" href="http://dods.extra.cea.fr/data/p529viov/cruncep/">http://dods.extra.cea.fr/data/p529viov/cruncep/</a>.</p>
 </div>
+<div class="section" id="clmcruncep-mode-and-it-s-datm-settings">
+<h2>1.2.4.3. CLMCRUNCEP mode and it’s DATM settings<a class="headerlink" href="#clmcruncep-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">CLMCRUNCEP</span></code> is similar to the <code class="docutils literal"><span class="pre">CLMCRUNCEPv7</span></code> mode above, except it uses Version 4 of the CRUNCEP data rather than version 7.</p>
+</div>
 <div class="section" id="clm-qian-mode-and-it-s-datm-settings">
-<h2>1.2.4.2. CLM_QIAN mode and it’s DATM settings<a class="headerlink" href="#clm-qian-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
+<h2>1.2.4.4. CLM_QIAN mode and it’s DATM settings<a class="headerlink" href="#clm-qian-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
 <p>In <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> mode the Qian dataset is used which has 6-hourly solar and precipitation data, and 3-hourly for everything else.
 The dataset is divided into those three data streams: solar, precipitation, and everything else (temperature, pressure, humidity and wind).
 The time-stamps of the data were also adjusted so that they are the beginning of the interval for solar, and the middle for the other two.
@@ -164,7 +178,7 @@ Because, of this the <code class="docutils literal"><span class="pre">offset</sp
 <p>Normally you wouldn’t customize the <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> settings, but you might replicate it’s use for your own global data that had similar temporal characteristics.</p>
 </div>
 <div class="section" id="clm1pt-mode-and-it-s-datm-settings">
-<h2>1.2.4.3. CLM1PT mode and it’s DATM settings<a class="headerlink" href="#clm1pt-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
+<h2>1.2.4.5. CLM1PT mode and it’s DATM settings<a class="headerlink" href="#clm1pt-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
 <p>In <code class="docutils literal"><span class="pre">CLM1PT</span></code> mode the model is assumed to have half-hourly or hourly data for a single-point.
 For the supported datasets that is exactly what it has.
 But, if you add your own data you may need to make adjustments accordingly.
@@ -176,9 +190,9 @@ Because, of this the <code class="docutils literal"><span class="pre">offset</sp
 <code class="docutils literal"><span class="pre">taxmode</span></code> is set to <code class="docutils literal"><span class="pre">extend</span></code> and <code class="docutils literal"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal"><span class="pre">nn</span></code> so that simply the nearest point is used.</p>
 <p>If you are using your own data for this mode and it’s not at least hourly you’ll want to adjust the DATM settings for it. If the data is three or six hourly, you’ll need to divide it up into separate streams like in <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> mode which will require fairly extensive changes to the DATM namelist and streams files. For an example of doing this see <a class="reference external" href="CLM-URL">Example 5-8</a>.</p>
 </div>
-<div class="section" id="cplhist3hrwx-mode-and-it-s-datm-settings">
-<h2>1.2.4.4. CPLHIST3HrWx mode and it’s DATM settings<a class="headerlink" href="#cplhist3hrwx-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
-<p>In <code class="docutils literal"><span class="pre">CPLHIST3HrWx</span></code> mode the model is assumed to have 3-hourly for a global grid from a previous CESM simulation.
+<div class="section" id="cplhistforcing-mode-and-it-s-datm-settings">
+<h2>1.2.4.6. CPLHISTForcing mode and it’s DATM settings<a class="headerlink" href="#cplhistforcing-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
+<p>In <code class="docutils literal"><span class="pre">CPLHISTForcing</span></code> mode the model is assumed to have 3-hourly for a global grid from a previous CESM simulation.
 Like <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> mode the data is divided into three streams: one for precipitation, one for solar, and one for everything else.
 The time-stamps for Coupler history files for CESM is at the end of the interval, so the <code class="docutils literal"><span class="pre">offset</span></code> needs to be set in order to adjust the time-stamps to what it needs to be for the <code class="docutils literal"><span class="pre">tintalgo</span></code> settings.
 For precipitation <code class="docutils literal"><span class="pre">taxmode</span></code> is set to <code class="docutils literal"><span class="pre">nearest</span></code> so the <code class="docutils literal"><span class="pre">offset</span></code> is set to <code class="docutils literal"><span class="pre">-5400</span></code> seconds so that the ending time-step is adjusted by an hour and half to the middle of the interval.

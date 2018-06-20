@@ -112,7 +112,7 @@
             
   <span class="target" id="customizing-a-case"></span><div class="section" id="customizing-clm-s-namelist">
 <h1>1.2.3. Customizing CLM’s namelist<a class="headerlink" href="#customizing-clm-s-namelist" title="Permalink to this headline">¶</a></h1>
-<p>Once a case is <strong>cesm_setup</strong>, we can then customize the case further, by editing the run-time namelist for CLM. First let’s list the definition of each namelist item and their valid values, and then we’ll list the default values for them. Next for some of the most used or tricky namelist items we’ll give examples of their use, and give you example namelists that highlight these features.</p>
+<p>Once a case has run <strong>case.setup</strong>, we can then customize the case further, by editing the run-time namelist for CLM. First let’s list the definition of each namelist item and their valid values, and then we’ll list the default values for them. Next for some of the most used or tricky namelist items we’ll give examples of their use, and give you example namelists that highlight these features.</p>
 <p>In the following, various examples of namelists are provided that feature the use of different namelist options to customize a case for particular uses.
 Most the examples revolve around how to customize the output history fields.
 This should give you a good basis for setting up your own CLM namelist.</p>
@@ -147,7 +147,7 @@ This should give you a good basis for setting up your own CLM namelist.</p>
 <p>Below we will give examples of user namelists that activate different commonly used namelist features. We will discuss the namelist features in different examples and then show a user namelist that includes an example of the use of these features. First we will show the default namelist that doesn’t activate any user options.</p>
 <div class="section" id="the-default-namelist">
 <h3>1.2.3.2.1. The default namelist<a class="headerlink" href="#the-default-namelist" title="Permalink to this headline">¶</a></h3>
-<p>Here we give the default namelist as it would be created for an “I1850Clm50BgcCropCru” compset at 0.9x1.25 resolution with a gx1v6 land-mask on cheyenne. To edit the namelist you would edit the <code class="docutils literal"><span class="pre">user_nl_clm</span></code> user namelist with just the items you want to change. For simplicity we will just show the CLM namelist and NOT the entire file. In the sections below, for simplicity we will just show the user namelist (<code class="docutils literal"><span class="pre">user_nl_clm</span></code>) that will add (or modify existing) namelist items to the namelist.</p>
+<p>Here we give the default namelist as it would be created for an “I1850Clm50BgcCropCru” compset at 0.9x1.25 resolution with a gx1v7 land-mask on cheyenne. To edit the namelist you would edit the <code class="docutils literal"><span class="pre">user_nl_clm</span></code> user namelist with just the items you want to change. For simplicity we will just show the CLM namelist and NOT the entire file. In the sections below, for simplicity we will just show the user namelist (<code class="docutils literal"><span class="pre">user_nl_clm</span></code>) that will add (or modify existing) namelist items to the namelist.</p>
 </div>
 <div class="section" id="example-1-2-default-clm-namelist">
 <h3>1.2.3.2.2. Example 1-2. Default CLM Namelist<a class="headerlink" href="#example-1-2-default-clm-namelist" title="Permalink to this headline">¶</a></h3>
@@ -325,10 +325,6 @@ A sample user namelist <code class="docutils literal"><span class="pre">user_nl_
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Technically the default for hist_nhtfrq is for primary files output monthly and the other auxiliary tapes for daily, so we don’t actually have to include hist_nhtfrq, we could use the default for it. Here we specify it for clarity.</p>
-</div>
-<div class="admonition caution">
-<p class="first admonition-title">Caution</p>
-<p class="last">LAND and COLS are also options to the pertape averaging, but currently there is a bug with them and they fail to work.</p>
 </div>
 <p>Visualizing global 1D vector files will take effort.
 You’ll probably want to do some post-processing and possibly just extract out single points of interest to see what is going on.
