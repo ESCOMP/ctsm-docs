@@ -2,12 +2,16 @@
 
 <!doctype html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>1.5.5. Spinup of CLM5.0-BGC &#8212; clmdoc release-clm5.0.01 documentation</title>
+    
+    <title>1.5.5. Spinup of CLM5.0-BGC-Crop &#8212; clmdoc release-clm5.0.01 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -31,7 +35,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -45,7 +49,7 @@
           <a href="CLM-4.3-Spinning-up-the-Satellite-Phenology-Model-(CLMSP-spinup).html" title="1.5.4. Spinning up the Satellite Phenology Model"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">1.5. Running Special Cases</a> &#187;</li> 
       </ul>
     </div>
@@ -53,7 +57,7 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">1.5.5. Spinup of CLM5.0-BGC</a><ul>
+<li><a class="reference internal" href="#">1.5.5. Spinup of CLM5.0-BGC-Crop</a><ul>
 <li><a class="reference internal" href="#example-ad-spinup-simulation-for-version-bgc">1.5.5.1. Example:: AD_SPINUP Simulation for clm5.0-BGC</a></li>
 <li><a class="reference internal" href="#example-final-clmbgc-spinup-simulation-for-version-bgc">1.5.5.2. Example: Final CLMBGC Spinup Simulation for clm5.0-BGC</a></li>
 </ul>
@@ -91,34 +95,30 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <span class="target" id="spinning-up-clm45-bgc"></span><div class="section" id="spinup-of-clm5-0-bgc">
-<h1>1.5.5. Spinup of CLM5.0-BGC<a class="headerlink" href="#spinup-of-clm5-0-bgc" title="Permalink to this headline">¶</a></h1>
-<p>To get the clm5.0-BGC model to a steady state, you first run it from arbitrary initial conditions using the “accelerated decomposition spinup” (-bgc_spinup on in CLM <strong>configure</strong>) mode for 1000 simulation years.
-After this you branch from this mode in the “final spinup” (-bgc_spinup off in CLM <strong>configure</strong>), and run for (at least 200+ simulation years).</p>
+  <span class="target" id="spinning-up-clm50-bgc"></span><div class="section" id="spinup-of-clm5-0-bgc-crop">
+<h1>1.5.5. Spinup of CLM5.0-BGC-Crop<a class="headerlink" href="#spinup-of-clm5-0-bgc-crop" title="Permalink to this headline">¶</a></h1>
+<p>To get the clm5.0-BGC model to a steady state, you first run it from arbitrary initial conditions using the &#8220;accelerated decomposition spinup&#8221; (-bgc_spinup on in CLM <strong>configure</strong>) mode for 1000 simulation years.
+After this you branch from this mode in the &#8220;final spinup&#8221; (-bgc_spinup off in CLM <strong>configure</strong>), and run for (at least 200+ simulation years).</p>
 <dl class="docutils">
-<dt><strong>1. 45_AD_SPINUP</strong></dt>
-<dd>For the first step of running 1000+ years in “-bgc_spinup on” mode, you will setup a case, and then edit the values in env_build.xml and env_run.xml so that the right configuration is turned on and the simulation is setup to run for the required length of simulation time. So do the following:</dd>
+<dt><strong>1. 50_AD_SPINUP</strong></dt>
+<dd>For the first step of running 1000+ years in &#8220;-bgc_spinup on&#8221; mode, you will setup a case, and then edit the values in env_build.xml and env_run.xml so that the right configuration is turned on and the simulation is setup to run for the required length of simulation time. So do the following:</dd>
 </dl>
 <div class="section" id="example-ad-spinup-simulation-for-version-bgc">
 <h2>1.5.5.1. Example:: AD_SPINUP Simulation for clm5.0-BGC<a class="headerlink" href="#example-ad-spinup-simulation-for-version-bgc" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">scripts</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">create_newcase</span> <span class="o">-</span><span class="n">case</span> <span class="n">BGC_spinup</span> <span class="o">-</span><span class="n">res</span> <span class="n">f19_g17_gl4</span> <span class="o">-</span><span class="n">compset</span> <span class="n">I1850Clm50BgcCropCru</span> <span class="o">-</span><span class="n">mach</span> <span class="n">cheyenne_intel</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">create_newcase</span> <span class="o">-</span><span class="n">case</span> <span class="n">BGC_spinup</span> <span class="o">-</span><span class="n">res</span> <span class="n">f19_g17_gl4</span> <span class="o">-</span><span class="n">compset</span> <span class="n">I1850Clm50BgcCropCru</span>
 <span class="o">&gt;</span> <span class="n">cd</span> <span class="n">BGC_spinup</span>
-<span class="c1"># Append &quot;-spinup on&quot; to CLM_BLDNML_OPTS</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">CLM_BLDNML_OPTS</span><span class="o">=</span><span class="s2">&quot;-bgc_spinup on&quot;</span> <span class="o">-</span><span class="n">append</span>
-<span class="c1"># The following sets CLM_FORCE_COLDSTART to &quot;on&quot;, and run-type to startup (you could also use an editor)</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">CLM_FORCE_COLDSTART</span><span class="o">=</span><span class="n">on</span><span class="p">,</span><span class="n">RUN_TYPE</span><span class="o">=</span><span class="n">startup</span>
-<span class="c1"># Make the output history files only annual, by adding the following to the user_nl_clm namelist</span>
-<span class="o">&gt;</span> <span class="n">echo</span> <span class="s1">&#39;hist_nhtfrq = -8760&#39;</span> <span class="o">&gt;&gt;</span> <span class="n">user_nl_clm</span>
+<span class="c1"># Change accelerated spinup mode</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">CLM_ACCELERATED_SPINUP</span><span class="o">=</span><span class="s2">&quot;on&quot;</span>
 <span class="c1"># Now setup</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">cesm_setup</span> <span class="o">-</span><span class="n">case</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span> <span class="o">-</span><span class="n">case</span>
 <span class="c1"># Now build</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">BGC_spinup</span><span class="o">.</span><span class="n">build</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">build</span>
 <span class="c1"># The following sets RESUBMIT to 30 times in env_run.xml (you could also use an editor)</span>
 <span class="c1"># The following sets STOP_DATE,STOP_N and STOP_OPTION to Jan/1/1001, 20, &quot;nyears&quot; in env_run.xml (you could also use an       editor)</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">RESUBMIT</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">STOP_N</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">STOP_OPTION</span><span class="o">=</span><span class="n">nyears</span><span class="p">,</span><span class="n">STOP_DATE</span><span class="o">=</span><span class="mi">10010101</span>
 <span class="c1"># Now run normally</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">BGC_spinup</span><span class="o">.</span><span class="n">submit</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">submit</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -128,13 +128,13 @@ After this you branch from this mode in the “final spinup” (-bgc_spinup off 
 <p>Afterwards save the last restart file from this simulation to use in the next step.</p>
 <dl class="docutils">
 <dt><strong>2. Final spinup for |version|-BGC</strong></dt>
-<dd>Next save the last restart file from this step and use it as the “finidat” file to use for one more spinup for at least 200+ years in normal mode. So do the following:</dd>
+<dd>Next save the last restart file from this step and use it as the &#8220;finidat&#8221; file to use for one more spinup for at least 200+ years in normal mode. So do the following:</dd>
 </dl>
 </div>
 <div class="section" id="example-final-clmbgc-spinup-simulation-for-version-bgc">
 <h2>1.5.5.2. Example: Final CLMBGC Spinup Simulation for clm5.0-BGC<a class="headerlink" href="#example-final-clmbgc-spinup-simulation-for-version-bgc" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts
-&gt; ./create_newcase -case BGC_finalspinup -res f19_g17_gl4 -compset I1850Clm50BgcCropCru -mach cheyenne_intel
+&gt; ./create_newcase -case BGC_finalspinup -res f19_g17_gl4 -compset I1850Clm50BgcCropCru
 &gt; cd BGC_finalspinup
 # Now, Copy the last CLM restart file from the earlier case into your run directory
 &gt; cp /ptmp/$LOGIN/archive/BGC_spinup/rest/BGC_spinup.clm*.r*.1002-01-01-00000.nc \
@@ -147,17 +147,17 @@ After this you branch from this mode in the “final spinup” (-bgc_spinup off 
 # Set the finidat file to the last restart file saved in previous step
 &gt; echo &#39; finidat = &quot;BGC_spinup.clm2.r.1002-01-01-00000.nc&quot;&#39; &gt; user_nl_clm
 # Now setup
-&gt; ./cesm_setup
+&gt; ./case.setup
 &gt; Now build
-&gt; ./BGC_finalspinup.build
+&gt; ./case.build
 # The following sets RESUBMIT to 4 times in env_run.xml (you could also use an editor)
 # The following sets STOP_N and STOP_OPTION to 50 and &quot;nyears&quot; in env_run.xml (you could also use an editor)
 &gt; ./xmlchange RESUBMIT=4,STOP_OPTION=nyears,STOP_N=50
 &gt; Now run as normal
-&gt; ./BGC_finalspinup.submit
+&gt; ./case.submit
 </pre></div>
 </div>
-<p>To assess if the model is spunup plot trends of CLMBGC variables of interest. If you see a trend, you may need to run the simulation longer. Finally save the restart file from the end of this simulation to use as an “finidat” file for future simulations.</p>
+<p>To assess if the model is spunup plot trends of CLMBGC variables of interest. If you see a trend, you may need to run the simulation longer. Finally save the restart file from the end of this simulation to use as an &#8220;finidat&#8221; file for future simulations.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This same final spinup procedure works for clm5.0-CN as well, you can typically shorten the spinup time from 200 years to 50 though.</p>
@@ -184,13 +184,13 @@ After this you branch from this mode in the “final spinup” (-bgc_spinup off 
           <a href="CLM-4.3-Spinning-up-the-Satellite-Phenology-Model-(CLMSP-spinup).html" title="1.5.4. Spinning up the Satellite Phenology Model"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >1.5. Running Special Cases</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
   </body>
 </html>

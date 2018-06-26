@@ -2,12 +2,16 @@
 
 <!doctype html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>1.3.4. Creating input for surface dataset generation &#8212; clmdoc release-clm5.0.01 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -31,7 +35,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -45,7 +49,7 @@
           <a href="building-the-clm-tools.html" title="1.3.2. Building the CLM tools"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">1.3. Using CLM tools</a> &#187;</li> 
       </ul>
     </div>
@@ -103,7 +107,7 @@
 <h2>1.3.4.1. 1. Generating SCRIP grid files<a class="headerlink" href="#generating-scrip-grid-files" title="Permalink to this headline">¶</a></h2>
 <p>The utility <code class="docutils literal"><span class="pre">mkmapdata.sh</span></code> requires SCRIP format input files to describe the input and output grids that maps are generated for. CLM provides a utility, <code class="docutils literal"><span class="pre">mkmapgrids</span></code> that generates those files.
 The program converts old formats of CAM or CLM grid files to SCRIP grid format. There is also a NCL script (<code class="docutils literal"><span class="pre">mkscripgrid.ncl</span></code>) to create regular latitude longitude regional or single-point grids at the resolution the user desires.</p>
-<p>SCRIP grid files for all the standard model resolutions and the raw surface datasets have already been done and the files are in the XML database. Hence, this step doesn’t need to be done – EXCEPT WHEN YOU ARE CREATING YOUR OWN GRIDS.</p>
+<p>SCRIP grid files for all the standard model resolutions and the raw surface datasets have already been done and the files are in the XML database. Hence, this step doesn&#8217;t need to be done &#8211; EXCEPT WHEN YOU ARE CREATING YOUR OWN GRIDS.</p>
 <div class="section" id="using-mknocnmap-pl-to-create-grid-and-maps-for-single-point-regional-grids">
 <h3>1.3.4.1.1. Using mknocnmap.pl to create grid and maps for single-point regional grids<a class="headerlink" href="#using-mknocnmap-pl-to-create-grid-and-maps-for-single-point-regional-grids" title="Permalink to this headline">¶</a></h3>
 <p>If you want to create a regular latitude/longitude single-point or regional grid, we suggest you use <strong>mknoocnmap.pl</strong> in <code class="docutils literal"><span class="pre">$CTSMROOT/tools/mkmapdata</span></code> which will create both the SCRIP grid file you need (using <code class="docutils literal"><span class="pre">$CTSMROOT/tools/mkmapgrids/mkscripgrid.ncl</span></code> AND an identity mapping file assuming there is NO ocean in your grid domain. If you HAVE ocean in your domain you could modify the mask in the SCRIP grid file for ocean, and then use <strong>ESMF_RegridWeightGen</strong> to create the mapping file, and <strong>gen_domain</strong> to create the domain file. Like other tools, <code class="docutils literal"><span class="pre">./mkmapdata/mknoocnmap.pl</span></code> has a help option with the following:</p>
@@ -133,10 +137,10 @@ The program converts old formats of CAM or CLM grid files to SCRIP grid format. 
 <p><code class="docutils literal"><span class="pre">mkmapdata.sh</span></code> uses the above SCRIP grid input files to create SCRIP mapping data files (uses ESMF).</p>
 <p>The bash shell script <code class="docutils literal"><span class="pre">$CTSMROOT/tools/mkmapgrids/mkmapdata.sh</span></code> uses <strong>ESMF_RegridWeightGen</strong> to create a list of maps from the raw datasets that are input to <strong>mksurfdata_map</strong>.
 Each dataset that has a different grid, or land-mask needs a different mapping file for it, but many different raw datasets share the same grid/land-mask as other files.
-Hence, there doesn’t need to be a different mapping file for EACH raw dataset – just for each raw dataset that has a DIFFERENT grid or land-mask..
+Hence, there doesn&#8217;t need to be a different mapping file for EACH raw dataset &#8211; just for each raw dataset that has a DIFFERENT grid or land-mask..
 See <a class="reference external" href="CLM-URL">Figure 2-3</a> for a visual representation of how this works.
 The bash script figures out which mapping files it needs to create and then runs <strong>ESMF_RegridWeightGen</strong> for each one.
-You can then either enter the datasets into the XML database (see <a class="reference external" href="CLM-URL">Chapter 3</a> or leave the files in place, and use the “-res usrspec -usr_gname -usr_gdate” options to <strong>mksurfdata_map</strong> (see <a class="reference external" href="CLM-URL">the Section called Running mksurfdata.pl</a> below).
+You can then either enter the datasets into the XML database (see <a class="reference external" href="CLM-URL">Chapter 3</a> or leave the files in place, and use the &#8220;-res usrspec -usr_gname -usr_gdate&#8221; options to <strong>mksurfdata_map</strong> (see <a class="reference external" href="CLM-URL">the Section called Running mksurfdata.pl</a> below).
 mkmapdata.sh has a help option with the following</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">../../</span><span class="n">tools</span><span class="o">/</span><span class="n">mkmapdata</span><span class="o">/</span><span class="n">mkmapdata</span><span class="o">.</span><span class="n">sh</span>
 
@@ -192,7 +196,7 @@ mkmapdata.sh has a help option with the following</p>
 <div class="section" id="figure-2-3-details-of-running-mkmapdata-sh">
 <h3>1.3.4.2.1. Figure 2-3. Details of running mkmapdata.sh<a class="headerlink" href="#figure-2-3-details-of-running-mkmapdata-sh" title="Permalink to this headline">¶</a></h3>
 <p>Insert figure 2-3</p>
-<p>Each of the raw datasets for <strong>mksurfdata_map</strong> needs a mapping file to map from the output grid you are running on to the grid and land-mask for that dataset. This is what <strong>mkmapdata.sh</strong> does. To create the mapping files you need a SCRIP grid file to correspond with each resolution and land mask that you have a raw data file in <strong>mksurfdata_map</strong>. Some raw datasets share the same grid and land mask – hence they can share the same SCRIP grid file. The output maps created here go into <strong>mksurfdata_map</strong> see <a class="reference external" href="CLM-URL">Figure 2-6</a>.</p>
+<p>Each of the raw datasets for <strong>mksurfdata_map</strong> needs a mapping file to map from the output grid you are running on to the grid and land-mask for that dataset. This is what <strong>mkmapdata.sh</strong> does. To create the mapping files you need a SCRIP grid file to correspond with each resolution and land mask that you have a raw data file in <strong>mksurfdata_map</strong>. Some raw datasets share the same grid and land mask &#8211; hence they can share the same SCRIP grid file. The output maps created here go into <strong>mksurfdata_map</strong> see <a class="reference external" href="CLM-URL">Figure 2-6</a>.</p>
 </div>
 </div>
 </div>
@@ -216,13 +220,13 @@ mkmapdata.sh has a help option with the following</p>
           <a href="building-the-clm-tools.html" title="1.3.2. Building the CLM tools"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >1.3. Using CLM tools</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
   </body>
 </html>

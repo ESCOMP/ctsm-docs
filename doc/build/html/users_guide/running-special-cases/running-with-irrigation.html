@@ -2,12 +2,16 @@
 
 <!doctype html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>1.5.3. Running with irrigation &#8212; clmdoc release-clm5.0.01 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -31,7 +35,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -45,7 +49,7 @@
           <a href="running-the-prognostic-crop-model.html" title="1.5.2. Running the prognostic crop model"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">1.5. Running Special Cases</a> &#187;</li> 
       </ul>
     </div>
@@ -92,23 +96,22 @@
             
   <div class="section" id="running-with-irrigation">
 <h1>1.5.3. Running with irrigation<a class="headerlink" href="#running-with-irrigation" title="Permalink to this headline">¶</a></h1>
-<p>In clm5.0 irrigation can ONLY be used WITH crop.
-To turn on irrigation in clm5.0 we simply add “-irrig on” to <code class="docutils literal"><span class="pre">CLM_BLDNML_OPTS</span></code>.
-Just as in the crop example we also change <code class="docutils literal"><span class="pre">RUN_TYPE</span></code> to <code class="docutils literal"><span class="pre">startup</span></code> so that we don’t use an initial condition file that is incompatible with irrigation.</p>
+<p>In CLM4.0 irrigation isn&#8217;t an allowed option.
+In CLM4.5 irrigation can ONLY be used WITH crop. With CLM5.0 irrigation can be used whether crop is on or not &#8211; <strong>BUT</strong>
+if crop is off, your surface datasets <strong>HAVE</strong> to have irrigation defined appropriately. Right now <em>ALL</em> surface
+datasets without crop enabled have irrigation hard-wired on. In order to create datasets with irrigation off, you&#8217;d need
+to make changes to <code class="docutils literal"><span class="pre">mksurfdata_map</span></code> in order to have all generic crops to be non-irrigated.
+To turn on irrigation in clm5.0 we simply add &#8220;-irrig on&#8221; to <code class="docutils literal"><span class="pre">CLM_BLDNML_OPTS</span></code>.</p>
 <div class="section" id="example-irrigation-simulation">
 <h2>1.5.3.1. Example: Irrigation Simulation<a class="headerlink" href="#example-irrigation-simulation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Note here we do a CLMSP simulation as that is what has been validated</span>
 <span class="o">&gt;</span> <span class="n">cd</span> <span class="n">scripts</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">create_newcase</span> <span class="o">-</span><span class="n">case</span> <span class="n">IRRIG</span> <span class="o">-</span><span class="n">res</span> <span class="n">f19_g17_gl4</span> <span class="o">-</span><span class="n">compset</span> <span class="n">I</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">create_newcase</span> <span class="o">-</span><span class="n">case</span> <span class="n">IRRIG</span> <span class="o">-</span><span class="n">res</span> <span class="n">f19_g17_gl4</span> <span class="o">-</span><span class="n">compset</span> <span class="n">I1850Clm50BgcCrop</span>
 <span class="o">&gt;</span> <span class="n">cd</span> <span class="n">IRRIG</span>
 
-<span class="c1"># Append &quot;-irrig&quot; to CLM_BLDNML_OPTS in env_run.xml (you could also use an editor)</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">CLM_BLDNML_OPTS</span><span class="o">=</span><span class="s2">&quot;-irrig&quot;</span> <span class="o">-</span><span class="n">append</span>
+<span class="c1"># Append &quot;-irrig on&quot; to CLM_BLDNML_OPTS in env_run.xml (you could also use an editor)</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">CLM_BLDNML_OPTS</span><span class="o">=</span><span class="s2">&quot;-irrig on&quot;</span> <span class="o">-</span><span class="n">append</span>
 
-<span class="c1"># Change to startup type so uses spunup initial conditions file for irrigation if it exists</span>
-<span class="c1"># By default the model will do a hybrid startup with an initial condition file</span>
-<span class="c1"># incompatible with the irrigation surface dataset.</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">RUN_TYPE</span><span class="o">=</span><span class="n">startup</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span>
 
 <span class="c1"># Now build and run normally</span>
@@ -138,13 +141,13 @@ Just as in the crop example we also change <code class="docutils literal"><span 
           <a href="running-the-prognostic-crop-model.html" title="1.5.2. Running the prognostic crop model"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >1.5. Running Special Cases</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
   </body>
 </html>

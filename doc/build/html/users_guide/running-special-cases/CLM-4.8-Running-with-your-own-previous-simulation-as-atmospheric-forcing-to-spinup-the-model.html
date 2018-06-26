@@ -2,12 +2,16 @@
 
 <!doctype html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>1.5.7. Running with atmospheric forcing from a previous simulation &#8212; clmdoc release-clm5.0.01 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -31,7 +35,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -45,7 +49,7 @@
           <a href="CLM-4.7-Running-with-MOAR-data-as-atmospheric-forcing-to-spinup-the-model.html" title="1.5.6. Running with MOAR data"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">1.5. Running Special Cases</a> &#187;</li> 
       </ul>
     </div>
@@ -93,15 +97,15 @@
             
   <span class="target" id="running-with-previous-simulation-forcing"></span><div class="section" id="running-with-atmospheric-forcing-from-a-previous-simulation">
 <h1>1.5.7. Running with atmospheric forcing from a previous simulation<a class="headerlink" href="#running-with-atmospheric-forcing-from-a-previous-simulation" title="Permalink to this headline">¶</a></h1>
-<p>Another way that you might want to spinup the model is to run your own simulation for a relatively short period (either a B, E, or F compset) and then use it as forcing for your “I” case later.
-By only running 20 to 50 years for the fully coupled case, you’ll save a substantial amount of computer time rather than running the entire spinup period with a fully coupled model.</p>
+<p>Another way that you might want to spinup the model is to run your own simulation for a relatively short period (either a B, E, or F compset) and then use it as forcing for your &#8220;I&#8221; case later.
+By only running 20 to 50 years for the fully coupled case, you&#8217;ll save a substantial amount of computer time rather than running the entire spinup period with a fully coupled model.</p>
 <p>The first thing we need to do is to run a fully coupled case and save the atmospheric coupling fields on a three hourly basis. In this example, we will run on cheyenne and archive the data to a local disk that we can then use in the next simulation.</p>
 <div class="section" id="example-fully-coupled-simulation-to-create-data-to-force-next-example-simulation">
 <h2>1.5.7.1. Example: Fully Coupled Simulation to Create Data to Force Next Example Simulation<a class="headerlink" href="#example-fully-coupled-simulation-to-create-data-to-force-next-example-simulation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts
-&gt; ./create_newcase -case myBCN1850 -res f09_g17_gl4 -compset B1850CN  -mach cheyenne_intel
-&gt; cd myBCN1850
-&gt; ./cesm_setup
+&gt; ./create_newcase -case myB1850 -res f09_g17_gl4 -compset B1850
+&gt; cd myB1850
+&gt; ./case.setup
 # Set histaux_a2x3hr to .true. in your user_nl_cpl output from the atmosphere model
 # will be saved 3 hourly
 echo &quot;histaux_a2x3hr=.true.&quot; &gt;&gt; user_nl_cpl
@@ -109,7 +113,7 @@ echo &quot;histaux_a2x3hr=.true.&quot; &gt;&gt; user_nl_cpl
 &gt; cp ../../models/drv/driver/ccsm_comp_mod.F90 SourceMods/src.cpl
 &gt; $EDITOR SourceMods/src.cpl
 # Now build
-&gt; ./myBCN1850.build
+&gt; ./case.build
 # The following sets the archival disk space (you could also use an editor)
 &gt; ./xmlchange DOUT_S_ROOT=&#39;/glade/home/$USER/$CASE&#39;
 # Make sure files are archived to disk, but NOT to long term storage
@@ -118,22 +122,18 @@ echo &quot;histaux_a2x3hr=.true.&quot; &gt;&gt; user_nl_cpl
 # Set the run length to run a total of 20 years (you could also use an editor)
 &gt; ./xmlchange RESUBMIT=9,STOP_OPTION=nyears,STOP_N=2
 # Now run as normal
-&gt; ./myBCN1850.submit
+&gt; ./case.submit
 </pre></div>
 </div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Because of bug 1733 (see the <a class="reference external" href="CLM-URL">$CTSMROOT/doc/KnownBugs</a> file on this) you’ll need to edit the driver code in order for it to produce the correct list of fields needed to run the model later.</p>
-</div>
-<p>Now we run an I compset forced with the data from the previous simulation using the <code class="docutils literal"><span class="pre">CPLHIST3HrWx</span></code> option to DATM_MODE. See <a class="reference external" href="CLM-URL">the Section called CPLHIST3HrWx mode and it’s DATM settings in Chapter 1</a> for more information on the DATM settings for <code class="docutils literal"><span class="pre">CPLHIST3HrWx</span></code> mode.</p>
+<p>Now we run an I compset forced with the data from the previous simulation using the CPLHISTForcing`` option to DATM_MODE. See <a class="reference external" href="CLM-URL">the Section called CPLHISTForcing mode and it&#8217;s DATM settings in Chapter 1</a> for more information on the DATM settings for <code class="docutils literal"><span class="pre">CPLHISTForcing</span></code> mode.</p>
 </div>
 <div class="section" id="example-simulation-forced-with-data-from-the-previous-simulation">
 <h2>1.5.7.2. Example: Simulation Forced with Data from the Previous Simulation<a class="headerlink" href="#example-simulation-forced-with-data-from-the-previous-simulation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts
-&gt; ./create_newcase -case frcwmyBCN1850 -res f09_g17_gl4 -compset I1850Clm50BgcSpinup -mach cheyenne_intel
-&gt; cd frcWmyBCN1850
+&gt; ./create_newcase -case frcwmyB1850 -res f09_g17_gl4 -compset I1850Clm50BgcSpinup
+&gt; cd frcWmyB1850
 # The following sets the casename to point to for atm forcing (you could also use an editor)
-&gt; ./xmlchange DATM_CPLHIST_CASE=&quot;myBCN1850&quot;
+&gt; ./xmlchange DATM_CPLHIST_CASE=&quot;myB1850&quot;
 # The following sets the align year and years to run over for atm forcing
 #  (you could also use an editor)
 &gt; ./xmlchange DATM_CPLHIST_YR_ALIGN=&quot;1&quot;,DATM_CPLHIST_YR_START=1,DATM_CPLHIST_YR_END=20
@@ -141,15 +141,15 @@ echo &quot;histaux_a2x3hr=.true.&quot; &gt;&gt; user_nl_cpl
 # file to the archival path of the case above in the form of: /glade/home/achive/$USER/$DATM_CPLHIST_CASE/cpl/hist
 # NOTE: THIS WILL CHANGE THE PATH FOR ALL I1850Clm50BgcSpinup COMPSET CASES MADE AFTER THIS!
 &gt; $EDITOR ../../models/atm/datm/bld/namelist_files/namelist_defaults_datm.xml
-&gt; ./cesm_setup
+&gt; ./case.setup
 # Now build and run as normal
-&gt; ./frcwmyBCN1850.build
-&gt; ./frcwmyBCN1850.submit
+&gt; ./case.build
+&gt; ./case.submit
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">We did this by editing the “namelist_defaults_datm.xml” which will change the settings for ALL future <code class="docutils literal"><span class="pre">I1850Clm50BgcSpinup</span></code> cases you run. You could also do this by editing the path in the resulting streams text files in the CaseDocs directory, and then create a “user_” streams file with the correct path. This would change the streams file JUST for this case. The steps do it this way are:</p>
+<p class="last">We did this by editing the &#8220;namelist_defaults_datm.xml&#8221; which will change the settings for ALL future <code class="docutils literal"><span class="pre">I1850Clm50BgcSpinup</span></code> cases you run. You could also do this by editing the path in the resulting streams text files in the CaseDocs directory, and then create a &#8220;user_&#8221; streams file with the correct path. This would change the streams file JUST for this case. The steps do it this way are:</p>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; ./preview_namelists
 &gt; cp CaseDocs/datm.streams.txt.CPLHIST3HrWx.Precip            user_datm.streams.txt.CPLHIST3HrWx.Precip
@@ -183,13 +183,13 @@ echo &quot;histaux_a2x3hr=.true.&quot; &gt;&gt; user_nl_cpl
           <a href="CLM-4.7-Running-with-MOAR-data-as-atmospheric-forcing-to-spinup-the-model.html" title="1.5.6. Running with MOAR data"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >1.5. Running Special Cases</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
   </body>
 </html>

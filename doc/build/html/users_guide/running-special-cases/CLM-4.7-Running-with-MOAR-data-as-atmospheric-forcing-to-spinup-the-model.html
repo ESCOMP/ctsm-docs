@@ -2,12 +2,16 @@
 
 <!doctype html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>1.5.6. Running with MOAR data &#8212; clmdoc release-clm5.0.01 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -25,13 +29,13 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="1.5.7. Running with atmospheric forcing from a previous simulation" href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" />
-    <link rel="prev" title="1.5.5. Spinup of CLM5.0-BGC" href="CLM-4.4-Spinning-up-the-CLM5.0-biogeochemistry-(CLMBGC-spinup).html" />
+    <link rel="prev" title="1.5.5. Spinup of CLM5.0-BGC-Crop" href="CLM-4.4-Spinning-up-the-CLM5.0-biogeochemistry-(CLMBGC-spinup).html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -42,10 +46,10 @@
           <a href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" title="1.5.7. Running with atmospheric forcing from a previous simulation"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="CLM-4.4-Spinning-up-the-CLM5.0-biogeochemistry-(CLMBGC-spinup).html" title="1.5.5. Spinup of CLM5.0-BGC"
+          <a href="CLM-4.4-Spinning-up-the-CLM5.0-biogeochemistry-(CLMBGC-spinup).html" title="1.5.5. Spinup of CLM5.0-BGC-Crop"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">1.5. Running Special Cases</a> &#187;</li> 
       </ul>
     </div>
@@ -61,7 +65,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="CLM-4.4-Spinning-up-the-CLM5.0-biogeochemistry-(CLMBGC-spinup).html"
-                        title="previous chapter">1.5.5. Spinup of CLM5.0-BGC</a></p>
+                        title="previous chapter">1.5.5. Spinup of CLM5.0-BGC-Crop</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html"
                         title="next chapter">1.5.7. Running with atmospheric forcing from a previous simulation</a></p>
@@ -92,24 +96,24 @@
             
   <span class="target" id="running-with-moar-data"></span><div class="section" id="id1">
 <h1>1.5.6. Running with MOAR data<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>Because it takes so long to spinup the CN model (as we just saw previously), if you are doing fully coupled simulations with active atmosphere and ocean, you will want to do the spinup portion of this “offline”.
-So instead of doing expensive fully coupled simulations for the spinup duration, you run CLM in a very cheap “I” compset using atmospheric forcing from a shorter fully coupled simulation (or a simulation run previously by someone else).</p>
+<p>Because it takes so long to spinup the CN model (as we just saw previously), if you are doing fully coupled simulations with active atmosphere and ocean, you will want to do the spinup portion of this &#8220;offline&#8221;.
+So instead of doing expensive fully coupled simulations for the spinup duration, you run CLM in a very cheap &#8220;I&#8221; compset using atmospheric forcing from a shorter fully coupled simulation (or a simulation run previously by someone else).</p>
 <p>In this example we will use the <code class="docutils literal"><span class="pre">I1850Clm50BgcSpinup</span> <span class="pre">compset</span></code> to setup CLM to run with atmospheric forcing from a previous fully coupled simulation with data that is already stored on disk on cheyenne.
 There are several simulations that have high frequency data for which we can do this. You can also do this on a machine other than cheyenne, but would need to download the data from the Earth System Grid and change the datapath similar to <a class="reference external" href="CLM-URL">Example 4-11</a>.</p>
 <div class="section" id="example-simulation-with-moar-data-on-cheyenne">
 <h2>1.5.6.1. Example: Simulation with MOAR Data on cheyenne<a class="headerlink" href="#example-simulation-with-moar-data-on-cheyenne" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">scripts</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">create_newcase</span> <span class="o">-</span><span class="n">case</span> <span class="n">MOARforce1850</span> <span class="o">-</span><span class="n">res</span> <span class="n">f19_g17_gl4</span> <span class="o">-</span><span class="n">compset</span> <span class="n">I1850Clm50BgcSpinup</span> <span class="o">-</span><span class="n">mach</span> <span class="n">cheyenne_intel</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">create_newcase</span> <span class="o">-</span><span class="n">case</span> <span class="n">MOARforce1850</span> <span class="o">-</span><span class="n">res</span> <span class="n">f19_g17_gl4</span> <span class="o">-</span><span class="n">compset</span> <span class="n">I1850Clm50BgcSpinup</span>
 <span class="o">&gt;</span> <span class="n">cd</span> <span class="n">MOARforce1850</span>
 <span class="c1"># The following sets the casename to point to for atm forcing (you could also use an editor)</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">DATM_CPL_CASE</span><span class="o">=</span><span class="n">b40</span><span class="o">.</span><span class="mf">1850.</span><span class="n">track1</span><span class="o">.</span><span class="mi">1</span><span class="n">deg</span><span class="o">.</span><span class="mi">006</span><span class="n">a</span>
 <span class="c1"># The following sets the align year and years to run over for atm forcing</span>
 <span class="c1">#  (you could also use an editor)</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">DATM_CPL_YR_ALIGN</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">DATM_CPL_YR_START</span><span class="o">=</span><span class="mi">960</span><span class="p">,</span><span class="n">DATM_CPL_YR_END</span><span class="o">=</span><span class="mi">1030</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">cesm_setup</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span>
 <span class="c1"># Now build and run as normal</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">MOARforce1850</span><span class="o">.</span><span class="n">build</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">MOARforce1850</span><span class="o">.</span><span class="n">submit</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">build</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">submit</span>
 </pre></div>
 </div>
 </div>
@@ -131,16 +135,16 @@ There are several simulations that have high frequency data for which we can do 
           <a href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" title="1.5.7. Running with atmospheric forcing from a previous simulation"
              >next</a> |</li>
         <li class="right" >
-          <a href="CLM-4.4-Spinning-up-the-CLM5.0-biogeochemistry-(CLMBGC-spinup).html" title="1.5.5. Spinup of CLM5.0-BGC"
+          <a href="CLM-4.4-Spinning-up-the-CLM5.0-biogeochemistry-(CLMBGC-spinup).html" title="1.5.5. Spinup of CLM5.0-BGC-Crop"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >1.5. Running Special Cases</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
   </body>
 </html>

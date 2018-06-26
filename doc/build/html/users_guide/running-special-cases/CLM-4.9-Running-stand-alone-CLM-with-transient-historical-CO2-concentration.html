@@ -2,12 +2,16 @@
 
 <!doctype html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>1.5.8. Running with historical CO2 forcing &#8212; clmdoc release-clm5.0.01 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -31,7 +35,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -45,7 +49,7 @@
           <a href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" title="1.5.7. Running with atmospheric forcing from a previous simulation"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">1.5. Running Special Cases</a> &#187;</li> 
       </ul>
     </div>
@@ -93,22 +97,22 @@
   <span class="target" id="running-with-historical-co2-forcing"></span><div class="section" id="id1">
 <h1>1.5.8. Running with historical CO2 forcing<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>In this case you want to run a simulation with stand-alone CLM responding to changes in CO2 for a historical period.
-For this example, we will start with the “I_1850-2000_CN” compset that has transient: land-use, Nitrogen and Aerosol deposition already.
-You could also use another compset if you didn’t want these other features to be transient.
+For this example, we will start with the &#8220;I_1850-2000_CN&#8221; compset that has transient: land-use, Nitrogen and Aerosol deposition already.
+You could also use another compset if you didn&#8217;t want these other features to be transient.
 In order to get CO2 to be transient we need to add a new streams file and add it to the list of streams in the user_nl_datm file.
 You also need a NetCDF datafile that datm can read that gives the variation. You could supply your own file, but we have a standard file that is used by CAM for this and our example will make use of this file.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Most everything here has to do with changing datm rather than CLM to allow this to happen. As such the user that wishes to do this should first become more familiar with datm and read the <a class="reference external" href="CLM-URL">CESM Data Model User’s Guide</a> especially as it pertains to the datm.</p>
+<p class="last">Most everything here has to do with changing datm rather than CLM to allow this to happen. As such the user that wishes to do this should first become more familiar with datm and read the <a class="reference external" href="CLM-URL">CESM Data Model User&#8217;s Guide</a> especially as it pertains to the datm.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This section documents the process for doing something that is non-standard. There may be errors with the documentation and process, and you may have to do some work before all of this works for you. If that is the case, we recommend that you do further research into understanding the process and the files, as well as understanding the datm and how it works. You may have to read documentation found in the code for datm as well as “csm_share”.</p>
+<p class="last">This section documents the process for doing something that is non-standard. There may be errors with the documentation and process, and you may have to do some work before all of this works for you. If that is the case, we recommend that you do further research into understanding the process and the files, as well as understanding the datm and how it works. You may have to read documentation found in the code for datm as well as &#8220;csm_share&#8221;.</p>
 </div>
-<p>The datm has “streams” files that have rough XML-like syntax and specify the location and file to get data from, as well as information on the variable names and the data locations of the grid points.
-The datm expects specific variable names and the datm “maps” the expected variable names from the file to the names expected by datm.
+<p>The datm has &#8220;streams&#8221; files that have rough XML-like syntax and specify the location and file to get data from, as well as information on the variable names and the data locations of the grid points.
+The datm expects specific variable names and the datm &#8220;maps&#8221; the expected variable names from the file to the names expected by datm.
 The file we are working with here is a file with a single-point, that covers the entire globe (so the vertices go from -90 to 90 degrees in latitude and 0 to 360 degrees in longitude).
-Since it’s a single point it’s a little easier to work with than datasets that may be at a given horizontal resolution.
+Since it&#8217;s a single point it&#8217;s a little easier to work with than datasets that may be at a given horizontal resolution.
 The datm also expects that variables will be in certain units, and only expects a limited number of variables so arbitrary fields can NOT be exchanged this way.
 However, the process would be similar for datasets that do contain more than one point.</p>
 <p>The three things that are needed: a domain file, a data file, and a streams text file.
@@ -119,111 +123,21 @@ The streams text file is the XML-like file that tells datm how to find the files
 There is a streams text file available in <code class="docutils literal"><span class="pre">$CTSMROOT/doc/UsersGuide/co2_streams.txt</span></code>, that includes file with a CO2 time-series from 1765 to 2007.</p>
 <div class="section" id="example-transient-simulation-with-historical-co2">
 <h2>1.5.8.1. Example: Transient Simulation with Historical CO2<a class="headerlink" href="#example-transient-simulation-with-historical-co2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts
-&gt; ./create_newcase -case DATM_CO2_TSERIES -res f19_g17_gl4 -compset I20TRCRUCLM45BGC
-&gt; cd DATM_CO2_TSERIES
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">scripts</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">create_newcase</span> <span class="o">-</span><span class="n">case</span> <span class="n">DATM_CO2_TSERIES</span> <span class="o">-</span><span class="n">res</span> <span class="n">f19_g17_gl4</span> <span class="o">-</span><span class="n">compset</span> <span class="n">IHistClm50BgcCrop</span>
+<span class="o">&gt;</span> <span class="n">cd</span> <span class="n">DATM_CO2_TSERIES</span>
 
-# Set CCSM_BGC to CO2A so that CO2 will be passed from atmosphere to land
-# Set CLM_CO2_TYPE to diagnostic so that the land will use the value sent from the atmosphere
-&gt; ./xmlchange CCSM_BGC=CO2A,CLM_CO2_TYPE=diagnostic
-&gt; ./case.setup
+<span class="c1"># Historical CO2 will already be setup correctly for this compset</span>
+<span class="c1"># to check that look at the variables: CCSM_BGC,CLM_CO2_TYPE, and DATM_CO2_TSERIES</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlquery</span> <span class="n">CCSM_BGC</span><span class="p">,</span><span class="n">CLM_CO2_TYPE</span><span class="p">,</span><span class="n">DATM_CO2_TSERIES</span>
+<span class="c1"># Expect: CCSM_BGC=CO2A,CLM_CO2_TYPE=diagnostic,DATM_CO2_TSERIES=20tr</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span>
 
-# Create the streams file for CO2
-&gt; cat &lt;&lt; EOF &gt;&gt; datm.streams.txt.co2tseries
-
-&lt;streamstemplate&gt;
-   &lt;general_comment&gt;
-      This is a streams file to pass historical CO2 from datm8 to the other
-      surface models. It reads in a historical dataset derived from data used
-      by CAM. The getco2_historical.ncl script in $CTSMROOT2/tools/ncl_scripts
-      was used to convert the CAM file to a streams compatible format (adding domain
-      information and making CO2 have latitude/longitude even if only for a single
-      point.
-   &lt;/general_comment&gt;
-&lt;stream&gt;
-   &lt;comment&gt;
-     Input stream description file for historical CO2 reconstruction data
-
-     04 March 2010: Converted to form that can be used by datm8 by Erik Kluzek
-     18 December 2009: Prepared by B. Eaton using data provided by
-     Jean-Francois Lamarque. All variables except f11 are directly from
-     PRE2005_MIDYR_CONC.DAT. Data from 1765 to 2007 with 2006/2007 just
-     a repeat of 2005.
-   &lt;/comment&gt;
-   &lt;dataSource&gt;
-      CLMNCEP
-   &lt;/dataSource&gt;
-   &lt;domainInfo&gt;
-      &lt;variableNames&gt;
-         time    time
-         lonc    lon
-         latc    lat
-         area    area
-         mask    mask
-      &lt;/variableNames&gt;
-      &lt;filePath&gt;
-         $CSMDATA/atm/datm7/CO2
-      &lt;/filePath&gt;
-      &lt;fileNames&gt;
-         fco2_datm_1765-2007_c100614.nc
-      &lt;/fileNames&gt;
-   &lt;/domainInfo&gt;
-   &lt;fieldInfo&gt;
-      &lt;variableNames&gt;
-         CO2        co2diag
-      &lt;/variableNames&gt;
-      &lt;filePath&gt;
-         $CSMDATA/atm/datm7/CO2
-      &lt;/filePath&gt;
-      &lt;fileNames&gt;
-         fco2_datm_1765-2007_c100614.nc
-      &lt;/fileNames&gt;
-   &lt;/fieldInfo&gt;
-&lt;/stream&gt;
-&lt;/streamstemplate&gt;
-
-EOF
-
-# And copy it to the run directory
-&gt; cp datm.streams.txt.co2tseries $RUNDIR
-
-# Run preview namelist so we have the namelist in CaseDocs
-&gt; ./preview_namelists
+<span class="c1"># Run preview namelist so we have the namelist in CaseDocs</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">preview_namelists</span>
 </pre></div>
 </div>
-<p>The first thing we will do is to edit the <code class="docutils literal"><span class="pre">user_nl_datm</span></code> file to add a CO2 file stream in.
-To do this we will copy a <code class="docutils literal"><span class="pre">user_nl_datm</span></code> in with the changes needed. The file <code class="docutils literal"><span class="pre">addco2_user_nl_datm.user_nl</span></code> is in <code class="docutils literal"><span class="pre">$CTSMROOT/doc/UsersGuide</span></code> and looks like this…</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dtlimit</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span>
-<span class="n">fillalgo</span> <span class="o">=</span> <span class="s1">&#39;nn&#39;</span><span class="p">,</span><span class="s1">&#39;nn&#39;</span><span class="p">,</span><span class="s1">&#39;nn&#39;</span><span class="p">,</span><span class="s1">&#39;nn&#39;</span><span class="p">,</span><span class="s1">&#39;nn&#39;</span>
-<span class="n">fillmask</span> <span class="o">=</span> <span class="s1">&#39;nomask&#39;</span><span class="p">,</span><span class="s1">&#39;nomask&#39;</span><span class="p">,</span><span class="s1">&#39;nomask&#39;</span><span class="p">,</span><span class="s1">&#39;nomask&#39;</span><span class="p">,</span><span class="s1">&#39;nomask&#39;</span>
-<span class="n">mapalgo</span> <span class="o">=</span> <span class="s1">&#39;bilinear&#39;</span><span class="p">,</span><span class="s1">&#39;bilinear&#39;</span><span class="p">,</span><span class="s1">&#39;bilinear&#39;</span><span class="p">,</span><span class="s1">&#39;bilinear&#39;</span><span class="p">,</span><span class="s1">&#39;nn&#39;</span>
-<span class="n">mapmask</span> <span class="o">=</span> <span class="s1">&#39;nomask&#39;</span><span class="p">,</span><span class="s1">&#39;nomask&#39;</span><span class="p">,</span><span class="s1">&#39;nomask&#39;</span><span class="p">,</span><span class="s1">&#39;nomask&#39;</span><span class="p">,</span><span class="n">nomask</span><span class="s1">&#39;</span>
-<span class="n">streams</span> <span class="o">=</span> <span class="s2">&quot;datm.streams.txt.CLM_QIAN.Solar 1895 1948 1972  &quot;</span><span class="p">,</span> <span class="s2">&quot;datm.streams.txt.CLM_QIAN.Precip 1895 1948 1972  &quot;</span><span class="p">,</span>
-          <span class="s2">&quot;datm.streams.txt.CLM_QIAN.TPQW 1895 1948 1972  &quot;</span><span class="p">,</span> <span class="s2">&quot;datm.streams.txt.presaero.trans_1850-2000 1849 1849 2006&quot;</span><span class="p">,</span>
-          <span class="s2">&quot;datm.streams.txt.co2tseries 1766 1766 2005 &quot;</span>
-<span class="n">taxmode</span> <span class="o">=</span> <span class="s1">&#39;cycle&#39;</span><span class="p">,</span><span class="s1">&#39;cycle&#39;</span><span class="p">,</span><span class="s1">&#39;cycle&#39;</span><span class="p">,</span><span class="s1">&#39;cycle&#39;</span><span class="p">,</span><span class="s1">&#39;extend&#39;</span>
-<span class="n">tintalgo</span> <span class="o">=</span> <span class="s1">&#39;coszen&#39;</span><span class="p">,</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span><span class="s1">&#39;linear&#39;</span>
-</pre></div>
-</div>
-<p>You just copy this into your case directory. But, also compare it to the version in <code class="docutils literal"><span class="pre">CaseDocs</span></code> to make sure the changes are just to add in the new CO2 stream. Check to see that filenames, and start, end and align years are correct.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cp ../../$CTSMROOT/doc/UsersGuide/addco2_user_nl_datm.user_nl user_nl_datm
-&gt; diff user_nl_datm CaseDocs/datm_atm_in
-</pre></div>
-</div>
-<p>Once, you’ve done that you can build and run your case normally.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This procedure assumes you are using a <code class="docutils literal"><span class="pre">I20TRCRUCLM45BGC</span></code> compset out of the box, with <code class="docutils literal"><span class="pre">DATM_PRESAERO</span></code> equal to trans_1850-2000. So it assumes standard clm5.0 CRUNCEP atmosphere forcing, and transient prescribed aerosols from streams files. If your case changes anything here your <code class="docutils literal"><span class="pre">user_nl_datm</span></code> file will need to be adjusted to work with it.</p>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The intent of the <code class="docutils literal"><span class="pre">user_nl_datm</span></code> is to add an extra streams file for CO2 to the end of the streams variable, and other arrays associated with streams (adding mapalgo as a new array with bilinear for everything, but the CO2 file which should be “nn” for nearest neighbor). Other variables should be the same as the other stream values.</p>
-</div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">The streams file above is hard-coded for the path of the file on NCAR computers. To use it on an outside machine you’ll need to edit the filepath in the streams file to point to the location where you have the file.</p>
-</div>
-<p>After going through these steps, you will have a case where you have datm reading in an extra streams text file that points to a data file with CO2 data on it that will send that data to the CLM.</p>
+<p>Once, you&#8217;ve done that you can build and run your case normally.</p>
 </div>
 </div>
 
@@ -246,13 +160,13 @@ To do this we will copy a <code class="docutils literal"><span class="pre">user_
           <a href="CLM-4.8-Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" title="1.5.7. Running with atmospheric forcing from a previous simulation"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >1.5. Running Special Cases</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
   </body>
 </html>

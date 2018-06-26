@@ -2,12 +2,16 @@
 
 <!doctype html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>2.18. Fixation and Uptake of Nitrogen (FUN) &#8212; clmdoc release-clm5.0.01 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -31,7 +35,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -151,7 +155,7 @@
 <p><img src="../../_images/math/ebeb6d444d4d6ab08341e57f2cf29d69923438c3.svg" alt="N_{cost,fix} = -s_{fix}/(1.25 e^{a_{fix} + b_{fix} . t_{soil}  (1 - 0.5 t_{soil}/ c_{fix}) })"/></p>
 </div></dd>
 </dl>
-<p>Herein, <img class="math" src="../../_images/math/cabfb02031470667da69619b68d7e01e12b3304f.svg" alt="a_{fix}"/>, <img class="math" src="../../_images/math/ae61b3bbd22d246df6eeac6a141591d7f8cbacf1.svg" alt="b_{fix}"/> and <img class="math" src="../../_images/math/4d033624ebfb342010a12915eff0789c783b1c3c.svg" alt="c_{fix}"/> are all parameters of the temperature response function of fixation reported by Houlton et al. (2008) (<img class="math" src="../../_images/math/54e012cd36dfd2e0d95281ae770255b1093cbf9e.svg" alt="exp[a+bT_s(1-0.5T_s/c)"/>).   t_{soil} is the soil temperature in C. The values of these parameters are fitted to empirical data as a=-3.62 <img class="math" src="../../_images/math/50d6e780b5b859608e650113d8bb954183926a02.svg" alt="\pm"/> 0.52, b=0.27:math:<cite>pm</cite> 0.04 and c=25.15 <img class="math" src="../../_images/math/50d6e780b5b859608e650113d8bb954183926a02.svg" alt="\pm"/> 0.66. 1.25 converts from the temperature response function to a 0-1 limitation factor (as specifically employed by Houlton et al.).  This function is a ‘rate’ of uptake for a given temperature. Here we assimilated the rate of fixation into the cost term by assuming that the rate is analagous to a conductance for N, and inverting the term to produce a cost/resistance analagoue. We then multiply this temperature term by the minimum cost at optimal temperature (<img class="math" src="../../_images/math/4054d06186ef524a53263155163a97ef7a245697.svg" alt="s_{fix}"/>) to give a temperature limited cost in terms of C to N ratios.</p>
+<p>Herein, <img class="math" src="../../_images/math/cabfb02031470667da69619b68d7e01e12b3304f.svg" alt="a_{fix}"/>, <img class="math" src="../../_images/math/ae61b3bbd22d246df6eeac6a141591d7f8cbacf1.svg" alt="b_{fix}"/> and <img class="math" src="../../_images/math/4d033624ebfb342010a12915eff0789c783b1c3c.svg" alt="c_{fix}"/> are all parameters of the temperature response function of fixation reported by Houlton et al. (2008) (<img class="math" src="../../_images/math/54e012cd36dfd2e0d95281ae770255b1093cbf9e.svg" alt="exp[a+bT_s(1-0.5T_s/c)"/>).   t_{soil} is the soil temperature in C. The values of these parameters are fitted to empirical data as a=-3.62 <img class="math" src="../../_images/math/50d6e780b5b859608e650113d8bb954183926a02.svg" alt="\pm"/> 0.52, b=0.27:math:<cite>pm</cite> 0.04 and c=25.15 <img class="math" src="../../_images/math/50d6e780b5b859608e650113d8bb954183926a02.svg" alt="\pm"/> 0.66. 1.25 converts from the temperature response function to a 0-1 limitation factor (as specifically employed by Houlton et al.).  This function is a &#8216;rate&#8217; of uptake for a given temperature. Here we assimilated the rate of fixation into the cost term by assuming that the rate is analagous to a conductance for N, and inverting the term to produce a cost/resistance analagoue. We then multiply this temperature term by the minimum cost at optimal temperature (<img class="math" src="../../_images/math/4054d06186ef524a53263155163a97ef7a245697.svg" alt="s_{fix}"/>) to give a temperature limited cost in terms of C to N ratios.</p>
 </div>
 <div class="section" id="cost-of-active-uptake">
 <h3>2.18.2.4. Cost of Active Uptake<a class="headerlink" href="#cost-of-active-uptake" title="Permalink to this headline">¶</a></h3>
@@ -180,7 +184,7 @@ k_{n,Aactive}&amp;  e = 0
 </div>
 <div class="section" id="resolving-n-cost-across-simultaneous-uptake-streams">
 <h2>2.18.3. Resolving N cost across simultaneous uptake streams<a class="headerlink" href="#resolving-n-cost-across-simultaneous-uptake-streams" title="Permalink to this headline">¶</a></h2>
-<p>The total cost of N uptake is calculated based on the assumption that carbon is partitioned to each stream in proportion to the inverse of the cost of uptake. So, more expensive pathways receive less carbon. Earlier versions of FUN <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisheretal2010"><span class="std std-ref">(Fisher et al., 2010)</span></a>) utilized a scheme whereby plants only took up N from the cheapest pathway. <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#brzosteketal2014"><span class="std std-ref">Brzostek et al. (2014)</span></a> introduced a scheme for the simultaneous uptake from different pathways. Here we calcualate a ‘conductance’ to N uptake (analagous to the inverse of the cost function conceptualized as a resistance term) <img class="math" src="../../_images/math/645f605e3cf1947ef1fa4e0839418e4bc8ffcd97.svg" alt="N_{conductance}"/> ( gN/gC) as:</p>
+<p>The total cost of N uptake is calculated based on the assumption that carbon is partitioned to each stream in proportion to the inverse of the cost of uptake. So, more expensive pathways receive less carbon. Earlier versions of FUN <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisheretal2010"><span class="std std-ref">(Fisher et al., 2010)</span></a>) utilized a scheme whereby plants only took up N from the cheapest pathway. <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#brzosteketal2014"><span class="std std-ref">Brzostek et al. (2014)</span></a> introduced a scheme for the simultaneous uptake from different pathways. Here we calcualate a &#8216;conductance&#8217; to N uptake (analagous to the inverse of the cost function conceptualized as a resistance term) <img class="math" src="../../_images/math/645f605e3cf1947ef1fa4e0839418e4bc8ffcd97.svg" alt="N_{conductance}"/> ( gN/gC) as:</p>
 <blockquote>
 <div><div class="math">
 <p><img src="../../_images/math/cf2cb291374ed52db2b47b09946f87e248223d51.svg" alt="N_{conductance,f}=  \sum{(1/N_{cost,x})}"/></p>
@@ -209,7 +213,7 @@ k_{n,Aactive}&amp;  e = 0
 </div>
 <div class="section" id="nitrogen-retranslocation">
 <h2>2.18.4. Nitrogen Retranslocation<a class="headerlink" href="#nitrogen-retranslocation" title="Permalink to this headline">¶</a></h2>
-<p>The retranslocation uses an iterative algorithm to remove Nitrogen from each piece of falling litter.  There are two pathways for this, ‘free’ uptake which removes the labile N pool, and ‘paid-for’ uptake which uses C to extract N from increasingly more recalcitrant pools.</p>
+<p>The retranslocation uses an iterative algorithm to remove Nitrogen from each piece of falling litter.  There are two pathways for this, &#8216;free&#8217; uptake which removes the labile N pool, and &#8216;paid-for&#8217; uptake which uses C to extract N from increasingly more recalcitrant pools.</p>
 <p>At each timestep, the pool of carbon in falling leaves (<img class="math" src="../../_images/math/ea1e267b576089cc2fe6e4353d6a74036af1a300.svg" alt="C_{fallingleaf}"/>, g m<sup>-2</sup>) is generated from the quantity of litterfall on that day (see Phenology chapter for details). The amount of N in the litter pool (<img class="math" src="../../_images/math/c81f26e8dae8a8c4db960077f77806da15a23760.svg" alt="N_{fallingleaf}"/>, g m<sup>-2</sup>) is calculated as the total leaf N multiplied by the fraction of the leaf pool passed to litter that timestep.</p>
 <blockquote>
 <div><div class="math">
@@ -222,7 +226,7 @@ k_{n,Aactive}&amp;  e = 0
 </div></div></blockquote>
 <div class="section" id="free-retranslocation">
 <h3>2.18.4.1. Free Retranslocation<a class="headerlink" href="#free-retranslocation" title="Permalink to this headline">¶</a></h3>
-<p>Some part of the leaf Nitrogen pool is removed without the need for an C expenditure.  This ‘free’ N uptake amount, (<img class="math" src="../../_images/math/f50faf80e0bb6e313a5324d5e294e3f5dbd48b83.svg" alt="N_{retrans,free}"/>, gN m<sup>-2</sup>) is calculated as</p>
+<p>Some part of the leaf Nitrogen pool is removed without the need for an C expenditure.  This &#8216;free&#8217; N uptake amount, (<img class="math" src="../../_images/math/f50faf80e0bb6e313a5324d5e294e3f5dbd48b83.svg" alt="N_{retrans,free}"/>, gN m<sup>-2</sup>) is calculated as</p>
 <blockquote>
 <div><div class="math">
 <p><img src="../../_images/math/d87de53624f8c487df61d30b15db8d9823c74595.svg" alt="N_{retrans,free}  = max(N_{fallingleaf} -  (C_{fallingleaf}/CN_{litter,min} ),0.0)"/></p>
@@ -456,7 +460,7 @@ C_{nonmyc,no3} = N_{nonmyc,no3}.N_{cost,nonmyc,no3}\\"/></p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
   </body>
 </html>

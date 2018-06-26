@@ -2,12 +2,16 @@
 
 <!doctype html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>2.13. Glaciers &#8212; clmdoc release-clm5.0.01 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -31,7 +35,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -126,7 +130,7 @@ radiation and partitioning of precipitation into rain vs. snow
 as the glacier land unit, and surface mass balance is computed for the
 natural vegetated land unit. This allows CLM to produce glacial
 inception when running with an evolving ice sheet model.</li>
-<li>There have also been substantial improvements to CLM’s snow physics,
+<li>There have also been substantial improvements to CLM&#8217;s snow physics,
 as described in other chapters of this document.</li>
 </ul>
 </div>
@@ -139,7 +143,7 @@ ice sheet model:</p>
 mass at the upper surface (section
 <a class="reference internal" href="#computation-of-the-surface-mass-balance"><span class="std std-numref">2.13.5</span></a>)</li>
 <li>Ground surface temperature, which serves as an upper boundary
-condition for CISM’s temperature calculation</li>
+condition for CISM&#8217;s temperature calculation</li>
 </ol>
 <p>The ice sheet model is typically run at much higher resolution than CLM
 (e.g., <img class="math" src="../../_images/math/5ecfb5efd13556512083272088a2baa0839e3c66.svg" alt="\sim"/>5 km rather than <img class="math" src="../../_images/math/5ecfb5efd13556512083272088a2baa0839e3c66.svg" alt="\sim"/>100 km). To improve
@@ -173,39 +177,39 @@ grid cells (e.g., in the Alps, Rockies, Andes, and Himalayas), not
 just those which are part of ice sheets.</li>
 </ol>
 <p>In typical runs, CISM is not evolving; CLM computes the SMB and sends it
-to CISM, but CISM’s ice sheet geometry remains fixed over the course of
+to CISM, but CISM&#8217;s ice sheet geometry remains fixed over the course of
 the run. In these runs, CISM serves two roles in the system:</p>
 <ol class="arabic simple">
 <li>Over the CISM domain (typically Greenland in CESM2), CISM dictates
 glacier areas and topographic elevations, overriding the values on
-CLM’s surface dataset. CISM also dictates the elevation of
+CLM&#8217;s surface dataset. CISM also dictates the elevation of
 non-glacier land units in its domain, and only in this domain are
 atmospheric fields downscaled to non-glacier land units. (So if you
 run with a stub glacier model - SGLC - then glacier areas and
-elevations will be taken entirely from CLM’s surface dataset, and no
+elevations will be taken entirely from CLM&#8217;s surface dataset, and no
 downscaling will be done over non-glacier land units.)</li>
 <li>CISM provides the grid onto which SMB is downscaled. (If you run with
-SGLC then SMB will still be computed in CLM, but it won’t be
+SGLC then SMB will still be computed in CLM, but it won&#8217;t be
 downscaled to a high-resolution ice sheet grid.)</li>
 </ol>
 <p>It is also possible to run CESM with an evolving ice sheet. In this
-case, CLM responds to CISM’s evolution by adjusting the areas of the
+case, CLM responds to CISM&#8217;s evolution by adjusting the areas of the
 glacier land unit and each elevation class within this land unit, as well
-as the mean topographic heights of each elevation class. Thus, CLM’s
-glacier areas and elevations remain in sync with CISM’s. Conservation of
+as the mean topographic heights of each elevation class. Thus, CLM&#8217;s
+glacier areas and elevations remain in sync with CISM&#8217;s. Conservation of
 mass and energy is done as for other landcover change (see Chapter
 <a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html#rst-transient-landcover-change"><span class="std std-numref">2.27</span></a>).</p>
 </div>
 <div class="section" id="glacier-regions-and-their-behaviors">
 <span id="glacier-regions"></span><h2>2.13.3. Glacier regions and their behaviors<a class="headerlink" href="#glacier-regions-and-their-behaviors" title="Permalink to this headline">¶</a></h2>
-<p>The world’s glaciers and ice sheets are broken down into a number of
+<p>The world&#8217;s glaciers and ice sheets are broken down into a number of
 different regions (four by default) that differ in three respects:</p>
 <ol class="arabic simple">
-<li>Whether the gridcell’s glacier land unit contains:<ol class="loweralpha">
+<li>Whether the gridcell&#8217;s glacier land unit contains:<ol class="loweralpha">
 <li>Multiple elevation classes (section <a class="reference internal" href="#multiple-elevation-class-scheme"><span class="std std-numref">2.13.4</span></a>)</li>
 <li>Multiple elevation classes plus virtual elevation classes</li>
 <li>Just a single elevation class whose elevation matches the
-atmosphere’s topographic height (so there is no adjustment in
+atmosphere&#8217;s topographic height (so there is no adjustment in
 atmospheric forcings due to downscaling).</li>
 </ol>
 </li>
@@ -223,7 +227,7 @@ runoff. Regions with this behavior cannot compute SMB, because
 negative SMB would be meaningless (due to the liquid water on top
 of the ice column). This behavior produces less realistic glacier
 physics. However, it avoids the negative ice runoff that is needed
-for the “replaced by ice” behavior to conserve mass and energy (as
+for the &#8220;replaced by ice&#8221; behavior to conserve mass and energy (as
 described in section <a class="reference internal" href="#computation-of-the-surface-mass-balance"><span class="std std-numref">2.13.5</span></a>). Thus, in regions where CLM has glaciers but the
 atmospheric forcings are too warm to sustain those glaciers, this
 behavior avoids persistent negative ice runoff. This situation can
@@ -249,11 +253,11 @@ sea ice growth.</li>
 </ol>
 </li>
 </ol>
-<p>The default behaviors for the world’s glacier and ice sheet regions are
+<p>The default behaviors for the world&#8217;s glacier and ice sheet regions are
 described in <a class="reference internal" href="#table-glacier-region-behaviors"><span class="std std-numref">Table 2.24</span></a>. Note that the
 standard CISM grid covers Greenland plus enough surrounding area to
 allow for ice sheet growth and to have a regular rectangular grid. We
-need to have the “replaced by ice” melt behavior within the CISM domain
+need to have the &#8220;replaced by ice&#8221; melt behavior within the CISM domain
 in order to compute SMB there, and we need virtual elevation classes in
 that domain in order to compute SMB for all elevation classes and to
 facilitate glacial advance and retreat in the two-way-coupled
@@ -261,8 +265,8 @@ case. However, this domain is split into Greenland itself and areas
 outside Greenland so that ice runoff in the Canadian archipelago (which
 is inside the CISM domain) is melted before reaching the ocean, to avoid
 runaway sea ice growth in that region.</p>
-<span id="table-glacier-region-behaviors"></span><table border="1" class="docutils" id="id3">
-<caption><span class="caption-number">Table 2.24 </span><span class="caption-text">Glacier region behaviors</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<table border="1" class="docutils" id="id3">
+<span id="table-glacier-region-behaviors"></span><caption><span class="caption-number">Table 2.24 </span><span class="caption-text">Glacier region behaviors</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="25%" />
 <col width="25%" />
@@ -309,6 +313,17 @@ place</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In regions that have both the <code class="docutils literal"><span class="pre">Glacial</span> <span class="pre">melt</span> <span class="pre">=</span> <span class="pre">Replaced</span> <span class="pre">by</span> <span class="pre">ice</span></code> and the <code class="docutils literal"><span class="pre">Ice</span> <span class="pre">runoff</span> <span class="pre">=</span>
+<span class="pre">Melted</span></code> behaviors (by default, this is just the region inside the standard CISM grid
+but outside Greenland itself): During periods of glacial melt, a negative ice runoff is
+generated (due to the <code class="docutils literal"><span class="pre">Glacial</span> <span class="pre">melt</span> <span class="pre">=</span> <span class="pre">Replaced</span> <span class="pre">by</span> <span class="pre">ice</span></code> behavior); this negative ice
+runoff is converted to a negative liquid runoff plus a positive sensible heat flux (due
+to the <code class="docutils literal"><span class="pre">Ice</span> <span class="pre">runoff</span> <span class="pre">=</span> <span class="pre">Melted</span></code> behavior). We recommend that you limit the portion of
+the globe with both of these behaviors combined, in order to avoid having too large of
+an impact of this non-physical behavior.</p>
+</div>
 </div>
 <div class="section" id="multiple-elevation-class-scheme">
 <span id="id1"></span><h2>2.13.4. Multiple elevation class scheme<a class="headerlink" href="#multiple-elevation-class-scheme" title="Permalink to this headline">¶</a></h2>
@@ -323,7 +338,7 @@ initialization, and then possibly overridden by CISM as the run
 progresses. Each <em>glacier_mec</em> column within a grid cell has distinct ice
 and snow temperatures, snow water content, surface fluxes, and SMB.</p>
 <p>The atmospheric surface temperature, potential temperature, specific
-humidity, density, and pressure are downscaled from the atmosphere’s
+humidity, density, and pressure are downscaled from the atmosphere&#8217;s
 mean grid cell elevation to the <em>glacier_mec</em> column elevation using a
 specified lapse rate (typically 6.0 deg/km) and an assumption of uniform
 relative humidity. Longwave radiation is downscaled by assuming a linear
@@ -346,7 +361,7 @@ done in order to keep the glaciated and non-glaciated portions of the
 CISM domain as consistent as possible.</p>
 <p>In contrast to most CLM subgrid units, glacier_mec columns can be
 active (i.e., have model calculations run there) even if their area is
-zero. These are known as “virtual” columns. This is done because the ice
+zero. These are known as &#8220;virtual&#8221; columns. This is done because the ice
 sheet model may require a SMB for some grid cells where CLM has zero
 glacier area in that elevation range. Virtual columns also facilitate
 glacial advance and retreat in the two-way coupled case. Virtual columns
@@ -385,7 +400,7 @@ two-way-coupled mode. This is described by the variable
 the edge case where a CLM grid cell partially overlaps with the CISM
 grid, but we describe it as a logical variable here for simplicity.) In
 typical cases where CISM is not evolving, <em>glc_dyn_runoff_routing</em>
-will be false everywhere; in these cases, CISM’s mass is not considered
+will be false everywhere; in these cases, CISM&#8217;s mass is not considered
 to be part of the coupled system. In cases where CISM is evolving and
 sending its own calving flux to the coupler, <em>glc_dyn_runoff_routing</em>
 will be true over the CISM domain and false elsewhere.</p>
@@ -414,7 +429,7 @@ need is subtle, but can be understood with either of these explanations:</p>
 <ul class="simple">
 <li>When ice melts, we let the liquid run off and replace it with new
 ice. That new ice needs to come from somewhere to keep the coupled
-system in water balance. We “request” the new ice from the ocean by
+system in water balance. We &#8220;request&#8221; the new ice from the ocean by
 generating a negative ice runoff equivalent to the amount we have
 melted.</li>
 <li>Ice melt removes mass from the system, as it should. But the snow
@@ -438,7 +453,7 @@ For glaciers and ice sheets that violate this assumption, either because
 they are far out of equilibrium with the climate or because the model is
 being run for hundreds of years, there are two ways to avoid the
 unrealistic ice runoff from snow capping: by running with an evolving,
-two-way-coupled ice sheet or by changing a glacier region’s ice runoff
+two-way-coupled ice sheet or by changing a glacier region&#8217;s ice runoff
 behavior as described in section <a class="reference internal" href="#glacier-regions"><span class="std std-numref">2.13.3</span></a>.)</p>
 <p>In regions where SMB is computed for glaciers, SMB is also computed for
 the natural vegetated land unit. Because there is no ice to melt in this
@@ -472,7 +487,7 @@ with an evolving ice sheet, this condition triggers glacial inception.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
   </body>
 </html>

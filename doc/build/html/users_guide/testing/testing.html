@@ -2,12 +2,16 @@
 
 <!doctype html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>1.9.1. Testing &#8212; clmdoc release-clm5.0.01 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -31,7 +35,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -45,7 +49,7 @@
           <a href="index.html" title="1.9. Testing"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">1.9. Testing</a> &#187;</li> 
       </ul>
     </div>
@@ -94,19 +98,19 @@
   <span class="target" id="testing"></span><div class="section" id="id1">
 <h1>1.9.1. Testing<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>Technically, you could use the customization we gave in <a class="reference external" href="CLM-URL">Chapter 1</a> to test various configuration and namelist options for CLM.
-Sometimes, it’s also useful to have automated tests though to test that restarts give exactly the same results as without a restart.
-It’s also useful to have automated tests to run over a wide variety of configurations, resolutions, and namelist options.
+Sometimes, it&#8217;s also useful to have automated tests though to test that restarts give exactly the same results as without a restart.
+It&#8217;s also useful to have automated tests to run over a wide variety of configurations, resolutions, and namelist options.
 To do that we have several different types of scripts set up to make running comprehensive testing of CLM easy.
 There are two types of testing scripts for CLM.
-The first are the CESM test scripts, which utilize the <strong>create_newcase</strong> scripts that we shown how to use in this User’s Guide.
+The first are the CESM test scripts, which utilize the <strong>create_newcase</strong> scripts that we shown how to use in this User&#8217;s Guide.
 The second are a set of stand-alone scripts that use the CLM <strong>configure</strong> and <strong>build-namelist</strong> scripts to build and test the model as well as testing the CLM tools as well.
 Below we will go into further details of how to use both methods.</p>
 <div class="section" id="cime-testing-scripts">
 <h2>1.9.1.1. CIME Testing scripts<a class="headerlink" href="#cime-testing-scripts" title="Permalink to this headline">¶</a></h2>
 <p>We first introduce the test scripts that work for all CESM components.
 The CIME script <strong>create_test</strong> runs a specific type of test, at a given resolution, for a given compset using a given machine.
-There is a list of different tests, but the “ERI” tests do several things at once, running from startup, as well as doing exact branch and restart tests.
-So to run “ERI” testing at 2-degree with the I1850CRUCLM45 compset on cheyenne_intel you do the following.</p>
+There is a list of different tests, but the &#8220;ERI&#8221; tests do several things at once, running from startup, as well as doing exact branch and restart tests.
+So to run &#8220;ERI&#8221; testing at 2-degree with the I1850CRUCLM45 compset on cheyenne_intel you do the following.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts
 &gt; ./create_test -testname ERI.f19_g17_gl4.I1850CRUCLM45.cheyenne_intel
 &gt; cd ERI.f19_g17_gl4.I1850CRUCLM45.cheyenne_intel.$id
@@ -115,7 +119,7 @@ So to run “ERI” testing at 2-degree with the I1850CRUCLM45 compset on cheyen
 </pre></div>
 </div>
 <p>When the test is done it will update the file TestStatus with either a PASS or FAIL message.</p>
-<p>We already have a standard list of tests for clm (the “aux_clm” list of tests). To run the CLM cheyenne intel compiler test list, for the same machine and compiler you would do the following:</p>
+<p>We already have a standard list of tests for clm (the &#8220;aux_clm&#8221; list of tests). To run the CLM cheyenne intel compiler test list, for the same machine and compiler you would do the following:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts
 &gt; ./create_test -xml_mach cheyenne -xml_compiler intel -xml_category aux_clm  -mach cheyenne -compiler intel
 # Normally it will submit the jobs as they are ready, but if it&#39;s interrupted you
@@ -127,7 +131,7 @@ So to run “ERI” testing at 2-degree with the I1850CRUCLM45 compset on cheyen
 # The above will give a PASS or FAIL message for each test.
 </pre></div>
 </div>
-<p>For more information on doing testing with the CESM scripts see the <a class="reference external" href="CLM-URL">|cesmrelease| User’s Guide</a> on testing.</p>
+<p>For more information on doing testing with the CESM scripts see the <a class="reference external" href="CLM-URL">|cesmrelease| User&#8217;s Guide</a> on testing.</p>
 </div>
 <div class="section" id="testing-ptclm">
 <h2>1.9.1.2. Testing PTCLM<a class="headerlink" href="#testing-ptclm" title="Permalink to this headline">¶</a></h2>
@@ -135,7 +139,7 @@ So to run “ERI” testing at 2-degree with the I1850CRUCLM45 compset on cheyen
 The test script is setup to run on the machines: cheyenne, frankfurt, yong, and titan.
 You simply run the script interactively.
 The script will write out the status of tests to a file called: <code class="docutils literal"><span class="pre">tc.job#.status</span></code>.</p>
-<p>There are a few environment variables that can be used with <code class="docutils literal"><span class="pre">testcases.csh</span></code> to change it’s operation.</p>
+<p>There are a few environment variables that can be used with <code class="docutils literal"><span class="pre">testcases.csh</span></code> to change it&#8217;s operation.</p>
 <p><code class="docutils literal"><span class="pre">CESM_ROOT</span></code>: To test with a separate root to CESM code set this env variable to the root directory to use.
 <code class="docutils literal"><span class="pre">CLM_SOFF</span></code>: If set to <code class="docutils literal"><span class="pre">TRUE</span></code> - stop on first failed test rather than continuing to run.
 <code class="docutils literal"><span class="pre">CLM_RETAIN_FILES</span></code>: If set to <code class="docutils literal"><span class="pre">FALSE</span></code> - cleanup tools build first.
@@ -162,13 +166,13 @@ The script will write out the status of tests to a file called: <code class="doc
           <a href="index.html" title="1.9. Testing"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="index.html" >1.9. Testing</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
   </body>
 </html>

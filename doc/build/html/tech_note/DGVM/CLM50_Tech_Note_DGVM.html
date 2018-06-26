@@ -2,12 +2,16 @@
 
 <!doctype html>
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
     <title>2.28. Dynamic Global Vegetation &#8212; clmdoc release-clm5.0.01 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
@@ -31,7 +35,7 @@
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -189,21 +193,21 @@
 <div class="section" id="what-has-changed">
 <h2>2.28.1. What has changed<a class="headerlink" href="#what-has-changed" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Deprecation of the dynamic global vegetation model (DGVM): The CLM5.0 model contains the legacy ‘CNDV’ code, which runs the CLM biogeochemistry model in combination with the LPJ-derived dynamics vegetation model introduced in CLM3. While this capacity has not technically been removed from the model, the DGVM has not been tested in the development of CLM5 and is no longer scientifically supported.</li>
+<li>Deprecation of the dynamic global vegetation model (DGVM): The CLM5.0 model contains the legacy &#8216;CNDV&#8217; code, which runs the CLM biogeochemistry model in combination with the LPJ-derived dynamics vegetation model introduced in CLM3. While this capacity has not technically been removed from the model, the DGVM has not been tested in the development of CLM5 and is no longer scientifically supported.</li>
 <li>Introduction of FATES: The Functionally Assembled Terrestrial Ecosystem Simulator (FATES) is the actively developed DGVM for the CLM5.</li>
 </ul>
 </div>
 </div>
 <div class="section" id="technical-documentation-for-fates">
 <span id="rst-fates"></span><h1>2.29. Technical Documentation for FATES<a class="headerlink" href="#technical-documentation-for-fates" title="Permalink to this headline">¶</a></h1>
-<p>FATES is the “Functionally Assembled Terrestrial Ecosystem Simulator”. It is an external module which can run within a given “Host Land Model” (HLM). Currently (November 2017) implementations are supported in both the Community Land Model(CLM) and in the land model of the E3SM Dept. of Energy Earth System Model.</p>
+<p>FATES is the &#8220;Functionally Assembled Terrestrial Ecosystem Simulator&#8221;. It is an external module which can run within a given &#8220;Host Land Model&#8221; (HLM). Currently (November 2017) implementations are supported in both the Community Land Model(CLM) and in the land model of the E3SM Dept. of Energy Earth System Model.</p>
 <p>FATES was derived from the CLM Ecosystem Demography model (CLM(ED)), which was documented in:</p>
 <p>Fisher, R. A., Muszala, S., Verteinstein, M., Lawrence, P., Xu, C., McDowell, N. G., Knox, R. G., Koven, C., Holm, J., Rogers, B. M., Spessa, A., Lawrence, D., and Bonan, G.: Taking off the training wheels: the properties of a dynamic vegetation model without climate envelopes, CLM4.5(ED), Geosci. Model Dev., 8, 3593-3619, <a class="reference external" href="https://doi.org/10.5194/gmd-8-3593-2015">https://doi.org/10.5194/gmd-8-3593-2015</a>, 2015.</p>
 <p>and this technical note was first published as an appendix to that paper.</p>
 <p><a class="reference external" href="https://pdfs.semanticscholar.org/396c/b9f172cb681421ed78325a2237bfb428eece.pdf">https://pdfs.semanticscholar.org/396c/b9f172cb681421ed78325a2237bfb428eece.pdf</a></p>
 <div class="section" id="introduction">
 <h2>2.29.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>The Ecosystem Demography (‘ED’), concept within FATES is derived from the work of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#mc-2001"><span class="std std-ref">Moorcroft et al. (2001)</span></a></p>
+<p>The Ecosystem Demography (&#8216;ED&#8217;), concept within FATES is derived from the work of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#mc-2001"><span class="std std-ref">Moorcroft et al. (2001)</span></a></p>
 <p>and is a cohort model of vegetation competition and co-existence, allowing a representation of the biosphere which accounts for the division of the land surface into successional stages, and for competition for light between height structured cohorts of representative trees of various plant functional types.</p>
 <p>The implementation of the Ecosystem Demography
 concept within FATES links the surface flux and canopy physiology concepts in the CLM/E3SM
@@ -221,8 +225,8 @@ for carbon storage allocation, and for tree mortality under carbon
 stress, are also included and presented here.</p>
 <p>Numerous other implementations of the
 Ecosystem Demography concept exist (See <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisheretal2018"><span class="std std-ref">Fisher et al. (2018)</span></a> for a review of these) Therefore, to avoid confusion between the
-concept of ‘Ecosystem Demography’ and the implementation of this concept
-in different models, the CLM(ED) implementation described by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisheretal2015"><span class="std std-ref">Fisher et al. (2015)</span></a> will hereafter be called ‘FATES’ (the Functionally Assembled Terrestrial Ecosystem Simulator).</p>
+concept of &#8216;Ecosystem Demography&#8217; and the implementation of this concept
+in different models, the CLM(ED) implementation described by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisheretal2015"><span class="std std-ref">Fisher et al. (2015)</span></a> will hereafter be called &#8216;FATES&#8217; (the Functionally Assembled Terrestrial Ecosystem Simulator).</p>
 </div>
 <div class="section" id="the-representation-of-ecosystem-heterogeneity-in-fates">
 <h2>2.29.2. The representation of ecosystem heterogeneity in FATES<a class="headerlink" href="#the-representation-of-ecosystem-heterogeneity-in-fates" title="Permalink to this headline">¶</a></h2>
@@ -231,10 +235,10 @@ by variations in climate, edaphic history, ecological variability,
 geological forcing and human interventions. Land surface models
 represent this variability first by introducing a grid structure to the
 land surface, allowing different atmospheric forcings to operate in each
-grid cell, and subsequently by representing ‘sub-grid’ variability in
+grid cell, and subsequently by representing &#8216;sub-grid&#8217; variability in
 the surface properties. In the CLM, the land surface is divided into
-numerous ‘landunits’ corresponding to the underlying condition of the
-surface (e.g. soils, ice, lakes, bare ground) and then ‘columns’
+numerous &#8216;landunits&#8217; corresponding to the underlying condition of the
+surface (e.g. soils, ice, lakes, bare ground) and then &#8216;columns&#8217;
 referring to elements of the surface that share below ground resources
 (water &amp; nutrients). Within the soil landunit, for example, there are
 separate columns for crops, and for natural vegetation, as these are
@@ -252,18 +256,18 @@ surface models deployed in climate prediction.</p>
 significant alterations to the representation of the land surface in the
 CLM. In FATES, the tiling structure represents the disturbance
 history of the ecosystem. Thus, some fraction of the land surface is
-characterized as ‘recently disturbed’, some fraction has escaped
+characterized as &#8216;recently disturbed&#8217;, some fraction has escaped
 disturbance for a long time, and other areas will have intermediate
 disturbances. Thus the ED concept essentially discretizes the trajectory
-of succession from disturbed ground to ‘mature’ ecosystems. Within
-FATES, each “disturbance history class” is referred to as a ‘patch’.
-The word “patch”  has many possible interpretations, so it is important
+of succession from disturbed ground to &#8216;mature&#8217; ecosystems. Within
+FATES, each &#8220;disturbance history class&#8221; is referred to as a ‘patch’.
+The word &#8220;patch&#8221;  has many possible interpretations, so it is important
 to note that: <strong>there is no spatial location associated with the concept
-of a ‘patch’ . It refers to a fraction of the potential vegetated area
+of a &#8216;patch&#8217; . It refers to a fraction of the potential vegetated area
 consisting of all parts of the ecosystem with similar disturbance
 history.</strong></p>
-<p>The ‘patch’ organizational structure in CLM thus replaces the previous
-‘PFT’ structure in the organization heirarchy. The original hierarchical
+<p>The &#8216;patch&#8217; organizational structure in CLM thus replaces the previous
+&#8216;PFT&#8217; structure in the organization heirarchy. The original hierarchical
 land surface organizational structure of CLM as described in
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#olesonetal2013"><span class="std std-ref">Oleson et al. 2013</span></a> may be depicted as:</p>
 <div class="math">
@@ -301,11 +305,11 @@ land surface organizational structure of CLM as described in
 \end{array}\right.\\
 \mathbf{landunit} &amp;   \\
 \end{array}\right."/></p>
-</div><p>Thus, each gridcell becomes a matrix of ‘patches’ that are
-conceptualized by their ‘age since disturbance’ in years. This is the
+</div><p>Thus, each gridcell becomes a matrix of &#8216;patches&#8217; that are
+conceptualized by their &#8216;age since disturbance&#8217; in years. This is the
 equivalent of grouping together all those areas of a gridcell that are
-‘canopy gaps’, into a single entity, and all those areas that are
-‘mature forest’ into a single entity.</p>
+&#8216;canopy gaps&#8217;, into a single entity, and all those areas that are
+&#8216;mature forest&#8217; into a single entity.</p>
 <div class="section" id="cohortized-representation-of-tree-populations">
 <h3>2.29.2.1. Cohortized representation of tree populations<a class="headerlink" href="#cohortized-representation-of-tree-populations" title="Permalink to this headline">¶</a></h3>
 <p>Each common-disturbance-history patch is a notional ecosystem that might
@@ -313,11 +317,11 @@ in reality contain numerous individual plants which vary in their
 physiological attributes, in height and in spatial position. One way of
 addressing this heterogeneity is to simulate a forest of specific
 individuals, and to monitor their behavior through time. This is the
-approach taken by “gap” and individual-based models
+approach taken by &#8220;gap&#8221; and individual-based models
 (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#smith2001"><span class="std std-ref">Smith et al. 2001</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sato2007"><span class="std std-ref">Sato et al. 2007</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#uriarte2009"><span class="std std-ref">Uriarte et al. 2009</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fyllas2014"><span class="std std-ref">Fyllas et al. 2014</span></a>). The
 depiction of individuals typically implies that the outcome of the model
 is stochastic. This is because we lack the necessary detailed knowledge
-to simulate the individual plant’s fates. Thus gap models imply both
+to simulate the individual plant&#8217;s fates. Thus gap models imply both
 stochastic locations and mortality of plants. Thus, (with a genuinely
 random seed) each model outcome is different, and an ensemble of model
 runs is required to generate an average representative solution. Because
@@ -329,7 +333,7 @@ this reason, models that resolve individual trees typically use a
 physiological timestep of one day or longer (e.g.  <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#smith2001"><span class="std std-ref">Smith et al. 2001</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#xiaodong2005"><span class="std std-ref">Xiaidong et al. 2005</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sato2007"><span class="std std-ref">Sato et al. 2007</span></a></p>
 <p>The approach introduced by the Ecosystem Demography model
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#mc-2001"><span class="std std-ref">Moorcroft et al. 2001</span></a> is to group the hypothetical population
-of plants into “cohorts”. In the notional ecosystem, after the
+of plants into &#8220;cohorts&#8221;. In the notional ecosystem, after the
 land-surface is divided into common-disturbance-history patches, the
 population in each patch is divided first into plant functional types
 (the standard approach to representing plant diversity in large scale
@@ -550,7 +554,7 @@ Functional Type</td>
 <td><img class="math" src="../../_images/math/b4bbb5d21571a78c1d3dca829cb350cf48828141.svg" alt="{\it{ft}
 _{coh}}"/></td>
 <td>integer</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>Number of
 Individuals</td>
@@ -558,18 +562,18 @@ Individuals</td>
 <td>n per
 10000m:math:`
 ^{-2}`</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>Height</td>
 <td><img class="math" src="../../_images/math/6f6a937bcbca2b55d47e3e03e9722d88abd14ab3.svg" alt="h_{coh}"/></td>
 <td>m</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>Diameter</td>
 <td><img class="math" src="../../_images/math/d72993c7b6f4967652f1cd3992ade26f9c4f9939.svg" alt="\it{dbh_
 {coh}}"/></td>
 <td>cm</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>Structural
 Biomass</td>
@@ -663,7 +667,7 @@ can be restarted, are as follows</p>
 name</th>
 <th class="head">Units</th>
 <th class="head">Indexed By</th>
-<th class="head">&#160;</th>
+<th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
@@ -676,7 +680,7 @@ A_{patch}}"/></td>
 <li></li>
 </ul>
 </td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>Age</td>
 <td><img class="math" src="../../_images/math/3fd9d377b1d62848caf116124a9cf6825ebd60f3.svg" alt="age_
@@ -686,7 +690,7 @@ A_{patch}}"/></td>
 <li></li>
 </ul>
 </td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>Seed</td>
 <td><img class="math" src="../../_images/math/319289184b528d657175d890aeaa8cda096e42da.svg" alt="seed_
@@ -695,7 +699,7 @@ A_{patch}}"/></td>
 m<img class="math" src="../../_images/math/3be8ed64a5c8205335a10501d047269be0b15f44.svg" alt="^
 {-2}"/></td>
 <td><img class="math" src="../../_images/math/a24ee28474317f37ac0cdf19f3328e0da2cbc211.svg" alt="ft"/></td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>Leaf Litter</td>
 <td><img class="math" src="../../_images/math/8f139a0aec9f7e093905965194d88ea2313be968.svg" alt="l_{l
@@ -705,7 +709,7 @@ itter,patch
 m<img class="math" src="../../_images/math/3be8ed64a5c8205335a10501d047269be0b15f44.svg" alt="^
 {-2}"/></td>
 <td><img class="math" src="../../_images/math/a24ee28474317f37ac0cdf19f3328e0da2cbc211.svg" alt="ft"/></td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>Root Litter</td>
 <td><img class="math" src="../../_images/math/43bdc07ca2bd8a6bd0d7a00b6a53aced59ea3cca.svg" alt="r_{l
@@ -715,7 +719,7 @@ itter,patch
 m<img class="math" src="../../_images/math/3be8ed64a5c8205335a10501d047269be0b15f44.svg" alt="^
 {-2}"/></td>
 <td><img class="math" src="../../_images/math/a24ee28474317f37ac0cdf19f3328e0da2cbc211.svg" alt="ft"/></td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>AG Coarse
 Woody
@@ -728,7 +732,7 @@ m<img class="math" src="../../_images/math/3be8ed64a5c8205335a10501d047269be0b15
 {-2}"/></td>
 <td>Size Class
 (lsc)</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>BG Coarse
 Woody
@@ -741,7 +745,7 @@ m<img class="math" src="../../_images/math/3be8ed64a5c8205335a10501d047269be0b15
 {-2}"/></td>
 <td>Size Class
 (lsc)</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td>Canopy
 Spread</td>
@@ -753,7 +757,7 @@ Spread</td>
 </td>
 <td>Canopy
 Layer</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td>Column
 Index</td>
@@ -764,7 +768,7 @@ patch}}"/></td>
 <li></li>
 </ul>
 </td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -856,7 +860,7 @@ Planting
 density</td>
 <td>Individuals
 m<img class="math" src="../../_images/math/39d5a479110f40fa3f7a4162b260e967f3e555bf.svg" alt="^{-2}"/></td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/cc253bc7cb579754d8b42b52cb19b436c5b7af17.svg" alt="A_{tot}"/></td>
 <td>Model area</td>
@@ -933,20 +937,20 @@ Symbol</th>
 }"/></td>
 <td>Allometry
 intercept</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>0.37</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/530dc57b39b39c63c74a67106c188c6089f49dce.svg" alt="m_{allom
 }"/></td>
 <td>Allometry slope</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>0.64</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/00e1dc724a28f9309d1f308dc84dd2845622ac1e.svg" alt="c_{str}"/></td>
 <td>Structural
 biomass
 multiplier</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>0.06896</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/ace7f219de1486737155d7fe3869946444eb2627.svg" alt="e_{str,d
@@ -954,7 +958,7 @@ bh}"/></td>
 <td>Structural
 Biomass dbh
 exponent</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>1.94</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/dcbd85dafafbd1a6a54e24f8b3387d2206a27dc5.svg" alt="e_{str,h
@@ -962,7 +966,7 @@ ite}"/></td>
 <td>Structural
 Biomass height
 exponent</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>0.572</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/e378be8c62f49ea23345a4b21b5297c6e570d3fe.svg" alt="e_{str,d
@@ -970,20 +974,20 @@ ens}"/></td>
 <td>Structural
 Biomass density
 exponent</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>0.931</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/8f303e9b003e9e9d5af5928905dd15dee236035a.svg" alt="c_{leaf}"/></td>
 <td>Leaf biomass
 multiplier</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>0.0419</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/9854e7a258ba4527092e2cdaa36b84bfe421cfe4.svg" alt="e_{leaf,
 dbh}"/></td>
 <td>Leaf biomass
 dbh exponent</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>1.56</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/fde6af8ba811ecd1c7dcdfbe364f6bcc6c13b5cd.svg" alt="e_{leaf,
@@ -991,7 +995,7 @@ dens}"/></td>
 <td>Leaf biomass
 density
 exponent</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td>0.55</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/f24cfb77e5cb9a6359b72d71fb250f8e6a3af8a3.svg" alt="f_{swh}"/></td>
@@ -999,7 +1003,7 @@ exponent</td>
 sapwood mass to
 height</td>
 <td>m<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/></td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/41f0afddfa6eb041bc7c8a17da35353af5cb51f2.svg" alt="f_{frla}"/></td>
 <td>Ratio of fine
@@ -1030,7 +1034,7 @@ light resources are partitioned between competing plants of varying
 heights, which has a very significant impact on how vegetation
 distribution emerges from competition
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#fisheretal2010"><span class="std std-ref">Fisher et al. 2010</span></a>.</p>
-<p>The standard ED1.0 model makes a simple ‘flat disk’ assumption, that the
+<p>The standard ED1.0 model makes a simple &#8216;flat disk&#8217; assumption, that the
 leaf area of each cohort is spread in an homogenous layer at one exact
 height across entire the ground area represented by each patch. FATES has diverged from this representation due to (at least) two problematic emergent properties that we identified as generating unrealistic behaviours espetially for large-area patches.</p>
 <p>1. Over-estimation of light competition . The vertical stacking of
@@ -1042,7 +1046,7 @@ light competition, even at the seedling stage. This property of the
 model artificially exaggerates the process of light competition. In
 reality, trees do not compete for light until their canopies begin to
 overlap and canopy closure is approached.</p>
-<p>2. Unrealistic over-crowding. The ‘flat-disk’ assumption has no
+<p>2. Unrealistic over-crowding. The &#8216;flat-disk&#8217; assumption has no
 consideration of the spatial extent of tree crowns. Therefore it has no
 control on the packing density of plants in the model. Given a mismatch
 between production and mortality, entirely unrealistic tree densities
@@ -1369,16 +1373,16 @@ layer</td>
 <td>m<img class="math" src="../../_images/math/3be8ed64a5c8205335a10501d047269be0b15f44.svg" alt="^
 {-2}"/>m:
 math:<cite>^{-2}</cite></td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/ec92450714d41bb1dbd5b561966e66d18fb1c9ae.svg" alt="C_e"/></td>
 <td>Competitive
 Exclusion
 Parameter</td>
 <td>none</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/9bf83d76dba900e8a18680bbb5093097d6f0d081.svg" alt="c_{p
 ,min}"/></td>
@@ -1389,8 +1393,8 @@ spread</td>
 {2}"/>
 cm:math:`
 ^{-1}`</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/dde867ee3eaf6e47b6cd8007bb267e95017b4f0e.svg" alt="c_{p
 ,max}"/></td>
@@ -1401,8 +1405,8 @@ Parameter</td>
 {2}"/>
 cm:math:`
 ^{-1}`</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.svg" alt="i"/></td>
 <td>Incremental
@@ -1414,23 +1418,23 @@ cm:math:`
 ^{-1}`
 y<img class="math" src="../../_images/math/59c6ee751a02762947efbb710ef4a930269c3b15.svg" alt="^
 {-1}"/></td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/f998d5311dd118091d9a76b048d11444bdc69433.svg" alt="A_t"/></td>
 <td>Threshold
 canopy
 closure</td>
 <td>none</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/dedeb042fa986473f44f90c2cd4790ac36bce953.svg" alt="f_{c
 rown,ft}"/></td>
 <td>Crown
 fraction</td>
 <td>none</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td><img class="math" src="../../_images/math/a24ee28474317f37ac0cdf19f3328e0da2cbc211.svg" alt="ft"/></td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/b70b41ccf188acef675706bd28aaae337ab20a8c.svg" alt="k_{s
@@ -1440,8 +1444,8 @@ per unit
 woody
 biomass</td>
 <td>m^2 KgC^-1</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -1455,7 +1459,7 @@ biomass</td>
 vegetation concerns the partitioning of energy into that which is
 absorbed by vegetation, reflected back into the atmosphere, and absorbed
 by the ground surface. Older versions of the CLM have utilized a
-“two-stream” approximation
+&#8220;two-stream&#8221; approximation
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellers1985"><span class="std std-ref">Sellers 1985</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellers1996"><span class="std std-ref">Sellers et al. 1986</span></a> that provided an
 empirical solution for the radiation partitioning of a multi-layer
 canopy for two streams, of diffuse and direct light. However,
@@ -2134,15 +2138,15 @@ Respiration</td>
 <td>gC
 gN<img class="math" src="../../_images/math/93228450449171cb368057b8b2d99b3794118dc1.svg" alt="^{-1
 } s^{-1}"/>)</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/26289486513075a3f5da014c2b71f2fa7d218ea9.svg" alt="q_{10}"/></td>
 <td>Temp. Response
 of stem and
 root
 respiration</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/863ebecedab61412d7561a5cba87ce41d2656fd0.svg" alt="R_{cn,le
 af,ft}"/></td>
@@ -2163,7 +2167,7 @@ root matter</td>
 Respiration
 Fraction</td>
 <td>none</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/4067ce6b20b114940fb62ae997e342503766791e.svg" alt="\psi_c"/></td>
 <td>Water content
@@ -2304,15 +2308,15 @@ Respiration</td>
 <td>gC
 gN<img class="math" src="../../_images/math/93228450449171cb368057b8b2d99b3794118dc1.svg" alt="^{-1
 } s^{-1}"/>)</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/26289486513075a3f5da014c2b71f2fa7d218ea9.svg" alt="q_{10}"/></td>
 <td>Temp. Response
 of stem and
 root
 respiration</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/863ebecedab61412d7561a5cba87ce41d2656fd0.svg" alt="R_{cn,le
 af,ft}"/></td>
@@ -2333,7 +2337,7 @@ root matter</td>
 Respiration
 Fraction</td>
 <td>none</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -2807,7 +2811,7 @@ can be reduced</td>
 <li></li>
 </ul>
 </td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -2972,7 +2976,7 @@ counting
 growing degree
 days</td>
 <td><img class="math" src="../../_images/math/7704078e79da130af3dc588bc3e8f70a8833fbb1.svg" alt="^{o}"/>C</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -3033,7 +3037,7 @@ Symbol</th>
 <td>Maximum seed
 mass</td>
 <td>kgC m<img class="math" src="../../_images/math/39d5a479110f40fa3f7a4162b260e967f3e555bf.svg" alt="^{-2}"/></td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/8aa2af8e3e5af6e64e8d30b91e7b4d8b1770364f.svg" alt="\alpha_{
 sgerm}"/></td>
@@ -3044,7 +3048,7 @@ rate</td>
 <li></li>
 </ul>
 </td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/9e63805836d6708130b60944d81ab846c9e45ad8.svg" alt="\beta_{s
 germ}"/></td>
@@ -3055,7 +3059,7 @@ rate</td>
 m<img class="math" src="../../_images/math/39d5a479110f40fa3f7a4162b260e967f3e555bf.svg" alt="^{-2}"/></p>
 <p class="last">y<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/></p>
 </td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/c2f31c22645274c375eff7920cfdfdc18d60341f.svg" alt="\phi"/></td>
 <td>Decay rate of
@@ -3209,7 +3213,7 @@ cwd,lsc}"/></td>
 fragmentation
 rate of CWD</td>
 <td>y<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/></td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/4313a05556634fd00007929ee78d8846c391bc5e.svg" alt="\alpha_{
 litter}"/></td>
@@ -3218,7 +3222,7 @@ fragmentation
 rate of leaf
 litter</td>
 <td>y<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/></td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/18a4e3209e73beacef5830e6c47e9f7e17f552ec.svg" alt="\alpha_{
 root}"/></td>
@@ -3227,7 +3231,7 @@ fragmentation
 rate of fine
 root litter</td>
 <td>y<img class="math" src="../../_images/math/32c47f7597d53ce7f2d3f4de3ce54a8bd5ac5d3c.svg" alt="^{-1}"/></td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/c4229aecd954d6a2f88d428f27b5fe9bfddce5b1.svg" alt="f_{lab,l
 }"/></td>
@@ -3236,7 +3240,7 @@ leaf mass in
 labile carbon
 pool</td>
 <td>none</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/9ef1ab7c4f95e5169c4f6587003df79f7ebd96ae.svg" alt="f_{cel,l
 }"/></td>
@@ -3245,7 +3249,7 @@ leaf mass in
 cellulose
 carbon pool</td>
 <td>none</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/ba4c723817cfac624fafff18a749cc7d5910cf4c.svg" alt="f_{lig,l
 }"/></td>
@@ -3254,7 +3258,7 @@ leaf mass in
 lignin carbon
 pool</td>
 <td>none</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/da3d807c12963881f03c7c3a7395a788da158929.svg" alt="f_{lab,r
 }"/></td>
@@ -3263,7 +3267,7 @@ root mass in
 labile carbon
 pool</td>
 <td>none</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/8fd07c331ac4f827abdbc11703dafe9389952c8e.svg" alt="f_{cel,r
 }"/></td>
@@ -3272,7 +3276,7 @@ root mass in
 cellulose
 carbon pool</td>
 <td>none</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/855b1d85226e0bfd9fdbdd93ad7e0e8fb8d18aaf.svg" alt="f_{lig,r
 }"/></td>
@@ -3281,7 +3285,7 @@ root mass in
 lignin carbon
 pool</td>
 <td>none</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/b8cc53b1f47454de13ad7df30263430cf8db8812.svg" alt="l_{prof,
 z}"/></td>
@@ -3371,7 +3375,7 @@ fire modelling section.</p>
 <tr class="row-even"><td><img class="math" src="../../_images/math/fe37c3d54576c3b1bbdaa6f28b80c8b1fd0678eb.svg" alt="S_{m,ft}"/></td>
 <td>Stress Mortality Scaler</td>
 <td>none</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/426e9652eecdae23742f34206dcbfc22949c942e.svg" alt="l_{targ,ft}"/></td>
 <td>Target carbon storage fraction</td>
@@ -3414,7 +3418,7 @@ defined by the order of magnitude of time required for fuel to lose
 (or gain) 63% of the difference between its current moisture content and
 the equilibrium moisture content under defined atmospheric conditions.
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thonickeetal2010"><span class="std std-ref">Thonicke et al. 2010</span></a>. For the purposes of describing
-the behaviour of fire, we introduce a new index ‘fuel class’ <em>fc</em>, the
+the behaviour of fire, we introduce a new index &#8216;fuel class&#8217; <em>fc</em>, the
 values of which correspond to each of the six possible fuel categories
 as follows.</p>
 <table border="1" class="docutils">
@@ -3811,8 +3815,8 @@ moisture class</td>
 <tr class="row-even"><td><img class="math" src="../../_images/math/afa00f5df686b2a21efce66280138c493b51f092.svg" alt="M_f"/></td>
 <td>Fuel Mineral
 Fraction</td>
-<td>&#160;</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/8272d7d276ccfb772e711b5a5b44dc0eb5572d36.svg" alt="F_{dur,m
 ax}"/></td>
@@ -3820,20 +3824,20 @@ ax}"/></td>
 Duration of
 Fire</td>
 <td>Minutes</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-even"><td><img class="math" src="../../_images/math/7c335cdaac0a8ddc9b13a37cb8b5841f59ef79c7.svg" alt="f_{energ
 y}"/></td>
 <td>Energy content
 of fuel</td>
 <td>kJ/kG</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 </tr>
 <tr class="row-odd"><td><img class="math" src="../../_images/math/c700b6498a956b0d0514587999a6e02adda67253.svg" alt="\alpha_{
 s}"/></td>
 <td>Flame height
 parameter</td>
-<td>&#160;</td>
+<td>&nbsp;</td>
 <td><em>FT</em></td>
 </tr>
 </tbody>
@@ -3866,7 +3870,7 @@ parameter</td>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
   </body>
 </html>
