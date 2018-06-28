@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>1.7.4. Examples of using PTCLM &#8212; clmdoc release-clm5.0.01 documentation</title>
+    <title>1.7.4. Examples of using PTCLMmkdata &#8212; clmdoc release-clm5.0.01 documentation</title>
     
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -28,8 +28,8 @@
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="1.7.5. Adding PTCLM Site Data" href="adding-ptclm-site-data.html" />
-    <link rel="prev" title="1.7.3. Using PTCLM" href="using-ptclm.html" />
+    <link rel="next" title="1.7.5. Adding PTCLMmkdata Site Data" href="adding-ptclm-site-data.html" />
+    <link rel="prev" title="1.7.3. Using PTCLMmkdata" href="using-ptclm.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
@@ -43,10 +43,10 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="adding-ptclm-site-data.html" title="1.7.5. Adding PTCLM Site Data"
+          <a href="adding-ptclm-site-data.html" title="1.7.5. Adding PTCLMmkdata Site Data"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="using-ptclm.html" title="1.7.3. Using PTCLM"
+          <a href="using-ptclm.html" title="1.7.3. Using PTCLMmkdata"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>
@@ -57,20 +57,19 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">1.7.4. Examples of using PTCLM</a><ul>
-<li><a class="reference internal" href="#example-running-ptclm-for-the-mexicocity-supported-single-point-dataset">1.7.4.1. Example: Running PTCLM for the Mexicocity supported single point dataset</a></li>
-<li><a class="reference internal" href="#example-running-ptclm-for-a-spinup-simulation-with-qian-data-for-tower-years">1.7.4.2. Example: Running PTCLM for a spinup simulation with Qian data for tower years.</a></li>
-<li><a class="reference internal" href="#example-running-ptclm-on-a-user-defined-machine-with-global-pft-and-soil-types-dataset">1.7.4.3. Example: Running PTCLM on a user-defined machine with global PFT and soil types dataset</a></li>
+<li><a class="reference internal" href="#">1.7.4. Examples of using PTCLMmkdata</a><ul>
+<li><a class="reference internal" href="#example-running-ptclmmkdata-without-tower-years">1.7.4.1. Example: Running PTCLMmkdata without tower years</a></li>
+<li><a class="reference internal" href="#example-running-ptclmmkdata-with-global-pft-and-soil-types-dataset">1.7.4.2. Example: Running PTCLMmkdata with global PFT and soil types dataset</a></li>
 </ul>
 </li>
 </ul>
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="using-ptclm.html"
-                        title="previous chapter">1.7.3. Using PTCLM</a></p>
+                        title="previous chapter">1.7.3. Using PTCLMmkdata</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="adding-ptclm-site-data.html"
-                        title="next chapter">1.7.5. Adding PTCLM Site Data</a></p>
+                        title="next chapter">1.7.5. Adding PTCLMmkdata Site Data</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -96,64 +95,28 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <span class="target" id="ptclm-examples"></span><div class="section" id="examples-of-using-ptclm">
-<h1>1.7.4. Examples of using PTCLM<a class="headerlink" href="#examples-of-using-ptclm" title="Permalink to this headline">¶</a></h1>
+  <span class="target" id="ptclm-examples"></span><div class="section" id="examples-of-using-ptclmmkdata">
+<h1>1.7.4. Examples of using PTCLMmkdata<a class="headerlink" href="#examples-of-using-ptclmmkdata" title="Permalink to this headline">¶</a></h1>
 <p>Now let&#8217;s give a few more complex examples using some of the options we have discussed above.</p>
-<p>In this first example, we&#8217;ll demonstrate using a supported single point dataset, which then requires using the &#8220;nopointdata&#8221;. We&#8217;ll also demonstrate the compset option, &#8220;stdurbpt&#8221; and &#8220;caseidprefix&#8221; options.</p>
-<div class="section" id="example-running-ptclm-for-the-mexicocity-supported-single-point-dataset">
-<h2>1.7.4.1. Example: Running PTCLM for the Mexicocity supported single point dataset<a class="headerlink" href="#example-running-ptclm-for-the-mexicocity-supported-single-point-dataset" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts/ccsm_utils/Tools/lnd/clm/PTCLM
-&gt; ./PTCLM.py -m cheyenne_intel -s 1x1_mexicocityMEX -d $CSMDATA --nopointdata \
---stdurbpt -c ICRUCLM45 --caseidprefix `pwd`/myPTCLMcases/site
-&gt; cd myPTCLMcases/site_1x1_mexicocityMEX_I
-&gt; ./cesm_setup
-# Now build and run normally
-&gt; ./site_1x1_mexicocityMEX_I.build
-# Here we show running interactively
-&gt; ./site_1x1_mexicocityMEX_I.run
-</pre></div>
-</div>
 <p>Now, let&#8217;s demonstrate using a different group list, doing a spinup, running with Qian global forcing data, but using tower years to set the years to run over. This uses the options: sitegroupname, useQIAN, and QIANtower_years.</p>
-</div>
-<div class="section" id="example-running-ptclm-for-a-spinup-simulation-with-qian-data-for-tower-years">
-<h2>1.7.4.2. Example: Running PTCLM for a spinup simulation with Qian data for tower years.<a class="headerlink" href="#example-running-ptclm-for-a-spinup-simulation-with-qian-data-for-tower-years" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts/ccsm_utils/Tools/lnd/clm/PTCLM
-&gt; ./PTCLM.py -m cheyenne_intel -s US-Ha1 -d $CSMDATA --sitegroupname AmeriFlux --useQIAN --QIAN_tower_yrs
+<div class="section" id="example-running-ptclmmkdata-without-tower-years">
+<h2>1.7.4.1. Example: Running PTCLMmkdata without tower years<a class="headerlink" href="#example-running-ptclmmkdata-without-tower-years" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/tools/PTCLM
+&gt; ./PTCLMmkdata -s US-Ha1 -d $CSMDATA --sitegroupname AmeriFlux --donot_use_tower_yrs
 &gt; cd ../../../../../US-Ha1_ICRUCLM45BGC_QIAN
-&gt; ./cesm_setup
 # Now build and run normally
-&gt; ./US-Ha1_ICRUCLM45BGC_QIAN.build
-# Here we show running interactively
-&gt; ./US-Ha1_ICRUCLM45BGC_QIAN.run
 ```
 </pre></div>
 </div>
 <p>Finally, let&#8217;s demonstrate using a generic machine (which then requires the scratchroot option), using the global grid for PFT and soil types, and setting the run length to two months.</p>
 </div>
-<div class="section" id="example-running-ptclm-on-a-user-defined-machine-with-global-pft-and-soil-types-dataset">
-<h2>1.7.4.3. Example: Running PTCLM on a user-defined machine with global PFT and soil types dataset<a class="headerlink" href="#example-running-ptclm-on-a-user-defined-machine-with-global-pft-and-soil-types-dataset" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts/ccsm_utils/Tools/lnd/clm/PTCLM
-# Note, see the the Section called Converting AmeriFlux Data for use by PTCLM with permission information
+<div class="section" id="example-running-ptclmmkdata-with-global-pft-and-soil-types-dataset">
+<h2>1.7.4.2. Example: Running PTCLMmkdata with global PFT and soil types dataset<a class="headerlink" href="#example-running-ptclmmkdata-with-global-pft-and-soil-types-dataset" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/tools/PTCLM
+# Note, see the the Section called Converting AmeriFlux Data for use by PTCLMmkdata with permission information
 # to use the US-UMB data.
-&gt; ./PTCLM.py -m userdefined_intel -s US-UMB -d $CSMDATA --pftgrid --soilgrid \
---scratchroot $HOME --run_n 2 --run_units nmonths
+&gt; ./PTCLMmkdata -s US-UMB -d $CSMDATA --pftgrid --soilgrid
 &gt; cd ../../../../../US-UMB_ICRUCLM45BGC
-# If userdefined is NOT set up for you Uncomment the following and set OS, NTASKS_PER_NODE, TMPDIR
-# &gt; ./xmlchange OS=$OS,MAX_TASKS_PER_NODE=$NTASKS_PER_NODE,MPILIB=mpi-serial
-# &gt; ./xmlchange RUNDIR=$TMPDIR/$USER/\$CASE/run,DIN_LOC_ROOT=$CSMDATA,COMPILER=intel
-# &gt; ./xmlchange EXEROOT=$TMPDIR/$USER/\$CASE
-&gt; ./cesm_setup
-# Now build
-&gt; ./US-UMB_ICRUCLM45BGC.userdefined_intel.build
-# To get the files from the svn server...
-# First list the files from the streams text file
-&gt; ../ccsm_utils/Tools/listfilesin_streams \
--t $HOME/US-UMB_ICRUCLM45BGC/run/clm1PT.1x1pt_US-UMB.stream.txt -l \
-&gt; Buildconf/datm.input_data_list
-# And now run the script to export data to your machine
-&gt; ../ccsm_utils/Tools/check_input_data -export
-# Here we show running interactively
-&gt; ./US-UMB_ICRUCLM45BGC.userdefined_intel.run
 </pre></div>
 </div>
 </div>
@@ -172,10 +135,10 @@
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="adding-ptclm-site-data.html" title="1.7.5. Adding PTCLM Site Data"
+          <a href="adding-ptclm-site-data.html" title="1.7.5. Adding PTCLMmkdata Site Data"
              >next</a> |</li>
         <li class="right" >
-          <a href="using-ptclm.html" title="1.7.3. Using PTCLM"
+          <a href="using-ptclm.html" title="1.7.3. Using PTCLMmkdata"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User&#8217;s Guide</a> &#187;</li>

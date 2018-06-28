@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>1.7.1. What is PTCLM &#8212; clmdoc release-clm5.0.01 documentation</title>
+    <title>1.7.1. What is PTCLMmkdata? &#8212; clmdoc release-clm5.0.01 documentation</title>
     
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -28,7 +28,7 @@
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="1.7.3. Using PTCLM" href="using-ptclm.html" />
+    <link rel="next" title="1.7.3. Using PTCLMmkdata" href="using-ptclm.html" />
     <link rel="prev" title="1.7. Running PTCLM" href="index.html" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!--[if lt IE 9]>
@@ -43,7 +43,7 @@
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="using-ptclm.html" title="1.7.3. Using PTCLM"
+          <a href="using-ptclm.html" title="1.7.3. Using PTCLMmkdata"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="index.html" title="1.7. Running PTCLM"
@@ -57,9 +57,9 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">1.7.1. What is PTCLM</a></li>
-<li><a class="reference internal" href="#details-of-ptclm">1.7.2. Details of PTCLM</a><ul>
-<li><a class="reference internal" href="#example-6-1-example-of-running-ptclm1-for-us-umb-on-cheyenne">1.7.2.1. Example 6-1. Example of running PTCLM1 for US-UMB on cheyenne</a></li>
+<li><a class="reference internal" href="#">1.7.1. What is PTCLMmkdata?</a></li>
+<li><a class="reference internal" href="#details-of-ptclmmkdata">1.7.2. Details of PTCLMmkdata</a><ul>
+<li><a class="reference internal" href="#example-6-1-example-of-running-ptclmmkdata-for-us-umb-on-cheyenne">1.7.2.1. Example 6-1. Example of running PTCLMmkdata for US-UMB on cheyenne</a></li>
 </ul>
 </li>
 </ul>
@@ -69,7 +69,7 @@
                         title="previous chapter">1.7. Running PTCLM</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="using-ptclm.html"
-                        title="next chapter">1.7.3. Using PTCLM</a></p>
+                        title="next chapter">1.7.3. Using PTCLMmkdata</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -95,22 +95,23 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <span class="target" id="introduction-to-ptclm-rst"></span><div class="section" id="what-is-ptclm">
-<span id="id1"></span><h1>1.7.1. What is PTCLM<a class="headerlink" href="#what-is-ptclm" title="Permalink to this headline">¶</a></h1>
-<p>PTCLM (pronounced either as point clime or Pee-Tee clime) is a Python script to help you set up PoinT CLM simulations.</p>
-<p>It runs the CLM tools for you to get datasets set up, and copies them to a location you can use them according to the <code class="docutils literal"><span class="pre">CLM_USRDAT_NAME</span></code> naming convention.</p>
-<p>Then it runs <strong>create_newcase</strong> for you and modifies the env settings and namelist appropriately.</p>
-<p>PTCLM has a simple ASCII text file for storing basic information for your sites.</p>
+  <span class="target" id="introduction-to-ptclm-rst"></span><div class="section" id="what-is-ptclmmkdata">
+<span id="what-is-ptclm"></span><h1>1.7.1. What is PTCLMmkdata?<a class="headerlink" href="#what-is-ptclmmkdata" title="Permalink to this headline">¶</a></h1>
+<p>PTCLMmkdata (pronounced Pee-Tee Cee-L-M make data is a Python script to help you set up PoinT CLM simulations.</p>
+<p>It runs the CLM tools for you to get datasets set up, and copies them to a location you can use them including the changes
+needed for a case to use the dataset with namelist and XML changes.</p>
+<p>Then you run <strong>create_newcase</strong> and point to the directory so that the namelist and XML changes are automatically applied.</p>
+<p>PTCLMmkdata has a simple ASCII text file for storing basic information for your sites.</p>
 <p>We also have complete lists for AmeriFlux and Fluxnet-Canada sites, although we only have the meteorology data for one site.</p>
 <p>For other sites you will need to obtain the meteorology data and translate it to a format that the CESM datm model can use.</p>
-<p>But, even without meteorology data PTCLM is useful to setup datasets to run with standard <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> data.</p>
-<p>The original authors of PTCLM are: Daniel M. Ricciuto, Dali Wang, Peter E. Thornton, Wilfred M. Post all at Environmental Sciences Division, Oak Ridge National Laboratory (ORNL) and R. Quinn Thomas at Cornell University. It was then modified fairly extensively by Erik Kluzek at NCAR. We want to thank all of these individuals for this contribution to the CESM effort. We also want to thank the folks at University of Michigan Biological Stations (US-UMB) who allowed us to use their Fluxnet station data and import it into our inputdata repository, especially Gil Bohrer the PI on record for this site.</p>
+<p>But, even without meteorology data PTCLMmkdata is useful to setup datasets to run with standard <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> data.</p>
+<p>The original authors of PTCLMmkdata are: Daniel M. Ricciuto, Dali Wang, Peter E. Thornton, Wilfred M. Post all at Environmental Sciences Division, Oak Ridge National Laboratory (ORNL) and R. Quinn Thomas at Cornell University. It was then modified fairly extensively by Erik Kluzek at NCAR. We want to thank all of these individuals for this contribution to the CESM effort. We also want to thank the folks at University of Michigan Biological Stations (US-UMB) who allowed us to use their Fluxnet station data and import it into our inputdata repository, especially Gil Bohrer the PI on record for this site.</p>
 </div>
-<div class="section" id="details-of-ptclm">
-<span id="id2"></span><h1>1.7.2. Details of PTCLM<a class="headerlink" href="#details-of-ptclm" title="Permalink to this headline">¶</a></h1>
-<p>To get help on PTCLM1.110726 use the &#8220;&#8211;help&#8221; option as follows.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">scripts</span><span class="o">/</span><span class="n">ccsm_utils</span><span class="o">/</span><span class="n">Tools</span><span class="o">/</span><span class="n">lnd</span><span class="o">/</span><span class="n">clm</span><span class="o">/</span><span class="n">PTCLM</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">PTCLM</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">help</span>
+<div class="section" id="details-of-ptclmmkdata">
+<span id="details-of-ptclm"></span><h1>1.7.2. Details of PTCLMmkdata<a class="headerlink" href="#details-of-ptclmmkdata" title="Permalink to this headline">¶</a></h1>
+<p>To get help on PTCLM2_180611 use the &#8220;&#8211;help&#8221; option as follows.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/tools/PTCLM
+&gt; ./PTCLMmkdata --help
 </pre></div>
 </div>
 <p>The output to the above command is as follows:</p>
@@ -181,34 +182,139 @@ Input data generation options:
 Main Script Version Id: $Id: PTCLM.py 47576 2013-05-29 19:11:16Z erik $ Scripts URL: $HeadURL: https://svn-ccsm-models.cgd.ucar.edu/PTCLM/trunk_tags/PTCLM1_130529/PTCLM.py $:
 </pre></div>
 </div>
-<p>Here we give a simple example of using PTCLM1 for a straightforward case of running at the US-UMB Fluxnet site on cheyenne where we already have the meteorology data on the machine.
-Note, see <a class="reference external" href="CLM-URL">the Section called Converting AmeriFlux Data for use by PTCLM</a> for permission information to use this data.</p>
-<div class="section" id="example-6-1-example-of-running-ptclm1-for-us-umb-on-cheyenne">
-<h2>1.7.2.1. Example 6-1. Example of running PTCLM1 for US-UMB on cheyenne<a class="headerlink" href="#example-6-1-example-of-running-ptclm1-for-us-umb-on-cheyenne" title="Permalink to this headline">¶</a></h2>
+<p>Here we give a simple example of using PTCLMmkdata for a straightforward case of running at the US-UMB Fluxnet site on cheyenne where we already have the meteorology data on the machine.
+Note, see <a class="reference external" href="CLM-URL">the Section called Converting AmeriFlux Data for use by PTCLMmkdata</a> for permission information to use this data.</p>
+<div class="section" id="example-6-1-example-of-running-ptclmmkdata-for-us-umb-on-cheyenne">
+<h2>1.7.2.1. Example 6-1. Example of running PTCLMmkdata for US-UMB on cheyenne<a class="headerlink" href="#example-6-1-example-of-running-ptclmmkdata-for-us-umb-on-cheyenne" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&gt; setenv CSMDATA   $CESMDATAROOT/inputdata
-&gt; setenv MYCSMDATA $HOME/inputdata
+&gt; setenv MYDATAFILES `pwd`/mydatafiles
 &gt; setenv SITE      US-UMB
-&gt; setenv MYMACH    cheyenne_intel
 &gt; setenv MYCASE    testPTCLM
-# First link the standard input files to a location you have write access
-&gt; cd scripts
-&gt; ./link_dirtree $CSMDATA $MYCSMDATA
 
 # Next build all of the clm tools you will need
-&gt; cd ../$CTSMROOT/tools/|version|/mksurfdata_map
-&gt; gmake
-&gt; gmake clean
-&gt; cd ../../../../../../tools/mapping/gen_domain_files/src
-&gt; ../../../../scripts/ccsm_utils/Machines/configure -mach cheyenne -compiler intel
-&gt; gmake
-&gt; gmake clean
+&gt; cd $CTSMROOT/tools/PTCLM
+&gt; buildtools
 # next run PTCLM (NOTE -- MAKE SURE python IS IN YOUR PATH)
-&gt; cd ../../../../../scripts/ccsm_utils/Tools/lnd/clm/PTCLM
-&gt; ./PTCLM.py -m $MYMACH  --case=$MYCASE --site=$SITE --csmdata=$MYCSMDATA --aerdepgrid --ndepgrid
-# NOTE: we use --aerdepgrid --ndepgrid so that you use the global
-# aerosol and Nitrogen deposition files rather than site-specific ones.
-&gt; cd ../../../../../$MYCASE
-# Finally setup, build, and run the case as normal
+&gt; cd $CTSMROOT/tools/PTCLM
+# Here we run it using qcmd so that it will be run on a batch node
+&gt; qcmd --  ./PTCLMmkdata --site=$SITE --csmdata=$CSMDATA --mydatadir=$MYDATAFILES &gt;&amp; ptclmrun.log &amp;
+&gt; cd $CIMEROOT/scripts
+&gt; ./create_newcase --user-mods-dir $MYDATAFILES/1x1pt_$SITE --case $MYCASE --res CLM_USRDAT --compset I1PtClm50SpGs
+# Next setup, build and run as normal
+&gt; cd $MYCASE
+&gt; ./case.setup
+</pre></div>
+</div>
+<p>PTCLMmkdata includes a README file that gives some extra details and a simple example.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>PTCLM/README                04/10/2015
+
+PTCLMmkdata is a python tool built on top of CLM tools and CESM scripts
+for building datasets to run CLM &quot;I&quot; cases for data from Ameriflux Tower-sites,
+or other user-supplied single-point datasets.
+
+Original Authors:
+
+Daniel M. Ricciuto, Dali Wang, Peter E. Thornton, Wilfred M. Post
+
+Environmental Sciences Division, Oak Ridge National Laboratory (ORNL)
+
+R. Quinn Thomas
+
+Cornell University
+
+Modified by:
+
+Erik Kluzek (NCAR)
+
+General Directory structure:
+
+  PTCLM/PTCLMmkdata ----- Main script
+  PTCLM/PTCLM_sitedata  - Site data files of 
+        static information latitude, longitude, soil info., and PFT information 
+        for each site Also different &quot;groups&quot; of site-data lists, and the script to
+        convert the transient years landuse_timeseries files into landuse_timeseries text files that
+        mksurfdata can use.
+  PTCLM/mydatafiles ----- Default location of
+        data files that will be created by PTCLMmkdata. Sites will be built
+        in their own subdirectories under here. Optionally you can give your
+        own location you&#39;d like to use for your data.
+
+  PTCLM/PTCLMsublist --------- Script to submit a list of PTCLM
+        sites to the batch que (only setup for a few machines).
+  PTCLM/PTCLMsublist_prog.py - Python module to support submit
+        list script. Handles command line arguments and such.
+  PTCLM/batchque.py ---------- Python module for batch submital.
+  PTCLM/buildtools ----------- Script to build the CLM
+        tools needed to run PTCLMmkdata (mksurfdata_map and gen_domain). Works on yellowstone and cheyenne.
+
+Quickstart:
+
+# ASSUMPTIONS:
+# For this example I&#39;m running a I1PtClm50SpGs case on cheyenne using  
+# CSMDATA in the standard location
+# Finally we use the 6-digit AmeriFlux site code for the University of Mich. Biological
+# Station US-UMB (data for this station is checked into the inputdata repository).
+# I also assume you are using UNIX C-shell, and GNU make is called gmake
+setenv CSMDATA   /glade/p/cesm/cseg/inputdata
+setenv SITE      US-UMB
+
+
+cd PTCLM
+setenv MYDATAFILES `pwd`/mydatafiles
+
+# Next build all of the clm tools you will need
+# The following script assumes yellowstone, cheyenne, hobart, or edison for other machines
+# you&#39;ll need to build each tool by hand
+./buildtools
+# next run PTCLMsublist which will submit PTCLMmkdata to batch queue (NOTE -- MAKE SURE python, NCO AND NCL IS IN YOUR PATH)
+#       PTCLMsublist is only setup for a few batch machines, you&#39;ll need to update them to add new machines
+#       or create your own batch submission script.
+# NOTE: Every day you run PTCLMmkdata it will remake the map called
+#       renamemapfiles to rename files with todays creation date.
+#       This makes running PTCLMmkdata a reasonable amount of time.
+#       However, you can use the script in mydatafiles
+#
+./PTCLMsublist -l $SITE -d $CSMDATA --account=XXXXXXXXX --mach=cheyenne
+
+# NOTE: To submit several sites at once, make the &quot;-l&quot; option a comma delimited
+#       list of site names.
+
+# Next copy the towersite meterology datafiles into your $MYDATAFILES space
+# (For the US-UMB station you can skip this step as the .build step will bring the data over) 
+cd $MYDATAFILES/1x1pt_$SITE
+mkdir $MYDATAFILES/1x1pt_$SITE/CLM1PT_data
+# Copy meteorology data NetCDF files into 1x1pt_$SITE sub-directory 
+# (with filenames of yyyy-mm.nc)
+# The variables assumed to be on the files are: 
+#     ZBOT, TBOT, RH, WIND, PRECTmms, FSDS, PSRF, FLDS
+# (if other fields are available or with different names this can be changed by
+#  adding a user_nl_datm.streams.txt file as we outline below)
+# Make sure your data has time with the attribute: calendar=&quot;gregorian&quot;
+
+# Make sure the forcing directory points to the location of your data
+# (PTCLMmkdata should already do this)
+./xmlchange DIN_LOC_ROOT_CLMFORC=$MYDATAFILES/1x1pt_$SITE
+
+# Then create a case using the data you just created
+setenv MYCASE &quot;testPTCLM&quot;
+cd $CTSMROOT/cime
+setenv CIMEROOT `pwd`
+cd $CIMEROOT/scripts
+./create_newcase --user-mods-dir $MYDATAFILES/1x1pt_$SITE --case $MYCASE --res CLM_USRDAT --compset I1PtClm50SpGs --mach cheyenne
+
+# Next setup as normal
+cd $MYCASE
+./case.setup
+
+# If you need to customize your list of fields uncomment and do the following...
+# cp CaseDocs/datm.streams.txt.CLM1PT.CLM_USRDAT user_datm.streams.txt.CLM1PT.CLM_USRDAT
+# chmod u+w user_datm.streams.txt.CLM1PT.CLM_USRDAT
+# $EDITOR user_datm.streams.txt.CLM1PT.CLM_USRDAT
+# ./preview_namelists
+
+# Finally build, and run the case as normal
+./case.build
+./case.submit
 </pre></div>
 </div>
 </div>
@@ -227,7 +333,7 @@ Note, see <a class="reference external" href="CLM-URL">the Section called Conver
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="using-ptclm.html" title="1.7.3. Using PTCLM"
+          <a href="using-ptclm.html" title="1.7.3. Using PTCLMmkdata"
              >next</a> |</li>
         <li class="right" >
           <a href="index.html" title="1.7. Running PTCLM"
