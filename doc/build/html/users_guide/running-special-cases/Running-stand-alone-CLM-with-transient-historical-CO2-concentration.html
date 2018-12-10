@@ -1,0 +1,168 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>1.5.8. Running with historical CO2 forcing &#8212; clmdoc release-clm5.0.01 documentation</title>
+    <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'release-clm5.0.01',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1.6. Running Single Point Regional Cases" href="../running-single-points/index.html" />
+    <link rel="prev" title="1.5.7. Running with atmospheric forcing from a previous simulation" href="Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../running-single-points/index.html" title="1.6. Running Single Point Regional Cases"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" title="1.5.7. Running with atmospheric forcing from a previous simulation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">1.5. Running Special Cases</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">1.5.8. Running with historical CO2 forcing</a><ul>
+<li><a class="reference internal" href="#example-transient-simulation-with-historical-co2">1.5.8.1. Example: Transient Simulation with Historical CO2</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html"
+                        title="previous chapter">1.5.7. Running with atmospheric forcing from a previous simulation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../running-single-points/index.html"
+                        title="next chapter">1.6. Running Single Point Regional Cases</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/users_guide/running-special-cases/Running-stand-alone-CLM-with-transient-historical-CO2-concentration.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <span class="target" id="running-with-historical-co2-forcing"></span><div class="section" id="id1">
+<h1>1.5.8. Running with historical CO2 forcing<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>In this case you want to run a simulation with stand-alone CLM responding to changes in CO2 for a historical period.
+For this example, we will start with the “I_1850-2000_CN” compset that has transient: land-use, Nitrogen and Aerosol deposition already.
+You could also use another compset if you didn’t want these other features to be transient.
+In order to get CO2 to be transient we need to add a new streams file and add it to the list of streams in the user_nl_datm file.
+You also need a NetCDF datafile that datm can read that gives the variation. You could supply your own file, but we have a standard file that is used by CAM for this and our example will make use of this file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Most everything here has to do with changing datm rather than CLM to allow this to happen. As such the user that wishes to do this should first become more familiar with datm and read the <a class="reference external" href="CLM-URL">CESM Data Model User’s Guide</a> especially as it pertains to the datm.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This section documents the process for doing something that is non-standard. There may be errors with the documentation and process, and you may have to do some work before all of this works for you. If that is the case, we recommend that you do further research into understanding the process and the files, as well as understanding the datm and how it works. You may have to read documentation found in the code for datm as well as “csm_share”.</p>
+</div>
+<p>The datm has “streams” files that have rough XML-like syntax and specify the location and file to get data from, as well as information on the variable names and the data locations of the grid points.
+The datm expects specific variable names and the datm “maps” the expected variable names from the file to the names expected by datm.
+The file we are working with here is a file with a single-point, that covers the entire globe (so the vertices go from -90 to 90 degrees in latitude and 0 to 360 degrees in longitude).
+Since it’s a single point it’s a little easier to work with than datasets that may be at a given horizontal resolution.
+The datm also expects that variables will be in certain units, and only expects a limited number of variables so arbitrary fields can NOT be exchanged this way.
+However, the process would be similar for datasets that do contain more than one point.</p>
+<p>The three things that are needed: a domain file, a data file, and a streams text file.
+The domain file is a CF-compliant NetCDF file that has information on the grid points (latitudes and longitudes for cell-centers and vertices, mask , fraction, and areas).
+The datafile is a CF-compliant NetCDF file with the data that will be mapped.
+The streams text file is the XML-like file that tells datm how to find the files and how to map the variables datm knows about to the variable names on the NetCDF files. Note, that in our case the domain file and the data file are the same file. In other cases, the domain file may be separate from the data file.</p>
+<p>First we are going to create a case, and we will edit the <code class="docutils literal"><span class="pre">user_nl_datm</span></code> so that we add a CO2 data stream in.
+There is a streams text file available in <code class="docutils literal"><span class="pre">$CTSMROOT/doc/UsersGuide/co2_streams.txt</span></code>, that includes file with a CO2 time-series from 1765 to 2007.</p>
+<div class="section" id="example-transient-simulation-with-historical-co2">
+<h2>1.5.8.1. Example: Transient Simulation with Historical CO2<a class="headerlink" href="#example-transient-simulation-with-historical-co2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">scripts</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">create_newcase</span> <span class="o">-</span><span class="n">case</span> <span class="n">DATM_CO2_TSERIES</span> <span class="o">-</span><span class="n">res</span> <span class="n">f19_g17_gl4</span> <span class="o">-</span><span class="n">compset</span> <span class="n">IHistClm50BgcCrop</span>
+<span class="o">&gt;</span> <span class="n">cd</span> <span class="n">DATM_CO2_TSERIES</span>
+
+<span class="c1"># Historical CO2 will already be setup correctly for this compset</span>
+<span class="c1"># to check that look at the variables: CCSM_BGC,CLM_CO2_TYPE, and DATM_CO2_TSERIES</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlquery</span> <span class="n">CCSM_BGC</span><span class="p">,</span><span class="n">CLM_CO2_TYPE</span><span class="p">,</span><span class="n">DATM_CO2_TSERIES</span>
+<span class="c1"># Expect: CCSM_BGC=CO2A,CLM_CO2_TYPE=diagnostic,DATM_CO2_TSERIES=20tr</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span>
+
+<span class="c1"># Run preview namelist so we have the namelist in CaseDocs</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">preview_namelists</span>
+</pre></div>
+</div>
+<p>Once, you’ve done that you can build and run your case normally.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../running-single-points/index.html" title="1.6. Running Single Point Regional Cases"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html" title="1.5.7. Running with atmospheric forcing from a previous simulation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">clmdoc release-clm5.0.01 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >1. clm5.0 User’s Guide</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >1.5. Running Special Cases</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+    </div>
+  </body>
+</html>
