@@ -4,23 +4,17 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>1.2.4. Customizing the DATM namelist &#8212; clmdoc release-clm5.0.01 documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     'release-clm5.0.01',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -30,8 +24,7 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -51,7 +44,7 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">1.2.4. Customizing the DATM namelist</a><ul>
 <li><a class="reference internal" href="#clmgswp3v1-mode-and-it-s-datm-settings">1.2.4.1. CLMGSWP3v1 mode and it’s DATM settings</a></li>
@@ -79,12 +72,14 @@
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -99,29 +94,29 @@
 <h1>1.2.4. Customizing the DATM namelist<a class="headerlink" href="#customizing-the-datm-namelist" title="Permalink to this headline">¶</a></h1>
 <p>When running “I” compsets with CLM you use the DATM model to give atmospheric forcing data to CLM. There are two ways to customize DATM:</p>
 <ol class="arabic simple">
-<li><strong>DATM Main Namelist and Stream Namlist gorup</strong> (<code class="docutils literal"><span class="pre">datm_in</span></code>)</li>
+<li><strong>DATM Main Namelist and Stream Namlist gorup</strong> (<code class="docutils literal notranslate"><span class="pre">datm_in</span></code>)</li>
 <li><strong>DATM stream files</strong></li>
 </ol>
 <p>The <a class="reference external" href="http://esmci.github.io/cime/data_models/data-atm.html">Data Model Documentation</a> gives the details of all the options for the data models and for DATM specifically.
 It goes into detail on all namelist items both for DATM and for DATM streams.
 So here we won’t list ALL of the DATM namelist options, nor go into great details about stream files.
 But, we will talk about a few of the different options that are relevant for running with CLM.
-All of the options for changing the namelists or stream files is done by editing the <code class="docutils literal"><span class="pre">user_nl_datm</span></code> file.</p>
+All of the options for changing the namelists or stream files is done by editing the <code class="docutils literal notranslate"><span class="pre">user_nl_datm</span></code> file.</p>
 <p>Because, they aren’t useful for work with CLM we will NOT discuss any of the options for the main DATM namelist. Use the DATM Users Guide at the link above to find details of that. For the streams namelist we will discuss three items:</p>
 <ol class="arabic simple">
-<li><code class="docutils literal"><span class="pre">mapalgo</span></code></li>
-<li><code class="docutils literal"><span class="pre">taxmode</span></code></li>
-<li><code class="docutils literal"><span class="pre">tintalgo</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">mapalgo</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">taxmode</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">tintalgo</span></code></li>
 </ol>
 <p>And for the streams file itself we will discuss:</p>
 <dl class="docutils">
 <dt>offset</dt>
 <dd>Again everything else (and including the above items) are discussed in the Data Model User’s Guide. Of the above the last three: offset, taxmode and tintalgo are all closely related and have to do with the time interpolation of the DATM data.</dd>
 <dt>mapalgo</dt>
-<dd><code class="docutils literal"><span class="pre">mapalgo</span></code> sets the spatial interpolation method to go from the DATM input data to the output DATM model grid. The default is <code class="docutils literal"><span class="pre">bilinear</span></code>. For <code class="docutils literal"><span class="pre">CLM1PT</span></code> we set it to <code class="docutils literal"><span class="pre">nn</span></code> to just select the nearest neighbor. This saves time and we also had problems running the interpolation for single-point mode.</dd>
+<dd><code class="docutils literal notranslate"><span class="pre">mapalgo</span></code> sets the spatial interpolation method to go from the DATM input data to the output DATM model grid. The default is <code class="docutils literal notranslate"><span class="pre">bilinear</span></code>. For <code class="docutils literal notranslate"><span class="pre">CLM1PT</span></code> we set it to <code class="docutils literal notranslate"><span class="pre">nn</span></code> to just select the nearest neighbor. This saves time and we also had problems running the interpolation for single-point mode.</dd>
 <dt>taxmode</dt>
-<dd><code class="docutils literal"><span class="pre">taxmode</span></code> is the time axis mode.
-For CLM we usually have it set to <code class="docutils literal"><span class="pre">cycle</span></code> which means that once the end of the data is reached it will start over at the beginning.
+<dd><code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is the time axis mode.
+For CLM we usually have it set to <code class="docutils literal notranslate"><span class="pre">cycle</span></code> which means that once the end of the data is reached it will start over at the beginning.
 The extend modes is used have it use the last time-step of the forcing data once it reaches the end of forcing data (or use the first time-step before it reaches where the forcing data starts). See the warning below about the extend mode.</dd>
 </dl>
 <div class="admonition warning">
@@ -130,34 +125,34 @@ The extend modes is used have it use the last time-step of the forcing data once
 </div>
 <dl class="docutils">
 <dt>offset (in the stream file)</dt>
-<dd><code class="docutils literal"><span class="pre">offset</span></code> is the time offset in seconds to give to each stream of data. Normally it is NOT used because the time-stamps for data is set correctly for each stream of data. Note, the <code class="docutils literal"><span class="pre">offset</span></code> may NEED to be adjusted depending on the <code class="docutils literal"><span class="pre">taxmode</span></code> described above, or it may need to be adjusted to account for data that is time-stamped at the END of an interval rather than the middle or beginning of interval. The <code class="docutils literal"><span class="pre">offset</span></code> can is set in the stream file rather than on the stream namelist. For data with a <code class="docutils literal"><span class="pre">taxmode</span></code> method of <code class="docutils literal"><span class="pre">coszen</span></code> the time-stamp needs to be for the beginning of the interval, while for other data it should be the midpoint. The <code class="docutils literal"><span class="pre">offset</span></code> can be used to adjust the time-stamps to get the data to line up correctly.</dd>
+<dd><code class="docutils literal notranslate"><span class="pre">offset</span></code> is the time offset in seconds to give to each stream of data. Normally it is NOT used because the time-stamps for data is set correctly for each stream of data. Note, the <code class="docutils literal notranslate"><span class="pre">offset</span></code> may NEED to be adjusted depending on the <code class="docutils literal notranslate"><span class="pre">taxmode</span></code> described above, or it may need to be adjusted to account for data that is time-stamped at the END of an interval rather than the middle or beginning of interval. The <code class="docutils literal notranslate"><span class="pre">offset</span></code> can is set in the stream file rather than on the stream namelist. For data with a <code class="docutils literal notranslate"><span class="pre">taxmode</span></code> method of <code class="docutils literal notranslate"><span class="pre">coszen</span></code> the time-stamp needs to be for the beginning of the interval, while for other data it should be the midpoint. The <code class="docutils literal notranslate"><span class="pre">offset</span></code> can be used to adjust the time-stamps to get the data to line up correctly.</dd>
 <dt>tintalgo</dt>
-<dd><code class="docutils literal"><span class="pre">tintalgo</span></code> is the time interpolation algorithm. For CLM we usually use one of three modes: <code class="docutils literal"><span class="pre">coszen</span></code>, <code class="docutils literal"><span class="pre">nearest</span></code>, or <code class="docutils literal"><span class="pre">linear</span></code>. We use <code class="docutils literal"><span class="pre">coszen</span></code> for solar data, nearest for precipitation data, and linear for everything else. If your data is half-hourly or hourly, nearest will work fine for everything. The <code class="docutils literal"><span class="pre">coszen</span></code> scaling is useful for longer periods (three hours or more) to try to get the solar to match the cosine of the solar zenith angle over that longer period of time. If you use linear for longer intervals, the solar will cut out at night-time anyway, and the straight line will be a poor approximation of the cosine of the solar zenith angle of actual solar data. nearest likewise would be bad for longer periods where it would be much higher than the actual values.</dd>
+<dd><code class="docutils literal notranslate"><span class="pre">tintalgo</span></code> is the time interpolation algorithm. For CLM we usually use one of three modes: <code class="docutils literal notranslate"><span class="pre">coszen</span></code>, <code class="docutils literal notranslate"><span class="pre">nearest</span></code>, or <code class="docutils literal notranslate"><span class="pre">linear</span></code>. We use <code class="docutils literal notranslate"><span class="pre">coszen</span></code> for solar data, nearest for precipitation data, and linear for everything else. If your data is half-hourly or hourly, nearest will work fine for everything. The <code class="docutils literal notranslate"><span class="pre">coszen</span></code> scaling is useful for longer periods (three hours or more) to try to get the solar to match the cosine of the solar zenith angle over that longer period of time. If you use linear for longer intervals, the solar will cut out at night-time anyway, and the straight line will be a poor approximation of the cosine of the solar zenith angle of actual solar data. nearest likewise would be bad for longer periods where it would be much higher than the actual values.</dd>
 </dl>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">For <code class="docutils literal"><span class="pre">coszen</span></code> the time-stamps of the data should correspond to the beginning of the interval the data is measured for. Either make sure the time-stamps on the datafiles is set this way, or use the <code class="docutils literal"><span class="pre">offset</span></code> described above to set it.</p>
+<p class="last">For <code class="docutils literal notranslate"><span class="pre">coszen</span></code> the time-stamps of the data should correspond to the beginning of the interval the data is measured for. Either make sure the time-stamps on the datafiles is set this way, or use the <code class="docutils literal notranslate"><span class="pre">offset</span></code> described above to set it.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">For nearest and linear the time-stamps of the data should correspond to the middle of the interval the data is measured for. Either make sure the time-stamps on the datafiles is set this way, or use the <code class="docutils literal"><span class="pre">offset</span></code> described above to set it.</p>
+<p class="last">For nearest and linear the time-stamps of the data should correspond to the middle of the interval the data is measured for. Either make sure the time-stamps on the datafiles is set this way, or use the <code class="docutils literal notranslate"><span class="pre">offset</span></code> described above to set it.</p>
 </div>
-<p>In the sections below we go over each of the relevant <code class="docutils literal"><span class="pre">DATM_MODE</span></code> options and what the above DATM settings are for each. This gives you examples of actual usage for the settings. We also describe in what ways you might want to customize them for your own case.</p>
+<p>In the sections below we go over each of the relevant <code class="docutils literal notranslate"><span class="pre">DATM_MODE</span></code> options and what the above DATM settings are for each. This gives you examples of actual usage for the settings. We also describe in what ways you might want to customize them for your own case.</p>
 <div class="section" id="clmgswp3v1-mode-and-it-s-datm-settings">
 <h2>1.2.4.1. CLMGSWP3v1 mode and it’s DATM settings<a class="headerlink" href="#clmgswp3v1-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
-<p>In <code class="docutils literal"><span class="pre">CLMGSWP3v1</span></code> mode the GSWP3 NCEP forcing dataset is used and all of it’s data is on a 3-hourly interval.
-Like <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> the dataset is divided into those three data streams: solar, precipitation, and everything else (temperature, pressure, humidity, Long-Wave down and wind).
+<p>In <code class="docutils literal notranslate"><span class="pre">CLMGSWP3v1</span></code> mode the GSWP3 NCEP forcing dataset is used and all of it’s data is on a 3-hourly interval.
+Like <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> the dataset is divided into those three data streams: solar, precipitation, and everything else (temperature, pressure, humidity, Long-Wave down and wind).
 The time-stamps of the data were also adjusted so that they are the beginning of the interval for solar, and the middle for the other two.
-Because, of this the <code class="docutils literal"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal"><span class="pre">tintalgo</span></code> is: <code class="docutils literal"><span class="pre">coszen</span></code>, <code class="docutils literal"><span class="pre">nearest</span></code>, and <code class="docutils literal"><span class="pre">linear</span></code> for the solar, precipitation and other data respectively.
-<code class="docutils literal"><span class="pre">taxmode</span></code> is set to <code class="docutils literal"><span class="pre">cycle</span></code> and <code class="docutils literal"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal"><span class="pre">bilinear</span></code> so that the data is spatially interpolated from the input exact half degree grid to the grid the atmosphere model is being run at (to run at this same model resolution use the 360x720cru_360x720cru resolution).</p>
+Because, of this the <code class="docutils literal notranslate"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal notranslate"><span class="pre">tintalgo</span></code> is: <code class="docutils literal notranslate"><span class="pre">coszen</span></code>, <code class="docutils literal notranslate"><span class="pre">nearest</span></code>, and <code class="docutils literal notranslate"><span class="pre">linear</span></code> for the solar, precipitation and other data respectively.
+<code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">cycle</span></code> and <code class="docutils literal notranslate"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal notranslate"><span class="pre">bilinear</span></code> so that the data is spatially interpolated from the input exact half degree grid to the grid the atmosphere model is being run at (to run at this same model resolution use the 360x720cru_360x720cru resolution).</p>
 </div>
 <div class="section" id="clmcruncepv7-mode-and-it-s-datm-settings">
 <h2>1.2.4.2. CLMCRUNCEPv7 mode and it’s DATM settings<a class="headerlink" href="#clmcruncepv7-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
-<p>In <code class="docutils literal"><span class="pre">CLMCRUNCEPv7</span></code> mode the CRUNCEP dataset is used and all of it’s data is on a 6-hourly interval.
-Like <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> the dataset is divided into those three data streams: solar, precipitation, and everything else (temperature, pressure, humidity and wind).
+<p>In <code class="docutils literal notranslate"><span class="pre">CLMCRUNCEPv7</span></code> mode the CRUNCEP dataset is used and all of it’s data is on a 6-hourly interval.
+Like <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> the dataset is divided into those three data streams: solar, precipitation, and everything else (temperature, pressure, humidity and wind).
 The time-stamps of the data were also adjusted so that they are the beginning of the interval for solar, and the middle for the other two.
-Because, of this the <code class="docutils literal"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal"><span class="pre">tintalgo</span></code> is: <code class="docutils literal"><span class="pre">coszen</span></code>, <code class="docutils literal"><span class="pre">nearest</span></code>, and <code class="docutils literal"><span class="pre">linear</span></code> for the solar, precipitation and other data respectively.
-<code class="docutils literal"><span class="pre">taxmode</span></code> is set to <code class="docutils literal"><span class="pre">cycle</span></code> and <code class="docutils literal"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal"><span class="pre">bilinear</span></code> so that the data is spatially interpolated from the input exact half degree grid to the grid the atmosphere model is being run at (to run at this same model resolution use the 360x720cru_360x720cru resolution).</p>
+Because, of this the <code class="docutils literal notranslate"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal notranslate"><span class="pre">tintalgo</span></code> is: <code class="docutils literal notranslate"><span class="pre">coszen</span></code>, <code class="docutils literal notranslate"><span class="pre">nearest</span></code>, and <code class="docutils literal notranslate"><span class="pre">linear</span></code> for the solar, precipitation and other data respectively.
+<code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">cycle</span></code> and <code class="docutils literal notranslate"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal notranslate"><span class="pre">bilinear</span></code> so that the data is spatially interpolated from the input exact half degree grid to the grid the atmosphere model is being run at (to run at this same model resolution use the 360x720cru_360x720cru resolution).</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The “everything else” data stream (of temperature, pressure, humidity and wind) also includes the data for longwave downward forcing as well. Our simulations showed sensitivity to this field, so we backed off in using it, and let DATM calculate longwave down from the other fields.</p>
@@ -166,41 +161,41 @@ Because, of this the <code class="docutils literal"><span class="pre">offset</sp
 </div>
 <div class="section" id="clmcruncep-mode-and-it-s-datm-settings">
 <h2>1.2.4.3. CLMCRUNCEP mode and it’s DATM settings<a class="headerlink" href="#clmcruncep-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal"><span class="pre">CLMCRUNCEP</span></code> is similar to the <code class="docutils literal"><span class="pre">CLMCRUNCEPv7</span></code> mode above, except it uses Version 4 of the CRUNCEP data rather than version 7.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CLMCRUNCEP</span></code> is similar to the <code class="docutils literal notranslate"><span class="pre">CLMCRUNCEPv7</span></code> mode above, except it uses Version 4 of the CRUNCEP data rather than version 7.</p>
 </div>
 <div class="section" id="clm-qian-mode-and-it-s-datm-settings">
 <h2>1.2.4.4. CLM_QIAN mode and it’s DATM settings<a class="headerlink" href="#clm-qian-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
-<p>In <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> mode the Qian dataset is used which has 6-hourly solar and precipitation data, and 3-hourly for everything else.
+<p>In <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> mode the Qian dataset is used which has 6-hourly solar and precipitation data, and 3-hourly for everything else.
 The dataset is divided into those three data streams: solar, precipitation, and everything else (temperature, pressure, humidity and wind).
 The time-stamps of the data were also adjusted so that they are the beginning of the interval for solar, and the middle for the other two.
-Because, of this the <code class="docutils literal"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal"><span class="pre">tintalgo</span></code> is: <code class="docutils literal"><span class="pre">coszen</span></code>, <code class="docutils literal"><span class="pre">nearest</span></code>, and <code class="docutils literal"><span class="pre">linear</span></code> for the solar, precipitation and other data respectively.
-<code class="docutils literal"><span class="pre">taxmode</span></code> is set to <code class="docutils literal"><span class="pre">cycle</span></code> and <code class="docutils literal"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal"><span class="pre">bilinear</span></code> so that the data is spatially interpolated from the input T62 grid to the grid the atmosphere model is being run at.</p>
-<p>Normally you wouldn’t customize the <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> settings, but you might replicate it’s use for your own global data that had similar temporal characteristics.</p>
+Because, of this the <code class="docutils literal notranslate"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal notranslate"><span class="pre">tintalgo</span></code> is: <code class="docutils literal notranslate"><span class="pre">coszen</span></code>, <code class="docutils literal notranslate"><span class="pre">nearest</span></code>, and <code class="docutils literal notranslate"><span class="pre">linear</span></code> for the solar, precipitation and other data respectively.
+<code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">cycle</span></code> and <code class="docutils literal notranslate"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal notranslate"><span class="pre">bilinear</span></code> so that the data is spatially interpolated from the input T62 grid to the grid the atmosphere model is being run at.</p>
+<p>Normally you wouldn’t customize the <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> settings, but you might replicate it’s use for your own global data that had similar temporal characteristics.</p>
 </div>
 <div class="section" id="clm1pt-mode-and-it-s-datm-settings">
 <h2>1.2.4.5. CLM1PT mode and it’s DATM settings<a class="headerlink" href="#clm1pt-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
-<p>In <code class="docutils literal"><span class="pre">CLM1PT</span></code> mode the model is assumed to have half-hourly or hourly data for a single-point.
+<p>In <code class="docutils literal notranslate"><span class="pre">CLM1PT</span></code> mode the model is assumed to have half-hourly or hourly data for a single-point.
 For the supported datasets that is exactly what it has.
 But, if you add your own data you may need to make adjustments accordingly.
-Using the <code class="docutils literal"><span class="pre">CLM_USRDAT_NAME</span></code> resolution you can easily extend this mode for your own datasets that may be regional or even global and could be at different temporal frequencies.
+Using the <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code> resolution you can easily extend this mode for your own datasets that may be regional or even global and could be at different temporal frequencies.
 If you do so you’ll need to make adjustments to your DATM settings.
 The dataset has all data in a single stream file.
 The time-stamps of the data were also adjusted so that they are at the middle of the interval.
-Because, of this the <code class="docutils literal"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal"><span class="pre">tintalgo</span></code> is set to <code class="docutils literal"><span class="pre">nearest</span></code>.
-<code class="docutils literal"><span class="pre">taxmode</span></code> is set to <code class="docutils literal"><span class="pre">extend</span></code> and <code class="docutils literal"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal"><span class="pre">nn</span></code> so that simply the nearest point is used.</p>
-<p>If you are using your own data for this mode and it’s not at least hourly you’ll want to adjust the DATM settings for it. If the data is three or six hourly, you’ll need to divide it up into separate streams like in <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> mode which will require fairly extensive changes to the DATM namelist and streams files. For an example of doing this see <a class="reference external" href="CLM-URL">Example 5-8</a>.</p>
+Because, of this the <code class="docutils literal notranslate"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal notranslate"><span class="pre">tintalgo</span></code> is set to <code class="docutils literal notranslate"><span class="pre">nearest</span></code>.
+<code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">extend</span></code> and <code class="docutils literal notranslate"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal notranslate"><span class="pre">nn</span></code> so that simply the nearest point is used.</p>
+<p>If you are using your own data for this mode and it’s not at least hourly you’ll want to adjust the DATM settings for it. If the data is three or six hourly, you’ll need to divide it up into separate streams like in <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> mode which will require fairly extensive changes to the DATM namelist and streams files. For an example of doing this see <a class="reference external" href="CLM-URL">Example 5-8</a>.</p>
 </div>
 <div class="section" id="cplhistforcing-mode-and-it-s-datm-settings">
 <h2>1.2.4.6. CPLHISTForcing mode and it’s DATM settings<a class="headerlink" href="#cplhistforcing-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
-<p>In <code class="docutils literal"><span class="pre">CPLHISTForcing</span></code> mode the model is assumed to have 3-hourly for a global grid from a previous CESM simulation.
-Like <code class="docutils literal"><span class="pre">CLM_QIAN</span></code> mode the data is divided into three streams: one for precipitation, one for solar, and one for everything else.
-The time-stamps for Coupler history files for CESM is at the end of the interval, so the <code class="docutils literal"><span class="pre">offset</span></code> needs to be set in order to adjust the time-stamps to what it needs to be for the <code class="docutils literal"><span class="pre">tintalgo</span></code> settings.
-For precipitation <code class="docutils literal"><span class="pre">taxmode</span></code> is set to <code class="docutils literal"><span class="pre">nearest</span></code> so the <code class="docutils literal"><span class="pre">offset</span></code> is set to <code class="docutils literal"><span class="pre">-5400</span></code> seconds so that the ending time-step is adjusted by an hour and half to the middle of the interval.
-For solar <code class="docutils literal"><span class="pre">taxmode</span></code> is set to <code class="docutils literal"><span class="pre">coszen</span></code> so the offset is set to <code class="docutils literal"><span class="pre">-10800</span></code> seconds so that the ending time-step is adjust by three hours to the beginning of the interval.
-For everything else <code class="docutils literal"><span class="pre">taxmode</span></code> is set to <code class="docutils literal"><span class="pre">linear</span></code> so the offset is set to <code class="docutils literal"><span class="pre">-5400</span></code> seconds so that the ending time-step is adjusted by an hour and half to the middle of the interval.
+<p>In <code class="docutils literal notranslate"><span class="pre">CPLHISTForcing</span></code> mode the model is assumed to have 3-hourly for a global grid from a previous CESM simulation.
+Like <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> mode the data is divided into three streams: one for precipitation, one for solar, and one for everything else.
+The time-stamps for Coupler history files for CESM is at the end of the interval, so the <code class="docutils literal notranslate"><span class="pre">offset</span></code> needs to be set in order to adjust the time-stamps to what it needs to be for the <code class="docutils literal notranslate"><span class="pre">tintalgo</span></code> settings.
+For precipitation <code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">nearest</span></code> so the <code class="docutils literal notranslate"><span class="pre">offset</span></code> is set to <code class="docutils literal notranslate"><span class="pre">-5400</span></code> seconds so that the ending time-step is adjusted by an hour and half to the middle of the interval.
+For solar <code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">coszen</span></code> so the offset is set to <code class="docutils literal notranslate"><span class="pre">-10800</span></code> seconds so that the ending time-step is adjust by three hours to the beginning of the interval.
+For everything else <code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">linear</span></code> so the offset is set to <code class="docutils literal notranslate"><span class="pre">-5400</span></code> seconds so that the ending time-step is adjusted by an hour and half to the middle of the interval.
 For an example of such a case see <a class="reference external" href="CLM-URL">the Section called Running with MOAR data as atmospheric forcing to spinup the model in Chapter 4</a>.</p>
 <p>Normally you wouldn’t modify the DATM settings for this mode.
-However, if you had data at a different frequency than 3-hours you would need to modify the <code class="docutils literal"><span class="pre">offset</span></code> and possibly the <code class="docutils literal"><span class="pre">taxmode</span></code>.
+However, if you had data at a different frequency than 3-hours you would need to modify the <code class="docutils literal notranslate"><span class="pre">offset</span></code> and possibly the <code class="docutils literal notranslate"><span class="pre">taxmode</span></code>.
 The other two things that you might modify would be the path to the data or the domain file for the resolution (which is currently hardwired to f09).
 For data at a different input resolution you would need to change the domain file in the streams file to use a domain file to the resolution that the data comes in on.</p>
 </div>
@@ -231,7 +226,7 @@ For data at a different input resolution you would need to change the domain fil
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
     </div>
   </body>
 </html>

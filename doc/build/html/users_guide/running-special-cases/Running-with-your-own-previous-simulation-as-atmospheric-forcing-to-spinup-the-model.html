@@ -4,23 +4,17 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>1.5.7. Running with atmospheric forcing from a previous simulation &#8212; clmdoc release-clm5.0.01 documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     'release-clm5.0.01',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -30,8 +24,7 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -51,7 +44,7 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">1.5.7. Running with atmospheric forcing from a previous simulation</a><ul>
 <li><a class="reference internal" href="#example-fully-coupled-simulation-to-create-data-to-force-next-example-simulation">1.5.7.1. Example: Fully Coupled Simulation to Create Data to Force Next Example Simulation</a></li>
@@ -75,12 +68,14 @@
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -91,14 +86,14 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <span class="target" id="running-with-previous-simulation-forcing"></span><div class="section" id="running-with-atmospheric-forcing-from-a-previous-simulation">
-<h1>1.5.7. Running with atmospheric forcing from a previous simulation<a class="headerlink" href="#running-with-atmospheric-forcing-from-a-previous-simulation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="running-with-atmospheric-forcing-from-a-previous-simulation">
+<span id="running-with-previous-simulation-forcing"></span><h1>1.5.7. Running with atmospheric forcing from a previous simulation<a class="headerlink" href="#running-with-atmospheric-forcing-from-a-previous-simulation" title="Permalink to this headline">¶</a></h1>
 <p>Another way that you might want to spinup the model is to run your own simulation for a relatively short period (either a B, E, or F compset) and then use it as forcing for your “I” case later.
 By only running 20 to 50 years for the fully coupled case, you’ll save a substantial amount of computer time rather than running the entire spinup period with a fully coupled model.</p>
 <p>The first thing we need to do is to run a fully coupled case and save the atmospheric coupling fields on a three hourly basis. In this example, we will run on cheyenne and archive the data to a local disk that we can then use in the next simulation.</p>
 <div class="section" id="example-fully-coupled-simulation-to-create-data-to-force-next-example-simulation">
 <h2>1.5.7.1. Example: Fully Coupled Simulation to Create Data to Force Next Example Simulation<a class="headerlink" href="#example-fully-coupled-simulation-to-create-data-to-force-next-example-simulation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd scripts
 &gt; ./create_newcase -case myB1850 -res f09_g17_gl4 -compset B1850
 &gt; cd myB1850
 &gt; ./case.setup
@@ -121,11 +116,11 @@ echo &quot;histaux_a2x3hr=.true.&quot; &gt;&gt; user_nl_cpl
 &gt; ./case.submit
 </pre></div>
 </div>
-<p>Now we run an I compset forced with the data from the previous simulation using the CPLHISTForcing`` option to DATM_MODE. See <a class="reference external" href="CLM-URL">the Section called CPLHISTForcing mode and it’s DATM settings in Chapter 1</a> for more information on the DATM settings for <code class="docutils literal"><span class="pre">CPLHISTForcing</span></code> mode.</p>
+<p>Now we run an I compset forced with the data from the previous simulation using the CPLHISTForcing`` option to DATM_MODE. See <a class="reference external" href="CLM-URL">the Section called CPLHISTForcing mode and it’s DATM settings in Chapter 1</a> for more information on the DATM settings for <code class="docutils literal notranslate"><span class="pre">CPLHISTForcing</span></code> mode.</p>
 </div>
 <div class="section" id="example-simulation-forced-with-data-from-the-previous-simulation">
 <h2>1.5.7.2. Example: Simulation Forced with Data from the Previous Simulation<a class="headerlink" href="#example-simulation-forced-with-data-from-the-previous-simulation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; cd scripts
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd scripts
 &gt; ./create_newcase -case frcwmyB1850 -res f09_g17_gl4 -compset I1850Clm50BgcSpinup
 &gt; cd frcWmyB1850
 # The following sets the casename to point to for atm forcing (you could also use an editor)
@@ -145,9 +140,9 @@ echo &quot;histaux_a2x3hr=.true.&quot; &gt;&gt; user_nl_cpl
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">We did this by editing the “namelist_defaults_datm.xml” which will change the settings for ALL future <code class="docutils literal"><span class="pre">I1850Clm50BgcSpinup</span></code> cases you run. You could also do this by editing the path in the resulting streams text files in the CaseDocs directory, and then create a “user_” streams file with the correct path. This would change the streams file JUST for this case. The steps do it this way are:</p>
+<p class="last">We did this by editing the “namelist_defaults_datm.xml” which will change the settings for ALL future <code class="docutils literal notranslate"><span class="pre">I1850Clm50BgcSpinup</span></code> cases you run. You could also do this by editing the path in the resulting streams text files in the CaseDocs directory, and then create a “user_” streams file with the correct path. This would change the streams file JUST for this case. The steps do it this way are:</p>
 </div>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; ./preview_namelists
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; ./preview_namelists
 &gt; cp CaseDocs/datm.streams.txt.CPLHIST3HrWx.Precip            user_datm.streams.txt.CPLHIST3HrWx.Precip
 &gt; cp CaseDocs/datm.streams.txt.CPLHIST3HrWx.Solar             user_datm.streams.txt.CPLHIST3HrWx.Solar
 &gt; cp CaseDocs/datm.streams.txt.CPLHIST3HrWx.nonSolarNonPrecip user_datm.streams.txt.CPLHIST3HrWx.nonSolarNonPrecip
@@ -185,7 +180,7 @@ echo &quot;histaux_a2x3hr=.true.&quot; &gt;&gt; user_nl_cpl
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
     </div>
   </body>
 </html>

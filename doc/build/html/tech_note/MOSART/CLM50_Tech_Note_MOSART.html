@@ -4,23 +4,17 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>2.14. Model for Scale Adaptive River Transport (MOSART) &#8212; clmdoc release-clm5.0.01 documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     'release-clm5.0.01',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -30,8 +24,7 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head>
-  <body>
+  </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -50,7 +43,7 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">2.14. Model for Scale Adaptive River Transport (MOSART)</a><ul>
 <li><a class="reference internal" href="#overview">2.14.1. Overview</a></li>
@@ -77,12 +70,14 @@
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -139,8 +134,8 @@ where it is generated at any time step to the coupler.</p>
 <p>In MOSART, the travel velocities of water across hillslopes, sub-network and main
 channel are all estimated using Manning’s equation with different levels of
 simplifications. Generally the Manning’s equation is in the form of</p>
-<div class="math" id="equation-14.1">
-<p><span class="eqno">(1)<a class="headerlink" href="#equation-14.1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5ee81fef7950c541f2414c5c711ef2c590898464.svg" alt="V = \frac{R^{\frac{2}{3}} S_{f}}{n}"/></p>
+<div class="math" id="equation-14-1">
+<p><span class="eqno">(2.676)<a class="headerlink" href="#equation-14-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5ee81fef7950c541f2414c5c711ef2c590898464.svg" alt="V = \frac{R^{\frac{2}{3}} S_{f}}{n}"/></p>
 </div><p>where  <img class="math" src="../../_images/math/fae0e7a73748991e5540d874416000583f64f58e.svg" alt="V"/> is the travel velocity (m s <sup>-1</sup> ),  <img class="math" src="../../_images/math/a00254b18ffa992f0ef19f6e6e095b83c8f85e94.svg" alt="R"/> is the hydraulic
 radius (m). <img class="math" src="../../_images/math/5df684f03598df6c8e727c1a7cf403b9dd003252.svg" alt="S_{f}"/>  is the friction slope that accounts for the effects
 of gravity, friction, inertia and other forces on the water. If the channel slope
@@ -152,22 +147,22 @@ flow path.</p>
 <p>If the water surface is sufficiently large or the water depth <img class="math" src="../../_images/math/293fb39e1b93282c804a86186e721b32f829f1b2.svg" alt="h"/> is
 sufficiently shallow, the hydraulic radius can be approximated by the water depth.
 This is the case for both hillslope and sub-network channel routing.</p>
-<div class="math" id="equation-14.2">
-<p><span class="eqno">(2)<a class="headerlink" href="#equation-14.2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1ad5cb8dffe737881513502ca7c7d3c0b35f6cbc.svg" alt="R_{h} = h_{h}
+<div class="math" id="equation-14-2">
+<p><span class="eqno">(2.677)<a class="headerlink" href="#equation-14-2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1ad5cb8dffe737881513502ca7c7d3c0b35f6cbc.svg" alt="R_{h} = h_{h}
 R_{t} = h_{t}"/></p>
 </div><p>Here <img class="math" src="../../_images/math/d089e23323a1ae3117a57d82d5c5030a9967f05d.svg" alt="R_{h}"/> (m) and <img class="math" src="../../_images/math/5f7a5767eff0868aa2ff47308cef38f4ad487c12.svg" alt="R_{t}"/> (m) are hydraulic radius for hillslope and
 sub-network channel routing respectively, and <img class="math" src="../../_images/math/621130660cc289292b1c2344d59c22772591f7e5.svg" alt="h_{h}"/> (m) and <img class="math" src="../../_images/math/798eba2280eebc614a3955e6d5861c72f359cef9.svg" alt="h_{t}"/>
 (m) are water depth during hillslope and sub-network channel routing respectively.</p>
 <p>For the main channel, the hydraulic radius is given by</p>
-<div class="math" id="equation-14.3">
-<p><span class="eqno">(3)<a class="headerlink" href="#equation-14.3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e75dc09b6a46e71901901bbabd0a3c402cf086aa.svg" alt="R_{r} = \frac{A_{r}}{P_{r}}"/></p>
+<div class="math" id="equation-14-3">
+<p><span class="eqno">(2.678)<a class="headerlink" href="#equation-14-3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e75dc09b6a46e71901901bbabd0a3c402cf086aa.svg" alt="R_{r} = \frac{A_{r}}{P_{r}}"/></p>
 </div><p>where <img class="math" src="../../_images/math/a9720568e06f8a49ac808be51bef18fb4a6ecf73.svg" alt="A_{r}"/> (m <sup>2</sup> ) is the wetted area defined as the part of the
 channel cross-section area below the water surface,  <img class="math" src="../../_images/math/d7b40162edb0b89059aabb00a46dda02582917b1.svg" alt="P_{r}"/> (m) is the
 wetted perimeter, the perimeter confined in the wetted area.</p>
 <p>For hillslopes, sub-network and main channels, a common continuity equation can
 be written as</p>
-<div class="math" id="equation-14.4">
-<p><span class="eqno">(4)<a class="headerlink" href="#equation-14.4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1118eaf2a4bb9f6cc10df794e9cb5f9241cad99b.svg" alt="\frac{dS}{dt} = Q_{in} - Q_{out} + R"/></p>
+<div class="math" id="equation-14-4">
+<p><span class="eqno">(2.679)<a class="headerlink" href="#equation-14-4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1118eaf2a4bb9f6cc10df794e9cb5f9241cad99b.svg" alt="\frac{dS}{dt} = Q_{in} - Q_{out} + R"/></p>
 </div><p>where <img class="math" src="../../_images/math/2bf7a1c5290309849739bf9c009c757c4e0eabe4.svg" alt="Q_{in}"/> (m <sup>3</sup> s <sup>-1</sup> ) is the main channel flow from
 the upstream grid(s) into the main channel of the current grid, which is zero for
 hillslope and sub-network routing. <img class="math" src="../../_images/math/3833394cc7539c971667af98ffc193d444f96f78.svg" alt="Q_{out}"/> (m <sup>3</sup> s <sup>-1</sup> ) is
@@ -351,7 +346,7 @@ channel surface water variations.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
     </div>
   </body>
 </html>
