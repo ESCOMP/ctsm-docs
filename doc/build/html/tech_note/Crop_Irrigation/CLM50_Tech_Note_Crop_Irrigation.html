@@ -4,17 +4,23 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>2.26. Crops and Irrigation &#8212; clmdoc release-clm5.0.01 documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'release-clm5.0.01',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -24,7 +30,8 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -43,7 +50,7 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">2.26. Crops and Irrigation</a><ul>
 <li><a class="reference internal" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5">2.26.1. Summary of CLM5.0 updates relative to the CLM4.5</a></li>
@@ -94,14 +101,12 @@
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -573,8 +578,8 @@ maturity and harvest.</p>
 <span id="id5"></span><h4>2.26.2.3.1. Planting<a class="headerlink" href="#planting" title="Permalink to this headline">¶</a></h4>
 <p>All crops must meet the following requirements between the minimum planting date and the maximum
 planting date (for the northern hemisphere) in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.38</span></a>:</p>
-<div class="math" id="equation-25-1">
-<p><span class="eqno">(2.1044)<a class="headerlink" href="#equation-25-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fbdd7360348b74f67d85340549da05992bb1017a.svg" alt="\begin{array}{c}
+<div class="math" id="equation-25.1">
+<p><span class="eqno">(1)<a class="headerlink" href="#equation-25.1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fbdd7360348b74f67d85340549da05992bb1017a.svg" alt="\begin{array}{c}
 {T_{10d} &gt;T_{p} } \\
 {T_{10d}^{\min } &gt;T_{p}^{\min } }  \\
 {GDD_{8} \ge GDD_{\min } }
@@ -586,12 +591,12 @@ the 10-day running mean of <img class="math" src="../../_images/math/3d71e99fae0
 (<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.38</span></a>), <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/> is the 20-year running mean growing
 degree-days (units are degree-days or <sup>o</sup> days) tracked
 from April through September (NH) above 8<sup>o</sup> C with
-maximum daily increments of 30<sup>o</sup> days (see equation <a class="reference internal" href="#equation-25-3">(2.1046)</a>), and
+maximum daily increments of 30<sup>o</sup> days (see equation <a class="reference internal" href="#equation-25.3">(3)</a>), and
 <img class="math" src="../../_images/math/1030942ed010eba4595c1781a6dc46008d62eebd.svg" alt="{GDD}_{min }"/>is the minimum growing degree day requirement
 (<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.38</span></a>). <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/> does not change as quickly as <img class="math" src="../../_images/math/b280256aead8a0b1d977c38fa63d622ef11e2d45.svg" alt="{T}_{10d}"/> and <img class="math" src="../../_images/math/faa174c9625cfadbb9ea8a19138aa07e57b5c91c.svg" alt="T_{10d}^{\min }"/>, so
 it determines whether it is warm enough for the crop to be planted in a grid cell, while the
 2-m air temperature variables determine the day when the crop may be planted if the <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/> threshold is met.
-If the requirements in equation <a class="reference internal" href="#equation-25-1">(2.1044)</a> are not met by the maximum planting date,
+If the requirements in equation <a class="reference internal" href="#equation-25.1">(1)</a> are not met by the maximum planting date,
 crops are still planted on the maximum planting date as long as  <img class="math" src="../../_images/math/27e4303fc16979d4a8583d91a00a7df1b341daf4.svg" alt="{GDD}_{8} &gt; 0"/>. In
 the southern hemisphere (SH) the NH requirements apply 6 months later.</p>
 <p>At planting, each crop seed pool is assigned 3 gC m<sup>-2</sup> from its
@@ -601,8 +606,8 @@ ratio for leaves (<img class="math" src="../../_images/math/d06f9734cef2f0142828
 which uses a seed leaf area index instead of seed C). The model updates the average growing degree-days necessary
 for the crop to reach vegetative and physiological maturity,
 <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/>, according to the following AgroIBIS rules:</p>
-<div class="math" id="equation-25-2">
-<p><span class="eqno">(2.1045)<a class="headerlink" href="#equation-25-2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4671b63bfe90bfa6243500ce71ac7f36cbca570e.svg" alt="\begin{array}{lll}
+<div class="math" id="equation-25.2">
+<p><span class="eqno">(2)<a class="headerlink" href="#equation-25.2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4671b63bfe90bfa6243500ce71ac7f36cbca570e.svg" alt="\begin{array}{lll}
 GDD_{{\rm mat}}^{{\rm corn,sugarcane}} =0.85 GDD_{{\rm 8}} &amp; {\rm \; \; \; and\; \; \; }&amp; 950 &lt;GDD_{{\rm mat}}^{{\rm corn,sugarcane}} &lt;1850{}^\circ {\rm days} \\
 GDD_{{\rm mat}}^{{\rm spring\ wheat,cotton}} =GDD_{{\rm 0}} &amp; {\rm \; \; \; and\; \; \; } &amp; GDD_{{\rm mat}}^{{\rm spring\ wheat,cotton}} &lt;1700{}^\circ {\rm days} \\
 GDD_{{\rm mat}}^{{\rm temp.soy}} =GDD_{{\rm 10}} &amp; {\rm \; \; \; and\; \; \; } &amp; GDD_{{\rm mat}}^{{\rm temp.soy}} &lt;1900{}^\circ {\rm days} \\
@@ -612,10 +617,10 @@ GDD_{{\rm mat}}^{{\rm trop.soy}} =GDD_{{\rm 10}} &amp; {\rm \; \; \; and\; \; \;
 </div><p>where <img class="math" src="../../_images/math/ba6289c80d6de94f5398df4f867cf6d7f0c464fc.svg" alt="{GDD}_{0}"/>, <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/>, and <img class="math" src="../../_images/math/298601b3b523a030f4f09a6964b9e336e662b7e2.svg" alt="{GDD}_{10}"/> are the 20-year running mean growing
 degree-days tracked from April through September (NH) over 0<sup>o</sup>C, 8<sup>o</sup>C, and
 10<sup>o</sup>C, respectively, with maximum daily increments of
-26<sup>o</sup>days (for <img class="math" src="../../_images/math/ba6289c80d6de94f5398df4f867cf6d7f0c464fc.svg" alt="{GDD}_{0}"/>) or 30<sup>o</sup>days (for <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/> and <img class="math" src="../../_images/math/298601b3b523a030f4f09a6964b9e336e662b7e2.svg" alt="{GDD}_{10}"/>). Equation <a class="reference internal" href="#equation-25-3">(2.1046)</a> shows how we calculate
+26<sup>o</sup>days (for <img class="math" src="../../_images/math/ba6289c80d6de94f5398df4f867cf6d7f0c464fc.svg" alt="{GDD}_{0}"/>) or 30<sup>o</sup>days (for <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/> and <img class="math" src="../../_images/math/298601b3b523a030f4f09a6964b9e336e662b7e2.svg" alt="{GDD}_{10}"/>). Equation <a class="reference internal" href="#equation-25.3">(3)</a> shows how we calculate
 <img class="math" src="../../_images/math/ba6289c80d6de94f5398df4f867cf6d7f0c464fc.svg" alt="{GDD}_{0}"/>, <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/>, and <img class="math" src="../../_images/math/298601b3b523a030f4f09a6964b9e336e662b7e2.svg" alt="{GDD}_{10}"/> for each model timestep:</p>
-<div class="math" id="equation-25-3">
-<p><span class="eqno">(2.1046)<a class="headerlink" href="#equation-25-3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/146e2a1c3ac3ebf0f01f5f82e3299e90be8e4fac.svg" alt="\begin{array}{lll}
+<div class="math" id="equation-25.3">
+<p><span class="eqno">(3)<a class="headerlink" href="#equation-25.3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/146e2a1c3ac3ebf0f01f5f82e3299e90be8e4fac.svg" alt="\begin{array}{lll}
 GDD_{{\rm 0}} =GDD_{0} +T_{2{\rm m}} -T_{f} &amp; \quad {\rm \; \; \; where\; \; \; } &amp; 0 \le T_{2{\rm m}} -T_{f} \le 26{}^\circ {\rm days} \\
 GDD_{{\rm 8}} =GDD_{8} +T_{2{\rm m}} -T_{f} -8 &amp; \quad {\rm \; \; \; where\; \; \; } &amp; 0 \le T_{2{\rm m}} -T_{f} -8\le 30{}^\circ {\rm days} \\
 GDD_{{\rm 10}} =GDD_{10} +T_{2{\rm m}} -T_{f} -10 &amp; \quad {\rm \; \; \; where\; \; \; } &amp; 0 \le T_{2{\rm m}} -T_{f} -10\le 30{}^\circ {\rm days}
@@ -914,8 +919,8 @@ respiration had not taken place.</p>
 <span id="id10"></span><h4>2.26.2.4.1. Leaf emergence<a class="headerlink" href="#leaf-emergence-to-grain-fill" title="Permalink to this headline">¶</a></h4>
 <p>During phase 2, the allocation coefficients (fraction of available C) to
 each C pool are defined as:</p>
-<div class="math" id="equation-25-4">
-<p><span class="eqno">(2.1047)<a class="headerlink" href="#equation-25-4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bb6e562690cbd351a406ded0e951e76a48b1ab0a.svg" alt="\begin{array}{l} {a_{repr} =0} \\ {a_{froot} =a_{froot}^{i} -(a_{froot}^{i} -a_{froot}^{f} )\frac{GDD_{T_{{\rm 2m}} } }{GDD_{{\rm mat}} } {\rm \; \; \; where\; \; \; }\frac{GDD_{T_{{\rm 2m}} } }{GDD_{{\rm mat}} } \le 1} \\ {a_{leaf} =(1-a_{froot} )\cdot \frac{a_{leaf}^{i} (e^{-b} -e^{-b\frac{GDD_{T_{{\rm 2m}} } }{h} } )}{e^{-b} -1} {\rm \; \; \; where\; \; \; }b=0.1} \\ {a_{livestem} =1-a_{repr} -a_{froot} -a_{leaf} } \end{array}"/></p>
+<div class="math" id="equation-25.4">
+<p><span class="eqno">(4)<a class="headerlink" href="#equation-25.4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bb6e562690cbd351a406ded0e951e76a48b1ab0a.svg" alt="\begin{array}{l} {a_{repr} =0} \\ {a_{froot} =a_{froot}^{i} -(a_{froot}^{i} -a_{froot}^{f} )\frac{GDD_{T_{{\rm 2m}} } }{GDD_{{\rm mat}} } {\rm \; \; \; where\; \; \; }\frac{GDD_{T_{{\rm 2m}} } }{GDD_{{\rm mat}} } \le 1} \\ {a_{leaf} =(1-a_{froot} )\cdot \frac{a_{leaf}^{i} (e^{-b} -e^{-b\frac{GDD_{T_{{\rm 2m}} } }{h} } )}{e^{-b} -1} {\rm \; \; \; where\; \; \; }b=0.1} \\ {a_{livestem} =1-a_{repr} -a_{froot} -a_{leaf} } \end{array}"/></p>
 </div><p>where <img class="math" src="../../_images/math/af2ecbbbb5582d77e1e078d1a95ec93e88e5042f.svg" alt="a_{leaf}^{i}"/> , <img class="math" src="../../_images/math/102e5e893cde9d171f1c67227abede6125f3ea97.svg" alt="a_{froot}^{i}"/> , and
 <img class="math" src="../../_images/math/38fe0ae6588651bf7a96068e535500fd9beb8f6c.svg" alt="a_{froot}^{f}"/>  are initial and final values of these
 coefficients (<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.39</span></a>), and <em>h</em> is a heat unit threshold defined in
@@ -927,8 +932,8 @@ exclusively to the fine roots.</p>
 <span id="id11"></span><h4>2.26.2.4.2. Grain fill<a class="headerlink" href="#grain-fill-to-harvest" title="Permalink to this headline">¶</a></h4>
 <p>The calculation of <img class="math" src="../../_images/math/591f4a2819c3190f4339e7388a8694666eb4bf92.svg" alt="a_{froot}"/>  remains the same from phase 2 to
 phase 3. During grain fill (phase 3), other allocation coefficients change to:</p>
-<div class="math" id="equation-25-5">
-<p><span class="eqno">(2.1048)<a class="headerlink" href="#equation-25-5" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7170d08c947956595200e3554451adc228e40aa0.svg" alt="\begin{array}{ll}
+<div class="math" id="equation-25.5">
+<p><span class="eqno">(5)<a class="headerlink" href="#equation-25.5" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7170d08c947956595200e3554451adc228e40aa0.svg" alt="\begin{array}{ll}
 a_{leaf} =a_{leaf}^{i,3} &amp; {\rm when} \quad a_{leaf}^{i,3} \le a_{leaf}^{f} \quad {\rm else} \\
 a_{leaf} =a_{leaf} \left(1-\frac{GDD_{T_{{\rm 2m}} } -h}{GDD_{{\rm mat}} d_{L} -h} \right)^{d_{alloc}^{leaf} } \ge a_{leaf}^{f} &amp; {\rm where} \quad \frac{GDD_{T_{{\rm 2m}} } -h}{GDD_{{\rm mat}} d_{L} -h} \le 1 \\
  \\
@@ -962,12 +967,12 @@ retranslocation pool for all crops, and for wheat and rice, nitrogen in roots is
 released into the retranslocation storage pool. The quantity of nitrogen
 mobilized depends on the C:N ratio of the plant tissue, and is
 calculated as</p>
-<div class="math" id="equation-25-6">
-<p><span class="eqno">(2.1049)<a class="headerlink" href="#equation-25-6" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6a331405a0d53307633b99e09d0a8cff93fe97ec.svg" alt="leaf\_ to\_ retransn=N_{leaf} -\frac{C_{leaf} }{CN_{leaf}^{f} }"/></p>
-</div><div class="math" id="equation-25-7">
-<p><span class="eqno">(2.1050)<a class="headerlink" href="#equation-25-7" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f46e224c3309e6ffe28e7b59a5d1843966cbc822.svg" alt="stemn\_ to\_ retransn=N_{stem} -\frac{C_{stem} }{CN_{stem}^{f} }"/></p>
-</div><div class="math" id="equation-25-8">
-<p><span class="eqno">(2.1051)<a class="headerlink" href="#equation-25-8" title="Permalink to this equation">¶</a></span><img src="../../_images/math/78131c32fb1e690c1058268b293a227644032bee.svg" alt="frootn\_ to\_ retransn=N_{froot} -\frac{C_{froot} }{CN_{froot}^{f} }"/></p>
+<div class="math" id="equation-25.6">
+<p><span class="eqno">(6)<a class="headerlink" href="#equation-25.6" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6a331405a0d53307633b99e09d0a8cff93fe97ec.svg" alt="leaf\_ to\_ retransn=N_{leaf} -\frac{C_{leaf} }{CN_{leaf}^{f} }"/></p>
+</div><div class="math" id="equation-25.7">
+<p><span class="eqno">(7)<a class="headerlink" href="#equation-25.7" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f46e224c3309e6ffe28e7b59a5d1843966cbc822.svg" alt="stemn\_ to\_ retransn=N_{stem} -\frac{C_{stem} }{CN_{stem}^{f} }"/></p>
+</div><div class="math" id="equation-25.8">
+<p><span class="eqno">(8)<a class="headerlink" href="#equation-25.8" title="Permalink to this equation">¶</a></span><img src="../../_images/math/78131c32fb1e690c1058268b293a227644032bee.svg" alt="frootn\_ to\_ retransn=N_{froot} -\frac{C_{froot} }{CN_{froot}^{f} }"/></p>
 </div><p>where <img class="math" src="../../_images/math/8e1587c690c73cf9ddc69d33eea82fe5330a52a2.svg" alt="{C}_{leaf}"/>, <img class="math" src="../../_images/math/3bc0124bde88f87de12a04b54f4398acaa2f4a2d.svg" alt="{C}_{stem}"/>, and <img class="math" src="../../_images/math/42302bc3a277a2f82ee10a0a6e11348dd8b363bd.svg" alt="{C}_{froot}"/> is the carbon in the plant leaf, stem, and fine
 root, respectively, <img class="math" src="../../_images/math/0fc0ed264497596ab8ccd34c28e6f2d3130ecb3a.svg" alt="{N}_{leaf}"/>, <img class="math" src="../../_images/math/152a0ef740204cfbc0a414577c9b4c9c620a7a69.svg" alt="{N}_{stem}"/>, and <img class="math" src="../../_images/math/56adc88756d45fc6424e706ccd7b1a8c3f174ecd.svg" alt="{N}_{froot}"/>
 is the nitrogen in the plant leaf, stem, and fine root, respectively, and <img class="math" src="../../_images/math/080872e256b623a217cd680012841e36fd983623.svg" alt="CN^f_{leaf}"/>,
@@ -996,13 +1001,13 @@ to a grain product pool where the C and N decay to the atmosphere over one year,
 similar in structure to the wood product pools.
 Additionally, CLM5 accounts for the C and N required for crop seeding by removing the seed C and N from the grain
 product pool during harvest. The crop seed pool is then used to seed crops in the subsequent year.
-Calcuating the crop yields (Equation <a class="reference internal" href="#equation-25-9">(2.1052)</a>) requires that you sum the GRAINC_TO_FOOD variable
+Calcuating the crop yields (Equation <a class="reference internal" href="#equation-25.9">(9)</a>) requires that you sum the GRAINC_TO_FOOD variable
 for each year, and must account for the proportion of C in the dry crop weight.
 Here, we assume that grain C is 45% of the total dry weight. Additionally, harvest is not typically 100% efficient, so
 analysis needs to assume that harvest efficiency is less. We assume a harvest
 efficiency of 85%.</p>
-<div class="math" id="equation-25-9">
-<p><span class="eqno">(2.1052)<a class="headerlink" href="#equation-25-9" title="Permalink to this equation">¶</a></span><img src="../../_images/math/edd0146a7198dba11f5e0d51d79cdd53b55d155d.svg" alt="Grain\ yield(g.m^{-2})=\frac{\sum(GRAINC\_ TO\_ FOOD)*0.85}{0.45}"/></p>
+<div class="math" id="equation-25.9">
+<p><span class="eqno">(9)<a class="headerlink" href="#equation-25.9" title="Permalink to this equation">¶</a></span><img src="../../_images/math/edd0146a7198dba11f5e0d51d79cdd53b55d155d.svg" alt="Grain\ yield(g.m^{-2})=\frac{\sum(GRAINC\_ TO\_ FOOD)*0.85}{0.45}"/></p>
 </div><span id="table-crop-allocation-parameters"></span><table border="1" class="docutils" id="id22">
 <caption><span class="caption-number">Table 2.39 </span><span class="caption-text">Crop allocation parameters for the active crop plant functional types (pfts) in CLM5BGCCROP. Numbers in the first row correspond to the list of pfts in <a class="reference internal" href="#table-crop-plant-functional-types"><span class="std std-numref">Table 2.37</span></a>.</span><a class="headerlink" href="#id22" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -1218,8 +1223,8 @@ C and N pools go to 0 after crop harvest, but the <em>S</em> is kept at 0.25 to
 simulate a post-harvest “stubble” on the ground.</p>
 <p>Crop heights at the top and bottom of the canopy, <img class="math" src="../../_images/math/3be19f16c1de93bbe4c5554fb65fd2c877e40253.svg" alt="{z}_{top}"/>
 and <img class="math" src="../../_images/math/5769a6b6169a224f0edf6d0fe358ee1f465457c5.svg" alt="{z}_{bot}"/> (m), come from the AgroIBIS formulation:</p>
-<div class="math" id="equation-25-10">
-<p><span class="eqno">(2.1053)<a class="headerlink" href="#equation-25-10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c4636524c64d3821a6cd21707adc0c8dba041a82.svg" alt="\begin{array}{l}
+<div class="math" id="equation-25.10">
+<p><span class="eqno">(10)<a class="headerlink" href="#equation-25.10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c4636524c64d3821a6cd21707adc0c8dba041a82.svg" alt="\begin{array}{l}
 {z_{top} =z_{top}^{\max } \left(\frac{L}{L_{\max } -1} \right)^{2} \ge 0.05{\rm \; where\; }\frac{L}{L_{\max } -1} \le 1} \\
 {z_{bot} =0.02{\rm m}}
 \end{array}"/></p>
@@ -1254,8 +1259,8 @@ crop development. The 20-day period is chosen as an optimization to
 limit fertilizer application to the emergence stage. A fertilizer
 counter in seconds, <em>f</em>, is set as soon as the leaf emergence phase for crops
 initiates:</p>
-<div class="math" id="equation-25-11">
-<p><span class="eqno">(2.1054)<a class="headerlink" href="#equation-25-11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/186ad122673b852e7619a5c2a73a1a9bdd261b37.svg" alt="f = n \times 86400"/></p>
+<div class="math" id="equation-25.11">
+<p><span class="eqno">(11)<a class="headerlink" href="#equation-25.11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/186ad122673b852e7619a5c2a73a1a9bdd261b37.svg" alt="f = n \times 86400"/></p>
 </div><p>where <em>n</em> is set to 20 fertilizer application days and 86400 is the number of seconds per day. When the crop enters
 phase 2 (leaf emergence) of its growth
 cycle, fertilizer application begins by initializing fertilizer amount
@@ -1276,8 +1281,8 @@ are treated as N fixers.</p>
 is the same in all locations. However,
 the for both rainfed and irrigated spring wheat and sugarcane, the calculation of
 <img class="math" src="../../_images/math/3b21ca39b3741c1ebc11259162ca4e1f0cdfb859.svg" alt="GDD_{T_{{\rm 2m}} }"/> allows for latitudinal variation:</p>
-<div class="math" id="equation-25-12">
-<p><span class="eqno">(2.1055)<a class="headerlink" href="#equation-25-12" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7852a71ad021b567532b4582aa74aa899ba9d1e8.svg" alt="latitudinal\ variation\ in\ base\ T = \left\{
+<div class="math" id="equation-25.12">
+<p><span class="eqno">(12)<a class="headerlink" href="#equation-25.12" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7852a71ad021b567532b4582aa74aa899ba9d1e8.svg" alt="latitudinal\ variation\ in\ base\ T = \left\{
 \begin{array}{lr}
 baset +12 - 0.4 \times latitude &amp;\qquad 0 \le latitude \le 30 \\
 baset +12 + 0.4 \times latitude &amp;\qquad -30 \le latitude \le 0
@@ -1295,7 +1300,7 @@ for the reproductive pools helps determine whether crops are performing
 reasonably through yield calculations.
 The reproductive pool is maintained similarly to the leaf, stem,
 and fine root pools, but allocation of carbon and nitrogen does not
-begin until the grain fill stage of crop development. Equation <a class="reference internal" href="#equation-25-5">(2.1048)</a> describes the
+begin until the grain fill stage of crop development. Equation <a class="reference internal" href="#equation-25.5">(5)</a> describes the
 carbon and nitrogen allocation coefficients to the reproductive pool.
 In CLM5BGCCROP, as allocation declines in stem, leaf, and root pools (see section <a class="reference internal" href="#grain-fill-to-harvest"><span class="std std-numref">2.26.2.4.2</span></a>)
 during the grain fill stage of growth, increasing amounts of carbon and
@@ -1321,8 +1326,8 @@ first time step after 6 AM local time. Irrigation is required if crop
 leaf area <img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/> 0, and the available soil water is below a specified
 threshold.</p>
 <p>The soil moisture deficit <img class="math" src="../../_images/math/939c836ef89235fc43b9ef078edcd8c521b1400e.svg" alt="D_{irrig}"/> is</p>
-<div class="math" id="equation-25-61">
-<p><span class="eqno">(2.1056)<a class="headerlink" href="#equation-25-61" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6058444ca9f964b16126a82781bb07f235f9ca26.svg" alt="D_{irrig} = \left\{
+<div class="math" id="equation-25.61">
+<p><span class="eqno">(13)<a class="headerlink" href="#equation-25.61" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6058444ca9f964b16126a82781bb07f235f9ca26.svg" alt="D_{irrig} = \left\{
 \begin{array}{lr}
 w_{thresh} - w_{avail} &amp;\qquad w_{thresh} &gt; w_{avail} \\
 0 &amp;\qquad w_{thresh} \le w_{avail}
@@ -1330,18 +1335,18 @@ w_{thresh} - w_{avail} &amp;\qquad w_{thresh} &gt; w_{avail} \\
 </div><p>where <img class="math" src="../../_images/math/84af3ca0bc49c10550f14777aa0b05da8f35a3de.svg" alt="w_{thresh}"/> is the irrigation moisture threshold (mm) and
 <img class="math" src="../../_images/math/72af5e91501d6720b71b05b1978af774debbec89.svg" alt="w_{avail}"/> is the available moisture (mm).  The moisture threshold
 is</p>
-<div class="math" id="equation-25-62">
-<p><span class="eqno">(2.1057)<a class="headerlink" href="#equation-25-62" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fcc8ebdbe9e1d68b13a75f86d1e23dfda9cf2a88.svg" alt="w_{thresh} = f_{thresh} \left(w_{target} - w_{wilt}\right) + w_{wilt}"/></p>
+<div class="math" id="equation-25.62">
+<p><span class="eqno">(14)<a class="headerlink" href="#equation-25.62" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fcc8ebdbe9e1d68b13a75f86d1e23dfda9cf2a88.svg" alt="w_{thresh} = f_{thresh} \left(w_{target} - w_{wilt}\right) + w_{wilt}"/></p>
 </div><p>where <img class="math" src="../../_images/math/6d8166a4c31df0a6cf18b6a9019b1e97ddd2afa8.svg" alt="w_{target}"/> is the irrigation target soil moisture (mm)</p>
-<div class="math" id="equation-25-63">
-<p><span class="eqno">(2.1058)<a class="headerlink" href="#equation-25-63" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ee2ca4c38906b01450186ed49f7a1a8480177a8a.svg" alt="w_{target} = \sum_{j=1}^{N_{irr}} \theta_{target} \Delta z_{j} \ ,"/></p>
+<div class="math" id="equation-25.63">
+<p><span class="eqno">(15)<a class="headerlink" href="#equation-25.63" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ee2ca4c38906b01450186ed49f7a1a8480177a8a.svg" alt="w_{target} = \sum_{j=1}^{N_{irr}} \theta_{target} \Delta z_{j} \ ,"/></p>
 </div><p><img class="math" src="../../_images/math/780006a47c8758cef7147a6b2b704330b4ee548a.svg" alt="w_{wilt}"/> is the wilting point soil moisture (mm)</p>
-<div class="math" id="equation-25-64">
-<p><span class="eqno">(2.1059)<a class="headerlink" href="#equation-25-64" title="Permalink to this equation">¶</a></span><img src="../../_images/math/33cdb363fdc36052fbe6066a9967e3193188417e.svg" alt="w_{wilt} = \sum_{j=1}^{N_{irr}} \theta_{wilt} \Delta z_{j} \ ,"/></p>
+<div class="math" id="equation-25.64">
+<p><span class="eqno">(16)<a class="headerlink" href="#equation-25.64" title="Permalink to this equation">¶</a></span><img src="../../_images/math/33cdb363fdc36052fbe6066a9967e3193188417e.svg" alt="w_{wilt} = \sum_{j=1}^{N_{irr}} \theta_{wilt} \Delta z_{j} \ ,"/></p>
 </div><p>and <img class="math" src="../../_images/math/dae001418e5b782a8325e28e4bb7ce95a35bacb1.svg" alt="f_{thresh}"/> is a tuning parameter.  The available moisture in
 the soil is</p>
-<div class="math" id="equation-25-65">
-<p><span class="eqno">(2.1060)<a class="headerlink" href="#equation-25-65" title="Permalink to this equation">¶</a></span><img src="../../_images/math/eba14cb993118c0b93d73815941b64ebbe0b0e3b.svg" alt="w_{avail} = \sum_{j=1}^{N_{irr}} \theta_{j} \Delta z_{j} \ ,"/></p>
+<div class="math" id="equation-25.65">
+<p><span class="eqno">(17)<a class="headerlink" href="#equation-25.65" title="Permalink to this equation">¶</a></span><img src="../../_images/math/eba14cb993118c0b93d73815941b64ebbe0b0e3b.svg" alt="w_{avail} = \sum_{j=1}^{N_{irr}} \theta_{j} \Delta z_{j} \ ,"/></p>
 </div><p><img class="math" src="../../_images/math/1053fe505b22fcc879c182936b965971c8837e57.svg" alt="N_{irr}"/> is the index of the soil layer corresponding to a specified
 depth <img class="math" src="../../_images/math/1f0eef2a9394a824ab5a910558d8c55c917b23fd.svg" alt="z_{irrig}"/> (<a class="reference internal" href="#table-irrigation-parameters"><span class="std std-numref">Table 2.40</span></a>) and
 <img class="math" src="../../_images/math/2323d91704aed27da55bca4cd64c5a44bfe5a5ad.svg" alt="\Delta z_{j}"/> is the thickness of the soil layer in layer <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.svg" alt="j"/> (section
@@ -1350,7 +1355,7 @@ volumetric soil moisture in layer <img class="math" src="../../_images/math/6b21
 <img class="math" src="../../_images/math/bcccb1c2d9db92b2b0697b4b8537e43f0e2eba86.svg" alt="\theta_{target}"/> and
 <img class="math" src="../../_images/math/f7cd77d34407787a587b149c5286fe5be7782aaa.svg" alt="\theta_{wilt}"/> are the target and wilting point volumetric
 soil moisture values, respectively, and are determined by inverting
-<a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#equation-7-94">(2.410)</a> using soil matric
+<a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#equation-7.94">(53)</a> using soil matric
 potential parameters <img class="math" src="../../_images/math/816c8302d3486b92ef678b508e367db74abe4cc6.svg" alt="\Psi_{target}"/> and <img class="math" src="../../_images/math/507628930ad35526c1f358b4cd45f8d3c614c5dd.svg" alt="\Psi_{wilt}"/>
 (<a class="reference internal" href="#table-irrigation-parameters"><span class="std std-numref">Table 2.40</span></a>). After the soil moisture deficit
 <img class="math" src="../../_images/math/939c836ef89235fc43b9ef078edcd8c521b1400e.svg" alt="D_{irrig}"/> is calculated, irrigation in an amount equal to
@@ -1416,7 +1421,7 @@ river water storage is maintained above a specified threshold.</p>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
   </body>
 </html>

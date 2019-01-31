@@ -4,17 +4,23 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>1.4.1. Adding New Resolutions &#8212; clmdoc release-clm5.0.01 documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'release-clm5.0.01',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -24,7 +30,8 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -59,14 +66,12 @@
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -77,21 +82,21 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="adding-new-resolutions">
-<span id="adding-resolutions"></span><h1>1.4.1. Adding New Resolutions<a class="headerlink" href="#adding-new-resolutions" title="Permalink to this headline">¶</a></h1>
+  <span class="target" id="adding-resolutions"></span><div class="section" id="adding-new-resolutions">
+<h1>1.4.1. Adding New Resolutions<a class="headerlink" href="#adding-new-resolutions" title="Permalink to this headline">¶</a></h1>
 <p>In the last chapter we gave the details on how to create new files for input into CLM.
 These files could be either global resolutions, regional-grids or even a single grid point.
 If you want to easily have these files available for continued use in your development you will then want to include them in the build-namelist database so that build-namelist can easily find them for you.
-You can deal with them, just by putting the settings in the <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span> <span class="pre">namelist</span></code> file, or by using <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code>.
+You can deal with them, just by putting the settings in the <code class="docutils literal"><span class="pre">user_nl_clm</span> <span class="pre">namelist</span></code> file, or by using <code class="docutils literal"><span class="pre">CLM_USRDAT_NAME</span></code>.
 Another way to deal with them is to enter them into the database for build-namelist, so that build-namelist can find them for you.
 This keeps one central database for all your files, rather than having multiple locations to keep track of files.
 If you have a LOT of files to keep track of it also might be easier than keeping track by hand, especially if you have to periodically update your files.
 If you just have a few quick experiments to try, for a short time period you might be best off using the other methods mentioned above.</p>
 <p>There are two parts to adding files to the build-namelist database.
-The first part is adding new resolution names which is done in the <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/bld/namelist_files/namelist_definition_clm4_5.xml</span></code> file.
-You can then use the new resolution by using <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code>.
-If you also want to be able to give the resolution into <strong>create_newcase</strong> – you’ll need to add the grid to the <code class="docutils literal notranslate"><span class="pre">$CIMEROOT/config/cesm/config_grid.xml</span></code> file.</p>
-<p>The second part is actually adding the new filenames which is done in the <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/bld/namelist_files/namelist_defaults_clm4_5.xml</span></code> file (<code class="docutils literal notranslate"><span class="pre">$CTSMROOT/bld/namelist_files/namelist_defaults_clm4_5_tools.xml</span></code> file for CLM tools).
+The first part is adding new resolution names which is done in the <code class="docutils literal"><span class="pre">$CTSMROOT/bld/namelist_files/namelist_definition_clm4_5.xml</span></code> file.
+You can then use the new resolution by using <code class="docutils literal"><span class="pre">CLM_USRDAT_NAME</span></code>.
+If you also want to be able to give the resolution into <strong>create_newcase</strong> – you’ll need to add the grid to the <code class="docutils literal"><span class="pre">$CIMEROOT/config/cesm/config_grid.xml</span></code> file.</p>
+<p>The second part is actually adding the new filenames which is done in the <code class="docutils literal"><span class="pre">$CTSMROOT/bld/namelist_files/namelist_defaults_clm4_5.xml</span></code> file (<code class="docutils literal"><span class="pre">$CTSMROOT/bld/namelist_files/namelist_defaults_clm4_5_tools.xml</span></code> file for CLM tools).
 If you aren’t adding any new resolutions, and you are just changing the files for existing resolutions, you don’t need to edit the namelist_definition file.</p>
 </div>
 
@@ -120,7 +125,7 @@ If you aren’t adding any new resolutions, and you are just changing the files 
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
   </body>
 </html>

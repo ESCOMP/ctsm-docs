@@ -4,17 +4,23 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>1.3.2. Building the CLM tools &#8212; clmdoc release-clm5.0.01 documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'release-clm5.0.01',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -24,7 +30,8 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +51,7 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">1.3.2. Building the CLM tools</a></li>
 <li><a class="reference internal" href="#building-the-clm-tools-that-use-the-cime-configure-build-system">1.3.3. Building the CLM tools that use the CIME configure/build system</a></li>
@@ -65,14 +72,12 @@
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -96,50 +101,50 @@ The tools also allow finer control, by also allowing the user to add compiler fl
 Finally the tools allow you to turn optimization on (which is off by default but on for <strong>mksurfdata_map</strong>) with the OPT flag so that the tool will run faster.</p>
 <p>Options used by all:  <strong>mksurfdata_map</strong></p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">LIB_NETCDF</span></code> – sets the location of the NetCDF library.</li>
-<li><code class="docutils literal notranslate"><span class="pre">INC_NETCDF</span></code> – sets the location of the NetCDF include files.</li>
-<li><code class="docutils literal notranslate"><span class="pre">USER_FC</span></code> – sets the name of the FORTRAN compiler.</li>
+<li><code class="docutils literal"><span class="pre">LIB_NETCDF</span></code> – sets the location of the NetCDF library.</li>
+<li><code class="docutils literal"><span class="pre">INC_NETCDF</span></code> – sets the location of the NetCDF include files.</li>
+<li><code class="docutils literal"><span class="pre">USER_FC</span></code> – sets the name of the FORTRAN compiler.</li>
 </ul>
 <p>Options used by: <strong>mkprocdata_map</strong>, and <strong>mksurfdata_map</strong></p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">MOD_NETCDF</span></code> – sets the location of the NetCDF FORTRAN module.</li>
-<li><code class="docutils literal notranslate"><span class="pre">USER_LINKER</span></code> – sets the name of the linker to use.</li>
-<li><code class="docutils literal notranslate"><span class="pre">USER_CPPDEFS</span></code> – adds any CPP defines to use.</li>
-<li><code class="docutils literal notranslate"><span class="pre">USER_CFLAGS</span></code> – add any “C” compiler flags to use.</li>
-<li><code class="docutils literal notranslate"><span class="pre">USER_FFLAGS</span></code> – add any FORTRAN compiler flags to use.</li>
-<li><code class="docutils literal notranslate"><span class="pre">USER_LDFLAGS</span></code> – add any linker flags to use.</li>
-<li><code class="docutils literal notranslate"><span class="pre">USER_CC</span></code> – sets the name of the “C” compiler to use.</li>
-<li><code class="docutils literal notranslate"><span class="pre">OPT</span></code> – set to TRUE to compile the code optimized (TRUE or FALSE)</li>
-<li><code class="docutils literal notranslate"><span class="pre">SMP</span></code> – set to TRUE to turn on shared memory parallelism (i.e. OpenMP) (TRUE or FALSE)</li>
-<li><code class="docutils literal notranslate"><span class="pre">Filepath</span></code> – list of directories to build source code from.</li>
-<li><code class="docutils literal notranslate"><span class="pre">Srcfiles</span></code> – list of source code filenames to build executable from.</li>
-<li><code class="docutils literal notranslate"><span class="pre">Makefile</span></code> – customized makefile options for this particular tool.</li>
-<li><code class="docutils literal notranslate"><span class="pre">mkDepends</span></code> – figure out dependencies between source files, so make can compile in order..</li>
-<li><code class="docutils literal notranslate"><span class="pre">Makefile.common</span></code> – General tool Makefile that should be the same between all tools.</li>
+<li><code class="docutils literal"><span class="pre">MOD_NETCDF</span></code> – sets the location of the NetCDF FORTRAN module.</li>
+<li><code class="docutils literal"><span class="pre">USER_LINKER</span></code> – sets the name of the linker to use.</li>
+<li><code class="docutils literal"><span class="pre">USER_CPPDEFS</span></code> – adds any CPP defines to use.</li>
+<li><code class="docutils literal"><span class="pre">USER_CFLAGS</span></code> – add any “C” compiler flags to use.</li>
+<li><code class="docutils literal"><span class="pre">USER_FFLAGS</span></code> – add any FORTRAN compiler flags to use.</li>
+<li><code class="docutils literal"><span class="pre">USER_LDFLAGS</span></code> – add any linker flags to use.</li>
+<li><code class="docutils literal"><span class="pre">USER_CC</span></code> – sets the name of the “C” compiler to use.</li>
+<li><code class="docutils literal"><span class="pre">OPT</span></code> – set to TRUE to compile the code optimized (TRUE or FALSE)</li>
+<li><code class="docutils literal"><span class="pre">SMP</span></code> – set to TRUE to turn on shared memory parallelism (i.e. OpenMP) (TRUE or FALSE)</li>
+<li><code class="docutils literal"><span class="pre">Filepath</span></code> – list of directories to build source code from.</li>
+<li><code class="docutils literal"><span class="pre">Srcfiles</span></code> – list of source code filenames to build executable from.</li>
+<li><code class="docutils literal"><span class="pre">Makefile</span></code> – customized makefile options for this particular tool.</li>
+<li><code class="docutils literal"><span class="pre">mkDepends</span></code> – figure out dependencies between source files, so make can compile in order..</li>
+<li><code class="docutils literal"><span class="pre">Makefile.common</span></code> – General tool Makefile that should be the same between all tools.</li>
 </ul>
 <p>More details on each environment variable.</p>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">LIB_NETCDF</span></code></dt>
-<dd>This variable sets the path to the NetCDF library file (<code class="docutils literal notranslate"><span class="pre">libnetcdf.a</span></code>). If not set it defaults to <code class="docutils literal notranslate"><span class="pre">/usr/local/lib</span></code>. In order to use the tools you need to build the NetCDF library and be able to link to it. In order to build the model with a particular compiler you may have to compile the NetCDF library with the same compiler (or at least a compatible one).</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">INC_NETCDF</span></code></dt>
-<dd>This variable sets the path to the NetCDF include directory (in order to find the include file <code class="docutils literal notranslate"><span class="pre">netcdf.inc</span></code>). if not set it defaults to <code class="docutils literal notranslate"><span class="pre">/usr/local/include</span></code>.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">MOD_NETCDF</span></code></dt>
-<dd>This variable sets the path to the NetCDF module directory (in order to find the NetCDF FORTRAN-90 module file when NetCDF is used with a FORTRAN-90 <strong>use statement</strong>. When not set it defaults to the <code class="docutils literal notranslate"><span class="pre">LIB_NETCDF</span></code> value.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">USER_FC</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">LIB_NETCDF</span></code></dt>
+<dd>This variable sets the path to the NetCDF library file (<code class="docutils literal"><span class="pre">libnetcdf.a</span></code>). If not set it defaults to <code class="docutils literal"><span class="pre">/usr/local/lib</span></code>. In order to use the tools you need to build the NetCDF library and be able to link to it. In order to build the model with a particular compiler you may have to compile the NetCDF library with the same compiler (or at least a compatible one).</dd>
+<dt><code class="docutils literal"><span class="pre">INC_NETCDF</span></code></dt>
+<dd>This variable sets the path to the NetCDF include directory (in order to find the include file <code class="docutils literal"><span class="pre">netcdf.inc</span></code>). if not set it defaults to <code class="docutils literal"><span class="pre">/usr/local/include</span></code>.</dd>
+<dt><code class="docutils literal"><span class="pre">MOD_NETCDF</span></code></dt>
+<dd>This variable sets the path to the NetCDF module directory (in order to find the NetCDF FORTRAN-90 module file when NetCDF is used with a FORTRAN-90 <strong>use statement</strong>. When not set it defaults to the <code class="docutils literal"><span class="pre">LIB_NETCDF</span></code> value.</dd>
+<dt><code class="docutils literal"><span class="pre">USER_FC</span></code></dt>
 <dd>This variable sets the command name to the FORTRAN-90 compiler to use when compiling the tool. The default compiler to use depends on the platform. And for example, on the AIX platform this variable is NOT used</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">USER_LINKER</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">USER_LINKER</span></code></dt>
 <dd>This variable sets the command name to the linker to use when linking the object files from the compiler together to build the executable. By default this is set to the value of the FORTRAN-90 compiler used to compile the source code.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">USER_CPPDEFS</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">USER_CPPDEFS</span></code></dt>
 <dd>This variable adds additional optional values to define for the C preprocessor. Normally, there is no reason to do this as there are very few CPP tokens in the CLM tools. However, if you modify the tools there may be a reason to define new CPP tokens.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">USER_CC</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">USER_CC</span></code></dt>
 <dd>This variable sets the command name to the “C” compiler to use when compiling the tool. The default compiler to use depends on the platform. And for example, on the AIX platform this variable is NOT used</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">USER_CFLAGS</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">USER_CFLAGS</span></code></dt>
 <dd>This variable adds additional compiler options for the “C” compiler to use when compiling the tool. By default the compiler options are picked according to the platform and compiler that will be used.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">USER_FFLAGS</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">USER_FFLAGS</span></code></dt>
 <dd>This variable adds additional compiler options for the FORTRAN-90 compiler to use when compiling the tool. By default the compiler options are picked according to the platform and compiler that will be used.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">USER_LDFLAGS</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">USER_LDFLAGS</span></code></dt>
 <dd>This variable adds additional options to the linker that will be used when linking the object files into the executable. By default the linker options are picked according to the platform and compiler that is used.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">SMP</span></code></dt>
+<dt><code class="docutils literal"><span class="pre">SMP</span></code></dt>
 <dd>This variable flags if shared memory parallelism (using OpenMP) should be used when compiling the tool. It can be set to either TRUE or FALSE, by default it is set to FALSE, so shared memory parallelism is NOT used. When set to TRUE you can set the number of threads by using the OMP_NUM_THREADS environment variable. Normally, the most you would set this to would be to the number of on-node CPU processors. Turning this on should make the tool run much faster.</dd>
 </dl>
 <div class="admonition warning">
@@ -147,37 +152,37 @@ Finally the tools allow you to turn optimization on (which is off by default but
 <p class="last">Note, that depending on the compiler answers may be different when SMP is activated.</p>
 </div>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">OPT</span></code></dt>
-<dd>This variable flags if compiler optimization should be used when compiling the tool. It can be set to either <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> or <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>, by default it is set to for both <strong>mksurfdata_map</strong> and <strong>mkprocdata_map</strong>. Turning this on should make the tool run much faster.</dd>
+<dt><code class="docutils literal"><span class="pre">OPT</span></code></dt>
+<dd>This variable flags if compiler optimization should be used when compiling the tool. It can be set to either <code class="docutils literal"><span class="pre">TRUE</span></code> or <code class="docutils literal"><span class="pre">FALSE</span></code>, by default it is set to for both <strong>mksurfdata_map</strong> and <strong>mkprocdata_map</strong>. Turning this on should make the tool run much faster.</dd>
 </dl>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Note, you should expect that answers will be different when <code class="docutils literal notranslate"><span class="pre">OPT</span></code> is activated.</p>
+<p class="last">Note, you should expect that answers will be different when <code class="docutils literal"><span class="pre">OPT</span></code> is activated.</p>
 </div>
 <dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">Filepath</span></code></dt>
-<dd>All of the tools are stand-alone and don’t need any outside code to operate. The Filepath is the list of directories needed to compile and hence is always simply “.” the current directory. Several tools use copies of code outside their directory that is in the CESM distribution (either <code class="docutils literal notranslate"><span class="pre">csm_share</span></code> code or CLM source code).</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Srcfiles</span></code></dt>
-<dd>The <code class="docutils literal notranslate"><span class="pre">Srcfiles</span></code> lists the filenames of the source code to use when building the tool.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Makefile</span></code></dt>
-<dd>The <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> is the custom GNU Makefile for this particular tool. It will customize the <code class="docutils literal notranslate"><span class="pre">EXENAME</span></code> and the optimization settings for this particular tool.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">Makefile.common</span></code></dt>
-<dd>The <code class="docutils literal notranslate"><span class="pre">Makefile.common</span></code> is the copy of the general GNU Makefile for all the CLM tools. This file should be identical between the different tools. This file has different sections of compiler options for different Operating Systems and compilers.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">mkDepends</span></code></dt>
-<dd>The <code class="docutils literal notranslate"><span class="pre">mkDepends</span></code> is the copy of the perl script used by the <code class="docutils literal notranslate"><span class="pre">Makefile.common</span></code> to figure out the dependencies between the source files so that it can compile in the necessary order. This file should be identical between the different tools.</dd>
+<dt><code class="docutils literal"><span class="pre">Filepath</span></code></dt>
+<dd>All of the tools are stand-alone and don’t need any outside code to operate. The Filepath is the list of directories needed to compile and hence is always simply “.” the current directory. Several tools use copies of code outside their directory that is in the CESM distribution (either <code class="docutils literal"><span class="pre">csm_share</span></code> code or CLM source code).</dd>
+<dt><code class="docutils literal"><span class="pre">Srcfiles</span></code></dt>
+<dd>The <code class="docutils literal"><span class="pre">Srcfiles</span></code> lists the filenames of the source code to use when building the tool.</dd>
+<dt><code class="docutils literal"><span class="pre">Makefile</span></code></dt>
+<dd>The <code class="docutils literal"><span class="pre">Makefile</span></code> is the custom GNU Makefile for this particular tool. It will customize the <code class="docutils literal"><span class="pre">EXENAME</span></code> and the optimization settings for this particular tool.</dd>
+<dt><code class="docutils literal"><span class="pre">Makefile.common</span></code></dt>
+<dd>The <code class="docutils literal"><span class="pre">Makefile.common</span></code> is the copy of the general GNU Makefile for all the CLM tools. This file should be identical between the different tools. This file has different sections of compiler options for different Operating Systems and compilers.</dd>
+<dt><code class="docutils literal"><span class="pre">mkDepends</span></code></dt>
+<dd>The <code class="docutils literal"><span class="pre">mkDepends</span></code> is the copy of the perl script used by the <code class="docutils literal"><span class="pre">Makefile.common</span></code> to figure out the dependencies between the source files so that it can compile in the necessary order. This file should be identical between the different tools.</dd>
 </dl>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">There are several files that are copies of the original files. By having copies the tools can all be made stand-alone, but any changes to the originals will have to be put into the tool directories as well.</p>
 </div>
-<p>The <em>README.filecopies</em> (which can be found in <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/tools</span></code>) is repeated here.</p>
+<p>The <em>README.filecopies</em> (which can be found in <code class="docutils literal"><span class="pre">$CTSMROOT/tools</span></code>) is repeated here.</p>
 </div>
 <div class="section" id="building-the-clm-tools-that-use-the-cime-configure-build-system">
 <h1>1.3.3. Building the CLM tools that use the CIME configure/build system<a class="headerlink" href="#building-the-clm-tools-that-use-the-cime-configure-build-system" title="Permalink to this headline">¶</a></h1>
 <p><strong>cprnc</strong> and <em>gen_domain*</em> both use the CIME configure/build system rather than the CLM specific version described above.</p>
 <p>See <a class="reference external" href="http://esmci.github.io/cime/users_guide/grids.html?highlight=gen_domain#adding-grids">CIME documentation on adding grids</a> for
 more information on adding grids, creating mapping files,  and running <strong>gen_domain</strong>. Also see the CIME file:
-<code class="docutils literal notranslate"><span class="pre">$CTSMROOT/tools/mapping/gen_domain_files/INSTALL</span></code> for how to build <strong>gen_domain</strong>.</p>
+<code class="docutils literal"><span class="pre">$CTSMROOT/tools/mapping/gen_domain_files/INSTALL</span></code> for how to build <strong>gen_domain</strong>.</p>
 </div>
 
 
@@ -205,7 +210,7 @@ more information on adding grids, creating mapping files,  and running <strong>g
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
   </body>
 </html>

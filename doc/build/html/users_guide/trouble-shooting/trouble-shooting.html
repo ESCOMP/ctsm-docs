@@ -4,17 +4,23 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>1.8.1. Trouble Shooting &#8212; clmdoc release-clm5.0.01 documentation</title>
     <link rel="stylesheet" href="../../_static/bizstyle.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     'release-clm5.0.01',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <script type="text/javascript" src="../../_static/bizstyle.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -24,7 +30,8 @@
     <!--[if lt IE 9]>
     <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
     <![endif]-->
-  </head><body>
+  </head>
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -44,7 +51,7 @@
     </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../../index.html">Table of Contents</a></h3>
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">1.8.1. Trouble Shooting</a><ul>
 <li><a class="reference internal" href="#general-advice-on-debugging-run-time-problems">1.8.1.1. General Advice on Debugging Run time Problems</a><ul>
@@ -75,14 +82,12 @@
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
-    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -93,8 +98,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="trouble-shooting">
-<span id="id1"></span><h1>1.8.1. Trouble Shooting<a class="headerlink" href="#trouble-shooting" title="Permalink to this headline">¶</a></h1>
+  <span class="target" id="trouble-shooting"></span><div class="section" id="id1">
+<h1>1.8.1. Trouble Shooting<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>In this chapter we give some guidance on what to do when you encounter some of the most common problems. We can’t cover all the problems that a user could potentially have, but we will try to help you recognize some of the most common situations. And we’ll give you some suggestions on how to approach the problem to come up with a solution.</p>
 <p>In general you will run into one of three type of problems:</p>
 <ol class="arabic simple">
@@ -118,15 +123,15 @@
 <div class="section" id="run-in-debug-mode">
 <h3>1.8.1.1.1. Run in DEBUG mode<a class="headerlink" href="#run-in-debug-mode" title="Permalink to this headline">¶</a></h3>
 <p>The first thing to try is to run in DEBUG mode so that float point trapping will be triggered as well as array bounds checking and other things the compiler can turn on to help you find problems.
-To do this edit the <code class="docutils literal notranslate"><span class="pre">env_build.xml</span></code> file and set DEBUG to TRUE as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">DEBUG</span><span class="o">=</span><span class="n">TRUE</span>
+To do this edit the <code class="docutils literal"><span class="pre">env_build.xml</span></code> file and set DEBUG to TRUE as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">DEBUG</span><span class="o">=</span><span class="n">TRUE</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="run-with-a-smaller-set-of-processors">
 <h3>1.8.1.1.2. Run with a smaller set of processors<a class="headerlink" href="#run-with-a-smaller-set-of-processors" title="Permalink to this headline">¶</a></h3>
 <p>Another way to simplify the system is to run with a smaller set of processors. You will need to clean the setup and edit the –env_mach_pes.xml–. For example, to run with four processors:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span> <span class="o">-</span><span class="n">clean</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span> <span class="o">-</span><span class="n">clean</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">NTASKS_ATM</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_LND</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_ICE</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_OCN</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_CPL</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_GLC</span><span class="o">=</span><span class="mi">4</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span>
 </pre></div>
@@ -135,8 +140,8 @@ To do this edit the <code class="docutils literal notranslate"><span class="pre"
 </div>
 <div class="section" id="run-in-serial-mode-with-a-single-processor">
 <h3>1.8.1.1.3. Run in serial mode with a single processor<a class="headerlink" href="#run-in-serial-mode-with-a-single-processor" title="Permalink to this headline">¶</a></h3>
-<p>Simplifying to one processor removes all multi-processing problems and makes the case as simple as possible. If you can enable <code class="docutils literal notranslate"><span class="pre">MPILIB=mpi-serial</span></code> you will also be able to run interactively rather than having to submit to a job queue, which sometimes makes it easier to run and debug. If you can use <code class="docutils literal notranslate"><span class="pre">MPILIB=mpi-serial</span></code> you can also use threading, but still run interactively in order to use more processors to make it faster if needed.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span> <span class="o">-</span><span class="n">clean</span>
+<p>Simplifying to one processor removes all multi-processing problems and makes the case as simple as possible. If you can enable <code class="docutils literal"><span class="pre">MPILIB=mpi-serial</span></code> you will also be able to run interactively rather than having to submit to a job queue, which sometimes makes it easier to run and debug. If you can use <code class="docutils literal"><span class="pre">MPILIB=mpi-serial</span></code> you can also use threading, but still run interactively in order to use more processors to make it faster if needed.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span> <span class="o">-</span><span class="n">clean</span>
 <span class="c1"># Set tasks and threads for each component to 1</span>
 <span class="c1"># You could also set threads to something &gt; 1 for speed, but still</span>
 <span class="c1"># run interactively if threading isn&#39;t an issue.</span>
@@ -195,7 +200,7 @@ For help in running with a debugger you will need to contact your system adminis
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2018, Erik Kluzek, Bill Sacks, Ben Andre.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.6.
     </div>
   </body>
 </html>
