@@ -47,8 +47,7 @@
   <h3><a href="../../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">1.3.5. Creating Surface Datasets</a><ul>
-<li><a class="reference internal" href="#figure-2-1-data-flow-for-creation-of-surface-datasets-from-raw-scrip-grid-files">1.3.5.1. Figure 2-1. Data Flow for Creation of Surface Datasets from Raw SCRIP Grid Files</a></li>
-<li><a class="reference internal" href="#creating-a-complete-set-of-files-for-input-to-clm">1.3.5.2. Creating a Complete Set of Files for Input to CLM</a></li>
+<li><a class="reference internal" href="#creating-a-complete-set-of-files-for-input-to-clm">1.3.5.1. Creating a Complete Set of Files for Input to CLM</a></li>
 </ul>
 </li>
 </ul>
@@ -88,19 +87,21 @@
             
   <div class="section" id="creating-surface-datasets">
 <span id="id1"></span><h1>1.3.5. Creating Surface Datasets<a class="headerlink" href="#creating-surface-datasets" title="Permalink to this headline">¶</a></h1>
-<p>When just creating a replacement file for an existing one, the relevant tool should be used directly to create the file. When you are creating a set of files for a new resolution there are some dependencies between the tools that you need to keep in mind when creating them. The main dependency is that you MUST create a SCRIP grid file first as the SCRIP grid dataset is then input into the other tools. Also look at <a class="reference external" href="CLM-URL">Table 3-1</a> which gives information on the files required and when. <a class="reference external" href="CLM-URL">Figure 2-1</a> shows an overview of the general data-flow for creation of the fsurdat datasets.</p>
-<div class="section" id="figure-2-1-data-flow-for-creation-of-surface-datasets-from-raw-scrip-grid-files">
-<h2>1.3.5.1. Figure 2-1. Data Flow for Creation of Surface Datasets from Raw SCRIP Grid Files<a class="headerlink" href="#figure-2-1-data-flow-for-creation-of-surface-datasets-from-raw-scrip-grid-files" title="Permalink to this headline">¶</a></h2>
-<p>Insert figure 2-1</p>
-<p>Starting from a SCRIP grid file that describes the grid you will run the model on, you first run <strong>mkmapdata.sh</strong> to create a list of mapping files. See <a class="reference external" href="CLM-URL">Figure 2-3</a> for a more detailed view of how <strong>mkmapdata.sh</strong> works. The mapping files tell <strong>mksurfdata_map</strong> how to map between the output grid and the raw datasets that it uses as input. The output of <strong>mksurfdata_map</strong> is a surface dataset that you then use for running the model. See <a class="reference external" href="CLM-URL">Figure 2-6</a> for a more detailed view of how <strong>mksurfdata_map</strong> works.</p>
-<p><a class="reference external" href="CLM-URL">Figure 2-2</a> is the legend for this figure (<a class="reference external" href="CLM-URL">Figure 2-1</a>) and other figures in this chapter (<a class="reference external" href="CLM-URL">Figure 2-4</a>, <a class="reference external" href="CLM-URL">Figure 2-5</a>, and <a class="reference external" href="CLM-URL">Figure 2-6</a>).
-Figure 2-2. Legend for Data Flow Figures
-Insert figure 2-2</p>
+<p>When just creating a replacement file for an existing one, the relevant tool should be used directly to create the file. When you are creating a set of files for a new resolution there are some dependencies between the tools that you need to keep in mind when creating them. The main dependency is that you MUST create a SCRIP grid file first as the SCRIP grid dataset is then input into the other tools. Also look at <a class="reference external" href="CLM-URL">Table 3-1</a> which gives information on the files required and when. <code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">Data_Flow</span></code> shows an overview of the general data-flow for creation of the fsurdat datasets.</p>
+<div class="figure" id="id2">
+<img alt="../../_images/mkmapdata_mksurfdata.jpeg" src="../../_images/mkmapdata_mksurfdata.jpeg" />
+<p class="caption"><span class="caption-number">Figure 1.3.2 </span><span class="caption-text">Data Flow for Creation of Surface Datasets from Raw SCRIP Grid Files</span></p>
+</div>
+<p>Starting from a SCRIP grid file that describes the grid you will run the model on, you first run <strong>mkmapdata.sh</strong> to create a list of mapping files. See <code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">mkmapdata.sh</span></code> for a more detailed view of how <strong>mkmapdata.sh</strong> works. The mapping files tell <strong>mksurfdata_map</strong> how to map between the output grid and the raw datasets that it uses as input. The output of <strong>mksurfdata_map</strong> is a surface dataset that you then use for running the model. See <cite>Figure :numref:`Figure mksurfdatamap</cite> for a more detailed view of how <strong>mksurfdata_map</strong> works.</p>
+<p><code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">Data_Flow_Legend</span></code> is the legend for this figure (<code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">Data_Flow</span></code>) and other figures in this chapter (<code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">Global_Domain</span></code>, <code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">mknoocnmap.pl</span></code> and <code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">mksurfdatamap</span></code>).</p>
+<div class="figure" id="id3">
+<img alt="../../_images/LegendCLMToolDataFlow.jpeg" src="../../_images/LegendCLMToolDataFlow.jpeg" />
+<p class="caption"><span class="caption-number">Figure 1.3.3 </span><span class="caption-text">Legend for Data Flow Figures</span></p>
+</div>
 <p>Green arrows define the input to a program, while red arrows define the output. Cylinders define files that are either created by a program or used as input for a program. Boxes are programs.</p>
 <p>You start with a description of a SCRIP grid file for your output grid file and then create mapping files from the raw datasets to it. Once, the mapping files are created <strong>mksurfdata_map</strong> is run to create the surface dataset to run the model.</p>
-</div>
 <div class="section" id="creating-a-complete-set-of-files-for-input-to-clm">
-<h2>1.3.5.2. Creating a Complete Set of Files for Input to CLM<a class="headerlink" href="#creating-a-complete-set-of-files-for-input-to-clm" title="Permalink to this headline">¶</a></h2>
+<h2>1.3.5.1. Creating a Complete Set of Files for Input to CLM<a class="headerlink" href="#creating-a-complete-set-of-files-for-input-to-clm" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">Create SCRIP grid datasets (if NOT already done)</p>
 <p>First you need to create a descriptor file for your grid, that includes the locations of cell centers and cell corners. There is also a “mask” field, but in this case the mask is set to one everywhere (i.e. all of the masks for the output model grid are “nomask”). An example SCRIP grid file is: $CSMDATA/lnd/clm2/mappingdata/grids/SCRIPgrid_10x15_nomask_c110308.nc. The mkmapgrids and mkscripgrid.ncl NCL script in the $CTSMROOT/tools/mkmapgrids directory can help you with this. SCRIP grid files for all the standard CLM grids are already created for you. See the Section called Creating an output SCRIP grid file at a resolution to run the model on for more information on this.</p>
