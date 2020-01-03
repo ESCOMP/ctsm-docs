@@ -117,7 +117,7 @@ The program converts old formats of CAM or CLM grid files to SCRIP grid format. 
      <span class="o">-</span><span class="n">ny</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span>                   <span class="n">Number</span> <span class="n">of</span> <span class="n">latitudes</span>  <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>See <code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">mknoocnmap.pl</span></code> for a visual representation of this process.</p>
+<p>See <a class="reference internal" href="creating-domain-files.html#figure-mknoocnmap-pl"><span class="std std-numref">Figure 1.3.5</span></a> for a visual representation of this process.</p>
 </div>
 </div>
 <div class="section" id="creating-mapping-files-for-mksurfdata-map">
@@ -126,7 +126,7 @@ The program converts old formats of CAM or CLM grid files to SCRIP grid format. 
 <p>The bash shell script <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/tools/mkmapgrids/mkmapdata.sh</span></code> uses <strong>ESMF_RegridWeightGen</strong> to create a list of maps from the raw datasets that are input to <strong>mksurfdata_map</strong>.
 Each dataset that has a different grid, or land-mask needs a different mapping file for it, but many different raw datasets share the same grid/land-mask as other files.
 Hence, there doesn’t need to be a different mapping file for EACH raw dataset – just for each raw dataset that has a DIFFERENT grid or land-mask..
-See <code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">mkmapdata.sh</span></code> for a visual representation of how this works.
+See <a class="reference internal" href="#figure-mkmapdata-sh"><span class="std std-numref">Figure 1.3.1</span></a> for a visual representation of how this works.
 The bash script figures out which mapping files it needs to create and then runs <strong>ESMF_RegridWeightGen</strong> for each one.
 You can then either enter the datasets into the XML database (see <a class="reference external" href="CLM-URL">Chapter 3</a> or leave the files in place, and use the “-res usrspec -usr_gname -usr_gdate” options to <strong>mksurfdata_map</strong> (see <a class="reference external" href="CLM-URL">the Section called Running mksurfdata.pl</a> below).
 mkmapdata.sh has a help option with the following</p>
@@ -182,7 +182,7 @@ mkmapdata.sh has a help option with the following</p>
 </pre></div>
 </div>
 <div class="figure" id="id1">
-<img alt="../../_images/mkmapdata_details.jpeg" src="../../_images/mkmapdata_details.jpeg" />
+<span id="figure-mkmapdata-sh"></span><img alt="../../_images/mkmapdata_details.jpeg" src="../../_images/mkmapdata_details.jpeg" />
 <p class="caption"><span class="caption-number">Figure 1.3.1 </span><span class="caption-text">Details of running mkmapdata.sh</span></p>
 </div>
 <p>Each of the raw datasets for <strong>mksurfdata_map</strong> needs a mapping file to map from the output grid you are running on to the grid and land-mask for that dataset. This is what <strong>mkmapdata.sh</strong> does. To create the mapping files you need a SCRIP grid file to correspond with each resolution and land mask that you have a raw data file in <strong>mksurfdata_map</strong>. Some raw datasets share the same grid and land mask – hence they can share the same SCRIP grid file. The output maps created here go into <strong>mksurfdata_map</strong> see <code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">mksurfdatamap</span></code>.</p>
