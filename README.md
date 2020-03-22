@@ -1,2 +1,0 @@
-# CLM
-Community Land Model
