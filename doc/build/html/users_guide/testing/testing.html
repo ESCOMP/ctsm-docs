@@ -170,19 +170,17 @@ Makefile ------------- Will build the HTML table of tests
 </div>
 <div class="section" id="ctsm-fortran-unit-tests">
 <h2>1.9.1.3. CTSM Fortran Unit Tests<a class="headerlink" href="#ctsm-fortran-unit-tests" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># To run all CTSM unit tests on caldera, run the following command:
-#
-# The creation of a temporary directory ensures that you are doing a completely
-# clean build of the unit tests. (The use of the --clean flag to run_tests.py
-# cleans most, but not all of the files created by the unit test build.) For
-# rerunning the tests after an incremental change, you can instead use an
-# existing build directory.
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># To run all CTSM unit tests, run the following command:</span>
+<span class="c1">#</span>
+<span class="c1"># This reuses the existing &#39;unit_tests.temp&#39; directory (if present) in</span>
+<span class="c1"># order to do an incremental rebuild of the unit tests from the last</span>
+<span class="c1"># time you ran them from this directory.</span>
 
-# From a standalone CTSM checkout:
-../cime/scripts/fortran_unit_testing/run_tests.py --build-dir `mktemp -d --tmpdir=. unit_tests.XXXXXXXX`
+<span class="c1"># From a standalone CTSM checkout:</span>
+<span class="o">../</span><span class="n">cime</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">fortran_unit_testing</span><span class="o">/</span><span class="n">run_tests</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">build</span><span class="o">-</span><span class="nb">dir</span> <span class="n">unit_tests</span><span class="o">.</span><span class="n">temp</span>
 
-# If you are within a full CESM checkout, you would instead do:
-# ../../../cime/scripts/fortran_unit_testing/run_tests.py --build-dir `mktemp -d --tmpdir=. unit_tests.XXXXXXXX`
+<span class="c1"># If you are within a full CESM checkout, you would instead do:</span>
+<span class="c1"># ../../../cime/scripts/fortran_unit_testing/run_tests.py --build-dir unit_tests.temp</span>
 </pre></div>
 </div>
 </div>
@@ -236,7 +234,7 @@ General Directory structure:
         list script. Handles command line arguments and such.
   PTCLM/batchque.py ---------- Python module for batch submital.
   PTCLM/buildtools ----------- Script to build the CLM
-        tools needed to run PTCLMmkdata (mksurfdata_map and gen_domain). Works on cheyenne.
+        tools needed to run PTCLMmkdata (mksurfdata_map and gen_domain). Works on yellowstone and cheyenne.
 
 Quickstart:
 
@@ -254,7 +252,7 @@ cd PTCLM
 setenv MYDATAFILES `pwd`/mydatafiles
 
 # Next build all of the clm tools you will need
-# The following script assumes cheyenne, hobart, or izumi for other machines
+# The following script assumes yellowstone, cheyenne, hobart, or edison for other machines
 # you&#39;ll need to build each tool by hand
 ./buildtools
 # next run PTCLMsublist which will submit PTCLMmkdata to batch queue (NOTE -- MAKE SURE python, NCO AND NCL IS IN YOUR PATH)
@@ -265,7 +263,7 @@ setenv MYDATAFILES `pwd`/mydatafiles
 #       This makes running PTCLMmkdata a reasonable amount of time.
 #       However, you can use the script in mydatafiles
 #
-qcmd -l walltime=02:00:00 -- ./PTCLMsublist -l $SITE -d $CSMDATA --account=XXXXXXXXX --mach=cheyenne
+./PTCLMsublist -l $SITE -d $CSMDATA --account=XXXXXXXXX --mach=cheyenne
 
 # NOTE: To submit several sites at once, make the &quot;-l&quot; option a comma delimited
 #       list of site names.

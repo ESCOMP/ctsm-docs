@@ -235,7 +235,7 @@ General Directory structure:
         list script. Handles command line arguments and such.
   PTCLM/batchque.py ---------- Python module for batch submital.
   PTCLM/buildtools ----------- Script to build the CLM
-        tools needed to run PTCLMmkdata (mksurfdata_map and gen_domain). Works on cheyenne.
+        tools needed to run PTCLMmkdata (mksurfdata_map and gen_domain). Works on yellowstone and cheyenne.
 
 Quickstart:
 
@@ -253,7 +253,7 @@ cd PTCLM
 setenv MYDATAFILES `pwd`/mydatafiles
 
 # Next build all of the clm tools you will need
-# The following script assumes cheyenne, hobart, or izumi for other machines
+# The following script assumes yellowstone, cheyenne, hobart, or edison for other machines
 # you&#39;ll need to build each tool by hand
 ./buildtools
 # next run PTCLMsublist which will submit PTCLMmkdata to batch queue (NOTE -- MAKE SURE python, NCO AND NCL IS IN YOUR PATH)
@@ -264,7 +264,7 @@ setenv MYDATAFILES `pwd`/mydatafiles
 #       This makes running PTCLMmkdata a reasonable amount of time.
 #       However, you can use the script in mydatafiles
 #
-qcmd -l walltime=02:00:00 -- ./PTCLMsublist -l $SITE -d $CSMDATA --account=XXXXXXXXX --mach=cheyenne
+./PTCLMsublist -l $SITE -d $CSMDATA --account=XXXXXXXXX --mach=cheyenne
 
 # NOTE: To submit several sites at once, make the &quot;-l&quot; option a comma delimited
 #       list of site names.
