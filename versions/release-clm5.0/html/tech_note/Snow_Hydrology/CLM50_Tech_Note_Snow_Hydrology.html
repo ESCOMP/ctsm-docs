@@ -1,0 +1,965 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.8. Snow Hydrology &mdash; ctsm master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm master documentation" href="../../index.html"/>
+        <link rel="up" title="2. CLM Technical Note" href="../index.html"/>
+        <link rel="next" title="2.9. Stomatal Resistance and Photosynthesis" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html"/>
+        <link rel="prev" title="2.7. Hydrology" href="../Hydrology/CLM50_Tech_Note_Hydrology.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>master</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/index.html">1. master User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">2. CLM Technical Note</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/CLM50_Tech_Note_Introduction.html">2.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html">2.2. Surface Characterization, Vertical Discretization, and Model Input Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html">2.3. Surface Albedos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html">2.4. Radiative Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html">2.5. Momentum, Sensible Heat, and Latent Heat Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html">2.6. Soil and Snow Temperatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html">2.7. Hydrology</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.8. Snow Hydrology</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#snow-covered-area-fraction">2.8.1. Snow Covered Area Fraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ice-content">2.8.2. Ice Content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#water-content">2.8.3. Water Content</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#black-and-organic-carbon-and-mineral-dust-within-snow">2.8.4. Black and organic carbon and mineral dust within snow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialization-of-snow-layer">2.8.5. Initialization of snow layer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#snow-compaction">2.8.6. Snow Compaction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#destructive-metamorphism">2.8.6.1. Destructive metamorphism</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#overburden-pressure-compaction">2.8.6.2. Overburden pressure compaction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compaction-by-melt">2.8.6.3. Compaction by melt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compaction-by-drifting-snow">2.8.6.4. Compaction by drifting snow</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#snow-layer-combination-and-subdivision">2.8.7. Snow Layer Combination and Subdivision</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#combination">2.8.7.1. Combination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#subdivision">2.8.7.2. Subdivision</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html">2.9. Stomatal Resistance and Photosynthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html">2.10. Photosynthetic Capacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html">2.11. Plant Hydraulics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html">2.12. Lake Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Glacier/CLM50_Tech_Note_Glacier.html">2.13. Glaciers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html">2.14. Model for Scale Adaptive River Transport (MOSART)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Urban/CLM50_Tech_Note_Urban.html">2.15. Urban Model (CLMU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Pools/CLM50_Tech_Note_CN_Pools.html">2.16. CN Pools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html">2.17. Plant Respiration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html">2.18. Fixation and Uptake of Nitrogen (FUN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html">2.19. Carbon and Nitrogen Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html">2.20. Vegetation Phenology and Turnover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decomposition/CLM50_Tech_Note_Decomposition.html">2.21. Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html">2.22. External Nitrogen Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Mortality/CLM50_Tech_Note_Plant_Mortality.html">2.23. Plant Mortality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fire/CLM50_Tech_Note_Fire.html">2.24. Fire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Methane/CLM50_Tech_Note_Methane.html">2.25. Methane Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html">2.26. Crops and Irrigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html">2.27. Transient Land Use and Land Cover Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html">2.28. Dynamic Global Vegetation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html#technical-documentation-for-fates">2.29. Technical Documentation for FATES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BVOCs/CLM50_Tech_Note_BVOCs.html">2.30. Biogenic Volatile Organic Compounds (BVOCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dust/CLM50_Tech_Note_Dust.html">2.31. Dust Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Isotopes/CLM50_Tech_Note_Isotopes.html">2.32. Carbon Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Land-Only_Mode/CLM50_Tech_Note_Land-Only_Mode.html">2.33. Land-Only Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../References/CLM50_Tech_Note_References.html">2.34. References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">2. CLM Technical Note</a> &raquo;</li>
+        
+      <li>2.8. Snow Hydrology</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/tech_note/Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="snow-hydrology">
+<span id="rst-snow-hydrology"></span><h1>2.8. Snow Hydrology<a class="headerlink" href="#snow-hydrology" title="Permalink to this headline">¶</a></h1>
+<p>The parameterizations for snow are based primarily on
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#anderson1976"><span class="std std-ref">Anderson (1976)</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#jordan1991"><span class="std std-ref">Jordan (1991)</span></a>,
+and <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#daizeng1997"><span class="std std-ref">Dai and Zeng (1997)</span></a>. The snowpack
+can have up to twelve layers. These layers are indexed in the Fortran code
+as <img class="math" src="../../_images/math/4688110fb88f891735e414fac9d0cdd921254407.svg" alt="i=-11,-10,...,-1,0"/> where layer <img class="math" src="../../_images/math/3564819d8f8c59c8ee08f4d1c1e0f33d3a0ed72a.svg" alt="i=0"/> is the snow layer
+next to the top soil layer and layer <img class="math" src="../../_images/math/2f88a20b386d922879cfb6611d1ee95785737ad1.svg" alt="i=-11"/> is the top layer of a
+twelve-layer snow pack. Since the number of snow layers varies according
+to the snow depth, we use the notation <img class="math" src="../../_images/math/6cb4cd0f2aac5f15fcd78e53510ea8f5492433b5.svg" alt="snl+1"/> to describe the top
+layer of snow for the variable layer snow pack, where <img class="math" src="../../_images/math/dbd9a0999cf68f9e4ce718daced147367c162fec.svg" alt="snl"/> is the
+negative of the number of snow layers. Refer to <a class="reference internal" href="#figure-three-layer-snow-pack"><span class="std std-numref">Figure 2.8.1</span></a> for an example of the snow layer structure for a three layer
+snow pack.</p>
+<div class="figure" id="id14">
+<span id="figure-three-layer-snow-pack"></span><img alt="../../_images/image16.png" src="../../_images/image16.png" />
+<p class="caption"><span class="caption-number">Figure 2.8.1 </span><span class="caption-text">Example of three layer snow pack (<img class="math" src="../../_images/math/1faedbe55e2964400914aed67cbcc477fde70ec7.svg" alt="snl=-3"/>).</span></p>
+</div>
+<p>Shown are three snow layers, <img class="math" src="../../_images/math/14bbd43a72e4ab4cf9c9b8ad1fddf19bfa580dea.svg" alt="i=-2"/>, <img class="math" src="../../_images/math/b63e1411eb52d2eab45fce6ee3c90f5922138f5c.svg" alt="i=-1"/>, and
+<img class="math" src="../../_images/math/3564819d8f8c59c8ee08f4d1c1e0f33d3a0ed72a.svg" alt="i=0"/>. The layer node depth is <img class="math" src="../../_images/math/683f2dd9129a91d21aaf1c04afa6f78b39d4cb0a.svg" alt="z"/>, the layer interface is
+<img class="math" src="../../_images/math/ea1aac58a6b8c1f19e83a67278501e4a56dc76a0.svg" alt="z_{h}"/> , and the layer thickness is <img class="math" src="../../_images/math/8c1a7061a6a26cf6bbb53392039d2034fd9050fa.svg" alt="\Delta z"/>.</p>
+<p>The state variables for snow are the mass of water <img class="math" src="../../_images/math/9b38021be899f869dcb9a2eec54e1034d941bd39.svg" alt="w_{liq,i}"/>
+(kg m<sup>-2</sup>), mass of ice <img class="math" src="../../_images/math/fd8a0fbaf8024407f6cf74f5e9187a713d94776d.svg" alt="w_{ice,i}"/>  (kg m<sup>-2</sup>), layer
+thickness <img class="math" src="../../_images/math/18a8202648d865786985b1bdb0926ae863cf8908.svg" alt="\Delta z_{i}"/>  (m), and temperature <img class="math" src="../../_images/math/27d3051333351004a42e41ee5a73760e14557bc3.svg" alt="T_{i}"/>
+(Chapter <a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#rst-soil-and-snow-temperatures"><span class="std std-numref">2.6</span></a>). The water vapor phase is
+neglected. Snow can also exist in the model without being represented by
+explicit snow layers. This occurs when the snowpack is less than a
+specified minimum snow depth (<img class="math" src="../../_images/math/1494caee93c70dc6612347c85cb510c7ab3e4150.svg" alt="z_{sno} &lt; 0.01"/> m). In this case,
+the state variable is the mass of snow <img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.svg" alt="W_{sno}"/>  (kg m<sup>-2</sup>).</p>
+<p>Section <a class="reference internal" href="#snow-covered-area-fraction"><span class="std std-numref">2.8.1</span></a> describes the calculation
+of fractional snow covered area, which is used in the surface albedo
+calculation (Chapter <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#rst-surface-albedos"><span class="std std-numref">2.3</span></a>) and the surface flux
+calculations (Chapter <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#rst-momentum-sensible-heat-and-latent-heat-fluxes"><span class="std std-numref">2.5</span></a>). The following two sections (<a class="reference internal" href="#ice-content"><span class="std std-numref">2.8.2</span></a> and
+<a class="reference internal" href="#water-content"><span class="std std-numref">2.8.3</span></a>) describe the ice and water content of the snow
+pack assuming that at least one snow layer exists. Section <a class="reference internal" href="#black-and-organic-carbon-and-mineral-dust-within-snow"><span class="std std-numref">2.8.4</span></a> describes how black and
+organic carbon and mineral dust particles are represented within snow,
+including meltwater flushing. See Section <a class="reference internal" href="#initialization-of-snow-layer"><span class="std std-numref">2.8.5</span></a> for a description of how a snow layer is initialized.</p>
+<div class="section" id="snow-covered-area-fraction">
+<span id="id1"></span><h2>2.8.1. Snow Covered Area Fraction<a class="headerlink" href="#snow-covered-area-fraction" title="Permalink to this headline">¶</a></h2>
+<p>The fraction of the ground covered by snow, <img class="math" src="../../_images/math/f946f3426bf2cf588dbe5a9a9c77396e913a4a80.svg" alt="f_{sno}"/> , is based
+on the method of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#swensonlawrence2012"><span class="std std-ref">Swenson and Lawrence (2012)</span></a>.
+Because the processes
+governing snowfall and snowmelt differ, changes in <img class="math" src="../../_images/math/f946f3426bf2cf588dbe5a9a9c77396e913a4a80.svg" alt="f_{sno}"/>  are
+calculated separately for accumulation and depletion. When snowfall
+occurs, <img class="math" src="../../_images/math/f946f3426bf2cf588dbe5a9a9c77396e913a4a80.svg" alt="f_{sno}"/>  is updated as</p>
+<div class="math" id="equation-8-14">
+<p><span class="eqno">(2.8.1)<a class="headerlink" href="#equation-8-14" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8f62321149f443f6af715cde110a9bf87215e37e.svg" alt="f^{n+1} _{sno} =1-\left(\left(1-\tanh (k_{accum} q_{sno} \Delta t)\right)\left(1-f^{n} _{sno} \right)\right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/00a6585b098be058d25e806037cde36b1db30672.svg" alt="k_{accum}"/>  is a constant whose default value is 0.1,
+<img class="math" src="../../_images/math/3b6dcef6c136493636b9fcdf30bf5ab4034e291a.svg" alt="q_{sno} \Delta t"/> is the amount of new snow,
+<img class="math" src="../../_images/math/4dc0b7c6dc4d9c458f7fa99fb10734f65d965f6f.svg" alt="f^{n+1} _{sno}"/>  is the updated snow covered fraction (SCF), and
+<img class="math" src="../../_images/math/fab6cafde1d82c2bfe19668c9009765dcd0b00bc.svg" alt="f^{n} _{sno}"/>  is the SCF from the previous time step.</p>
+<p>When snow melt occurs, <img class="math" src="../../_images/math/f946f3426bf2cf588dbe5a9a9c77396e913a4a80.svg" alt="f_{sno}"/>  is calculated from the depletion
+curve</p>
+<div class="math" id="equation-8-15">
+<p><span class="eqno">(2.8.2)<a class="headerlink" href="#equation-8-15" title="Permalink to this equation">¶</a></span><img src="../../_images/math/27edb064962fe9a442919b15e5388b71ab87ca71.svg" alt="f_{sno} =1-\left(\frac{\cos ^{-1} \left(2R_{sno} -1\right)}{\pi } \right)^{N_{melt} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/8ae8f02d87439ad480285de36eefc5aaaf2c41d4.svg" alt="R_{sno}"/>  is the ratio of <img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.svg" alt="W_{sno}"/>  to the maximum
+accumulated snow <img class="math" src="../../_images/math/ef10404e7d4de3826762f45b718436336a603ff4.svg" alt="W_{\max }"/> , and <img class="math" src="../../_images/math/db4cb3eb2d9acb7ab0b00af1c378a806ca6bb3c1.svg" alt="N_{melt}"/>  is a
+parameter that depends on the topographic variability within the grid
+cell. Whenever <img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.svg" alt="W_{sno}"/>  reaches zero, <img class="math" src="../../_images/math/ef10404e7d4de3826762f45b718436336a603ff4.svg" alt="W_{\max }"/>  is
+reset to zero. The depletion curve shape parameter is defined as</p>
+<div class="math" id="equation-8-16">
+<p><span class="eqno">(2.8.3)<a class="headerlink" href="#equation-8-16" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a820459572edd58a71f3670243a2030526f6d59e.svg" alt="N_{melt} =\frac{200}{\min \left(10,\sigma _{topo} \right)}"/></p>
+</div><p>The standard deviation of the elevation within a grid cell,
+<img class="math" src="../../_images/math/2f9875e068199256d2464f00a5928d5c40f73663.svg" alt="\sigma _{topo}"/>  , is calculated from a high resolution DEM (a
+1km DEM is used for CLM).
+Note that <em>glacier_mec</em> columns (section <a class="reference internal" href="../Glacier/CLM50_Tech_Note_Glacier.html#multiple-elevation-class-scheme"><span class="std std-numref">2.13.4</span></a>)
+are treated differently in this respect, as they already account for the
+subgrid topography in a grid cell in their own way.
+Therefore, in each <em>glacier_mec</em> column very flat terrain is assumed,
+implemented as <img class="math" src="../../_images/math/fbf7b9fe58691fd04509fb1a31eed6968d7b6654.svg" alt="N_{melt}=10"/>.</p>
+</div>
+<div class="section" id="ice-content">
+<span id="id2"></span><h2>2.8.2. Ice Content<a class="headerlink" href="#ice-content" title="Permalink to this headline">¶</a></h2>
+<p>The conservation equation for mass of ice in snow layers is</p>
+<div class="math" id="equation-8-17">
+<p><span class="eqno">(2.8.4)<a class="headerlink" href="#equation-8-17" title="Permalink to this equation">¶</a></span><img src="../../_images/math/13744793345cd386883599bd6d000ae7f671f331.svg" alt="\frac{\partial w_{ice,\, i} }{\partial t} =
+\left\{\begin{array}{lr}
+f_{sno} \ q_{ice,\, i-1} -\frac{\left(\Delta w_{ice,\, i} \right)_{p} }{\Delta t} &amp; \qquad i=snl+1 \\
+-\frac{\left(\Delta w_{ice,\, i} \right)_{p} }{\Delta t} &amp; \qquad i=snl+2,\ldots ,0
+\end{array}\right\}"/></p>
+</div><p>where <img class="math" src="../../_images/math/80353e4ef51d50330ed3266e5987f436e9a25a2d.svg" alt="q_{ice,\, i-1}"/>  is the rate of ice accumulation from
+precipitation or frost or the rate of ice loss from sublimation (kg
+m<sup>-2</sup> s<sup>-1</sup>) in the top layer and
+<img class="math" src="../../_images/math/e42bdbef0e58928921178705ae82aebd9f5c8bce.svg" alt="{\left(\Delta w_{ice,\, i} \right)_{p} \mathord{\left/ {\vphantom {\left(\Delta w_{ice,\, i} \right)_{p}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}"/>
+is the change in ice due to phase change (melting rate) (section <a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#phase-change"><span class="std std-numref">2.6.2</span></a>).
+The term <img class="math" src="../../_images/math/80353e4ef51d50330ed3266e5987f436e9a25a2d.svg" alt="q_{ice,\, i-1}"/>  is computed in two steps as</p>
+<div class="math" id="equation-8-18">
+<p><span class="eqno">(2.8.5)<a class="headerlink" href="#equation-8-18" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b3e14b2867fca13fa8390e72579d66a409e68f5a.svg" alt="q_{ice,\, i-1} =q_{grnd,\, ice} +\left(q_{frost} -q_{subl} \right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/a178a9832a7275489b7166010ceed45771e0d46b.svg" alt="q_{grnd,\, ice}"/>  is the rate of solid precipitation
+reaching the ground (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#canopy-water"><span class="std std-numref">2.7.1</span></a>) and <img class="math" src="../../_images/math/2fbc3e5c2c60b16f46921ac54815ac1191551254.svg" alt="q_{frost}"/>  and
+<img class="math" src="../../_images/math/218ff1be50bd10f48a3ac9c57a04b43f2f1f7d15.svg" alt="q_{subl}"/>  are gains due to frost and losses due to sublimation,
+respectively (sectio <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#update-of-ground-sensible-and-latent-heat-fluxes"><span class="std std-numref">2.5.4</span></a>). In the first step, immediately after
+<img class="math" src="../../_images/math/a178a9832a7275489b7166010ceed45771e0d46b.svg" alt="q_{grnd,\, ice}"/>  has been determined after accounting for
+interception (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#canopy-water"><span class="std std-numref">2.7.1</span></a>), a new snow depth <img class="math" src="../../_images/math/c93c3a1834f19d010eeafd4cd70822a3d8d2cbe0.svg" alt="z_{sno}"/>  (m) is
+calculated from</p>
+<div class="math" id="equation-8-19">
+<p><span class="eqno">(2.8.6)<a class="headerlink" href="#equation-8-19" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6f08db16b3459ce9af415feca2d62f35c02e52f5.svg" alt="z_{sno}^{n+1} =z_{sno}^{n} +\Delta z_{sno}"/></p>
+</div><p>where</p>
+<div class="math" id="equation-8-20">
+<p><span class="eqno">(2.8.7)<a class="headerlink" href="#equation-8-20" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4f846284a724262e072da45c02bcdaf8b7b11e1a.svg" alt="\Delta z_{sno} =\frac{q_{grnd,\, ice} \Delta t}{f_{sno} \rho _{sno} }"/></p>
+</div><p>and <img class="math" src="../../_images/math/ddaed3805f45397a6bd3989c1d27a4f86f707b25.svg" alt="\rho _{sno}"/>  is the bulk density of newly fallen snow (kg
+m<sup>-3</sup>), which parameterized by a temperature-dependent and a
+wind-dependent term:</p>
+<div class="math" id="equation-8-21a">
+<p><span class="eqno">(2.8.8)<a class="headerlink" href="#equation-8-21a" title="Permalink to this equation">¶</a></span><img src="../../_images/math/887492b8c52d1321578d44c3fdc7ad0af76f1432.svg" alt="\rho_{sno} = \rho_{T} + \rho_{w}."/></p>
+</div><p>The temperature dependent term is given by (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#vankampenhoutetal2017"><span class="std std-ref">van Kampenhout et al. (2017)</span></a>)</p>
+<div class="math" id="equation-8-21b">
+<p><span class="eqno">(2.8.9)<a class="headerlink" href="#equation-8-21b" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6a54cabd3ea52ddc6ec50ac42810f2e2660dee73.svg" alt="\rho_{T} =
+\left\{\begin{array}{lr}
+50 + 1.7 \left(17\right)^{1.5} &amp; \qquad T_{atm} &gt;T_{f} +2 \ \\
+50+1.7 \left(T_{atm} -T_{f} + 15\right)^{1.5} &amp; \qquad T_{f} - 15 &lt; T_{atm} \le T_{f} + 2 \ \\
+-3.833 \ \left( T_{atm} -T_{f} \right) - 0.0333 \ \left( T_{atm} -T_{f} \right)^{2}
+&amp;\qquad T_{atm} \le T_{f} - 15
+\end{array}\right\}"/></p>
+</div><p>where <img class="math" src="../../_images/math/2636863cfff550565bfc84f73dc9991bb0aa3d31.svg" alt="T_{atm}"/>  is the atmospheric temperature (K), and <img class="math" src="../../_images/math/43b4fcc8ffe3a239dcb50c726aa6d8e7700f94a5.svg" alt="T_{f}"/> is
+the freezing temperature of water (K) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>).
+When 10 m wind speed <img class="math" src="../../_images/math/f411d24db0ef29f3678059ad351d57d8cedb5a05.svg" alt="W_{atm}"/> is greater than 0.1 m<sup>-1</sup>, snow density
+increases due to wind-driven compaction according to
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#vankampenhoutetal2017"><span class="std std-ref">van Kampenhout et al. 2017</span></a></p>
+<div class="math" id="equation-8-21c">
+<p><span class="eqno">(2.8.10)<a class="headerlink" href="#equation-8-21c" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8bc2de05e1db7ee76d11cc490eb7d02b0f13f83c.svg" alt="\rho_{w} = 266.861 \left(\frac{1 + \tanh(\frac{W_{atm}}{5})}{2}\right)^{8.8}"/></p>
+</div><p>which is added to the temperature-dependent term (cf. equation <a class="reference internal" href="#equation-8-21a">(2.8.8)</a>).</p>
+<p>The mass of snow <img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.svg" alt="W_{sno}"/>  is</p>
+<div class="math" id="equation-8-22">
+<p><span class="eqno">(2.8.11)<a class="headerlink" href="#equation-8-22" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f06b1bb5a36973f013b8b1632d4b0e73be0deb4e.svg" alt="W_{sno}^{n+1} =W_{sno}^{n} +q_{grnd,\, ice} \Delta t."/></p>
+</div><p>The ice content of the top layer and the layer thickness are updated as</p>
+<div class="math" id="equation-8-23">
+<p><span class="eqno">(2.8.12)<a class="headerlink" href="#equation-8-23" title="Permalink to this equation">¶</a></span><img src="../../_images/math/da2f8337e03c2c2f053674fb039427a5db338852.svg" alt="w_{ice,\, snl+1}^{n+1} =w_{ice,\, snl+1}^{n} +q_{grnd,\, ice} \Delta t"/></p>
+</div><div class="math" id="equation-8-24">
+<p><span class="eqno">(2.8.13)<a class="headerlink" href="#equation-8-24" title="Permalink to this equation">¶</a></span><img src="../../_images/math/38286be43b40adca597ce41b626415cb14f50c96.svg" alt="\Delta z_{snl+1}^{n+1} =\Delta z_{snl+1}^{n} +\Delta z_{sno} ."/></p>
+</div><p>In the second step, after surface fluxes and snow/soil temperatures have
+been determined (Chapters <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#rst-momentum-sensible-heat-and-latent-heat-fluxes"><span class="std std-numref">2.5</span></a> and <a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#rst-soil-and-snow-temperatures"><span class="std std-numref">2.6</span></a>),
+<img class="math" src="../../_images/math/a6a084c0535430ccec846f90a1de0dde2d1d5c23.svg" alt="w_{ice,\, snl+1}"/>  is updated for frost or sublimation as</p>
+<div class="math" id="equation-8-25">
+<p><span class="eqno">(2.8.14)<a class="headerlink" href="#equation-8-25" title="Permalink to this equation">¶</a></span><img src="../../_images/math/037790ea4b876c702578809c9c076b2896b6d093.svg" alt="w_{ice,\, snl+1}^{n+1} =w_{ice,\, snl+1}^{n} +f_{sno} \left(q_{frost} -q_{subl} \right)\Delta t."/></p>
+</div><p>If <img class="math" src="../../_images/math/c0e637099a8c0bdcf99dbda961742490166cebb2.svg" alt="w_{ice,\, snl+1}^{n+1} &lt;0"/> upon solution of equation , the ice
+content is reset to zero and the liquid water content
+<img class="math" src="../../_images/math/37aa7da37be0305136884c1ba038b60d4fc78971.svg" alt="w_{liq,\, snl+1}"/>  is reduced by the amount required to bring
+<img class="math" src="../../_images/math/156a2919b428cde58d3f6502f931bdbb67b7678c.svg" alt="w_{ice,\, snl+1}^{n+1}"/>  up to zero.</p>
+<p>The snow water equivalent <img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.svg" alt="W_{sno}"/>  is capped to not exceed 10,000
+kg m<sup>-2</sup>. If the addition of <img class="math" src="../../_images/math/2fbc3e5c2c60b16f46921ac54815ac1191551254.svg" alt="q_{frost}"/>  were to
+result in <img class="math" src="../../_images/math/d23688a90bf7220a41d6dba198b8f75bbcb84f25.svg" alt="W_{sno} &gt; 10,000"/> kg m<sup>-2</sup>, the frost term
+<img class="math" src="../../_images/math/2fbc3e5c2c60b16f46921ac54815ac1191551254.svg" alt="q_{frost}"/>  is instead added to the ice runoff term
+<img class="math" src="../../_images/math/07c8434ad1ac2492e0c564b54971b36e42f41e40.svg" alt="q_{snwcp,\, ice}"/>  (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#runoff-from-glaciers-and-snow-capped-surfaces"><span class="std std-numref">2.7.6</span></a>).</p>
+</div>
+<div class="section" id="water-content">
+<span id="id3"></span><h2>2.8.3. Water Content<a class="headerlink" href="#water-content" title="Permalink to this headline">¶</a></h2>
+<p>The conservation equation for mass of water in snow layers is</p>
+<div class="math" id="equation-8-26">
+<p><span class="eqno">(2.8.15)<a class="headerlink" href="#equation-8-26" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5efaf2f9eabc712b19c83d2118435f610a05054f.svg" alt="\frac{\partial w_{liq,\, i} }{\partial t} =\left(q_{liq,\, i-1} -q_{liq,\, i} \right)+\frac{\left(\Delta w_{liq,\, i} \right)_{p} }{\Delta t}"/></p>
+</div><p>where <img class="math" src="../../_images/math/3fbbdeb6aab18ded5f6624833de841cffc04108d.svg" alt="q_{liq,\, i-1}"/>  is the flow of liquid water into layer
+<img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.svg" alt="i"/> from the layer above, <img class="math" src="../../_images/math/6849150f8ae7c09ef17a5b2aa44e8decbf485059.svg" alt="q_{liq,\, i}"/>  is the flow of
+water out of layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.svg" alt="i"/> to the layer below,
+<img class="math" src="../../_images/math/d133b96d20395a69da8bd55eaf0d813ff87a6468.svg" alt="{\left(\Delta w_{liq,\, i} \right)_{p} \mathord{\left/ {\vphantom {\left(\Delta w_{liq,\, i} \right)_{p}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}"/>
+is the change in liquid water due to phase change (melting rate)
+(section <a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#phase-change"><span class="std std-numref">2.6.2</span></a>). For the top snow layer only,</p>
+<div class="math" id="equation-8-27">
+<p><span class="eqno">(2.8.16)<a class="headerlink" href="#equation-8-27" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e67dcbdb535317d028ee85e51476e34e977a89fd.svg" alt="q_{liq,\, i-1} =f_{sno} \left(q_{grnd,\, liq} +\left(q_{sdew} -q_{seva} \right)\right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/9e8c856df3d5eca7ea2cded4fa9b5baa74917be9.svg" alt="q_{grnd,\, liq}"/>  is the rate of liquid precipitation
+reaching the snow (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#canopy-water"><span class="std std-numref">2.7.1</span></a>), <img class="math" src="../../_images/math/79b666ea3affc729ba378caaa4980c7475d0b962.svg" alt="q_{seva}"/> is the
+evaporation of liquid water and <img class="math" src="../../_images/math/60e6994744ea27c1b8ed0128fddefef44826c9bf.svg" alt="q_{sdew}"/>  is the liquid dew (section
+<a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#update-of-ground-sensible-and-latent-heat-fluxes"><span class="std std-numref">2.5.4</span></a>).  After surface
+fluxes and snow/soil temperatures have been determined
+(Chapters <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#rst-momentum-sensible-heat-and-latent-heat-fluxes"><span class="std std-numref">2.5</span></a> and
+<a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#rst-soil-and-snow-temperatures"><span class="std std-numref">2.6</span></a>), <img class="math" src="../../_images/math/37aa7da37be0305136884c1ba038b60d4fc78971.svg" alt="w_{liq,\, snl+1}"/>  is
+updated for the liquid precipitation reaching the ground and dew or
+evaporation as</p>
+<div class="math" id="equation-8-28">
+<p><span class="eqno">(2.8.17)<a class="headerlink" href="#equation-8-28" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d5f5b415963878c9326d83ffc80c68fc430f6aa8.svg" alt="w_{liq,\, snl+1}^{n+1} =w_{liq,\, snl+1}^{n} +f_{sno} \left(q_{grnd,\, liq} +q_{sdew} -q_{seva} \right)\Delta t."/></p>
+</div><p>When the liquid water within a snow layer exceeds the layer’s holding
+capacity, the excess water is added to the underlying layer, limited by
+the effective porosity (<img class="math" src="../../_images/math/13c07784fb54f07671e5a2b267768fa7d041d615.svg" alt="1-\theta _{ice}"/> ) of the layer. The flow
+of water is assumed to be zero (<img class="math" src="../../_images/math/e630f12cdfdd30a461581e087f9afd4622c31724.svg" alt="q_{liq,\, i} =0"/>) if the
+effective porosity of either of the two layers
+(<img class="math" src="../../_images/math/bfe2c86f8d1c0e23c0d16fda29ce5c0b464fc5a7.svg" alt="1-\theta _{ice,\, i} {\rm \; and\; }1-\theta _{ice,\, i+1}"/> ) is
+less than <img class="math" src="../../_images/math/5cd0785ad269551b02a4b6c717234cda18d3b340.svg" alt="\theta _{imp} =0.05"/>, the water impermeable volumetric
+water content. Thus, water flow between layers, <img class="math" src="../../_images/math/6849150f8ae7c09ef17a5b2aa44e8decbf485059.svg" alt="q_{liq,\, i}"/> ,
+for layers <img class="math" src="../../_images/math/9e69f97868549d6116f8b349ba3b17514f327fdb.svg" alt="i=snl+1,\ldots ,0"/>, is initially calculated as</p>
+<div class="math" id="equation-8-29">
+<p><span class="eqno">(2.8.18)<a class="headerlink" href="#equation-8-29" title="Permalink to this equation">¶</a></span><img src="../../_images/math/39bbb51227fb2a4c18fa4c2932c9714bea325f1a.svg" alt="q_{liq,\, i} =\frac{\rho _{liq} \left[\theta _{liq,\, i} -S_{r} \left(1-\theta _{ice,\, i} \right)\right]f_{sno} \Delta z_{i} }{\Delta t} \ge 0"/></p>
+</div><p>where the volumetric liquid water <img class="math" src="../../_images/math/79363d28fdf87f0192726c0307c6718a1ff6d4ef.svg" alt="\theta _{liq,\, i}"/>  and ice
+<img class="math" src="../../_images/math/2053a8d9280dee0e2cb3a2b7077c17f65bc75a00.svg" alt="\theta _{ice,\, i}"/>  contents are</p>
+<div class="math" id="equation-8-30">
+<p><span class="eqno">(2.8.19)<a class="headerlink" href="#equation-8-30" title="Permalink to this equation">¶</a></span><img src="../../_images/math/915b95a4044753f4578eafa90fd77f4d6ee354aa.svg" alt="\theta _{ice,\, i} =\frac{w_{ice,\, i} }{f_{sno} \Delta z_{i} \rho _{ice} } \le 1"/></p>
+</div><div class="math" id="equation-8-31">
+<p><span class="eqno">(2.8.20)<a class="headerlink" href="#equation-8-31" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2ce3c85efa8b246e1ef9167b62501b9dddfe8752.svg" alt="\theta _{liq,\, i} =\frac{w_{liq,\, i} }{f_{sno} \Delta z_{i} \rho _{liq} } \le 1-\theta _{ice,\, i} ,"/></p>
+</div><p>and <img class="math" src="../../_images/math/1fdc22df238a1bda75ec5b1478b7fea61d3e9707.svg" alt="S_{r} =0.033"/> is the irreducible water saturation (snow
+holds a certain amount of liquid water due to capillary retention after
+drainage has ceased (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#anderson1976"><span class="std std-ref">Anderson (1976)</span></a>)). The water holding capacity of the
+underlying layer limits the flow of water <img class="math" src="../../_images/math/6849150f8ae7c09ef17a5b2aa44e8decbf485059.svg" alt="q_{liq,\, i}"/>
+calculated in equation , unless the underlying layer is the surface soil
+layer, as</p>
+<div class="math" id="equation-8-32">
+<p><span class="eqno">(2.8.21)<a class="headerlink" href="#equation-8-32" title="Permalink to this equation">¶</a></span><img src="../../_images/math/146557ec16631babd217c6611d9c5b82aa1658b2.svg" alt="q_{liq,\, i} \le \frac{\rho _{liq} \left[1-\theta _{ice,\, i+1} -\theta _{liq,\, i+1} \right]\Delta z_{i+1} }{\Delta t} \qquad i=snl+1,\ldots ,-1."/></p>
+</div><p>The liquid water content <img class="math" src="../../_images/math/cf0c9f644eb986b4243f04daec8e133cf676124a.svg" alt="w_{liq,\, i}"/>  is updated as</p>
+<div class="math" id="equation-8-33">
+<p><span class="eqno">(2.8.22)<a class="headerlink" href="#equation-8-33" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d90cf670bedf22545070ac1ab162d00de29a3a0c.svg" alt="w_{liq,\, i}^{n+1} =w_{liq,\, i}^{n} +\left(q_{i-1} -q_{i} \right)\Delta t."/></p>
+</div><p>Equations - are solved sequentially from top (<img class="math" src="../../_images/math/3c30e7b1175ac97cd8d036e745d707ba99dd276c.svg" alt="i=snl+1"/>) to
+bottom (<img class="math" src="../../_images/math/3564819d8f8c59c8ee08f4d1c1e0f33d3a0ed72a.svg" alt="i=0"/>) snow layer in each time step. The total flow of
+liquid water reaching the soil surface is then <img class="math" src="../../_images/math/2c58a3d47b2ce043f5201f16a492e0b14564ee13.svg" alt="q_{liq,\, 0}"/>
+which is used in the calculation of surface runoff and infiltration
+(sections <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#surface-runoff"><span class="std std-numref">2.7.2.1</span></a> and <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#infiltration"><span class="std std-numref">2.7.2.3</span></a>).</p>
+</div>
+<div class="section" id="black-and-organic-carbon-and-mineral-dust-within-snow">
+<span id="id4"></span><h2>2.8.4. Black and organic carbon and mineral dust within snow<a class="headerlink" href="#black-and-organic-carbon-and-mineral-dust-within-snow" title="Permalink to this headline">¶</a></h2>
+<p>Particles within snow originate from atmospheric aerosol deposition
+(<img class="math" src="../../_images/math/27bcfd9a5c36395acf7124e8a65c09f3870ca4e5.svg" alt="D_{sp}"/>  in Table 2.3 (kg m<sup>-2</sup> s<sup>-1</sup>)
+and influence snow radiative transfer (sections <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#snow-albedo"><span class="std std-numref">2.3.2.1</span></a>,
+<a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#snowpack-optical-properties"><span class="std std-numref">2.3.2.2</span></a>, and <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#snow-aging"><span class="std std-numref">2.3.2.3</span></a>).
+Particle masses and mixing ratios are represented with a simple
+mass-conserving scheme. The model maintains masses of the following
+eight particle species within each snow layer: hydrophilic black carbon,
+hydrophobic black carbon, hydrophilic organic carbon, hydrophobic
+organic carbon, and four species of mineral dust with the following
+particle sizes: 0.1-1.0, 1.0-2.5, 2.5-5.0, and 5.0-10.0 <img class="math" src="../../_images/math/5af260aed48a2c1e03d51cb0c9a745daa35f0d9a.svg" alt="\mu m"/>.
+Each of these species has unique optical properties
+(<a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#table-single-scatter-albedo-values-used-for-snowpack-impurities-and-ice"><span class="std std-numref">Table 2.3.5</span></a>)
+and meltwater removal efficiencies (<a class="reference internal" href="#table-meltwater-scavenging"><span class="std std-numref">Table 2.8.1</span></a>).</p>
+<p>The black carbon and organic carbon deposition rates described in Table
+2.3 are combined into four categories as follows</p>
+<div class="math" id="equation-8-34">
+<p><span class="eqno">(2.8.23)<a class="headerlink" href="#equation-8-34" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5c516cf51c2e7e3a55a0a81ae777656e8691b900.svg" alt="D_{bc,\, hphil} =D_{bc,\, dryhphil} +D_{bc,\, wethphil}"/></p>
+</div><div class="math" id="equation-8-35">
+<p><span class="eqno">(2.8.24)<a class="headerlink" href="#equation-8-35" title="Permalink to this equation">¶</a></span><img src="../../_images/math/58896b039294d383b90e9747fcc02c729d81c313.svg" alt="D_{bc,\, hphob} =D_{bc,\, dryhphob}"/></p>
+</div><div class="math" id="equation-8-36">
+<p><span class="eqno">(2.8.25)<a class="headerlink" href="#equation-8-36" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3dfce6cbbec6bc30dac56a9576d555452d67675e.svg" alt="D_{oc,\, hphil} =D_{oc,\, dryhphil} +D_{oc,\, wethphil}"/></p>
+</div><div class="math" id="equation-8-37">
+<p><span class="eqno">(2.8.26)<a class="headerlink" href="#equation-8-37" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3f9c6a0c45d66db23648b3b6bd46c3ccbdfaa754.svg" alt="D_{oc,\, hphob} =D_{oc,\, dryhphob}"/></p>
+</div><p>Deposited particles are assumed to be instantly mixed (homogeneously)
+within the surface snow layer and are added after the inter-layer water
+fluxes are computed (section <a class="reference internal" href="#water-content"><span class="std std-numref">2.8.3</span></a>) so that some aerosol is in the top
+layer after deposition and is not immediately washed out before radiative
+calculations are done. Particle masses are then redistributed each time
+step based on meltwater drainage through the snow column (section
+<a class="reference internal" href="#water-content"><span class="std std-numref">2.8.3</span></a>) and snow layer combination and subdivision
+(section <a class="reference internal" href="#snow-layer-combination-and-subdivision"><span class="std std-numref">2.8.7</span></a>). The change in
+mass of each of the particle species <img class="math" src="../../_images/math/80e3a6c471e47b2afde4103e961b1eac24895895.svg" alt="\Delta m_{sp,\, i}"/>
+(kg m<sup>-2</sup>) is</p>
+<div class="math" id="equation-8-38">
+<p><span class="eqno">(2.8.27)<a class="headerlink" href="#equation-8-38" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4c6eecd0c2b546b90ac00e4eb021536a0fdadf62.svg" alt="\Delta m_{sp,\, i} =\left[k_{sp} \left(q_{liq,\, i-1} c_{sp,\, i-1} -q_{liq,\, i} c_{i} \right)+D_{sp} \right]\Delta t"/></p>
+</div><p>where <img class="math" src="../../_images/math/3ece10cfd9350176c7713f2db3adcf94134fb371.svg" alt="k_{sp}"/>  is the meltwater scavenging efficiency that is
+unique for each species (<a class="reference internal" href="#table-meltwater-scavenging"><span class="std std-numref">Table 2.8.1</span></a>), <img class="math" src="../../_images/math/3fbbdeb6aab18ded5f6624833de841cffc04108d.svg" alt="q_{liq,\, i-1}"/>  is the flow
+of liquid water into layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.svg" alt="i"/> from the layer above,
+<img class="math" src="../../_images/math/6849150f8ae7c09ef17a5b2aa44e8decbf485059.svg" alt="q_{liq,\, i}"/>  is the flow of water out of layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.svg" alt="i"/> into
+the layer below (kg m<sup>-2</sup> s<sup>-1</sup>) (section
+<a class="reference internal" href="#water-content"><span class="std std-numref">2.8.3</span></a>), <img class="math" src="../../_images/math/8fd721b74ad022a3c50d5e8f83f3287ff5f7f9d4.svg" alt="c_{sp,\, i-1}"/>  and <img class="math" src="../../_images/math/931fcead95327956f4527feb70d109ed730dd172.svg" alt="c_{sp,\, i}"/>  are the particle
+mass mixing ratios in layers <img class="math" src="../../_images/math/5c739fe9dcc22ba2917ce9ca6b4c3018e65c6625.svg" alt="i-1"/> and <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.svg" alt="i"/> (kg
+kg<sup>-1</sup>), <img class="math" src="../../_images/math/27bcfd9a5c36395acf7124e8a65c09f3870ca4e5.svg" alt="D_{sp}"/>  is the atmospheric deposition rate
+(zero for all layers except layer <img class="math" src="../../_images/math/6cb4cd0f2aac5f15fcd78e53510ea8f5492433b5.svg" alt="snl+1"/>), and <img class="math" src="../../_images/math/ec002955bdf95ee9869878fbad4f80fc98539359.svg" alt="\Delta t"/>
+is the model time step (s). The particle mass mixing ratio is</p>
+<div class="math" id="equation-8-39">
+<p><span class="eqno">(2.8.28)<a class="headerlink" href="#equation-8-39" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0e475c3b5bb7dfce036cb84ec8c8491213839ebc.svg" alt="c_{i} =\frac{m_{sp,\, i} }{w_{liq,\, i} +w_{ice,\, i} } ."/></p>
+</div><p>Values of <img class="math" src="../../_images/math/3ece10cfd9350176c7713f2db3adcf94134fb371.svg" alt="k_{sp}"/>  are partially derived from experiments
+published by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#conwayetal1996"><span class="std std-ref">Conway et al. (1996)</span></a>. Particles masses are re-distributed
+proportionately with snow mass when layers are combined or divided, thus
+conserving particle mass within the snow column. The mass of particles
+carried out with meltwater through the bottom snow layer is assumed to
+be permanently lost from the snowpack, and is not maintained within the
+model.</p>
+<span id="table-meltwater-scavenging"></span><table border="1" class="docutils" id="id15">
+<caption><span class="caption-number">Table 2.8.1 </span><span class="caption-text">Meltwater scavenging efficiency for particles within snow</span><a class="headerlink" href="#id15" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="69%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Species</th>
+<th class="head"><img class="math" src="../../_images/math/3ece10cfd9350176c7713f2db3adcf94134fb371.svg" alt="k_{sp}"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Hydrophilic black carbon</td>
+<td>0.20</td>
+</tr>
+<tr class="row-odd"><td>Hydrophobic black carbon</td>
+<td>0.03</td>
+</tr>
+<tr class="row-even"><td>Hydrophilic organic carbon</td>
+<td>0.20</td>
+</tr>
+<tr class="row-odd"><td>Hydrophobic organic carbon</td>
+<td>0.03</td>
+</tr>
+<tr class="row-even"><td>Dust species 1 (0.1-1.0 <img class="math" src="../../_images/math/5af260aed48a2c1e03d51cb0c9a745daa35f0d9a.svg" alt="\mu m"/>)</td>
+<td>0.02</td>
+</tr>
+<tr class="row-odd"><td>Dust species 2 (1.0-2.5 <img class="math" src="../../_images/math/5af260aed48a2c1e03d51cb0c9a745daa35f0d9a.svg" alt="\mu m"/>)</td>
+<td>0.02</td>
+</tr>
+<tr class="row-even"><td>Dust species 3 (2.5-5.0 <img class="math" src="../../_images/math/5af260aed48a2c1e03d51cb0c9a745daa35f0d9a.svg" alt="\mu m"/>)</td>
+<td>0.01</td>
+</tr>
+<tr class="row-odd"><td>Dust species 4 (5.0-10.0 <img class="math" src="../../_images/math/5af260aed48a2c1e03d51cb0c9a745daa35f0d9a.svg" alt="\mu m"/>)</td>
+<td>0.01</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="initialization-of-snow-layer">
+<span id="id5"></span><h2>2.8.5. Initialization of snow layer<a class="headerlink" href="#initialization-of-snow-layer" title="Permalink to this headline">¶</a></h2>
+<p>If there are no existing snow layers (<img class="math" src="../../_images/math/47915f501c70e164c67a6f59e4780e829510c8cc.svg" alt="snl+1=1"/>) but
+<img class="math" src="../../_images/math/fbd1448e60df2a4d351a6fe84c9cab7079aea772.svg" alt="z_{sno} \ge 0.01"/> m after accounting for solid precipitation
+<img class="math" src="../../_images/math/9e3a93d40819f3cda6b4d99a456ba6a669ddf573.svg" alt="q_{sno}"/> , then a snow layer is initialized (<img class="math" src="../../_images/math/4673841e97782cb4e2bf0ddfac9b35150f0ed4ed.svg" alt="snl=-1"/>) as
+follows</p>
+<div class="math" id="equation-8-40">
+<p><span class="eqno">(2.8.29)<a class="headerlink" href="#equation-8-40" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8dcc1e8ef8ea3bd827195a42f503b9e538a82849.svg" alt="\begin{array}{lcr}
+\Delta z_{0} &amp; = &amp; z_{sno}  \\
+z_{o} &amp; = &amp; -0.5\Delta z_{0}  \\
+z_{h,\, -1} &amp; = &amp; -\Delta z_{0}  \\
+T_{0} &amp; = &amp; \min \left(T_{f} ,T_{atm} \right) \\
+w_{ice,\, 0} &amp; = &amp; W_{sno}  \\
+w_{liq,\, 0} &amp; = &amp; 0
+\end{array}."/></p>
+</div></div>
+<div class="section" id="snow-compaction">
+<span id="id6"></span><h2>2.8.6. Snow Compaction<a class="headerlink" href="#snow-compaction" title="Permalink to this headline">¶</a></h2>
+<p>Snow compaction is initiated after the soil hydrology calculations
+[surface runoff (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#surface-runoff"><span class="std std-numref">2.7.2.1</span></a>), infiltration (section
+<a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#infiltration"><span class="std std-numref">2.7.2.3</span></a>), soil water (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#soil-water"><span class="std std-numref">2.7.3</span></a>)] are
+complete. Currently, there are four processes included that lead to snow
+compaction:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>destructive metamorphism of new snow (crystal breakdown due to wind or thermodynamic stress)</li>
+<li>snow load or compaction by overburden pressure</li>
+<li>melting (changes in snow structure due to melt-freeze cycles plus changes in crystals due to liquid water)</li>
+<li>drifting snow compaction.</li>
+</ol>
+</div></blockquote>
+<p>The total fractional compaction rate for each snow layer <img class="math" src="../../_images/math/0ac6b2fee4b133f0830c3fd98bd5a0da8a32c9d6.svg" alt="C_{R,\, i}"/>
+(s<sup>-1</sup>) is the sum of multiple compaction processes</p>
+<div class="math" id="equation-8-41">
+<p><span class="eqno">(2.8.30)<a class="headerlink" href="#equation-8-41" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1b00d395844d8557285fb92d71d1809b4127ad25.svg" alt="C_{R,\, i} =\frac{1}{\Delta z_{i} } \frac{\partial \Delta z_{i} }{\partial t} =C_{R1,\, i} +C_{R2,\, i} +C_{R3,\, i} +C_{R4,\, i} +C_{R5,\, i} ."/></p>
+</div><p>Compaction is not allowed if the layer is saturated</p>
+<div class="math" id="equation-8-42">
+<p><span class="eqno">(2.8.31)<a class="headerlink" href="#equation-8-42" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7a5d2eeaa1953e05f4df248fa041361e7483371e.svg" alt="1-\left(\frac{w_{ice,\, i} }{f_{sno} \Delta z_{i} \rho _{ice} } +\frac{w_{liq,\, i} }{f_{sno} \Delta z_{i} \rho _{liq} } \right)\le 0.001"/></p>
+</div><p>or if the ice content is below a minimum value
+(<img class="math" src="../../_images/math/a616b6f99fc0afdfa2892b00119c874deb5f48d7.svg" alt="w_{ice,\, i} \le 0.1"/>).</p>
+<p>The snow layer thickness after compaction is</p>
+<div class="math" id="equation-8-42b">
+<p><span class="eqno">(2.8.32)<a class="headerlink" href="#equation-8-42b" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b0cc91558a8e3bd851ae055e642f7d68f624b21a.svg" alt="\Delta z_{i}^{n+1} =\Delta z_{i}^{n} \left(1+C_{R,\, i} \Delta t\right)."/></p>
+</div><div class="section" id="destructive-metamorphism">
+<span id="id7"></span><h3>2.8.6.1. Destructive metamorphism<a class="headerlink" href="#destructive-metamorphism" title="Permalink to this headline">¶</a></h3>
+<p>Compaction as a result of destructive metamorphism <img class="math" src="../../_images/math/267f5c0079b736ca1fbd17afa6168ff6e7d1870a.svg" alt="C_{R1,\; i}"/> (s<sup>-1</sup>) is temperature dependent (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#anderson1976"><span class="std std-ref">Anderson (1976)</span></a>)</p>
+<div class="math" id="equation-8-43">
+<p><span class="eqno">(2.8.33)<a class="headerlink" href="#equation-8-43" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5873625d9fd5ccccbe76ee34f64abd450c6f2765.svg" alt="C_{R1,\, i} =\left[\frac{1}{\Delta z_{i} } \frac{\partial \Delta z_{i} }{\partial t} \right]_{metamorphism} =-c_{3} c_{1} c_{2} \exp \left[-c_{4} \left(T_{f} -T_{i} \right)\right]"/></p>
+</div><p>where <img class="math" src="../../_images/math/00a3e1dd18faa3eaae94178826a2e415070f6d99.svg" alt="c_{3} =2.777\times 10^{-6}"/>  (s<sup>-1</sup>) is the fractional compaction rate for <img class="math" src="../../_images/math/15026ee02ae0a9cbbfa7d897dd59842e9600c162.svg" alt="T_{i} =T_{f}"/>, <img class="math" src="../../_images/math/db9e2814dda3e37e35ff61a21a591e667dbb236b.svg" alt="c_{4} =0.04"/> K<sup>-1</sup>, and</p>
+<div class="math" id="equation-8-44">
+<p><span class="eqno">(2.8.34)<a class="headerlink" href="#equation-8-44" title="Permalink to this equation">¶</a></span><img src="../../_images/math/df6d58e0f1e00550d1ab86724f29ff85c40c2e30.svg" alt="\begin{array}{lr}
+c_{1}  = 1 &amp; \qquad \frac{w_{ice,\, i} }{f_{sno} \Delta z_{i} } \le 175{\rm \; kg\; m}^{{\rm -3}}  \\
+c_{1}  = \exp \left[-0.046\left(\frac{w_{ice,\, i} }{f_{sno} \Delta z_{i} } -175\right)\right] &amp; \qquad \frac{w_{ice,\, i} }{f_{sno} \Delta z_{i} } &gt;175{\rm \; kg\; m}^{{\rm -3}} \\
+c_{2}  = 2 &amp; \qquad \frac{w_{liq,\, i} }{f_{sno} \Delta z_{i} } &gt;0.01 \\
+c_{2}  = 1 &amp; \qquad \frac{w_{liq,\, i} }{f_{sno} \Delta z_{i} } \le 0.01
+\end{array}"/></p>
+</div><p>where
+<img class="math" src="../../_images/math/ade774a2b4af34df1e4372176938a5ce5301506e.svg" alt="{w_{ice,\, i} \mathord{\left/ {\vphantom {w_{ice,\, i}  \left(f_{sno} \Delta z_{i} \right)}} \right. \kern-\nulldelimiterspace} \left(f_{sno} \Delta z_{i} \right)}"/>
+and
+<img class="math" src="../../_images/math/7d4122106845dbb92d750d4d3507a4c883d47e15.svg" alt="{w_{liq,\, i} \mathord{\left/ {\vphantom {w_{liq,\, i}  \left(f_{sno} \Delta z_{i} \right)}} \right. \kern-\nulldelimiterspace} \left(f_{sno} \Delta z_{i} \right)}"/>
+are the bulk densities of liquid water and ice (kg m<sup>-3</sup>).</p>
+</div>
+<div class="section" id="overburden-pressure-compaction">
+<span id="id8"></span><h3>2.8.6.2. Overburden pressure compaction<a class="headerlink" href="#overburden-pressure-compaction" title="Permalink to this headline">¶</a></h3>
+<p>The compaction rate as a result of overburden <img class="math" src="../../_images/math/086b25203ca7b76220b03e62091cd48c027015e2.svg" alt="C_{R2,\; i}"/> (s<sup>-1</sup>) is a linear function of the snow load pressure <img class="math" src="../../_images/math/c9d2dc2ea0f269179939ca02b203c236ae47b5f4.svg" alt="P_{s,\, i}"/> (kg m<sup>-2</sup>) (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#anderson1976"><span class="std std-ref">Anderson (1976)</span></a>):</p>
+<div class="math" id="equation-8-45">
+<p><span class="eqno">(2.8.35)<a class="headerlink" href="#equation-8-45" title="Permalink to this equation">¶</a></span><img src="../../_images/math/17721c9ef18e9a20873566de5e7ef34bf7eeb1b1.svg" alt="C_{R2,\, i} =\left[\frac{1}{\Delta z_{i} } \frac{\partial \Delta z_{i} }{\partial t} \right]_{overburden} =-\frac{P_{s,\, i} }{\eta }"/></p>
+</div><p>The snow load pressure <img class="math" src="../../_images/math/c9d2dc2ea0f269179939ca02b203c236ae47b5f4.svg" alt="P_{s,\, i}"/>  is calculated for each layer as the sum of
+the ice <img class="math" src="../../_images/math/62dd7c28a92e1857ebeb44a2a4e9b2ef2a1945b7.svg" alt="w_{ice,\, i}"/>  and liquid water contents
+<img class="math" src="../../_images/math/cf0c9f644eb986b4243f04daec8e133cf676124a.svg" alt="w_{liq,\, i}"/>  of the layers above plus half the ice and liquid
+water contents of the layer being compacted</p>
+<div class="math" id="equation-8-47">
+<p><span class="eqno">(2.8.36)<a class="headerlink" href="#equation-8-47" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a72ceed8c0ede20db2764fbe7bf6a2dcdecd4d1f.svg" alt="P_{s,\, i} =\frac{w_{ice,\, i} +w_{liq,\, i} }{2} +\sum _{j=snl+1}^{j=i-1}\left(w_{ice,\, j} +w_{liq,\, j} \right) ."/></p>
+</div><p>Variable <img class="math" src="../../_images/math/5635a7c34414599c2452d72430811e816b460335.svg" alt="\eta"/> in <a class="reference internal" href="#equation-8-45">(2.8.35)</a> is a viscosity coefficient (kg s m<sup>-2</sup>) that varies with density and
+temperature as</p>
+<div class="math" id="equation-8-46">
+<p><span class="eqno">(2.8.37)<a class="headerlink" href="#equation-8-46" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1e58cc57a2cd13c625a16b706ba13c296cafbe30.svg" alt="\eta = f_{1} f_{2} \eta_{0} \frac{\rho_{i}}{c_{\eta}} \exp \left[ a_{\eta} \left(T_{f} -T_{i} \right) + b_{\eta} \rho_{i} \right]"/></p>
+</div><p>with constant factors <img class="math" src="../../_images/math/5684638a3340f707a4ec0cecec48ebc94517042d.svg" alt="\eta _{0} = 7.62237 \times 10^{6}"/>  kg s<sup>-1</sup> m<sup>-2</sup>,
+<img class="math" src="../../_images/math/25a77dccfbbc299b3b7ff7b258c1cdd2bac5f56d.svg" alt="a_{\eta} = 0.1"/> K<sup>-1</sup>, <img class="math" src="../../_images/math/545463ca20f80f2f34ebb8ed9a24efde051b787d.svg" alt="b_{\eta} = 0.023"/> m<sup>-3</sup> kg<sup>-1</sup>,
+and <img class="math" src="../../_images/math/2d3fe0b4c5dbf2c4d7b086eebef00b2e59d3c69a.svg" alt="c_{\eta} = 450"/> kg m<sup>-3</sup> (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#vankampenhoutetal2017"><span class="std std-ref">van Kampenhout et al. (2017)</span></a>).
+Further, factor <img class="math" src="../../_images/math/09968cb620b9b121ddcc33bb90eab038355375ab.svg" alt="f_1"/> accounts for the presence of liquid water (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#vionnetetal2012"><span class="std std-ref">Vionnet et al. (2012)</span></a>):</p>
+<div class="math" id="equation-8-46b">
+<p><span class="eqno">(2.8.38)<a class="headerlink" href="#equation-8-46b" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1859f5d59eb541098d2cd736941c1e6f4468781e.svg" alt="f_{1} = \frac{1}{1+ 60 \frac{w_{\mathrm{liq},\, i}}{\rho_{\mathrm{liq}} \Delta z_{i} }}."/></p>
+</div><p>Factor <img class="math" src="../../_images/math/a23addf1349384bc83f74ce7c550fe98bbdc2b48.svg" alt="f_2"/> originally accounts for the presence of angular grains, but since grain shape is not modelled
+<img class="math" src="../../_images/math/a23addf1349384bc83f74ce7c550fe98bbdc2b48.svg" alt="f_2"/> is fixed to the value 4.</p>
+</div>
+<div class="section" id="compaction-by-melt">
+<span id="id9"></span><h3>2.8.6.3. Compaction by melt<a class="headerlink" href="#compaction-by-melt" title="Permalink to this headline">¶</a></h3>
+<p>The compaction rate due to melting <img class="math" src="../../_images/math/2b92806456f156cf7598fa81ea580154b69d855d.svg" alt="C_{R3,\; i}"/> (s<sup>-1</sup>) is taken to be the ratio of the change in snow ice
+mass after the melting to the mass before melting</p>
+<div class="math" id="equation-8-48">
+<p><span class="eqno">(2.8.39)<a class="headerlink" href="#equation-8-48" title="Permalink to this equation">¶</a></span><img src="../../_images/math/170ec685c336f8405bc55b9f14ae8dbba75ae7f9.svg" alt="C_{R3,\, i} = \left[\frac{1}{\Delta z_{i} } \frac{\partial \Delta z_{i} }{\partial t} \right]_{melt}
+= -\frac{1}{\Delta t} \max \left(0,\frac{W_{sno,\, i}^{n} -W_{sno,\, i}^{n+1} }{W_{sno,\, i}^{n} } \right)"/></p>
+</div><p>and melting is identified during the phase change calculations (section
+<a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#phase-change"><span class="std std-numref">2.6.2</span></a>).  Because snow depth is defined as the average
+depth of the snow covered area, the snow depth must also be updated for
+changes in <img class="math" src="../../_images/math/f946f3426bf2cf588dbe5a9a9c77396e913a4a80.svg" alt="f_{sno}"/> when <img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.svg" alt="W_{sno}"/> has changed.</p>
+<blockquote>
+<div><div class="math" id="equation-8-49">
+<p><span class="eqno">(2.8.40)<a class="headerlink" href="#equation-8-49" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f466d1e004093a065748b3c8a2bff0c6573ed129.svg" alt="C_{R4,\, i} =\left[\frac{1}{\Delta z_{i} } \frac{\partial \Delta z_{i} }{\partial t} \right]_{fsno} =-\frac{1}{\Delta t} \max \left(0,\frac{f_{sno,\, i}^{n} -f_{sno,\, i}^{n+1} }{f_{sno,\, i}^{n} } \right)"/></p>
+</div></div></blockquote>
+</div>
+<div class="section" id="compaction-by-drifting-snow">
+<span id="id10"></span><h3>2.8.6.4. Compaction by drifting snow<a class="headerlink" href="#compaction-by-drifting-snow" title="Permalink to this headline">¶</a></h3>
+<p>Crystal breaking by drifting snow leads to higher snow densities at the surface.
+This process is particularly important on ice sheets, where destructive metamorphism is slow due to low temperatures
+but high wind speeds (katabatic winds) are prevailing.
+Therefore a drifting snow compaction parametrization was introduced, based on (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#vionnetetal2012"><span class="std std-ref">Vionnet et al. (2012)</span></a>).</p>
+<div class="math" id="equation-8-50">
+<p><span class="eqno">(2.8.41)<a class="headerlink" href="#equation-8-50" title="Permalink to this equation">¶</a></span><img src="../../_images/math/cbe1c88840f626023a9d5d2a327f533b513359b3.svg" alt="C_{R5,\, i} = \left[\frac{1}{\Delta z_{i} } \frac{\partial \Delta z_{i} }{\partial t} \right]_{drift} = - \frac{\rho_{\max} - \rho_i}{\tau_{i}}."/></p>
+</div><p>Here, <img class="math" src="../../_images/math/163e6ce59d324ba7047672ef8ed83d6462f11e78.svg" alt="\rho_{\max} = 350"/> kg m<sup>-3</sup> is the upper limit to which this process is active, and
+<img class="math" src="../../_images/math/b57130dbe1b3e231a71cfc5c85c4fa23bfb1c6cc.svg" alt="\tau_{i}"/> is a timescale which is depth dependent:</p>
+<div class="math" id="equation-8-50b">
+<p><span class="eqno">(2.8.42)<a class="headerlink" href="#equation-8-50b" title="Permalink to this equation">¶</a></span><img src="../../_images/math/de01e7651e65929f4ea42ef8928d3efe6c55860b.svg" alt="\tau_i = \frac{\tau}{\Gamma_{\mathrm{drift}}^i} \quad \mathrm{,} \:\; \Gamma^i_\mathrm{drift} = \max\left[ 0, S_\mathrm{I}^i \exp(-z_i / 0.1) \right]."/></p>
+</div><p>Here, <img class="math" src="../../_images/math/557d5fad862c9046d26e1a930f45a550c146d592.svg" alt="\tau"/> is a characteristic time scale for drifting snow compaction and is empirically set to 48 h, and
+<img class="math" src="../../_images/math/6de62736d8aa90101801d7a1416e97e921d1620f.svg" alt="z_i"/> is a pseudo-depth which takes into account previous hardening of snow layers above the current layer:
+<img class="math" src="../../_images/math/e2c6b7d34aa2a95b534c83f6c94c5561e1e77bea.svg" alt="z_i = \sum_j \Delta z_j \cdot (3.25 - S_\mathrm{I}^j)"/>.
+The driftability index <img class="math" src="../../_images/math/0bec250ed4fce650a20cfad4ea393152b4ed21e3.svg" alt="S_\mathrm{I}"/> reflects how well snow can be drifted and depends on the mobility of the snow
+as well as the 10 m wind speed:</p>
+<div class="math" id="equation-8-50c">
+<p><span class="eqno">(2.8.43)<a class="headerlink" href="#equation-8-50c" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b1ee0c47dc54af3e50f63228f7199d02eaf20cfd.svg" alt="\begin{array}{rcl}
+S_\mathrm{I} &amp; = &amp; -2.868 \exp(-0.085 U) + 1 + M_{\mathrm{O}} \\
+M_\mathrm{O} &amp; = &amp; -0.069 + 0.66 F(\rho)
+\end{array}"/></p>
+</div><p>The latter equation (for the mobility index <img class="math" src="../../_images/math/74bfe0f2bf3ff08da6933a0c9ebd41ec6d7aabd7.svg" alt="M_\mathrm{O}"/>) is a simplification from the original paper
+by removing the dependency on grain size and assuming spherical grains
+(see <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#vankampenhoutetal2017"><span class="std std-ref">van Kampenhout et al. (2017)</span></a>).</p>
+</div>
+</div>
+<div class="section" id="snow-layer-combination-and-subdivision">
+<span id="id11"></span><h2>2.8.7. Snow Layer Combination and Subdivision<a class="headerlink" href="#snow-layer-combination-and-subdivision" title="Permalink to this headline">¶</a></h2>
+<p>After the determination of snow temperature including phase change(Chapter
+<a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#rst-soil-and-snow-temperatures"><span class="std std-numref">2.6</span></a>), snow hydrology (Chapter
+<a class="reference internal" href="#rst-snow-hydrology"><span class="std std-numref">2.8</span></a>), and the compaction calculations (section
+<a class="reference internal" href="#snow-compaction"><span class="std std-numref">2.8.6</span></a>) , the number of snow layers is adjusted by
+either combining or subdividing layers. The combination and subdivision
+of snow layers is based on <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#jordan1991"><span class="std std-ref">Jordan (1991)</span></a>.</p>
+<div class="section" id="combination">
+<span id="id12"></span><h3>2.8.7.1. Combination<a class="headerlink" href="#combination" title="Permalink to this headline">¶</a></h3>
+<p>If a snow layer has nearly melted or if its thickness
+<img class="math" src="../../_images/math/18a8202648d865786985b1bdb0926ae863cf8908.svg" alt="\Delta z_{i}"/>  is less than the prescribed minimum thickness
+<img class="math" src="../../_images/math/8085ca7d421f6a0c86ff0a98086b70db3d46e5b5.svg" alt="\Delta z_{\min }"/>  (<a class="reference internal" href="#table-snow-layer-thickness"><span class="std std-numref">Table 2.8.2</span></a>), the layer is combined with a
+neighboring layer. The overlying or underlying layer is selected as the
+neighboring layer according to the following rules</p>
+<ol class="arabic simple">
+<li>If the top layer is being removed, it is combined with the underlying
+layer</li>
+<li>If the underlying layer is not snow (i.e., it is the top soil layer),
+the layer is combined with the overlying layer</li>
+<li>If the layer is nearly completely melted, the layer is combined with
+the underlying layer</li>
+<li>If none of the above rules apply, the layer is combined with the
+thinnest neighboring layer.</li>
+</ol>
+<p>A first pass is made through all snow layers to determine if any layer
+is nearly melted (<img class="math" src="../../_images/math/a616b6f99fc0afdfa2892b00119c874deb5f48d7.svg" alt="w_{ice,\, i} \le 0.1"/>). If so, the remaining
+liquid water and ice content of layer <img class="math" src="../../_images/math/df0deb143e5ac127f00bd248ee8001ecae572adc.svg" alt="i"/> is combined with the
+underlying neighbor <img class="math" src="../../_images/math/332e5378de791e071e4c73e332d91ae51120deea.svg" alt="i+1"/> as</p>
+<div class="math" id="equation-8-51">
+<p><span class="eqno">(2.8.44)<a class="headerlink" href="#equation-8-51" title="Permalink to this equation">¶</a></span><img src="../../_images/math/494f11d6fb9f2b927ab620dcda49d8a6df8a8632.svg" alt="w_{liq,\, i+1} =w_{liq,\, i+1} +w_{liq,\, i}"/></p>
+</div><div class="math" id="equation-8-52">
+<p><span class="eqno">(2.8.45)<a class="headerlink" href="#equation-8-52" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fa6d864ffdf0527cb9993b69e1e1f372248e2633.svg" alt="w_{ice,\, i+1} =w_{ice,\, i+1} +w_{ice,\, i} ."/></p>
+</div><p>This includes the snow layer directly above the top soil layer. In this
+case, the liquid water and ice content of the melted snow layer is added
+to the contents of the top soil layer. The layer properties,
+<img class="math" src="../../_images/math/27d3051333351004a42e41ee5a73760e14557bc3.svg" alt="T_{i}"/> , <img class="math" src="../../_images/math/62dd7c28a92e1857ebeb44a2a4e9b2ef2a1945b7.svg" alt="w_{ice,\, i}"/> , <img class="math" src="../../_images/math/cf0c9f644eb986b4243f04daec8e133cf676124a.svg" alt="w_{liq,\, i}"/> ,
+<img class="math" src="../../_images/math/18a8202648d865786985b1bdb0926ae863cf8908.svg" alt="\Delta z_{i}"/> , are then re-indexed so that the layers above the
+eliminated layer are shifted down by one and the number of snow layers
+is decremented accordingly.</p>
+<p>At this point, if there are no explicit snow layers remaining
+(<img class="math" src="../../_images/math/7317c8f7725a312470d392248cff214f01f36498.svg" alt="snl=0"/>), the snow water equivalent <img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.svg" alt="W_{sno}"/>  and snow
+depth <img class="math" src="../../_images/math/c93c3a1834f19d010eeafd4cd70822a3d8d2cbe0.svg" alt="z_{sno}"/>  are set to zero, otherwise, <img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.svg" alt="W_{sno}"/>  and
+<img class="math" src="../../_images/math/c93c3a1834f19d010eeafd4cd70822a3d8d2cbe0.svg" alt="z_{sno}"/>  are re-calculated as</p>
+<div class="math" id="equation-8-53">
+<p><span class="eqno">(2.8.46)<a class="headerlink" href="#equation-8-53" title="Permalink to this equation">¶</a></span><img src="../../_images/math/36211072216900752ade017ae4abecc6e3ffcee4.svg" alt="W_{sno} =\sum _{i=snl+1}^{i=0}\left(w_{ice,\, i} +w_{liq,\, i} \right)"/></p>
+</div><div class="math" id="equation-8-54">
+<p><span class="eqno">(2.8.47)<a class="headerlink" href="#equation-8-54" title="Permalink to this equation">¶</a></span><img src="../../_images/math/874e22677da6f14f9c7ffad5c965000e8c7bbb70.svg" alt="z_{sno} =\sum _{i=snl+1}^{i=0}\Delta z_{i}  ."/></p>
+</div><p>If the snow depth <img class="math" src="../../_images/math/e2b2e1f51ebdcde5b2102013c032c2f053df9d9f.svg" alt="0&lt;z_{sno} &lt;0.01"/> m or the snow density
+<img class="math" src="../../_images/math/a389279d7f9578fc120e96c0f557082d1fe6a78c.svg" alt="\frac{W_{sno} }{f_{sno} z_{sno} } &lt;50"/> kg/m3, the number of snow
+layers is set to zero, the total ice content of the snowpack
+<img class="math" src="../../_images/math/4b3e5ac5fbb9792bc7bc237626e72b6bcf8001f5.svg" alt="\sum _{i=snl+1}^{i=0}w_{ice,\; i}"/>  is assigned to
+<img class="math" src="../../_images/math/6860800c19b4740d9848e1fbd83097c81e081014.svg" alt="W_{sno}"/> , and the total liquid water
+<img class="math" src="../../_images/math/c294b45bc0322b53f58aa688c8c51fe03d3496a2.svg" alt="\sum _{i=snl+1}^{i=0}w_{liq,\; i}"/>  is assigned to the top soil
+layer. Otherwise, the layers are combined according to the rules above.</p>
+<p>When two snow layers are combined (denoted here as 1 and 2), their
+thickness combination (<img class="math" src="../../_images/math/ae12a24f88803b5895632e4848d87d46483c492c.svg" alt="c"/>) is</p>
+<div class="math" id="equation-8-55">
+<p><span class="eqno">(2.8.48)<a class="headerlink" href="#equation-8-55" title="Permalink to this equation">¶</a></span><img src="../../_images/math/766e954610eb7d24815c25d8069aae756b3f3c09.svg" alt="\Delta z_{c} =\Delta z_{1} +\Delta z_{2} ,"/></p>
+</div><p>their mass combination is</p>
+<div class="math" id="equation-8-56">
+<p><span class="eqno">(2.8.49)<a class="headerlink" href="#equation-8-56" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d4ae1a190b888776c76e3decc06fb8e34eb8b085.svg" alt="w_{liq,\, c} =w_{liq,\, 1} +w_{liq,\, 2}"/></p>
+</div><div class="math" id="equation-8-57">
+<p><span class="eqno">(2.8.50)<a class="headerlink" href="#equation-8-57" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3db20fc364e6b2f4e918359758849e079b29891c.svg" alt="w_{ice,\, c} =w_{ice,\, 1} +w_{ice,\, 2} ,"/></p>
+</div><p>and their temperatures are combined as</p>
+<div class="math" id="equation-8-58">
+<p><span class="eqno">(2.8.51)<a class="headerlink" href="#equation-8-58" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0eaf3704f41cbeebe567e06f9f36c7d4dbeca073.svg" alt="T_{c} =T_{f} +\frac{h_{c} -L_{f} w_{liq,\, c} }{C_{ice} w_{ice,\, c} +C_{liq} w_{liq,\, c} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/b28c2461e2a5842314a27f6e270c3a56aff75cf1.svg" alt="h_{c} =h_{1} +h_{2}"/>  is the combined enthalpy
+<img class="math" src="../../_images/math/7f7097ab6110ee9ed248fce98b69fcd7fc216927.svg" alt="h_{i}"/>  of the two layers where</p>
+<div class="math" id="equation-8-59">
+<p><span class="eqno">(2.8.52)<a class="headerlink" href="#equation-8-59" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ecc6462df0503e8222a55dd1666add704e2bf3be.svg" alt="h_{i} =\left(C_{ice} w_{ice,\, i} +C_{liq} w_{liq,\, i} \right)\left(T_{i} -T_{f} \right)+L_{f} w_{liq,\, i} ."/></p>
+</div><p>In these equations, <img class="math" src="../../_images/math/109dddbaf55b74649550dc767260a74fd0a393a0.svg" alt="L_{f}"/>  is the latent heat of fusion (J kg<sup>-1</sup>) and <img class="math" src="../../_images/math/a653c64ec4106487cbf5297df1d1b8bf99caf767.svg" alt="C_{liq}"/>  and <img class="math" src="../../_images/math/da78b5c0d95e31278b7c638575299c6b9aba9b64.svg" alt="C_{ice}"/>  are the specific
+heat capacities (J kg<sup>-1</sup> K<sup>-1</sup>) of liquid water and ice,
+respectively (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>). After layer combination,
+the node depths and layer interfaces (<a class="reference internal" href="#figure-three-layer-snow-pack"><span class="std std-numref">Figure 2.8.1</span></a>)
+are recalculated from</p>
+<div class="math" id="equation-8-60">
+<p><span class="eqno">(2.8.53)<a class="headerlink" href="#equation-8-60" title="Permalink to this equation">¶</a></span><img src="../../_images/math/98355dd059bb6095a795b23876653382f24f03a7.svg" alt="z_{i} =z_{h,\, i} -0.5\Delta z_{i} \qquad i=0,\ldots ,snl+1"/></p>
+</div><div class="math" id="equation-8-61">
+<p><span class="eqno">(2.8.54)<a class="headerlink" href="#equation-8-61" title="Permalink to this equation">¶</a></span><img src="../../_images/math/70e5a8085942955a33b1bd7708b7a87e0b20cf51.svg" alt="z_{h,\, i-1} =z_{h,\, i} -\Delta z_{i} \qquad i=0,\ldots ,snl+1"/></p>
+</div><p>where <img class="math" src="../../_images/math/18a8202648d865786985b1bdb0926ae863cf8908.svg" alt="\Delta z_{i}"/>  is the layer thickness.</p>
+<span id="table-snow-layer-thickness"></span><table border="1" class="docutils" id="id16">
+<caption><span class="caption-number">Table 2.8.2 </span><span class="caption-text">Minimum and maximum thickness of snow layers (m)</span><a class="headerlink" href="#id16" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="8%" />
+<col width="16%" />
+<col width="10%" />
+<col width="10%" />
+<col width="26%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Layer</th>
+<th class="head"><img class="math" src="../../_images/math/8085ca7d421f6a0c86ff0a98086b70db3d46e5b5.svg" alt="\Delta z_{\min }"/></th>
+<th class="head"><img class="math" src="../../_images/math/576ccc54d9d13aef03bcc861f895ff3c2902c94f.svg" alt="N_{l}"/></th>
+<th class="head"><img class="math" src="../../_images/math/a00956350d5c748c04c56cc2ef53d88e9ec8c35d.svg" alt="N_{u}"/></th>
+<th class="head"><img class="math" src="../../_images/math/10119ca6a85c39ea88b0d679f34f3647b6928975.svg" alt="\left(\Delta z_{\max } \right)_{l}"/></th>
+<th class="head"><img class="math" src="../../_images/math/b946978f11c63972972ea56a97ef0a7f58e696ab.svg" alt="\left(\Delta z_{\max } \right)_{u}"/></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1 (top)</td>
+<td>0.010</td>
+<td>1</td>
+<td><img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/>1</td>
+<td>0.03</td>
+<td>0.02</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>0.015</td>
+<td>2</td>
+<td><img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/>2</td>
+<td>0.07</td>
+<td>0.05</td>
+</tr>
+<tr class="row-even"><td>3</td>
+<td>0.025</td>
+<td>3</td>
+<td><img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/>3</td>
+<td>0.18</td>
+<td>0.11</td>
+</tr>
+<tr class="row-odd"><td>4</td>
+<td>0.055</td>
+<td>4</td>
+<td><img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/>4</td>
+<td>0.41</td>
+<td>0.23</td>
+</tr>
+<tr class="row-even"><td>5</td>
+<td>0.115</td>
+<td>5</td>
+<td><img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/>5</td>
+<td>0.88</td>
+<td>0.47</td>
+</tr>
+<tr class="row-odd"><td>6</td>
+<td>0.235</td>
+<td>6</td>
+<td><img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/>6</td>
+<td>1.83</td>
+<td>0.95</td>
+</tr>
+<tr class="row-even"><td>7</td>
+<td>0.475</td>
+<td>7</td>
+<td><img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/>7</td>
+<td>3.74</td>
+<td>1.91</td>
+</tr>
+<tr class="row-odd"><td>8</td>
+<td>0.955</td>
+<td>8</td>
+<td><img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/>8</td>
+<td>7.57</td>
+<td>3.83</td>
+</tr>
+<tr class="row-even"><td>9</td>
+<td>1.915</td>
+<td>9</td>
+<td><img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/>9</td>
+<td>15.24</td>
+<td>7.67</td>
+</tr>
+<tr class="row-odd"><td>10</td>
+<td>3.835</td>
+<td>10</td>
+<td><img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/>10</td>
+<td>30.59</td>
+<td>15.35</td>
+</tr>
+<tr class="row-even"><td>11</td>
+<td>7.675</td>
+<td>11</td>
+<td><img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/>11</td>
+<td>61.30</td>
+<td>30.71</td>
+</tr>
+<tr class="row-odd"><td>12 (bottom)</td>
+<td>15.355</td>
+<td>12</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The maximum snow layer thickness, <img class="math" src="../../_images/math/f379da0cd6520a4dcc11f9da8101ba0b5c647cb9.svg" alt="\Delta z_{\max }"/> , depends on
+the number of layers, <img class="math" src="../../_images/math/576ccc54d9d13aef03bcc861f895ff3c2902c94f.svg" alt="N_{l}"/>  and <img class="math" src="../../_images/math/a00956350d5c748c04c56cc2ef53d88e9ec8c35d.svg" alt="N_{u}"/>  (section
+<a class="reference internal" href="#subdivision"><span class="std std-numref">2.8.7.2</span></a>).</p>
+</div>
+<div class="section" id="subdivision">
+<span id="id13"></span><h3>2.8.7.2. Subdivision<a class="headerlink" href="#subdivision" title="Permalink to this headline">¶</a></h3>
+<p>The snow layers are subdivided when the layer thickness exceeds the
+prescribed maximum thickness <img class="math" src="../../_images/math/f379da0cd6520a4dcc11f9da8101ba0b5c647cb9.svg" alt="\Delta z_{\max }"/>  with lower and
+upper bounds that depend on the number of snow layers (<a class="reference internal" href="#table-snow-layer-thickness"><span class="std std-numref">Table 2.8.2</span></a>).
+For example, if there is only one layer, then the maximum thickness of that
+layer is 0.03 m, however, if there is more than one layer, then the
+maximum thickness of the top layer is 0.02 m. Layers are checked
+sequentially from top to bottom for this limit. If there is only one
+snow layer and its thickness is greater than 0.03 m (<a class="reference internal" href="#table-snow-layer-thickness"><span class="std std-numref">Table 2.8.2</span></a>), the
+layer is subdivided into two layers of equal thickness, liquid water and
+ice contents, and temperature. If there is an existing layer below the
+layer to be subdivided, the thickness <img class="math" src="../../_images/math/18a8202648d865786985b1bdb0926ae863cf8908.svg" alt="\Delta z_{i}"/> , liquid
+water and ice contents, <img class="math" src="../../_images/math/50aa372d3c91803518bf75901da182df8f554544.svg" alt="w_{liq,\; i}"/>  and <img class="math" src="../../_images/math/9344a127277bd727a8f7409ee150818ec1ba9a6e.svg" alt="w_{ice,\; i}"/> ,
+and temperature <img class="math" src="../../_images/math/27d3051333351004a42e41ee5a73760e14557bc3.svg" alt="T_{i}"/>  of the excess snow are combined with the
+underlying layer according to equations -. If there is no underlying
+layer after adjusting the layer for the excess snow, the layer is
+subdivided into two layers of equal thickness, liquid water and ice
+contents. The vertical snow temperature profile is maintained by
+calculating the slope between the layer above the splitting layer
+(<img class="math" src="../../_images/math/b854487642c89e2174dae9f404d01a24e743c00b.svg" alt="T_{1}"/> ) and the splitting layer (<img class="math" src="../../_images/math/9132f90fba534f8234e2cf35b56aae10090cce7f.svg" alt="T_{2}"/> ) and
+constraining the new temperatures (<img class="math" src="../../_images/math/5339ba83b0f58342124d3c36334a32af85759b79.svg" alt="T_{2}^{n+1}"/> ,
+<img class="math" src="../../_images/math/7ef0e5dbbe7062a198f7dcc2fdaf3bf3ca302bd8.svg" alt="T_{3}^{n+1}"/> ) to lie along this slope. The temperature of the
+lower layer is first evaluated from</p>
+<div class="math" id="equation-8-62">
+<p><span class="eqno">(2.8.55)<a class="headerlink" href="#equation-8-62" title="Permalink to this equation">¶</a></span><img src="../../_images/math/03d75395d841553613ff8f07dc8fdb1b11bdc27a.svg" alt="T'_{3} =T_{2}^{n} -\left(\frac{T_{1}^{n} -T_{2}^{n} }{{\left(\Delta z_{1}^{n} +\Delta z_{2}^{n} \right)\mathord{\left/ {\vphantom {\left(\Delta z_{1}^{n} +\Delta z_{2}^{n} \right) 2}} \right. \kern-\nulldelimiterspace} 2} } \right)\left(\frac{\Delta z_{2}^{n+1} }{2} \right),"/></p>
+</div><p>then adjusted as,</p>
+<div class="math" id="equation-8-63">
+<p><span class="eqno">(2.8.56)<a class="headerlink" href="#equation-8-63" title="Permalink to this equation">¶</a></span><img src="../../_images/math/990107a359c2bab33f8c3c19b58591546e82d6a8.svg" alt="\begin{array}{lr}
+T_{3}^{n+1} = T_{2}^{n} &amp; \qquad T'_{3} \ge T_{f}  \\
+T_{2}^{n+1} = T_{2}^{n} +\left(\frac{T_{1}^{n} -T_{2}^{n} }{{\left(\Delta z_{1} +\Delta z_{2}^{n} \right)\mathord{\left/ {\vphantom {\left(\Delta z_{1} +\Delta z_{2}^{n} \right) 2}} \right. \kern-\nulldelimiterspace} 2} } \right)\left(\frac{\Delta z_{2}^{n+1} }{2} \right) &amp; \qquad T'_{3} &lt;T_{f}
+\end{array}"/></p>
+</div><p>where here the subscripts 1, 2, and 3 denote three layers numbered from
+top to bottom. After layer subdivision, the node depths and layer
+interfaces are recalculated from equations and .</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html" class="btn btn-neutral float-right" title="2.9. Stomatal Resistance and Photosynthesis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../Hydrology/CLM50_Tech_Note_Hydrology.html" class="btn btn-neutral" title="2.7. Hydrology" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

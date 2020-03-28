@@ -1,0 +1,522 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.14. Model for Scale Adaptive River Transport (MOSART) &mdash; ctsm master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm master documentation" href="../../index.html"/>
+        <link rel="up" title="2. CLM Technical Note" href="../index.html"/>
+        <link rel="next" title="2.15. Urban Model (CLMU)" href="../Urban/CLM50_Tech_Note_Urban.html"/>
+        <link rel="prev" title="2.13. Glaciers" href="../Glacier/CLM50_Tech_Note_Glacier.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>master</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/index.html">1. master User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">2. CLM Technical Note</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/CLM50_Tech_Note_Introduction.html">2.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html">2.2. Surface Characterization, Vertical Discretization, and Model Input Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html">2.3. Surface Albedos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html">2.4. Radiative Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html">2.5. Momentum, Sensible Heat, and Latent Heat Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html">2.6. Soil and Snow Temperatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html">2.7. Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html">2.8. Snow Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html">2.9. Stomatal Resistance and Photosynthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html">2.10. Photosynthetic Capacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html">2.11. Plant Hydraulics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html">2.12. Lake Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Glacier/CLM50_Tech_Note_Glacier.html">2.13. Glaciers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.14. Model for Scale Adaptive River Transport (MOSART)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">2.14.1. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#routing-processes">2.14.2. Routing Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#numerical-solution">2.14.3. Numerical Solution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters-and-input-data">2.14.4. Parameters and Input Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#difference-between-clm5-0-and-clm4-5">2.14.5. Difference between CLM5.0 and CLM4.5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Urban/CLM50_Tech_Note_Urban.html">2.15. Urban Model (CLMU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Pools/CLM50_Tech_Note_CN_Pools.html">2.16. CN Pools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html">2.17. Plant Respiration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html">2.18. Fixation and Uptake of Nitrogen (FUN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html">2.19. Carbon and Nitrogen Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html">2.20. Vegetation Phenology and Turnover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decomposition/CLM50_Tech_Note_Decomposition.html">2.21. Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html">2.22. External Nitrogen Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Mortality/CLM50_Tech_Note_Plant_Mortality.html">2.23. Plant Mortality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fire/CLM50_Tech_Note_Fire.html">2.24. Fire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Methane/CLM50_Tech_Note_Methane.html">2.25. Methane Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html">2.26. Crops and Irrigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html">2.27. Transient Land Use and Land Cover Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html">2.28. Dynamic Global Vegetation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html#technical-documentation-for-fates">2.29. Technical Documentation for FATES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BVOCs/CLM50_Tech_Note_BVOCs.html">2.30. Biogenic Volatile Organic Compounds (BVOCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dust/CLM50_Tech_Note_Dust.html">2.31. Dust Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Isotopes/CLM50_Tech_Note_Isotopes.html">2.32. Carbon Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Land-Only_Mode/CLM50_Tech_Note_Land-Only_Mode.html">2.33. Land-Only Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../References/CLM50_Tech_Note_References.html">2.34. References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">2. CLM Technical Note</a> &raquo;</li>
+        
+      <li>2.14. Model for Scale Adaptive River Transport (MOSART)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/tech_note/MOSART/CLM50_Tech_Note_MOSART.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="model-for-scale-adaptive-river-transport-mosart">
+<span id="rst-river-transport-model-rtm"></span><h1>2.14. Model for Scale Adaptive River Transport (MOSART)<a class="headerlink" href="#model-for-scale-adaptive-river-transport-mosart" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<span id="overview-mosart"></span><h2>2.14.1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>MOSART is a river transport model designed for applications across local,
+regional and global scales <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2013b"><span class="std std-ref">(Li et al., 2013b)</span></a>. A
+major purpose of MOSART is to provide freshwater input for the ocean
+model in coupled Earth System Models. MOSART also provides an effective
+way of evaluating and diagnosing the soil hydrology simulated by land
+surface models through direct comparison of the simulated river flow
+with observations of natural streamflow at gauging stations
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2015a"><span class="std std-ref">(Li et al., 2015a)</span></a>.  Moreover, MOSART provides a
+modeling framework for representing riverine transport and transformation
+of energy and biogeochemical fluxes under both natural and human-influenced
+conditions ( <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2015b"><span class="std std-ref">(Li et al., 2015b)</span></a>.</p>
+</div>
+<div class="section" id="routing-processes">
+<span id="id1"></span><h2>2.14.2. Routing Processes<a class="headerlink" href="#routing-processes" title="Permalink to this headline">¶</a></h2>
+<p>MOSART divides each spatial unit such as a lat/lon grid or watershed into
+three categories of hydrologic units (as shown in
+<a class="reference internal" href="#figure-mosart-conceptual-diagram"><span class="std std-numref">Figure 2.14.1</span></a>): hillslopes
+that convert both surface and subsurface runoff into tributaries,
+tributaries that discharge into a single main channel, and the main channel
+that connects the local spatial unit with upstream/downstream units through the
+river network. MOSART assumes that all the tributaries within a spatial unit
+can be treated as a single hypothetical sub-network channel with a transport
+capacity equivalent to all the tributaries combined. Correspondingly, three
+routing processes are represented in MOSART: 1) hillslope routing: in each
+spatial unit, surface runoff is routed as overland flow into the sub-network
+channel, while subsurface runoff generated in the spatial unit directly enters
+the sub-network channel; 2) sub-network channel routing: the sub-network channel
+receives water from the hillslopes, routes water through the channel and discharges
+it into the main channel; 3) main channel routing: the main channel receives water
+from the sub-network channel and/or inflow, if any, from the upstream spatial units,
+and discharges the water to its downstream spatial unit or the ocean.</p>
+<div class="figure" id="figure-mosart-conceptual-diagram">
+<a class="reference internal image-reference" href="../../_images/mosart_diagram.png"><img alt="../../_images/mosart_diagram.png" src="../../_images/mosart_diagram.png" style="width: 800px; height: 400px;" /></a>
+</div>
+<p>MOSART only routes positive runoff, although negative runoff can be generated
+occasionally by the land model (e.g., <img class="math" src="../../_images/math/17545a98a5b300d11d882f72264a48ad0fc66274.svg" alt="q_{gwl}"/>). Negative runoff in any
+runoff component including  <img class="math" src="../../_images/math/1fe0132537bf2e10b9422fba2f69755483f60cdf.svg" alt="q_{sur}"/>,  <img class="math" src="../../_images/math/4442c0ab06fac81c01e14c0b270c28e7b8ed7e1c.svg" alt="q_{sub}"/>,  <img class="math" src="../../_images/math/17545a98a5b300d11d882f72264a48ad0fc66274.svg" alt="q_{gwl}"/>
+is not routed through MOSART, but instead is mapped directly from the spatial unit
+where it is generated at any time step to the coupler.</p>
+<p>In MOSART, the travel velocities of water across hillslopes, sub-network and main
+channel are all estimated using Manning’s equation with different levels of
+simplifications. Generally the Manning’s equation is in the form of</p>
+<div class="math" id="equation-14-1">
+<p><span class="eqno">(2.14.1)<a class="headerlink" href="#equation-14-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5ee81fef7950c541f2414c5c711ef2c590898464.svg" alt="V = \frac{R^{\frac{2}{3}} S_{f}}{n}"/></p>
+</div><p>where  <img class="math" src="../../_images/math/fae0e7a73748991e5540d874416000583f64f58e.svg" alt="V"/> is the travel velocity (m s <sup>-1</sup> ),  <img class="math" src="../../_images/math/a00254b18ffa992f0ef19f6e6e095b83c8f85e94.svg" alt="R"/> is the hydraulic
+radius (m). <img class="math" src="../../_images/math/5df684f03598df6c8e727c1a7cf403b9dd003252.svg" alt="S_{f}"/>  is the friction slope that accounts for the effects
+of gravity, friction, inertia and other forces on the water. If the channel slope
+is steep enough, the gravity force dominates over the others so one can approximate
+<img class="math" src="../../_images/math/5df684f03598df6c8e727c1a7cf403b9dd003252.svg" alt="S_{f}"/> by the channel bed slope <img class="math" src="../../_images/math/1dbc400fcc213305415872f9f625cd2828f97a00.svg" alt="S"/> , which is the key assumption
+underpinning the kinematic wave method. <img class="math" src="../../_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.svg" alt="n"/>  is the Manning’s roughness
+coefficient, which is mainly controlled by surface roughness and sinuosity of the
+flow path.</p>
+<p>If the water surface is sufficiently large or the water depth <img class="math" src="../../_images/math/293fb39e1b93282c804a86186e721b32f829f1b2.svg" alt="h"/> is
+sufficiently shallow, the hydraulic radius can be approximated by the water depth.
+This is the case for both hillslope and sub-network channel routing.</p>
+<div class="math" id="equation-14-2">
+<p><span class="eqno">(2.14.2)<a class="headerlink" href="#equation-14-2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1ad5cb8dffe737881513502ca7c7d3c0b35f6cbc.svg" alt="R_{h} = h_{h}
+R_{t} = h_{t}"/></p>
+</div><p>Here <img class="math" src="../../_images/math/d089e23323a1ae3117a57d82d5c5030a9967f05d.svg" alt="R_{h}"/> (m) and <img class="math" src="../../_images/math/5f7a5767eff0868aa2ff47308cef38f4ad487c12.svg" alt="R_{t}"/> (m) are hydraulic radius for hillslope and
+sub-network channel routing respectively, and <img class="math" src="../../_images/math/621130660cc289292b1c2344d59c22772591f7e5.svg" alt="h_{h}"/> (m) and <img class="math" src="../../_images/math/798eba2280eebc614a3955e6d5861c72f359cef9.svg" alt="h_{t}"/>
+(m) are water depth during hillslope and sub-network channel routing respectively.</p>
+<p>For the main channel, the hydraulic radius is given by</p>
+<div class="math" id="equation-14-3">
+<p><span class="eqno">(2.14.3)<a class="headerlink" href="#equation-14-3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e75dc09b6a46e71901901bbabd0a3c402cf086aa.svg" alt="R_{r} = \frac{A_{r}}{P_{r}}"/></p>
+</div><p>where <img class="math" src="../../_images/math/a9720568e06f8a49ac808be51bef18fb4a6ecf73.svg" alt="A_{r}"/> (m <sup>2</sup> ) is the wetted area defined as the part of the
+channel cross-section area below the water surface,  <img class="math" src="../../_images/math/d7b40162edb0b89059aabb00a46dda02582917b1.svg" alt="P_{r}"/> (m) is the
+wetted perimeter, the perimeter confined in the wetted area.</p>
+<p>For hillslopes, sub-network and main channels, a common continuity equation can
+be written as</p>
+<div class="math" id="equation-14-4">
+<p><span class="eqno">(2.14.4)<a class="headerlink" href="#equation-14-4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1118eaf2a4bb9f6cc10df794e9cb5f9241cad99b.svg" alt="\frac{dS}{dt} = Q_{in} - Q_{out} + R"/></p>
+</div><p>where <img class="math" src="../../_images/math/2bf7a1c5290309849739bf9c009c757c4e0eabe4.svg" alt="Q_{in}"/> (m <sup>3</sup> s <sup>-1</sup> ) is the main channel flow from
+the upstream grid(s) into the main channel of the current grid, which is zero for
+hillslope and sub-network routing. <img class="math" src="../../_images/math/3833394cc7539c971667af98ffc193d444f96f78.svg" alt="Q_{out}"/> (m <sup>3</sup> s <sup>-1</sup> ) is
+the outflow rate from hillslope into the sub-network, from the sub-network into
+the main channel, or from the current main channel to the main channel of its
+downstream grid (if not the outlet grid) or ocean (if the current grid is the
+basin outlet).  <img class="math" src="../../_images/math/a00254b18ffa992f0ef19f6e6e095b83c8f85e94.svg" alt="R"/> (m <sup>3</sup> s <sup>-1</sup> ) is a source term, which
+could be the surface
+runoff generation rate for hillslopes, or lateral inflow (from hillslopes) into
+sub-network channel or water-atmosphere exchange fluxes such as precipitation
+and evaporation. It is assumed that surface runoff is generated uniformly
+across all the hillslopes. Currently, MOSART does not exchange water with
+the atmosphere or return water to the land model so its function is strictly
+to transport water from runoff generation through the hillslope, tributaries,
+and main channels to the basin outlets.</p>
+</div>
+<div class="section" id="numerical-solution">
+<span id="numerical-solution-mosart"></span><h2>2.14.3. Numerical Solution<a class="headerlink" href="#numerical-solution" title="Permalink to this headline">¶</a></h2>
+<p>The numerical implementation of MOSART is mainly based on a subcycling
+scheme and a local time-stepping algorithm. There are two levels of
+subcycling. For convenience, we denote <img class="math" src="../../_images/math/c1b7d20fbcb6e7bf28ed1d85c84639ff465e2d44.svg" alt="T_{inputs}"/> (s),
+<img class="math" src="../../_images/math/889a06e2ef93d425352642bd75d54115128652b3.svg" alt="T_{mosart}"/> (s), <img class="math" src="../../_images/math/64c15ae77b75b779eebc9d63465087e9cd48db2e.svg" alt="T_{hillslope}"/> (s) and
+<img class="math" src="../../_images/math/0f6ec5b0c2aa9ba2d9ddae497ce732649e2494f8.svg" alt="T_{channel}"/> (s) as the time steps of runoff inputs (from CLM
+to MOSART via the flux coupler), MOSART routing, hillslope routing, and
+channel routing, respectively. The first level of subcycling is between
+the runoff inputs and MOSART routing. If <img class="math" src="../../_images/math/c1b7d20fbcb6e7bf28ed1d85c84639ff465e2d44.svg" alt="T_{inputs}"/> is 10800s
+and <img class="math" src="../../_images/math/889a06e2ef93d425352642bd75d54115128652b3.svg" alt="T_{mosart}"/> is 3600s, three MOSART time steps will be
+invoked each time the runoff inputs are updated. The second level of
+subcycling is between the hillslope routing and channel routing. This
+is to account for the fact that the travel velocity of water across
+hillslopes is usually much slower than that in the channels.
+<img class="math" src="../../_images/math/64c15ae77b75b779eebc9d63465087e9cd48db2e.svg" alt="T_{hillslope}"/> is usually set as the same as <img class="math" src="../../_images/math/889a06e2ef93d425352642bd75d54115128652b3.svg" alt="T_{mosart}"/>,
+but within each time step of hillslope routing there are a few time
+steps for channel routing, i.e.,
+<img class="math" src="../../_images/math/f83d113013b430c4e0ef37b4600f9cc00a486dea.svg" alt="T_{hillslope} = D_{levelH2R} \cdot T_{channel}"/>. The local
+time-stepping algorithm is to account for the fact that the travel
+velocity of water is much faster in some river channels (e.g., with
+steeper bed slope, narrower channel width) than others. That is, for
+each channel (either a sub-network or main channel), the final time
+step of local channel routing is given as
+<img class="math" src="../../_images/math/3378857b053e085134f0cfd8c9723729b850274a.svg" alt="T_{local}=T_{channel}/D_{local}"/>.  <img class="math" src="../../_images/math/9aa647db76d76b00c0806641498a89c655379c21.svg" alt="D_{local}"/> is
+currently estimated empirically as a function of local channel slope,
+width, length and upstream drainage area. If MOSART crashes due to a
+numerical issue, we recommend increasing <img class="math" src="../../_images/math/4d160a4634c2c6b06e0e832a15f31e581d8f9edd.svg" alt="D_{levelH2R}"/> and, if
+the issue remains, reducing <img class="math" src="../../_images/math/889a06e2ef93d425352642bd75d54115128652b3.svg" alt="T_{mosart}"/>.</p>
+</div>
+<div class="section" id="parameters-and-input-data">
+<span id="id2"></span><h2>2.14.4. Parameters and Input Data<a class="headerlink" href="#parameters-and-input-data" title="Permalink to this headline">¶</a></h2>
+<p>MOSART is supported by a comprehensive, global hydrography dataset at 0.5
+<sup>o</sup> resolution. As such, the fundamental spatial unit of MOSART is a 0.5
+<sup>o</sup> lat/lon grid.  The topographic parameters (such as flow direction,
+channel length, topographic and channel slopes, etc.) were derived using the
+Dominant River Tracing (DRT) algorithm (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#wuetal2011"><span class="std std-ref">Wu et al., 2011</span></a> ;
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#wuetal2012"><span class="std std-ref">Wu et al. 2012</span></a>). The DRT algorithm produces the topographic
+parameters in a scale-consistent way to preserve/upscale the key features of
+a baseline high-resolution hydrography dataset at multiple coarser spatial
+resolutions. Here the baseline high-resolution hydrography dataset is the
+1km resolution Hydrological data and maps based on SHuttle Elevation
+Derivatives at multiple Scales (HydroSHEDS)
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lehnerdoll2004"><span class="std std-ref">Lehner and Döll, 2004</span></a> ;
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lehneretal2008"><span class="std std-ref">Lehner et al., 2008</span></a>).  The channel geometry
+parameters, e.g., bankfull width and depth, were estimated from empirical
+hydraulic geometry relationships as functions of the mean annual discharge.
+The Manning roughness coefficients for overland and channel flow were
+calculated as functions of landcover and water depth. For more details
+on the methodology to derive channel geometry and the Manning’s roughness
+coefficients, please refer to
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#getiranaetal2012"><span class="std std-ref">Getirana et al. (2012)</span></a> . The full list of
+parameters included in this global hydrography dataset is provided in
+<a class="reference internal" href="#table-mosart-parameters"><span class="std std-numref">Table 2.14.1</span></a>.  Evaluation of global simulations
+by MOSART using the aforementioned parameters is described in
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2015b"><span class="std std-ref">Li et al. (2015b)</span></a> .</p>
+<span id="table-mosart-parameters"></span><table border="1" class="docutils" id="id3">
+<caption><span class="caption-number">Table 2.14.1 </span><span class="caption-text">List of parameters in the global hydrography dataset</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="15%" />
+<col width="9%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Unit</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><img class="math" src="../../_images/math/860e3f4ece5fca99d979b53272c843229a747688.svg" alt="F_{dir}"/></td>
+<td>-</td>
+<td>The D8 single flow direction for each coarse grid cell coded using 1 (E), 2 (SE), 4 (S), 8 (SW), 16 (W), 32 (NW), 64 (N), 128 (NE)</td>
+</tr>
+<tr class="row-odd"><td><img class="math" src="../../_images/math/e60b317ecf6d378ae1652bd284d140d23374d64a.svg" alt="A_{total}"/></td>
+<td>km <sup>2</sup></td>
+<td>The upstream drainage area of each coarse grid cell</td>
+</tr>
+<tr class="row-even"><td><img class="math" src="../../_images/math/25fcbc39937384114b563263b039e9a24ed7b7bf.svg" alt="F_{dis}"/></td>
+<td>m</td>
+<td>The dominant river length for each coarse grid cell</td>
+</tr>
+<tr class="row-odd"><td><img class="math" src="../../_images/math/d312bc0f3aeda33b7f2b0b83a155655d79052ea4.svg" alt="S_{channel}"/></td>
+<td>-</td>
+<td>The average channel slope for each coarse grid cell</td>
+</tr>
+<tr class="row-even"><td><img class="math" src="../../_images/math/abb2f06d6b592391699cac4339f29760d3c886ce.svg" alt="S_{topographic}"/></td>
+<td>-</td>
+<td>The average topographic slope (for overland flow routing) for each coarse grid cell</td>
+</tr>
+<tr class="row-odd"><td><img class="math" src="../../_images/math/a14301d3cb49665ec9ea08a01801ef32c7153cc7.svg" alt="A_{local}"/></td>
+<td>km <sup>2</sup></td>
+<td>The surface area for each coarse grid cell</td>
+</tr>
+<tr class="row-even"><td><img class="math" src="../../_images/math/e4c0e1387b56aab7e0a8e477a4d369a7d6c3ebc7.svg" alt="D_{p}"/></td>
+<td>m <sup>-1</sup></td>
+<td>Drainage density, calculated  as the total channel length within each coarse grid cell divided by the local cell area</td>
+</tr>
+<tr class="row-odd"><td><img class="math" src="../../_images/math/ca1598e5527641bd1f83aadfbae1aa5aa7660092.svg" alt="D_{r}"/></td>
+<td>m</td>
+<td>The bankfull depth of main channel</td>
+</tr>
+<tr class="row-even"><td><img class="math" src="../../_images/math/d7e0b840f8ec90983b41bd2cb9cc0216c98a22a9.svg" alt="W_{r}"/></td>
+<td>m</td>
+<td>The bankfull width of main channel</td>
+</tr>
+<tr class="row-odd"><td><img class="math" src="../../_images/math/b95fed4fec3dd92e37eb3d9a5b59862736856c69.svg" alt="D_{t}"/></td>
+<td>m</td>
+<td>The average bankfull depth of tributary channels</td>
+</tr>
+<tr class="row-even"><td><img class="math" src="../../_images/math/483694daafe4497ec215e727d0c6b713516cb9cf.svg" alt="W_{t}"/></td>
+<td>m</td>
+<td>The average bankfull width of tributary channels</td>
+</tr>
+<tr class="row-odd"><td><img class="math" src="../../_images/math/963de4c463b7b32673276893a94e156a25812c62.svg" alt="n_{r}"/></td>
+<td>-</td>
+<td>Manning’s roughness coefficient for channel flow routing</td>
+</tr>
+<tr class="row-even"><td><img class="math" src="../../_images/math/5c576a9103c8eccf44f6978cad6cb7b7f37e654d.svg" alt="n_{h}"/></td>
+<td>-</td>
+<td>Manning’s roughness coefficient for overland flow routing</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="difference-between-clm5-0-and-clm4-5">
+<h2>2.14.5. Difference between CLM5.0 and CLM4.5<a class="headerlink" href="#difference-between-clm5-0-and-clm4-5" title="Permalink to this headline">¶</a></h2>
+<p>1. Routing methods: RTM, a linear reservoir method, is used in CLM4.5 for
+river routing, whilst in CLM5.0, MOSART is an added option for river routing
+based on the more physically-based kinematic wave method.</p>
+<p>2. Runoff treatment: In RTM runoff is routed regardless of its sign so
+negative streamflow can be simulated at times. MOSART routes only non-negative
+runoff and always produces positive streamflow, which is important for
+future extensions to model riverine heat and biogeochemical fluxes.</p>
+<p>3. Input parameters: RTM in CLM4.5 only requires one layer of a spatially varying
+variable of channel velocity, whilst MOSART in CLM5.0 requires 13 parameters that
+are all available globally at 0.5 <sup>o</sup> resolution.</p>
+<p>4. Outputs: RTM only produces streamflow simulation, whilst MOSART
+additionally simulates the time-varying channel velocities, channel water depth, and
+channel surface water variations.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Urban/CLM50_Tech_Note_Urban.html" class="btn btn-neutral float-right" title="2.15. Urban Model (CLMU)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../Glacier/CLM50_Tech_Note_Glacier.html" class="btn btn-neutral" title="2.13. Glaciers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
