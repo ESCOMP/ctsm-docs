@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>1.9.1. Testing &mdash; ctsm master documentation</title>
+  <title>1.9.1. Testing &mdash; ctsm release-clm5.0.32 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="ctsm master documentation" href="../../index.html"/>
+    <link rel="top" title="ctsm release-clm5.0.32 documentation" href="../../index.html"/>
         <link rel="up" title="1.9. Testing" href="index.html"/>
         <link rel="next" title="2. CLM Technical Note" href="../../tech_note/index.html"/>
         <link rel="prev" title="1.9. Testing" href="index.html"/> 
@@ -72,7 +72,7 @@
                 
                   <div class="version-dropdown">
                     <select class="version-list" id="version-list">
-                      <option value=''>master</option>
+                      <option value=''>CLM5.0</option>
                       
                         
                       
@@ -107,7 +107,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">1. master User’s Guide</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">1. CLM5.0 User’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../overview/index.html">1.1. Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../setting-up-and-running-a-case/index.html">1.2. Setting Up and Running a Case</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../using-clm-tools/index.html">1.3. Using CLM tools</a></li>
@@ -174,7 +174,7 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">1. master User’s Guide</a> &raquo;</li>
+          <li><a href="../index.html">1. CLM5.0 User’s Guide</a> &raquo;</li>
         
           <li><a href="index.html">1.9. Testing</a> &raquo;</li>
         
@@ -279,17 +279,19 @@ Makefile ------------- Will build the HTML table of tests
 </div>
 <div class="section" id="ctsm-fortran-unit-tests">
 <h2>1.9.1.3. CTSM Fortran Unit Tests<a class="headerlink" href="#ctsm-fortran-unit-tests" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># To run all CTSM unit tests, run the following command:</span>
-<span class="c1">#</span>
-<span class="c1"># This reuses the existing &#39;unit_tests.temp&#39; directory (if present) in</span>
-<span class="c1"># order to do an incremental rebuild of the unit tests from the last</span>
-<span class="c1"># time you ran them from this directory.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># To run all CTSM unit tests on caldera, run the following command:
+#
+# The creation of a temporary directory ensures that you are doing a completely
+# clean build of the unit tests. (The use of the --clean flag to run_tests.py
+# cleans most, but not all of the files created by the unit test build.) For
+# rerunning the tests after an incremental change, you can instead use an
+# existing build directory.
 
-<span class="c1"># From a standalone CTSM checkout:</span>
-<span class="o">../</span><span class="n">cime</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">fortran_unit_testing</span><span class="o">/</span><span class="n">run_tests</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">build</span><span class="o">-</span><span class="nb">dir</span> <span class="n">unit_tests</span><span class="o">.</span><span class="n">temp</span>
+# From a standalone CTSM checkout:
+../cime/scripts/fortran_unit_testing/run_tests.py --build-dir `mktemp -d --tmpdir=. unit_tests.XXXXXXXX`
 
-<span class="c1"># If you are within a full CESM checkout, you would instead do:</span>
-<span class="c1"># ../../../cime/scripts/fortran_unit_testing/run_tests.py --build-dir unit_tests.temp</span>
+# If you are within a full CESM checkout, you would instead do:
+# ../../../cime/scripts/fortran_unit_testing/run_tests.py --build-dir `mktemp -d --tmpdir=. unit_tests.XXXXXXXX`
 </pre></div>
 </div>
 </div>
