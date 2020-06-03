@@ -109,8 +109,8 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../users_guide/index.html">1. CTSM1 User’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. LILAC User’s Guide</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../introduction.html">3.1. Introduction and overview of LILAC</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. CTSM-LILAC User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../introduction-and-overview/index.html">3.1. Introduction and overview of LILAC</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">3.2. Obtaining, building and running CTSM</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">3.2.1. Obtaining and building CTSM and LILAC</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#quick-start-example">3.2.1.1. Quick start example</a></li>
@@ -170,7 +170,7 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">3. LILAC User’s Guide</a> &raquo;</li>
+          <li><a href="../index.html">3. CTSM-LILAC User’s Guide</a> &raquo;</li>
         
           <li><a href="index.html">3.2. Obtaining, building and running CTSM</a> &raquo;</li>
         
@@ -217,6 +217,7 @@ this:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./build_ctsm ~/ctsm_build_dir --os Darwin --compiler gnu --netcdf-path /usr/local --esmf-lib-path /Users/sacks/ESMF/esmf8.0.0/lib/libO/Darwin.gfortranclang.64.mpich3.default
 </pre></div>
 </div>
+<p>Further details on these commands are given below.</p>
 </div>
 <div class="section" id="prerequisites">
 <span id="building-ctsm-and-lilac-prerequisites"></span><h2>3.2.1.2. Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
@@ -277,7 +278,9 @@ if you are using a machine that has been ported to <a class="reference external"
 using a machine that has <em>not</em> been ported to <a class="reference external" href="https://github.com/esmci/cime">CIME</a>. Both workflows are described
 below. If you are using a machine that has not been ported to CIME, it is possible to do a
 complete CIME port and then use the first workflow (by following the <a class="reference external" href="http://esmci.github.io/cime/versions/master/html/users_guide/porting-cime.html">CIME porting guide</a>), but
-it is generally simpler to use the second workflow below.</p>
+unless you need to do so for other reasons (such as running CESM), it is generally simpler
+to use the second workflow below: A full CIME port requires many settings that are not
+needed for just building CTSM.</p>
 <p>There is a third usage where you simply want to rebuild after making some source code
 changes to CTSM. This is also documented below.</p>
 <p>All of these workflows use CIME’s build system behind the scenes. Typically, you will not
@@ -286,6 +289,22 @@ the <a class="reference external" href="http://esmci.github.io/cime">CIME docume
 </div>
 <div class="section" id="building-on-a-cime-supported-machine">
 <h3>3.2.1.4.2. Building on a CIME-supported machine<a class="headerlink" href="#building-on-a-cime-supported-machine" title="Permalink to this headline">¶</a></h3>
+<p>If you are using a machine that has been ported to <a class="reference external" href="https://github.com/esmci/cime">CIME</a> (for example, NCAR’s <code class="docutils literal notranslate"><span class="pre">cheyenne</span></code>
+machine), then you do not need to specify much information to <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code>. In addition,
+in this case, CIME will load the appropriate modules and set the appropriate environment
+variables at build time, so you do not need to do anything to set up your environment
+ahead of time.</p>
+<p>To build CTSM and its dependencies in this case, run:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./build_ctsm /PATH/TO/CTSM/BUILD --machine MACHINE --compiler COMPILER
+</pre></div>
+</div>
+<p>where you should fill in the capitalized arguments with appropriate values for your
+machine.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The given directory (<code class="docutils literal notranslate"><span class="pre">/PATH/TO/CTSM/BUILD</span></code>) must <em>not</em> exist. This directory is
+created for you by the build script.</p>
+</div>
 </div>
 <div class="section" id="rebuilding-after-changing-ctsm-source-code">
 <h3>3.2.1.4.3. Rebuilding after changing CTSM source code<a class="headerlink" href="#rebuilding-after-changing-ctsm-source-code" title="Permalink to this headline">¶</a></h3>
