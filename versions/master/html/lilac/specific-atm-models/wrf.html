@@ -110,10 +110,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. CTSM-LILAC User’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../introduction-and-overview/index.html">3.1. Introduction and overview of LILAC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../obtaining-building-and-running/index.html">3.2. Obtaining, building and running CTSM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining-building-and-running/index.html">3.2. Obtaining, building and running CTSM with LILAC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../calling-ctsm-from-atm/index.html">3.3. Calling CTSM from an atmosphere model</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">3.4. Notes on specific atmosphere models</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">3.4.1. Using CTSM with WRF</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3.4.1. Using CTSM with WRF</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#clone-ctsm-repository">3.4.1.1. Clone CTSM Repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#building-the-wrf-model-with-ctsm">3.4.1.2. Building the WRF model with CTSM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compile-wrf-preprocessing-system-wps">3.4.1.3. Compile WRF Preprocessing System (WPS)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#run-wrf-preprocessing-system-wps-steps">3.4.1.4. Run WRF Preprocessing System (WPS) Steps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#run-real-program">3.4.1.5. Run real program</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#run-wrf">3.4.1.6. Run WRF</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -186,10 +194,327 @@
            <div itemprop="articleBody">
             
   <div class="section" id="using-ctsm-with-wrf">
-<span id="wrf"></span><h1>3.4.1. Using CTSM with WRF<a class="headerlink" href="#using-ctsm-with-wrf" title="Permalink to this headline">¶</a></h1>
+<h1>3.4.1. Using CTSM with WRF<a class="headerlink" href="#using-ctsm-with-wrf" title="Permalink to this headline">¶</a></h1>
+<p>This section describes the procedure for building and running the CTSM
+library and its dependencies, and linking to these libraries in the WRF
+model’s build via LILAC. As such this section repeats some information
+from earlier sections but in recipe form and with minimal detail.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">This section assumes use of a machine that has been ported to CIME.
+In this example we assume NCAR’s cheyenne computer in particular.</p>
+</div>
+<div class="section" id="clone-ctsm-repository">
+<h2>3.4.1.1. Clone CTSM Repository<a class="headerlink" href="#clone-ctsm-repository" title="Permalink to this headline">¶</a></h2>
+<p>Decide where you will work, for example:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir git_wrf_ctsm
+<span class="nb">cd</span> git_wrf_ctsm
+</pre></div>
+</div>
+<p>Clone CTSM repository and checkout lilac_cap branch:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ESCOMP/ctsm.git
+<span class="nb">cd</span> ctsm
+git checkout lilac_cap
+./manage_externals/checkout_externals
+</pre></div>
+</div>
+<p>Build CTSM and its dependencies based on instructions from previous sections,
+for example for cheyenne:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm /glade/scratch/<span class="nv">$USER</span>/ctsm_build_dir --compiler intel --machine cheyenne
+</pre></div>
+</div>
+<p>Set environment similar to environments used for your CTSM build using
+ctsm_build_environment.sh for bash:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> /ctsm_build_dir/ctsm_build_environment.sh
+</pre></div>
+</div>
+<p>or ctsm_build_environment.csh for Cshell:</p>
+<div class="highlight-Tcsh notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> /glade/scratch/<span class="nv">$USER</span>/ctsm_build_dir/ctsm_build_environment.csh
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For additional details on preparing the CTSM, including how to
+recompile when making code changes to the CTSM, read section
+_obtaining-and-building-ctsm. &lt;– CREATED LINK TO THE CORRECT SECTION?</p>
+</div>
+</div>
+<div class="section" id="building-the-wrf-model-with-ctsm">
+<h2>3.4.1.2. Building the WRF model with CTSM<a class="headerlink" href="#building-the-wrf-model-with-ctsm" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
-<p class="last">TODO: write this section</p>
+<p class="last">update the git address to WRF feature branch…</p>
+</div>
+<p>Clone WRF CTSM branch into your directory:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:billsacks/WRF.git
+<span class="nb">cd</span> WRF
+git checkout lilac_dev
+</pre></div>
+</div>
+<p>For building WRF using CTSM, we should set makefile variables from CTSM needed for
+WRF build by (BASH):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">WRF_CTSM_MKFILE</span><span class="o">=</span>/glade/scratch/<span class="nv">$USER</span>/ctsm_build_dir/bld/ctsm.mk
+</pre></div>
+</div>
+<p>or (Cshell):</p>
+<div class="highlight-Tcsh notranslate"><div class="highlight"><pre><span></span><span class="nb">setenv </span>WRF_CTSM_MKFILE /glade/scratch/<span class="nv">$USER</span>/ctsm_build_dir/bld/ctsm.mk
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">Bill and Sam do we need the following still:?</p>
+</div>
+<p>The following is needed in order to undo an undesired setting in that env_mach_specific file:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">MPI_USE_ARRAY</span><span class="o">=</span>None
+</pre></div>
+</div>
+<p>or (Cshell):</p>
+<div class="highlight-Tcsh notranslate"><div class="highlight"><pre><span></span><span class="nb">setenv </span>MPI_USE_ARRAY None
+</pre></div>
+</div>
+<p>There are also few other environmental setting that should be set for building WRF.
+Some of these are not required, but might help if you face any compilation errors.</p>
+<p>Explicitly define which model core to build by:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">WRF_EM_CORE</span><span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>or (Cshell):</p>
+<div class="highlight-Tcsh notranslate"><div class="highlight"><pre><span></span><span class="nb">setenv </span>WRF_EM_CORE 1
+</pre></div>
+</div>
+<p>Explicilty turn off data assimilation by:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">WRF_DA_CORE</span><span class="o">=</span><span class="m">0</span>
+</pre></div>
+</div>
+<p>or (Cshell):</p>
+<div class="highlight-Tcsh notranslate"><div class="highlight"><pre><span></span><span class="nb">setenv </span>WRF_DA_CORE 0
+</pre></div>
+</div>
+<p>Make sure you set NETCDF environment variable by:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>setenv NETCDF /usr/local/netcdf/ <span class="o">(</span>or wherever you have netcdf compiled.<span class="o">)</span>
+</pre></div>
+</div>
+<p>Then configure and build WRF for your machine and intended compiler by:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./clean -a
+./configure
+</pre></div>
+</div>
+<p>Choose one of the options, similar to the compiler used for building CTSM.</p>
+<p>Next, choose one of the options for nesting. Currently nesting is not available for WRF-CTSM,
+therefore we should use 1.</p>
+<p>Then compile em_real and save the log:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./compile em_real &gt;<span class="p">&amp;</span> compile.log
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The ./compile step might take more than 30 minutes to complete.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Check the bottom of your log file for a successful compilation message
+or search the file for the string “Error” with a capital E.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Optional: One may use tmux or nohup for configuring and compiling.
+Try “man nohup” for more information.</p>
+</div>
+</div>
+<div class="section" id="compile-wrf-preprocessing-system-wps">
+<h2>3.4.1.3. Compile WRF Preprocessing System (WPS)<a class="headerlink" href="#compile-wrf-preprocessing-system-wps" title="Permalink to this headline">¶</a></h2>
+<p>The WRF Preprocessing System (WPS) is a set of programs to prepare
+input to the real program for WRF real-data simulations.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Building WPS requires that WRF be already built successfully.</p>
+</div>
+<p>Get WPS zipped tar file from:</p>
+<p><a class="reference external" href="http://www2.mmm.ucar.edu/wrf/users/download/get_source.html">http://www2.mmm.ucar.edu/wrf/users/download/get_source.html</a></p>
+<p>Untar WPS tar file:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>gzip -cd WPSV4.0.TAR.gz <span class="p">|</span> tar -xf -
+</pre></div>
+</div>
+<p>Then compile WPS similar to the way WRF was built. In summary:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> WPS
+./configure
+</pre></div>
+</div>
+<p>Here choose one option, for your intended compiler, similar to your WRF build.
+After configuring, you can check configure.wps for making sure all the libs and paths
+are set correctly.</p>
+<p>Then, compile WPS:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./compile &gt;<span class="p">&amp;</span> compile.log
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If wps build is succsfully you should see geogrid.exe, ungrib.exe, and metgrid.exe.
+Alternatively, you can check the log for successful build message.</p>
+</div>
+</div>
+<div class="section" id="run-wrf-preprocessing-system-wps-steps">
+<h2>3.4.1.4. Run WRF Preprocessing System (WPS) Steps<a class="headerlink" href="#run-wrf-preprocessing-system-wps-steps" title="Permalink to this headline">¶</a></h2>
+<p>Edit namelist.wps for your domain of interest, which should be the same
+domain as used in your WRF namelist.</p>
+<p>First, use geogrid.exe to define the domain and interpolate static geographical data
+to the grids:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./geogrid.exe &gt;<span class="p">&amp;</span> log.geogrid
+</pre></div>
+</div>
+<p>If the geogrid step is finished successfully, you should see the following message in
+the log file:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!  Successful completion of geogrid.   !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+</pre></div>
+</div>
+<p>Check the geogrid log file for successful <strong>**</strong>
+Link the GRIB data files that are going to be used:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./link_grib.csh <span class="nv">$your_GRIB_data_path</span>
+</pre></div>
+</div>
+<p>Extract meteorological fields from GRIB-formatted files:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./ungrib.exe &gt;<span class="p">&amp;</span> log.ungrib
+</pre></div>
+</div>
+<p>Check ungrib log for the following message showing successful completion of ungrib step:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!  Successful completion of ungrib.   !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+</pre></div>
+</div>
+<p>Horizontally interpolate the meteorological fields extracted by ungrib to
+the model grids defined in geogrid:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./metgrid.exe &gt;<span class="p">&amp;</span> log.metgrid
+</pre></div>
+</div>
+<p>Check the metgrid log for the following message showing successful completion of
+metgrid step:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!  Successful completion of metgrid.  !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-real-program">
+<h2>3.4.1.5. Run real program<a class="headerlink" href="#run-real-program" title="Permalink to this headline">¶</a></h2>
+<p>Run real.exe to generate initial and boundary conditions.</p>
+<p>Follow WRF instructions for creating initial and boundary
+conditions. In summary, complete the following steps:</p>
+<p>Move or link WPS output files (met_em.d01* files) to your WRF/run directory.</p>
+<p>Edit namelist.input for your WRF domain and desirable configurations.
+This should be the same domain as in the namelist used in WPS.</p>
+<p>To run WRF-CTSM, change land-surface option to 51:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">sf_surface_physics</span> <span class="o">=</span> <span class="m">51</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">sf_surface_physics values for running WRF-Noah and WRF-NoahMP are
+2 and 4, respectively.</p>
+</div>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">add the link and adding some note that nested run is not possible….</p>
+</div>
+<p>Run real.exe (if compiled parallel submit a batch job) to generate
+wrfinput and wrfbdy files.</p>
+<p>Check the last line of the real log file for the following message:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>SUCCESS COMPLETE REAL_EM INIT
+</pre></div>
+</div>
+<div class="section" id="create-input-namelists-for-ctsm-and-lilac">
+<h3>3.4.1.5.1. Create input namelists for CTSM and LILAC<a class="headerlink" href="#create-input-namelists-for-ctsm-and-lilac" title="Permalink to this headline">¶</a></h3>
+<p>Introduce the following diffs to ./git_wrf_ctsm/ctsm/lilac/atm_driver/&lt;file&gt;
+by replacing the entries preceded by minus signs with the entries
+preceded by plus signs.</p>
+<p>diff ./lilac/atm_driver/atm_driver_in ./lilac/atm_driver/atm_driver_in:</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">-  atm_mesh_file = &#39;/glade/p/cesmdata/cseg/inputdata/share/meshes/fv4x5_050615_polemod_ESMFmesh.nc&#39;</span>
+<span class="gd">-  atm_global_nx = 72</span>
+<span class="gd">-  atm_global_ny = 46</span>
+<span class="gi">+  atm_mesh_file = &#39;/glade/work/slevis/barlage_wrf_ctsm/conus/mesh/wrf2ctsm_land_conus_ESMFMesh_c20191216.nc&#39;</span>
+<span class="gi">+  atm_global_nx = 199</span>
+<span class="gi">+  atm_global_ny = 139</span>
+</pre></div>
+</div>
+<p>diff ./lilac/atm_driver/ctsm.cfg ./lilac/atm_driver/ctsm.cfg:</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">-configuration     = clm</span>
+<span class="gd">-structure         = standard</span>
+<span class="gd">-clm_bldnml_opts   = -bgc sp</span>
+<span class="gd">-gridmask          = gx3v7</span>
+<span class="gd">-lnd_grid          = 4x5</span>
+<span class="gd">-lnd_domain_file   = domain.lnd.fv4x5_gx3v7.091218.nc</span>
+<span class="gd">-lnd_domain_path   = /glade/p/cesmdata/cseg/inputdata/share/domains</span>
+<span class="gd">-clm_namelist_opts = hist_nhtfrq=-24 hist_mfilt=1 hist_ndens=1</span>
+<span class="gi">+configuration     = nwp</span>
+<span class="gi">+structure         = fast</span>
+<span class="gi">+clm_bldnml_opts   = -bgc sp -clm_usr_name wrf2ctsm</span>
+<span class="gi">+gridmask          = null</span>
+<span class="gi">+lnd_grid          = wrf2ctsm</span>
+<span class="gi">+lnd_domain_file   = domain.lnd.wrf2ctsm_lnd_wrf2ctsm_ocn.191211.nc</span>
+<span class="gi">+lnd_domain_path   = /glade/work/slevis/barlage_wrf_ctsm/conus/gen_domain_files</span>
+<span class="gi">+clm_namelist_opts = hist_nhtfrq=1 hist_mfilt=1 hist_ndens=1 fsurdat=&quot;/glade/work/barlage/ctsm/conus/surfdata_conus/surfdata_conus_hist_16pfts_Irrig_CMIP6_simyr2000_c191212.nc&quot; finidat=&quot;/glade/scratch/sacks/wrf_code/WRF/test/em_real/nldas_nwp_0109a.clm2.r.2000-04-01-64800.nc&quot; use_init_interp=.true.</span>
+</pre></div>
+</div>
+<p>diff ./lilac/atm_driver/lilac_in ./lilac/atm_driver/lilac_in:</p>
+<div class="highlight-diff notranslate"><div class="highlight"><pre><span></span><span class="gd">- atm_mesh_filename = &#39;/glade/p/cesmdata/cseg/inputdata/share/meshes/fv4x5_050615_polemod_ESMFmesh.nc&#39;</span>
+<span class="gi">+ atm_mesh_filename = &#39;/glade/work/slevis/barlage_wrf_ctsm/conus/mesh/wrf2ctsm_land_conus_ESMFMesh_c20191216.nc&#39;</span>
+
+<span class="gd">- lnd_mesh_filename = &#39;/glade/p/cesmdata/cseg/inputdata/share/meshes/fv4x5_050615_polemod_ESMFmesh.nc&#39;</span>
+<span class="gi">+ lnd_mesh_filename = &#39;/glade/work/slevis/barlage_wrf_ctsm/conus/mesh/wrf2ctsm_land_conus_ESMFMesh_c20191216.nc&#39;</span>
+</pre></div>
+</div>
+<p>Before you generate the lnd_in file, you may modify user_nl_clm in
+/glade/scratch/$USER/ctsm_build_dir/case/. For example you may wish to
+point to an alternate CTSM initial condition file. To merge WRF initial
+conditions from a wrfinput file into a CTSM initial condition file, type:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>module load ncl/6.6.2
+ncl transfer_wrfinput_to_ctsm_with_snow.ncl <span class="s1">&#39;finidat=&quot;finidat_interp_dest.nc&quot;&#39;</span> <span class="s1">&#39;wrfinput=&quot;./git_wrf_ctsm/WRF/test/em_real/wrfinput_d01.noseaice&quot;&#39;</span> <span class="s1">&#39;merged=&quot;finidat_interp_dest_wrfinit_snow.nc&quot;&#39;</span>
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="index-3">
+<p class="first admonition-title">Todo</p>
+<p class="last">Need to make the above ncl script available. I assume that the finidat
+and the wrfinput files need to be consistent for this to work. If so,
+we should prob. explain how to generate a consistent finidat file.</p>
+</div>
+<p>Generate the lnd_in file by running the following from
+./git_wrf_ctsm/ctsm/lilac/atm_driver:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>../../lilac_config/buildnml
+</pre></div>
+</div>
+<p>Copy lilac_in, lnd_in, and lnd_modelio.nml to the WRF/run directory.</p>
+</div>
+</div>
+<div class="section" id="run-wrf">
+<h2>3.4.1.6. Run WRF<a class="headerlink" href="#run-wrf" title="Permalink to this headline">¶</a></h2>
+<p>If real program is completed successfully, we should see wrfinput and wrfbdy files
+in our directory.</p>
+<p>Next, we should run WRF.</p>
+<p>For Cheyenne, we should submit a batch job to PBS (Pro workload management system).
+For more instructions on running a batch job on Cheyenne, please check:
+<a class="reference external" href="https://www2.cisl.ucar.edu/resources/computational-systems/cheyenne/running-jobs/submitting-jobs-pbs">https://www2.cisl.ucar.edu/resources/computational-systems/cheyenne/running-jobs/submitting-jobs-pbs</a></p>
+<p>A sample of basic PBS job for Cheyenne:</p>
+<div class="highlight-Tcsh notranslate"><div class="highlight"><pre><span></span><span class="c">#!/bin/tcsh</span>
+<span class="c">#PBS -N job_name</span>
+<span class="c">#PBS -A project_code</span>
+<span class="c">#PBS -l walltime=01:00:00</span>
+<span class="c">#PBS -q queue_name</span>
+<span class="c">#PBS -j oe</span>
+<span class="c">#PBS -k eod</span>
+<span class="c">#PBS -m abe</span>
+<span class="c">#PBS -M your_email_address</span>
+<span class="c">#PBS -l select=2:ncpus=36:mpiprocs=36</span>
+
+<span class="c">### Set TMPDIR as recommended</span>
+<span class="nb">setenv </span>TMPDIR /glade/scratch/<span class="nv">$USER</span>/temp
+mkdir -p <span class="nv">$TMPDIR</span>
+
+<span class="c">### Run the executable</span>
+mpiexec_mpt ./wrf.exe
+</pre></div>
+</div>
 </div>
 </div>
 
