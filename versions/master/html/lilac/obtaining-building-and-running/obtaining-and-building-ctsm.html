@@ -195,7 +195,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="obtaining-and-building-ctsm-and-lilac">
-<h1>3.2.1. Obtaining and building CTSM and LILAC<a class="headerlink" href="#obtaining-and-building-ctsm-and-lilac" title="Permalink to this headline">¶</a></h1>
+<span id="obtaining-and-building-ctsm"></span><h1>3.2.1. Obtaining and building CTSM and LILAC<a class="headerlink" href="#obtaining-and-building-ctsm-and-lilac" title="Permalink to this headline">¶</a></h1>
 <p>This section describes the process for obtaining and building the CTSM library and its
 dependencies, and linking to these libraries in an atmosphere model’s build.</p>
 <div class="admonition important">
@@ -217,7 +217,7 @@ the <a class="reference external" href="http://esmci.github.io/cime">CIME docume
 </div>
 <p>Then build CTSM and its dependencies. On a machine that has been ported to CIME, the
 command will look like this (example given for NCAR’s <code class="docutils literal notranslate"><span class="pre">cheyenne</span></code> machine):</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm /glade/scratch/<span class="nv">$USER</span>/ctsm_build_dir --compiler intel --machine cheyenne
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm /glade/scratch/<span class="nv">$USER</span>/ctsm_build_dir --machine cheyenne --compiler intel
 </pre></div>
 </div>
 <p>and then, before building the atmosphere model:</p>
@@ -227,7 +227,7 @@ command will look like this (example given for NCAR’s <code class="docutils li
 <p>On a machine that has <em>not</em> been ported to CIME, you will need to provide some additional
 information. Run <code class="docutils literal notranslate"><span class="pre">./lilac/build_ctsm</span> <span class="pre">-h</span></code> for details, but the basic command will look
 like this:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm ~/ctsm_build_dir --os Darwin --compiler gnu --netcdf-path /usr/local --esmf-lib-path /Users/sacks/ESMF/esmf8.0.0/lib/libO/Darwin.gfortranclang.64.mpich3.default
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm ~/ctsm_build_dir --os Darwin --compiler gnu --netcdf-path /usr/local --esmf-lib-path /Users/sacks/ESMF/esmf8.0.0/lib/libO/Darwin.gfortranclang.64.mpich3.default --max-mpitasks-per-node <span class="m">4</span> --no-pnetcdf
 </pre></div>
 </div>
 <p>In both cases, you will then need to include the necessary information in the include and
@@ -258,7 +258,7 @@ information on compiler versions known to work with CESM, and thus CTSM.</li>
 </li>
 <li>LAPACK and BLAS libraries</li>
 <li>a NetCDF library version 4.3 or newer built with the same compiler you will use for CTSM<ul>
-<li>a PnetCDF library is optional</li>
+<li>a PNetCDF library is optional</li>
 </ul>
 </li>
 <li>a functioning MPI environment<ul>
@@ -334,6 +334,11 @@ created for you by the build script.</p>
 <p>Some other options to <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code> are supported in this case (but many are not, since
 they are only applicable to the non-CIME-supported machine workflow); run
 <code class="docutils literal notranslate"><span class="pre">./lilac/build_ctsm</span> <span class="pre">-h</span></code> for details.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If PNetCDF (parallel NetCDF) is not available on this machine, you will need to add the
+option <code class="docutils literal notranslate"><span class="pre">--no-pnetcdf</span></code>.</p>
+</div>
 <p>Besides the build files themselves, <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code> creates the following important files
 that are needed for the build of the atmosphere model:</p>
 <ol class="arabic simple">
@@ -358,7 +363,7 @@ building CTSM, you should load any modules and/or set any environment variables 
 by the atmosphere model or CTSM builds, including all of the <a class="reference internal" href="#building-ctsm-and-lilac-prerequisites"><span class="std std-ref">prerequisites noted
 above</span></a>.</p>
 <p>The minimal amount of information needed is given by the following:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm /PATH/TO/CTSM/BUILD --compiler COMPILER --os OS --netcdf-path NETCDF_PATH --esmf-lib-path ESMF_LIB_PATH
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm /PATH/TO/CTSM/BUILD --os OS --compiler COMPILER --netcdf-path NETCDF_PATH --esmf-lib-path ESMF_LIB_PATH --max-mpitasks-per-node MAX_MPITASKS_PER_NODE --pnetcdf-path PNETCDF_PATH
 </pre></div>
 </div>
 <p>where you should fill in the capitalized arguments with appropriate values for your
@@ -371,8 +376,14 @@ model performance.</p>
 <p class="last">The given directory (<code class="docutils literal notranslate"><span class="pre">/PATH/TO/CTSM/BUILD</span></code>) must <em>not</em> exist. This directory is
 created for you by the build script.</p>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If PNetCDF (parallel NetCDF) is not available on your machine/compiler, you should use
+the option <code class="docutils literal notranslate"><span class="pre">--no-pnetcdf</span></code> instead of <code class="docutils literal notranslate"><span class="pre">--pnetcdf-path</span></code>. You must specify exactly one
+of those two options.</p>
+</div>
 <p>Example usage for a Mac (a simple case) is:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm ~/ctsm_build_dir --os Darwin --compiler gnu --netcdf-path /usr/local --esmf-lib-path /Users/sacks/ESMF/esmf8.0.0/lib/libO/Darwin.gfortranclang.64.mpich3.default
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm ~/ctsm_build_dir --os Darwin --compiler gnu --netcdf-path /usr/local --esmf-lib-path /Users/sacks/ESMF/esmf8.0.0/lib/libO/Darwin.gfortranclang.64.mpich3.default --max-mpitasks-per-node <span class="m">4</span> --no-pnetcdf
 </pre></div>
 </div>
 <p>Example usage for NCAR’s <code class="docutils literal notranslate"><span class="pre">cheyenne</span></code> machine (a more complex case) is:</p>
@@ -382,7 +393,7 @@ module use /glade/work/himanshu/PROGS/modulefiles/esmfpkgs/intel/19.0.5
 module load esmf-8.1.0b14-ncdfio-mpt-O mpt/2.21 netcdf/4.7.3 pnetcdf/1.12.1 ncarcompilers/0.5.0
 module load python
 
-./lilac/build_ctsm /glade/scratch/<span class="nv">$USER</span>/ctsm_build_dir --os linux --compiler intel --netcdf-path <span class="s1">&#39;$ENV{NETCDF}&#39;</span> --pio-filesystem-hints gpfs --pnetcdf-path <span class="s1">&#39;$ENV{PNETCDF}&#39;</span> --esmf-lib-path <span class="s1">&#39;$ENV{ESMF_LIBDIR}&#39;</span> --extra-cflags <span class="s1">&#39;-xCORE_AVX2 -no-fma&#39;</span> --extra-fflags <span class="s1">&#39;-xCORE_AVX2 -no-fma&#39;</span>
+./lilac/build_ctsm /glade/scratch/<span class="nv">$USER</span>/ctsm_build_dir --os linux --compiler intel --netcdf-path <span class="s1">&#39;$ENV{NETCDF}&#39;</span> --pio-filesystem-hints gpfs --pnetcdf-path <span class="s1">&#39;$ENV{PNETCDF}&#39;</span> --esmf-lib-path <span class="s1">&#39;$ENV{ESMF_LIBDIR}&#39;</span> --max-mpitasks-per-node <span class="m">36</span> --extra-cflags <span class="s1">&#39;-xCORE_AVX2 -no-fma&#39;</span> --extra-fflags <span class="s1">&#39;-xCORE_AVX2 -no-fma&#39;</span>
 </pre></div>
 </div>
 <p>(It’s better to use the <a class="reference internal" href="#building-on-a-cime-supported-machine"><span class="std std-ref">alternative process for a CIME-supported

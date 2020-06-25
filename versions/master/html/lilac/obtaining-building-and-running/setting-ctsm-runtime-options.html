@@ -38,7 +38,7 @@
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="ctsm CTSM master documentation" href="../../index.html"/>
-        <link rel="up" title="3.2. Obtaining, building and running CTSM" href="index.html"/>
+        <link rel="up" title="3.2. Obtaining, building and running CTSM with LILAC" href="index.html"/>
         <link rel="next" title="3.3. Calling CTSM from an atmosphere model" href="../calling-ctsm-from-atm/index.html"/>
         <link rel="prev" title="3.2.1. Obtaining and building CTSM and LILAC" href="obtaining-and-building-ctsm.html"/> 
 
@@ -111,9 +111,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. CTSM-LILAC User’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../introduction-and-overview/index.html">3.1. Introduction and overview of LILAC</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">3.2. Obtaining, building and running CTSM</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">3.2. Obtaining, building and running CTSM with LILAC</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="obtaining-and-building-ctsm.html">3.2.1. Obtaining and building CTSM and LILAC</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">3.2.2. Setting CTSM runtime options</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3.2.2. Setting CTSM runtime options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview-and-quick-start">3.2.2.1. Overview and quick start</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../calling-ctsm-from-atm/index.html">3.3. Calling CTSM from an atmosphere model</a></li>
@@ -166,7 +169,7 @@
         
           <li><a href="../index.html">3. CTSM-LILAC User’s Guide</a> &raquo;</li>
         
-          <li><a href="index.html">3.2. Obtaining, building and running CTSM</a> &raquo;</li>
+          <li><a href="index.html">3.2. Obtaining, building and running CTSM with LILAC</a> &raquo;</li>
         
       <li>3.2.2. Setting CTSM runtime options</li>
     
@@ -187,11 +190,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="id1">
-<h1>3.2.2. Setting CTSM runtime options<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">TODO: write this section</p>
+  <div class="section" id="setting-ctsm-runtime-options">
+<span id="id1"></span><h1>3.2.2. Setting CTSM runtime options<a class="headerlink" href="#setting-ctsm-runtime-options" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview-and-quick-start">
+<h2>3.2.2.1. Overview and quick start<a class="headerlink" href="#overview-and-quick-start" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the process for creating the runtime input text files for CTSM and
+LILAC. These files, which are in Fortran namelist format, have hard-coded file
+names. These files must exist with the expected names in the directory from which the
+model is run:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">lnd_in</span></code>: This is the main namelist input file for CTSM</li>
+<li><code class="docutils literal notranslate"><span class="pre">lnd_modelio.nml</span></code>: This sets CTSM’s PIO (parallel i/o library) configuration settings</li>
+<li><code class="docutils literal notranslate"><span class="pre">lilac_in</span></code>: This namelist controls the operation of LILAC</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There are a number of other required runtime input files to both CTSM and LILAC, in
+NetCDF format. The paths to these other files are specified in either <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code> or
+<code class="docutils literal notranslate"><span class="pre">lilac_in</span></code>.</p>
+</div>
+<p>The basic process for creating the necessary input files is the following; this process is
+also illustrated in <a class="reference internal" href="#figure-ctsm-lilac-runtime-file-workflow"><span class="std std-numref">Figure 3.2.1</span></a>:</p>
+<ol class="arabic simple">
+<li>Run the <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code> script described in section
+<a class="reference internal" href="obtaining-and-building-ctsm.html#obtaining-and-building-ctsm"><span class="std std-numref">3.2.1</span></a>. In addition to building CTSM, this also stages
+the necessary files in the <code class="docutils literal notranslate"><span class="pre">runtime_inputs</span></code> subdirectory of your specified build
+directory. Then <code class="docutils literal notranslate"><span class="pre">cd</span></code> to this <code class="docutils literal notranslate"><span class="pre">runtime_inputs</span></code> subdirectory to do the following
+steps (it is fine to do these steps even while CTSM is still building).</li>
+<li>Modify the <code class="docutils literal notranslate"><span class="pre">ctsm.cfg</span></code> file to set high-level options to CTSM. (A few options need to
+be set; most can be left at their default values or changed if desired.) Optionally,
+also set specific namelist values in <code class="docutils literal notranslate"><span class="pre">user_nl_ctsm</span></code>.</li>
+<li>Run the script, <code class="docutils literal notranslate"><span class="pre">make_runtime_inputs</span></code>. (This creates the files <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code> and
+<code class="docutils literal notranslate"><span class="pre">clm.input_data_list</span></code>.)</li>
+<li>Modify <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code> as needed. (Typically you will only need to set values for
+<code class="docutils literal notranslate"><span class="pre">atm_mesh_filename</span></code> and <code class="docutils literal notranslate"><span class="pre">lnd_mesh_filename</span></code>; other variables can typically be kept
+at their default values.)</li>
+<li>Run the script, <code class="docutils literal notranslate"><span class="pre">download_input_data</span></code> to download any of CTSM’s standard input files
+that are needed based on settings in <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code> and <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code>. (This step may be
+unnecessary if all of the needed input data already exists. However, it doesn’t hurt to
+run it in this case.)</li>
+<li>Copy <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code>, <code class="docutils literal notranslate"><span class="pre">lnd_modelio.nml</span></code> and <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code> to the directory from which you
+will be running the model.</li>
+</ol>
+<div class="figure" id="id2">
+<span id="figure-ctsm-lilac-runtime-file-workflow"></span><img alt="../../_images/ctsm_lilac_runtime_file_workflow.svg" src="../../_images/ctsm_lilac_runtime_file_workflow.svg" /><p class="caption"><span class="caption-number">Figure 3.2.1 </span><span class="caption-text">CTSM/LILAC runtime file workflow. Files in black can be (and in some cases must be)
+edited before running the next step. Files in blue should <strong>not</strong> be edited directly.</span></p>
+</div>
 </div>
 </div>
 
