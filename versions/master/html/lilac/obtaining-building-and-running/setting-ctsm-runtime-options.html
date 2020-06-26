@@ -374,17 +374,48 @@ the <code class="docutils literal notranslate"><span class="pre">lnd_in</span></
 produced by <code class="docutils literal notranslate"><span class="pre">make_runtime_inputs</span></code>). In addition, a few other NetCDF files are listed in
 <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code>, of which the file listed in <code class="docutils literal notranslate"><span class="pre">atmaero_stream</span></code> is typically a standard input
 file (as opposed to one that you, the user, has provided).</p>
-<p><strong>Idea of inputdata directory… this can be a symlink, or it can be an actual directory,
-depending on how build_ctsm was run.</strong></p>
-<p><strong>As a convenience, can run download_input_data.</strong></p>
-<p><strong>There will likely be errors about some files not being able to be obtained, particularly
-for user-provided files.</strong></p>
+<p>CTSM’s standard input files are expected to be in subdirectories of an <code class="docutils literal notranslate"><span class="pre">inputdata</span></code>
+directory. With the <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code> workflow, this <code class="docutils literal notranslate"><span class="pre">inputdata</span></code> directory can be found
+under the specified build directory. Depending on the options used for <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code>,
+this may be a new directory or it may be a symbolic link to an existing directory. These
+standard input files are stored on a number of publicly available servers, such as
+<a class="reference external" href="https://svn-ccsm-inputdata.cgd.ucar.edu/trunk/inputdata/">https://svn-ccsm-inputdata.cgd.ucar.edu/trunk/inputdata/</a>.</p>
+<p>As a convenience, we provide a tool to obtain all of the needed standard input files for
+your configuration: <strong>To download these files to their expected locations, simply run</strong>
+<code class="docutils literal notranslate"><span class="pre">download_input_data</span></code> <strong>from the</strong> <code class="docutils literal notranslate"><span class="pre">runtime_inputs</span></code> <strong>directory.</strong> This script reads
+the file names from <code class="docutils literal notranslate"><span class="pre">clm.input_data_list</span></code> and <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code> to determine which files need
+to be downloaded.</p>
+<p>You will likely get some messages like, “Cannot download file since it lives outside of
+the input_data_root”, possibly followed by a final message, “Could not find all inputdata
+on any server”. As long as these messages just refer to your custom, resolution-specific
+files (and not to CTSM’s standard input files), then this is nothing to worry about.</p>
 </div>
 <div class="section" id="copying-the-necessary-files-to-the-model-s-run-directory">
 <h2>3.2.2.7. Copying the necessary files to the model’s run directory<a class="headerlink" href="#copying-the-necessary-files-to-the-model-s-run-directory" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">TODO: Fill this section in</p>
+<p>Finally, copy the following files to the directory from which you will run the model:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">lnd_in</span></code>: This is the main namelist input file for CTSM</li>
+<li><code class="docutils literal notranslate"><span class="pre">lnd_modelio.nml</span></code>: This sets CTSM’s PIO (parallel i/o library) configuration settings</li>
+<li><code class="docutils literal notranslate"><span class="pre">lilac_in</span></code>: This namelist controls the operation of LILAC</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>We have not discussed <code class="docutils literal notranslate"><span class="pre">lnd_modelio.nml</span></code> above. This is because, if you have run
+<code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code> with appropriate options, then you shouldn’t need to make any changes to
+this file. However, you may want to confirm that two settings, in particular, are set
+correctly for your machine; these can be important for I/O performance:</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">pio_stride</span></code>: this should generally be set to the number of physical processors per
+shared-memory node on your machine. This is set from the <code class="docutils literal notranslate"><span class="pre">--max-mpitasks-per-node</span></code>
+argument for a user-defined machine; it should be set automatically for a machine
+that has been ported to CIME.</li>
+<li><code class="docutils literal notranslate"><span class="pre">pio_typename</span></code>: this should generally be set to either <code class="docutils literal notranslate"><span class="pre">pnetcdf</span></code> or
+<code class="docutils literal notranslate"><span class="pre">netcdf</span></code>. Using PNetCDF (Parallel NetCDF) can result in significantly better I/O
+performance, but this is only possible if you have the PNetCDF library on your
+machine. The default for this variable is controlled by the <code class="docutils literal notranslate"><span class="pre">--no-pnetcdf</span></code> argument
+to <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code>, but you can change it here if you mistakenly set or didn’t set
+<code class="docutils literal notranslate"><span class="pre">--no-pnetcdf</span></code> when running <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code>.</li>
+</ul>
 </div>
 </div>
 </div>
