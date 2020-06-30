@@ -335,10 +335,12 @@ created for you by the build script.</p>
 <p>Some other options to <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code> are supported in this case (but many are not, since
 they are only applicable to the non-CIME-supported machine workflow); run
 <code class="docutils literal notranslate"><span class="pre">./lilac/build_ctsm</span> <span class="pre">-h</span></code> for details.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If PNetCDF (parallel NetCDF) is not available on this machine, you will need to add the
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p>If PNetCDF (parallel NetCDF) is not available on this machine, you will need to add the
 option <code class="docutils literal notranslate"><span class="pre">--no-pnetcdf</span></code>.</p>
+<p class="last">If you plan to run with OpenMP threading-based parallelization, or hybrid MPI/OpenMP,
+then it is important to add <code class="docutils literal notranslate"><span class="pre">--build-with-openmp</span></code>.</p>
 </div>
 <p>Besides the build files themselves, <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code> creates the following important files
 that are needed for the build of the atmosphere model:</p>
@@ -377,11 +379,13 @@ model performance.</p>
 <p class="last">The given directory (<code class="docutils literal notranslate"><span class="pre">/PATH/TO/CTSM/BUILD</span></code>) must <em>not</em> exist. This directory is
 created for you by the build script.</p>
 </div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If PNetCDF (parallel NetCDF) is not available on your machine/compiler, you should use
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p>If PNetCDF (parallel NetCDF) is not available on your machine/compiler, you should use
 the option <code class="docutils literal notranslate"><span class="pre">--no-pnetcdf</span></code> instead of <code class="docutils literal notranslate"><span class="pre">--pnetcdf-path</span></code>. You must specify exactly one
 of those two options.</p>
+<p class="last">If you plan to run with OpenMP threading-based parallelization, or hybrid MPI/OpenMP,
+then it is important to add <code class="docutils literal notranslate"><span class="pre">--build-with-openmp</span></code>.</p>
 </div>
 <p>Example usage for a Mac (a simple case) is:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm ~/ctsm_build_dir --os Darwin --compiler gnu --netcdf-path /usr/local --esmf-lib-path /Users/sacks/ESMF/esmf8.0.0/lib/libO/Darwin.gfortranclang.64.mpich3.default --max-mpitasks-per-node <span class="m">4</span> --no-pnetcdf
