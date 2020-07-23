@@ -203,30 +203,25 @@ repeats some information from earlier sections but with minimal explanation.</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
 <p class="last">This section assumes use of a machine that has been ported to CIME.
-In this example we assume NCAR’s cheyenne computer in particular.</p>
+In this example we assume NCAR’s Cheyenne HPC system in particular.</p>
 </div>
 <div class="section" id="clone-wrf-and-ctsm-repositories">
 <h2>3.4.1.1. Clone WRF and CTSM Repositories<a class="headerlink" href="#clone-wrf-and-ctsm-repositories" title="Permalink to this headline">¶</a></h2>
 <p>Clone the WRF CTSM feature branch:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/billsacks/WRF.git
-<span class="nb">cd</span> WRF
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:negin513/WRF-1.git
+<span class="nb">cd</span> WRF-1
 git checkout lilac_dev
 </pre></div>
 </div>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
-<p class="last">update the git address to WRF feature branch…</p>
+<p class="last">update the git address to WRF repository and feature branch…</p>
 </div>
 <p>Clone the CTSM repository:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ESCOMP/CTSM.git
 <span class="nb">cd</span> CTSM
-git checkout lilac_cap
 ./manage_externals/checkout_externals
 </pre></div>
-</div>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">Remove “git checkout lilac_cap” from the above when ready</p>
 </div>
 </div>
 <div class="section" id="build-ctsm-and-its-dependencies">
@@ -235,14 +230,14 @@ git checkout lilac_cap
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm /PATH/TO/CTSM/BUILD --machine MACHINE --compiler COMPILER
 </pre></div>
 </div>
-<p>For example on <cite>Cheyenne:</cite> for <cite>Intel</cite> compiler:</p>
+<p>For example on <code class="docutils literal notranslate"><span class="pre">Cheyenne</span></code> and for <code class="docutils literal notranslate"><span class="pre">Intel</span></code> compiler:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm /glade/scratch/<span class="nv">$USER</span>/ctsm_build_dir --compiler intel --machine cheyenne
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Run ./lilac/build_ctsm -h to see all options available,
-for example if you would like to run with threading support you can use <cite>–build-with-openmp</cite></p>
+<p class="last">Run <code class="docutils literal notranslate"><span class="pre">./lilac/build_ctsm</span> <span class="pre">-h</span></code> to see all options available.
+For example if you would like to run with threading support you can use <code class="docutils literal notranslate"><span class="pre">--build-with-openmp</span></code>.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -253,11 +248,11 @@ Alternatively, you can use <code class="docutils literal notranslate"><span clas
 <div class="section" id="building-wrf-with-ctsm">
 <h2>3.4.1.3. Building WRF with CTSM<a class="headerlink" href="#building-wrf-with-ctsm" title="Permalink to this headline">¶</a></h2>
 <p>First, load the same modules and set the same environments as used for CTSM build by
-sourcing ctsm_build_environment.sh for Bash:</p>
+sourcing <code class="docutils literal notranslate"><span class="pre">ctsm_build_environment.sh</span></code> for Bash:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> /glade/scratch/<span class="nv">$USER</span>/ctsm_build_dir/ctsm_build_environment.sh
 </pre></div>
 </div>
-<p>or sourcing ctsm_build_environment.csh for Cshell:</p>
+<p>or sourcing <code class="docutils literal notranslate"><span class="pre">ctsm_build_environment.csh</span></code> for Cshell:</p>
 <div class="highlight-Tcsh notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> /glade/scratch/<span class="nv">$USER</span>/ctsm_build_dir/ctsm_build_environment.csh
 </pre></div>
 </div>
@@ -299,7 +294,7 @@ for building CTSM. Then you should choose if you’d like to build serially or
 in parallel.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">dmpar or distributed memory parallelization is the most highly tested and
+<p class="last"><code class="docutils literal notranslate"><span class="pre">dmpar</span></code> or distributed memory parallelization is the most highly tested and
 recommended for compiling WRF.</p>
 </div>
 <p>The next prompt requests an option for nesting. Currently nesting is not
@@ -312,8 +307,7 @@ available for WRF-CTSM so enter 1.</p>
 or search the file for the string “Error” with a capital E.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The ./compile step may take more than 30 minutes to complete.
-While you wait, follow the instructions in Section 3.2.2 (next)</p>
+<p class="last">The <code class="docutils literal notranslate"><span class="pre">./compile</span></code> step may take more than 30 minutes to complete.</p>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -323,7 +317,8 @@ Try <code class="docutils literal notranslate"><span class="pre">man</span> <spa
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <p class="last">For further detail on preparing the CTSM, including how to
-recompile when making code changes to the CTSM, read <a class="reference external" href="https:../obtaining-building-and-running/index.html">Section 3.2.</a></p>
+recompile when making code changes to the CTSM, read
+section <a class="reference internal" href="../obtaining-building-and-running/index.html#obtaining-building-and-running"><span class="std std-numref">3.2</span></a> .</p>
 </div>
 </div>
 <div class="section" id="compile-wrf-preprocessing-system-wps">
@@ -354,7 +349,7 @@ similar to the steps in your WRF build.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If wps builds succesfully you should see geogrid.exe, ungrib.exe, and metgrid.exe.
+<p class="last">If wps builds succesfully you should see <code class="docutils literal notranslate"><span class="pre">geogrid.exe</span></code>, <code class="docutils literal notranslate"><span class="pre">ungrib.exe</span></code>, and <code class="docutils literal notranslate"><span class="pre">metgrid.exe</span></code>.
 Alternatively, you can check the log for successful build messages.</p>
 </div>
 </div>
@@ -412,17 +407,13 @@ In summary, complete the following steps:</p>
 <p>Move or link WPS output files (<code class="docutils literal notranslate"><span class="pre">met_em.d01*</span></code> files) to your WRF test directory.</p>
 <p>Edit namelist.input for your WRF domain and desirable configurations.
 This should be the same domain as WPS namelist.</p>
-<div class="admonition-todo admonition" id="index-2">
+<div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
 <p class="last">update the option number of wrf namelist.</p>
 </div>
 <p>To run WRF-CTSM, in your namelist change land-surface option to 51:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">sf_surface_physics</span> <span class="o">=</span> <span class="m">51</span>
 </pre></div>
-</div>
-<div class="admonition-todo admonition" id="index-3">
-<p class="first admonition-title">Todo</p>
-<p class="last">add the link and adding some note that nested run is not possible….</p>
 </div>
 <p>Run real.exe (if compiled parallel submit a batch job) to generate
 <code class="docutils literal notranslate"><span class="pre">wrfinput</span></code> and <code class="docutils literal notranslate"><span class="pre">wrfbdy</span></code> files.</p>
@@ -432,11 +423,13 @@ This should be the same domain as WPS namelist.</p>
 </div>
 </div>
 <div class="section" id="set-ctsm-runtime-options">
-<h2>3.4.1.7. Set CTSM runtime options<a class="headerlink" href="#set-ctsm-runtime-options" title="Permalink to this headline">¶</a></h2>
-<p>Now follow the instructions in this Section:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>https:../obtaining-building-and-running/setting-ctsm-runtime-options.html
-</pre></div>
+<span id="wrf-set-ctsm-runtime-options"></span><h2>3.4.1.7. Set CTSM runtime options<a class="headerlink" href="#set-ctsm-runtime-options" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">Sam, can you please clarify this section.</p>
 </div>
+<p>Now follow the instructions in section <a class="reference internal" href="../obtaining-building-and-running/setting-ctsm-runtime-options.html#setting-ctsm-runtime-options"><span class="std std-numref">3.2.2</span></a>
+for setting CTSM runtime options.</p>
 <p>In step 3 of that Section we used for this example:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">lnd_domain_file</span> <span class="o">=</span> /glade/work/slevis/barlage_wrf_ctsm/conus/gen_domain_files/domain.lnd.wrf2ctsm_lnd_wrf2ctsm_ocn.191211.nc
 <span class="nv">fsurdat</span> <span class="o">=</span> /glade/work/slevis/git_wrf/ctsm_surf/surfdata_conus_hist_16pfts_Irrig_CMIP6_simyr2000_c191212.nc
@@ -460,7 +453,7 @@ into the existing CTSM initial condition file, complete the following step.</p>
 ncl transfer_wrfinput_to_ctsm_with_snow.ncl <span class="s1">&#39;finidat=&quot;the_existing_finidat_file.nc&quot;&#39;</span> <span class="s1">&#39;wrfinput=&quot;your_wrfinput_file&quot;&#39;</span> <span class="s1">&#39;merged=&quot;the_merged_finidat_file.nc&quot;&#39;</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="index-4">
+<div class="admonition-todo admonition" id="index-3">
 <p class="first admonition-title">Todo</p>
 <p class="last">Make the above ncl script available.</p>
 </div>
@@ -470,16 +463,16 @@ ncl transfer_wrfinput_to_ctsm_with_snow.ncl <span class="s1">&#39;finidat=&quot;
 <p>If real.exe completed successfully, we should have <code class="docutils literal notranslate"><span class="pre">wrfinput</span></code> and <code class="docutils literal notranslate"><span class="pre">wrfbdy</span></code> files
 in our directory.</p>
 <p>If you plan to use this example’s preexisting files, copy
-the following files to your WRF/run directory:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>/glade/work/slevis/git_wrf/WRF/test/em_real/namelist.input.ctsm.2013.d01.12month
-/glade/work/slevis/git_wrf/WRF/test/em_real/wrfinput_d01.ERAI.12month
-/glade/work/slevis/git_wrf/WRF/test/em_real/wrfbdy_d01.ERAI.12month
+the following files to your WRF run directory:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ln -sf /glade/work/slevis/git_wrf/WRF/test/em_real/namelist.input.ctsm.2013.d01.12month namelist.input
+ln -sf /glade/work/slevis/git_wrf/WRF/test/em_real/wrfinput_d01.ERAI.12month wrfinput_d01
+ln -sf /glade/work/slevis/git_wrf/WRF/test/em_real/wrfbdy_d01.ERAI.12month wrfbdy_d01
 </pre></div>
 </div>
 <p>Now run WRF-CTSM. On Cheyenne this means submitting a batch job to PBS (Pro workload management system).
 For detailed instructions on running a batch job on Cheyenne, please check:
 <a class="reference external" href="https://www2.cisl.ucar.edu/resources/computational-systems/cheyenne/running-jobs/submitting-jobs-pbs">https://www2.cisl.ucar.edu/resources/computational-systems/cheyenne/running-jobs/submitting-jobs-pbs</a></p>
-<p>A simple PBS script to run WRF-CTSM on Cheyenne looks like this:</p>
+<p>A simple PBS script to run WRF-CTSM on <code class="docutils literal notranslate"><span class="pre">Cheyenne</span></code> looks like this:</p>
 <div class="highlight-Tcsh notranslate"><div class="highlight"><pre><span></span><span class="c">#!/bin/tcsh</span>
 <span class="c">#PBS -N your_job_name</span>
 <span class="c">#PBS -A your_project_code</span>
@@ -500,7 +493,9 @@ mkdir -p <span class="nv">$TMPDIR</span>
 mpiexec_mpt ./wrf.exe
 </pre></div>
 </div>
-<p>If you named this script run_wrf_ctsm.csh, submit the job like this:</p>
+<p>To submit a batch job to the <code class="docutils literal notranslate"><span class="pre">Cheyenne</span></code> queues, use <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command followed
+by the PBS script name.
+For example, if you named this script <code class="docutils literal notranslate"><span class="pre">run_wrf_ctsm.csh</span></code>, submit the job like this:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>qsub run_wrf_ctsm.csh
 </pre></div>
 </div>
