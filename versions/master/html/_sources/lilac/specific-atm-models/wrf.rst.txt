@@ -6,14 +6,20 @@
  Using CTSM with WRF
 =====================
 
-This section includes instructions on how to use WRF with CTSM using LILAC
+This section includes instructions on how to run WRF coupled with CTSM via LILAC
 framework.
 
 The procedure for running WRF with CTSM is similar to the
-workflow for running WRF real cases, except for a major difference:
+workflow for running WRF real cases, except that it requires
+additional steps to (1) clone the CTSM repository, (2) build
+CTSM and LILAC, and (3) define namelist options reuired for CTSM.
 
-- Besides, setting WRF namelist options you should set CTSM namelists in
-  your WRF directory as described in section :numref:`wrf-set-ctsm-runtime-options`.
+A full description of all steps for a WRF-CTSM run are included here.
+
+Specific new steps that would not be completed in a standard WRF real case
+are described in sections :numref:`clone-WRF-CTSM-repositories`,
+:numref:`build-CTSM-and-dependencies` , 
+and :numref:`wrf-set-ctsm-runtime-options`.
 
 .. important::
 
@@ -23,6 +29,8 @@ workflow for running WRF real cases, except for a major difference:
 
   In this example we assume NCAR’s ``Cheyenne`` HPC system in particular.
 
+
+.. _clone-WRF-CTSM-repositories:
 
 Clone WRF and CTSM Repositories
 -------------------------------
@@ -43,6 +51,8 @@ Clone the CTSM repository::
 .. todo::
 
     update the git address to WRF repository and feature branch...
+
+.. _build-CTSM-and-dependencies:
 
 Build CTSM and its dependencies
 -------------------------------
@@ -291,9 +301,8 @@ Set CTSM runtime options
     The instructions for setting CTSM runtime options, are discussed in depth
     in section :numref:`setting-ctsm-runtime-options`.
 
-The goal here is to create CTSM runtime options using the following three
-files:
-
+The goal here is to create files that determine CTSM runtime options which
+are defined within these three files:
 
 - ``lnd_in``: This is the main namelist input file for CTSM
 
