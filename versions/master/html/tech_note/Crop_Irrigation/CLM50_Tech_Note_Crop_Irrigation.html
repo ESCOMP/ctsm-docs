@@ -205,9 +205,9 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">2. CLM Technical Note</a> &raquo;</li>
+          <li><a href="../index.html"><span class="section-number">2. </span>CLM Technical Note</a> &raquo;</li>
         
-      <li>2.26. Crops and Irrigation</li>
+      <li><span class="section-number">2.26. </span>Crops and Irrigation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -227,40 +227,40 @@
            <div itemprop="articleBody">
             
   <div class="section" id="crops-and-irrigation">
-<span id="rst-crops-and-irrigation"></span><h1>2.26. Crops and Irrigation<a class="headerlink" href="#crops-and-irrigation" title="Permalink to this headline">¶</a></h1>
+<span id="rst-crops-and-irrigation"></span><h1><span class="section-number">2.26. </span>Crops and Irrigation<a class="headerlink" href="#crops-and-irrigation" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="summary-of-clm5-0-updates-relative-to-the-clm4-5">
-<span id="id1"></span><h2>2.26.1. Summary of CLM5.0 updates relative to the CLM4.5<a class="headerlink" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2><span class="section-number">2.26.1. </span>Summary of CLM5.0 updates relative to the CLM4.5<a class="headerlink" href="#summary-of-clm5-0-updates-relative-to-the-clm4-5" title="Permalink to this headline">¶</a></h2>
 <p>We describe here the complete crop and irrigation parameterizations that
 appear in CLM5.0. Corresponding information for CLM4.5 appeared in the
 CLM4.5 Technical Note (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#olesonetal2013"><span class="std std-ref">Oleson et al. 2013</span></a>).</p>
 <p>CLM5.0 includes the following new updates to the CROP option, where CROP
 refers to the interactive crop management model and is included as an option with the BGC configuration:</p>
 <ul class="simple">
-<li>New crop functional types</li>
-<li>All crop areas are actively managed</li>
-<li>Fertilization rates updated based on crop type and geographic region</li>
-<li>New Irrigation triggers</li>
-<li>Phenological triggers vary by latitude for some crop types</li>
-<li>Ability to simulate transient crop management</li>
-<li>Adjustments to allocation and phenological parameters</li>
-<li>Crops reaching their maximum LAI triggers the grain fill phase</li>
-<li>Grain C and N pools are included in a 1-year product pool</li>
-<li>C for annual crop seeding comes from the grain C pool</li>
-<li>Initial seed C for planting is increased from 1 to 3 g C/m^2</li>
+<li><p>New crop functional types</p></li>
+<li><p>All crop areas are actively managed</p></li>
+<li><p>Fertilization rates updated based on crop type and geographic region</p></li>
+<li><p>New Irrigation triggers</p></li>
+<li><p>Phenological triggers vary by latitude for some crop types</p></li>
+<li><p>Ability to simulate transient crop management</p></li>
+<li><p>Adjustments to allocation and phenological parameters</p></li>
+<li><p>Crops reaching their maximum LAI triggers the grain fill phase</p></li>
+<li><p>Grain C and N pools are included in a 1-year product pool</p></li>
+<li><p>C for annual crop seeding comes from the grain C pool</p></li>
+<li><p>Initial seed C for planting is increased from 1 to 3 g C/m^2</p></li>
 </ul>
 <p>These updates appear in detail in the sections below. Many also appear in
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#levisetal2016"><span class="std std-ref">Levis et al. (2016)</span></a>.</p>
 <div class="section" id="available-new-features-since-the-clm5-release">
-<h3>2.26.1.1. Available new features since the CLM5 release<a class="headerlink" href="#available-new-features-since-the-clm5-release" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">2.26.1.1. </span>Available new features since the CLM5 release<a class="headerlink" href="#available-new-features-since-the-clm5-release" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Addition of bioenergy crops</li>
+<li><p>Addition of bioenergy crops</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="the-crop-model-cash-and-bioenergy-crops">
-<span id="the-crop-model"></span><h2>2.26.2. The crop model: cash and bioenergy crops<a class="headerlink" href="#the-crop-model-cash-and-bioenergy-crops" title="Permalink to this headline">¶</a></h2>
+<span id="the-crop-model"></span><h2><span class="section-number">2.26.2. </span>The crop model: cash and bioenergy crops<a class="headerlink" href="#the-crop-model-cash-and-bioenergy-crops" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="introduction">
-<h3>2.26.2.1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">2.26.2.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
 <p>Groups developing Earth System Models generally account for the human
 footprint on the landscape in simulations of historical and future
 climates. Traditionally we have represented this footprint with natural
@@ -294,7 +294,7 @@ natural vegetation, though uses different crop-specific parameter values,
 phenology, and allocation, as well as fertilizer and irrigation management.</p>
 </div>
 <div class="section" id="crop-plant-functional-types">
-<span id="id2"></span><h3>2.26.2.2. Crop plant functional types<a class="headerlink" href="#crop-plant-functional-types" title="Permalink to this headline">¶</a></h3>
+<span id="id2"></span><h3><span class="section-number">2.26.2.2. </span>Crop plant functional types<a class="headerlink" href="#crop-plant-functional-types" title="Permalink to this headline">¶</a></h3>
 <p>To allow crops to coexist with natural vegetation in a grid cell, the
 vegetated land unit is separated into a naturally vegetated land unit and
 a managed crop land unit. Unlike the plant functional types (pfts) in the
@@ -348,347 +348,347 @@ of crop-specific output will require use of the land surface dataset to
 remap the yields of each actively and inactively managed crop type. Otherwise, the
 actively managed crop type will include yields for that crop type and all inactively
 managed crop types that are using the same parameter set.</p>
-<span id="table-crop-plant-functional-types"></span><table border="1" class="docutils" id="id19">
+<span id="table-crop-plant-functional-types"></span><table class="docutils align-default" id="id19">
 <caption><span class="caption-number">Table 2.26.1 </span><span class="caption-text">Crop plant functional types (pfts) included in CLM5BGCCROP.</span><a class="headerlink" href="#id19" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="4%" />
-<col width="37%" />
-<col width="22%" />
-<col width="37%" />
+<col style="width: 4%" />
+<col style="width: 37%" />
+<col style="width: 22%" />
+<col style="width: 37%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">ITV</th>
-<th class="head">Plant function types (PFTs)</th>
-<th class="head">Management Class</th>
-<th class="head">Crop Parameters Used</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>ITV</p></th>
+<th class="head"><p>Plant function types (PFTs)</p></th>
+<th class="head"><p>Management Class</p></th>
+<th class="head"><p>Crop Parameters Used</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>15</td>
-<td>c3 unmanaged rainfed crop</td>
-<td>none</td>
-<td>not applicable</td>
+<tbody>
+<tr class="row-even"><td><p>15</p></td>
+<td><p>c3 unmanaged rainfed crop</p></td>
+<td><p>none</p></td>
+<td><p>not applicable</p></td>
 </tr>
-<tr class="row-odd"><td>16</td>
-<td>c3 unmanaged irrigated crop</td>
-<td>none</td>
-<td>not applicable</td>
+<tr class="row-odd"><td><p>16</p></td>
+<td><p>c3 unmanaged irrigated crop</p></td>
+<td><p>none</p></td>
+<td><p>not applicable</p></td>
 </tr>
-<tr class="row-even"><td>17</td>
-<td>rainfed temperate corn</td>
-<td>active</td>
-<td>rainfed temperate corn</td>
+<tr class="row-even"><td><p>17</p></td>
+<td><p>rainfed temperate corn</p></td>
+<td><p>active</p></td>
+<td><p>rainfed temperate corn</p></td>
 </tr>
-<tr class="row-odd"><td>18</td>
-<td>irrigated temperate corn</td>
-<td>active</td>
-<td>irrigated temperate corn</td>
+<tr class="row-odd"><td><p>18</p></td>
+<td><p>irrigated temperate corn</p></td>
+<td><p>active</p></td>
+<td><p>irrigated temperate corn</p></td>
 </tr>
-<tr class="row-even"><td>19</td>
-<td>rainfed spring wheat</td>
-<td>active</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>19</p></td>
+<td><p>rainfed spring wheat</p></td>
+<td><p>active</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>20</td>
-<td>irrigated spring wheat</td>
-<td>active</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>20</p></td>
+<td><p>irrigated spring wheat</p></td>
+<td><p>active</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>21</td>
-<td>rainfed winter wheat</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>21</p></td>
+<td><p>rainfed winter wheat</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>22</td>
-<td>irrigated winter wheat</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>22</p></td>
+<td><p>irrigated winter wheat</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>23</td>
-<td>rainfed temperate soybean</td>
-<td>active</td>
-<td>rainfed temperate soybean</td>
+<tr class="row-even"><td><p>23</p></td>
+<td><p>rainfed temperate soybean</p></td>
+<td><p>active</p></td>
+<td><p>rainfed temperate soybean</p></td>
 </tr>
-<tr class="row-odd"><td>24</td>
-<td>irrigated temperate soybean</td>
-<td>active</td>
-<td>irrigated temperate soybean</td>
+<tr class="row-odd"><td><p>24</p></td>
+<td><p>irrigated temperate soybean</p></td>
+<td><p>active</p></td>
+<td><p>irrigated temperate soybean</p></td>
 </tr>
-<tr class="row-even"><td>25</td>
-<td>rainfed barley</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>25</p></td>
+<td><p>rainfed barley</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>26</td>
-<td>irrigated barley</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>26</p></td>
+<td><p>irrigated barley</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>27</td>
-<td>rainfed winter barley</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>27</p></td>
+<td><p>rainfed winter barley</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>28</td>
-<td>irrigated winter barley</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>28</p></td>
+<td><p>irrigated winter barley</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>29</td>
-<td>rainfed rye</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>29</p></td>
+<td><p>rainfed rye</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>30</td>
-<td>irrigated rye</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>30</p></td>
+<td><p>irrigated rye</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>31</td>
-<td>rainfed winter rye</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>31</p></td>
+<td><p>rainfed winter rye</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>32</td>
-<td>irrigated winter rye</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>32</p></td>
+<td><p>irrigated winter rye</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>33</td>
-<td>rainfed cassava</td>
-<td>inactive</td>
-<td>rainfed rice</td>
+<tr class="row-even"><td><p>33</p></td>
+<td><p>rainfed cassava</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed rice</p></td>
 </tr>
-<tr class="row-odd"><td>34</td>
-<td>irrigated cassava</td>
-<td>inactive</td>
-<td>irrigated rice</td>
+<tr class="row-odd"><td><p>34</p></td>
+<td><p>irrigated cassava</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated rice</p></td>
 </tr>
-<tr class="row-even"><td>35</td>
-<td>rainfed citrus</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>35</p></td>
+<td><p>rainfed citrus</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>36</td>
-<td>irrigated citrus</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>36</p></td>
+<td><p>irrigated citrus</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>37</td>
-<td>rainfed cocoa</td>
-<td>inactive</td>
-<td>rainfed rice</td>
+<tr class="row-even"><td><p>37</p></td>
+<td><p>rainfed cocoa</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed rice</p></td>
 </tr>
-<tr class="row-odd"><td>38</td>
-<td>irrigated cocoa</td>
-<td>inactive</td>
-<td>irrigated rice</td>
+<tr class="row-odd"><td><p>38</p></td>
+<td><p>irrigated cocoa</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated rice</p></td>
 </tr>
-<tr class="row-even"><td>39</td>
-<td>rainfed coffee</td>
-<td>inactive</td>
-<td>rainfed rice</td>
+<tr class="row-even"><td><p>39</p></td>
+<td><p>rainfed coffee</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed rice</p></td>
 </tr>
-<tr class="row-odd"><td>40</td>
-<td>irrigated coffee</td>
-<td>inactive</td>
-<td>irrigated rice</td>
+<tr class="row-odd"><td><p>40</p></td>
+<td><p>irrigated coffee</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated rice</p></td>
 </tr>
-<tr class="row-even"><td>41</td>
-<td>rainfed cotton</td>
-<td>active</td>
-<td>rainfed cotton</td>
+<tr class="row-even"><td><p>41</p></td>
+<td><p>rainfed cotton</p></td>
+<td><p>active</p></td>
+<td><p>rainfed cotton</p></td>
 </tr>
-<tr class="row-odd"><td>42</td>
-<td>irrigated cotton</td>
-<td>active</td>
-<td>irrigated cotton</td>
+<tr class="row-odd"><td><p>42</p></td>
+<td><p>irrigated cotton</p></td>
+<td><p>active</p></td>
+<td><p>irrigated cotton</p></td>
 </tr>
-<tr class="row-even"><td>43</td>
-<td>rainfed datepalm</td>
-<td>inactive</td>
-<td>rainfed cotton</td>
+<tr class="row-even"><td><p>43</p></td>
+<td><p>rainfed datepalm</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed cotton</p></td>
 </tr>
-<tr class="row-odd"><td>44</td>
-<td>irrigated datepalm</td>
-<td>inactive</td>
-<td>irrigated cotton</td>
+<tr class="row-odd"><td><p>44</p></td>
+<td><p>irrigated datepalm</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated cotton</p></td>
 </tr>
-<tr class="row-even"><td>45</td>
-<td>rainfed foddergrass</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>45</p></td>
+<td><p>rainfed foddergrass</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>46</td>
-<td>irrigated foddergrass</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>46</p></td>
+<td><p>irrigated foddergrass</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>47</td>
-<td>rainfed grapes</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>47</p></td>
+<td><p>rainfed grapes</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>48</td>
-<td>irrigated grapes</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>48</p></td>
+<td><p>irrigated grapes</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>49</td>
-<td>rainfed groundnuts</td>
-<td>inactive</td>
-<td>rainfed rice</td>
+<tr class="row-even"><td><p>49</p></td>
+<td><p>rainfed groundnuts</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed rice</p></td>
 </tr>
-<tr class="row-odd"><td>50</td>
-<td>irrigated groundnuts</td>
-<td>inactive</td>
-<td>irrigated rice</td>
+<tr class="row-odd"><td><p>50</p></td>
+<td><p>irrigated groundnuts</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated rice</p></td>
 </tr>
-<tr class="row-even"><td>51</td>
-<td>rainfed millet</td>
-<td>inactive</td>
-<td>rainfed tropical corn</td>
+<tr class="row-even"><td><p>51</p></td>
+<td><p>rainfed millet</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed tropical corn</p></td>
 </tr>
-<tr class="row-odd"><td>52</td>
-<td>irrigated millet</td>
-<td>inactive</td>
-<td>irrigated tropical corn</td>
+<tr class="row-odd"><td><p>52</p></td>
+<td><p>irrigated millet</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated tropical corn</p></td>
 </tr>
-<tr class="row-even"><td>53</td>
-<td>rainfed oilpalm</td>
-<td>inactive</td>
-<td>rainfed rice</td>
+<tr class="row-even"><td><p>53</p></td>
+<td><p>rainfed oilpalm</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed rice</p></td>
 </tr>
-<tr class="row-odd"><td>54</td>
-<td>irrigated oilpalm</td>
-<td>inactive</td>
-<td>irrigated rice</td>
+<tr class="row-odd"><td><p>54</p></td>
+<td><p>irrigated oilpalm</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated rice</p></td>
 </tr>
-<tr class="row-even"><td>55</td>
-<td>rainfed potatoes</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>55</p></td>
+<td><p>rainfed potatoes</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>56</td>
-<td>irrigated potatoes</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>56</p></td>
+<td><p>irrigated potatoes</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>57</td>
-<td>rainfed pulses</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>57</p></td>
+<td><p>rainfed pulses</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>58</td>
-<td>irrigated pulses</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>58</p></td>
+<td><p>irrigated pulses</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>59</td>
-<td>rainfed rapeseed</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>59</p></td>
+<td><p>rainfed rapeseed</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>60</td>
-<td>irrigated rapeseed</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>60</p></td>
+<td><p>irrigated rapeseed</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>61</td>
-<td>rainfed rice</td>
-<td>active</td>
-<td>rainfed rice</td>
+<tr class="row-even"><td><p>61</p></td>
+<td><p>rainfed rice</p></td>
+<td><p>active</p></td>
+<td><p>rainfed rice</p></td>
 </tr>
-<tr class="row-odd"><td>62</td>
-<td>irrigated rice</td>
-<td>active</td>
-<td>irrigated rice</td>
+<tr class="row-odd"><td><p>62</p></td>
+<td><p>irrigated rice</p></td>
+<td><p>active</p></td>
+<td><p>irrigated rice</p></td>
 </tr>
-<tr class="row-even"><td>63</td>
-<td>rainfed sorghum</td>
-<td>inactive</td>
-<td>rainfed tropical corn</td>
+<tr class="row-even"><td><p>63</p></td>
+<td><p>rainfed sorghum</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed tropical corn</p></td>
 </tr>
-<tr class="row-odd"><td>64</td>
-<td>irrigated sorghum</td>
-<td>inactive</td>
-<td>irrigated tropical corn</td>
+<tr class="row-odd"><td><p>64</p></td>
+<td><p>irrigated sorghum</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated tropical corn</p></td>
 </tr>
-<tr class="row-even"><td>65</td>
-<td>rainfed sugarbeet</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>65</p></td>
+<td><p>rainfed sugarbeet</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>66</td>
-<td>irrigated sugarbeet</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>66</p></td>
+<td><p>irrigated sugarbeet</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>67</td>
-<td>rainfed sugarcane</td>
-<td>active</td>
-<td>rainfed sugarcane</td>
+<tr class="row-even"><td><p>67</p></td>
+<td><p>rainfed sugarcane</p></td>
+<td><p>active</p></td>
+<td><p>rainfed sugarcane</p></td>
 </tr>
-<tr class="row-odd"><td>68</td>
-<td>irrigated sugarcane</td>
-<td>active</td>
-<td>irrigated sugarcane</td>
+<tr class="row-odd"><td><p>68</p></td>
+<td><p>irrigated sugarcane</p></td>
+<td><p>active</p></td>
+<td><p>irrigated sugarcane</p></td>
 </tr>
-<tr class="row-even"><td>69</td>
-<td>rainfed sunflower</td>
-<td>inactive</td>
-<td>rainfed spring wheat</td>
+<tr class="row-even"><td><p>69</p></td>
+<td><p>rainfed sunflower</p></td>
+<td><p>inactive</p></td>
+<td><p>rainfed spring wheat</p></td>
 </tr>
-<tr class="row-odd"><td>70</td>
-<td>irrigated sunflower</td>
-<td>inactive</td>
-<td>irrigated spring wheat</td>
+<tr class="row-odd"><td><p>70</p></td>
+<td><p>irrigated sunflower</p></td>
+<td><p>inactive</p></td>
+<td><p>irrigated spring wheat</p></td>
 </tr>
-<tr class="row-even"><td>71</td>
-<td>rainfed miscanthus</td>
-<td>active</td>
-<td>rainfed miscanthus</td>
+<tr class="row-even"><td><p>71</p></td>
+<td><p>rainfed miscanthus</p></td>
+<td><p>active</p></td>
+<td><p>rainfed miscanthus</p></td>
 </tr>
-<tr class="row-odd"><td>72</td>
-<td>irrigated miscanthus</td>
-<td>active</td>
-<td>irrigated miscanthus</td>
+<tr class="row-odd"><td><p>72</p></td>
+<td><p>irrigated miscanthus</p></td>
+<td><p>active</p></td>
+<td><p>irrigated miscanthus</p></td>
 </tr>
-<tr class="row-even"><td>73</td>
-<td>rainfed switchgrass</td>
-<td>active</td>
-<td>rainfed switchgrass</td>
+<tr class="row-even"><td><p>73</p></td>
+<td><p>rainfed switchgrass</p></td>
+<td><p>active</p></td>
+<td><p>rainfed switchgrass</p></td>
 </tr>
-<tr class="row-odd"><td>74</td>
-<td>irrigated switchgrass</td>
-<td>active</td>
-<td>irrigated switchgrass</td>
+<tr class="row-odd"><td><p>74</p></td>
+<td><p>irrigated switchgrass</p></td>
+<td><p>active</p></td>
+<td><p>irrigated switchgrass</p></td>
 </tr>
-<tr class="row-even"><td>75</td>
-<td>rainfed tropical corn</td>
-<td>active</td>
-<td>rainfed tropical corn</td>
+<tr class="row-even"><td><p>75</p></td>
+<td><p>rainfed tropical corn</p></td>
+<td><p>active</p></td>
+<td><p>rainfed tropical corn</p></td>
 </tr>
-<tr class="row-odd"><td>76</td>
-<td>irrigated tropical corn</td>
-<td>active</td>
-<td>irrigated tropical corn</td>
+<tr class="row-odd"><td><p>76</p></td>
+<td><p>irrigated tropical corn</p></td>
+<td><p>active</p></td>
+<td><p>irrigated tropical corn</p></td>
 </tr>
-<tr class="row-even"><td>77</td>
-<td>rainfed tropical soybean</td>
-<td>active</td>
-<td>rainfed tropical soybean</td>
+<tr class="row-even"><td><p>77</p></td>
+<td><p>rainfed tropical soybean</p></td>
+<td><p>active</p></td>
+<td><p>rainfed tropical soybean</p></td>
 </tr>
-<tr class="row-odd"><td>78</td>
-<td>irrigated tropical soybean</td>
-<td>active</td>
-<td>irrigated tropical soybean</td>
+<tr class="row-odd"><td><p>78</p></td>
+<td><p>irrigated tropical soybean</p></td>
+<td><p>active</p></td>
+<td><p>irrigated tropical soybean</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="phenology">
-<span id="id3"></span><h3>2.26.2.3. Phenology<a class="headerlink" href="#phenology" title="Permalink to this headline">¶</a></h3>
+<span id="id3"></span><h3><span class="section-number">2.26.2.3. </span>Phenology<a class="headerlink" href="#phenology" title="Permalink to this headline">¶</a></h3>
 <p>CLM5-BGC includes evergreen, seasonally deciduous (responding to changes
 in day length), and stress deciduous (responding to changes in
 temperature and/or soil moisture) phenology algorithms (Chapter <a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html#rst-vegetation-phenology-and-turnover"><span class="std std-numref">2.20</span></a>).
@@ -699,69 +699,69 @@ continues from leaf emergence to the beginning of grain fill, and phase
 3 starts from the beginning of grain fill and ends with physiological
 maturity and harvest.</p>
 <div class="section" id="planting">
-<span id="id4"></span><h4>2.26.2.3.1. Planting<a class="headerlink" href="#planting" title="Permalink to this headline">¶</a></h4>
+<span id="id4"></span><h4><span class="section-number">2.26.2.3.1. </span>Planting<a class="headerlink" href="#planting" title="Permalink to this headline">¶</a></h4>
 <p>All crops must meet the following requirements between the minimum planting date and the maximum
 planting date (for the northern hemisphere) in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>:</p>
 <div class="math" id="equation-25-1">
-<p><span class="eqno">(2.26.1)<a class="headerlink" href="#equation-25-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fbdd7360348b74f67d85340549da05992bb1017a.svg" alt="\begin{array}{c}
+<p><span class="eqno">(2.26.1)<a class="headerlink" href="#equation-25-1" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{c}
 {T_{10d} &gt;T_{p} } \\
 {T_{10d}^{\min } &gt;T_{p}^{\min } }  \\
 {GDD_{8} \ge GDD_{\min } }
-\end{array}"/></p>
-</div><p>where <img class="math" src="../../_images/math/b280256aead8a0b1d977c38fa63d622ef11e2d45.svg" alt="{T}_{10d}"/> is the 10-day running mean of <img class="math" src="../../_images/math/06ccde8d150c96ad2f3c8f185200c0a64cea648c.svg" alt="{T}_{2m}"/>, (the simulated 2-m air
-temperature during each model time step) and <img class="math" src="../../_images/math/d5e05a2d171d0390be7b0363ebf483dbf8840009.svg" alt="T_{10d}^{\min}"/>  is
-the 10-day running mean of <img class="math" src="../../_images/math/3d71e99fae035a0ff0ce33dddbac7cc305e07fdb.svg" alt="T_{2m}^{\min }"/>  (the daily minimum of
-<img class="math" src="../../_images/math/06ccde8d150c96ad2f3c8f185200c0a64cea648c.svg" alt="{T}_{2m}"/>). <img class="math" src="../../_images/math/57d65f931fe00dc305c435d10edc55e3f471ebda.svg" alt="{T}_{p}"/> and <img class="math" src="../../_images/math/68b4585845b49b606c075867068c447236996f29.svg" alt="T_{p}^{\min }"/>  are crop-specific coldest planting temperatures
-(<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>), <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/> is the 20-year running mean growing
+\end{array}</span></p>
+</div><p>where <span class="math">{T}_{10d}</span> is the 10-day running mean of <span class="math">{T}_{2m}</span>, (the simulated 2-m air
+temperature during each model time step) and <span class="math">T_{10d}^{\min}</span>  is
+the 10-day running mean of <span class="math">T_{2m}^{\min }</span>  (the daily minimum of
+<span class="math">{T}_{2m}</span>). <span class="math">{T}_{p}</span> and <span class="math">T_{p}^{\min }</span>  are crop-specific coldest planting temperatures
+(<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>), <span class="math">{GDD}_{8}</span> is the 20-year running mean growing
 degree-days (units are degree-days or <sup>o</sup> days) tracked
 from April through September (NH) above 8<sup>o</sup> C with
 maximum daily increments of 30<sup>o</sup> days (see equation <a class="reference internal" href="#equation-25-3">(2.26.3)</a>), and
-<img class="math" src="../../_images/math/1030942ed010eba4595c1781a6dc46008d62eebd.svg" alt="{GDD}_{min }"/>is the minimum growing degree day requirement
-(<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>). <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/> does not change as quickly as <img class="math" src="../../_images/math/b280256aead8a0b1d977c38fa63d622ef11e2d45.svg" alt="{T}_{10d}"/> and <img class="math" src="../../_images/math/faa174c9625cfadbb9ea8a19138aa07e57b5c91c.svg" alt="T_{10d}^{\min }"/>, so
+<span class="math">{GDD}_{min }</span>is the minimum growing degree day requirement
+(<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>). <span class="math">{GDD}_{8}</span> does not change as quickly as <span class="math">{T}_{10d}</span> and <span class="math">T_{10d}^{\min }</span>, so
 it determines whether it is warm enough for the crop to be planted in a grid cell, while the
-2-m air temperature variables determine the day when the crop may be planted if the <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/> threshold is met.
+2-m air temperature variables determine the day when the crop may be planted if the <span class="math">{GDD}_{8}</span> threshold is met.
 If the requirements in equation <a class="reference internal" href="#equation-25-1">(2.26.1)</a> are not met by the maximum planting date,
-crops are still planted on the maximum planting date as long as  <img class="math" src="../../_images/math/27e4303fc16979d4a8583d91a00a7df1b341daf4.svg" alt="{GDD}_{8} &gt; 0"/>. In
+crops are still planted on the maximum planting date as long as  <span class="math">{GDD}_{8} &gt; 0</span>. In
 the southern hemisphere (SH) the NH requirements apply 6 months later.</p>
 <p>At planting, each crop seed pool is assigned 3 gC m<sup>-2</sup> from its
 grain product pool. The seed carbon is transferred to the leaves upon leaf emergence. An
 equivalent amount of seed leaf N is assigned given the pft’s C to N
-ratio for leaves (<img class="math" src="../../_images/math/d06f9734cef2f0142828754a9e07f367bf14a581.svg" alt="{CN}_{leaf}"/> in <a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.26.4</span></a>; this differs from AgroIBIS,
+ratio for leaves (<span class="math">{CN}_{leaf}</span> in <a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.26.4</span></a>; this differs from AgroIBIS,
 which uses a seed leaf area index instead of seed C). The model updates the average growing degree-days necessary
 for the crop to reach vegetative and physiological maturity,
-<img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/>, according to the following AgroIBIS rules:</p>
+<span class="math">{GDD}_{mat}</span>, according to the following AgroIBIS rules:</p>
 <div class="math" id="equation-25-2">
-<p><span class="eqno">(2.26.2)<a class="headerlink" href="#equation-25-2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4671b63bfe90bfa6243500ce71ac7f36cbca570e.svg" alt="\begin{array}{lll}
+<p><span class="eqno">(2.26.2)<a class="headerlink" href="#equation-25-2" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{lll}
 GDD_{{\rm mat}}^{{\rm corn,sugarcane}} =0.85 GDD_{{\rm 8}} &amp; {\rm \; \; \; and\; \; \; }&amp; 950 &lt;GDD_{{\rm mat}}^{{\rm corn,sugarcane}} &lt;1850{}^\circ {\rm days} \\
 GDD_{{\rm mat}}^{{\rm spring\ wheat,cotton}} =GDD_{{\rm 0}} &amp; {\rm \; \; \; and\; \; \; } &amp; GDD_{{\rm mat}}^{{\rm spring\ wheat,cotton}} &lt;1700{}^\circ {\rm days} \\
 GDD_{{\rm mat}}^{{\rm temp.soy}} =GDD_{{\rm 10}} &amp; {\rm \; \; \; and\; \; \; } &amp; GDD_{{\rm mat}}^{{\rm temp.soy}} &lt;1900{}^\circ {\rm days} \\
 GDD_{{\rm mat}}^{{\rm rice}} =GDD_{{\rm 0}} &amp; {\rm \; \; \; and\; \; \; } &amp; GDD_{{\rm mat}}^{{\rm rice}} &lt;2100{}^\circ {\rm days} \\
 GDD_{{\rm mat}}^{{\rm trop.soy}} =GDD_{{\rm 10}} &amp; {\rm \; \; \; and\; \; \; } &amp; GDD_{{\rm mat}}^{{\rm trop.soy}} &lt;2100{}^\circ {\rm days}
-\end{array}"/></p>
-</div><p>where <img class="math" src="../../_images/math/ba6289c80d6de94f5398df4f867cf6d7f0c464fc.svg" alt="{GDD}_{0}"/>, <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/>, and <img class="math" src="../../_images/math/298601b3b523a030f4f09a6964b9e336e662b7e2.svg" alt="{GDD}_{10}"/> are the 20-year running mean growing
+\end{array}</span></p>
+</div><p>where <span class="math">{GDD}_{0}</span>, <span class="math">{GDD}_{8}</span>, and <span class="math">{GDD}_{10}</span> are the 20-year running mean growing
 degree-days tracked from April through September (NH) over 0<sup>o</sup>C, 8<sup>o</sup>C, and
 10<sup>o</sup>C, respectively, with maximum daily increments of
-26<sup>o</sup>days (for <img class="math" src="../../_images/math/ba6289c80d6de94f5398df4f867cf6d7f0c464fc.svg" alt="{GDD}_{0}"/>) or 30<sup>o</sup>days (for <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/> and <img class="math" src="../../_images/math/298601b3b523a030f4f09a6964b9e336e662b7e2.svg" alt="{GDD}_{10}"/>). Equation <a class="reference internal" href="#equation-25-3">(2.26.3)</a> shows how we calculate
-<img class="math" src="../../_images/math/ba6289c80d6de94f5398df4f867cf6d7f0c464fc.svg" alt="{GDD}_{0}"/>, <img class="math" src="../../_images/math/df10fcde3d76bb0164820d389bcdbe9434f0bab8.svg" alt="{GDD}_{8}"/>, and <img class="math" src="../../_images/math/298601b3b523a030f4f09a6964b9e336e662b7e2.svg" alt="{GDD}_{10}"/> for each model timestep:</p>
+26<sup>o</sup>days (for <span class="math">{GDD}_{0}</span>) or 30<sup>o</sup>days (for <span class="math">{GDD}_{8}</span> and <span class="math">{GDD}_{10}</span>). Equation <a class="reference internal" href="#equation-25-3">(2.26.3)</a> shows how we calculate
+<span class="math">{GDD}_{0}</span>, <span class="math">{GDD}_{8}</span>, and <span class="math">{GDD}_{10}</span> for each model timestep:</p>
 <div class="math" id="equation-25-3">
-<p><span class="eqno">(2.26.3)<a class="headerlink" href="#equation-25-3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/146e2a1c3ac3ebf0f01f5f82e3299e90be8e4fac.svg" alt="\begin{array}{lll}
+<p><span class="eqno">(2.26.3)<a class="headerlink" href="#equation-25-3" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{lll}
 GDD_{{\rm 0}} =GDD_{0} +T_{2{\rm m}} -T_{f} &amp; \quad {\rm \; \; \; where\; \; \; } &amp; 0 \le T_{2{\rm m}} -T_{f} \le 26{}^\circ {\rm days} \\
 GDD_{{\rm 8}} =GDD_{8} +T_{2{\rm m}} -T_{f} -8 &amp; \quad {\rm \; \; \; where\; \; \; } &amp; 0 \le T_{2{\rm m}} -T_{f} -8\le 30{}^\circ {\rm days} \\
 GDD_{{\rm 10}} =GDD_{10} +T_{2{\rm m}} -T_{f} -10 &amp; \quad {\rm \; \; \; where\; \; \; } &amp; 0 \le T_{2{\rm m}} -T_{f} -10\le 30{}^\circ {\rm days}
-\end{array}"/></p>
-</div><p>where, if <img class="math" src="../../_images/math/06ccde8d150c96ad2f3c8f185200c0a64cea648c.svg" alt="{T}_{2m}"/> -  <img class="math" src="../../_images/math/69efff94fbd30e8c72d4f766ae48aa2d2d44d89b.svg" alt="{T}_{f}"/> takes on values
+\end{array}</span></p>
+</div><p>where, if <span class="math">{T}_{2m}</span> -  <span class="math">{T}_{f}</span> takes on values
 outside the above ranges within a day, then it equals the minimum or maximum value in
-the range for that day. <img class="math" src="../../_images/math/69efff94fbd30e8c72d4f766ae48aa2d2d44d89b.svg" alt="{T}_{f}"/> is the freezing temperature of water and equals 273.15 K,
-<img class="math" src="../../_images/math/06ccde8d150c96ad2f3c8f185200c0a64cea648c.svg" alt="{T}_{2m}"/> is the 2-m air temperature in units of K, and <em>GDD</em> is in units of ºdays.</p>
+the range for that day. <span class="math">{T}_{f}</span> is the freezing temperature of water and equals 273.15 K,
+<span class="math">{T}_{2m}</span> is the 2-m air temperature in units of K, and <em>GDD</em> is in units of ºdays.</p>
 </div>
 <div class="section" id="leaf-emergence">
-<span id="id5"></span><h4>2.26.2.3.2. Leaf emergence<a class="headerlink" href="#leaf-emergence" title="Permalink to this headline">¶</a></h4>
+<span id="id5"></span><h4><span class="section-number">2.26.2.3.2. </span>Leaf emergence<a class="headerlink" href="#leaf-emergence" title="Permalink to this headline">¶</a></h4>
 <p>According to AgroIBIS, leaves may emerge when the growing degree-days of
-soil temperature to 0.05 m depth (<img class="math" src="../../_images/math/5a85a82b6545e2d02c3edb5993379b59edd36cb9.svg" alt="GDD_{T_{soi} }"/> ), which is tracked since planting,
-reaches 1 to 5% of <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/>
-(see Phase 2 % <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/> in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>). The base temperature threshold values for <img class="math" src="../../_images/math/5a85a82b6545e2d02c3edb5993379b59edd36cb9.svg" alt="GDD_{T_{soi} }"/>
+soil temperature to 0.05 m depth (<span class="math">GDD_{T_{soi} }</span> ), which is tracked since planting,
+reaches 1 to 5% of <span class="math">{GDD}_{mat}</span>
+(see Phase 2 % <span class="math">{GDD}_{mat}</span> in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>). The base temperature threshold values for <span class="math">GDD_{T_{soi} }</span>
 are listed in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a> (the same base temperature threshold values are also used for
-<img class="math" src="../../_images/math/3b21ca39b3741c1ebc11259162ca4e1f0cdfb859.svg" alt="GDD_{T_{{\rm 2m}} }"/> in section <a class="reference internal" href="#grain-fill"><span class="std std-numref">2.26.2.3.3</span></a>), and leaf emergence (crop phenology phase 2)
+<span class="math">GDD_{T_{{\rm 2m}} }</span> in section <a class="reference internal" href="#grain-fill"><span class="std std-numref">2.26.2.3.3</span></a>), and leaf emergence (crop phenology phase 2)
 starts when this threshold is met. Leaf onset occurs in the first
 time step of phase 2, at which moment all seed C is transferred to leaf
 C. Subsequently, the leaf area index generally increases throughout phase 2 until it reaches
@@ -769,13 +769,13 @@ a predetermined maximum value. Stem and root C also increase throughout phase 2 
 the carbon allocation algorithm in section <a class="reference internal" href="#leaf-emergence-to-grain-fill"><span class="std std-numref">2.26.2.4.1</span></a>.</p>
 </div>
 <div class="section" id="grain-fill">
-<span id="id6"></span><h4>2.26.2.3.3. Grain fill<a class="headerlink" href="#grain-fill" title="Permalink to this headline">¶</a></h4>
+<span id="id6"></span><h4><span class="section-number">2.26.2.3.3. </span>Grain fill<a class="headerlink" href="#grain-fill" title="Permalink to this headline">¶</a></h4>
 <p>The grain fill phase (phase 3) begins in one of two ways. The first potential trigger is based on temperature, similar to phase 2. A variable tracked since
-planting, similar to <img class="math" src="../../_images/math/5a85a82b6545e2d02c3edb5993379b59edd36cb9.svg" alt="GDD_{T_{soi} }"/>  but for 2-m air temperature,
-<img class="math" src="../../_images/math/3b21ca39b3741c1ebc11259162ca4e1f0cdfb859.svg" alt="GDD_{T_{{\rm 2m}} }"/>, must reach a heat unit threshold, <em>h</em>, of
-of 40 to 65% of  <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/> (see Phase 3 % <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/> in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>).
+planting, similar to <span class="math">GDD_{T_{soi} }</span>  but for 2-m air temperature,
+<span class="math">GDD_{T_{{\rm 2m}} }</span>, must reach a heat unit threshold, <em>h</em>, of
+of 40 to 65% of  <span class="math">{GDD}_{mat}</span> (see Phase 3 % <span class="math">{GDD}_{mat}</span> in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>).
 For crops with the C4 photosynthetic pathway (temperate and tropical corn, sugarcane),
-the <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/> is based on an empirical function and ranges between 950 and 1850.
+the <span class="math">{GDD}_{mat}</span> is based on an empirical function and ranges between 950 and 1850.
 The second potential trigger for phase 3 is based on leaf area index.
 When the maximum value of leaf area index is reached in phase 2 (<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.26.4</span></a>), phase 3 begins.
 In phase 3, the leaf area index begins to decline in
@@ -783,260 +783,260 @@ response to a background litterfall rate calculated as the inverse of
 leaf longevity for the pft as done in the BGC part of the model.</p>
 </div>
 <div class="section" id="harvest">
-<span id="id7"></span><h4>2.26.2.3.4. Harvest<a class="headerlink" href="#harvest" title="Permalink to this headline">¶</a></h4>
+<span id="id7"></span><h4><span class="section-number">2.26.2.3.4. </span>Harvest<a class="headerlink" href="#harvest" title="Permalink to this headline">¶</a></h4>
 <p>Harvest is assumed to occur as soon as the crop reaches maturity. When
-<img class="math" src="../../_images/math/3b21ca39b3741c1ebc11259162ca4e1f0cdfb859.svg" alt="GDD_{T_{{\rm 2m}} }"/> reaches 100% of <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/> or
+<span class="math">GDD_{T_{{\rm 2m}} }</span> reaches 100% of <span class="math">{GDD}_{mat}</span> or
 the number of days past planting reaches a crop-specific maximum
 (<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>), then the crop is harvested.
 Harvest occurs in one time step using the BGC leaf offset algorithm.</p>
-<span id="table-crop-phenology-parameters"></span><table border="1" class="docutils" id="id20">
+<span id="table-crop-phenology-parameters"></span><table class="docutils align-default" id="id20">
 <caption><span class="caption-number">Table 2.26.2 </span><span class="caption-text">Crop phenology and morphology parameters for the active crop plant functional types (pfts) in CLM5BGCCROP. Numbers in the first row correspond to the list of pfts in <a class="reference internal" href="#table-crop-plant-functional-types"><span class="std std-numref">Table 2.26.1</span></a>.</span><a class="headerlink" href="#id20" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="12%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
+<col style="width: 12%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head"></th>
-<th class="head">temperate corn</th>
-<th class="head">spring wheat</th>
-<th class="head">temperate soybean</th>
-<th class="head">cotton</th>
-<th class="head">rice</th>
-<th class="head">sugarcane</th>
-<th class="head">tropical corn</th>
-<th class="head">tropical soybean</th>
-<th class="head">miscanthus</th>
-<th class="head">switchgrass</th>
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>temperate corn</p></th>
+<th class="head"><p>spring wheat</p></th>
+<th class="head"><p>temperate soybean</p></th>
+<th class="head"><p>cotton</p></th>
+<th class="head"><p>rice</p></th>
+<th class="head"><p>sugarcane</p></th>
+<th class="head"><p>tropical corn</p></th>
+<th class="head"><p>tropical soybean</p></th>
+<th class="head"><p>miscanthus</p></th>
+<th class="head"><p>switchgrass</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>IVT</td>
-<td>17, 18</td>
-<td>19, 20</td>
-<td>23, 24</td>
-<td>41, 42</td>
-<td>61, 62</td>
-<td>67, 68</td>
-<td>75, 76</td>
-<td>77, 78</td>
-<td>71, 72</td>
-<td>73, 74</td>
+<tbody>
+<tr class="row-even"><td><p>IVT</p></td>
+<td><p>17, 18</p></td>
+<td><p>19, 20</p></td>
+<td><p>23, 24</p></td>
+<td><p>41, 42</p></td>
+<td><p>61, 62</p></td>
+<td><p>67, 68</p></td>
+<td><p>75, 76</p></td>
+<td><p>77, 78</p></td>
+<td><p>71, 72</p></td>
+<td><p>73, 74</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/ba4cf4dca3e66d7f94b72abc87083fa2d15465f4.svg" alt="Date_{planting}^{min}"/></td>
-<td>April 1</td>
-<td>April 1</td>
-<td>May 1</td>
-<td>April 1</td>
-<td>Janurary 1</td>
-<td>Janurary 1</td>
-<td>March 20</td>
-<td>April 15</td>
-<td>April 1</td>
-<td>April 1</td>
+<tr class="row-odd"><td><p><span class="math">Date_{planting}^{min}</span></p></td>
+<td><p>April 1</p></td>
+<td><p>April 1</p></td>
+<td><p>May 1</p></td>
+<td><p>April 1</p></td>
+<td><p>Janurary 1</p></td>
+<td><p>Janurary 1</p></td>
+<td><p>March 20</p></td>
+<td><p>April 15</p></td>
+<td><p>April 1</p></td>
+<td><p>April 1</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/94a0c9eca89dc053e0ef29d283153b42894159dd.svg" alt="Date_{planting}^{max}"/></td>
-<td>June 15</td>
-<td>June  15</td>
-<td>June 15</td>
-<td>May 31</td>
-<td>Feburary 28</td>
-<td>March 31</td>
-<td>April 15</td>
-<td>June 31</td>
-<td>June 15</td>
-<td>June 15</td>
+<tr class="row-even"><td><p><span class="math">Date_{planting}^{max}</span></p></td>
+<td><p>June 15</p></td>
+<td><p>June  15</p></td>
+<td><p>June 15</p></td>
+<td><p>May 31</p></td>
+<td><p>Feburary 28</p></td>
+<td><p>March 31</p></td>
+<td><p>April 15</p></td>
+<td><p>June 31</p></td>
+<td><p>June 15</p></td>
+<td><p>June 15</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/b635b2e283d0573a44f67b1c948e30bb8facc76d.svg" alt="T_{p}"/>(K)</td>
-<td>283.15</td>
-<td>280.15</td>
-<td>286.15</td>
-<td>294.15</td>
-<td>294.15</td>
-<td>294.15</td>
-<td>294.15</td>
-<td>294.15</td>
-<td>283.15</td>
-<td>283.15</td>
+<tr class="row-odd"><td><p><span class="math">T_{p}</span>(K)</p></td>
+<td><p>283.15</p></td>
+<td><p>280.15</p></td>
+<td><p>286.15</p></td>
+<td><p>294.15</p></td>
+<td><p>294.15</p></td>
+<td><p>294.15</p></td>
+<td><p>294.15</p></td>
+<td><p>294.15</p></td>
+<td><p>283.15</p></td>
+<td><p>283.15</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/f89ea13368a7f0b02b4fe02a1cac155823514f9c.svg" alt="T_{p}^{ min }"/>(K)</td>
-<td>279.15</td>
-<td>272.15</td>
-<td>279.15</td>
-<td>283.15</td>
-<td>283.15</td>
-<td>283.15</td>
-<td>283.15</td>
-<td>283.15</td>
-<td>279.15</td>
-<td>279.15</td>
+<tr class="row-even"><td><p><span class="math">T_{p}^{ min }</span>(K)</p></td>
+<td><p>279.15</p></td>
+<td><p>272.15</p></td>
+<td><p>279.15</p></td>
+<td><p>283.15</p></td>
+<td><p>283.15</p></td>
+<td><p>283.15</p></td>
+<td><p>283.15</p></td>
+<td><p>283.15</p></td>
+<td><p>279.15</p></td>
+<td><p>279.15</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/2f0252dd7338c53e000e1f137b483aa545bb302c.svg" alt="{GDD}_{min}"/>(ºdays)</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
+<tr class="row-odd"><td><p><span class="math">{GDD}_{min}</span>(ºdays)</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
 </tr>
-<tr class="row-even"><td>base temperature for GDD (ºC)</td>
-<td>8</td>
-<td>0</td>
-<td>10</td>
-<td>10</td>
-<td>10</td>
-<td>10</td>
-<td>10</td>
-<td>10</td>
-<td>8</td>
-<td>8</td>
+<tr class="row-even"><td><p>base temperature for GDD (ºC)</p></td>
+<td><p>8</p></td>
+<td><p>0</p></td>
+<td><p>10</p></td>
+<td><p>10</p></td>
+<td><p>10</p></td>
+<td><p>10</p></td>
+<td><p>10</p></td>
+<td><p>10</p></td>
+<td><p>8</p></td>
+<td><p>8</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/>(ºdays)</td>
-<td>950-1850</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>1700</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>1900</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>1700</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>2100</td>
-<td>950-1850</td>
-<td>950-1850</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>2100</td>
-<td>950-1850</td>
-<td>950-1850</td>
+<tr class="row-odd"><td><p><span class="math">{GDD}_{mat}</span>(ºdays)</p></td>
+<td><p>950-1850</p></td>
+<td><p><span class="math">\mathrm{\le}</span>1700</p></td>
+<td><p><span class="math">\mathrm{\le}</span>1900</p></td>
+<td><p><span class="math">\mathrm{\le}</span>1700</p></td>
+<td><p><span class="math">\mathrm{\le}</span>2100</p></td>
+<td><p>950-1850</p></td>
+<td><p>950-1850</p></td>
+<td><p><span class="math">\mathrm{\le}</span>2100</p></td>
+<td><p>950-1850</p></td>
+<td><p>950-1850</p></td>
 </tr>
-<tr class="row-even"><td>Phase 2 % <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/></td>
-<td>0.03</td>
-<td>0.05</td>
-<td>0.03</td>
-<td>0.03</td>
-<td>0.01</td>
-<td>0.03</td>
-<td>0.03</td>
-<td>0.03</td>
-<td>0.03</td>
-<td>0.03</td>
+<tr class="row-even"><td><p>Phase 2 % <span class="math">{GDD}_{mat}</span></p></td>
+<td><p>0.03</p></td>
+<td><p>0.05</p></td>
+<td><p>0.03</p></td>
+<td><p>0.03</p></td>
+<td><p>0.01</p></td>
+<td><p>0.03</p></td>
+<td><p>0.03</p></td>
+<td><p>0.03</p></td>
+<td><p>0.03</p></td>
+<td><p>0.03</p></td>
 </tr>
-<tr class="row-odd"><td>Phase 3 % <img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/></td>
-<td>0.65</td>
-<td>0.6</td>
-<td>0.5</td>
-<td>0.5</td>
-<td>0.4</td>
-<td>0.65</td>
-<td>0.5</td>
-<td>0.5</td>
-<td>0.4</td>
-<td>0.4</td>
+<tr class="row-odd"><td><p>Phase 3 % <span class="math">{GDD}_{mat}</span></p></td>
+<td><p>0.65</p></td>
+<td><p>0.6</p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+<td><p>0.4</p></td>
+<td><p>0.65</p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+<td><p>0.4</p></td>
+<td><p>0.4</p></td>
 </tr>
-<tr class="row-even"><td>Harvest: days past planting</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>165</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>150</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>150</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>160</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>150</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>300</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>160</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>150</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>210</td>
-<td><img class="math" src="../../_images/math/4f804423cfc7288d85de6bce5a0fafb1ebfeb77a.svg" alt="\mathrm{\le}"/>210</td>
+<tr class="row-even"><td><p>Harvest: days past planting</p></td>
+<td><p><span class="math">\mathrm{\le}</span>165</p></td>
+<td><p><span class="math">\mathrm{\le}</span>150</p></td>
+<td><p><span class="math">\mathrm{\le}</span>150</p></td>
+<td><p><span class="math">\mathrm{\le}</span>160</p></td>
+<td><p><span class="math">\mathrm{\le}</span>150</p></td>
+<td><p><span class="math">\mathrm{\le}</span>300</p></td>
+<td><p><span class="math">\mathrm{\le}</span>160</p></td>
+<td><p><span class="math">\mathrm{\le}</span>150</p></td>
+<td><p><span class="math">\mathrm{\le}</span>210</p></td>
+<td><p><span class="math">\mathrm{\le}</span>210</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/0154f42814b24ec090506c270051cc92daf34c93.svg" alt="z_{top}^{\max }"/> (m)</td>
-<td>2.5</td>
-<td>1.2</td>
-<td>0.75</td>
-<td>1.5</td>
-<td>1.8</td>
-<td>4</td>
-<td>2.5</td>
-<td>1</td>
-<td>2.5</td>
-<td>2.5</td>
+<tr class="row-odd"><td><p><span class="math">z_{top}^{\max }</span> (m)</p></td>
+<td><p>2.5</p></td>
+<td><p>1.2</p></td>
+<td><p>0.75</p></td>
+<td><p>1.5</p></td>
+<td><p>1.8</p></td>
+<td><p>4</p></td>
+<td><p>2.5</p></td>
+<td><p>1</p></td>
+<td><p>2.5</p></td>
+<td><p>2.5</p></td>
 </tr>
-<tr class="row-even"><td>SLA (m <sup>2</sup> leaf g <sup>-1</sup> C)</td>
-<td>0.05</td>
-<td>0.035</td>
-<td>0.035</td>
-<td>0.035</td>
-<td>0.035</td>
-<td>0.05</td>
-<td>0.05</td>
-<td>0.035</td>
-<td>0.057</td>
-<td>0.049</td>
+<tr class="row-even"><td><p>SLA (m <sup>2</sup> leaf g <sup>-1</sup> C)</p></td>
+<td><p>0.05</p></td>
+<td><p>0.035</p></td>
+<td><p>0.035</p></td>
+<td><p>0.035</p></td>
+<td><p>0.035</p></td>
+<td><p>0.05</p></td>
+<td><p>0.05</p></td>
+<td><p>0.035</p></td>
+<td><p>0.057</p></td>
+<td><p>0.049</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/ae1087201853e2dfb9c1ca60a1f6209712b6a6a1.svg" alt="\chi _{L}"/> index</td>
-<td>-0.5</td>
-<td>-0.5</td>
-<td>-0.5</td>
-<td>-0.5</td>
-<td>-0.5</td>
-<td>-0.5</td>
-<td>-0.5</td>
-<td>-0.5</td>
-<td>-0.5</td>
-<td>-0.5</td>
+<tr class="row-odd"><td><p><span class="math">\chi _{L}</span> index</p></td>
+<td><p>-0.5</p></td>
+<td><p>-0.5</p></td>
+<td><p>-0.5</p></td>
+<td><p>-0.5</p></td>
+<td><p>-0.5</p></td>
+<td><p>-0.5</p></td>
+<td><p>-0.5</p></td>
+<td><p>-0.5</p></td>
+<td><p>-0.5</p></td>
+<td><p>-0.5</p></td>
 </tr>
-<tr class="row-even"><td>grperc</td>
-<td>0.11</td>
-<td>0.11</td>
-<td>0.11</td>
-<td>0.11</td>
-<td>0.11</td>
-<td>0.11</td>
-<td>0.11</td>
-<td>0.11</td>
-<td>0.11</td>
-<td>0.11</td>
+<tr class="row-even"><td><p>grperc</p></td>
+<td><p>0.11</p></td>
+<td><p>0.11</p></td>
+<td><p>0.11</p></td>
+<td><p>0.11</p></td>
+<td><p>0.11</p></td>
+<td><p>0.11</p></td>
+<td><p>0.11</p></td>
+<td><p>0.11</p></td>
+<td><p>0.11</p></td>
+<td><p>0.11</p></td>
 </tr>
-<tr class="row-odd"><td>flnr</td>
-<td>0.293</td>
-<td>0.41</td>
-<td>0.41</td>
-<td>0.41</td>
-<td>0.41</td>
-<td>0.293</td>
-<td>0.293</td>
-<td>0.41</td>
-<td>0.293</td>
-<td>0.293</td>
+<tr class="row-odd"><td><p>flnr</p></td>
+<td><p>0.293</p></td>
+<td><p>0.41</p></td>
+<td><p>0.41</p></td>
+<td><p>0.41</p></td>
+<td><p>0.41</p></td>
+<td><p>0.293</p></td>
+<td><p>0.293</p></td>
+<td><p>0.41</p></td>
+<td><p>0.293</p></td>
+<td><p>0.293</p></td>
 </tr>
-<tr class="row-even"><td>fcur</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
+<tr class="row-even"><td><p>fcur</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
+<td><p>1</p></td>
 </tr>
 </tbody>
 </table>
-<p>Notes: <img class="math" src="../../_images/math/ba4cf4dca3e66d7f94b72abc87083fa2d15465f4.svg" alt="Date_{planting}^{min}"/> and <img class="math" src="../../_images/math/94a0c9eca89dc053e0ef29d283153b42894159dd.svg" alt="Date_{planting}^{max}"/> are
+<p>Notes: <span class="math">Date_{planting}^{min}</span> and <span class="math">Date_{planting}^{max}</span> are
 the minimum and maximum planting date in the Northern Hemisphere, the corresponding dates
 in the Southern Hemisphere apply 6 months later.
-<img class="math" src="../../_images/math/b635b2e283d0573a44f67b1c948e30bb8facc76d.svg" alt="T_{p}"/> and <img class="math" src="../../_images/math/f89ea13368a7f0b02b4fe02a1cac155823514f9c.svg" alt="T_{p}^{ min }"/> are crop-specific average and coldest planting temperatures, respectively.
-<img class="math" src="../../_images/math/2f0252dd7338c53e000e1f137b483aa545bb302c.svg" alt="{GDD}_{min}"/> is the lowest (for planting) 20-year running mean growing degree-days based
+<span class="math">T_{p}</span> and <span class="math">T_{p}^{ min }</span> are crop-specific average and coldest planting temperatures, respectively.
+<span class="math">{GDD}_{min}</span> is the lowest (for planting) 20-year running mean growing degree-days based
 on the base temperature threshold in the 7<sup>th</sup> row, tracked from April to September (NH).
-<img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/> is a crop’s 20-year running mean growing
+<span class="math">{GDD}_{mat}</span> is a crop’s 20-year running mean growing
 degree-days needed for vegetative and physiological maturity. Harvest
-occurs at 100%<img class="math" src="../../_images/math/951eca27da781a1fd8a1bf69ab6a7b8f38665074.svg" alt="{GDD}_{mat}"/> or when the days past planting
+occurs at 100%<span class="math">{GDD}_{mat}</span> or when the days past planting
 reach the number in the 11<sup>th</sup> row. Crop growth phases
-are described in the text. <img class="math" src="../../_images/math/0154f42814b24ec090506c270051cc92daf34c93.svg" alt="z_{top}^{\max }"/>  is the maximum
-top-of-canopy height of a crop, <em>SLA</em> is specific leaf area. <img class="math" src="../../_images/math/ae1087201853e2dfb9c1ca60a1f6209712b6a6a1.svg" alt="\chi _{L}"/> is the leaf
+are described in the text. <span class="math">z_{top}^{\max }</span>  is the maximum
+top-of-canopy height of a crop, <em>SLA</em> is specific leaf area. <span class="math">\chi _{L}</span> is the leaf
 orientation index, equals -1 for vertical, 0 for
 random, and 1 for horizontal leaf orientation.
 grperc is the growth respiration factor. flnr is the fraction of leaf N in the Rubisco enzyme.
@@ -1044,7 +1044,7 @@ fcur is the fraction of allocation that goes to currently displayed growth.</p>
 </div>
 </div>
 <div class="section" id="allocation">
-<span id="id8"></span><h3>2.26.2.4. Allocation<a class="headerlink" href="#allocation" title="Permalink to this headline">¶</a></h3>
+<span id="id8"></span><h3><span class="section-number">2.26.2.4. </span>Allocation<a class="headerlink" href="#allocation" title="Permalink to this headline">¶</a></h3>
 <p>Allocation changes based on the crop phenology phases phenology (section <a class="reference internal" href="#phenology"><span class="std std-numref">2.26.2.3</span></a>).
 Simulated C assimilation begins every year upon leaf emergence in phase
 2 and ends with harvest at the end of phase 3; therefore, so does the
@@ -1078,24 +1078,24 @@ CO<sub>2</sub> directly from the atmosphere. This way
 any excess maintenance respiration remaining at harvest is eliminated as if such
 respiration had not taken place.</p>
 <div class="section" id="leaf-emergence-to-grain-fill">
-<span id="id9"></span><h4>2.26.2.4.1. Leaf emergence<a class="headerlink" href="#leaf-emergence-to-grain-fill" title="Permalink to this headline">¶</a></h4>
+<span id="id9"></span><h4><span class="section-number">2.26.2.4.1. </span>Leaf emergence<a class="headerlink" href="#leaf-emergence-to-grain-fill" title="Permalink to this headline">¶</a></h4>
 <p>During phase 2, the allocation coefficients (fraction of available C) to
 each C pool are defined as:</p>
 <div class="math" id="equation-25-4">
-<p><span class="eqno">(2.26.4)<a class="headerlink" href="#equation-25-4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bb6e562690cbd351a406ded0e951e76a48b1ab0a.svg" alt="\begin{array}{l} {a_{repr} =0} \\ {a_{froot} =a_{froot}^{i} -(a_{froot}^{i} -a_{froot}^{f} )\frac{GDD_{T_{{\rm 2m}} } }{GDD_{{\rm mat}} } {\rm \; \; \; where\; \; \; }\frac{GDD_{T_{{\rm 2m}} } }{GDD_{{\rm mat}} } \le 1} \\ {a_{leaf} =(1-a_{froot} )\cdot \frac{a_{leaf}^{i} (e^{-b} -e^{-b\frac{GDD_{T_{{\rm 2m}} } }{h} } )}{e^{-b} -1} {\rm \; \; \; where\; \; \; }b=0.1} \\ {a_{livestem} =1-a_{repr} -a_{froot} -a_{leaf} } \end{array}"/></p>
-</div><p>where <img class="math" src="../../_images/math/af2ecbbbb5582d77e1e078d1a95ec93e88e5042f.svg" alt="a_{leaf}^{i}"/> , <img class="math" src="../../_images/math/102e5e893cde9d171f1c67227abede6125f3ea97.svg" alt="a_{froot}^{i}"/> , and
-<img class="math" src="../../_images/math/38fe0ae6588651bf7a96068e535500fd9beb8f6c.svg" alt="a_{froot}^{f}"/>  are initial and final values of these
+<p><span class="eqno">(2.26.4)<a class="headerlink" href="#equation-25-4" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l} {a_{repr} =0} \\ {a_{froot} =a_{froot}^{i} -(a_{froot}^{i} -a_{froot}^{f} )\frac{GDD_{T_{{\rm 2m}} } }{GDD_{{\rm mat}} } {\rm \; \; \; where\; \; \; }\frac{GDD_{T_{{\rm 2m}} } }{GDD_{{\rm mat}} } \le 1} \\ {a_{leaf} =(1-a_{froot} )\cdot \frac{a_{leaf}^{i} (e^{-b} -e^{-b\frac{GDD_{T_{{\rm 2m}} } }{h} } )}{e^{-b} -1} {\rm \; \; \; where\; \; \; }b=0.1} \\ {a_{livestem} =1-a_{repr} -a_{froot} -a_{leaf} } \end{array}</span></p>
+</div><p>where <span class="math">a_{leaf}^{i}</span> , <span class="math">a_{froot}^{i}</span> , and
+<span class="math">a_{froot}^{f}</span>  are initial and final values of these
 coefficients (<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.26.4</span></a>), and <em>h</em> is a heat unit threshold defined in
 section <a class="reference internal" href="#grain-fill"><span class="std std-numref">2.26.2.3.3</span></a>. At a crop-specific maximum leaf area index,
-<img class="math" src="../../_images/math/d2987d5f6affa1f71162618f8bd6b96b2cd70f70.svg" alt="{L}_{max}"/> (<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.26.4</span></a>), carbon allocation is directed
+<span class="math">{L}_{max}</span> (<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.26.4</span></a>), carbon allocation is directed
 exclusively to the fine roots.</p>
 </div>
 <div class="section" id="grain-fill-to-harvest">
-<span id="id10"></span><h4>2.26.2.4.2. Grain fill<a class="headerlink" href="#grain-fill-to-harvest" title="Permalink to this headline">¶</a></h4>
-<p>The calculation of <img class="math" src="../../_images/math/591f4a2819c3190f4339e7388a8694666eb4bf92.svg" alt="a_{froot}"/>  remains the same from phase 2 to
+<span id="id10"></span><h4><span class="section-number">2.26.2.4.2. </span>Grain fill<a class="headerlink" href="#grain-fill-to-harvest" title="Permalink to this headline">¶</a></h4>
+<p>The calculation of <span class="math">a_{froot}</span>  remains the same from phase 2 to
 phase 3. During grain fill (phase 3), other allocation coefficients change to:</p>
 <div class="math" id="equation-25-5">
-<p><span class="eqno">(2.26.5)<a class="headerlink" href="#equation-25-5" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7170d08c947956595200e3554451adc228e40aa0.svg" alt="\begin{array}{ll}
+<p><span class="eqno">(2.26.5)<a class="headerlink" href="#equation-25-5" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{ll}
 a_{leaf} =a_{leaf}^{i,3} &amp; {\rm when} \quad a_{leaf}^{i,3} \le a_{leaf}^{f} \quad {\rm else} \\
 a_{leaf} =a_{leaf} \left(1-\frac{GDD_{T_{{\rm 2m}} } -h}{GDD_{{\rm mat}} d_{L} -h} \right)^{d_{alloc}^{leaf} } \ge a_{leaf}^{f} &amp; {\rm where} \quad \frac{GDD_{T_{{\rm 2m}} } -h}{GDD_{{\rm mat}} d_{L} -h} \le 1 \\
  \\
@@ -1103,17 +1103,17 @@ a_{livestem} =a_{livestem}^{i,3} &amp; {\rm when} \quad a_{livestem}^{i,3} \le a
 a_{livestem} =a_{livestem} \left(1-\frac{GDD_{T_{{\rm 2m}} } -h}{GDD_{{\rm mat}} d_{L} -h} \right)^{d_{alloc}^{stem} } \ge a_{livestem}^{f} &amp; {\rm where} \quad \frac{GDD_{T_{{\rm 2m}} } -h}{GDD_{{\rm mat}} d_{L} -h} \le 1 \\
  \\
 a_{repr} =1-a_{froot} -a_{livestem} -a_{leaf}
-\end{array}"/></p>
-</div><p>where <img class="math" src="../../_images/math/243879882819ea63f3fc7245fac8522e4fb595dd.svg" alt="a_{leaf}^{i,3}"/>  and <img class="math" src="../../_images/math/1d74243bd1e9a3015111650ac84111df44aa11a5.svg" alt="a_{livestem}^{i,3}"/>  (initial
-values) equal the last <img class="math" src="../../_images/math/b71c1eb2f10516f927712d2cf7edb763d1239d8a.svg" alt="a_{leaf}"/>  and <img class="math" src="../../_images/math/54922ce9a38bc3f653568d94e1dfc3d493824d65.svg" alt="a_{livestem}"/>
-calculated in phase 2, <img class="math" src="../../_images/math/6e323f28b05d84c759d73bf822da40f9db67b7e9.svg" alt="d_{L}"/> , <img class="math" src="../../_images/math/4db720a603b3b8d70914bbcde1b72c2c8ca8101e.svg" alt="d_{alloc}^{leaf}"/>  and
-<img class="math" src="../../_images/math/243bd0e471d20d76de9ac02905660712dd1f29a9.svg" alt="d_{alloc}^{stem}"/>  are leaf area index and leaf and stem
-allocation decline factors, and <img class="math" src="../../_images/math/2fb4ed6a4d5aba2ce1cf5c5305f756ba61d76a89.svg" alt="a_{leaf}^{f}"/>  and
-<img class="math" src="../../_images/math/0a2b40983b40e0e94da77f8077c57b11e67a90df.svg" alt="a_{livestem}^{f}"/>  are final values of these allocation
+\end{array}</span></p>
+</div><p>where <span class="math">a_{leaf}^{i,3}</span>  and <span class="math">a_{livestem}^{i,3}</span>  (initial
+values) equal the last <span class="math">a_{leaf}</span>  and <span class="math">a_{livestem}</span>
+calculated in phase 2, <span class="math">d_{L}</span> , <span class="math">d_{alloc}^{leaf}</span>  and
+<span class="math">d_{alloc}^{stem}</span>  are leaf area index and leaf and stem
+allocation decline factors, and <span class="math">a_{leaf}^{f}</span>  and
+<span class="math">a_{livestem}^{f}</span>  are final values of these allocation
 coefficients (<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.26.4</span></a>).</p>
 </div>
 <div class="section" id="nitrogen-retranslocation-for-crops">
-<span id="id11"></span><h4>2.26.2.4.3. Nitrogen retranslocation for crops<a class="headerlink" href="#nitrogen-retranslocation-for-crops" title="Permalink to this headline">¶</a></h4>
+<span id="id11"></span><h4><span class="section-number">2.26.2.4.3. </span>Nitrogen retranslocation for crops<a class="headerlink" href="#nitrogen-retranslocation-for-crops" title="Permalink to this headline">¶</a></h4>
 <p>Nitrogen retranslocation in crops occurs when nitrogen that was used for
 tissue growth of leaves, stems, and fine roots during the early growth
 season is remobilized and used for grain development (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#pollmeretal1979"><span class="std std-ref">Pollmer et al. 1979</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#crawfordetal1982"><span class="std std-ref">Crawford et al. 1982</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#simpsonetal1983"><span class="std std-ref">Simpson et al. 1983</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#taweiland1992"><span class="std std-ref">Ta and Weiland 1992</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#barbottinetal2005"><span class="std std-ref">Barbottin et al. 2005</span></a>,
@@ -1130,15 +1130,15 @@ released into the retranslocation storage pool. The quantity of nitrogen
 mobilized depends on the C:N ratio of the plant tissue, and is
 calculated as</p>
 <div class="math" id="equation-25-6">
-<p><span class="eqno">(2.26.6)<a class="headerlink" href="#equation-25-6" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6a331405a0d53307633b99e09d0a8cff93fe97ec.svg" alt="leaf\_ to\_ retransn=N_{leaf} -\frac{C_{leaf} }{CN_{leaf}^{f} }"/></p>
+<p><span class="eqno">(2.26.6)<a class="headerlink" href="#equation-25-6" title="Permalink to this equation">¶</a></span><span class="math">leaf\_ to\_ retransn=N_{leaf} -\frac{C_{leaf} }{CN_{leaf}^{f} }</span></p>
 </div><div class="math" id="equation-25-7">
-<p><span class="eqno">(2.26.7)<a class="headerlink" href="#equation-25-7" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f46e224c3309e6ffe28e7b59a5d1843966cbc822.svg" alt="stemn\_ to\_ retransn=N_{stem} -\frac{C_{stem} }{CN_{stem}^{f} }"/></p>
+<p><span class="eqno">(2.26.7)<a class="headerlink" href="#equation-25-7" title="Permalink to this equation">¶</a></span><span class="math">stemn\_ to\_ retransn=N_{stem} -\frac{C_{stem} }{CN_{stem}^{f} }</span></p>
 </div><div class="math" id="equation-25-8">
-<p><span class="eqno">(2.26.8)<a class="headerlink" href="#equation-25-8" title="Permalink to this equation">¶</a></span><img src="../../_images/math/78131c32fb1e690c1058268b293a227644032bee.svg" alt="frootn\_ to\_ retransn=N_{froot} -\frac{C_{froot} }{CN_{froot}^{f} }"/></p>
-</div><p>where <img class="math" src="../../_images/math/8e1587c690c73cf9ddc69d33eea82fe5330a52a2.svg" alt="{C}_{leaf}"/>, <img class="math" src="../../_images/math/3bc0124bde88f87de12a04b54f4398acaa2f4a2d.svg" alt="{C}_{stem}"/>, and <img class="math" src="../../_images/math/42302bc3a277a2f82ee10a0a6e11348dd8b363bd.svg" alt="{C}_{froot}"/> is the carbon in the plant leaf, stem, and fine
-root, respectively, <img class="math" src="../../_images/math/0fc0ed264497596ab8ccd34c28e6f2d3130ecb3a.svg" alt="{N}_{leaf}"/>, <img class="math" src="../../_images/math/152a0ef740204cfbc0a414577c9b4c9c620a7a69.svg" alt="{N}_{stem}"/>, and <img class="math" src="../../_images/math/56adc88756d45fc6424e706ccd7b1a8c3f174ecd.svg" alt="{N}_{froot}"/>
-is the nitrogen in the plant leaf, stem, and fine root, respectively, and <img class="math" src="../../_images/math/080872e256b623a217cd680012841e36fd983623.svg" alt="CN^f_{leaf}"/>,
-<img class="math" src="../../_images/math/79a0b510fb51fa49cb7fc525924a468c463f61cc.svg" alt="CN^f_{stem}"/>, and <img class="math" src="../../_images/math/734357c5460f13d85127a26c8e80fdc2d07d81c1.svg" alt="CN^f_{froot}"/> is the post-grain fill C:N
+<p><span class="eqno">(2.26.8)<a class="headerlink" href="#equation-25-8" title="Permalink to this equation">¶</a></span><span class="math">frootn\_ to\_ retransn=N_{froot} -\frac{C_{froot} }{CN_{froot}^{f} }</span></p>
+</div><p>where <span class="math">{C}_{leaf}</span>, <span class="math">{C}_{stem}</span>, and <span class="math">{C}_{froot}</span> is the carbon in the plant leaf, stem, and fine
+root, respectively, <span class="math">{N}_{leaf}</span>, <span class="math">{N}_{stem}</span>, and <span class="math">{N}_{froot}</span>
+is the nitrogen in the plant leaf, stem, and fine root, respectively, and <span class="math">CN^f_{leaf}</span>,
+<span class="math">CN^f_{stem}</span>, and <span class="math">CN^f_{froot}</span> is the post-grain fill C:N
 ratio of the leaf, stem, and fine root respectively (<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.26.4</span></a>). Since
 C:N measurements are often taken from mature crops, pre-grain development C:N
 ratios for leaves, stems, and roots in the model are optimized to allow maximum
@@ -1147,14 +1147,14 @@ fill C:N ratios are assigned the same as crop residue. After
 nitrogen is moved into the retranslocated pool,
 the nitrogen in this pool is used to meet plant
 nitrogen demand by assigning the available nitrogen from the
-retranslocated pool equal to the plant nitrogen demand for each organ (<img class="math" src="../../_images/math/24e76199642da7b2ec702f32ab579085130a6644.svg" alt="{CN_{[organ]}^{f} }"/> in <a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.26.4</span></a>). Once the
+retranslocated pool equal to the plant nitrogen demand for each organ (<span class="math">{CN_{[organ]}^{f} }</span> in <a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.26.4</span></a>). Once the
 retranslocation pool is depleted, soil mineral nitrogen pool is used to
 fulfill plant nitrogen demands.</p>
 </div>
 <div class="section" id="harvest-to-food-and-seed">
-<span id="id12"></span><h4>2.26.2.4.4. Harvest<a class="headerlink" href="#harvest-to-food-and-seed" title="Permalink to this headline">¶</a></h4>
+<span id="id12"></span><h4><span class="section-number">2.26.2.4.4. </span>Harvest<a class="headerlink" href="#harvest-to-food-and-seed" title="Permalink to this headline">¶</a></h4>
 <p>Variables track the flow of grain C and N to food and of all other plant pools, including live stem C and N, to litter, and to biofuel feedstock.
-A fraction (determined by the <img class="math" src="../../_images/math/aef5de17eb7de3ea03157326160608ddca7a4d0a.svg" alt="biofuel\_harvfrac"/>, defined in
+A fraction (determined by the <span class="math">biofuel\_harvfrac</span>, defined in
 <a class="reference internal" href="#table-plant-functional-type-pft-parameters-for-harvested-fraction-of-leaf-livestem-for-bioenergy-production"><span class="std std-numref">Table 2.26.3</span></a>) of leaf/livestem C and N from bioenergy crops is removed at harvest for biofuels
 (Equations <a class="reference internal" href="#equation-25-9">(2.26.9)</a>, <a class="reference internal" href="#equation-25-10">(2.26.10)</a>, <a class="reference internal" href="#equation-25-12">(2.26.12)</a>, and <a class="reference internal" href="#equation-25-13">(2.26.13)</a>),
 with the remaining portions going to the litter pools (Equations <a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html#equation-20-14">(2.20.14)</a>, <a class="reference internal" href="#equation-25-11">(2.26.11)</a>, and <a class="reference internal" href="#equation-25-14">(2.26.14)</a>).
@@ -1163,109 +1163,109 @@ puts live stem C and N into dead stem pools first.
 Biofuel crop leaf C and N pools are routed to the litter and biofuel pools, in contrast to that of unmanaged PFTs and non-biofuel crops, which put leaf C and N into litter pools only.
 Root C and N pools are routed to the litter pools in the same manner as natural vegetation.</p>
 <div class="math" id="equation-25-9">
-<p><span class="eqno">(2.26.9)<a class="headerlink" href="#equation-25-9" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9450fe7710789e5345a1883a6a9cc3d6f9ca944b.svg" alt="CF_{leaf,biofuel} = \left({CS_{leaf} \mathord{\left/ {\vphantom {CS_{leaf}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}
-  \right) * biofuel\_harvfrac"/></p>
+<p><span class="eqno">(2.26.9)<a class="headerlink" href="#equation-25-9" title="Permalink to this equation">¶</a></span><span class="math">CF_{leaf,biofuel} = \left({CS_{leaf} \mathord{\left/ {\vphantom {CS_{leaf}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}
+  \right) * biofuel\_harvfrac</span></p>
 </div><div class="math" id="equation-25-10">
-<p><span class="eqno">(2.26.10)<a class="headerlink" href="#equation-25-10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/34c077572d4ee06150266e719f04c7bf54e25b03.svg" alt="CF_{livestem,biofuel} = \left({CS_{livestem} \mathord{\left/ {\vphantom {CS_{leaf}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}
-  \right) * biofuel\_harvfrac"/></p>
+<p><span class="eqno">(2.26.10)<a class="headerlink" href="#equation-25-10" title="Permalink to this equation">¶</a></span><span class="math">CF_{livestem,biofuel} = \left({CS_{livestem} \mathord{\left/ {\vphantom {CS_{leaf}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}
+  \right) * biofuel\_harvfrac</span></p>
 </div><div class="math" id="equation-25-11">
-<p><span class="eqno">(2.26.11)<a class="headerlink" href="#equation-25-11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9313d35ba6519d0eb51728a711ce87f0198f3860.svg" alt="CF_{livestem,litter} = \left({CS_{livestem} \mathord{\left/ {\vphantom {CS_{livestem}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}
-  \right) * \left( 1-biofuel\_harvfrac  \right) +CF_{alloc,livestem}"/></p>
+<p><span class="eqno">(2.26.11)<a class="headerlink" href="#equation-25-11" title="Permalink to this equation">¶</a></span><span class="math">CF_{livestem,litter} = \left({CS_{livestem} \mathord{\left/ {\vphantom {CS_{livestem}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}
+  \right) * \left( 1-biofuel\_harvfrac  \right) +CF_{alloc,livestem}</span></p>
 </div><p>with corresponding nitrogen fluxes:</p>
 <div class="math" id="equation-25-12">
-<p><span class="eqno">(2.26.12)<a class="headerlink" href="#equation-25-12" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3450d1e10eb14f19829173f0a2bcd37fe4ffa278.svg" alt="NF_{leaf,biofuel} = \left({NS_{leaf} \mathord{\left/ {\vphantom {NS_{leaf}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}
-  \right) * biofuel\_harvfrac"/></p>
+<p><span class="eqno">(2.26.12)<a class="headerlink" href="#equation-25-12" title="Permalink to this equation">¶</a></span><span class="math">NF_{leaf,biofuel} = \left({NS_{leaf} \mathord{\left/ {\vphantom {NS_{leaf}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}
+  \right) * biofuel\_harvfrac</span></p>
 </div><div class="math" id="equation-25-13">
-<p><span class="eqno">(2.26.13)<a class="headerlink" href="#equation-25-13" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2f4bff09db57cdd7dcd1d67c859e18bf4314784b.svg" alt="NF_{livestem,biofuel} = \left({NS_{livestem} \mathord{\left/ {\vphantom {NS_{livestem}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}
-  \right) *  biofuel\_harvfrac"/></p>
+<p><span class="eqno">(2.26.13)<a class="headerlink" href="#equation-25-13" title="Permalink to this equation">¶</a></span><span class="math">NF_{livestem,biofuel} = \left({NS_{livestem} \mathord{\left/ {\vphantom {NS_{livestem}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}
+  \right) *  biofuel\_harvfrac</span></p>
 </div><div class="math" id="equation-25-14">
-<p><span class="eqno">(2.26.14)<a class="headerlink" href="#equation-25-14" title="Permalink to this equation">¶</a></span><img src="../../_images/math/53337844e7dde04434c629a20a2a52d2dd59248f.svg" alt="NF_{livestem,litter} = \left({NS_{livestem} \mathord{\left/ {\vphantom {NS_{livestem}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}
-  \right) *  \left( 1-biofuel\_harvfrac  \right)"/></p>
+<p><span class="eqno">(2.26.14)<a class="headerlink" href="#equation-25-14" title="Permalink to this equation">¶</a></span><span class="math">NF_{livestem,litter} = \left({NS_{livestem} \mathord{\left/ {\vphantom {NS_{livestem}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}
+  \right) *  \left( 1-biofuel\_harvfrac  \right)</span></p>
 </div><p>where CF is the carbon flux, CS is stored carbon, NF is the nitrogen flux,
-NS is stored nitrogen, and <img class="math" src="../../_images/math/aef5de17eb7de3ea03157326160608ddca7a4d0a.svg" alt="biofuel\_harvfrac"/> is the harvested fraction of leaf/livestem for biofuel feedstocks.</p>
-<span id="table-plant-functional-type-pft-parameters-for-harvested-fraction-of-leaf-livestem-for-bioenergy-production"></span><table border="1" class="docutils" id="id21">
+NS is stored nitrogen, and <span class="math">biofuel\_harvfrac</span> is the harvested fraction of leaf/livestem for biofuel feedstocks.</p>
+<span id="table-plant-functional-type-pft-parameters-for-harvested-fraction-of-leaf-livestem-for-bioenergy-production"></span><table class="docutils align-default" id="id21">
 <caption><span class="caption-number">Table 2.26.3 </span><span class="caption-text">Plant functional type (PFT) parameters for harvested fraction of leaf/livestem for bioenergy production.</span><a class="headerlink" href="#id21" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="55%" />
-<col width="45%" />
+<col style="width: 55%" />
+<col style="width: 45%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">PFT</th>
-<th class="head"><img class="math" src="../../_images/math/aef5de17eb7de3ea03157326160608ddca7a4d0a.svg" alt="biofuel\_harvfrac"/></th>
+<thead>
+<tr class="row-odd"><th class="head"><p>PFT</p></th>
+<th class="head"><p><span class="math">biofuel\_harvfrac</span></p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>NET Temperate</td>
-<td>0.00</td>
+<tbody>
+<tr class="row-even"><td><p>NET Temperate</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-odd"><td>NET Boreal</td>
-<td>0.00</td>
+<tr class="row-odd"><td><p>NET Boreal</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-even"><td>NDT Boreal</td>
-<td>0.00</td>
+<tr class="row-even"><td><p>NDT Boreal</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-odd"><td>BET Tropical</td>
-<td>0.00</td>
+<tr class="row-odd"><td><p>BET Tropical</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-even"><td>BET temperate</td>
-<td>0.00</td>
+<tr class="row-even"><td><p>BET temperate</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-odd"><td>BDT tropical</td>
-<td>0.00</td>
+<tr class="row-odd"><td><p>BDT tropical</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-even"><td>BDT temperate</td>
-<td>0.00</td>
+<tr class="row-even"><td><p>BDT temperate</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-odd"><td>BDT boreal</td>
-<td>0.00</td>
+<tr class="row-odd"><td><p>BDT boreal</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-even"><td>BES temperate</td>
-<td>0.00</td>
+<tr class="row-even"><td><p>BES temperate</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-odd"><td>BDS temperate</td>
-<td>0.00</td>
+<tr class="row-odd"><td><p>BDS temperate</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-even"><td>BDS boreal</td>
-<td>0.00</td>
+<tr class="row-even"><td><p>BDS boreal</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-odd"><td>C<sub>3</sub> arctic grass</td>
-<td>0.00</td>
+<tr class="row-odd"><td><p>C<sub>3</sub> arctic grass</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-even"><td>C<sub>3</sub> grass</td>
-<td>0.00</td>
+<tr class="row-even"><td><p>C<sub>3</sub> grass</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-odd"><td>C<sub>4</sub> grass</td>
-<td>0.00</td>
+<tr class="row-odd"><td><p>C<sub>4</sub> grass</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-even"><td>Temperate Corn</td>
-<td>0.00</td>
+<tr class="row-even"><td><p>Temperate Corn</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-odd"><td>Spring Wheat</td>
-<td>0.00</td>
+<tr class="row-odd"><td><p>Spring Wheat</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-even"><td>Temperate Soybean</td>
-<td>0.00</td>
+<tr class="row-even"><td><p>Temperate Soybean</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-odd"><td>Cotton</td>
-<td>0.00</td>
+<tr class="row-odd"><td><p>Cotton</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-even"><td>Rice</td>
-<td>0.00</td>
+<tr class="row-even"><td><p>Rice</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-odd"><td>Sugarcane</td>
-<td>0.00</td>
+<tr class="row-odd"><td><p>Sugarcane</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-even"><td>Tropical Corn</td>
-<td>0.00</td>
+<tr class="row-even"><td><p>Tropical Corn</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-odd"><td>Tropical Soybean</td>
-<td>0.00</td>
+<tr class="row-odd"><td><p>Tropical Soybean</p></td>
+<td><p>0.00</p></td>
 </tr>
-<tr class="row-even"><td>Miscanthus</td>
-<td>0.70</td>
+<tr class="row-even"><td><p>Miscanthus</p></td>
+<td><p>0.70</p></td>
 </tr>
-<tr class="row-odd"><td>Switchgrass</td>
-<td>0.70</td>
+<tr class="row-odd"><td><p>Switchgrass</p></td>
+<td><p>0.70</p></td>
 </tr>
 </tbody>
 </table>
@@ -1281,270 +1281,270 @@ Here, we assume that grain C is 45% of the total dry weight. Additionally, harve
 analysis needs to assume that harvest efficiency is less. We assume a harvest
 efficiency of 85%.</p>
 <div class="math" id="equation-25-15">
-<p><span class="eqno">(2.26.15)<a class="headerlink" href="#equation-25-15" title="Permalink to this equation">¶</a></span><img src="../../_images/math/edd0146a7198dba11f5e0d51d79cdd53b55d155d.svg" alt="Grain\ yield(g.m^{-2})=\frac{\sum(GRAINC\_ TO\_ FOOD)*0.85}{0.45}"/></p>
-</div><span id="table-crop-allocation-parameters"></span><table border="1" class="docutils" id="id22">
+<p><span class="eqno">(2.26.15)<a class="headerlink" href="#equation-25-15" title="Permalink to this equation">¶</a></span><span class="math">Grain\ yield(g.m^{-2})=\frac{\sum(GRAINC\_ TO\_ FOOD)*0.85}{0.45}</span></p>
+</div><span id="table-crop-allocation-parameters"></span><table class="docutils align-default" id="id22">
 <caption><span class="caption-number">Table 2.26.4 </span><span class="caption-text">Crop allocation parameters for the active crop plant functional types (pfts) in CLM5BGCCROP. Numbers in the first row correspond to the list of pfts in <a class="reference internal" href="#table-crop-plant-functional-types"><span class="std std-numref">Table 2.26.1</span></a>.</span><a class="headerlink" href="#id22" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="25%" />
-<col width="8%" />
-<col width="7%" />
-<col width="11%" />
-<col width="4%" />
-<col width="4%" />
-<col width="5%" />
-<col width="8%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
+<col style="width: 25%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 11%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head"></th>
-<th class="head">temperate corn</th>
-<th class="head">spring wheat</th>
-<th class="head">temperate soybean</th>
-<th class="head">cotton</th>
-<th class="head">rice</th>
-<th class="head">sugarcane</th>
-<th class="head">tropical corn</th>
-<th class="head">tropical soybean</th>
-<th class="head">miscanthus</th>
-<th class="head">switchgrass</th>
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>temperate corn</p></th>
+<th class="head"><p>spring wheat</p></th>
+<th class="head"><p>temperate soybean</p></th>
+<th class="head"><p>cotton</p></th>
+<th class="head"><p>rice</p></th>
+<th class="head"><p>sugarcane</p></th>
+<th class="head"><p>tropical corn</p></th>
+<th class="head"><p>tropical soybean</p></th>
+<th class="head"><p>miscanthus</p></th>
+<th class="head"><p>switchgrass</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>IVT</td>
-<td>17, 18</td>
-<td>19, 20</td>
-<td>23, 24</td>
-<td>41, 42</td>
-<td>61, 62</td>
-<td>67, 68</td>
-<td>75, 76</td>
-<td>77, 78</td>
-<td>71, 72</td>
-<td>73, 74</td>
+<tbody>
+<tr class="row-even"><td><p>IVT</p></td>
+<td><p>17, 18</p></td>
+<td><p>19, 20</p></td>
+<td><p>23, 24</p></td>
+<td><p>41, 42</p></td>
+<td><p>61, 62</p></td>
+<td><p>67, 68</p></td>
+<td><p>75, 76</p></td>
+<td><p>77, 78</p></td>
+<td><p>71, 72</p></td>
+<td><p>73, 74</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/af2ecbbbb5582d77e1e078d1a95ec93e88e5042f.svg" alt="a_{leaf}^{i}"/></td>
-<td>0.6</td>
-<td>0.9</td>
-<td>0.85</td>
-<td>0.85</td>
-<td>0.75</td>
-<td>0.6</td>
-<td>0.6</td>
-<td>0.85</td>
-<td>0.9</td>
-<td>0.7</td>
+<tr class="row-odd"><td><p><span class="math">a_{leaf}^{i}</span></p></td>
+<td><p>0.6</p></td>
+<td><p>0.9</p></td>
+<td><p>0.85</p></td>
+<td><p>0.85</p></td>
+<td><p>0.75</p></td>
+<td><p>0.6</p></td>
+<td><p>0.6</p></td>
+<td><p>0.85</p></td>
+<td><p>0.9</p></td>
+<td><p>0.7</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/d2987d5f6affa1f71162618f8bd6b96b2cd70f70.svg" alt="{L}_{max}"/> (m <sup>2</sup>  m <sup>-2</sup>)</td>
-<td>5</td>
-<td>7</td>
-<td>6</td>
-<td>6</td>
-<td>7</td>
-<td>5</td>
-<td>5</td>
-<td>6</td>
-<td>10</td>
-<td>6.5</td>
+<tr class="row-even"><td><p><span class="math">{L}_{max}</span> (m <sup>2</sup>  m <sup>-2</sup>)</p></td>
+<td><p>5</p></td>
+<td><p>7</p></td>
+<td><p>6</p></td>
+<td><p>6</p></td>
+<td><p>7</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>6</p></td>
+<td><p>10</p></td>
+<td><p>6.5</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/102e5e893cde9d171f1c67227abede6125f3ea97.svg" alt="a_{froot}^{i}"/></td>
-<td>0.1</td>
-<td>0.05</td>
-<td>0.2</td>
-<td>0.2</td>
-<td>0.1</td>
-<td>0.1</td>
-<td>0.1</td>
-<td>0.2</td>
-<td>0.11</td>
-<td>0.14</td>
+<tr class="row-odd"><td><p><span class="math">a_{froot}^{i}</span></p></td>
+<td><p>0.1</p></td>
+<td><p>0.05</p></td>
+<td><p>0.2</p></td>
+<td><p>0.2</p></td>
+<td><p>0.1</p></td>
+<td><p>0.1</p></td>
+<td><p>0.1</p></td>
+<td><p>0.2</p></td>
+<td><p>0.11</p></td>
+<td><p>0.14</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/38fe0ae6588651bf7a96068e535500fd9beb8f6c.svg" alt="a_{froot}^{f}"/></td>
-<td>0.05</td>
-<td>0</td>
-<td>0.2</td>
-<td>0.2</td>
-<td>0</td>
-<td>0.05</td>
-<td>0.05</td>
-<td>0.2</td>
-<td>0.09</td>
-<td>0.09</td>
+<tr class="row-even"><td><p><span class="math">a_{froot}^{f}</span></p></td>
+<td><p>0.05</p></td>
+<td><p>0</p></td>
+<td><p>0.2</p></td>
+<td><p>0.2</p></td>
+<td><p>0</p></td>
+<td><p>0.05</p></td>
+<td><p>0.05</p></td>
+<td><p>0.2</p></td>
+<td><p>0.09</p></td>
+<td><p>0.09</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/2fb4ed6a4d5aba2ce1cf5c5305f756ba61d76a89.svg" alt="a_{leaf}^{f}"/></td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<tr class="row-odd"><td><p><span class="math">a_{leaf}^{f}</span></p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/0a2b40983b40e0e94da77f8077c57b11e67a90df.svg" alt="a_{livestem}^{f}"/></td>
-<td>0</td>
-<td>0.05</td>
-<td>0.3</td>
-<td>0.3</td>
-<td>0.05</td>
-<td>0</td>
-<td>0</td>
-<td>0.3</td>
-<td>0</td>
-<td>0</td>
+<tr class="row-even"><td><p><span class="math">a_{livestem}^{f}</span></p></td>
+<td><p>0</p></td>
+<td><p>0.05</p></td>
+<td><p>0.3</p></td>
+<td><p>0.3</p></td>
+<td><p>0.05</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0.3</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/6e323f28b05d84c759d73bf822da40f9db67b7e9.svg" alt="d_{L}"/></td>
-<td>1.05</td>
-<td>1.05</td>
-<td>1.05</td>
-<td>1.05</td>
-<td>1.05</td>
-<td>1.05</td>
-<td>1.05</td>
-<td>1.05</td>
-<td>1.05</td>
-<td>1.05</td>
+<tr class="row-odd"><td><p><span class="math">d_{L}</span></p></td>
+<td><p>1.05</p></td>
+<td><p>1.05</p></td>
+<td><p>1.05</p></td>
+<td><p>1.05</p></td>
+<td><p>1.05</p></td>
+<td><p>1.05</p></td>
+<td><p>1.05</p></td>
+<td><p>1.05</p></td>
+<td><p>1.05</p></td>
+<td><p>1.05</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/243bd0e471d20d76de9ac02905660712dd1f29a9.svg" alt="d_{alloc}^{stem}"/></td>
-<td>2</td>
-<td>1</td>
-<td>5</td>
-<td>5</td>
-<td>1</td>
-<td>2</td>
-<td>2</td>
-<td>5</td>
-<td>2</td>
-<td>2</td>
+<tr class="row-even"><td><p><span class="math">d_{alloc}^{stem}</span></p></td>
+<td><p>2</p></td>
+<td><p>1</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>5</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/4db720a603b3b8d70914bbcde1b72c2c8ca8101e.svg" alt="d_{alloc}^{leaf}"/></td>
-<td>5</td>
-<td>3</td>
-<td>2</td>
-<td>2</td>
-<td>3</td>
-<td>5</td>
-<td>5</td>
-<td>2</td>
-<td>5</td>
-<td>5</td>
+<tr class="row-odd"><td><p><span class="math">d_{alloc}^{leaf}</span></p></td>
+<td><p>5</p></td>
+<td><p>3</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
+<td><p>2</p></td>
+<td><p>5</p></td>
+<td><p>5</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/d06f9734cef2f0142828754a9e07f367bf14a581.svg" alt="{CN}_{leaf}"/></td>
-<td>25</td>
-<td>20</td>
-<td>20</td>
-<td>20</td>
-<td>20</td>
-<td>25</td>
-<td>25</td>
-<td>20</td>
-<td>25</td>
-<td>25</td>
+<tr class="row-even"><td><p><span class="math">{CN}_{leaf}</span></p></td>
+<td><p>25</p></td>
+<td><p>20</p></td>
+<td><p>20</p></td>
+<td><p>20</p></td>
+<td><p>20</p></td>
+<td><p>25</p></td>
+<td><p>25</p></td>
+<td><p>20</p></td>
+<td><p>25</p></td>
+<td><p>25</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/b2a2784c4d0616640f201112429458cd59ca3a3e.svg" alt="{CN}_{stem}"/></td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
+<tr class="row-odd"><td><p><span class="math">{CN}_{stem}</span></p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/ecdc3ff5379e09fc1b25db78882669a65fc3e947.svg" alt="{CN}_{froot}"/></td>
-<td>42</td>
-<td>42</td>
-<td>42</td>
-<td>42</td>
-<td>42</td>
-<td>42</td>
-<td>42</td>
-<td>42</td>
-<td>42</td>
-<td>42</td>
+<tr class="row-even"><td><p><span class="math">{CN}_{froot}</span></p></td>
+<td><p>42</p></td>
+<td><p>42</p></td>
+<td><p>42</p></td>
+<td><p>42</p></td>
+<td><p>42</p></td>
+<td><p>42</p></td>
+<td><p>42</p></td>
+<td><p>42</p></td>
+<td><p>42</p></td>
+<td><p>42</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/080872e256b623a217cd680012841e36fd983623.svg" alt="CN^f_{leaf}"/></td>
-<td>65</td>
-<td>65</td>
-<td>65</td>
-<td>65</td>
-<td>65</td>
-<td>65</td>
-<td>65</td>
-<td>65</td>
-<td>65</td>
-<td>65</td>
+<tr class="row-odd"><td><p><span class="math">CN^f_{leaf}</span></p></td>
+<td><p>65</p></td>
+<td><p>65</p></td>
+<td><p>65</p></td>
+<td><p>65</p></td>
+<td><p>65</p></td>
+<td><p>65</p></td>
+<td><p>65</p></td>
+<td><p>65</p></td>
+<td><p>65</p></td>
+<td><p>65</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/79a0b510fb51fa49cb7fc525924a468c463f61cc.svg" alt="CN^f_{stem}"/></td>
-<td>120</td>
-<td>100</td>
-<td>130</td>
-<td>130</td>
-<td>100</td>
-<td>120</td>
-<td>120</td>
-<td>130</td>
-<td>120</td>
-<td>120</td>
+<tr class="row-even"><td><p><span class="math">CN^f_{stem}</span></p></td>
+<td><p>120</p></td>
+<td><p>100</p></td>
+<td><p>130</p></td>
+<td><p>130</p></td>
+<td><p>100</p></td>
+<td><p>120</p></td>
+<td><p>120</p></td>
+<td><p>130</p></td>
+<td><p>120</p></td>
+<td><p>120</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/734357c5460f13d85127a26c8e80fdc2d07d81c1.svg" alt="CN^f_{froot}"/></td>
-<td>0</td>
-<td>40</td>
-<td>0</td>
-<td>0</td>
-<td>40</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
+<tr class="row-odd"><td><p><span class="math">CN^f_{froot}</span></p></td>
+<td><p>0</p></td>
+<td><p>40</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>40</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/eb4284881ca9d814266567cd848d9a795751ffc3.svg" alt="{CN}_{grain}"/></td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
-<td>50</td>
+<tr class="row-even"><td><p><span class="math">{CN}_{grain}</span></p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
+<td><p>50</p></td>
 </tr>
 </tbody>
 </table>
 <p>Notes: Crop growth phases and corresponding variables are described throughout
-the text. <img class="math" src="../../_images/math/d06f9734cef2f0142828754a9e07f367bf14a581.svg" alt="{CN}_{leaf}"/>, <img class="math" src="../../_images/math/b2a2784c4d0616640f201112429458cd59ca3a3e.svg" alt="{CN}_{stem}"/>, and <img class="math" src="../../_images/math/ecdc3ff5379e09fc1b25db78882669a65fc3e947.svg" alt="{CN}_{froot}"/> are
+the text. <span class="math">{CN}_{leaf}</span>, <span class="math">{CN}_{stem}</span>, and <span class="math">{CN}_{froot}</span> are
 the target C:N ratios used during the leaf emergence phase (phase 2).</p>
 </div>
 </div>
 <div class="section" id="other-features">
-<span id="id13"></span><h3>2.26.2.5. Other Features<a class="headerlink" href="#other-features" title="Permalink to this headline">¶</a></h3>
+<span id="id13"></span><h3><span class="section-number">2.26.2.5. </span>Other Features<a class="headerlink" href="#other-features" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="physical-crop-characteristics">
-<span id="id14"></span><h4>2.26.2.5.1. Physical Crop Characteristics<a class="headerlink" href="#physical-crop-characteristics" title="Permalink to this headline">¶</a></h4>
+<span id="id14"></span><h4><span class="section-number">2.26.2.5.1. </span>Physical Crop Characteristics<a class="headerlink" href="#physical-crop-characteristics" title="Permalink to this headline">¶</a></h4>
 <p>Leaf area index (<em>L</em>) is calculated as a function of specific leaf area
 (SLA, <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>) and leaf C.
 Stem area index (<em>S</em>) is equal to 0.1<em>L</em> for temperate and tropical corn, sugarcane, switchgrass, and miscanthus and 0.2<em>L</em> for
 other crops, as in AgroIBIS. All live
 C and N pools go to 0 after crop harvest, but the <em>S</em> is kept at 0.25 to
 simulate a post-harvest “stubble” on the ground.</p>
-<p>Crop heights at the top and bottom of the canopy, <img class="math" src="../../_images/math/3be19f16c1de93bbe4c5554fb65fd2c877e40253.svg" alt="{z}_{top}"/>
-and <img class="math" src="../../_images/math/5769a6b6169a224f0edf6d0fe358ee1f465457c5.svg" alt="{z}_{bot}"/> (m), come from the AgroIBIS formulation:</p>
+<p>Crop heights at the top and bottom of the canopy, <span class="math">{z}_{top}</span>
+and <span class="math">{z}_{bot}</span> (m), come from the AgroIBIS formulation:</p>
 <div class="math" id="equation-25-16">
-<p><span class="eqno">(2.26.16)<a class="headerlink" href="#equation-25-16" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c4636524c64d3821a6cd21707adc0c8dba041a82.svg" alt="\begin{array}{l}
+<p><span class="eqno">(2.26.16)<a class="headerlink" href="#equation-25-16" title="Permalink to this equation">¶</a></span><span class="math">\begin{array}{l}
 {z_{top} =z_{top}^{\max } \left(\frac{L}{L_{\max } -1} \right)^{2} \ge 0.05{\rm \; where\; }\frac{L}{L_{\max } -1} \le 1} \\
 {z_{bot} =0.02{\rm m}}
-\end{array}"/></p>
-</div><p>where <img class="math" src="../../_images/math/0154f42814b24ec090506c270051cc92daf34c93.svg" alt="z_{top}^{\max }"/> is the maximum top-of-canopy height of the crop (<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>)
-and <img class="math" src="../../_images/math/875f1eb28207049ad3ed8969b3bb034582253d8e.svg" alt="L_{\max }"/> is the maximum leaf area index (<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.26.4</span></a>).</p>
+\end{array}</span></p>
+</div><p>where <span class="math">z_{top}^{\max }</span> is the maximum top-of-canopy height of the crop (<a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>)
+and <span class="math">L_{\max }</span> is the maximum leaf area index (<a class="reference internal" href="#table-crop-allocation-parameters"><span class="std std-numref">Table 2.26.4</span></a>).</p>
 </div>
 <div class="section" id="interactive-fertilization">
-<span id="id15"></span><h4>2.26.2.5.2. Interactive Fertilization<a class="headerlink" href="#interactive-fertilization" title="Permalink to this headline">¶</a></h4>
+<span id="id15"></span><h4><span class="section-number">2.26.2.5.2. </span>Interactive Fertilization<a class="headerlink" href="#interactive-fertilization" title="Permalink to this headline">¶</a></h4>
 <p>CLM simulates fertilization by adding nitrogen directly to the soil mineral nitrogen pool to meet
 crop nitrogen demands using both industrial fertilizer and manure application. CLM’s separate crop land unit ensures that
 natural vegetation will not access the fertilizer applied to crops.
@@ -1575,7 +1575,7 @@ limit fertilizer application to the emergence stage. A fertilizer
 counter in seconds, <em>f</em>, is set as soon as the leaf emergence phase for crops
 initiates:</p>
 <div class="math" id="equation-25-17">
-<p><span class="eqno">(2.26.17)<a class="headerlink" href="#equation-25-17" title="Permalink to this equation">¶</a></span><img src="../../_images/math/186ad122673b852e7619a5c2a73a1a9bdd261b37.svg" alt="f = n \times 86400"/></p>
+<p><span class="eqno">(2.26.17)<a class="headerlink" href="#equation-25-17" title="Permalink to this equation">¶</a></span><span class="math">f = n \times 86400</span></p>
 </div><p>where <em>n</em> is set to 20 fertilizer application days and 86400 is the number of seconds per day. When the crop enters
 phase 2 (leaf emergence) of its growth
 cycle, fertilizer application begins by initializing fertilizer amount
@@ -1584,31 +1584,31 @@ Fertilizer is applied and <em>f</em> is decremented each time step until a zero 
 the counter is reached.</p>
 </div>
 <div class="section" id="biological-nitrogen-fixation-for-soybeans">
-<span id="id16"></span><h4>2.26.2.5.3. Biological nitrogen fixation for soybeans<a class="headerlink" href="#biological-nitrogen-fixation-for-soybeans" title="Permalink to this headline">¶</a></h4>
+<span id="id16"></span><h4><span class="section-number">2.26.2.5.3. </span>Biological nitrogen fixation for soybeans<a class="headerlink" href="#biological-nitrogen-fixation-for-soybeans" title="Permalink to this headline">¶</a></h4>
 <p>Biological N fixation for soybeans is calculated by the fixation and uptake of
 nitrogen module (Chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">2.18</span></a>) and is the same as N fixation in natural vegetation. Unlike natural
 vegetation, where a fraction of each pft are N fixers, all soybeans
 are treated as N fixers.</p>
 </div>
 <div class="section" id="latitudinal-variation-in-base-growth-tempereature">
-<span id="latitude-vary-base-tempereature-for-growing-degree-days"></span><h4>2.26.2.5.4. Latitudinal variation in base growth tempereature<a class="headerlink" href="#latitudinal-variation-in-base-growth-tempereature" title="Permalink to this headline">¶</a></h4>
-<p>For most crops, <img class="math" src="../../_images/math/3b21ca39b3741c1ebc11259162ca4e1f0cdfb859.svg" alt="GDD_{T_{{\rm 2m}} }"/> (growing degree days since planting)
+<span id="latitude-vary-base-tempereature-for-growing-degree-days"></span><h4><span class="section-number">2.26.2.5.4. </span>Latitudinal variation in base growth tempereature<a class="headerlink" href="#latitudinal-variation-in-base-growth-tempereature" title="Permalink to this headline">¶</a></h4>
+<p>For most crops, <span class="math">GDD_{T_{{\rm 2m}} }</span> (growing degree days since planting)
 is the same in all locations. However,
 the for both rainfed and irrigated spring wheat and sugarcane, the calculation of
-<img class="math" src="../../_images/math/3b21ca39b3741c1ebc11259162ca4e1f0cdfb859.svg" alt="GDD_{T_{{\rm 2m}} }"/> allows for latitudinal variation:</p>
+<span class="math">GDD_{T_{{\rm 2m}} }</span> allows for latitudinal variation:</p>
 <div class="math" id="equation-25-18">
-<p><span class="eqno">(2.26.18)<a class="headerlink" href="#equation-25-18" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7852a71ad021b567532b4582aa74aa899ba9d1e8.svg" alt="latitudinal\ variation\ in\ base\ T = \left\{
+<p><span class="eqno">(2.26.18)<a class="headerlink" href="#equation-25-18" title="Permalink to this equation">¶</a></span><span class="math">latitudinal\ variation\ in\ base\ T = \left\{
 \begin{array}{lr}
 baset +12 - 0.4 \times latitude &amp;\qquad 0 \le latitude \le 30 \\
 baset +12 + 0.4 \times latitude &amp;\qquad -30 \le latitude \le 0
-\end{array} \right\}"/></p>
-</div><p>where <img class="math" src="../../_images/math/5f65cf298f5fb2a86417b40b2e15f1275ed06996.svg" alt="baset"/> is the <em>base temperature for GDD</em> (7<sup>th</sup> row) in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>.
-Such latitudinal variation in base growth temperature could increase the base temperature, slow down <img class="math" src="../../_images/math/3b21ca39b3741c1ebc11259162ca4e1f0cdfb859.svg" alt="GDD_{T_{{\rm 2m}} }"/>
+\end{array} \right\}</span></p>
+</div><p>where <span class="math">baset</span> is the <em>base temperature for GDD</em> (7<sup>th</sup> row) in <a class="reference internal" href="#table-crop-phenology-parameters"><span class="std std-numref">Table 2.26.2</span></a>.
+Such latitudinal variation in base growth temperature could increase the base temperature, slow down <span class="math">GDD_{T_{{\rm 2m}} }</span>
 accumulation, and extend the growing season for regions within 30ºS to 30ºN for spring wheat
 and sugarcane.</p>
 </div>
 <div class="section" id="separate-reproductive-pool">
-<span id="id17"></span><h4>2.26.2.5.5. Separate reproductive pool<a class="headerlink" href="#separate-reproductive-pool" title="Permalink to this headline">¶</a></h4>
+<span id="id17"></span><h4><span class="section-number">2.26.2.5.5. </span>Separate reproductive pool<a class="headerlink" href="#separate-reproductive-pool" title="Permalink to this headline">¶</a></h4>
 <p>One notable difference between natural vegetation and crops is the
 presence of reproductive carbon and nitrogen pools. Accounting
 for the reproductive pools helps determine whether crops are performing
@@ -1624,7 +1624,7 @@ nitrogen are available for grain development.</p>
 </div>
 </div>
 <div class="section" id="the-irrigation-model">
-<span id="id18"></span><h2>2.26.3. The irrigation model<a class="headerlink" href="#the-irrigation-model" title="Permalink to this headline">¶</a></h2>
+<span id="id18"></span><h2><span class="section-number">2.26.3. </span>The irrigation model<a class="headerlink" href="#the-irrigation-model" title="Permalink to this headline">¶</a></h2>
 <p>The CLM includes the option to irrigate cropland areas that are equipped
 for irrigation. The application of irrigation responds dynamically to
 the soil moisture conditions simulated by the CLM. This irrigation
@@ -1638,74 +1638,74 @@ irrigation is only applied to the soil beneath irrigated crops.</p>
 <p>In irrigated croplands, a check is made once per day to determine
 whether irrigation is required on that day. This check is made in the
 first time step after 6 AM local time. Irrigation is required if crop
-leaf area <img class="math" src="../../_images/math/9d74fb19f4fb5926b6e8801d9aaf22b0976321a0.svg" alt="&gt;"/> 0, and the available soil water is below a specified
+leaf area <span class="math">&gt;</span> 0, and the available soil water is below a specified
 threshold.</p>
-<p>The soil moisture deficit <img class="math" src="../../_images/math/939c836ef89235fc43b9ef078edcd8c521b1400e.svg" alt="D_{irrig}"/> is</p>
+<p>The soil moisture deficit <span class="math">D_{irrig}</span> is</p>
 <div class="math" id="equation-25-61">
-<p><span class="eqno">(2.26.19)<a class="headerlink" href="#equation-25-61" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6058444ca9f964b16126a82781bb07f235f9ca26.svg" alt="D_{irrig} = \left\{
+<p><span class="eqno">(2.26.19)<a class="headerlink" href="#equation-25-61" title="Permalink to this equation">¶</a></span><span class="math">D_{irrig} = \left\{
 \begin{array}{lr}
 w_{thresh} - w_{avail} &amp;\qquad w_{thresh} &gt; w_{avail} \\
 0 &amp;\qquad w_{thresh} \le w_{avail}
-\end{array} \right\}"/></p>
-</div><p>where <img class="math" src="../../_images/math/84af3ca0bc49c10550f14777aa0b05da8f35a3de.svg" alt="w_{thresh}"/> is the irrigation moisture threshold (mm) and
-<img class="math" src="../../_images/math/72af5e91501d6720b71b05b1978af774debbec89.svg" alt="w_{avail}"/> is the available moisture (mm).  The moisture threshold
+\end{array} \right\}</span></p>
+</div><p>where <span class="math">w_{thresh}</span> is the irrigation moisture threshold (mm) and
+<span class="math">w_{avail}</span> is the available moisture (mm).  The moisture threshold
 is</p>
 <div class="math" id="equation-25-62">
-<p><span class="eqno">(2.26.20)<a class="headerlink" href="#equation-25-62" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fcc8ebdbe9e1d68b13a75f86d1e23dfda9cf2a88.svg" alt="w_{thresh} = f_{thresh} \left(w_{target} - w_{wilt}\right) + w_{wilt}"/></p>
-</div><p>where <img class="math" src="../../_images/math/6d8166a4c31df0a6cf18b6a9019b1e97ddd2afa8.svg" alt="w_{target}"/> is the irrigation target soil moisture (mm)</p>
+<p><span class="eqno">(2.26.20)<a class="headerlink" href="#equation-25-62" title="Permalink to this equation">¶</a></span><span class="math">w_{thresh} = f_{thresh} \left(w_{target} - w_{wilt}\right) + w_{wilt}</span></p>
+</div><p>where <span class="math">w_{target}</span> is the irrigation target soil moisture (mm)</p>
 <div class="math" id="equation-25-63">
-<p><span class="eqno">(2.26.21)<a class="headerlink" href="#equation-25-63" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ee2ca4c38906b01450186ed49f7a1a8480177a8a.svg" alt="w_{target} = \sum_{j=1}^{N_{irr}} \theta_{target} \Delta z_{j} \ ,"/></p>
-</div><p><img class="math" src="../../_images/math/780006a47c8758cef7147a6b2b704330b4ee548a.svg" alt="w_{wilt}"/> is the wilting point soil moisture (mm)</p>
+<p><span class="eqno">(2.26.21)<a class="headerlink" href="#equation-25-63" title="Permalink to this equation">¶</a></span><span class="math">w_{target} = \sum_{j=1}^{N_{irr}} \theta_{target} \Delta z_{j} \ ,</span></p>
+</div><p><span class="math">w_{wilt}</span> is the wilting point soil moisture (mm)</p>
 <div class="math" id="equation-25-64">
-<p><span class="eqno">(2.26.22)<a class="headerlink" href="#equation-25-64" title="Permalink to this equation">¶</a></span><img src="../../_images/math/33cdb363fdc36052fbe6066a9967e3193188417e.svg" alt="w_{wilt} = \sum_{j=1}^{N_{irr}} \theta_{wilt} \Delta z_{j} \ ,"/></p>
-</div><p>and <img class="math" src="../../_images/math/dae001418e5b782a8325e28e4bb7ce95a35bacb1.svg" alt="f_{thresh}"/> is a tuning parameter.  The available moisture in
+<p><span class="eqno">(2.26.22)<a class="headerlink" href="#equation-25-64" title="Permalink to this equation">¶</a></span><span class="math">w_{wilt} = \sum_{j=1}^{N_{irr}} \theta_{wilt} \Delta z_{j} \ ,</span></p>
+</div><p>and <span class="math">f_{thresh}</span> is a tuning parameter.  The available moisture in
 the soil is</p>
 <div class="math" id="equation-25-65">
-<p><span class="eqno">(2.26.23)<a class="headerlink" href="#equation-25-65" title="Permalink to this equation">¶</a></span><img src="../../_images/math/eba14cb993118c0b93d73815941b64ebbe0b0e3b.svg" alt="w_{avail} = \sum_{j=1}^{N_{irr}} \theta_{j} \Delta z_{j} \ ,"/></p>
-</div><p><img class="math" src="../../_images/math/1053fe505b22fcc879c182936b965971c8837e57.svg" alt="N_{irr}"/> is the index of the soil layer corresponding to a specified
-depth <img class="math" src="../../_images/math/1f0eef2a9394a824ab5a910558d8c55c917b23fd.svg" alt="z_{irrig}"/> (<a class="reference internal" href="#table-irrigation-parameters"><span class="std std-numref">Table 2.26.5</span></a>) and
-<img class="math" src="../../_images/math/2323d91704aed27da55bca4cd64c5a44bfe5a5ad.svg" alt="\Delta z_{j}"/> is the thickness of the soil layer in layer <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.svg" alt="j"/> (section
-<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#vertical-discretization"><span class="std std-numref">2.2.2</span></a>).  <img class="math" src="../../_images/math/e78528243bde20566109d8a558f3a877aba1fa97.svg" alt="\theta_{j}"/> is the
-volumetric soil moisture in layer <img class="math" src="../../_images/math/6b21e0b0899a0d2879d3b8019087fa630bab4ea2.svg" alt="j"/> (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#soil-water"><span class="std std-numref">2.7.3</span></a>).
-<img class="math" src="../../_images/math/bcccb1c2d9db92b2b0697b4b8537e43f0e2eba86.svg" alt="\theta_{target}"/> and
-<img class="math" src="../../_images/math/f7cd77d34407787a587b149c5286fe5be7782aaa.svg" alt="\theta_{wilt}"/> are the target and wilting point volumetric
+<p><span class="eqno">(2.26.23)<a class="headerlink" href="#equation-25-65" title="Permalink to this equation">¶</a></span><span class="math">w_{avail} = \sum_{j=1}^{N_{irr}} \theta_{j} \Delta z_{j} \ ,</span></p>
+</div><p><span class="math">N_{irr}</span> is the index of the soil layer corresponding to a specified
+depth <span class="math">z_{irrig}</span> (<a class="reference internal" href="#table-irrigation-parameters"><span class="std std-numref">Table 2.26.5</span></a>) and
+<span class="math">\Delta z_{j}</span> is the thickness of the soil layer in layer <span class="math">j</span> (section
+<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#vertical-discretization"><span class="std std-numref">2.2.2</span></a>).  <span class="math">\theta_{j}</span> is the
+volumetric soil moisture in layer <span class="math">j</span> (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#soil-water"><span class="std std-numref">2.7.3</span></a>).
+<span class="math">\theta_{target}</span> and
+<span class="math">\theta_{wilt}</span> are the target and wilting point volumetric
 soil moisture values, respectively, and are determined by inverting
 <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#equation-7-94">(2.7.53)</a> using soil matric
-potential parameters <img class="math" src="../../_images/math/816c8302d3486b92ef678b508e367db74abe4cc6.svg" alt="\Psi_{target}"/> and <img class="math" src="../../_images/math/507628930ad35526c1f358b4cd45f8d3c614c5dd.svg" alt="\Psi_{wilt}"/>
+potential parameters <span class="math">\Psi_{target}</span> and <span class="math">\Psi_{wilt}</span>
 (<a class="reference internal" href="#table-irrigation-parameters"><span class="std std-numref">Table 2.26.5</span></a>). After the soil moisture deficit
-<img class="math" src="../../_images/math/939c836ef89235fc43b9ef078edcd8c521b1400e.svg" alt="D_{irrig}"/> is calculated, irrigation in an amount equal to
-<img class="math" src="../../_images/math/35d6c1678ad329b5f8b876691a735c5e98a65a30.svg" alt="\frac{D_{irrig}}{T_{irrig}}"/> (mm/s) is applied uniformly over
-the irrigation period <img class="math" src="../../_images/math/ac2bc01c475cdbd0b167ae303dd83bc662fb601b.svg" alt="T_{irrig}"/> (s).  Irrigation water is applied
+<span class="math">D_{irrig}</span> is calculated, irrigation in an amount equal to
+<span class="math">\frac{D_{irrig}}{T_{irrig}}</span> (mm/s) is applied uniformly over
+the irrigation period <span class="math">T_{irrig}</span> (s).  Irrigation water is applied
 directly to the ground surface, bypassing canopy interception (i.e.,
-added to  <img class="math" src="../../_images/math/547ddd005d55ba0eac928924fa6dacd3f2ccc83e.svg" alt="{q}_{grnd,liq}"/>: section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#canopy-water"><span class="std std-numref">2.7.1</span></a>).</p>
+added to  <span class="math">{q}_{grnd,liq}</span>: section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#canopy-water"><span class="std std-numref">2.7.1</span></a>).</p>
 <p>To conserve mass, irrigation is removed from river water storage (Chapter <a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html#rst-river-transport-model-rtm"><span class="std std-numref">2.14</span></a>).
 When river water storage is inadequate to meet irrigation demand,
 there are two options: 1) the additional water can be removed from the
 ocean model, or 2) the irrigation demand can be reduced such that
 river water storage is maintained above a specified threshold.</p>
-<span id="table-irrigation-parameters"></span><table border="1" class="docutils" id="id23">
+<span id="table-irrigation-parameters"></span><table class="docutils align-default" id="id23">
 <caption><span class="caption-number">Table 2.26.5 </span><span class="caption-text">Irrigation parameters</span><a class="headerlink" href="#id23" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="75%" />
-<col width="25%" />
+<col style="width: 75%" />
+<col style="width: 25%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Parameter</th>
-<th class="head">&#160;</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><img class="math" src="../../_images/math/dae001418e5b782a8325e28e4bb7ce95a35bacb1.svg" alt="f_{thresh}"/></td>
-<td>1.0</td>
+<tbody>
+<tr class="row-even"><td><p><span class="math">f_{thresh}</span></p></td>
+<td><p>1.0</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/1f0eef2a9394a824ab5a910558d8c55c917b23fd.svg" alt="z_{irrig}"/>       (m)</td>
-<td>0.6</td>
+<tr class="row-odd"><td><p><span class="math">z_{irrig}</span>       (m)</p></td>
+<td><p>0.6</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/816c8302d3486b92ef678b508e367db74abe4cc6.svg" alt="\Psi_{target}"/>   (mm)</td>
-<td>-3400</td>
+<tr class="row-even"><td><p><span class="math">\Psi_{target}</span>   (mm)</p></td>
+<td><p>-3400</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/507628930ad35526c1f358b4cd45f8d3c614c5dd.svg" alt="\Psi_{wilt}"/>     (mm)</td>
-<td>-150000</td>
+<tr class="row-odd"><td><p><span class="math">\Psi_{wilt}</span>     (mm)</p></td>
+<td><p>-150000</p></td>
 </tr>
 </tbody>
 </table>
@@ -1759,10 +1759,11 @@ river water storage is maintained above a specified threshold.</p>
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/pop_ver.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
     
 
   

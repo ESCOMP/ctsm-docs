@@ -171,11 +171,11 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">1. CTSM1 User’s Guide</a> &raquo;</li>
+          <li><a href="../index.html"><span class="section-number">1. </span>CTSM1 User’s Guide</a> &raquo;</li>
         
-          <li><a href="index.html">1.8. Troubleshooting</a> &raquo;</li>
+          <li><a href="index.html"><span class="section-number">1.8. </span>Troubleshooting</a> &raquo;</li>
         
-      <li>1.8.1. Trouble Shooting</li>
+      <li><span class="section-number">1.8.1. </span>Trouble Shooting</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -195,29 +195,29 @@
            <div itemprop="articleBody">
             
   <div class="section" id="trouble-shooting">
-<span id="id1"></span><h1>1.8.1. Trouble Shooting<a class="headerlink" href="#trouble-shooting" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1><span class="section-number">1.8.1. </span>Trouble Shooting<a class="headerlink" href="#trouble-shooting" title="Permalink to this headline">¶</a></h1>
 <p>In this chapter we give some guidance on what to do when you encounter some of the most common problems. We can’t cover all the problems that a user could potentially have, but we will try to help you recognize some of the most common situations. And we’ll give you some suggestions on how to approach the problem to come up with a solution.</p>
 <p>In general you will run into one of three type of problems:</p>
 <ol class="arabic simple">
-<li><em>case-creation</em></li>
-<li><em>setup-time</em></li>
-<li><em>build-time</em></li>
-<li><em>run-time</em></li>
+<li><p><em>case-creation</em></p></li>
+<li><p><em>setup-time</em></p></li>
+<li><p><em>build-time</em></p></li>
+<li><p><em>run-time</em></p></li>
 </ol>
 <p>See the <a class="reference external" href="http://esmci.github.io/cime/users_guide/troubleshooting.html">CIME Trouble Shooting Guide</a> for some help on the first three.</p>
 <div class="section" id="general-advice-on-debugging-run-time-problems">
-<h2>1.8.1.1. General Advice on Debugging Run time Problems<a class="headerlink" href="#general-advice-on-debugging-run-time-problems" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.8.1.1. </span>General Advice on Debugging Run time Problems<a class="headerlink" href="#general-advice-on-debugging-run-time-problems" title="Permalink to this headline">¶</a></h2>
 <p>Here are some suggestions on how to track down a problem while running. In general if the problem still occurs for a simpler case, it will be easier to track down.</p>
 <ol class="arabic simple">
-<li><em>Run in DEBUG mode</em></li>
-<li><em>Run with a smaller set of processors</em></li>
-<li><em>Run in serial mode with a single processor</em></li>
-<li><em>Run at a lower resolution</em></li>
-<li><em>Run a simpler case</em></li>
-<li><em>Run with a debugger</em></li>
+<li><p><em>Run in DEBUG mode</em></p></li>
+<li><p><em>Run with a smaller set of processors</em></p></li>
+<li><p><em>Run in serial mode with a single processor</em></p></li>
+<li><p><em>Run at a lower resolution</em></p></li>
+<li><p><em>Run a simpler case</em></p></li>
+<li><p><em>Run with a debugger</em></p></li>
 </ol>
 <div class="section" id="run-in-debug-mode">
-<h3>1.8.1.1.1. Run in DEBUG mode<a class="headerlink" href="#run-in-debug-mode" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.8.1.1.1. </span>Run in DEBUG mode<a class="headerlink" href="#run-in-debug-mode" title="Permalink to this headline">¶</a></h3>
 <p>The first thing to try is to run in DEBUG mode so that float point trapping will be triggered as well as array bounds checking and other things the compiler can turn on to help you find problems.
 To do this edit the <code class="docutils literal notranslate"><span class="pre">env_build.xml</span></code> file and set DEBUG to TRUE as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">DEBUG</span><span class="o">=</span><span class="n">TRUE</span>
@@ -225,7 +225,7 @@ To do this edit the <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="section" id="run-with-a-smaller-set-of-processors">
-<h3>1.8.1.1.2. Run with a smaller set of processors<a class="headerlink" href="#run-with-a-smaller-set-of-processors" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.8.1.1.2. </span>Run with a smaller set of processors<a class="headerlink" href="#run-with-a-smaller-set-of-processors" title="Permalink to this headline">¶</a></h3>
 <p>Another way to simplify the system is to run with a smaller set of processors. You will need to clean the setup and edit the –env_mach_pes.xml–. For example, to run with four processors:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span> <span class="o">-</span><span class="n">clean</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">NTASKS_ATM</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_LND</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_ICE</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_OCN</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_CPL</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_GLC</span><span class="o">=</span><span class="mi">4</span>
@@ -235,7 +235,7 @@ To do this edit the <code class="docutils literal notranslate"><span class="pre"
 <p>Another recommended simplification is to run without threading, so set the NTHRDS for each component to “1” if it isn’t already. Sometimes, multiprocessing problems require a certain number of processors before they occur so you may not be able to debug the problem without enough processors. But, it’s always good to reduce it to as low a number as possible to make it simpler. For threading problems you may have to have threading enabled to find the problem, but you can run with 1, 2, or 3 threads to see what happens.</p>
 </div>
 <div class="section" id="run-in-serial-mode-with-a-single-processor">
-<h3>1.8.1.1.3. Run in serial mode with a single processor<a class="headerlink" href="#run-in-serial-mode-with-a-single-processor" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.8.1.1.3. </span>Run in serial mode with a single processor<a class="headerlink" href="#run-in-serial-mode-with-a-single-processor" title="Permalink to this headline">¶</a></h3>
 <p>Simplifying to one processor removes all multi-processing problems and makes the case as simple as possible. If you can enable <code class="docutils literal notranslate"><span class="pre">MPILIB=mpi-serial</span></code> you will also be able to run interactively rather than having to submit to a job queue, which sometimes makes it easier to run and debug. If you can use <code class="docutils literal notranslate"><span class="pre">MPILIB=mpi-serial</span></code> you can also use threading, but still run interactively in order to use more processors to make it faster if needed.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span> <span class="o">-</span><span class="n">clean</span>
 <span class="c1"># Set tasks and threads for each component to 1</span>
@@ -253,15 +253,15 @@ To do this edit the <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="section" id="run-at-a-lower-resolution">
-<h3>1.8.1.1.4. Run at a lower resolution<a class="headerlink" href="#run-at-a-lower-resolution" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.8.1.1.4. </span>Run at a lower resolution<a class="headerlink" href="#run-at-a-lower-resolution" title="Permalink to this headline">¶</a></h3>
 <p>If you can create a new case running at a lower resolution and replicate the problem it may be easier to solve. This of course requires creating a whole new case, and trying out different lower resolutions.</p>
 </div>
 <div class="section" id="run-a-simpler-case">
-<h3>1.8.1.1.5. Run a simpler case<a class="headerlink" href="#run-a-simpler-case" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.8.1.1.5. </span>Run a simpler case<a class="headerlink" href="#run-a-simpler-case" title="Permalink to this headline">¶</a></h3>
 <p>Along the same lines, you might try running a simpler case, trying another compset with a simpler setup and see if you can replicate the problem and then debug from that simpler case. Again, of course you will need to create new cases to do this.</p>
 </div>
 <div class="section" id="run-with-a-debugger">
-<h3>1.8.1.1.6. Run with a debugger<a class="headerlink" href="#run-with-a-debugger" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.8.1.1.6. </span>Run with a debugger<a class="headerlink" href="#run-with-a-debugger" title="Permalink to this headline">¶</a></h3>
 <p>Another suggestion is to run the model with a debugger such as: <strong>ddt</strong>, <strong>dbx</strong>, <strong>gdb</strong>, or <strong>totalview</strong>.
 Often to run with a debugger you will need to reduce the number of processors as outlined above.
 Some debuggers such as <strong>dbx</strong> will only work with one processor, while more advanced debuggers such as <strong>totalview</strong> can work with both MPI tasks and OMP threads.
@@ -318,10 +318,11 @@ For help in running with a debugger you will need to contact your system adminis
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/pop_ver.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
     
 
   

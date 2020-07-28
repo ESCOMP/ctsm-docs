@@ -125,7 +125,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../calling-ctsm-from-atm/index.html">3.3. Calling CTSM from an atmosphere model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../specific-atm-models/index.html">3.4. Notes on specific atmosphere models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../specific-atm-models/index.html">3.4. Instructions on using CTSM with specific atmosphere models</a></li>
 </ul>
 </li>
 </ul>
@@ -172,11 +172,11 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">3. CTSM-LILAC User’s Guide</a> &raquo;</li>
+          <li><a href="../index.html"><span class="section-number">3. </span>CTSM-LILAC User’s Guide</a> &raquo;</li>
         
-          <li><a href="index.html">3.2. Obtaining, building and running CTSM with LILAC</a> &raquo;</li>
+          <li><a href="index.html"><span class="section-number">3.2. </span>Obtaining, building and running CTSM with LILAC</a> &raquo;</li>
         
-      <li>3.2.1. Obtaining and building CTSM and LILAC</li>
+      <li><span class="section-number">3.2.1. </span>Obtaining and building CTSM and LILAC</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -196,19 +196,19 @@
            <div itemprop="articleBody">
             
   <div class="section" id="obtaining-and-building-ctsm-and-lilac">
-<span id="obtaining-and-building-ctsm"></span><h1>3.2.1. Obtaining and building CTSM and LILAC<a class="headerlink" href="#obtaining-and-building-ctsm-and-lilac" title="Permalink to this headline">¶</a></h1>
+<span id="obtaining-and-building-ctsm"></span><h1><span class="section-number">3.2.1. </span>Obtaining and building CTSM and LILAC<a class="headerlink" href="#obtaining-and-building-ctsm-and-lilac" title="Permalink to this headline">¶</a></h1>
 <p>This section describes the process for obtaining and building the CTSM library and its
 dependencies, and linking to these libraries in an atmosphere model’s build.</p>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
-<p class="last">This documentation only applies to the process where you are building CTSM with LILAC
+<p class="admonition-title">Important</p>
+<p>This documentation only applies to the process where you are building CTSM with LILAC
 for use in an atmosphere model that has <em>not</em> been integrated with CESM or CIME. If you
 are using CTSM within CESM, or running CTSM in land-only mode with a data atmosphere,
 then you should refer to the <a class="reference internal" href="../../users_guide/index.html#users-guide"><span class="std std-ref">general CTSM user’s guide</span></a> as well as
 the <a class="reference external" href="http://esmci.github.io/cime">CIME documentation</a>.</p>
 </div>
 <div class="section" id="quick-start-example-overview">
-<h2>3.2.1.1. Quick start example / overview<a class="headerlink" href="#quick-start-example-overview" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.2.1.1. </span>Quick start example / overview<a class="headerlink" href="#quick-start-example-overview" title="Permalink to this headline">¶</a></h2>
 <p>The basic process for obtaining and building CTSM is the following:</p>
 <p>Obtain CTSM by running:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ESCOMP/CTSM.git
@@ -239,42 +239,47 @@ line.</p>
 <p>Further details on these steps are given below.</p>
 </div>
 <div class="section" id="prerequisites">
-<span id="building-ctsm-and-lilac-prerequisites"></span><h2>3.2.1.2. Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<span id="building-ctsm-and-lilac-prerequisites"></span><h2><span class="section-number">3.2.1.2. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>Building CTSM requires:</p>
 <ul class="simple">
-<li>a Unix-like operating system (Linux, AIX, OS X, etc.)</li>
-<li>git version 1.8 or newer</li>
-<li>python3<ul>
-<li>Note that some scripts in the workflow look for ‘python3’ and others look for
+<li><p>a Unix-like operating system (Linux, AIX, OS X, etc.)</p></li>
+<li><p>git version 1.8 or newer</p></li>
+<li><p>python3</p>
+<ul>
+<li><p>Note that some scripts in the workflow look for ‘python3’ and others look for
 ‘python’. So python should be available under both of these names (although it is okay
-for <code class="docutils literal notranslate"><span class="pre">python</span></code> to refer to version 2.7.x).</li>
+for <code class="docutils literal notranslate"><span class="pre">python</span></code> to refer to version 2.7.x).</p></li>
 </ul>
 </li>
-<li>perl version 5</li>
-<li>a GNU version of the make tool (gmake)</li>
-<li>CMake</li>
-<li>Fortran and C compilers<ul>
-<li>See <a class="reference external" href="https://github.com/escomp/cesm#details-on-fortran-compiler-versions">https://github.com/escomp/cesm#details-on-fortran-compiler-versions</a> for
-information on compiler versions known to work with CESM, and thus CTSM.</li>
+<li><p>perl version 5</p></li>
+<li><p>a GNU version of the make tool (gmake)</p></li>
+<li><p>CMake</p></li>
+<li><p>Fortran and C compilers</p>
+<ul>
+<li><p>See <a class="reference external" href="https://github.com/escomp/cesm#details-on-fortran-compiler-versions">https://github.com/escomp/cesm#details-on-fortran-compiler-versions</a> for
+information on compiler versions known to work with CESM, and thus CTSM.</p></li>
 </ul>
 </li>
-<li>LAPACK and BLAS libraries</li>
-<li>a NetCDF library version 4.3 or newer built with the same compiler you will use for CTSM<ul>
-<li>a PNetCDF library is optional</li>
+<li><p>LAPACK and BLAS libraries</p></li>
+<li><p>a NetCDF library version 4.3 or newer built with the same compiler you will use for CTSM</p>
+<ul>
+<li><p>a PNetCDF library is optional</p></li>
 </ul>
 </li>
-<li>a functioning MPI environment<ul>
-<li>typically, this includes compiler wrappers like <code class="docutils literal notranslate"><span class="pre">mpif90</span></code> and <code class="docutils literal notranslate"><span class="pre">mpicc</span></code></li>
+<li><p>a functioning MPI environment</p>
+<ul>
+<li><p>typically, this includes compiler wrappers like <code class="docutils literal notranslate"><span class="pre">mpif90</span></code> and <code class="docutils literal notranslate"><span class="pre">mpicc</span></code></p></li>
 </ul>
 </li>
-<li>ESMF version 8 or later<ul>
-<li><strong>ESMF is not needed in general for CTSM, but is needed for LILAC</strong></li>
+<li><p>ESMF version 8 or later</p>
+<ul>
+<li><p><strong>ESMF is not needed in general for CTSM, but is needed for LILAC</strong></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="obtaining-ctsm">
-<h2>3.2.1.3. Obtaining CTSM<a class="headerlink" href="#obtaining-ctsm" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.2.1.3. </span>Obtaining CTSM<a class="headerlink" href="#obtaining-ctsm" title="Permalink to this headline">¶</a></h2>
 <p>CTSM and its dependencies (excluding the <a class="reference internal" href="#building-ctsm-and-lilac-prerequisites"><span class="std std-ref">prerequisites noted
 above</span></a>) can be obtained with:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ESCOMP/CTSM.git
@@ -289,9 +294,9 @@ development branch. You can checkout a different branch or tag using <code class
 <a class="reference external" href="https://github.com/ESCOMP/CTSM/wiki/Quick-start-to-CTSM-development-with-git">https://github.com/ESCOMP/CTSM/wiki/Quick-start-to-CTSM-development-with-git</a></p>
 </div>
 <div class="section" id="building-ctsm-and-its-dependencies">
-<h2>3.2.1.4. Building CTSM and its dependencies<a class="headerlink" href="#building-ctsm-and-its-dependencies" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.2.1.4. </span>Building CTSM and its dependencies<a class="headerlink" href="#building-ctsm-and-its-dependencies" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="overview">
-<h3>3.2.1.4.1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.2.1.4.1. </span>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
 <p>CTSM provides a build script, <code class="docutils literal notranslate"><span class="pre">lilac/build_ctsm</span></code>, for building CTSM and its dependencies. (The
 dependencies built with this build script include various libraries that are packaged with
 <a class="reference external" href="http://esmci.github.io/cime">CIME</a>. This does <em>not</em> build the <a class="reference internal" href="#building-ctsm-and-lilac-prerequisites"><span class="std std-ref">prerequisites noted
@@ -313,7 +318,7 @@ need to be aware of any of those details, but if problems arise, you may want to
 the <a class="reference external" href="http://esmci.github.io/cime">CIME documentation</a>.</p>
 </div>
 <div class="section" id="building-on-a-cime-supported-machine">
-<span id="id1"></span><h3>3.2.1.4.2. Building on a CIME-supported machine<a class="headerlink" href="#building-on-a-cime-supported-machine" title="Permalink to this headline">¶</a></h3>
+<span id="id1"></span><h3><span class="section-number">3.2.1.4.2. </span>Building on a CIME-supported machine<a class="headerlink" href="#building-on-a-cime-supported-machine" title="Permalink to this headline">¶</a></h3>
 <p>If you are using a machine that has been ported to <a class="reference external" href="http://esmci.github.io/cime">CIME</a> (for example, NCAR’s <code class="docutils literal notranslate"><span class="pre">cheyenne</span></code>
 machine), then you do not need to specify much information to <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code>. In addition,
 in this case, CIME will load the appropriate modules and set the appropriate environment
@@ -329,38 +334,38 @@ need to add this to your CIME port.</strong></p>
 <p>where you should fill in the capitalized arguments with appropriate values for your
 machine.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The given directory (<code class="docutils literal notranslate"><span class="pre">/PATH/TO/CTSM/BUILD</span></code>) must <em>not</em> exist. This directory is
+<p class="admonition-title">Note</p>
+<p>The given directory (<code class="docutils literal notranslate"><span class="pre">/PATH/TO/CTSM/BUILD</span></code>) must <em>not</em> exist. This directory is
 created for you by the build script.</p>
 </div>
 <p>Some other options to <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code> are supported in this case (but many are not, since
 they are only applicable to the non-CIME-supported machine workflow); run
 <code class="docutils literal notranslate"><span class="pre">./lilac/build_ctsm</span> <span class="pre">-h</span></code> for details.</p>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
+<p class="admonition-title">Important</p>
 <p>If PNetCDF (parallel NetCDF) is not available on this machine, you will need to add the
 option <code class="docutils literal notranslate"><span class="pre">--no-pnetcdf</span></code>.</p>
-<p class="last">If you plan to run with OpenMP threading-based parallelization, or hybrid MPI/OpenMP,
+<p>If you plan to run with OpenMP threading-based parallelization, or hybrid MPI/OpenMP,
 then it is important to add <code class="docutils literal notranslate"><span class="pre">--build-with-openmp</span></code>.</p>
 </div>
 <p>Besides the build files themselves, <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code> creates the following important files
 that are needed for the build of the atmosphere model:</p>
 <ol class="arabic simple">
-<li><code class="docutils literal notranslate"><span class="pre">/PATH/TO/CTSM/BUILD/ctsm.mk</span></code>: This Makefile-formatted file gives variables that
+<li><p><code class="docutils literal notranslate"><span class="pre">/PATH/TO/CTSM/BUILD/ctsm.mk</span></code>: This Makefile-formatted file gives variables that
 should be set in the atmosphere model’s build. <a class="reference internal" href="#including-ctsm-in-the-atmosphere-model-build"><span class="std std-ref">See below for information on how
-to use this file</span></a>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">/PATH/TO/CTSM/BUILD/ctsm_build_environment.sh</span></code> or
+to use this file</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/PATH/TO/CTSM/BUILD/ctsm_build_environment.sh</span></code> or
 <code class="docutils literal notranslate"><span class="pre">/PATH/TO/CTSM/BUILD/ctsm_build_environment.csh</span></code>: These files specify the build
 environment that CIME used to build CTSM and its dependencies. <strong>Before building the
 atmosphere model, you should source the appropriate file</strong> (based on your shell - use
 the <code class="docutils literal notranslate"><span class="pre">.sh</span></code> file for bash and similar shells, and the <code class="docutils literal notranslate"><span class="pre">.csh</span></code> file for tcsh and
 similar shells). <strong>This will ensure that the atmosphere model is built with the same
 compiler and library versions as CTSM.</strong> For example, with bash: <code class="docutils literal notranslate"><span class="pre">source</span>
-<span class="pre">/PATH/TO/CTSM/BUILD/ctsm_build_environment.sh</span></code>.</li>
+<span class="pre">/PATH/TO/CTSM/BUILD/ctsm_build_environment.sh</span></code>.</p></li>
 </ol>
 </div>
 <div class="section" id="building-on-a-machine-that-has-not-been-ported-to-cime">
-<h3>3.2.1.4.3. Building on a machine that has not been ported to CIME<a class="headerlink" href="#building-on-a-machine-that-has-not-been-ported-to-cime" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.2.1.4.3. </span>Building on a machine that has not been ported to CIME<a class="headerlink" href="#building-on-a-machine-that-has-not-been-ported-to-cime" title="Permalink to this headline">¶</a></h3>
 <p>If you are using a machine thata has not been ported to <a class="reference external" href="http://esmci.github.io/cime">CIME</a>, then you need to specify
 additional information to <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code> that is needed by the build system. Before
 building CTSM, you should load any modules and/or set any environment variables required
@@ -376,16 +381,16 @@ of additional, optional arguments. Some of these optional arguments may be neede
 successful compilation, while others (such as <code class="docutils literal notranslate"><span class="pre">--pnetcdf-path</span></code>) may be needed for good
 model performance.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The given directory (<code class="docutils literal notranslate"><span class="pre">/PATH/TO/CTSM/BUILD</span></code>) must <em>not</em> exist. This directory is
+<p class="admonition-title">Note</p>
+<p>The given directory (<code class="docutils literal notranslate"><span class="pre">/PATH/TO/CTSM/BUILD</span></code>) must <em>not</em> exist. This directory is
 created for you by the build script.</p>
 </div>
 <div class="admonition important">
-<p class="first admonition-title">Important</p>
+<p class="admonition-title">Important</p>
 <p>If PNetCDF (parallel NetCDF) is not available on your machine/compiler, you should use
 the option <code class="docutils literal notranslate"><span class="pre">--no-pnetcdf</span></code> instead of <code class="docutils literal notranslate"><span class="pre">--pnetcdf-path</span></code>. You must specify exactly one
 of those two options.</p>
-<p class="last">If you plan to run with OpenMP threading-based parallelization, or hybrid MPI/OpenMP,
+<p>If you plan to run with OpenMP threading-based parallelization, or hybrid MPI/OpenMP,
 then it is important to add <code class="docutils literal notranslate"><span class="pre">--build-with-openmp</span></code>.</p>
 </div>
 <p>Example usage for a Mac (a simple case) is:</p>
@@ -412,7 +417,7 @@ build. <a class="reference internal" href="#including-ctsm-in-the-atmosphere-mod
 file</span></a>.</p>
 </div>
 <div class="section" id="rebuilding-after-changing-ctsm-source-code">
-<h3>3.2.1.4.4. Rebuilding after changing CTSM source code<a class="headerlink" href="#rebuilding-after-changing-ctsm-source-code" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.2.1.4.4. </span>Rebuilding after changing CTSM source code<a class="headerlink" href="#rebuilding-after-changing-ctsm-source-code" title="Permalink to this headline">¶</a></h3>
 <p>To rebuild after changing CTSM source code, you should follow one of the above workflows,
 but the <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code> command will simply be:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./lilac/build_ctsm /PATH/TO/CTSM/BUILD --rebuild
@@ -422,7 +427,7 @@ but the <code class="docutils literal notranslate"><span class="pre">build_ctsm<
 </div>
 </div>
 <div class="section" id="including-ctsm-in-the-atmosphere-model-s-build">
-<span id="including-ctsm-in-the-atmosphere-model-build"></span><h2>3.2.1.5. Including CTSM in the atmosphere model’s build<a class="headerlink" href="#including-ctsm-in-the-atmosphere-model-s-build" title="Permalink to this headline">¶</a></h2>
+<span id="including-ctsm-in-the-atmosphere-model-build"></span><h2><span class="section-number">3.2.1.5. </span>Including CTSM in the atmosphere model’s build<a class="headerlink" href="#including-ctsm-in-the-atmosphere-model-s-build" title="Permalink to this headline">¶</a></h2>
 <p>Once you have successfully built CTSM and its dependencies, you will need to add various
 paths to the compilation and link lines when building your atmosphere model. For a
 Makefile-based build system, we facilitate this by producing a file,
@@ -430,16 +435,16 @@ Makefile-based build system, we facilitate this by producing a file,
 not yet produce an equivalent for CMake or other build systems.)</p>
 <p>There are two important variables defined in this file:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">CTSM_INCLUDES</span></code>: This variable should be included in the compilation line for the
+<li><p><code class="docutils literal notranslate"><span class="pre">CTSM_INCLUDES</span></code>: This variable should be included in the compilation line for the
 atmosphere model’s source files. It lists all paths that need to be included in these
-compilations so that the compiler can find the appropriate Fortran module files.</li>
-<li><code class="docutils literal notranslate"><span class="pre">CTSM_LIBS</span></code>: This variable should be included in the link line when creating the final
+compilations so that the compiler can find the appropriate Fortran module files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CTSM_LIBS</span></code>: This variable should be included in the link line when creating the final
 executable. It lists paths and library names that need to be included in the link
 step. <strong>Note: This may not include all of the libraries that are</strong>
 <a class="reference internal" href="#building-ctsm-and-lilac-prerequisites"><span class="std std-ref">prerequisites</span></a>, <strong>such as LAPACK, BLAS and
 NetCDF. If your atmosphere doesn’t already require these, you may need to add
 appropriate information to your atmosphere model’s link line.</strong> However, it should
-already include all required link information for ESMF.</li>
+already include all required link information for ESMF.</p></li>
 </ul>
 <p>Other variables in this file do not need to be included directly in the atmosphere model’s
 build (they are just intermediate variables used to create <code class="docutils literal notranslate"><span class="pre">CTSM_INCLUDES</span></code> and
@@ -452,11 +457,11 @@ expect that the user has set an environment variable:</p>
 <p>If that environment variable exists, then the <code class="docutils literal notranslate"><span class="pre">configure</span></code> script adds the following to
 the Makefile-based build:</p>
 <ul class="simple">
-<li>Includes the <code class="docutils literal notranslate"><span class="pre">ctsm.mk</span></code> file (like <code class="docutils literal notranslate"><span class="pre">include</span> <span class="pre">${WRF_CTSM_MKFILE}</span></code>)</li>
-<li>Adds a CPP definition, <code class="docutils literal notranslate"><span class="pre">-DWRF_USE_CTSM</span></code>, which is used to do conditional compilation
-of the CTSM-LILAC interface code</li>
-<li>Adds <code class="docutils literal notranslate"><span class="pre">$(CTSM_INCLUDES)</span></code> to its variable <code class="docutils literal notranslate"><span class="pre">INCLUDE_MODULES</span></code></li>
-<li>Adds <code class="docutils literal notranslate"><span class="pre">$(CTSM_LIBS)</span></code> to its variable <code class="docutils literal notranslate"><span class="pre">LIB</span></code></li>
+<li><p>Includes the <code class="docutils literal notranslate"><span class="pre">ctsm.mk</span></code> file (like <code class="docutils literal notranslate"><span class="pre">include</span> <span class="pre">${WRF_CTSM_MKFILE}</span></code>)</p></li>
+<li><p>Adds a CPP definition, <code class="docutils literal notranslate"><span class="pre">-DWRF_USE_CTSM</span></code>, which is used to do conditional compilation
+of the CTSM-LILAC interface code</p></li>
+<li><p>Adds <code class="docutils literal notranslate"><span class="pre">$(CTSM_INCLUDES)</span></code> to its variable <code class="docutils literal notranslate"><span class="pre">INCLUDE_MODULES</span></code></p></li>
+<li><p>Adds <code class="docutils literal notranslate"><span class="pre">$(CTSM_LIBS)</span></code> to its variable <code class="docutils literal notranslate"><span class="pre">LIB</span></code></p></li>
 </ul>
 </div>
 </div>
@@ -508,10 +513,11 @@ of the CTSM-LILAC interface code</li>
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/pop_ver.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
     
 
   

@@ -177,11 +177,11 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">1. CTSM1 User’s Guide</a> &raquo;</li>
+          <li><a href="../index.html"><span class="section-number">1. </span>CTSM1 User’s Guide</a> &raquo;</li>
         
-          <li><a href="index.html">1.7. Running PTCLM</a> &raquo;</li>
+          <li><a href="index.html"><span class="section-number">1.7. </span>Running PTCLM</a> &raquo;</li>
         
-      <li>1.7.5. Adding PTCLMmkdata Site Data</li>
+      <li><span class="section-number">1.7.5. </span>Adding PTCLMmkdata Site Data</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -201,7 +201,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="adding-ptclmmkdata-site-data">
-<span id="adding-ptclm-site-data"></span><h1>1.7.5. Adding PTCLMmkdata Site Data<a class="headerlink" href="#adding-ptclmmkdata-site-data" title="Permalink to this headline">¶</a></h1>
+<span id="adding-ptclm-site-data"></span><h1><span class="section-number">1.7.5. </span>Adding PTCLMmkdata Site Data<a class="headerlink" href="#adding-ptclmmkdata-site-data" title="Permalink to this headline">¶</a></h1>
 <p>The “sitegroupname” option to PTCLMmkdata looks for groups of sites in the files in the <code class="docutils literal notranslate"><span class="pre">PTCLM_sitedata</span></code> directory under the PTCLMmkdata directory.
 You can add new names available for this option including your own lists of sites, by adding more files in this directory.
 There are three files for each “sitegroupname”: <code class="docutils literal notranslate"><span class="pre">$SITEGROUP_sitedata.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">$SITEGROUP_soildata.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">$SITEGROUP_pftdata.txt</span></code> (where <code class="docutils literal notranslate"><span class="pre">$SITEGROUP</span></code> is the name that would be entered as “sitegroupname” to PTCLMmkdata).
@@ -226,7 +226,7 @@ The site code can be any unique character string, but in general we use the Amer
 </div>
 <p>This file gives the vegetation coverage for the different vegetation types for the site. The file only supports up to five PFT’s at the same time. The columns with “pft_f” are the fractions for each PFT, and the columns with “pft_c” is the integer index of the given PFT. Look at the pft-physiology file to see what the PFT index for each PFT type is.</p>
 <div class="section" id="dynamic-land-use-change-files-for-use-by-ptclmmkdata">
-<h2>1.7.5.1. Dynamic Land-Use Change Files for use by PTCLMmkdata<a class="headerlink" href="#dynamic-land-use-change-files-for-use-by-ptclmmkdata" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.7.5.1. </span>Dynamic Land-Use Change Files for use by PTCLMmkdata<a class="headerlink" href="#dynamic-land-use-change-files-for-use-by-ptclmmkdata" title="Permalink to this headline">¶</a></h2>
 <p>There is a mechanism for giving site-specific land-use change in PTCLMmkdata. Adding site specific files to the <code class="docutils literal notranslate"><span class="pre">PTCLM_sitedata</span></code> directory under PTCLMmkdata allows you to specify the change in vegetation and change in harvesting (for the CN model) for that site. Files are named: <code class="docutils literal notranslate"><span class="pre">$SITE_dynpftdata.txt</span></code>. There is a sample file for the US-Ha1 site called: <code class="docutils literal notranslate"><span class="pre">US-Ha1_dynpftdata.txt</span></code>. The file has a one-line header with the information that the file has, and then one-line for each year with a transition. The header line is as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trans_year</span><span class="p">,</span><span class="n">pft_f1</span><span class="p">,</span><span class="n">pft_c1</span><span class="p">,</span><span class="n">pft_f2</span><span class="p">,</span><span class="n">pft_c2</span><span class="p">,</span><span class="n">pft_f3</span><span class="p">,</span><span class="n">pft_c3</span><span class="p">,</span><span class="n">pft_f4</span><span class="p">,</span><span class="n">pft_c4</span><span class="p">,</span><span class="n">pft_f5</span><span class="p">,</span><span class="n">pft_c5</span><span class="p">,</span><span class="n">har_vh1</span><span class="p">,</span><span class="n">har_vh2</span><span class="p">,</span><span class="n">har_sh1</span><span class="p">,</span><span class="n">har_sh2</span><span class="p">,</span><span class="n">har_sh3</span><span class="p">,</span><span class="n">graze</span><span class="p">,</span><span class="n">hold_harv</span><span class="p">,</span><span class="n">hold_graze</span>
 </pre></div>
@@ -234,7 +234,7 @@ The site code can be any unique character string, but in general we use the Amer
 <p>This file only requires a line for each year where a transition or harvest happens. As in the “pftdata” file above “pft_f” refers to the fraction and “pft_c” refers to the PFT index, and only up to five vegetation types are allowed to co-exist. The last eight columns have to do with harvesting and grazing. The last two columns are whether to hold harvesting and/or grazing constant until the next transition year and will just be either 1 or 0. This file will be converted by the <strong>PTCLM_sitedata/cnvrt_trnsyrs2_pftdyntxtfile.pl</strong> script in the PTCLMmkdata directory to a format that <strong>mksurfdata_map</strong> can read that has an entry for each year for the range of years valid for the compset in question.</p>
 </div>
 <div class="section" id="converting-ameriflux-data-for-use-by-ptclmmkdata">
-<h2>1.7.5.2. Converting AmeriFlux Data for use by PTCLMmkdata<a class="headerlink" href="#converting-ameriflux-data-for-use-by-ptclmmkdata" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.7.5.2. </span>Converting AmeriFlux Data for use by PTCLMmkdata<a class="headerlink" href="#converting-ameriflux-data-for-use-by-ptclmmkdata" title="Permalink to this headline">¶</a></h2>
 <p>AmeriFlux data comes in comma separated format and is available from:
 <a class="reference external" href="http://public.ornl.gov/ameriflux/dataproducts.shtml">http://public.ornl.gov/ameriflux/dataproducts.shtml</a>. Before you download the data you need to agree to the usage terms.</p>
 <p>Here is a copy of the usage terms from the web-site on June/13/2011.</p>
@@ -254,7 +254,7 @@ The units of Temperature need to be converted from “Celsius” to “Kelvin”
 The units of Pressure also need to be converted from “kPa” to “Pa”. LATIXY, and LONGXY should also be set to the latitude and longitude of the site.</p>
 </div>
 <div class="section" id="example-ptclmmkdata-transient-example-over-a-shorter-time-period">
-<h2>1.7.5.3. Example: PTCLMmkdata transient example over a shorter time period<a class="headerlink" href="#example-ptclmmkdata-transient-example-over-a-shorter-time-period" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.7.5.3. </span>Example: PTCLMmkdata transient example over a shorter time period<a class="headerlink" href="#example-ptclmmkdata-transient-example-over-a-shorter-time-period" title="Permalink to this headline">¶</a></h2>
 <p>This is an example of using PTCLMmkdata for Harvard Forest (AmeriFlux site code US-Ha1) for transient land use 1991-2006.
 In order to do this we would’ve needed to have converted the AmeriFlux data into NetCDF format as show in the <a class="reference external" href="CLM-URL">the Section called Converting AmeriFlux Data for use by PTCLMmkdata</a> section above.
 Also note that this site has a site-specific dynamic land-use change file for it <code class="docutils literal notranslate"><span class="pre">PTCLM_sitedata/US-Ha1_dynpftdata.txt</span></code> in the PTCLMmkdata directory and this file will be used for land-use change and harvesting rather than the global dataset.</p>
@@ -332,10 +332,11 @@ EOF
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/pop_ver.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
     
 
   
