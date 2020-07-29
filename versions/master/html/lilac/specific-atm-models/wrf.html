@@ -268,12 +268,16 @@ sourcing <code class="docutils literal notranslate"><span class="pre">ctsm_build
 </div>
 <p>Set makefile variables from CTSM needed for the WRF build by setting the following environment.
 For example for Bash:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">WRF_CTSM_MKFILE</span><span class="o">=</span>ctsm_build_dir/bld/ctsm.mk
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">WRF_CTSM_MKFILE</span><span class="o">=</span>/glade/scratch/<span class="nv">$USER</span>/WRF-CTSM/CTSM/ctsm_build_dir/bld/ctsm.mk
 </pre></div>
 </div>
 <p>or for Cshell:</p>
-<div class="highlight-Tcsh notranslate"><div class="highlight"><pre><span></span><span class="nb">setenv </span>WRF_CTSM_MKFILE ctsm_build_dir/bld/ctsm.mk
+<div class="highlight-Tcsh notranslate"><div class="highlight"><pre><span></span><span class="nb">setenv </span>WRF_CTSM_MKFILE /glade/scratch/<span class="nv">$USER</span>/WRF-CTSM/CTSM/ctsm_build_dir/bld/ctsm.mk
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please note that you should point to the absolute path of the <code class="docutils literal notranslate"><span class="pre">ctsm.mk</span></code> file.</p>
 </div>
 <p>There are also few other environmental setting that should be set for building WRF.
 Some of these are not required, but might help if you face any compilation errors.
@@ -464,14 +468,20 @@ For this example (US domain), you can use the following settings:</p>
 </pre></div>
 </div>
 <p>Run the script <code class="docutils literal notranslate"><span class="pre">make_runtime_inputs</span></code> to create <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code> and
-<code class="docutils literal notranslate"><span class="pre">clm.input_data_list</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">clm.input_data_list</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./make_runtime_inputs
+</pre></div>
+</div>
 <p>Modify <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code> as needed. For this example, you can use the following options:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">atm_mesh_filename</span> <span class="o">=</span> <span class="s1">&#39;/glade/work/slevis/barlage_wrf_ctsm/conus/mesh/wrf2ctsm_land_conus_ESMFMesh_c20191216.nc&#39;</span>
 <span class="nv">lnd_mesh_filename</span> <span class="o">=</span> <span class="s1">&#39;/glade/work/slevis/barlage_wrf_ctsm/conus/mesh/wrf2ctsm_land_conus_ESMFMesh_c20191216.nc&#39;</span>
 </pre></div>
 </div>
 <p>Run <code class="docutils literal notranslate"><span class="pre">download_input_data</span></code> script to download any of CTSM’s standard input
-files that are needed based on settings in <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code> and <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code>.</p>
+files that are needed based on settings in <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code> and <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./download_input_data
+</pre></div>
+</div>
 <p>Next, copy <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code>, <code class="docutils literal notranslate"><span class="pre">lnd_modelio.nml</span></code> and <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code> to the direcotory
 from which you will be running the model (e.g. WRF/run).</p>
 <div class="admonition-todo admonition" id="id3">
