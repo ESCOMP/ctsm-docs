@@ -114,13 +114,12 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">3.2. Obtaining, building and running CTSM with LILAC</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="obtaining-and-building-ctsm.html">3.2.1. Obtaining and building CTSM and LILAC</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">3.2.2. Setting CTSM runtime options</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#overview-and-quick-start">3.2.2.1. Overview and quick start</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#creating-initial-runtime-inputs-with-build-ctsm">3.2.2.2. Creating initial runtime inputs with build_ctsm</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#modifying-ctsm-cfg-and-user-nl-ctsm">3.2.2.3. Modifying ctsm.cfg and user_nl_ctsm</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#running-make-runtime-inputs">3.2.2.4. Running make_runtime_inputs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#modifying-lilac-in">3.2.2.5. Modifying lilac_in</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#running-download-input-data">3.2.2.6. Running download_input_data</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#copying-the-necessary-files-to-the-model-s-run-directory">3.2.2.7. Copying the necessary files to the model’s run directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-initial-runtime-inputs-with-build-ctsm">3.2.2.1. Creating initial runtime inputs with build_ctsm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modifying-ctsm-cfg-and-user-nl-ctsm">3.2.2.2. Modifying ctsm.cfg and user_nl_ctsm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-make-runtime-inputs">3.2.2.3. Running make_runtime_inputs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modifying-lilac-in">3.2.2.4. Modifying lilac_in</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-download-input-data">3.2.2.5. Running download_input_data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#copying-the-necessary-files-to-the-model-s-run-directory">3.2.2.6. Copying the necessary files to the model’s run directory</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="restarting.html">3.2.3. Continuing a run from restart files</a></li>
@@ -199,8 +198,6 @@
             
   <div class="section" id="setting-ctsm-runtime-options">
 <span id="id1"></span><h1><span class="section-number">3.2.2. </span>Setting CTSM runtime options<a class="headerlink" href="#setting-ctsm-runtime-options" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="overview-and-quick-start">
-<h2><span class="section-number">3.2.2.1. </span>Overview and quick start<a class="headerlink" href="#overview-and-quick-start" title="Permalink to this headline">¶</a></h2>
 <p>This section describes the process for creating the runtime input text files for CTSM and
 LILAC. These files, which are in Fortran namelist format, have hard-coded file
 names. These files must exist with the expected names in the directory from which the
@@ -236,8 +233,8 @@ at their default values.)</p></li>
 that are needed based on settings in <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code> and <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code>. (This step may be
 unnecessary if all of the needed input data already exists. However, it doesn’t hurt to
 run it in this case.)</p></li>
-<li><p>Copy <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code>, <code class="docutils literal notranslate"><span class="pre">lnd_modelio.nml</span></code> and <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code> to the directory from which you
-will be running the model.</p></li>
+<li><p>Copy or create links to <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code>, <code class="docutils literal notranslate"><span class="pre">lnd_modelio.nml</span></code> and <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code> in the
+directory from which you will be running the model.</p></li>
 </ol>
 <div class="figure align-default" id="id2">
 <span id="figure-ctsm-lilac-runtime-file-workflow"></span><img alt="../../_images/ctsm_lilac_runtime_file_workflow.svg" src="../../_images/ctsm_lilac_runtime_file_workflow.svg" /><p class="caption"><span class="caption-number">Figure 3.2.1 </span><span class="caption-text">CTSM/LILAC runtime file workflow. Files in blue can be (and in some cases must be)
@@ -245,9 +242,8 @@ edited before running the next step. Files in purple (with italicized names) sho
 <strong>not</strong> be edited directly.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 <p>More details on these steps are given in the following subsections.</p>
-</div>
 <div class="section" id="creating-initial-runtime-inputs-with-build-ctsm">
-<h2><span class="section-number">3.2.2.2. </span>Creating initial runtime inputs with build_ctsm<a class="headerlink" href="#creating-initial-runtime-inputs-with-build-ctsm" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.2.2.1. </span>Creating initial runtime inputs with build_ctsm<a class="headerlink" href="#creating-initial-runtime-inputs-with-build-ctsm" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">build_ctsm</span></code> script, which is described in detail in section
 <a class="reference internal" href="obtaining-and-building-ctsm.html#obtaining-and-building-ctsm"><span class="std std-numref">3.2.1</span></a>, creates initial runtime input files in addition to
 building the model. This script creates a number of files in the <code class="docutils literal notranslate"><span class="pre">runtime_inputs</span></code>
@@ -261,7 +257,7 @@ proceed with the following steps, even if CTSM has not finished building.</p>
 <p>For the following steps, you should <code class="docutils literal notranslate"><span class="pre">cd</span></code> to this <code class="docutils literal notranslate"><span class="pre">runtime_inputs</span></code> subdirectory.</p>
 </div>
 <div class="section" id="modifying-ctsm-cfg-and-user-nl-ctsm">
-<h2><span class="section-number">3.2.2.3. </span>Modifying ctsm.cfg and user_nl_ctsm<a class="headerlink" href="#modifying-ctsm-cfg-and-user-nl-ctsm" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.2.2.2. </span>Modifying ctsm.cfg and user_nl_ctsm<a class="headerlink" href="#modifying-ctsm-cfg-and-user-nl-ctsm" title="Permalink to this headline">¶</a></h2>
 <p>CTSM has hundreds of runtime parameters. Most of these parameters can be set individually,
 but in many cases it makes more sense to think in terms of high-level options. These
 high-level options set groups of parameters, creating configurations that the core CTSM
@@ -272,7 +268,7 @@ infrastructure and XML database controlled by the <code class="docutils literal 
 together to allow you to configure CTSM’s runtime parameters at both a high level and
 individually.</p>
 <div class="section" id="ctsm-cfg">
-<h3><span class="section-number">3.2.2.3.1. </span>ctsm.cfg<a class="headerlink" href="#ctsm-cfg" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.2.2.2.1. </span>ctsm.cfg<a class="headerlink" href="#ctsm-cfg" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">ctsm.cfg</span></code> controls high-level options that, in many cases, set the default values for
 multiple individual runtime parameters. All of the available high-level options appear in
 this file; you can change the values of variables, but cannot add or remove any variables
@@ -299,7 +295,7 @@ reasonable starting points, but you may want to configure these. Details on thes
 and allowed values are given in comments in <code class="docutils literal notranslate"><span class="pre">ctsm.cfg</span></code>.</p>
 </div>
 <div class="section" id="user-nl-ctsm">
-<h3><span class="section-number">3.2.2.3.2. </span>user_nl_ctsm<a class="headerlink" href="#user-nl-ctsm" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">3.2.2.2.2. </span>user_nl_ctsm<a class="headerlink" href="#user-nl-ctsm" title="Permalink to this headline">¶</a></h3>
 <p>This file allows you to override individual CTSM namelist variables. This includes
 variables whose default values are set based on settings in <code class="docutils literal notranslate"><span class="pre">ctsm.cfg</span></code> and others. The
 file is initially populated with some settings controlling CTSM’s diagnostic (history)
@@ -316,7 +312,7 @@ workflow documented here.</strong></p>
 </div>
 </div>
 <div class="section" id="running-make-runtime-inputs">
-<h2><span class="section-number">3.2.2.4. </span>Running make_runtime_inputs<a class="headerlink" href="#running-make-runtime-inputs" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.2.2.3. </span>Running make_runtime_inputs<a class="headerlink" href="#running-make-runtime-inputs" title="Permalink to this headline">¶</a></h2>
 <p>Once you have made the modifications you want to <code class="docutils literal notranslate"><span class="pre">ctsm.cfg</span></code> and <code class="docutils literal notranslate"><span class="pre">user_nl_ctsm</span></code>, run
 the script <code class="docutils literal notranslate"><span class="pre">make_runtime_inputs</span></code> from the <code class="docutils literal notranslate"><span class="pre">runtime_inputs</span></code> directory. This takes
 <code class="docutils literal notranslate"><span class="pre">ctsm.cfg</span></code> and <code class="docutils literal notranslate"><span class="pre">user_nl_ctsm</span></code> as inputs, and generates two output files: <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code>
@@ -343,7 +339,7 @@ directly.</p></li>
 </div>
 </div>
 <div class="section" id="modifying-lilac-in">
-<h2><span class="section-number">3.2.2.5. </span>Modifying lilac_in<a class="headerlink" href="#modifying-lilac-in" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.2.2.4. </span>Modifying lilac_in<a class="headerlink" href="#modifying-lilac-in" title="Permalink to this headline">¶</a></h2>
 <p>Unlike <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code>, the <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code> file can be hand-edited. Most of the settings in this
 file can be left at their default values, but there are two variables whose values you
 must set (as indicated by their default values, <code class="docutils literal notranslate"><span class="pre">FILL_THIS_IN</span></code>):</p>
@@ -369,7 +365,7 @@ for the (typical) case where the atmosphere model is not sending these aerosols 
 </ul>
 </div>
 <div class="section" id="running-download-input-data">
-<h2><span class="section-number">3.2.2.6. </span>Running download_input_data<a class="headerlink" href="#running-download-input-data" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.2.2.5. </span>Running download_input_data<a class="headerlink" href="#running-download-input-data" title="Permalink to this headline">¶</a></h2>
 <p>CTSM requires a variety of runtime input files in NetCDF format. These files are listed in
 the <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code> file, and are consolidated in the file <code class="docutils literal notranslate"><span class="pre">clm.input_data_list</span></code> (which is
 produced by <code class="docutils literal notranslate"><span class="pre">make_runtime_inputs</span></code>). In addition, a few other NetCDF files are listed in
@@ -392,13 +388,20 @@ on any server”. As long as these messages just refer to your custom, resolutio
 files (and not to CTSM’s standard input files), then this is nothing to worry about.</p>
 </div>
 <div class="section" id="copying-the-necessary-files-to-the-model-s-run-directory">
-<h2><span class="section-number">3.2.2.7. </span>Copying the necessary files to the model’s run directory<a class="headerlink" href="#copying-the-necessary-files-to-the-model-s-run-directory" title="Permalink to this headline">¶</a></h2>
-<p>Finally, copy the following files to the directory from which you will run the model:</p>
+<h2><span class="section-number">3.2.2.6. </span>Copying the necessary files to the model’s run directory<a class="headerlink" href="#copying-the-necessary-files-to-the-model-s-run-directory" title="Permalink to this headline">¶</a></h2>
+<p>Finally, copy or create links to the following files in the directory from which you will
+run the model:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">lnd_in</span></code>: This is the main namelist input file for CTSM</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lnd_modelio.nml</span></code>: This sets CTSM’s PIO (parallel i/o library) configuration settings</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">lilac_in</span></code>: This namelist controls the operation of LILAC</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We recommend using symbolic links (via <code class="docutils literal notranslate"><span class="pre">ln</span> <span class="pre">-s</span></code>) rather than copying these files: This
+way, if you later update these files in the <code class="docutils literal notranslate"><span class="pre">runtime_inputs</span></code> directory, you do not
+need to re-copy them.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>We have not discussed <code class="docutils literal notranslate"><span class="pre">lnd_modelio.nml</span></code> above. This is because, if you have run
