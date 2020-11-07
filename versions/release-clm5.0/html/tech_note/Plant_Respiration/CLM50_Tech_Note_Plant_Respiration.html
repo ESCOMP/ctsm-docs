@@ -196,9 +196,9 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">2. CLM Technical Note</a> &raquo;</li>
+          <li><a href="../index.html"><span class="section-number">2. </span>CLM Technical Note</a> &raquo;</li>
         
-      <li>2.17. Plant Respiration</li>
+      <li><span class="section-number">2.17. </span>Plant Respiration</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -218,17 +218,16 @@
            <div itemprop="articleBody">
             
   <div class="section" id="plant-respiration">
-<span id="rst-plant-respiration"></span><h1>2.17. Plant Respiration<a class="headerlink" href="#plant-respiration" title="Permalink to this headline">¶</a></h1>
-<dl class="docutils">
-<dt>CLM5 includes changes to plant respiration including</dt>
-<dd><ul class="first last simple">
-<li>A new leaf respiration algorithm based on Atkin et al. (2016)</li>
-<li>A lower growth respiration coefficient, based on Atkin et al. (2017)</li>
+<span id="rst-plant-respiration"></span><h1><span class="section-number">2.17. </span>Plant Respiration<a class="headerlink" href="#plant-respiration" title="Permalink to this headline">¶</a></h1>
+<dl class="simple">
+<dt>CLM5 includes changes to plant respiration including</dt><dd><ul class="simple">
+<li><p>A new leaf respiration algorithm based on Atkin et al. (2016)</p></li>
+<li><p>A lower growth respiration coefficient, based on Atkin et al. (2017)</p></li>
 </ul>
 </dd>
 </dl>
 <div class="section" id="autotrophic-respiration">
-<h2>2.17.1. Autotrophic Respiration<a class="headerlink" href="#autotrophic-respiration" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.17.1. </span>Autotrophic Respiration<a class="headerlink" href="#autotrophic-respiration" title="Permalink to this headline">¶</a></h2>
 <p>The model treats maintenance and growth respiration fluxes separately,
 even though it is difficult to measure them as separate fluxes (Lavigne
 and Ryan, 1997; Sprugel et al., 1995). Maintenance respiration is
@@ -236,76 +235,76 @@ defined as the carbon cost to support the metabolic activity of existing
 live tissue, while growth respiration is defined as the additional
 carbon cost for the synthesis of new growth.</p>
 <div class="section" id="maintenance-respiration">
-<h3>2.17.1.1. Maintenance Respiration<a class="headerlink" href="#maintenance-respiration" title="Permalink to this headline">¶</a></h3>
-<p>Atkin et al. (2016) propose a model for leaf respiration that is based on the leaf nitrogen content per unit area (<img class="math" src="../../_images/math/7654700edbd7ff33a76c9c7b35d5e615c0c120b9.svg" alt="NS_{narea}"/> (gN m <sup>2</sup> leaf), with an intercept parameter that is PFT dependant, and an acclimation term that depends upon the average temperature of the previous 10 day period <img class="math" src="../../_images/math/81de1cc75885d4e5c7354c00cd45f457ccbe9737.svg" alt="t_{2m,10days}"/>, in Celsius.</p>
+<h3><span class="section-number">2.17.1.1. </span>Maintenance Respiration<a class="headerlink" href="#maintenance-respiration" title="Permalink to this headline">¶</a></h3>
+<p>Atkin et al. (2016) propose a model for leaf respiration that is based on the leaf nitrogen content per unit area (<img class="math" src="../../_images/math/b4b6bcc8c0a81fccbbd1542f62a06152472a2ba3.svg" alt="NS_{narea}"/> (gN m <sup>2</sup> leaf), with an intercept parameter that is PFT dependant, and an acclimation term that depends upon the average temperature of the previous 10 day period <img class="math" src="../../_images/math/6b7bc08b7e614d265d73e337e57db81cda9e2d18.svg" alt="t_{2m,10days}"/>, in Celsius.</p>
 <div class="math" id="equation-17-46">
-<p><span class="eqno">(2.17.1)<a class="headerlink" href="#equation-17-46" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ae479080457338c275f1798c3a61ade9b4d1059d.svg" alt="CF_{mr\_ leaf} =  i_{atkin,pft} + (NS_{narea}  0.2061) - (0.0402 (t_{2m,10days}))"/></p>
+<p><span class="eqno">(2.17.1)<a class="headerlink" href="#equation-17-46" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e63bdb9ef78cc2ce2a90792ac0ae70aaad50bdf8.svg" alt="CF_{mr\_ leaf} =  i_{atkin,pft} + (NS_{narea}  0.2061) - (0.0402 (t_{2m,10days}))"/></p>
 </div><p>The temperature dependance of leaf maintenance (dark) respiration is described in Chapter <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#rst-stomatal-resistance-and-photosynthesis"><span class="std std-numref">2.9</span></a>.</p>
 <div class="math" id="equation-17-47">
-<p><span class="eqno">(2.17.2)<a class="headerlink" href="#equation-17-47" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d9e802e1c71d42da6fcdd4ba5fc5aa27013f7423.svg" alt="CF_{mr\_ livestem} \_ =NS_{livestem} MR_{base} MR_{Q10} ^{(T_{2m} -20)/10}"/></p>
+<p><span class="eqno">(2.17.2)<a class="headerlink" href="#equation-17-47" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6f2374b8ec466f756e6771f5199264634179090d.svg" alt="CF_{mr\_ livestem} \_ =NS_{livestem} MR_{base} MR_{Q10} ^{(T_{2m} -20)/10}"/></p>
 </div><div class="math" id="equation-17-48">
-<p><span class="eqno">(2.17.3)<a class="headerlink" href="#equation-17-48" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d62aa358ca1b6e5beb6427d709d985e493b56c29.svg" alt="CF_{mr\_ livecroot} \_ =NS_{livecroot} MR_{base} MR_{Q10} ^{(T_{2m} -20)/10}"/></p>
+<p><span class="eqno">(2.17.3)<a class="headerlink" href="#equation-17-48" title="Permalink to this equation">¶</a></span><img src="../../_images/math/28ef8948fc8ea78d0d7069fe35451cc61556558c.svg" alt="CF_{mr\_ livecroot} \_ =NS_{livecroot} MR_{base} MR_{Q10} ^{(T_{2m} -20)/10}"/></p>
 </div><div class="math" id="equation-17-49">
-<p><span class="eqno">(2.17.4)<a class="headerlink" href="#equation-17-49" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2d3c23ab3fc39cde82b33a28a4f52653d6de4ed8.svg" alt="CF_{mr\_ froot} \_ =\sum _{j=1}^{nlevsoi}NS_{froot} rootfr_{j} MR_{base} MR_{Q10} ^{(Ts_{j} -20)/10}"/></p>
-</div><p>where <img class="math" src="../../_images/math/7a524c3366e3969964f56840b74cbf3f8f5a0d58.svg" alt="MR_{q10}"/> (= 2.0) is
+<p><span class="eqno">(2.17.4)<a class="headerlink" href="#equation-17-49" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e104c1520eed89c460d5bed54c3bec03bbb95a19.svg" alt="CF_{mr\_ froot} \_ =\sum _{j=1}^{nlevsoi}NS_{froot} rootfr_{j} MR_{base} MR_{Q10} ^{(Ts_{j} -20)/10}"/></p>
+</div><p>where <img class="math" src="../../_images/math/32b02fb7369c5c671515400fd180d87deb56f2e6.svg" alt="MR_{q10}"/> (= 2.0) is
 the temperature sensitivity for maintenance respiration,
-<img class="math" src="../../_images/math/8772e08d024e3144a9ba6e92420b5d7857437725.svg" alt="T_{2m}"/> (<sup>o</sup>C) is the air temperature at 2m
-height, <img class="math" src="../../_images/math/8f76eaa3323dddf1712b3438714b294a243709f3.svg" alt="Ts_{j}"/>C) is the soil
-temperature at level <em>j</em>, and <img class="math" src="../../_images/math/4d348922fec35a515360405b1bba49b09cd27963.svg" alt="rootfr_{j}"/> is the fraction
+<img class="math" src="../../_images/math/16b962ea5d5a382b6adc8f6be0daef19704a5301.svg" alt="T_{2m}"/> (<sup>o</sup>C) is the air temperature at 2m
+height, <img class="math" src="../../_images/math/92060dce5df2c55477cca7050a20b209a6bd3265.svg" alt="Ts_{j}"/>C) is the soil
+temperature at level <em>j</em>, and <img class="math" src="../../_images/math/d8c4993b80744f19f379ce549141d03aacf1d69d.svg" alt="rootfr_{j}"/> is the fraction
 of fine roots distributed in soil level <em>j</em>.</p>
-<table border="1" class="docutils" id="id3">
+<table class="docutils align-default" id="id3">
 <caption><span class="caption-number">Table 2.17.1 </span><span class="caption-text">Atkin leaf respiration model intercept values.</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="59%" />
-<col width="41%" />
+<col style="width: 59%" />
+<col style="width: 41%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Plant functional type</th>
-<th class="head"><img class="math" src="../../_images/math/b5f48f0f1685ad2057935e1ad2edf543eeed69aa.svg" alt="i_{atkin}"/></th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Plant functional type</p></th>
+<th class="head"><p><img class="math" src="../../_images/math/45f58050c1bb487969a17c00b8a80c469850476f.svg" alt="i_{atkin}"/></p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td>NET Temperate</td>
-<td>1.499</td>
+<tbody>
+<tr class="row-even"><td><p>NET Temperate</p></td>
+<td><p>1.499</p></td>
 </tr>
-<tr class="row-odd"><td>NET Boreal</td>
-<td>1.499</td>
+<tr class="row-odd"><td><p>NET Boreal</p></td>
+<td><p>1.499</p></td>
 </tr>
-<tr class="row-even"><td>NDT Boreal</td>
-<td>1.499</td>
+<tr class="row-even"><td><p>NDT Boreal</p></td>
+<td><p>1.499</p></td>
 </tr>
-<tr class="row-odd"><td>BET Tropical</td>
-<td>1.756</td>
+<tr class="row-odd"><td><p>BET Tropical</p></td>
+<td><p>1.756</p></td>
 </tr>
-<tr class="row-even"><td>BET temperate</td>
-<td>1.756</td>
+<tr class="row-even"><td><p>BET temperate</p></td>
+<td><p>1.756</p></td>
 </tr>
-<tr class="row-odd"><td>BDT tropical</td>
-<td>1.756</td>
+<tr class="row-odd"><td><p>BDT tropical</p></td>
+<td><p>1.756</p></td>
 </tr>
-<tr class="row-even"><td>BDT temperate</td>
-<td>1.756</td>
+<tr class="row-even"><td><p>BDT temperate</p></td>
+<td><p>1.756</p></td>
 </tr>
-<tr class="row-odd"><td>BDT boreal</td>
-<td>1.756</td>
+<tr class="row-odd"><td><p>BDT boreal</p></td>
+<td><p>1.756</p></td>
 </tr>
-<tr class="row-even"><td>BES temperate</td>
-<td>2.075</td>
+<tr class="row-even"><td><p>BES temperate</p></td>
+<td><p>2.075</p></td>
 </tr>
-<tr class="row-odd"><td>BDS temperate</td>
-<td>2.075</td>
+<tr class="row-odd"><td><p>BDS temperate</p></td>
+<td><p>2.075</p></td>
 </tr>
-<tr class="row-even"><td>BDS boreal</td>
-<td>2.075</td>
+<tr class="row-even"><td><p>BDS boreal</p></td>
+<td><p>2.075</p></td>
 </tr>
-<tr class="row-odd"><td>C<sub>3</sub> arctic grass</td>
-<td>2.196</td>
+<tr class="row-odd"><td><p>C<sub>3</sub> arctic grass</p></td>
+<td><p>2.196</p></td>
 </tr>
-<tr class="row-even"><td>C<sub>3</sub> grass</td>
-<td>2.196</td>
+<tr class="row-even"><td><p>C<sub>3</sub> grass</p></td>
+<td><p>2.196</p></td>
 </tr>
-<tr class="row-odd"><td>C<sub>4</sub> grass</td>
-<td>2.196</td>
+<tr class="row-odd"><td><p>C<sub>4</sub> grass</p></td>
+<td><p>2.196</p></td>
 </tr>
 </tbody>
 </table>
@@ -318,12 +317,12 @@ larger fraction of dead woody tissue, it is reasonable to assume a
 common base maintenance respiration rate for all live tissue types.</p>
 <p>The total maintenance respiration cost is then given as:</p>
 <div class="math" id="equation-17-50">
-<p><span class="eqno">(2.17.5)<a class="headerlink" href="#equation-17-50" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9b16967e4bd646392a28579ba16170ed39e69396.svg" alt="CF_{mr} =CF_{mr\_ leaf} +CF_{mr\_ froot} +CF_{mr\_ livestem} +CF_{mr\_ livecroot} ."/></p>
+<p><span class="eqno">(2.17.5)<a class="headerlink" href="#equation-17-50" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f3b29cf9ab556923619328a88722ad5f7bd8ad1a.svg" alt="CF_{mr} =CF_{mr\_ leaf} +CF_{mr\_ froot} +CF_{mr\_ livestem} +CF_{mr\_ livecroot} ."/></p>
 </div></div>
 <div class="section" id="growth-respiration">
-<h3>2.17.1.2. Growth Respiration<a class="headerlink" href="#growth-respiration" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">2.17.1.2. </span>Growth Respiration<a class="headerlink" href="#growth-respiration" title="Permalink to this headline">¶</a></h3>
 <p>Growth respiration is calculated as a factor of 0.11 times the total
-carbon allocation to new growth (<img class="math" src="../../_images/math/52e6e0780750c4e0cadd152c5ba0b3cd609ded40.svg" alt="CF_{growth}"/>, after allocating carbon for N acquisition,
+carbon allocation to new growth (<img class="math" src="../../_images/math/d307c5288496c019b1295cfd0855b6a5c6bf4be3.svg" alt="CF_{growth}"/>, after allocating carbon for N acquisition,
 Chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">2.18</span></a>.) on a given timestep, based on construction costs
 for a range of woody and non-woody tissues, with estimates of the growth
 respiration flux revised downswards following  (Atkin et al. 2017). For new
@@ -337,19 +336,18 @@ allocated carbon and nitrogen from storage into displayed tissue is not
 significant (Churkina et al., 2003), and so it is assumed in CLM that
 all of the growth respiration cost is incurred at the time of initial
 allocation, regardless of the fraction of allocation that is displayed
-immediately (i.e. regardless of the value of <img class="math" src="../../_images/math/e7a349f26b59e99a164a54acda2df375a21077f2.svg" alt="f_{cur}"/>,
+immediately (i.e. regardless of the value of <img class="math" src="../../_images/math/affed18484e633b32101f85d518aff6e426272c7.svg" alt="f_{cur}"/>,
 section 13.5). This behavior is parameterized in such a way that if
 future research suggests that some fraction of the growth respiration
 cost should be incurred at the time of display from storage, a simple
-parameter modification will effect the change. <a class="footnote-reference" href="#id2" id="id1">[1]</a></p>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Parameter <img class="math" src="../../_images/math/2e8ead1dc0a67dc9f45ff031565cccbf7e218a7d.svg" alt="\text{grpnow}"/>  in routines CNGResp and  CNAllocation, currently set to 1.0, could be changed to a smaller
-value to transfer some portion (1 - <img class="math" src="../../_images/math/2e8ead1dc0a67dc9f45ff031565cccbf7e218a7d.svg" alt="\text{grpnow}"/> ) of the growth respiration forward in time to occur at the time of growth
-display from storage.</td></tr>
-</tbody>
-</table>
+parameter modification will effect the change. <a class="footnote-reference brackets" href="#id2" id="id1">1</a></p>
+<dl class="footnote brackets">
+<dt class="label" id="id2"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Parameter <img class="math" src="../../_images/math/a6ab1e1bac130401c1d4c460e23c4381a4853bb2.svg" alt="\text{grpnow}"/>  in routines CNGResp and  CNAllocation, currently set to 1.0, could be changed to a smaller
+value to transfer some portion (1 - <img class="math" src="../../_images/math/a6ab1e1bac130401c1d4c460e23c4381a4853bb2.svg" alt="\text{grpnow}"/> ) of the growth respiration forward in time to occur at the time of growth
+display from storage.</p>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -401,10 +399,11 @@ display from storage.</td></tr>
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/pop_ver.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
     
 
   

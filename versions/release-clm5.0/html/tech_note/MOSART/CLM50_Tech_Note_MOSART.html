@@ -196,9 +196,9 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">2. CLM Technical Note</a> &raquo;</li>
+          <li><a href="../index.html"><span class="section-number">2. </span>CLM Technical Note</a> &raquo;</li>
         
-      <li>2.14. Model for Scale Adaptive River Transport (MOSART)</li>
+      <li><span class="section-number">2.14. </span>Model for Scale Adaptive River Transport (MOSART)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -218,9 +218,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="model-for-scale-adaptive-river-transport-mosart">
-<span id="rst-river-transport-model-rtm"></span><h1>2.14. Model for Scale Adaptive River Transport (MOSART)<a class="headerlink" href="#model-for-scale-adaptive-river-transport-mosart" title="Permalink to this headline">¶</a></h1>
+<span id="rst-river-transport-model-rtm"></span><h1><span class="section-number">2.14. </span>Model for Scale Adaptive River Transport (MOSART)<a class="headerlink" href="#model-for-scale-adaptive-river-transport-mosart" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
-<span id="overview-mosart"></span><h2>2.14.1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<span id="overview-mosart"></span><h2><span class="section-number">2.14.1. </span>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>MOSART is a river transport model designed for applications across local,
 regional and global scales <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2013b"><span class="std std-ref">(Li et al., 2013b)</span></a>. A
 major purpose of MOSART is to provide freshwater input for the ocean
@@ -234,7 +234,7 @@ of energy and biogeochemical fluxes under both natural and human-influenced
 conditions ( <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2015b"><span class="std std-ref">(Li et al., 2015b)</span></a>.</p>
 </div>
 <div class="section" id="routing-processes">
-<span id="id1"></span><h2>2.14.2. Routing Processes<a class="headerlink" href="#routing-processes" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2><span class="section-number">2.14.2. </span>Routing Processes<a class="headerlink" href="#routing-processes" title="Permalink to this headline">¶</a></h2>
 <p>MOSART divides each spatial unit such as a lat/lon grid or watershed into
 three categories of hydrologic units (as shown in
 <a class="reference internal" href="#figure-mosart-conceptual-diagram"><span class="std std-numref">Figure 2.14.1</span></a>): hillslopes
@@ -252,53 +252,53 @@ receives water from the hillslopes, routes water through the channel and dischar
 it into the main channel; 3) main channel routing: the main channel receives water
 from the sub-network channel and/or inflow, if any, from the upstream spatial units,
 and discharges the water to its downstream spatial unit or the ocean.</p>
-<div class="figure" id="figure-mosart-conceptual-diagram">
+<div class="figure align-default" id="figure-mosart-conceptual-diagram">
 <a class="reference internal image-reference" href="../../_images/mosart_diagram.png"><img alt="../../_images/mosart_diagram.png" src="../../_images/mosart_diagram.png" style="width: 800px; height: 400px;" /></a>
 </div>
 <p>MOSART only routes positive runoff, although negative runoff can be generated
-occasionally by the land model (e.g., <img class="math" src="../../_images/math/17545a98a5b300d11d882f72264a48ad0fc66274.svg" alt="q_{gwl}"/>). Negative runoff in any
-runoff component including  <img class="math" src="../../_images/math/1fe0132537bf2e10b9422fba2f69755483f60cdf.svg" alt="q_{sur}"/>,  <img class="math" src="../../_images/math/4442c0ab06fac81c01e14c0b270c28e7b8ed7e1c.svg" alt="q_{sub}"/>,  <img class="math" src="../../_images/math/17545a98a5b300d11d882f72264a48ad0fc66274.svg" alt="q_{gwl}"/>
+occasionally by the land model (e.g., <img class="math" src="../../_images/math/a738159621d2930c364b78b79cb77a759de21100.svg" alt="q_{gwl}"/>). Negative runoff in any
+runoff component including  <img class="math" src="../../_images/math/d9b4e146687f6cc255e12f493bc52141b8e947cf.svg" alt="q_{sur}"/>,  <img class="math" src="../../_images/math/55bb484c13447d8913a559edd4e5c91dc186f199.svg" alt="q_{sub}"/>,  <img class="math" src="../../_images/math/a738159621d2930c364b78b79cb77a759de21100.svg" alt="q_{gwl}"/>
 is not routed through MOSART, but instead is mapped directly from the spatial unit
 where it is generated at any time step to the coupler.</p>
 <p>In MOSART, the travel velocities of water across hillslopes, sub-network and main
 channel are all estimated using Manning’s equation with different levels of
 simplifications. Generally the Manning’s equation is in the form of</p>
 <div class="math" id="equation-14-1">
-<p><span class="eqno">(2.14.1)<a class="headerlink" href="#equation-14-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5ee81fef7950c541f2414c5c711ef2c590898464.svg" alt="V = \frac{R^{\frac{2}{3}} S_{f}}{n}"/></p>
-</div><p>where  <img class="math" src="../../_images/math/fae0e7a73748991e5540d874416000583f64f58e.svg" alt="V"/> is the travel velocity (m s <sup>-1</sup> ),  <img class="math" src="../../_images/math/a00254b18ffa992f0ef19f6e6e095b83c8f85e94.svg" alt="R"/> is the hydraulic
-radius (m). <img class="math" src="../../_images/math/5df684f03598df6c8e727c1a7cf403b9dd003252.svg" alt="S_{f}"/>  is the friction slope that accounts for the effects
+<p><span class="eqno">(2.14.1)<a class="headerlink" href="#equation-14-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0d705d8df0b7450965a136c25b9b1da1a764e1bc.svg" alt="V = \frac{R^{\frac{2}{3}} S_{f}}{n}"/></p>
+</div><p>where  <img class="math" src="../../_images/math/e4762cec46619bf7781cae62216214f909395368.svg" alt="V"/> is the travel velocity (m s <sup>-1</sup> ),  <img class="math" src="../../_images/math/1ebe654cc7b8f2a0d8100aa5825cf2b9021adbbc.svg" alt="R"/> is the hydraulic
+radius (m). <img class="math" src="../../_images/math/503bcdb39174fc56252b4aa04890da239cf5ed9c.svg" alt="S_{f}"/>  is the friction slope that accounts for the effects
 of gravity, friction, inertia and other forces on the water. If the channel slope
 is steep enough, the gravity force dominates over the others so one can approximate
-<img class="math" src="../../_images/math/5df684f03598df6c8e727c1a7cf403b9dd003252.svg" alt="S_{f}"/> by the channel bed slope <img class="math" src="../../_images/math/1dbc400fcc213305415872f9f625cd2828f97a00.svg" alt="S"/> , which is the key assumption
-underpinning the kinematic wave method. <img class="math" src="../../_images/math/e11f2701c4a39c7fe543a6c4150b421d50f1c159.svg" alt="n"/>  is the Manning’s roughness
+<img class="math" src="../../_images/math/503bcdb39174fc56252b4aa04890da239cf5ed9c.svg" alt="S_{f}"/> by the channel bed slope <img class="math" src="../../_images/math/b988975be41fd13b4d091c10202ba19374643586.svg" alt="S"/> , which is the key assumption
+underpinning the kinematic wave method. <img class="math" src="../../_images/math/5a939c5280da7202ca4531f175a7780ad5e1f80a.svg" alt="n"/>  is the Manning’s roughness
 coefficient, which is mainly controlled by surface roughness and sinuosity of the
 flow path.</p>
-<p>If the water surface is sufficiently large or the water depth <img class="math" src="../../_images/math/293fb39e1b93282c804a86186e721b32f829f1b2.svg" alt="h"/> is
+<p>If the water surface is sufficiently large or the water depth <img class="math" src="../../_images/math/4c120f773ab4e1c59ad2bd44aae969ce24dd190a.svg" alt="h"/> is
 sufficiently shallow, the hydraulic radius can be approximated by the water depth.
 This is the case for both hillslope and sub-network channel routing.</p>
 <div class="math" id="equation-14-2">
-<p><span class="eqno">(2.14.2)<a class="headerlink" href="#equation-14-2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1ad5cb8dffe737881513502ca7c7d3c0b35f6cbc.svg" alt="R_{h} = h_{h}
+<p><span class="eqno">(2.14.2)<a class="headerlink" href="#equation-14-2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/77dd3a19fac1f3fd0587095fccd8b1de1bd430df.svg" alt="R_{h} = h_{h}
 R_{t} = h_{t}"/></p>
-</div><p>Here <img class="math" src="../../_images/math/d089e23323a1ae3117a57d82d5c5030a9967f05d.svg" alt="R_{h}"/> (m) and <img class="math" src="../../_images/math/5f7a5767eff0868aa2ff47308cef38f4ad487c12.svg" alt="R_{t}"/> (m) are hydraulic radius for hillslope and
-sub-network channel routing respectively, and <img class="math" src="../../_images/math/621130660cc289292b1c2344d59c22772591f7e5.svg" alt="h_{h}"/> (m) and <img class="math" src="../../_images/math/798eba2280eebc614a3955e6d5861c72f359cef9.svg" alt="h_{t}"/>
+</div><p>Here <img class="math" src="../../_images/math/0b958fe9997493fd853ccb62b9326c53d7f52a7f.svg" alt="R_{h}"/> (m) and <img class="math" src="../../_images/math/8987029d177a12ff435392cb4a2ab537b1a02c70.svg" alt="R_{t}"/> (m) are hydraulic radius for hillslope and
+sub-network channel routing respectively, and <img class="math" src="../../_images/math/5305a5d657bbb31ca61147f4805bf8444f7b303e.svg" alt="h_{h}"/> (m) and <img class="math" src="../../_images/math/19ac9923c751537329d613c467b3691812ac931e.svg" alt="h_{t}"/>
 (m) are water depth during hillslope and sub-network channel routing respectively.</p>
 <p>For the main channel, the hydraulic radius is given by</p>
 <div class="math" id="equation-14-3">
-<p><span class="eqno">(2.14.3)<a class="headerlink" href="#equation-14-3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e75dc09b6a46e71901901bbabd0a3c402cf086aa.svg" alt="R_{r} = \frac{A_{r}}{P_{r}}"/></p>
-</div><p>where <img class="math" src="../../_images/math/a9720568e06f8a49ac808be51bef18fb4a6ecf73.svg" alt="A_{r}"/> (m <sup>2</sup> ) is the wetted area defined as the part of the
-channel cross-section area below the water surface,  <img class="math" src="../../_images/math/d7b40162edb0b89059aabb00a46dda02582917b1.svg" alt="P_{r}"/> (m) is the
+<p><span class="eqno">(2.14.3)<a class="headerlink" href="#equation-14-3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1e44ebdbb8dd1d55743b64e9b19c957ab533f974.svg" alt="R_{r} = \frac{A_{r}}{P_{r}}"/></p>
+</div><p>where <img class="math" src="../../_images/math/2b453d1ac760ca59d7baa1412f7028a38efdffd9.svg" alt="A_{r}"/> (m <sup>2</sup> ) is the wetted area defined as the part of the
+channel cross-section area below the water surface,  <img class="math" src="../../_images/math/288ea2ee32a98e611611b398ac6ee172569212ec.svg" alt="P_{r}"/> (m) is the
 wetted perimeter, the perimeter confined in the wetted area.</p>
 <p>For hillslopes, sub-network and main channels, a common continuity equation can
 be written as</p>
 <div class="math" id="equation-14-4">
-<p><span class="eqno">(2.14.4)<a class="headerlink" href="#equation-14-4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1118eaf2a4bb9f6cc10df794e9cb5f9241cad99b.svg" alt="\frac{dS}{dt} = Q_{in} - Q_{out} + R"/></p>
-</div><p>where <img class="math" src="../../_images/math/2bf7a1c5290309849739bf9c009c757c4e0eabe4.svg" alt="Q_{in}"/> (m <sup>3</sup> s <sup>-1</sup> ) is the main channel flow from
+<p><span class="eqno">(2.14.4)<a class="headerlink" href="#equation-14-4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7d64a447c1dc4346b2cd926ec6f529efc1ededf1.svg" alt="\frac{dS}{dt} = Q_{in} - Q_{out} + R"/></p>
+</div><p>where <img class="math" src="../../_images/math/80555698f662efea25a2934ecf3f1e47914aa205.svg" alt="Q_{in}"/> (m <sup>3</sup> s <sup>-1</sup> ) is the main channel flow from
 the upstream grid(s) into the main channel of the current grid, which is zero for
-hillslope and sub-network routing. <img class="math" src="../../_images/math/3833394cc7539c971667af98ffc193d444f96f78.svg" alt="Q_{out}"/> (m <sup>3</sup> s <sup>-1</sup> ) is
+hillslope and sub-network routing. <img class="math" src="../../_images/math/0d42cfdffc51a7a4da2b2be8ae9c93a90d831deb.svg" alt="Q_{out}"/> (m <sup>3</sup> s <sup>-1</sup> ) is
 the outflow rate from hillslope into the sub-network, from the sub-network into
 the main channel, or from the current main channel to the main channel of its
 downstream grid (if not the outlet grid) or ocean (if the current grid is the
-basin outlet).  <img class="math" src="../../_images/math/a00254b18ffa992f0ef19f6e6e095b83c8f85e94.svg" alt="R"/> (m <sup>3</sup> s <sup>-1</sup> ) is a source term, which
+basin outlet).  <img class="math" src="../../_images/math/1ebe654cc7b8f2a0d8100aa5825cf2b9021adbbc.svg" alt="R"/> (m <sup>3</sup> s <sup>-1</sup> ) is a source term, which
 could be the surface
 runoff generation rate for hillslopes, or lateral inflow (from hillslopes) into
 sub-network channel or water-atmosphere exchange fluxes such as precipitation
@@ -309,37 +309,37 @@ to transport water from runoff generation through the hillslope, tributaries,
 and main channels to the basin outlets.</p>
 </div>
 <div class="section" id="numerical-solution">
-<span id="numerical-solution-mosart"></span><h2>2.14.3. Numerical Solution<a class="headerlink" href="#numerical-solution" title="Permalink to this headline">¶</a></h2>
+<span id="numerical-solution-mosart"></span><h2><span class="section-number">2.14.3. </span>Numerical Solution<a class="headerlink" href="#numerical-solution" title="Permalink to this headline">¶</a></h2>
 <p>The numerical implementation of MOSART is mainly based on a subcycling
 scheme and a local time-stepping algorithm. There are two levels of
-subcycling. For convenience, we denote <img class="math" src="../../_images/math/c1b7d20fbcb6e7bf28ed1d85c84639ff465e2d44.svg" alt="T_{inputs}"/> (s),
-<img class="math" src="../../_images/math/889a06e2ef93d425352642bd75d54115128652b3.svg" alt="T_{mosart}"/> (s), <img class="math" src="../../_images/math/64c15ae77b75b779eebc9d63465087e9cd48db2e.svg" alt="T_{hillslope}"/> (s) and
-<img class="math" src="../../_images/math/0f6ec5b0c2aa9ba2d9ddae497ce732649e2494f8.svg" alt="T_{channel}"/> (s) as the time steps of runoff inputs (from CLM
+subcycling. For convenience, we denote <img class="math" src="../../_images/math/2d5fe63b527e23cfbcae6de02624f85c2fa1cb70.svg" alt="T_{inputs}"/> (s),
+<img class="math" src="../../_images/math/ce8236e1d30ff0ac5a37eee33c26c3329b3cb049.svg" alt="T_{mosart}"/> (s), <img class="math" src="../../_images/math/e9b53e057ff2f021f22d6486f737f1d21407939e.svg" alt="T_{hillslope}"/> (s) and
+<img class="math" src="../../_images/math/f92e0b13c127f2954750abc66181c031cde581db.svg" alt="T_{channel}"/> (s) as the time steps of runoff inputs (from CLM
 to MOSART via the flux coupler), MOSART routing, hillslope routing, and
 channel routing, respectively. The first level of subcycling is between
-the runoff inputs and MOSART routing. If <img class="math" src="../../_images/math/c1b7d20fbcb6e7bf28ed1d85c84639ff465e2d44.svg" alt="T_{inputs}"/> is 10800s
-and <img class="math" src="../../_images/math/889a06e2ef93d425352642bd75d54115128652b3.svg" alt="T_{mosart}"/> is 3600s, three MOSART time steps will be
+the runoff inputs and MOSART routing. If <img class="math" src="../../_images/math/2d5fe63b527e23cfbcae6de02624f85c2fa1cb70.svg" alt="T_{inputs}"/> is 10800s
+and <img class="math" src="../../_images/math/ce8236e1d30ff0ac5a37eee33c26c3329b3cb049.svg" alt="T_{mosart}"/> is 3600s, three MOSART time steps will be
 invoked each time the runoff inputs are updated. The second level of
 subcycling is between the hillslope routing and channel routing. This
 is to account for the fact that the travel velocity of water across
 hillslopes is usually much slower than that in the channels.
-<img class="math" src="../../_images/math/64c15ae77b75b779eebc9d63465087e9cd48db2e.svg" alt="T_{hillslope}"/> is usually set as the same as <img class="math" src="../../_images/math/889a06e2ef93d425352642bd75d54115128652b3.svg" alt="T_{mosart}"/>,
+<img class="math" src="../../_images/math/e9b53e057ff2f021f22d6486f737f1d21407939e.svg" alt="T_{hillslope}"/> is usually set as the same as <img class="math" src="../../_images/math/ce8236e1d30ff0ac5a37eee33c26c3329b3cb049.svg" alt="T_{mosart}"/>,
 but within each time step of hillslope routing there are a few time
 steps for channel routing, i.e.,
-<img class="math" src="../../_images/math/f83d113013b430c4e0ef37b4600f9cc00a486dea.svg" alt="T_{hillslope} = D_{levelH2R} \cdot T_{channel}"/>. The local
+<img class="math" src="../../_images/math/9a740ef2870fb69dcd67a6c517271a9970913d75.svg" alt="T_{hillslope} = D_{levelH2R} \cdot T_{channel}"/>. The local
 time-stepping algorithm is to account for the fact that the travel
 velocity of water is much faster in some river channels (e.g., with
 steeper bed slope, narrower channel width) than others. That is, for
 each channel (either a sub-network or main channel), the final time
 step of local channel routing is given as
-<img class="math" src="../../_images/math/3378857b053e085134f0cfd8c9723729b850274a.svg" alt="T_{local}=T_{channel}/D_{local}"/>.  <img class="math" src="../../_images/math/9aa647db76d76b00c0806641498a89c655379c21.svg" alt="D_{local}"/> is
+<img class="math" src="../../_images/math/3b82e2ab59c78d57e8625371e472c8de69b4290b.svg" alt="T_{local}=T_{channel}/D_{local}"/>.  <img class="math" src="../../_images/math/ce4169f5a2942ef6d572c15551bde1bf7f808fb1.svg" alt="D_{local}"/> is
 currently estimated empirically as a function of local channel slope,
 width, length and upstream drainage area. If MOSART crashes due to a
-numerical issue, we recommend increasing <img class="math" src="../../_images/math/4d160a4634c2c6b06e0e832a15f31e581d8f9edd.svg" alt="D_{levelH2R}"/> and, if
-the issue remains, reducing <img class="math" src="../../_images/math/889a06e2ef93d425352642bd75d54115128652b3.svg" alt="T_{mosart}"/>.</p>
+numerical issue, we recommend increasing <img class="math" src="../../_images/math/537908e51457eda9dc6cfcd9f65e5c5ea54b71bd.svg" alt="D_{levelH2R}"/> and, if
+the issue remains, reducing <img class="math" src="../../_images/math/ce8236e1d30ff0ac5a37eee33c26c3329b3cb049.svg" alt="T_{mosart}"/>.</p>
 </div>
 <div class="section" id="parameters-and-input-data">
-<span id="id2"></span><h2>2.14.4. Parameters and Input Data<a class="headerlink" href="#parameters-and-input-data" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2><span class="section-number">2.14.4. </span>Parameters and Input Data<a class="headerlink" href="#parameters-and-input-data" title="Permalink to this headline">¶</a></h2>
 <p>MOSART is supported by a comprehensive, global hydrography dataset at 0.5
 <sup>o</sup> resolution. As such, the fundamental spatial unit of MOSART is a 0.5
 <sup>o</sup> lat/lon grid.  The topographic parameters (such as flow direction,
@@ -364,77 +364,77 @@ parameters included in this global hydrography dataset is provided in
 <a class="reference internal" href="#table-mosart-parameters"><span class="std std-numref">Table 2.14.1</span></a>.  Evaluation of global simulations
 by MOSART using the aforementioned parameters is described in
 <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2015b"><span class="std std-ref">Li et al. (2015b)</span></a> .</p>
-<span id="table-mosart-parameters"></span><table border="1" class="docutils" id="id3">
+<span id="table-mosart-parameters"></span><table class="docutils align-default" id="id3">
 <caption><span class="caption-number">Table 2.14.1 </span><span class="caption-text">List of parameters in the global hydrography dataset</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
-<col width="15%" />
-<col width="9%" />
-<col width="77%" />
+<col style="width: 15%" />
+<col style="width: 9%" />
+<col style="width: 77%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Name</th>
-<th class="head">Unit</th>
-<th class="head">Description</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Description</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><img class="math" src="../../_images/math/860e3f4ece5fca99d979b53272c843229a747688.svg" alt="F_{dir}"/></td>
-<td>-</td>
-<td>The D8 single flow direction for each coarse grid cell coded using 1 (E), 2 (SE), 4 (S), 8 (SW), 16 (W), 32 (NW), 64 (N), 128 (NE)</td>
+<tbody>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/0572bc1e5e35c70c1282dd7ef41190ce1d6d6d47.svg" alt="F_{dir}"/></p></td>
+<td><p>-</p></td>
+<td><p>The D8 single flow direction for each coarse grid cell coded using 1 (E), 2 (SE), 4 (S), 8 (SW), 16 (W), 32 (NW), 64 (N), 128 (NE)</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/e60b317ecf6d378ae1652bd284d140d23374d64a.svg" alt="A_{total}"/></td>
-<td>km <sup>2</sup></td>
-<td>The upstream drainage area of each coarse grid cell</td>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/10c4bfc15067a32507736cf9031684fd569210da.svg" alt="A_{total}"/></p></td>
+<td><p>km <sup>2</sup></p></td>
+<td><p>The upstream drainage area of each coarse grid cell</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/25fcbc39937384114b563263b039e9a24ed7b7bf.svg" alt="F_{dis}"/></td>
-<td>m</td>
-<td>The dominant river length for each coarse grid cell</td>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/70ece29fb8c3038358020cf098d7e1232cc13869.svg" alt="F_{dis}"/></p></td>
+<td><p>m</p></td>
+<td><p>The dominant river length for each coarse grid cell</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/d312bc0f3aeda33b7f2b0b83a155655d79052ea4.svg" alt="S_{channel}"/></td>
-<td>-</td>
-<td>The average channel slope for each coarse grid cell</td>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/785021148282db453d3c0c1f01500c50842e4960.svg" alt="S_{channel}"/></p></td>
+<td><p>-</p></td>
+<td><p>The average channel slope for each coarse grid cell</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/abb2f06d6b592391699cac4339f29760d3c886ce.svg" alt="S_{topographic}"/></td>
-<td>-</td>
-<td>The average topographic slope (for overland flow routing) for each coarse grid cell</td>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/2ac48239fdca4af6d44af4a92c8b09685e7be625.svg" alt="S_{topographic}"/></p></td>
+<td><p>-</p></td>
+<td><p>The average topographic slope (for overland flow routing) for each coarse grid cell</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/a14301d3cb49665ec9ea08a01801ef32c7153cc7.svg" alt="A_{local}"/></td>
-<td>km <sup>2</sup></td>
-<td>The surface area for each coarse grid cell</td>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/086c8097e68fb9d3b162a8ea16f8d8258d8ae0de.svg" alt="A_{local}"/></p></td>
+<td><p>km <sup>2</sup></p></td>
+<td><p>The surface area for each coarse grid cell</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/e4c0e1387b56aab7e0a8e477a4d369a7d6c3ebc7.svg" alt="D_{p}"/></td>
-<td>m <sup>-1</sup></td>
-<td>Drainage density, calculated  as the total channel length within each coarse grid cell divided by the local cell area</td>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/064f5de6856629638332492b5b19850433d2dbf8.svg" alt="D_{p}"/></p></td>
+<td><p>m <sup>-1</sup></p></td>
+<td><p>Drainage density, calculated  as the total channel length within each coarse grid cell divided by the local cell area</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/ca1598e5527641bd1f83aadfbae1aa5aa7660092.svg" alt="D_{r}"/></td>
-<td>m</td>
-<td>The bankfull depth of main channel</td>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/c4470831470f10cedecc49b8b9b7ec56b27b93c1.svg" alt="D_{r}"/></p></td>
+<td><p>m</p></td>
+<td><p>The bankfull depth of main channel</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/d7e0b840f8ec90983b41bd2cb9cc0216c98a22a9.svg" alt="W_{r}"/></td>
-<td>m</td>
-<td>The bankfull width of main channel</td>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/0404b3140fc248a0e62331c0f44bdfab1b485cba.svg" alt="W_{r}"/></p></td>
+<td><p>m</p></td>
+<td><p>The bankfull width of main channel</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/b95fed4fec3dd92e37eb3d9a5b59862736856c69.svg" alt="D_{t}"/></td>
-<td>m</td>
-<td>The average bankfull depth of tributary channels</td>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/88f194f839e043044e231596320aa04f50baad27.svg" alt="D_{t}"/></p></td>
+<td><p>m</p></td>
+<td><p>The average bankfull depth of tributary channels</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/483694daafe4497ec215e727d0c6b713516cb9cf.svg" alt="W_{t}"/></td>
-<td>m</td>
-<td>The average bankfull width of tributary channels</td>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/ce6f21c485b83fef5de5040a4cc6791333a92230.svg" alt="W_{t}"/></p></td>
+<td><p>m</p></td>
+<td><p>The average bankfull width of tributary channels</p></td>
 </tr>
-<tr class="row-odd"><td><img class="math" src="../../_images/math/963de4c463b7b32673276893a94e156a25812c62.svg" alt="n_{r}"/></td>
-<td>-</td>
-<td>Manning’s roughness coefficient for channel flow routing</td>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/ff1dc679d844dc7402b3dbd4f0c536be76e50f94.svg" alt="n_{r}"/></p></td>
+<td><p>-</p></td>
+<td><p>Manning’s roughness coefficient for channel flow routing</p></td>
 </tr>
-<tr class="row-even"><td><img class="math" src="../../_images/math/5c576a9103c8eccf44f6978cad6cb7b7f37e654d.svg" alt="n_{h}"/></td>
-<td>-</td>
-<td>Manning’s roughness coefficient for overland flow routing</td>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/2efb802e2ffc7275de050a4ed0504f2b98bf64a5.svg" alt="n_{h}"/></p></td>
+<td><p>-</p></td>
+<td><p>Manning’s roughness coefficient for overland flow routing</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="difference-between-clm5-0-and-clm4-5">
-<h2>2.14.5. Difference between CLM5.0 and CLM4.5<a class="headerlink" href="#difference-between-clm5-0-and-clm4-5" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.14.5. </span>Difference between CLM5.0 and CLM4.5<a class="headerlink" href="#difference-between-clm5-0-and-clm4-5" title="Permalink to this headline">¶</a></h2>
 <p>1. Routing methods: RTM, a linear reservoir method, is used in CLM4.5 for
 river routing, whilst in CLM5.0, MOSART is an added option for river routing
 based on the more physically-based kinematic wave method.</p>
@@ -498,10 +498,11 @@ channel surface water variations.</p>
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/pop_ver.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
     
 
   

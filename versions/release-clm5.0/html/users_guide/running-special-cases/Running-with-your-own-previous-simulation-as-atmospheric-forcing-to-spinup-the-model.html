@@ -125,6 +125,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="Running-stand-alone-CLM-with-transient-historical-CO2-concentration.html">1.5.8. Running with historical CO2 forcing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-anomaly-forcing.html">1.5.9. Running with anomaly forcing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../running-single-points/index.html">1.6. Running Single Point Regional Cases</a></li>
@@ -178,11 +179,11 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">1. CLM5.0 User’s Guide</a> &raquo;</li>
+          <li><a href="../index.html"><span class="section-number">1. </span>CLM5.0 User’s Guide</a> &raquo;</li>
         
-          <li><a href="index.html">1.5. Running Special Cases</a> &raquo;</li>
+          <li><a href="index.html"><span class="section-number">1.5. </span>Running Special Cases</a> &raquo;</li>
         
-      <li>1.5.7. Running with atmospheric forcing from a previous simulation</li>
+      <li><span class="section-number">1.5.7. </span>Running with atmospheric forcing from a previous simulation</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -202,12 +203,12 @@
            <div itemprop="articleBody">
             
   <div class="section" id="running-with-atmospheric-forcing-from-a-previous-simulation">
-<span id="running-with-previous-simulation-forcing"></span><h1>1.5.7. Running with atmospheric forcing from a previous simulation<a class="headerlink" href="#running-with-atmospheric-forcing-from-a-previous-simulation" title="Permalink to this headline">¶</a></h1>
+<span id="running-with-previous-simulation-forcing"></span><h1><span class="section-number">1.5.7. </span>Running with atmospheric forcing from a previous simulation<a class="headerlink" href="#running-with-atmospheric-forcing-from-a-previous-simulation" title="Permalink to this headline">¶</a></h1>
 <p>Another way that you might want to spinup the model is to run your own simulation for a relatively short period (either a B, E, or F compset) and then use it as forcing for your “I” case later.
 By only running 20 to 50 years for the fully coupled case, you’ll save a substantial amount of computer time rather than running the entire spinup period with a fully coupled model.</p>
 <p>The first thing we need to do is to run a fully coupled case and save the atmospheric coupling fields on a three hourly basis. In this example, we will run on cheyenne and archive the data to a local disk that we can then use in the next simulation.</p>
 <div class="section" id="example-fully-coupled-simulation-to-create-data-to-force-next-example-simulation">
-<h2>1.5.7.1. Example: Fully Coupled Simulation to Create Data to Force Next Example Simulation<a class="headerlink" href="#example-fully-coupled-simulation-to-create-data-to-force-next-example-simulation" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.5.7.1. </span>Example: Fully Coupled Simulation to Create Data to Force Next Example Simulation<a class="headerlink" href="#example-fully-coupled-simulation-to-create-data-to-force-next-example-simulation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd scripts
 &gt; ./create_newcase -case myB1850 -res f09_g17_gl4 -compset B1850
 &gt; cd myB1850
@@ -234,7 +235,7 @@ echo &quot;histaux_a2x3hr=.true.&quot; &gt;&gt; user_nl_cpl
 <p>Now we run an I compset forced with the data from the previous simulation using the CPLHISTForcing`` option to DATM_MODE. See <a class="reference external" href="CLM-URL">the Section called CPLHISTForcing mode and it’s DATM settings in Chapter 1</a> for more information on the DATM settings for <code class="docutils literal notranslate"><span class="pre">CPLHISTForcing</span></code> mode.</p>
 </div>
 <div class="section" id="example-simulation-forced-with-data-from-the-previous-simulation">
-<h2>1.5.7.2. Example: Simulation Forced with Data from the Previous Simulation<a class="headerlink" href="#example-simulation-forced-with-data-from-the-previous-simulation" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.5.7.2. </span>Example: Simulation Forced with Data from the Previous Simulation<a class="headerlink" href="#example-simulation-forced-with-data-from-the-previous-simulation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd scripts
 &gt; ./create_newcase -case frcwmyB1850 -res f09_g17_gl4 -compset I1850Clm50BgcSpinup
 &gt; cd frcWmyB1850
@@ -254,8 +255,8 @@ echo &quot;histaux_a2x3hr=.true.&quot; &gt;&gt; user_nl_cpl
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">We did this by editing the “namelist_defaults_datm.xml” which will change the settings for ALL future <code class="docutils literal notranslate"><span class="pre">I1850Clm50BgcSpinup</span></code> cases you run. You could also do this by editing the path in the resulting streams text files in the CaseDocs directory, and then create a “user_” streams file with the correct path. This would change the streams file JUST for this case. The steps do it this way are:</p>
+<p class="admonition-title">Note</p>
+<p>We did this by editing the “namelist_defaults_datm.xml” which will change the settings for ALL future <code class="docutils literal notranslate"><span class="pre">I1850Clm50BgcSpinup</span></code> cases you run. You could also do this by editing the path in the resulting streams text files in the CaseDocs directory, and then create a “user_” streams file with the correct path. This would change the streams file JUST for this case. The steps do it this way are:</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; ./preview_namelists
 &gt; cp CaseDocs/datm.streams.txt.CPLHIST3HrWx.Precip            user_datm.streams.txt.CPLHIST3HrWx.Precip
@@ -317,10 +318,11 @@ echo &quot;histaux_a2x3hr=.true.&quot; &gt;&gt; user_nl_cpl
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/pop_ver.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
     
 
   

@@ -174,11 +174,11 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">1. CLM5.0 User’s Guide</a> &raquo;</li>
+          <li><a href="../index.html"><span class="section-number">1. </span>CLM5.0 User’s Guide</a> &raquo;</li>
         
-          <li><a href="index.html">1.7. Running PTCLM</a> &raquo;</li>
+          <li><a href="index.html"><span class="section-number">1.7. </span>Running PTCLM</a> &raquo;</li>
         
-      <li>1.7.1. What is PTCLMmkdata?</li>
+      <li><span class="section-number">1.7.1. </span>What is PTCLMmkdata?</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -198,7 +198,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="what-is-ptclmmkdata">
-<span id="what-is-ptclm"></span><span id="introduction-to-ptclm-rst"></span><h1>1.7.1. What is PTCLMmkdata?<a class="headerlink" href="#what-is-ptclmmkdata" title="Permalink to this headline">¶</a></h1>
+<span id="what-is-ptclm"></span><span id="introduction-to-ptclm-rst"></span><h1><span class="section-number">1.7.1. </span>What is PTCLMmkdata?<a class="headerlink" href="#what-is-ptclmmkdata" title="Permalink to this headline">¶</a></h1>
 <p>PTCLMmkdata (pronounced Pee-Tee Cee-L-M make data is a Python script to help you set up PoinT CLM simulations.</p>
 <p>It runs the CLM tools for you to get datasets set up, and copies them to a location you can use them including the changes
 needed for a case to use the dataset with namelist and XML changes.</p>
@@ -210,7 +210,7 @@ needed for a case to use the dataset with namelist and XML changes.</p>
 <p>The original authors of PTCLMmkdata are: Daniel M. Ricciuto, Dali Wang, Peter E. Thornton, Wilfred M. Post all at Environmental Sciences Division, Oak Ridge National Laboratory (ORNL) and R. Quinn Thomas at Cornell University. It was then modified fairly extensively by Erik Kluzek at NCAR. We want to thank all of these individuals for this contribution to the CESM effort. We also want to thank the folks at University of Michigan Biological Stations (US-UMB) who allowed us to use their Fluxnet station data and import it into our inputdata repository, especially Gil Bohrer the PI on record for this site.</p>
 </div>
 <div class="section" id="details-of-ptclmmkdata">
-<span id="details-of-ptclm"></span><h1>1.7.2. Details of PTCLMmkdata<a class="headerlink" href="#details-of-ptclmmkdata" title="Permalink to this headline">¶</a></h1>
+<span id="details-of-ptclm"></span><h1><span class="section-number">1.7.2. </span>Details of PTCLMmkdata<a class="headerlink" href="#details-of-ptclmmkdata" title="Permalink to this headline">¶</a></h1>
 <p>To get help on PTCLM2_180611 use the “–help” option as follows.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/tools/PTCLM
 &gt; ./PTCLMmkdata --help
@@ -287,7 +287,7 @@ Main Script Version Id: $Id: PTCLM.py 47576 2013-05-29 19:11:16Z erik $ Scripts 
 <p>Here we give a simple example of using PTCLMmkdata for a straightforward case of running at the US-UMB Fluxnet site on cheyenne where we already have the meteorology data on the machine.
 Note, see <a class="reference external" href="CLM-URL">the Section called Converting AmeriFlux Data for use by PTCLMmkdata</a> for permission information to use this data.</p>
 <div class="section" id="example-6-1-example-of-running-ptclmmkdata-for-us-umb-on-cheyenne">
-<h2>1.7.2.1. Example 6-1. Example of running PTCLMmkdata for US-UMB on cheyenne<a class="headerlink" href="#example-6-1-example-of-running-ptclmmkdata-for-us-umb-on-cheyenne" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.7.2.1. </span>Example 6-1. Example of running PTCLMmkdata for US-UMB on cheyenne<a class="headerlink" href="#example-6-1-example-of-running-ptclmmkdata-for-us-umb-on-cheyenne" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; setenv CSMDATA   $CESMDATAROOT/inputdata
 &gt; setenv MYDATAFILES `pwd`/mydatafiles
 &gt; setenv SITE      US-UMB
@@ -347,7 +347,7 @@ General Directory structure:
         list script. Handles command line arguments and such.
   PTCLM/batchque.py ---------- Python module for batch submital.
   PTCLM/buildtools ----------- Script to build the CLM
-        tools needed to run PTCLMmkdata (mksurfdata_map and gen_domain). Works on yellowstone and cheyenne.
+        tools needed to run PTCLMmkdata (mksurfdata_map and gen_domain). Works on cheyenne.
 
 Quickstart:
 
@@ -365,7 +365,7 @@ cd PTCLM
 setenv MYDATAFILES `pwd`/mydatafiles
 
 # Next build all of the clm tools you will need
-# The following script assumes yellowstone, cheyenne, hobart, or edison for other machines
+# The following script assumes cheyenne, hobart, or izumi for other machines
 # you&#39;ll need to build each tool by hand
 ./buildtools
 # next run PTCLMsublist which will submit PTCLMmkdata to batch queue (NOTE -- MAKE SURE python, NCO AND NCL IS IN YOUR PATH)
@@ -376,7 +376,7 @@ setenv MYDATAFILES `pwd`/mydatafiles
 #       This makes running PTCLMmkdata a reasonable amount of time.
 #       However, you can use the script in mydatafiles
 #
-./PTCLMsublist -l $SITE -d $CSMDATA --account=XXXXXXXXX --mach=cheyenne
+qcmd -l walltime=02:00:00 -- ./PTCLMsublist -l $SITE -d $CSMDATA --account=XXXXXXXXX --mach=cheyenne
 
 # NOTE: To submit several sites at once, make the &quot;-l&quot; option a comma delimited
 #       list of site names.
@@ -469,10 +469,11 @@ cd $MYCASE
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/pop_ver.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
     
 
   

@@ -175,11 +175,11 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../index.html">1. CLM5.0 User’s Guide</a> &raquo;</li>
+          <li><a href="../index.html"><span class="section-number">1. </span>CLM5.0 User’s Guide</a> &raquo;</li>
         
-          <li><a href="index.html">1.7. Running PTCLM</a> &raquo;</li>
+          <li><a href="index.html"><span class="section-number">1.7. </span>Running PTCLM</a> &raquo;</li>
         
-      <li>1.7.3. Using PTCLMmkdata</li>
+      <li><span class="section-number">1.7.3. </span>Using PTCLMmkdata</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -199,7 +199,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="using-ptclmmkdata">
-<span id="using-ptclm-rst"></span><h1>1.7.3. Using PTCLMmkdata<a class="headerlink" href="#using-ptclmmkdata" title="Permalink to this headline">¶</a></h1>
+<span id="using-ptclm-rst"></span><h1><span class="section-number">1.7.3. </span>Using PTCLMmkdata<a class="headerlink" href="#using-ptclmmkdata" title="Permalink to this headline">¶</a></h1>
 <p>There are two types of options to PTCLMmkdata: required and optional.
 The three required options are the three settings that MUST be specified for PTCLMmkdata to work at all. The other settings have default values that will default to something useful. Most options use a double dash “–” “longname” such as “–list”, but the most common options also have a short-name with a single dash.</p>
 <p>The required options to PTCLMmkdata are: inputdata directory (-d) and site-name (-s).
@@ -217,9 +217,9 @@ This option gives you information about some of the other options to PTCLMmkdata
 </pre></div>
 </div>
 <div class="section" id="steps-in-running-ptclmmkdata">
-<h2>1.7.3.1. Steps in running PTCLMmkdata<a class="headerlink" href="#steps-in-running-ptclmmkdata" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.7.3.1. </span>Steps in running PTCLMmkdata<a class="headerlink" href="#steps-in-running-ptclmmkdata" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">Build the CLM tools
+<li><p>Build the CLM tools
 Next you need to make sure all the CLM FORTRAN tools are built.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/tools/PTCLM
 &gt; ./buildtools
@@ -227,17 +227,16 @@ Next you need to make sure all the CLM FORTRAN tools are built.</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Run PTCLMmkdata
+<li><p>Run PTCLMmkdata
 Next you actually run PTCLMmkdata which does the different things listed below:</p>
 <ol class="loweralpha">
-<li><p class="first">PTCLMmkdata names your output file directory based on your input</p>
+<li><p>PTCLMmkdata names your output file directory based on your input</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Prefix_</span><span class="p">]</span><span class="n">SiteCode</span>
 </pre></div>
 </div>
-<dl class="docutils">
-<dt>Where:</dt>
-<dd><p class="first"><code class="docutils literal notranslate"><span class="pre">Prefix</span></code> is from the caseidprefix option (or blank if not used).</p>
-<p class="last"><code class="docutils literal notranslate"><span class="pre">SiteCode</span></code> is the site name you entered with the -s option.</p>
+<dl>
+<dt>Where:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">Prefix</span></code> is from the caseidprefix option (or blank if not used).</p>
+<p><code class="docutils literal notranslate"><span class="pre">SiteCode</span></code> is the site name you entered with the -s option.</p>
 </dd>
 </dl>
 <p>For example, the casename for the following will be:</p>
@@ -246,49 +245,43 @@ Next you actually run PTCLMmkdata which does the different things listed below:<
 </pre></div>
 </div>
 </li>
-<li><p class="first">PTCLMmkdata creates datasets for you
-It will populate $MYCSMDATA with new datasets it creates using the CLM tools.</p>
-</li>
-<li><p class="first">If a transient compset and PTCLMmkdata finds a _dynpftdata.txt file
+<li><p>PTCLMmkdata creates datasets for you
+It will populate $MYCSMDATA with new datasets it creates using the CLM tools.</p></li>
+<li><p>If a transient compset and PTCLMmkdata finds a _dynpftdata.txt file
 If you are running a transient compset (such as the “I_1850-2000_CN” compset) AND you there is a file in the PTCLM_sitedata directory under the PTCLMmkdata directory called $SITE_dynpftdata.txt it will use this file for the land-use changes.
 Otherwise it will leave land-use constant, unless you use the pftgrid option so it uses the global dataset for landuse changes.
 See the Section called Dynamic Land-Use Change Files for use by PTCLMmkdata for more information on this.
 There is a sample transient dataset called US-Ha1_dynpftdata.txt.
-Transient compsets, are compsets that create transient land-use change and forcing conditions such as: ‘I_1850-2000’, ‘I_1850-2000_CN’, ‘I_RCP8.5_CN’, ‘I_RCP6.0_CN’, ‘I_RCP4.5_CN’, or ‘I_RCP2.6_CN’.</p>
-</li>
-<li><p class="first">PTCLMmkdata creates a pft-physiology for you
-PTCLMmkdata will create a local copy of the pft-physiology specific for your site that you could then customize with changes specific for that site.</p>
-</li>
-<li><p class="first">PTCLMmkdata creates a README.PTCLM for you
-PTCLMmkdata will create a simple text file with the command line for it in a file called README.PTCLM in the case directory it creates for you.</p>
-</li>
+Transient compsets, are compsets that create transient land-use change and forcing conditions such as: ‘I_1850-2000’, ‘I_1850-2000_CN’, ‘I_RCP8.5_CN’, ‘I_RCP6.0_CN’, ‘I_RCP4.5_CN’, or ‘I_RCP2.6_CN’.</p></li>
+<li><p>PTCLMmkdata creates a pft-physiology for you
+PTCLMmkdata will create a local copy of the pft-physiology specific for your site that you could then customize with changes specific for that site.</p></li>
+<li><p>PTCLMmkdata creates a README.PTCLM for you
+PTCLMmkdata will create a simple text file with the command line for it in a file called README.PTCLM in the case directory it creates for you.</p></li>
 </ol>
 </li>
-<li><p class="first">Run create_newcase pointing to the directory created</p>
-</li>
-<li><p class="first">Customize, setup, build and run case as normal
-You then customize your case as you would normally. See the Chapter 1 chapter for more information on doing this.</p>
-</li>
+<li><p>Run create_newcase pointing to the directory created</p></li>
+<li><p>Customize, setup, build and run case as normal
+You then customize your case as you would normally. See the Chapter 1 chapter for more information on doing this.</p></li>
 </ol>
 </div>
 <div class="section" id="ptclmmkdata-options">
-<h2>1.7.3.2. PTCLMmkdata options<a class="headerlink" href="#ptclmmkdata-options" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.7.3.2. </span>PTCLMmkdata options<a class="headerlink" href="#ptclmmkdata-options" title="Permalink to this headline">¶</a></h2>
 <p>Next we discuss the setup and run-time options, dividing them up into setup, initial condition (IC), and run-time options.</p>
 <p>Configure options include:</p>
 <ul class="simple">
-<li>–cesm_root=BASE_CESM</li>
-<li>–sitegroupname=SITEGROUP</li>
-<li>–donot_use_tower_yrs</li>
+<li><p>–cesm_root=BASE_CESM</p></li>
+<li><p>–sitegroupname=SITEGROUP</p></li>
+<li><p>–donot_use_tower_yrs</p></li>
 </ul>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">--cesm_root</span></code></dt>
-<dd>This option is for running PTCLMmkdata with a different root directory to CESM than the version PTCLMmkdata exists in. Normally you do NOT need to use this option.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">--sitegroupname</span></code></dt>
-<dd>In the PTCLMmkdata directory there is a subdirectory “PTCLM_sitedata” that contains files with the site, PFT and soil data information for groups of sites.
-These site groups are all separate ASCII files with the same prefix followed by a “_*data.txt” name. See <a class="reference external" href="CLM-URL">the Section called PTCLMmkdata Group Site Lists</a> for more information on these files. By default we have provided three different valid group names:</dd>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--cesm_root</span></code></dt><dd><p>This option is for running PTCLMmkdata with a different root directory to CESM than the version PTCLMmkdata exists in. Normally you do NOT need to use this option.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--sitegroupname</span></code></dt><dd><p>In the PTCLMmkdata directory there is a subdirectory “PTCLM_sitedata” that contains files with the site, PFT and soil data information for groups of sites.
+These site groups are all separate ASCII files with the same prefix followed by a “_*data.txt” name. See <a class="reference external" href="CLM-URL">the Section called PTCLMmkdata Group Site Lists</a> for more information on these files. By default we have provided three different valid group names:</p>
+</dd>
 </dl>
 <div class="section" id="example">
-<h3>1.7.3.2.1. EXAMPLE<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">1.7.3.2.1. </span>EXAMPLE<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <p>AmeriFlux</p>
 <p>Fluxnet-Canada</p>
 <p>The EXAMPLE is the group used by default and ONLY includes the US-UMB site as that is the only site we have data provided for.
@@ -296,29 +289,29 @@ The other two site groups include the site information for all of both the Ameri
 You can use the “sitegroupname” option to use one of the other lists, or you can create your own lists using the EXAMPLE file as an example.
 Your list of sites could be real world locations or could be theoretical “virtual” sites given to exercise CLM on differing biomes for example.
 Note, see <a class="reference external" href="CLM-URL">the Section called Converting AmeriFlux Data for use by PTCLMmkdata</a> with permission information to use the US-UMB data.</p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">--donot_use_tower_yrs</span></code></dt>
-<dd>This option is used with the “useQIAN” option to set the years to cycle over for the Qian data. In this case Qian atmospheric forcing will be used, but the simulation will run over the same years that tower site is available for this site.</dd>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--donot_use_tower_yrs</span></code></dt><dd><p>This option is used with the “useQIAN” option to set the years to cycle over for the Qian data. In this case Qian atmospheric forcing will be used, but the simulation will run over the same years that tower site is available for this site.</p>
+</dd>
 </dl>
 <p><strong>Run-time options include:</strong></p>
 <ul class="simple">
-<li>–debug</li>
+<li><p>–debug</p></li>
 </ul>
 <p>This option tells PTCLMmkdata to echo what it would do if it were run, but NOT actually run anything. So it will show you the dataset creation commands it would use. It does however, run <strong>create_newcase</strong>, but then it only displays the <strong>xmlchange</strong> commands and changes that it would do. Also note that if you give the “–rmold” option it won’t delete the case directory beforehand. Primarily this is intended for debugging the operation of PTCLMmkdata.</p>
 <p><strong>The dataset generation options are:</strong></p>
 <ul class="simple">
-<li>–pftgrid</li>
-<li>–soilgrid</li>
+<li><p>–pftgrid</p></li>
+<li><p>–soilgrid</p></li>
 </ul>
 <p>The options that with a “grid” suffix all mean to create datasets using the global gridded information rather than using the site specific point data. By default the site specific point data is used. The “nopointdata” and “owritesrfaer” options have to do with file creation.</p>
 <p>Because supported single-point datasets already have the data created for them, you MUST use the “nopointdata” and “ndepgrid” options when you are using a supported single-point site. You must use “ndepgrid” even for a compset without CN. You also can NOT use the options: “soilgrid”, “pftgrid”, “aerdepgrid”, or “owritesrfaer”.</p>
-<dl class="docutils">
-<dt><code class="docutils literal notranslate"><span class="pre">--pftgrid</span></code></dt>
-<dd>This option says to use the PFT values provided on the global dataset rather than using the specific site based values from the PTCLM_sitedata/*_pftdata.txt file when creating the surface dataset.
-This option must NOT be used when you you are using a site that is a supported single point dataset.</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">--soilgrid</span></code></dt>
-<dd>This option says to use the soil values provided on the global dataset rather than using the specific site based values from the PTCLM_sitedata/*_soildata.txt file when creating the surface dataset.
-This option must NOT be used when you you are using a site that is a supported single point dataset.</dd>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">--pftgrid</span></code></dt><dd><p>This option says to use the PFT values provided on the global dataset rather than using the specific site based values from the PTCLM_sitedata/*_pftdata.txt file when creating the surface dataset.
+This option must NOT be used when you you are using a site that is a supported single point dataset.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">--soilgrid</span></code></dt><dd><p>This option says to use the soil values provided on the global dataset rather than using the specific site based values from the PTCLM_sitedata/*_soildata.txt file when creating the surface dataset.
+This option must NOT be used when you you are using a site that is a supported single point dataset.</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -371,10 +364,11 @@ This option must NOT be used when you you are using a site that is a supported s
     
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/pop_ver.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
     
 
   
