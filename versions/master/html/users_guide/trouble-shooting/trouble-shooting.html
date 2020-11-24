@@ -196,37 +196,105 @@
             
   <div class="section" id="trouble-shooting">
 <span id="id1"></span><h1><span class="section-number">1.8.1. </span>Trouble Shooting<a class="headerlink" href="#trouble-shooting" title="Permalink to this headline">¶</a></h1>
-<p>In this chapter we give some guidance on what to do when you encounter some of the most common problems. We can’t cover all the problems that a user could potentially have, but we will try to help you recognize some of the most common situations. And we’ll give you some suggestions on how to approach the problem to come up with a solution.</p>
-<p>In general you will run into one of three type of problems:</p>
+<p>In this chapter we give some guidance on what to do when you encounter some of the most common problems.</p>
+<p>In general you may run into one of four types of problems:</p>
 <ol class="arabic simple">
 <li><p><em>case-creation</em></p></li>
 <li><p><em>setup-time</em></p></li>
 <li><p><em>build-time</em></p></li>
 <li><p><em>run-time</em></p></li>
 </ol>
-<p>See the <a class="reference external" href="http://esmci.github.io/cime/users_guide/troubleshooting.html">CIME Trouble Shooting Guide</a> for some help on the first three.</p>
+<p>Start with the <a class="reference external" href="http://esmci.github.io/cime/versions/master/html/users_guide/troubleshooting.html">CIME Trouble Shooting Guide</a> , especially if you encounter one of the first three types of problems. The CIME troubleshooting guide also provides some useful tips regarding run-time errors. If this doesn’t identify and solve your problem, then try some of the suggestions below for run-time errors.</p>
 <div class="section" id="general-advice-on-debugging-run-time-problems">
 <h2><span class="section-number">1.8.1.1. </span>General Advice on Debugging Run time Problems<a class="headerlink" href="#general-advice-on-debugging-run-time-problems" title="Permalink to this headline">¶</a></h2>
-<p>Here are some suggestions on how to track down a problem while running. In general if the problem still occurs for a simpler case, it will be easier to track down.</p>
+<p>The model has been run for thousands and thousands of simulation years in many different configurations, both fully-coupled and in land-only modes, without problems.  If you have modified the model in any way, by using either different input datasets or new or modified code, then that is the first place to look if you encounter an error. However, the model is not completely infallible, as noted below.</p>
+<p>It is important to examine all of the component log files in the run directory for errors. An error in the land model may not appear in the lnd log file, it may show up in the cesm log. In a land-only simulation, errors associated with the data atmosphere model may show up in the atm log or the cesm log, or both. The two logs together may contain useful information about the error.  Frequently, the error output in the log files will include a <strong>traceback</strong> of code where the error occurred. Identifying the specific line of code where the error occurred is the first step in diagnosing the error and developing a solution. If a traceback doesn’t appear in the log files, then try running in debug mode as noted in the CIME troubleshooting guide. An example of a traceback in the cesm log is given below</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">Carbon</span> <span class="ow">or</span> <span class="n">Nitrogen</span> <span class="n">patch</span> <span class="n">negative</span> <span class="o">=</span>   <span class="o">-</span><span class="mf">60.0630620423182</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span>  <span class="o">-</span><span class="mf">1.49270707132601</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">limits</span> <span class="o">=</span>   <span class="o">-</span><span class="mf">60.0000000000000</span>       <span class="o">-</span><span class="mf">6.00000000000000</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span> <span class="n">ENDRUN</span><span class="p">:</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span> <span class="n">ERROR</span><span class="p">:</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span> <span class="n">ERROR</span><span class="p">:</span> <span class="n">carbon</span> <span class="ow">or</span> <span class="n">nitrogen</span> <span class="n">state</span> <span class="n">critically</span> <span class="n">negative</span> <span class="n">ERROR</span> <span class="ow">in</span> <span class="n">CNPrecisionControl</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span> <span class="n">Mod</span><span class="o">.</span><span class="n">F90</span> <span class="n">at</span> <span class="n">line</span> <span class="mi">209</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">Image</span>              <span class="n">PC</span>                <span class="n">Routine</span>            <span class="n">Line</span>        <span class="n">Source</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">000000000383</span><span class="n">B3EA</span>  <span class="n">Unknown</span>               <span class="n">Unknown</span>  <span class="n">Unknown</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">0000000002</span><span class="n">F1E5D0</span>  <span class="n">shr_abort_mod_mp_</span>         <span class="mi">114</span>  <span class="n">shr_abort_mod</span><span class="o">.</span><span class="n">F90</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">0000000001</span><span class="n">AF22BF</span>  <span class="n">abortutils_mp_end</span>          <span class="mi">50</span>  <span class="n">abortutils</span><span class="o">.</span><span class="n">F90</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">0000000001</span><span class="n">D02677</span>  <span class="n">cnprecisioncontro</span>         <span class="mi">693</span>  <span class="n">CNPrecisionControlMod</span><span class="o">.</span><span class="n">F90</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">0000000001</span><span class="n">CFCC58</span>  <span class="n">cnprecisioncontro</span>         <span class="mi">207</span>  <span class="n">CNPrecisionControlMod</span><span class="o">.</span><span class="n">F90</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">00000000021</span><span class="n">FB4F5</span>  <span class="n">cndrivermod_mp_cn</span>         <span class="mi">575</span>  <span class="n">CNDriverMod</span><span class="o">.</span><span class="n">F90</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">0000000001</span><span class="n">D0F5C7</span>  <span class="n">cnvegetationfacad</span>         <span class="mi">866</span>  <span class="n">CNVegetationFacade</span><span class="o">.</span><span class="n">F90</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">0000000001</span><span class="n">AFEC96</span>  <span class="n">clm_driver_mp_clm</span>         <span class="mi">925</span>  <span class="n">clm_driver</span><span class="o">.</span><span class="n">F90</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">0000000001</span><span class="n">AE744B</span>  <span class="n">lnd_comp_mct_mp_l</span>         <span class="mi">458</span>  <span class="n">lnd_comp_mct</span><span class="o">.</span><span class="n">F90</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">0000000000429414</span>  <span class="n">component_mod_mp_</span>         <span class="mi">737</span>  <span class="n">component_mod</span><span class="o">.</span><span class="n">F90</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">000000000040</span><span class="n">AE4B</span>  <span class="n">cime_comp_mod_mp_</span>        <span class="mi">2622</span>  <span class="n">cime_comp_mod</span><span class="o">.</span><span class="n">F90</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">000000000042904</span><span class="n">C</span>  <span class="n">MAIN__</span>                    <span class="mi">133</span>  <span class="n">cime_driver</span><span class="o">.</span><span class="n">F90</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">0000000000408</span><span class="n">D22</span>  <span class="n">Unknown</span>               <span class="n">Unknown</span>  <span class="n">Unknown</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">libc</span><span class="o">.</span><span class="n">so</span><span class="o">.</span><span class="mi">6</span>          <span class="mi">00002</span><span class="n">B8B95D306E5</span>  <span class="n">__libc_start_main</span>     <span class="n">Unknown</span>  <span class="n">Unknown</span>
+<span class="o">&gt;</span> <span class="mi">398</span><span class="p">:</span><span class="n">cesm</span><span class="o">.</span><span class="n">exe</span>           <span class="mi">0000000000408</span><span class="n">C29</span>  <span class="n">Unknown</span>               <span class="n">Unknown</span>  <span class="n">Unknown</span>
+</pre></div>
+</div>
+<p>Here, the output is identifying the sequence of fortran statements involved in the error, starting with line 133 in cime_driver.F90 and ending with line 114 in shr_abort_mod.F90.  In this case the run is triggering an error check in the model related to negative carbon/nitrogen at line 693 of CNPrecisionControlMod.F90. In addition, there is additional information related to the error indicating the carbon or nitrogen state is critically negative at line 209 in CNPrecisionControlMod.F90, which is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">call</span> <span class="n">TruncateCandNStates</span><span class="p">(</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">filter_soilp</span><span class="p">,</span> <span class="n">num_soilp</span><span class="p">,</span> <span class="n">cs</span><span class="o">%</span><span class="n">leafc_patch</span><span class="p">(</span><span class="n">bounds</span><span class="o">%</span><span class="n">begp</span><span class="p">:</span><span class="n">bounds</span><span class="o">%</span><span class="n">endp</span><span class="p">),</span> <span class="o">&amp;</span>
+<span class="o">&gt;</span>                           <span class="n">ns</span><span class="o">%</span><span class="n">leafn_patch</span><span class="p">(</span><span class="n">bounds</span><span class="o">%</span><span class="n">begp</span><span class="p">:</span><span class="n">bounds</span><span class="o">%</span><span class="n">endp</span><span class="p">),</span> <span class="o">&amp;</span>
+<span class="o">&gt;</span>                           <span class="n">pc</span><span class="p">(</span><span class="n">bounds</span><span class="o">%</span><span class="n">begp</span><span class="p">:),</span> <span class="n">pn</span><span class="p">(</span><span class="n">bounds</span><span class="o">%</span><span class="n">begp</span><span class="p">:),</span> <span class="n">__LINE__</span><span class="p">,</span> <span class="o">&amp;</span>
+<span class="o">&gt;</span>                           <span class="n">num_truncatep</span><span class="p">,</span> <span class="n">filter_truncatep</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>So here we know that it is either leaf nitrogen (leafn) or leaf carbon (leafc) that has triggered the error.  Furthermore, from the information above and looking at the code, we see that it is leaf carbon that is triggering the error, as the value is -60.0630620423182 and the limit is -60.</p>
+<p>At this point it is useful as a next step to identify the particular pft index and perhaps the pft type that is triggering the error.  This can be done by inserting the following code before the <strong>endrun</strong> that is called in CNPrecisionControlMod.F90 at line 693.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="k">if</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">carbon_patch</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="o">&lt;</span> <span class="n">ccrit</span><span class="p">)</span> <span class="n">then</span>
+<span class="o">&gt;</span>    <span class="n">write</span><span class="p">(</span><span class="n">iulog</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;p: &#39;</span><span class="p">,</span><span class="n">p</span>
+<span class="o">&gt;</span>    <span class="n">write</span><span class="p">(</span><span class="n">iulog</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;itype(p): &#39;</span><span class="p">,</span><span class="n">patch</span><span class="o">%</span><span class="n">itype</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="n">end</span> <span class="k">if</span>
+</pre></div>
+</div>
+<p>The pft index and the pft type will appear in either the cesm or lnd log file. In this case, the pft index is 163723 and the pft type is 10. From there, one can use this pft index to write out variables that are used in updating leafc, for example, leafc is updated a number of times in CNCStateUpdate1Mod.F90.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">.</span><span class="n">eq</span><span class="o">.</span> <span class="mi">163723</span><span class="p">)</span> <span class="n">then</span>
+<span class="o">&gt;</span>    <span class="n">write</span><span class="p">(</span><span class="n">iulog</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;CNCStateUpdate1Mod leafc: &#39;</span><span class="p">,</span><span class="n">cs_veg</span><span class="o">%</span><span class="n">leafc_patch</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="o">&gt;</span>    <span class="n">write</span><span class="p">(</span><span class="n">iulog</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;CNCStateUpdate1Mod +leafc_xfer_to_leafc: &#39;</span><span class="p">,</span><span class="n">cf_veg</span><span class="o">%</span><span class="n">leafc_xfer_to_leafc_patch</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span>
+<span class="o">&gt;</span> <span class="n">end</span> <span class="k">if</span>
+</pre></div>
+</div>
+<p>By placing these write statements in the code, one can get a sense of how leafc is evolving toward a negative state and why.
+This is a very complex example of troubleshooting.  To make a long story short, as described <a class="reference external" href="https://github.com/ESCOMP/CTSM/issues/1163">here</a>, the error turned out to be caused by a few lines in the phenology code that weren’t handling a 20 minute time step properly, thus an actual bug in the code.  This was also a good example of where a much less computationally expensive land-only simulation was able to be used for debugging instead of the orginal expensive fully-coupled simulation.</p>
+<p>Another method of troubleshooting is to use the <strong>point_of_interest</strong> module.</p>
+<div class="section" id="use-the-point-of-interest-module">
+<h3><span class="section-number">1.8.1.1.1. </span>Use the point_of_interest module<a class="headerlink" href="#use-the-point-of-interest-module" title="Permalink to this headline">¶</a></h3>
+<p>It is common, when debugging, to want to print the values of various variables for all patches or columns of certain landunit types within a certain grid cell of interest. For example, one might be able to identify a certain grid cell with an erroneous value for a particular history field variable (e.g., GPP) using for example ncview.  Once the latitude and longitude of this grid cell has been determined, the point_of_interest module (<strong>src/utils/point_of_interest.F90</strong>) helps create the logical functions needed to do this.
+This module is compiled into every CTSM build, but is not invoked by default.
+To use it</p>
 <ol class="arabic simple">
-<li><p><em>Run in DEBUG mode</em></p></li>
+<li><p>Enter in the latitude/longitude of the point of interest in the function <strong>at_poi</strong> in <strong>point_of_interest.F90</strong> by setting the variables <strong>poi_lat</strong> and <strong>poi_lon</strong>.</p></li>
+<li><p>You may customize the <strong>point_of_interest.F90</strong> code by changing the example function (<strong>poi_c</strong>) and/or adding new functions. Look for comments about “Customize” to see what to customize.</p></li>
+<li><p>Add calls to these functions in the CTSM code</p></li>
+</ol>
+<p>The example function in <strong>point_of_interest.F90</strong> is <strong>poi_c</strong>. It finds columns with a given landunit type (in this case, the natural vegetated landunit). That function can be used in a column-level loop to find columns with that landunit within the grid cell of interest. Its typical use in CTSM code is</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; do fc = 1, num_nolakec
+&gt;    c = filter_nolakec(fc)
+&gt;    ! Various code here, maybe setting foo and bar variables
+&gt;    if (poi_c(c)) then
+&gt;       write(iulog,*) &#39;DEBUG: foo, bar = &#39;, foo(c), bar(c)
+&gt;    end if
+&gt; end do
+</pre></div>
+</div>
+<p>You will also need a <strong>use</strong> statement in the module from which you are calling poi_c</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">use</span> <span class="n">point_of_interest</span><span class="p">,</span> <span class="n">only</span> <span class="p">:</span> <span class="n">poi_c</span>
+</pre></div>
+</div>
+<p>Here are some other suggestions on how to track down a problem encountered while running. These involve setting up and running simpler cases.  In general if the problem still occurs for a simpler case, it will be easier to track down. However, we note that most errors are specific to the case being run.</p>
+<ol class="arabic simple">
 <li><p><em>Run with a smaller set of processors</em></p></li>
 <li><p><em>Run in serial mode with a single processor</em></p></li>
 <li><p><em>Run at a lower resolution</em></p></li>
 <li><p><em>Run a simpler case</em></p></li>
 <li><p><em>Run with a debugger</em></p></li>
 </ol>
-<div class="section" id="run-in-debug-mode">
-<h3><span class="section-number">1.8.1.1.1. </span>Run in DEBUG mode<a class="headerlink" href="#run-in-debug-mode" title="Permalink to this headline">¶</a></h3>
-<p>The first thing to try is to run in DEBUG mode so that float point trapping will be triggered as well as array bounds checking and other things the compiler can turn on to help you find problems.
-To do this edit the <code class="docutils literal notranslate"><span class="pre">env_build.xml</span></code> file and set DEBUG to TRUE as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">DEBUG</span><span class="o">=</span><span class="n">TRUE</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="run-with-a-smaller-set-of-processors">
 <h3><span class="section-number">1.8.1.1.2. </span>Run with a smaller set of processors<a class="headerlink" href="#run-with-a-smaller-set-of-processors" title="Permalink to this headline">¶</a></h3>
-<p>Another way to simplify the system is to run with a smaller set of processors. You will need to clean the setup and edit the –env_mach_pes.xml–. For example, to run with four processors:</p>
+<p>One way to simplify the system is to run with a smaller set of processors. You will need to clean the setup and edit the –env_mach_pes.xml–. For example, to run with four processors:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span> <span class="o">-</span><span class="n">clean</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">NTASKS_ATM</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_LND</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_ICE</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_OCN</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_CPL</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">NTASKS_GLC</span><span class="o">=</span><span class="mi">4</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span>
