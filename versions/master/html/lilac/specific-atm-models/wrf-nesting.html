@@ -1,0 +1,503 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3.4.2. Using CTSM with WRF (Nested Model Runs) &mdash; ctsm CTSM master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm CTSM master documentation" href="../../index.html"/>
+        <link rel="up" title="3.4. Instructions on using CTSM with specific atmosphere models" href="index.html"/>
+        <link rel="next" title="3.4.3. WRF-CTSM Tools and Utilities" href="wrf-tools.html"/>
+        <link rel="prev" title="3.4.1. Using CTSM with WRF" href="wrf.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CTSM1</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/index.html">1. CTSM1 User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">3. CTSM-LILAC User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../introduction-and-overview/index.html">3.1. Introduction and overview of LILAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../obtaining-building-and-running/index.html">3.2. Obtaining, building and running CTSM with LILAC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../calling-ctsm-from-atm/index.html">3.3. Calling CTSM from an atmosphere model</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">3.4. Instructions on using CTSM with specific atmosphere models</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="wrf.html">3.4.1. Using CTSM with WRF</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3.4.2. Using CTSM with WRF (Nested Model Runs)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nested-simulations-pre-processing-geogrid-exe">3.4.2.1. Nested Simulations : Pre-processing (geogrid.exe)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nested-simulations-pre-processing-ungrib-exe">3.4.2.2. Nested Simulations : Pre-processing (ungrib.exe)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nested-simulations-pre-processing-metgrid-exe">3.4.2.3. Nested Simulations : Pre-processing (metgrid.exe)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nested-simulations-real-exe">3.4.2.4. Nested Simulations : real.exe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rename-wrfinput-d02">3.4.2.5. Rename wrfinput_d02</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#run-ndown-exe">3.4.2.6. Run ndown.exe</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#run-wrf-for-coarser-domain">3.4.2.7. Run WRF for coarser domain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-ctsm-runtime-files-for-the-fine-domain">3.4.2.8. Create CTSM runtime files for the fine domain</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#run-wrf-for-the-finer-domain">3.4.2.9. Run WRF for the finer domain</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="wrf-tools.html">3.4.3. WRF-CTSM Tools and Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">3. </span>CTSM-LILAC User’s Guide</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">3.4. </span>Instructions on using CTSM with specific atmosphere models</a> &raquo;</li>
+        
+      <li><span class="section-number">3.4.2. </span>Using CTSM with WRF (Nested Model Runs)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/lilac/specific-atm-models/wrf-nesting.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-ctsm-with-wrf-nested-model-runs">
+<h1><span class="section-number">3.4.2. </span>Using CTSM with WRF (Nested Model Runs)<a class="headerlink" href="#using-ctsm-with-wrf-nested-model-runs" title="Permalink to this headline">¶</a></h1>
+<p>This section includes instructions on how to run WRF coupled with CTSM for a
+nested domain.</p>
+<p>A nested domain is usually used to have a finer-resolution domain within the
+coarser model domain. A nested simulation enables running at a higher
+resolution over a smaller domain</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A nest should cover a portion of the parent domain and is fully contained by
+the parent domain, so that it is driven along its lateral boundaries by the
+parent domain.</p>
+</div>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Negin wants to add a flowchart showing the workflow of a nested case.</p>
+</div>
+<p>There are currently two types of nesting available within WRF:</p>
+<ol class="arabic">
+<li><p><strong>One-way nesting:</strong>
+In One-way nesting, the boundary conditions are fed to the inner (child) domain from the outer (parent) domain.</p></li>
+<li><p><strong>Two-way nesting:</strong>
+In two-way nesting, two things are being done:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Exactly similar to 1-way nesting the boundary conditions are fed to the inner domain from the outer (parent) domain.</p></li>
+<li><p>Also, the averaged values from the inner domain are being sent back to the outer domain at the corresponding grid points.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Currently, the WRF-CTSM coupling infrastructure only support one-way nesting.
+This example clarifies the workflow for running a nested WRF-CTSM case using one-way nesting with <code class="docutils literal notranslate"><span class="pre">ndown.exe</span></code>.</p>
+</div>
+<p>The procedure for running a nested simulation for WRF with CTSM is
+similar to the workflow for running WRF real cases, except that it requires
+additional steps to (1) clone the CTSM repository, (2) build
+CTSM and LILAC, and (3) define namelist options reuired for CTSM.</p>
+<p>A full description of all steps for a WRF-CTSM run are included here.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This section assumes the user has completed all the steps required for
+WRF-CTSM simulation single domain.
+Therefore, we are not repeating the steps necessary for building WRF and
+CTSM.</p>
+</div>
+<p>In this example we use a nested domain over the CONUS as shows below:</p>
+<div class="figure align-default" id="id2">
+<span id="figure-ctsm-ndown"></span><img alt="../../_images/ndown_ctsm_diagram.svg" src="../../_images/ndown_ctsm_diagram.svg" /><p class="caption"><span class="caption-number">Figure 3.4.1 </span><span class="caption-text">Flowchart for WRF-CTSM one-way nested simulations</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="nested-simulations-pre-processing-geogrid-exe">
+<h2><span class="section-number">3.4.2.1. </span>Nested Simulations : Pre-processing (geogrid.exe)<a class="headerlink" href="#nested-simulations-pre-processing-geogrid-exe" title="Permalink to this headline">¶</a></h2>
+<p>In the WPS/ directory, edit <cite>namelist.wps</cite> for a nested simulation over your
+desired domains. Make sure to change <cite>max_dom=2</cite>.</p>
+<p>First, use geogrid.exe to define the domain and interpolate static geographical data
+to the grids:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./geogrid.exe &gt;<span class="p">&amp;</span> log.geogrid
+</pre></div>
+</div>
+<p>This step creates two files <cite>geo_em.d01.nc</cite> &amp; <cite>geo_em.d02.nc</cite> which includes
+the domain definition for each domain.</p>
+<p>If the geogrid step finishes successfully, you should see the following message in the log file:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!  Successful completion of geogrid.  !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+</pre></div>
+</div>
+<p>The basic difference here with a non-nested case is the namelist.wps should
+have a column for each domain with <cite>max_dom=2</cite>. For example:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span>share
+ <span class="nv">wrf_core</span> <span class="o">=</span> <span class="s1">&#39;ARW&#39;</span>,
+ <span class="nv">max_dom</span> <span class="o">=</span> <span class="m">2</span>,
+ <span class="nv">start_date</span> <span class="o">=</span> <span class="s1">&#39;2013-04-01_00:00:00&#39;</span>,<span class="s1">&#39;2013-04-01_00:00:00&#39;</span>,
+ <span class="nv">end_date</span>   <span class="o">=</span> <span class="s1">&#39;2013-04-30_00:00:00&#39;</span>,<span class="s1">&#39;2013-04-30_00:00:00&#39;</span>,
+ <span class="nv">interval_seconds</span> <span class="o">=</span> <span class="m">21600</span>
+ <span class="nv">io_form_geogrid</span> <span class="o">=</span> <span class="m">2</span>,
+/
+
+<span class="p">&amp;</span>geogrid
+ <span class="nv">parent_id</span>         <span class="o">=</span>   <span class="m">1</span>,   <span class="m">1</span>,
+ <span class="nv">parent_grid_ratio</span> <span class="o">=</span>   <span class="m">1</span>,   <span class="m">3</span>,
+ <span class="nv">i_parent_start</span>    <span class="o">=</span>   <span class="m">1</span>,  <span class="m">61</span>,
+ <span class="nv">j_parent_start</span>    <span class="o">=</span>   <span class="m">1</span>,  <span class="m">57</span>,
+ <span class="nv">e_we</span>              <span class="o">=</span>  <span class="m">200</span>, <span class="m">103</span>,
+ <span class="nv">e_sn</span>              <span class="o">=</span>  <span class="m">140</span>, <span class="m">103</span>,
+</pre></div>
+</div>
+<p>Therefore <code class="docutils literal notranslate"><span class="pre">geogrid.exe</span></code> creates two files corresponding to each domain.</p>
+</div>
+<div class="section" id="nested-simulations-pre-processing-ungrib-exe">
+<h2><span class="section-number">3.4.2.2. </span>Nested Simulations : Pre-processing (ungrib.exe)<a class="headerlink" href="#nested-simulations-pre-processing-ungrib-exe" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned previously, the purpose of the ungrib script is to unpack GRIB
+meteorological data and pack it into an intermediate file format.
+This step is exactly identical to a non-nested simulation.</p>
+<p>Run ungrib to get gribbed data into usable format to be ingested by WRF.</p>
+<p>To run ungrib.exe, first link the GRIB data files that are going to be used:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./link_grib.csh <span class="nv">$your_GRIB_data_path</span>
+</pre></div>
+</div>
+<p>Based on your GRIB data type, link or copy the appropriate VTable to your WPS directory.
+WRF has some prepared VTable under <code class="docutils literal notranslate"><span class="pre">/ungrib/Variable_tables/</span></code> folder.</p>
+<p>Extract meteorological fields from GRIB-formatted files:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./ungrib.exe &gt;<span class="p">&amp;</span> log.ungrib
+</pre></div>
+</div>
+<p>Check ungrib log for the following message showing successful completion of ungrib step:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!  Successful completion of ungrib.   !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+</pre></div>
+</div>
+<p>At this point, you should see ungrib output (intermediate files) in your WPS directory.</p>
+</div>
+<div class="section" id="nested-simulations-pre-processing-metgrid-exe">
+<h2><span class="section-number">3.4.2.3. </span>Nested Simulations : Pre-processing (metgrid.exe)<a class="headerlink" href="#nested-simulations-pre-processing-metgrid-exe" title="Permalink to this headline">¶</a></h2>
+<p>Ensure that the <cite>start_date</cite> and <cite>end_date</cite> for domain two is set correctly for
+your simulation.
+Next, run <code class="docutils literal notranslate"><span class="pre">metgrid.exe</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./metgrid.exe &gt;<span class="p">&amp;</span> log.metgrid
+</pre></div>
+</div>
+<p>Check the metgrid log for the following message showing successful completion of
+metgrid step:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!  Successful completion of metgrid.  !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+</pre></div>
+</div>
+<p>Running metgrid for two domains will create files like
+below:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>met_em.d01.*
+met_em.d02.*
+</pre></div>
+</div>
+</div>
+<div class="section" id="nested-simulations-real-exe">
+<h2><span class="section-number">3.4.2.4. </span>Nested Simulations : real.exe<a class="headerlink" href="#nested-simulations-real-exe" title="Permalink to this headline">¶</a></h2>
+<p>In this step, run <code class="docutils literal notranslate"><span class="pre">real.exe</span></code> to generate initial and boundary conditions for
+both domains.</p>
+<p>In summary, complete the following steps:</p>
+<p>Move or link WPS output files (<code class="docutils literal notranslate"><span class="pre">met_em.d01*</span></code> and <code class="docutils literal notranslate"><span class="pre">met_em.d02</span></code> files) to your WRF test directory.</p>
+<p>Edit namelist.input for your WRF domain and desirable configurations.
+This should be the same domain as WPS namelist. Make sure you set <code class="docutils literal notranslate"><span class="pre">max_dom</span> <span class="pre">=</span>
+<span class="pre">2,</span></code> in the namelist.</p>
+<p>To run WRF-CTSM, in your namelist change land-surface option to 6 for both
+domains:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">sf_surface_physics</span> <span class="o">=</span> <span class="m">6</span>, <span class="m">6</span>,
+</pre></div>
+</div>
+<p>Run real.exe (if compiled parallel submit a batch job) to generate
+initail and boundary condition files for both domain.
+Make sure the following three files have been created in your directory:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>wrfinput_d01
+wrfinput_d02
+wrfbdy_d01
+</pre></div>
+</div>
+<p>The boundary condition file is only created for the outer domain.</p>
+<p>Check the last line of the real log file for the following message:</p>
+</div>
+<div class="section" id="rename-wrfinput-d02">
+<h2><span class="section-number">3.4.2.5. </span>Rename wrfinput_d02<a class="headerlink" href="#rename-wrfinput-d02" title="Permalink to this headline">¶</a></h2>
+<p>Next, rename the <code class="docutils literal notranslate"><span class="pre">wrfinput_d02</span></code> file to <code class="docutils literal notranslate"><span class="pre">wrfndi_d02</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mv wrfinput_d02 wrfndi_d02
+</pre></div>
+</div>
+</div>
+<div class="section" id="run-ndown-exe">
+<h2><span class="section-number">3.4.2.6. </span>Run ndown.exe<a class="headerlink" href="#run-ndown-exe" title="Permalink to this headline">¶</a></h2>
+<p>In this step, we run ndown.exe to create initial and boundary condition for
+domain 2 based on the domain 1 (outer domain).</p>
+<p>Add the following into your namelist.input file under <code class="docutils literal notranslate"><span class="pre">&amp;time_control</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nv">io_form_auxinput2</span> <span class="o">=</span> <span class="m">2</span>
+</pre></div>
+</div>
+<p>Run ndown.exe to create <code class="docutils literal notranslate"><span class="pre">wrfinput_d02</span></code> and <code class="docutils literal notranslate"><span class="pre">wrfbdy_d02</span></code>.</p>
+</div>
+<div class="section" id="run-wrf-for-coarser-domain">
+<h2><span class="section-number">3.4.2.7. </span>Run WRF for coarser domain<a class="headerlink" href="#run-wrf-for-coarser-domain" title="Permalink to this headline">¶</a></h2>
+<p>In this step, run WRF for the outer domain.
+Make sure that <code class="docutils literal notranslate"><span class="pre">max_dom</span> <span class="pre">=</span> <span class="pre">1</span></code> to run only for the coarser domain.</p>
+<p>This step is exactly identical as the previous example and only creates the
+<code class="docutils literal notranslate"><span class="pre">wrfout*</span></code> files for the coarser domain.</p>
+<p>Please make sure to copy <code class="docutils literal notranslate"><span class="pre">lnd_in</span></code> , <code class="docutils literal notranslate"><span class="pre">lilac_in</span></code>, and <code class="docutils literal notranslate"><span class="pre">lnd_modelio</span></code> for the
+coarser domain in this directory.</p>
+</div>
+<div class="section" id="create-ctsm-runtime-files-for-the-fine-domain">
+<h2><span class="section-number">3.4.2.8. </span>Create CTSM runtime files for the fine domain<a class="headerlink" href="#create-ctsm-runtime-files-for-the-fine-domain" title="Permalink to this headline">¶</a></h2>
+<p>This step is in addition creating CTSM runtime files for coarser domain which
+was explained here. For succesfully completing the previous step you should
+have already created these files for the coarser domain.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The instructions for setting CTSM runtime options, are discussed in depth
+in section <a class="reference internal" href="../obtaining-building-and-running/setting-ctsm-runtime-options.html#setting-ctsm-runtime-options"><span class="std std-numref">3.2.2</span></a>. For creating the runtime
+files for the finer domain you should follow the steps in section
+<a class="reference internal" href="../obtaining-building-and-running/setting-ctsm-runtime-options.html#setting-ctsm-runtime-options"><span class="std std-numref">3.2.2</span></a>.</p>
+</div>
+<p>Again, the goal here is to create files that determine CTSM runtime options which
+are defined within these three files:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lnd_in</span></code>: This is the main namelist input file for CTSM inner domain</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lnd_modelio.nml</span></code>: This sets CTSM’s PIO (parallel I/O library) configuration settings</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lilac_in</span></code>: This namelist controls the operation of LILAC</p></li>
+</ul>
+</div>
+<div class="section" id="run-wrf-for-the-finer-domain">
+<h2><span class="section-number">3.4.2.9. </span>Run WRF for the finer domain<a class="headerlink" href="#run-wrf-for-the-finer-domain" title="Permalink to this headline">¶</a></h2>
+<p>First, save (rename or move) the data from the coarser domain simulation
+(<code class="docutils literal notranslate"><span class="pre">wrfout_d01_*</span></code> files).
+Next, rename <code class="docutils literal notranslate"><span class="pre">wrfinput_d02</span></code> and <code class="docutils literal notranslate"><span class="pre">wrfbdy_d02</span></code> to <code class="docutils literal notranslate"><span class="pre">wrfinput_d01</span></code> and <code class="docutils literal notranslate"><span class="pre">wrfbdy_d01</span></code>, respectively.</p>
+<p>Edit namelist.input, moving all of the fine-grid domain data from column 2 to column 1
+so that this run will be for the fine-grid domain only. Make sure you set
+<cite>max_dom=1</cite> and set your <cite>time_step</cite> based on the finer domain.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It may be beneficial to save namelist.input to something else prior to this step in case you need to repeat this
+process in the future. Save the newly-edited namelist as namelist.input .</p>
+</div>
+<p>Now run wrf.exe by submitting a job similar to a not-nested case.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The output for the finer domain is wrfout_d01_* not wrfout_d02_* and although
+in the name it is saying d01 it is technically d02 domain.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="wrf-tools.html" class="btn btn-neutral float-right" title="3.4.3. WRF-CTSM Tools and Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="wrf.html" class="btn btn-neutral" title="3.4.1. Using CTSM with WRF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
