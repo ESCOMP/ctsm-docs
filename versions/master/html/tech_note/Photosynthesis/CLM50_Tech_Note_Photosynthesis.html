@@ -260,7 +260,7 @@ Previous versions of CLM calculated leaf stomatal resistance using the Ball-Berr
 model as described by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1991"><span class="std std-ref">Collatz et al. (1991)</span></a> and implemented in global
 climate models (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellersetal1996"><span class="std std-ref">Sellers et al. 1996</span></a>). The Medlyn model
 calculates stomatal conductance (i.e., the inverse of resistance) based on net leaf
-photosynthesis, the vapor pressure deficit, and the CO<sub>2</sub> concentration at the leaf surface.
+photosynthesis, the leaf-to-air vapor pressure difference, and the CO<sub>2</sub> concentration at the leaf surface.
 Leaf stomatal resistance is:</p>
 <div class="math" id="equation-9-1">
 <p><span class="eqno">(2.9.1)<a class="headerlink" href="#equation-9-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/566f20ca062562b4df989cf44eaf0fedc4919373.svg" alt="\frac{1}{r_{s} } =g_{s} = g_{o} + 1.6(1 + \frac{g_{1} }{\sqrt{D_{s}}}) \frac{A_{n} }{{c_{s} \mathord{\left/ {\vphantom {c_{s}  P_{atm} }} \right. \kern-\nulldelimiterspace} P_{atm} } }"/></p>
@@ -270,7 +270,7 @@ Leaf stomatal resistance is:</p>
 photosynthesis (<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/>mol CO<sub>2</sub> m<sup>-2</sup>
 s<sup>-1</sup>), <img class="math" src="../../_images/math/3d339f3edc16f2f9b4957003ece21a1150a9d167.svg" alt="c_{s}"/> is the CO<sub>2</sub> partial
 pressure at the leaf surface (Pa), <img class="math" src="../../_images/math/ff05e47d449c882a4b702cc6b3e8c247ebb0feca.svg" alt="P_{atm}"/> is the atmospheric
-pressure (Pa), and <img class="math" src="../../_images/math/a15b19b2ea547fe7f5096794315270881bd04ad4.svg" alt="D_{s}=(e_{i}-e{_s})/1000"/> is the vapor pressure deficit at the leaf surface (kPa)
+pressure (Pa), and <img class="math" src="../../_images/math/a15b19b2ea547fe7f5096794315270881bd04ad4.svg" alt="D_{s}=(e_{i}-e{_s})/1000"/> is the leaf-to-air vapor pressure difference at the leaf surface (kPa)
 where <img class="math" src="../../_images/math/62857be112982178271a6d7f0ff5cc1fb4f92d8c.svg" alt="e_{i}"/>  is the saturation vapor pressure (Pa) evaluated at the leaf temperature
 <img class="math" src="../../_images/math/ad7c90a4efeb31f2a1f794d4715f83bc48acd8f2.svg" alt="T_{v}"/> , and <img class="math" src="../../_images/math/fd4514ed34d4a827e4580c558d7ee50ad3eee94a.svg" alt="e_{s}"/> is the vapor pressure at the leaf surface (Pa).
 <img class="math" src="../../_images/math/5fb94e83ffb80eb9f003d64919f75abb47aa1fd3.svg" alt="g_{1}"/> is a plant functional type dependent parameter (<a class="reference internal" href="#table-plant-functional-type-pft-stomatal-conductance-parameters"><span class="std std-numref">Table 2.9.1</span></a>)
@@ -624,18 +624,19 @@ Equations <a class="reference internal" href="#equation-9-19">(2.9.19)</a> and <
 <img class="math" src="../../_images/math/c0ce22fe787c75a3953cf3eec11e11e45a0b478b.svg" alt="g_{s} =1/r_{s}"/>  and <img class="math" src="../../_images/math/1db811548185644e54256a149f4d9def640a6a2e.svg" alt="g_{b} =1/r_{b}"/></p>
 <div class="math" id="equation-9-36">
 <p><span class="eqno">(2.9.24)<a class="headerlink" href="#equation-9-36" title="Permalink to this equation">¶</a></span><img src="../../_images/math/675e5d37192bd56546f9394222b294a337658526.svg" alt="e_{s} =\frac{e_{a} g_{b} +e_{i} g_{s} }{g_{b} +g_{s} } ."/></p>
-</div><p>Substitution of equation <a class="reference internal" href="#equation-9-36">(2.9.24)</a> into equation <a class="reference internal" href="#equation-9-1">(2.9.1)</a> gives an expression for stomatal
-resistance (<img class="math" src="../../_images/math/5f715bcd40c390ebd8ddc2abb05f8fec96de2129.svg" alt="r_{s}"/> ) as a function of photosynthesis
+</div><p>Substitution of equation <a class="reference internal" href="#equation-9-36">(2.9.24)</a> into equation <a class="reference internal" href="#equation-9-1">(2.9.1)</a> gives an expression for the stomatal
+resistance
+(<img class="math" src="../../_images/math/5f715bcd40c390ebd8ddc2abb05f8fec96de2129.svg" alt="r_{s}"/>) as a function of photosynthesis
 (<img class="math" src="../../_images/math/a27702113c5bf7613f7dd08eacdb8b6ce17a1580.svg" alt="A_{n}"/> )</p>
 <div class="math" id="equation-9-37">
 <p><span class="eqno">(2.9.25)<a class="headerlink" href="#equation-9-37" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4228e424a62bb095da6063d561d9c1416de1f845.svg" alt="ag_{s}^{2} + bg_{s} + c = 0"/></p>
 </div><p>where</p>
 <div class="math" id="equation-9-38">
-<p><span class="eqno">(2.9.26)<a class="headerlink" href="#equation-9-38" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9cd85061b5c38fb33a3f3a8d872ac7f080856dee.svg" alt="a = 1
+<p><span class="eqno">(2.9.26)<a class="headerlink" href="#equation-9-38" title="Permalink to this equation">¶</a></span><img src="../../_images/math/59564e595a309456621b97995b08a6ab48543aab.svg" alt="\begin{array}{l}  a = 1 \\
 
-b = -[2(g_{o} * 10^{-6} + d) + \frac{(g_{1}d)^{2}}{g_{b}*10^{-6}D_{l}}]
+b = -[2(g_{o} * 10^{-6} + d) + \frac{(g_{1}d)^{2}}{g_{b}*10^{-6}D_{l}}] \\
 
-c = (g_{o}*10^{-6})^{2} + [2g_{o}*10^{-6} + d (1-\frac{g_{1}^{2}} {D_{l}})]d"/></p>
+c = (g_{o}*10^{-6})^{2} + [2g_{o}*10^{-6} + d (1-\frac{g_{1}^{2}} {D_{l}})]d \end{array}"/></p>
 </div><p>and</p>
 <div class="math" id="equation-9-39">
 <p><span class="eqno">(2.9.27)<a class="headerlink" href="#equation-9-39" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ee346feef5665ba786b5bcc17fd11ff3c4e77cb5.svg" alt="d = \frac {1.6 A_{n}} {c_{s} / P_{atm} * 10^{6}}
