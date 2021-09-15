@@ -266,7 +266,7 @@ mass at the upper surface (section
 condition for CISM’s temperature calculation</p></li>
 </ol>
 <p>The ice sheet model is typically run at much higher resolution than CLM
-(e.g., <span class="math">\sim</span>5 km rather than <span class="math">\sim</span>100 km). To improve
+(e.g., <img class="math" src="../../_images/math/18a4271606c39920a281ba499c2f33ff2e925ce9.svg" alt="\sim"/>5 km rather than <img class="math" src="../../_images/math/18a4271606c39920a281ba499c2f33ff2e925ce9.svg" alt="\sim"/>100 km). To improve
 the downscaling from CLM’s grid to the ice sheet grid, the glaciated
 portion of each grid cell is divided into multiple elevation classes
 (section <a class="reference internal" href="#multiple-elevation-class-scheme"><span class="std std-numref">2.13.4</span></a>). The above
@@ -277,10 +277,10 @@ CISM.</p>
 <p>There are several reasons for computing the SMB in CLM rather than in
 CISM:</p>
 <ol class="arabic simple">
-<li><p>It is much cheaper to compute the SMB in CLM for <span class="math">\sim</span>10
+<li><p>It is much cheaper to compute the SMB in CLM for <img class="math" src="../../_images/math/18a4271606c39920a281ba499c2f33ff2e925ce9.svg" alt="\sim"/>10
 elevation classes than in CISM. For example, suppose we are
-running CLM at a resolution of <span class="math">\sim</span>50 km and CISM at
-<span class="math">\sim</span>5 km. Greenland has dimensions of about 1000 x 2000 km.
+running CLM at a resolution of <img class="math" src="../../_images/math/18a4271606c39920a281ba499c2f33ff2e925ce9.svg" alt="\sim"/>50 km and CISM at
+<img class="math" src="../../_images/math/18a4271606c39920a281ba499c2f33ff2e925ce9.svg" alt="\sim"/>5 km. Greenland has dimensions of about 1000 x 2000 km.
 For CLM we would have 20 x 40 x 10 = 8,000 columns, whereas for
 CISM we would have 200 x 400 = 80,000 columns.</p></li>
 <li><p>We can use the sophisticated snow physics parameterization already in
@@ -527,19 +527,19 @@ will be false everywhere; in these cases, CISM’s mass is not considered
 to be part of the coupled system. In cases where CISM is evolving and
 sending its own calving flux to the coupler, <em>glc_dyn_runoff_routing</em>
 will be true over the CISM domain and false elsewhere.</p>
-<p>Any snow capping (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#runoff-from-glaciers-and-snow-capped-surfaces"><span class="std std-numref">2.7.6</span></a>) is added to <span class="math">q_{ice,frz}</span>. Any liquid water (i.e.,
+<p>Any snow capping (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#runoff-from-glaciers-and-snow-capped-surfaces"><span class="std std-numref">2.7.6</span></a>) is added to <img class="math" src="../../_images/math/497b8d973a0728ee600014df084e5caacf99414f.svg" alt="q_{ice,frz}"/>. Any liquid water (i.e.,
 melted ice) below the snow pack in the glacier column is added to
-<span class="math">q_{ice,melt}</span>, then is converted back to ice to maintain a
-pure-ice column. Then the total SMB is given by <span class="math">q_{ice,tot}</span>:</p>
+<img class="math" src="../../_images/math/a0f1f4a2e29e1a777aa4c926c23868991b268b4f.svg" alt="q_{ice,melt}"/>, then is converted back to ice to maintain a
+pure-ice column. Then the total SMB is given by <img class="math" src="../../_images/math/377e4bb0b27b890c2a0d7e880da1d862661db9d5.svg" alt="q_{ice,tot}"/>:</p>
 <div class="math" id="equation-13-1">
-<p><span class="eqno">(2.13.1)<a class="headerlink" href="#equation-13-1" title="Permalink to this equation">¶</a></span><span class="math">q_{ice,tot} = q_{ice,frz} - q_{ice,melt}</span></p>
+<p><span class="eqno">(2.13.1)<a class="headerlink" href="#equation-13-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/10aa5c35f7a9d3969c26620027de197321f749e3.svg" alt="q_{ice,tot} = q_{ice,frz} - q_{ice,melt}"/></p>
 </div><p>CLM is responsible for generating glacial surface melt, even when
-running with an evolving ice sheet. Thus, <span class="math">q_{ice,melt}</span> is always
-added to liquid runoff (<span class="math">q_{rgwl}</span>), regardless of
+running with an evolving ice sheet. Thus, <img class="math" src="../../_images/math/a0f1f4a2e29e1a777aa4c926c23868991b268b4f.svg" alt="q_{ice,melt}"/> is always
+added to liquid runoff (<img class="math" src="../../_images/math/6d7c02d0713c157e7bb6ca4cb646659248f5a0d9.svg" alt="q_{rgwl}"/>), regardless of
 <em>glc_dyn_runoff_routing</em>. However, the ice runoff flux depends on
 <em>glc_dyn_runoff_routing</em>. If <em>glc_dyn_runoff_routing</em> is true,
 then CISM controls the fate of the snow capping mass in
-<span class="math">q_{ice,frz}</span> (e.g., eventually transporting it to lower
+<img class="math" src="../../_images/math/497b8d973a0728ee600014df084e5caacf99414f.svg" alt="q_{ice,frz}"/> (e.g., eventually transporting it to lower
 elevations where it can be melted or calved). Since CISM will now own
 this mass, the snow capping flux does <em>not</em> contribute to any runoff
 fluxes generated by CLM in this case.</p>
@@ -547,7 +547,7 @@ fluxes generated by CLM in this case.</p>
 flux as runoff, as a crude representation of ice calving (see also
 sections <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#runoff-from-glaciers-and-snow-capped-surfaces"><span class="std std-numref">2.7.6</span></a> and
 <a class="reference internal" href="#glacier-regions"><span class="std std-numref">2.13.3</span></a>). However, this ice runoff flux is reduced by
-<span class="math">q_{ice,melt}</span>. This reduction is needed for conservation; its
+<img class="math" src="../../_images/math/a0f1f4a2e29e1a777aa4c926c23868991b268b4f.svg" alt="q_{ice,melt}"/>. This reduction is needed for conservation; its
 need is subtle, but can be understood with either of these explanations:</p>
 <ul class="simple">
 <li><p>When ice melts, we let the liquid run off and replace it with new
@@ -571,7 +571,7 @@ an ice sheet that is near equilibrium, this just serves to decrease the
 too-high positive ice runoff from snow capping. (The treatment of snow
 capping with <em>glc_dyn_runoff_routing</em> false is based on this
 near-equilibrium assumption - i.e., that ice accumulation is roughly
-balanced by <span class="math">calving + melt</span>, integrated across space and time.
+balanced by <img class="math" src="../../_images/math/fa8633413ddf98b928ef913b321ac19b5aea6780.svg" alt="calving + melt"/>, integrated across space and time.
 For glaciers and ice sheets that violate this assumption, either because
 they are far out of equilibrium with the climate or because the model is
 being run for hundreds of years, there are two ways to avoid the
