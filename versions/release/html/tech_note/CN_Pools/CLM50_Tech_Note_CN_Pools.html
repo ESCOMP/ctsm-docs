@@ -1,0 +1,426 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.16. CN Pools &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="2. CLM Technical Note" href="../index.html"/>
+        <link rel="next" title="2.17. Plant Respiration" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html"/>
+        <link rel="prev" title="2.15. Urban Model (CLMU)" href="../Urban/CLM50_Tech_Note_Urban.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/index.html">1. CLM5.0 User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">2. CLM Technical Note</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/CLM50_Tech_Note_Introduction.html">2.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html">2.2. Surface Characterization, Vertical Discretization, and Model Input Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html">2.3. Surface Albedos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html">2.4. Radiative Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html">2.5. Momentum, Sensible Heat, and Latent Heat Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html">2.6. Soil and Snow Temperatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html">2.7. Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html">2.8. Snow Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html">2.9. Stomatal Resistance and Photosynthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html">2.10. Photosynthetic Capacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html">2.11. Plant Hydraulics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html">2.12. Lake Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Glacier/CLM50_Tech_Note_Glacier.html">2.13. Glaciers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html">2.14. Model for Scale Adaptive River Transport (MOSART)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Urban/CLM50_Tech_Note_Urban.html">2.15. Urban Model (CLMU)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.16. CN Pools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">2.16.1. Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tissue-stoichiometry">2.16.2. Tissue Stoichiometry</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html">2.17. Plant Respiration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html">2.18. Fixation and Uptake of Nitrogen (FUN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html">2.19. Carbon and Nitrogen Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html">2.20. Vegetation Phenology and Turnover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decomposition/CLM50_Tech_Note_Decomposition.html">2.21. Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html">2.22. External Nitrogen Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Mortality/CLM50_Tech_Note_Plant_Mortality.html">2.23. Plant Mortality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fire/CLM50_Tech_Note_Fire.html">2.24. Fire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Methane/CLM50_Tech_Note_Methane.html">2.25. Methane Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html">2.26. Crops and Irrigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html">2.27. Transient Land Use and Land Cover Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html">2.28. Dynamic Global Vegetation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html#technical-documentation-for-fates">2.29. Technical Documentation for FATES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BVOCs/CLM50_Tech_Note_BVOCs.html">2.30. Biogenic Volatile Organic Compounds (BVOCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dust/CLM50_Tech_Note_Dust.html">2.31. Dust Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Isotopes/CLM50_Tech_Note_Isotopes.html">2.32. Carbon Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Land-Only_Mode/CLM50_Tech_Note_Land-Only_Mode.html">2.33. Land-Only Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../References/CLM50_Tech_Note_References.html">2.34. References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">2. </span>CLM Technical Note</a> &raquo;</li>
+        
+      <li><span class="section-number">2.16. </span>CN Pools</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/tech_note/CN_Pools/CLM50_Tech_Note_CN_Pools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cn-pools">
+<span id="rst-cn-pools"></span><h1><span class="section-number">2.16. </span>CN Pools<a class="headerlink" href="#cn-pools" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2><span class="section-number">2.16.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>CLM includes a prognostic treatment of the terrestrial carbon and
+nitrogen cycles including natural vegetation, crops, and soil biogeochemistry. The model is
+fully prognostic with respect to all carbon and nitrogen state variables
+in the vegetation, litter, and soil organic matter. The seasonal timing
+of new vegetation growth and litterfall is also prognostic, responding
+to soil and air temperature, soil water availability, daylength, and
+crop management practices in
+varying degrees depending on a specified phenology type or management for each PFT
+(Chapter
+<a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html#rst-vegetation-phenology-and-turnover"><span class="std std-numref">2.20</span></a>). The
+prognostic LAI, SAI,
+tissue stoichiometry, and vegetation heights are
+utilized by the biophysical model that couples carbon, water, and
+energy cycles.</p>
+<p>Separate state variables for C and N are tracked for leaf, live stem,
+dead stem, live coarse root, dead coarse root, fine root, and grain pools
+(<a class="reference internal" href="#figure-vegetation-fluxes-and-pools"><span class="std std-numref">Figure 2.16.1</span></a>). Each of these pools has two corresponding
+storage pools representing, respectively, short-term and long-term
+storage of non-structural carbohydrates and labile nitrogen. There are
+two additional carbon pools, one for the storage of growth respiration
+reserves, and another used to meet excess demand for maintenance
+respiration during periods with low photosynthesis. One additional
+nitrogen pool tracks retranslocated nitrogen, mobilized from leaf tissue
+prior to abscission and litterfall. Altogether there are 23 state
+variables for vegetation carbon, and 22 for vegetation nitrogen.</p>
+<div class="figure align-default" id="id1">
+<span id="figure-vegetation-fluxes-and-pools"></span><a class="reference internal image-reference" href="../../_images/CLMCN_pool_structure_v2_lores.png"><img alt="../../_images/CLMCN_pool_structure_v2_lores.png" src="../../_images/CLMCN_pool_structure_v2_lores.png" style="width: 753px; height: 513px;" /></a>
+<p class="caption"><span class="caption-number">Figure 2.16.1 </span><span class="caption-text">Vegetation fluxes and pools for carbon cycle in CLM5.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>In addition to the vegetation pools, CLM includes a series of
+decomposing carbon and nitrogen pools as vegetation successively
+breaks down to CWD, and/or litter, and subsequently to soil organic
+matter. Discussion of the decomposition model, alternate
+specifications of decomposition rates, and methods to rapidly
+equilibrate the decomposition model, is in Chapter
+<a class="reference internal" href="../Decomposition/CLM50_Tech_Note_Decomposition.html#rst-decomposition"><span class="std std-numref">2.21</span></a>.</p>
+</div>
+<div class="section" id="tissue-stoichiometry">
+<h2><span class="section-number">2.16.2. </span>Tissue Stoichiometry<a class="headerlink" href="#tissue-stoichiometry" title="Permalink to this headline">¶</a></h2>
+<p>As of CLM5, vegetation tissues have a flexible stoichiometry, as
+described in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#ghimireetal2016"><span class="std std-ref">Ghimire et al. (2016)</span></a>. Each
+tissue has a target C:N ratio, with the target leaf C:N varying by plant functional type
+(see <a class="reference internal" href="#table-plant-functional-type-pft-target-cn-parameters"><span class="std std-numref">Table 2.16.1</span></a>), and nitrogen is allocated at each
+timestep in order to allow the plant to best match the target
+stoichiometry.  Nitrogen downregulation of productivity acts by
+increasing the C:N ratio of leaves when insufficient nitrogen is
+available to meet stoichiometric demands of leaf growth, thereby
+reducing the N available for photosynthesis and reducing the <img class="math" src="../../_images/math/270eed670e921f052ecb42e56ce1ab7c99677bf9.svg" alt="V_{\text{c,max25}}"/> and
+<img class="math" src="../../_images/math/a33540e05e264050201e6a325be834a6d967c4e5.svg" alt="J_{\text{max25}}"/> terms, as described in Chapter
+<a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>.  Details of the flexible tissue
+stoichiometry are described in Chapter <a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html#rst-cn-allocation"><span class="std std-numref">2.19</span></a>.</p>
+<span id="table-plant-functional-type-pft-target-cn-parameters"></span><table class="docutils align-default" id="id2">
+<caption><span class="caption-number">Table 2.16.1 </span><span class="caption-text">Plant functional type (PFT) target C:N parameters.</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 64%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>PFT</p></th>
+<th class="head"><p>target leaf C:N</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NET Temperate</p></td>
+<td><p>58.00</p></td>
+</tr>
+<tr class="row-odd"><td><p>NET Boreal</p></td>
+<td><p>58.00</p></td>
+</tr>
+<tr class="row-even"><td><p>NDT Boreal</p></td>
+<td><p>25.81</p></td>
+</tr>
+<tr class="row-odd"><td><p>BET Tropical</p></td>
+<td><p>29.60</p></td>
+</tr>
+<tr class="row-even"><td><p>BET temperate</p></td>
+<td><p>29.60</p></td>
+</tr>
+<tr class="row-odd"><td><p>BDT tropical</p></td>
+<td><p>23.45</p></td>
+</tr>
+<tr class="row-even"><td><p>BDT temperate</p></td>
+<td><p>23.45</p></td>
+</tr>
+<tr class="row-odd"><td><p>BDT boreal</p></td>
+<td><p>23.45</p></td>
+</tr>
+<tr class="row-even"><td><p>BES temperate</p></td>
+<td><p>36.42</p></td>
+</tr>
+<tr class="row-odd"><td><p>BDS temperate</p></td>
+<td><p>23.26</p></td>
+</tr>
+<tr class="row-even"><td><p>BDS boreal</p></td>
+<td><p>23.26</p></td>
+</tr>
+<tr class="row-odd"><td><p>C<sub>3</sub> arctic grass</p></td>
+<td><p>28.03</p></td>
+</tr>
+<tr class="row-even"><td><p>C<sub>3</sub> grass</p></td>
+<td><p>28.03</p></td>
+</tr>
+<tr class="row-odd"><td><p>C<sub>4</sub> grass</p></td>
+<td><p>35.36</p></td>
+</tr>
+<tr class="row-even"><td><p>Temperate Corn</p></td>
+<td><p>25.00</p></td>
+</tr>
+<tr class="row-odd"><td><p>Spring Wheat</p></td>
+<td><p>20.00</p></td>
+</tr>
+<tr class="row-even"><td><p>Temperate Soybean</p></td>
+<td><p>20.00</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cotton</p></td>
+<td><p>20.00</p></td>
+</tr>
+<tr class="row-even"><td><p>Rice</p></td>
+<td><p>20.00</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sugarcane</p></td>
+<td><p>25.00</p></td>
+</tr>
+<tr class="row-even"><td><p>Tropical Corn</p></td>
+<td><p>25.00</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tropical Soybean</p></td>
+<td><p>20.00</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html" class="btn btn-neutral float-right" title="2.17. Plant Respiration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../Urban/CLM50_Tech_Note_Urban.html" class="btn btn-neutral" title="2.15. Urban Model (CLMU)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

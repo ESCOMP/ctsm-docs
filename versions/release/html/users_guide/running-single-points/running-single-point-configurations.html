@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1.6.3. Running Single Point Configurations &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="1.6. Running Single Point Regional Cases" href="index.html"/>
+        <link rel="next" title="1.7. Running PTCLM" href="../running-PTCLM/index.html"/>
+        <link rel="prev" title="1.6.2. Running a single point using global data - PTS_MODE" href="running-pts_mode-configurations.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">1. CLM5.0 User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../overview/index.html">1.1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../setting-up-and-running-a-case/index.html">1.2. Setting Up and Running a Case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using-clm-tools/index.html">1.3. Using CLM tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adding-new-resolutions/index.html">1.4. Adding New Resolutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-special-cases/index.html">1.5. Running Special Cases</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">1.6. Running Single Point Regional Cases</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="single-point-and-regional-grid-configurations.html">1.6.1. Single and Regional Grid Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-pts_mode-configurations.html">1.6.2. Running a single point using global data - PTS_MODE</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.6.3. Running Single Point Configurations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-running-clm-over-a-single-point-test-site-in-brazil">1.6.3.1. Example: Running CLM over a single-point test site in Brazil</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-running-clm-over-the-single-point-of-mexicocity-mexico-with-the-default-qian-atmosphere-data-forcing">1.6.3.2. Example: Running CLM over the single-point of Mexicocity Mexico with the default Qian atmosphere data forcing.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-running-clm-over-the-single-point-of-vancouver-canada-with-supplied-atmospheric-forcing-data-for-vancouver">1.6.3.3. Example: Running CLM over the single-point of Vancouver Canada with supplied atmospheric forcing data for Vancouver.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-using-clm-usrdat-name-to-run-a-simulation-using-user-datasets-for-a-specific-region-over-alaska">1.6.3.4. Example: Using CLM_USRDAT_NAME to run a simulation using user datasets for a specific region over Alaska</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-creating-a-surface-dataset-for-a-single-point">1.6.3.5. Example: Creating a surface dataset for a single point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-setting-up-a-case-from-the-single-point-surface-dataset-just-created">1.6.3.6. Example: Setting up a case from the single-point surface dataset just created</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../running-PTCLM/index.html">1.7. Running PTCLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trouble-shooting/index.html">1.8. Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">1.9. Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">1. </span>CLM5.0 User’s Guide</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">1.6. </span>Running Single Point Regional Cases</a> &raquo;</li>
+        
+      <li><span class="section-number">1.6.3. </span>Running Single Point Configurations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/users_guide/running-single-points/running-single-point-configurations.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="running-single-point-configurations">
+<span id="running-single-point-datasets"></span><h1><span class="section-number">1.6.3. </span>Running Single Point Configurations<a class="headerlink" href="#running-single-point-configurations" title="Permalink to this headline">¶</a></h1>
+<p>In addition to <code class="docutils literal notranslate"><span class="pre">PTS_MODE</span></code>, CLM supports running using single-point or regional datasets that are customized to a particular region.
+CLM supports a a small number of out-of-the-box single-point and regional datasets.
+However, users can create their own dataset.</p>
+<p>To get the list of supported dataset resolutions do this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/doc
+&gt; ../bld/build-namelist -res list
+</pre></div>
+</div>
+<p>Which results in the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CLM</span> <span class="n">build</span><span class="o">-</span><span class="n">namelist</span> <span class="o">-</span> <span class="n">valid</span> <span class="n">values</span> <span class="k">for</span> <span class="n">res</span> <span class="p">(</span><span class="n">Horizontal</span> <span class="n">resolutions</span>
+<span class="n">Note</span><span class="p">:</span> <span class="mf">0.1</span><span class="n">x0</span><span class="o">.</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="n">x0</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="n">x5min</span><span class="p">,</span> <span class="mi">10</span><span class="n">x10min</span><span class="p">,</span> <span class="mi">3</span><span class="n">x3min</span> <span class="ow">and</span> <span class="mf">0.33</span><span class="n">x0</span><span class="o">.</span><span class="mi">33</span> <span class="n">are</span> <span class="n">only</span> <span class="n">used</span> <span class="k">for</span> <span class="n">CLM</span> <span class="n">tools</span><span class="p">):</span>
+      <span class="n">Values</span><span class="p">:</span> <span class="n">default</span> <span class="mi">512</span><span class="n">x1024</span> <span class="mi">360</span><span class="n">x720cru</span> <span class="mi">128</span><span class="n">x256</span> <span class="mi">64</span><span class="n">x128</span> <span class="mi">48</span><span class="n">x96</span> <span class="mi">32</span><span class="n">x64</span> <span class="mi">8</span><span class="n">x16</span> <span class="mi">94</span><span class="n">x192</span>  \
+              <span class="mf">0.23</span><span class="n">x0</span><span class="o">.</span><span class="mi">31</span> <span class="mf">0.47</span><span class="n">x0</span><span class="o">.</span><span class="mi">63</span> <span class="mf">0.9</span><span class="n">x1</span><span class="o">.</span><span class="mi">25</span> <span class="mf">1.9</span><span class="n">x2</span><span class="o">.</span><span class="mi">5</span> <span class="mf">2.5</span><span class="n">x3</span><span class="o">.</span><span class="mi">33</span> <span class="mi">4</span><span class="n">x5</span> <span class="mi">10</span><span class="n">x15</span> <span class="mi">5</span><span class="n">x5_amazon</span> <span class="mi">1</span><span class="n">x1_tropicAtl</span> <span class="mi">1</span><span class="n">x1_camdenNJ</span>  \
+              <span class="mi">1</span><span class="n">x1_vancouverCAN</span> <span class="mi">1</span><span class="n">x1_mexicocityMEX</span> <span class="mi">1</span><span class="n">x1_asphaltjungleNJ</span> <span class="mi">1</span><span class="n">x1_brazil</span> <span class="mi">1</span><span class="n">x1_urbanc_alpha</span> <span class="mi">1</span><span class="n">x1_numaIA</span>  \
+              <span class="mi">1</span><span class="n">x1_smallvilleIA</span> <span class="mf">0.1</span><span class="n">x0</span><span class="o">.</span><span class="mi">1</span> <span class="mf">0.5</span><span class="n">x0</span><span class="o">.</span><span class="mi">5</span> <span class="mi">3</span><span class="n">x3min</span> <span class="mi">5</span><span class="n">x5min</span> <span class="mi">10</span><span class="n">x10min</span> <span class="mf">0.33</span><span class="n">x0</span><span class="o">.</span><span class="mi">33</span> <span class="n">ne4np4</span> <span class="n">ne16np4</span> <span class="n">ne30np4</span> <span class="n">ne60np4</span>  \
+              <span class="n">ne120np4</span> <span class="n">ne240np4</span> <span class="n">wus12</span> <span class="n">us20</span>
+      <span class="n">Default</span> <span class="o">=</span> <span class="mf">1.9</span><span class="n">x2</span><span class="o">.</span><span class="mi">5</span>
+     <span class="p">(</span><span class="n">NOTE</span><span class="p">:</span> <span class="n">resolution</span> <span class="ow">and</span> <span class="n">mask</span> <span class="ow">and</span> <span class="n">other</span> <span class="n">settings</span> <span class="n">may</span> <span class="n">influence</span> <span class="n">what</span> <span class="n">the</span> <span class="n">default</span> <span class="ow">is</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The resolution names that have an underscore in them (“_”) are all single-point or regional resolutions.</p>
+<p>To run for the Brazil test site do the following:</p>
+<div class="section" id="example-running-clm-over-a-single-point-test-site-in-brazil">
+<h2><span class="section-number">1.6.3.1. </span>Example: Running CLM over a single-point test site in Brazil<a class="headerlink" href="#example-running-clm-over-a-single-point-test-site-in-brazil" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd scripts
+&gt; set SITE=1x1_brazil
+&gt; ./create_newcase -case testSPDATASET -res $SITE -compset I2000Clm50SpGs
+&gt; cd testSPDATASET
+</pre></div>
+</div>
+<p>Then setup, build and run normally.</p>
+<p>Then to run for the urban Mexico City Mexico test site that also has atmosphere forcing data, but to run it with the Qian forcing data, but over the period for which it’s own forcing data is provided do the following:</p>
+</div>
+<div class="section" id="example-running-clm-over-the-single-point-of-mexicocity-mexico-with-the-default-qian-atmosphere-data-forcing">
+<h2><span class="section-number">1.6.3.2. </span>Example: Running CLM over the single-point of Mexicocity Mexico with the default Qian atmosphere data forcing.<a class="headerlink" href="#example-running-clm-over-the-single-point-of-mexicocity-mexico-with-the-default-qian-atmosphere-data-forcing" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd scripts
+# Set a variable to the site you want to use (as it&#39;s used several times below)
+&gt; set SITE=1x1_mexicocityMEX
+&gt; ./create_newcase -case testSPDATASET -res $SITE -compset I1PtClm50SpGs
+&gt; cd testSPDATASET
+</pre></div>
+</div>
+<p>Then setup, build and run normally.</p>
+<p><strong>Important:</strong> Just like PTS_MODE above, By default it sets up to run with <code class="docutils literal notranslate"><span class="pre">MPILIB=mpi-serial</span></code> (in the <code class="docutils literal notranslate"><span class="pre">env_build.xml</span></code> file) turned on, which allows you to run the model interactively. On some machines this mode is NOT supported and you may need to change it to FALSE before you are able to build.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>See <a class="reference external" href="CLM-URL">the Section called Warning about Running with a Single-Processor on a Batch Machine</a> for a warning about running single-point jobs on batch machines.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When running a <code class="docutils literal notranslate"><span class="pre">pt1_pt1</span></code> resolution the number of processors is automatically set to one. When running a single grid point you can only use a single processor. You might also want to set the <code class="docutils literal notranslate"><span class="pre">env_build.xml</span></code> variable: <code class="docutils literal notranslate"><span class="pre">MPILIB=mpi-serial</span></code> to TRUE so that you can also run interactively without having to use mpi to start up your job.</p>
+</div>
+<div class="section" id="using-supported-single-point-datasets-that-have-their-own-atmospheric-forcing">
+<h3><span class="section-number">1.6.3.2.1. </span>Using Supported Single-point Datasets that have their own Atmospheric Forcing<a class="headerlink" href="#using-supported-single-point-datasets-that-have-their-own-atmospheric-forcing" title="Permalink to this headline">¶</a></h3>
+<p>Of the supported single-point datasets we have three that also have atmospheric forcing data that go with them: Mexico City (Mexico), Vancouver, (Canada, British Columbia), and <code class="docutils literal notranslate"><span class="pre">urbanc_alpha</span></code> (test data for an Urban inter-comparison project).
+Mexico city and Vancouver also have namelist options in the source code for them to work with modified urban data parameters that are particular to these locations.
+To turn on the atmospheric forcing for these datasets, you set the <code class="docutils literal notranslate"><span class="pre">env_run.xml</span> <span class="pre">DATM_MODE</span></code> variable to <code class="docutils literal notranslate"><span class="pre">CLM1PT</span></code>, and then the atmospheric forcing datasets will be used for the point picked.
+If you use one of the compsets that has “I1Pt” in the name that will be set automatically.</p>
+<p>When running with datasets that have their own atmospheric forcing you need to be careful to run over the period that data is available.
+If you have at least one year of forcing it will cycle over the available data over and over again no matter how long of a simulation you run.
+However, if you have less than a years worth of data (or if the start date doesn’t start at the beginning of the year, or the end date doesn’t end at the end of the year) then you won’t be able to run over anything but the data extent.
+In this case you will need to carefully set the <code class="docutils literal notranslate"><span class="pre">RUN_STARTDATE</span></code>, <code class="docutils literal notranslate"><span class="pre">START_TOD</span></code> and <code class="docutils literal notranslate"><span class="pre">STOP_N/STOP_OPTION</span></code> variables for your case to run over the entire time extent of your data.
+For the supported data points, these values are in the XML database and you can use the <strong>queryDefaultNamelist.pl</strong> script to query the values and set them for your case (they are set for the three urban test cases: Mexicocity, Vancouver, and urbanc_alpha).</p>
+<p>In the example below we will show how to do this for the Vancouver, Canada point.</p>
+</div>
+</div>
+<div class="section" id="example-running-clm-over-the-single-point-of-vancouver-canada-with-supplied-atmospheric-forcing-data-for-vancouver">
+<h2><span class="section-number">1.6.3.3. </span>Example: Running CLM over the single-point of Vancouver Canada with supplied atmospheric forcing data for Vancouver.<a class="headerlink" href="#example-running-clm-over-the-single-point-of-vancouver-canada-with-supplied-atmospheric-forcing-data-for-vancouver" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd scripts
+
+# Set a variable to the site you want to use (as it&#39;s used several times below)
+&gt; set SITE=1x1_vancouverCAN
+
+# Create a case at the single-point resolutions with their forcing
+&gt; ./create_newcase -case testSPDATASETnAtmForcing -res $SITE -compset I1PtClm50SpGs
+&gt; cd testSPDATASETnAtmForcing
+
+# Figure out the start and end date for this dataset
+# You can do this by examining the datafile.
+&gt; set STOP_N=330
+&gt; set START_YEAR=1992
+&gt; set STARTDATE=${START_YEAR}-08-12
+&gt; @ NDAYS = $STOP_N / 24
+&gt; ./xmlchange RUN_STARTDATE=$STARTDATE,STOP_N=$STOP_N,STOP_OPTION=nsteps
+
+# Set the User namelist to set the output frequencies of the history files
+# Setting the stdurbpt use-case option create three history file streams
+# The frequencies and number of time-samples needs to be set
+&gt; cat &lt;&lt; EOF &gt; user_nl_clm
+hist_mfilt = $NDAYS,$STOP_N,$STOP_N
+hist_nhtfrq = -1,1,1
+EOF
+
+&gt; ./case.setup
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you don’t set the start-year and run-length carefully as shown above the model will abort with a “dtlimit error” in the atmosphere model. Since, the forcing data for this site (and the MexicoCity site) is less than a year, the model won’t be able to run for a full year. The <code class="docutils literal notranslate"><span class="pre">1x1_urbanc_alpha</span></code> site has data for more than a full year, but neither year is complete hence, it has the same problem (see the problem for this site above).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Just like <code class="docutils literal notranslate"><span class="pre">PTS_MODE</span></code> above, By default it sets up to run with <code class="docutils literal notranslate"><span class="pre">MPILIB=mpi-serial</span></code> (in the env_build.xml file) turned on, which allows you to run the model interactively.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When running a <code class="docutils literal notranslate"><span class="pre">pt1_pt1</span></code> resolution the number of processors is automatically set to one. When running a single grid point you can only use a single processor. You might also want to set the <code class="docutils literal notranslate"><span class="pre">env_build.xml</span></code> variable: <code class="docutils literal notranslate"><span class="pre">MPILIB=mpi-serial</span></code> to <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> so that you can also run interactively without having to use mpi to start up your job.</p>
+</div>
+<div class="section" id="creating-your-own-single-point-dataset">
+<h3><span class="section-number">1.6.3.3.1. </span>Creating your own single-point dataset<a class="headerlink" href="#creating-your-own-single-point-dataset" title="Permalink to this headline">¶</a></h3>
+<p>The following provides an example of setting up a case using <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code> where you rename the files according to the <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code> convention.
+We have an example of such datafiles in the repository for a specific region over Alaska (actually just a sub-set of the global f19 grid).</p>
+</div>
+</div>
+<div class="section" id="example-using-clm-usrdat-name-to-run-a-simulation-using-user-datasets-for-a-specific-region-over-alaska">
+<h2><span class="section-number">1.6.3.4. </span>Example: Using CLM_USRDAT_NAME to run a simulation using user datasets for a specific region over Alaska<a class="headerlink" href="#example-using-clm-usrdat-name-to-run-a-simulation-using-user-datasets-for-a-specific-region-over-alaska" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd scripts
+&gt; ./create_newcase -case my_userdataset_test -res CLM_USRDAT -compset I2000Clm50BgcCruGs
+&gt; cd my_userdataset_test/
+&gt; set GRIDNAME=13x12pt_f19_alaskaUSA
+&gt; set LMASK=gx1v6
+&gt; ./xmlchange CLM_USRDAT_NAME=$GRIDNAME,CLM_BLDNML_OPTS=&quot;-mask $LMASK&quot;
+&gt; ./xmlchange ATM_DOMAIN_FILE=domain.lnd.${GRIDNAME}_$LMASK.nc
+&gt; ./xmlchange LND_DOMAIN_FILE=domain.lnd.${GRIDNAME}_$LMASK.nc
+
+# Make sure the file exists in your $CSMDATA or else use svn to download it there
+&gt; ls $CSMDATA/lnd/clm2/surfdata_map/surfdata_${GRIDNAME}_simyr2000.nc
+
+# If it doesn&#39;t exist, comment out the following...
+#&gt; setenv SVN_INP_URL https://svn-ccsm-inputdata.cgd.ucar.edu/trunk/inputdata/
+#&gt; svn export $SVN_INP_URL/lnd/clm2/surfdata_map/surfdata_${GRIDNAME}_simyr2000.nc $CSMDATA/lnd/clm2/surfdata_map/surfdata_${GRIDNAME}_simyr2000.nc
+&gt; ./case.setup
+</pre></div>
+</div>
+<p>The first step is to create the domain and surface datasets using the process outlined in <a class="reference external" href="CLM-URL">the Section called The File Creation Process in Chapter 2</a>. Below we show an example of the process.</p>
+</div>
+<div class="section" id="example-creating-a-surface-dataset-for-a-single-point">
+<h2><span class="section-number">1.6.3.5. </span>Example: Creating a surface dataset for a single point<a class="headerlink" href="#example-creating-a-surface-dataset-for-a-single-point" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># set the GRIDNAME and creation date that will be used later
+&gt; setenv GRIDNAME 1x1_boulderCO
+&gt; setenv CDATE    `date +%y%m%d`
+# Create the SCRIP grid file for the location and create a unity mapping file for it.
+&gt; cd $CTSMROOT/tools/mkmapdata
+&gt; ./mknoocnmap.pl -p 40,255 -n $GRIDNAME
+# Set pointer to MAPFILE just created that will be used later
+&gt; setenv MAPFILE `pwd`/map_${GRIDNAME}_noocean_to_${GRIDNAME}_nomask_aave_da_${CDATE}.nc
+# create the mapping files needed by mksurfdata_map.
+&gt; cd ../.././mkmapdata
+&gt; setenv GRIDFILE ../mkmapgrids/SCRIPgrid_${GRIDNAME}_nomask_${CDATE}.nc
+&gt; ./mkmapdata.sh -r $GRIDNAME -f $GRIDFILE -t regional
+# create the domain file
+&gt; cd ../../../../tools/mapping/gen_domain_files/src
+&gt; ../../../scripts/ccsm_utils/Machines/configure -mach cheyenne -compiler intel
+&gt; gmake
+&gt; cd ..
+&gt; setenv OCNDOM domain.ocn_noocean.nc
+&gt; setenv ATMDOM domain.lnd.{$GRIDNAME}_noocean.nc
+&gt; ./gen_domain -m $MAPFILE -o $OCNDOM -l $ATMDOM
+# Save the location where the domain file was created
+&gt; setenv GENDOM_PATH `pwd`
+# Finally create the surface dataset
+&gt; cd ../../../../lnd/clm/tools/|version|/mksurfdata_map/src
+&gt; gmake
+&gt; cd ..
+&gt; ./mksurfdata.pl -r usrspec -usr_gname $GRIDNAME -usr_gdate $CDATE
+</pre></div>
+</div>
+<p>The next step is to create a case that points to the files you created above. We will still use the <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code> option as a way to get a case setup without having to add the grid to scripts.</p>
+</div>
+<div class="section" id="example-setting-up-a-case-from-the-single-point-surface-dataset-just-created">
+<h2><span class="section-number">1.6.3.6. </span>Example: Setting up a case from the single-point surface dataset just created<a class="headerlink" href="#example-setting-up-a-case-from-the-single-point-surface-dataset-just-created" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># First setup an environment variable that points to the top of the CESM directory.
+&gt; setenv CESMROOT &lt;directory-of-path-to-main-cesm-directory&gt;
+# Next make sure you have a inputdata location that you can write to
+# You only need to do this step once, so you won&#39;t need to do this in the future
+&gt; setenv MYCSMDATA $HOME/inputdata     # Set env var for the directory for input data
+&gt; ./link_dirtree $CSMDATA $MYCSMDATA
+# Copy the file you created above to your new $MYCSMDATA location following the CLMUSRDAT
+# naming convention (leave off the creation date)
+&gt; cp $CESMROOT/$CTSMROOT/tools/mksurfdata_map/surfdata_${GRIDNAME}_simyr1850_$CDATE.nc \
+$MYCSMDATA/lnd/clm2/surfdata_map/surfdata_${GRIDNAME}_simyr1850.nc
+&gt; cd $CESMROOT/scripts
+&gt; ./create_newcase -case my_usernldatasets_test -res CLM_USRDAT -compset I1850Clm50BgcCropCru \
+-mach cheyenne_intel
+&gt; cd my_usernldatasets_test
+&gt; ./xmlchange DIN_LOC_ROOT=$MYCSMDATA
+# Set the path to the location of gen_domain set in the creation step above
+&gt; ./xmlchange ATM_DOMAIN_PATH=$GENDOM_PATH,LND_DOMAIN_PATH=$GENDOM_PATH
+&gt; ./xmlchange ATM_DOMAIN_FILE=$ATMDOM,LND_DOMAIN_FILE=$ATMDOM
+&gt; ./xmlchange CLM_USRDAT_NAME=$GRIDNAME
+&gt; ./case.setup
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>With this and previous versions of the model we recommended using <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code> as a way to identify your own datasets without having to enter them into the XML database. This has the down-side that you can’t include creation dates in your filenames, which means you can’t keep track of different versions by date. It also means you HAVE to rename the files after you created them with <strong>mksurfdata.pl</strong>. Now, since <code class="docutils literal notranslate"><span class="pre">user_nl</span></code> files are supported for ALL model components, and the same domain files are read by both CLM and DATM and set using the envxml variables: <code class="docutils literal notranslate"><span class="pre">ATM_DOMAIN_PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">ATM_DOMAIN_FILE</span></code>, <code class="docutils literal notranslate"><span class="pre">LND_DOMAIN_PATH</span></code>, and <code class="docutils literal notranslate"><span class="pre">LND_DOMAIN_FILE</span></code> – you can use this mechanism (<code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> and <code class="docutils literal notranslate"><span class="pre">user_nl_datm</span></code> and those envxml variables) to point to your datasets in any location. In the future we will deprecate <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code> and recommend <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> and <code class="docutils literal notranslate"><span class="pre">user_nl_datm</span></code> and the <code class="docutils literal notranslate"><span class="pre">DOMAIN</span></code> envxml variables.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../running-PTCLM/index.html" class="btn btn-neutral float-right" title="1.7. Running PTCLM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="running-pts_mode-configurations.html" class="btn btn-neutral" title="1.6.2. Running a single point using global data - PTS_MODE" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

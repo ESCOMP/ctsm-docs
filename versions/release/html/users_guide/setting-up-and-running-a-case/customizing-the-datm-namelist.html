@@ -1,0 +1,387 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1.2.4. Customizing the DATM namelist &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="1.2. Setting Up and Running a Case" href="index.html"/>
+        <link rel="next" title="1.2.5. CTSM History Fields" href="master_list_file.html"/>
+        <link rel="prev" title="1.2.3. Customizing CLM’s namelist" href="customizing-the-clm-namelist.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">1. CLM5.0 User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../overview/index.html">1.1. Overview</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">1.2. Setting Up and Running a Case</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="choosing-a-compset.html">1.2.1. Choosing a compset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="customizing-the-clm-configuration.html">1.2.2. Customizing CLM’s Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="customizing-the-clm-namelist.html">1.2.3. Customizing CLM’s namelist</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.2.4. Customizing the DATM namelist</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#clmgswp3v1-mode-and-it-s-datm-settings">1.2.4.1. CLMGSWP3v1 mode and it’s DATM settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#clmcruncepv7-mode-and-it-s-datm-settings">1.2.4.2. CLMCRUNCEPv7 mode and it’s DATM settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#clmcruncep-mode-and-it-s-datm-settings">1.2.4.3. CLMCRUNCEP mode and it’s DATM settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#clm-qian-mode-and-it-s-datm-settings">1.2.4.4. CLM_QIAN mode and it’s DATM settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#clm1pt-mode-and-it-s-datm-settings">1.2.4.5. CLM1PT mode and it’s DATM settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cplhistforcing-mode-and-it-s-datm-settings">1.2.4.6. CPLHISTForcing mode and it’s DATM settings</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="master_list_file.html">1.2.5. CTSM History Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../using-clm-tools/index.html">1.3. Using CLM tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adding-new-resolutions/index.html">1.4. Adding New Resolutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-special-cases/index.html">1.5. Running Special Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-single-points/index.html">1.6. Running Single Point Regional Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-PTCLM/index.html">1.7. Running PTCLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trouble-shooting/index.html">1.8. Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">1.9. Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">1. </span>CLM5.0 User’s Guide</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">1.2. </span>Setting Up and Running a Case</a> &raquo;</li>
+        
+      <li><span class="section-number">1.2.4. </span>Customizing the DATM namelist</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/users_guide/setting-up-and-running-a-case/customizing-the-datm-namelist.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="customizing-the-datm-namelist">
+<h1><span class="section-number">1.2.4. </span>Customizing the DATM namelist<a class="headerlink" href="#customizing-the-datm-namelist" title="Permalink to this headline">¶</a></h1>
+<p>When running “I” compsets with CLM you use the DATM model to give atmospheric forcing data to CLM. There are two ways to customize DATM:</p>
+<ol class="arabic simple">
+<li><p><strong>DATM Main Namelist and Stream Namlist gorup</strong> (<code class="docutils literal notranslate"><span class="pre">datm_in</span></code>)</p></li>
+<li><p><strong>DATM stream files</strong></p></li>
+</ol>
+<p>The <a class="reference external" href="http://esmci.github.io/cime/data_models/data-atm.html">Data Model Documentation</a> gives the details of all the options for the data models and for DATM specifically.
+It goes into detail on all namelist items both for DATM and for DATM streams.
+So here we won’t list ALL of the DATM namelist options, nor go into great details about stream files.
+But, we will talk about a few of the different options that are relevant for running with CLM.
+All of the options for changing the namelists or stream files is done by editing the <code class="docutils literal notranslate"><span class="pre">user_nl_datm</span></code> file.</p>
+<p>Because, they aren’t useful for work with CLM we will NOT discuss any of the options for the main DATM namelist. Use the DATM Users Guide at the link above to find details of that. For the streams namelist we will discuss three items:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mapalgo</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">taxmode</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tintalgo</span></code></p></li>
+</ol>
+<p>And for the streams file itself we will discuss:</p>
+<dl class="simple">
+<dt>offset</dt><dd><p>Again everything else (and including the above items) are discussed in the Data Model User’s Guide. Of the above the last three: offset, taxmode and tintalgo are all closely related and have to do with the time interpolation of the DATM data.</p>
+</dd>
+<dt>mapalgo</dt><dd><p><code class="docutils literal notranslate"><span class="pre">mapalgo</span></code> sets the spatial interpolation method to go from the DATM input data to the output DATM model grid. The default is <code class="docutils literal notranslate"><span class="pre">bilinear</span></code>. For <code class="docutils literal notranslate"><span class="pre">CLM1PT</span></code> we set it to <code class="docutils literal notranslate"><span class="pre">nn</span></code> to just select the nearest neighbor. This saves time and we also had problems running the interpolation for single-point mode.</p>
+</dd>
+<dt>taxmode</dt><dd><p><code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is the time axis mode.
+For CLM we usually have it set to <code class="docutils literal notranslate"><span class="pre">cycle</span></code> which means that once the end of the data is reached it will start over at the beginning.
+The extend modes is used have it use the last time-step of the forcing data once it reaches the end of forcing data (or use the first time-step before it reaches where the forcing data starts). See the warning below about the extend mode.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><em>THE extend OPTION NEEDS TO BE USED WITH CAUTION!</em> It is only invoked by default for the CLM1PT mode and is only intended for the supported urban datasets to extend the data for a single time-step. If you have the model <em>run extensively through periods in this mode you will effectively be repeating that last time-step over that entire period</em>. This means the output of your simulation will be worthless.</p>
+</div>
+<dl class="simple">
+<dt>offset (in the stream file)</dt><dd><p><code class="docutils literal notranslate"><span class="pre">offset</span></code> is the time offset in seconds to give to each stream of data. Normally it is NOT used because the time-stamps for data is set correctly for each stream of data. Note, the <code class="docutils literal notranslate"><span class="pre">offset</span></code> may NEED to be adjusted depending on the <code class="docutils literal notranslate"><span class="pre">taxmode</span></code> described above, or it may need to be adjusted to account for data that is time-stamped at the END of an interval rather than the middle or beginning of interval. The <code class="docutils literal notranslate"><span class="pre">offset</span></code> can is set in the stream file rather than on the stream namelist. For data with a <code class="docutils literal notranslate"><span class="pre">taxmode</span></code> method of <code class="docutils literal notranslate"><span class="pre">coszen</span></code> the time-stamp needs to be for the beginning of the interval, while for other data it should be the midpoint. The <code class="docutils literal notranslate"><span class="pre">offset</span></code> can be used to adjust the time-stamps to get the data to line up correctly.</p>
+</dd>
+<dt>tintalgo</dt><dd><p><code class="docutils literal notranslate"><span class="pre">tintalgo</span></code> is the time interpolation algorithm. For CLM we usually use one of three modes: <code class="docutils literal notranslate"><span class="pre">coszen</span></code>, <code class="docutils literal notranslate"><span class="pre">nearest</span></code>, or <code class="docutils literal notranslate"><span class="pre">linear</span></code>. We use <code class="docutils literal notranslate"><span class="pre">coszen</span></code> for solar data, nearest for precipitation data, and linear for everything else. If your data is half-hourly or hourly, nearest will work fine for everything. The <code class="docutils literal notranslate"><span class="pre">coszen</span></code> scaling is useful for longer periods (three hours or more) to try to get the solar to match the cosine of the solar zenith angle over that longer period of time. If you use linear for longer intervals, the solar will cut out at night-time anyway, and the straight line will be a poor approximation of the cosine of the solar zenith angle of actual solar data. nearest likewise would be bad for longer periods where it would be much higher than the actual values.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">coszen</span></code> the time-stamps of the data should correspond to the beginning of the interval the data is measured for. Either make sure the time-stamps on the datafiles is set this way, or use the <code class="docutils literal notranslate"><span class="pre">offset</span></code> described above to set it.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For nearest and linear the time-stamps of the data should correspond to the middle of the interval the data is measured for. Either make sure the time-stamps on the datafiles is set this way, or use the <code class="docutils literal notranslate"><span class="pre">offset</span></code> described above to set it.</p>
+</div>
+<p>In the sections below we go over each of the relevant <code class="docutils literal notranslate"><span class="pre">DATM_MODE</span></code> options and what the above DATM settings are for each. This gives you examples of actual usage for the settings. We also describe in what ways you might want to customize them for your own case.</p>
+<div class="section" id="clmgswp3v1-mode-and-it-s-datm-settings">
+<h2><span class="section-number">1.2.4.1. </span>CLMGSWP3v1 mode and it’s DATM settings<a class="headerlink" href="#clmgswp3v1-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
+<p>In <code class="docutils literal notranslate"><span class="pre">CLMGSWP3v1</span></code> mode the GSWP3 NCEP forcing dataset is used and all of it’s data is on a 3-hourly interval.
+Like <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> the dataset is divided into those three data streams: solar, precipitation, and everything else (temperature, pressure, humidity, Long-Wave down and wind).
+The time-stamps of the data were also adjusted so that they are the beginning of the interval for solar, and the middle for the other two.
+Because, of this the <code class="docutils literal notranslate"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal notranslate"><span class="pre">tintalgo</span></code> is: <code class="docutils literal notranslate"><span class="pre">coszen</span></code>, <code class="docutils literal notranslate"><span class="pre">nearest</span></code>, and <code class="docutils literal notranslate"><span class="pre">linear</span></code> for the solar, precipitation and other data respectively.
+<code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">cycle</span></code> and <code class="docutils literal notranslate"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal notranslate"><span class="pre">bilinear</span></code> so that the data is spatially interpolated from the input exact half degree grid to the grid the atmosphere model is being run at (to run at this same model resolution use the 360x720cru_360x720cru resolution).</p>
+</div>
+<div class="section" id="clmcruncepv7-mode-and-it-s-datm-settings">
+<h2><span class="section-number">1.2.4.2. </span>CLMCRUNCEPv7 mode and it’s DATM settings<a class="headerlink" href="#clmcruncepv7-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
+<p>In <code class="docutils literal notranslate"><span class="pre">CLMCRUNCEPv7</span></code> mode the CRUNCEP dataset is used and all of it’s data is on a 6-hourly interval.
+Like <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> the dataset is divided into those three data streams: solar, precipitation, and everything else (temperature, pressure, humidity and wind).
+The time-stamps of the data were also adjusted so that they are the beginning of the interval for solar, and the middle for the other two.
+Because, of this the <code class="docutils literal notranslate"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal notranslate"><span class="pre">tintalgo</span></code> is: <code class="docutils literal notranslate"><span class="pre">coszen</span></code>, <code class="docutils literal notranslate"><span class="pre">nearest</span></code>, and <code class="docutils literal notranslate"><span class="pre">linear</span></code> for the solar, precipitation and other data respectively.
+<code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">cycle</span></code> and <code class="docutils literal notranslate"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal notranslate"><span class="pre">bilinear</span></code> so that the data is spatially interpolated from the input exact half degree grid to the grid the atmosphere model is being run at (to run at this same model resolution use the 360x720cru_360x720cru resolution).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The “everything else” data stream (of temperature, pressure, humidity and wind) also includes the data for longwave downward forcing as well. Our simulations showed sensitivity to this field, so we backed off in using it, and let DATM calculate longwave down from the other fields.</p>
+</div>
+<p>For more information on CRUNCEP forcing see <a class="reference external" href="http://dods.extra.cea.fr/data/p529viov/cruncep/">http://dods.extra.cea.fr/data/p529viov/cruncep/</a>.</p>
+</div>
+<div class="section" id="clmcruncep-mode-and-it-s-datm-settings">
+<h2><span class="section-number">1.2.4.3. </span>CLMCRUNCEP mode and it’s DATM settings<a class="headerlink" href="#clmcruncep-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">CLMCRUNCEP</span></code> is similar to the <code class="docutils literal notranslate"><span class="pre">CLMCRUNCEPv7</span></code> mode above, except it uses Version 4 of the CRUNCEP data rather than version 7.</p>
+</div>
+<div class="section" id="clm-qian-mode-and-it-s-datm-settings">
+<h2><span class="section-number">1.2.4.4. </span>CLM_QIAN mode and it’s DATM settings<a class="headerlink" href="#clm-qian-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
+<p>In <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> mode the Qian dataset is used which has 6-hourly solar and precipitation data, and 3-hourly for everything else.
+The dataset is divided into those three data streams: solar, precipitation, and everything else (temperature, pressure, humidity and wind).
+The time-stamps of the data were also adjusted so that they are the beginning of the interval for solar, and the middle for the other two.
+Because, of this the <code class="docutils literal notranslate"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal notranslate"><span class="pre">tintalgo</span></code> is: <code class="docutils literal notranslate"><span class="pre">coszen</span></code>, <code class="docutils literal notranslate"><span class="pre">nearest</span></code>, and <code class="docutils literal notranslate"><span class="pre">linear</span></code> for the solar, precipitation and other data respectively.
+<code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">cycle</span></code> and <code class="docutils literal notranslate"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal notranslate"><span class="pre">bilinear</span></code> so that the data is spatially interpolated from the input T62 grid to the grid the atmosphere model is being run at.</p>
+<p>Normally you wouldn’t customize the <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> settings, but you might replicate it’s use for your own global data that had similar temporal characteristics.</p>
+</div>
+<div class="section" id="clm1pt-mode-and-it-s-datm-settings">
+<h2><span class="section-number">1.2.4.5. </span>CLM1PT mode and it’s DATM settings<a class="headerlink" href="#clm1pt-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
+<p>In <code class="docutils literal notranslate"><span class="pre">CLM1PT</span></code> mode the model is assumed to have half-hourly or hourly data for a single-point.
+For the supported datasets that is exactly what it has.
+But, if you add your own data you may need to make adjustments accordingly.
+Using the <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code> resolution you can easily extend this mode for your own datasets that may be regional or even global and could be at different temporal frequencies.
+If you do so you’ll need to make adjustments to your DATM settings.
+The dataset has all data in a single stream file.
+The time-stamps of the data were also adjusted so that they are at the middle of the interval.
+Because, of this the <code class="docutils literal notranslate"><span class="pre">offset</span></code> is set to zero, and the <code class="docutils literal notranslate"><span class="pre">tintalgo</span></code> is set to <code class="docutils literal notranslate"><span class="pre">nearest</span></code>.
+<code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">extend</span></code> and <code class="docutils literal notranslate"><span class="pre">mapalgo</span></code> is set to <code class="docutils literal notranslate"><span class="pre">nn</span></code> so that simply the nearest point is used.</p>
+<p>If you are using your own data for this mode and it’s not at least hourly you’ll want to adjust the DATM settings for it. If the data is three or six hourly, you’ll need to divide it up into separate streams like in <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> mode which will require fairly extensive changes to the DATM namelist and streams files. For an example of doing this see <a class="reference external" href="CLM-URL">Example 5-8</a>.</p>
+</div>
+<div class="section" id="cplhistforcing-mode-and-it-s-datm-settings">
+<h2><span class="section-number">1.2.4.6. </span>CPLHISTForcing mode and it’s DATM settings<a class="headerlink" href="#cplhistforcing-mode-and-it-s-datm-settings" title="Permalink to this headline">¶</a></h2>
+<p>In <code class="docutils literal notranslate"><span class="pre">CPLHISTForcing</span></code> mode the model is assumed to have 3-hourly for a global grid from a previous CESM simulation.
+Like <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> mode the data is divided into three streams: one for precipitation, one for solar, and one for everything else.
+The time-stamps for Coupler history files for CESM is at the end of the interval, so the <code class="docutils literal notranslate"><span class="pre">offset</span></code> needs to be set in order to adjust the time-stamps to what it needs to be for the <code class="docutils literal notranslate"><span class="pre">tintalgo</span></code> settings.
+For precipitation <code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">nearest</span></code> so the <code class="docutils literal notranslate"><span class="pre">offset</span></code> is set to <code class="docutils literal notranslate"><span class="pre">-5400</span></code> seconds so that the ending time-step is adjusted by an hour and half to the middle of the interval.
+For solar <code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">coszen</span></code> so the offset is set to <code class="docutils literal notranslate"><span class="pre">-10800</span></code> seconds so that the ending time-step is adjust by three hours to the beginning of the interval.
+For everything else <code class="docutils literal notranslate"><span class="pre">taxmode</span></code> is set to <code class="docutils literal notranslate"><span class="pre">linear</span></code> so the offset is set to <code class="docutils literal notranslate"><span class="pre">-5400</span></code> seconds so that the ending time-step is adjusted by an hour and half to the middle of the interval.
+For an example of such a case see <a class="reference external" href="CLM-URL">the Section called Running with MOAR data as atmospheric forcing to spinup the model in Chapter 4</a>.</p>
+<p>Normally you wouldn’t modify the DATM settings for this mode.
+However, if you had data at a different frequency than 3-hours you would need to modify the <code class="docutils literal notranslate"><span class="pre">offset</span></code> and possibly the <code class="docutils literal notranslate"><span class="pre">taxmode</span></code>.
+The other two things that you might modify would be the path to the data or the domain file for the resolution (which is currently hardwired to f09).
+For data at a different input resolution you would need to change the domain file in the streams file to use a domain file to the resolution that the data comes in on.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="master_list_file.html" class="btn btn-neutral float-right" title="1.2.5. CTSM History Fields" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="customizing-the-clm-namelist.html" class="btn btn-neutral" title="1.2.3. Customizing CLM’s namelist" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

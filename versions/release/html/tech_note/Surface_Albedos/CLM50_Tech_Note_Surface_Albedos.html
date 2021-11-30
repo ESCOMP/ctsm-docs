@@ -1,0 +1,1712 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.3. Surface Albedos &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="2. CLM Technical Note" href="../index.html"/>
+        <link rel="next" title="2.4. Radiative Fluxes" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html"/>
+        <link rel="prev" title="2.2. Surface Characterization, Vertical Discretization, and Model Input Requirements" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/index.html">1. CLM5.0 User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">2. CLM Technical Note</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/CLM50_Tech_Note_Introduction.html">2.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html">2.2. Surface Characterization, Vertical Discretization, and Model Input Requirements</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.3. Surface Albedos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#canopy-radiative-transfer">2.3.1. Canopy Radiative Transfer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ground-albedos">2.3.2. Ground Albedos</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#snow-albedo">2.3.2.1. Snow Albedo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#snowpack-optical-properties">2.3.2.2. Snowpack Optical Properties</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#snow-aging">2.3.2.3. Snow Aging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#solar-zenith-angle">2.3.3. Solar Zenith Angle</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html">2.4. Radiative Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html">2.5. Momentum, Sensible Heat, and Latent Heat Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html">2.6. Soil and Snow Temperatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html">2.7. Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html">2.8. Snow Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html">2.9. Stomatal Resistance and Photosynthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html">2.10. Photosynthetic Capacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html">2.11. Plant Hydraulics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html">2.12. Lake Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Glacier/CLM50_Tech_Note_Glacier.html">2.13. Glaciers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html">2.14. Model for Scale Adaptive River Transport (MOSART)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Urban/CLM50_Tech_Note_Urban.html">2.15. Urban Model (CLMU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Pools/CLM50_Tech_Note_CN_Pools.html">2.16. CN Pools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html">2.17. Plant Respiration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html">2.18. Fixation and Uptake of Nitrogen (FUN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html">2.19. Carbon and Nitrogen Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html">2.20. Vegetation Phenology and Turnover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decomposition/CLM50_Tech_Note_Decomposition.html">2.21. Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html">2.22. External Nitrogen Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Mortality/CLM50_Tech_Note_Plant_Mortality.html">2.23. Plant Mortality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fire/CLM50_Tech_Note_Fire.html">2.24. Fire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Methane/CLM50_Tech_Note_Methane.html">2.25. Methane Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html">2.26. Crops and Irrigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html">2.27. Transient Land Use and Land Cover Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html">2.28. Dynamic Global Vegetation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html#technical-documentation-for-fates">2.29. Technical Documentation for FATES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BVOCs/CLM50_Tech_Note_BVOCs.html">2.30. Biogenic Volatile Organic Compounds (BVOCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dust/CLM50_Tech_Note_Dust.html">2.31. Dust Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Isotopes/CLM50_Tech_Note_Isotopes.html">2.32. Carbon Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Land-Only_Mode/CLM50_Tech_Note_Land-Only_Mode.html">2.33. Land-Only Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../References/CLM50_Tech_Note_References.html">2.34. References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">2. </span>CLM Technical Note</a> &raquo;</li>
+        
+      <li><span class="section-number">2.3. </span>Surface Albedos</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/tech_note/Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="surface-albedos">
+<span id="rst-surface-albedos"></span><h1><span class="section-number">2.3. </span>Surface Albedos<a class="headerlink" href="#surface-albedos" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="canopy-radiative-transfer">
+<span id="id1"></span><h2><span class="section-number">2.3.1. </span>Canopy Radiative Transfer<a class="headerlink" href="#canopy-radiative-transfer" title="Permalink to this headline">¶</a></h2>
+<p>Radiative transfer within vegetative canopies is calculated from the
+two-stream approximation of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#dickinson1983"><span class="std std-ref">Dickinson (1983)</span></a> and
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellers1985"><span class="std std-ref">Sellers (1985)</span></a> as described by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonan1996"><span class="std std-ref">Bonan (1996)</span></a></p>
+<div class="math" id="equation-3-1">
+<p><span class="eqno">(2.3.1)<a class="headerlink" href="#equation-3-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/240cc9c354b5335ca9d6213c0444cfcec29e003c.svg" alt="-\bar{\mu }\frac{dI\, \uparrow }{d\left(L+S\right)} +\left[1-\left(1-\beta \right)\omega \right]I\, \uparrow -\omega \beta I\, \downarrow =\omega \bar{\mu }K\beta _{0} e^{-K\left(L+S\right)}"/></p>
+</div><div class="math" id="equation-3-2">
+<p><span class="eqno">(2.3.2)<a class="headerlink" href="#equation-3-2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bf418175025671f91e52b7636ffd40e8180bf9c6.svg" alt="\bar{\mu }\frac{dI\, \downarrow }{d\left(L+S\right)} +\left[1-\left(1-\beta \right)\omega \right]I\, \downarrow -\omega \beta I\, \uparrow =\omega \bar{\mu }K\left(1-\beta _{0} \right)e^{-K\left(L+S\right)}"/></p>
+</div><p>where <img class="math" src="../../_images/math/1a9f9b191f06381f2037226b8c06351e090bc258.svg" alt="I\, \uparrow"/>  and <img class="math" src="../../_images/math/4aac837dc20ddb2ab6d48858784b5a1b004166b9.svg" alt="I\, \downarrow"/>  are the upward
+and downward diffuse radiative fluxes per unit incident flux,
+<img class="math" src="../../_images/math/24a00f00b5e630b2af8e3bceb7e8c6a7728a6970.svg" alt="K={G\left(\mu \right)\mathord{\left/ {\vphantom {G\left(\mu \right) \mu }} \right. \kern-\nulldelimiterspace} \mu }"/>
+is the optical depth of direct beam per unit leaf and stem area,
+<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/>  is the cosine of the zenith angle of the incident beam,
+<img class="math" src="../../_images/math/ab72aa45e4c5c3a9bbabd43055f609879bde8d7c.svg" alt="G\left(\mu \right)"/> is the relative projected area of leaf and
+stem elements in the direction <img class="math" src="../../_images/math/3199c0d7e1a411c3eb1df9addb85ab48729fef03.svg" alt="\cos ^{-1} \mu"/> ,
+<img class="math" src="../../_images/math/d3b68a92681cfd85726795a28613e8baaae9e69d.svg" alt="\bar{\mu }"/> is the average inverse diffuse optical depth per unit
+leaf and stem area, <img class="math" src="../../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.svg" alt="\omega"/>  is a scattering coefficient,
+<img class="math" src="../../_images/math/7138dad9ac96835665b17f5817eacfcaa9b834c9.svg" alt="\beta"/>  and <img class="math" src="../../_images/math/61c023e36e117814e334c2c659cc41f58786502c.svg" alt="\beta _{0}"/>  are upscatter parameters for
+diffuse and direct beam radiation, respectively, <img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/> is the
+exposed leaf area index , and <img class="math" src="../../_images/math/b988975be41fd13b4d091c10202ba19374643586.svg" alt="S"/> is the exposed stem area index
+(section <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#phenology-and-vegetation-burial-by-snow"><span class="std std-numref">2.2.1.4</span></a>). Given the
+direct beam albedo <img class="math" src="../../_images/math/68b80363460973ddb13c7edd3d5f9afe55ba91fe.svg" alt="\alpha _{g,\, \Lambda }^{\mu }"/>  and diffuse albedo
+<img class="math" src="../../_images/math/85ae5ffc464a0eed942df6bc7fa36a8c10638af0.svg" alt="\alpha _{g,\, \Lambda }"/>  of the ground (section <a class="reference internal" href="#ground-albedos"><span class="std std-numref">2.3.2</span></a>), these
+equations are solved to calculate the fluxes, per unit incident flux,
+absorbed by the vegetation, reflected by the vegetation, and transmitted
+through the vegetation for direct and diffuse radiation and for visible
+(<img class="math" src="../../_images/math/62e1fa786f6b8b7d3bb1eb4eb6c26685c7ccb999.svg" alt="&lt;"/> 0.7<img class="math" src="../../_images/math/7f11556675dc26412612b827c935d2c216612e93.svg" alt="\mu {\rm m}"/>) and near-infrared
+(<img class="math" src="../../_images/math/5029c2c60b99e78ec2ab8c273ff9aa8fdb7edac8.svg" alt="\geq"/> 0.7<img class="math" src="../../_images/math/7f11556675dc26412612b827c935d2c216612e93.svg" alt="\mu {\rm m}"/>) wavebands. The absorbed
+radiation is partitioned to sunlit and shaded fractions of the canopy.
+The optical parameters <img class="math" src="../../_images/math/ab72aa45e4c5c3a9bbabd43055f609879bde8d7c.svg" alt="G\left(\mu \right)"/>, <img class="math" src="../../_images/math/d3b68a92681cfd85726795a28613e8baaae9e69d.svg" alt="\bar{\mu }"/>,
+<img class="math" src="../../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.svg" alt="\omega"/>, <img class="math" src="../../_images/math/7138dad9ac96835665b17f5817eacfcaa9b834c9.svg" alt="\beta"/>, and <img class="math" src="../../_images/math/61c023e36e117814e334c2c659cc41f58786502c.svg" alt="\beta _{0}"/>  are calculated
+based on work in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellers1985"><span class="std std-ref">Sellers (1985)</span></a> as follows.</p>
+<p>The relative projected area of leaves and stems in the direction
+<img class="math" src="../../_images/math/3199c0d7e1a411c3eb1df9addb85ab48729fef03.svg" alt="\cos ^{-1} \mu"/>  is</p>
+<div class="math" id="equation-3-3">
+<p><span class="eqno">(2.3.3)<a class="headerlink" href="#equation-3-3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/adccdd381450f610e808ce3c584a01507cf49058.svg" alt="G\left(\mu \right)=\phi _{1} +\phi _{2} \mu"/></p>
+</div><p>where <img class="math" src="../../_images/math/62251251930c770afb066dd493001441b7fc1573.svg" alt="\phi _{1} ={\rm 0.5}-0.633\chi _{L} -0.33\chi _{L}^{2}"/>
+and <img class="math" src="../../_images/math/79b4ba09e47988ea9e7c848691a654d871118c9b.svg" alt="\phi _{2} =0.877\left(1-2\phi _{1} \right)"/> for
+<img class="math" src="../../_images/math/4b57587754a2ce720aca6cecc91564074d00a3f7.svg" alt="-0.4\le \chi _{L} \le 0.6"/>. <img class="math" src="../../_images/math/14c7313c083e1d2ac31561b5d6eb28a76fdc24d7.svg" alt="\chi _{L}"/>  is the departure
+of leaf angles from a random distribution and equals +1 for horizontal
+leaves, 0 for random leaves, and –1 for vertical leaves.</p>
+<p>The average inverse diffuse optical depth per unit leaf and stem area is</p>
+<div class="math" id="equation-3-4">
+<p><span class="eqno">(2.3.4)<a class="headerlink" href="#equation-3-4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f818a7fd1df4709bf9033fe66e0126ea66c4ca37.svg" alt="\bar{\mu }=\int _{0}^{1}\frac{\mu '}{G\left(\mu '\right)}  d\mu '=\frac{1}{\phi _{2} } \left[1-\frac{\phi _{1} }{\phi _{2} } \ln \left(\frac{\phi _{1} +\phi _{2} }{\phi _{1} } \right)\right]"/></p>
+</div><p>where <img class="math" src="../../_images/math/3bec85c039ec74a123c40f356e249282e85454cb.svg" alt="\mu '"/> is the direction of the scattered flux.</p>
+<p>The optical parameters <img class="math" src="../../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.svg" alt="\omega"/>, <img class="math" src="../../_images/math/7138dad9ac96835665b17f5817eacfcaa9b834c9.svg" alt="\beta"/>, and <img class="math" src="../../_images/math/61c023e36e117814e334c2c659cc41f58786502c.svg" alt="\beta _{0}"/>,
+which vary with wavelength (<img class="math" src="../../_images/math/65e60d95fc7bc06725cb967be10982e4bf310122.svg" alt="\Lambda"/> ), are weighted combinations of values
+for vegetation and snow, using the canopy snow-covered fraction <img class="math" src="../../_images/math/d687605f5bfa905f2125d769ae55a92d55487f58.svg" alt="f_{can,\, sno}"/>
+(Chapter <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#rst-hydrology"><span class="std std-numref">2.7</span></a>). The optical parameters are</p>
+<div class="math" id="equation-3-5">
+<p><span class="eqno">(2.3.5)<a class="headerlink" href="#equation-3-5" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0533c52172f1ea22422ead84a9dee8d3c1d05833.svg" alt="\omega _{\Lambda } =\omega _{\Lambda }^{veg} \left(1-f_{can,\, sno} \right)+\omega _{\Lambda }^{sno} f_{can,\, sno}"/></p>
+</div><div class="math" id="equation-3-6">
+<p><span class="eqno">(2.3.6)<a class="headerlink" href="#equation-3-6" title="Permalink to this equation">¶</a></span><img src="../../_images/math/315625fc8affebb1ce142cd00205ccbe9b60375e.svg" alt="\omega _{\Lambda } \beta _{\Lambda } =\omega _{\Lambda }^{veg} \beta _{\Lambda }^{veg} \left(1-f_{can,\, sno} \right)+\omega _{\Lambda }^{sno} \beta _{\Lambda }^{sno} f_{can,\, sno}"/></p>
+</div><div class="math" id="equation-3-7">
+<p><span class="eqno">(2.3.7)<a class="headerlink" href="#equation-3-7" title="Permalink to this equation">¶</a></span><img src="../../_images/math/121bd862608c26be301b744cc28fe6280c2cee9c.svg" alt="\omega _{\Lambda } \beta _{0,\, \Lambda } =\omega _{\Lambda }^{veg} \beta _{0,\, \Lambda }^{veg} \left(1-f_{can,\, sno} \right)+\omega _{\Lambda }^{sno} \beta _{0,\, \Lambda }^{sno} f_{can,\, sno}"/></p>
+</div><p>The snow and vegetation weights are applied to the products
+<img class="math" src="../../_images/math/310c6f9630db520d3892711743cfc1e096395d33.svg" alt="\omega _{\Lambda } \beta _{\Lambda }"/>  and <img class="math" src="../../_images/math/5c5327eece6eff5a41c20953b7f5d2f6459b8721.svg" alt="\omega _{\Lambda } \beta _{0,\, \Lambda }"/>  because these
+products are used in the two-stream equations. If there is no snow on the canopy, this reduces to</p>
+<div class="math" id="equation-3-8">
+<p><span class="eqno">(2.3.8)<a class="headerlink" href="#equation-3-8" title="Permalink to this equation">¶</a></span><img src="../../_images/math/90092b8f87740d8e332bcd8461b4c68437b9d487.svg" alt="\omega _{\Lambda } =\omega _{\Lambda }^{veg}"/></p>
+</div><div class="math" id="equation-3-9">
+<p><span class="eqno">(2.3.9)<a class="headerlink" href="#equation-3-9" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f2a260725a18c9de9add25772d74b81a3d8572a6.svg" alt="\omega _{\Lambda } \beta _{\Lambda } =\omega _{\Lambda }^{veg} \beta _{\Lambda }^{veg}"/></p>
+</div><div class="math" id="equation-3-10">
+<p><span class="eqno">(2.3.10)<a class="headerlink" href="#equation-3-10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d9fd7165f8e24da51dcec96447f6a4a364c24a3b.svg" alt="\omega _{\Lambda } \beta _{0,\, \Lambda } =\omega _{\Lambda }^{veg} \beta _{0,\, \Lambda }^{veg} ."/></p>
+</div><p>For vegetation,
+<img class="math" src="../../_images/math/6252ddf59ac77f4bdcbfd40f4591ff0c7d803e85.svg" alt="\omega _{\Lambda }^{veg} =\alpha _{\Lambda } +\tau _{\Lambda }"/> .
+<img class="math" src="../../_images/math/c0e592dbd6bacebe115528f6e8e131601523c845.svg" alt="\alpha _{\Lambda }"/>  is a weighted combination of the leaf and
+stem reflectances
+(<img class="math" src="../../_images/math/d3c828ce3d33a50c724a66406a910026676c3fe3.svg" alt="\alpha _{\Lambda }^{leaf} ,\alpha _{\Lambda }^{stem}"/> )</p>
+<div class="math" id="equation-3-11">
+<p><span class="eqno">(2.3.11)<a class="headerlink" href="#equation-3-11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f70e555e3127bf26804521f6f32441f81beb0d2a.svg" alt="\alpha _{\Lambda } =\alpha _{\Lambda }^{leaf} w_{leaf} +\alpha _{\Lambda }^{stem} w_{stem}"/></p>
+</div><p>where
+<img class="math" src="../../_images/math/1059c85f9115fd5c9436b511eeef3cca7b6cb6e3.svg" alt="w_{leaf} ={L\mathord{\left/ {\vphantom {L \left(L+S\right)}} \right. \kern-\nulldelimiterspace} \left(L+S\right)}"/>
+and
+<img class="math" src="../../_images/math/9b3aedbae73a522575d9be0253a6fe1f3d7c1038.svg" alt="w_{stem} ={S\mathord{\left/ {\vphantom {S \left(L+S\right)}} \right. \kern-\nulldelimiterspace} \left(L+S\right)}"/> .
+<img class="math" src="../../_images/math/5749903d1a2d31731cd52287e3a3f48dd6e6ab40.svg" alt="\tau _{\Lambda }"/>  is a weighted combination of the leaf and stem transmittances (<img class="math" src="../../_images/math/3597a4162bfe13c98aec92545a10a9ddc3aa83fb.svg" alt="\tau _{\Lambda }^{leaf}, \tau _{\Lambda }^{stem}"/>)</p>
+<div class="math" id="equation-3-12">
+<p><span class="eqno">(2.3.12)<a class="headerlink" href="#equation-3-12" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5e64bf55ade578455e2bbb3942ec51a3ed316bb7.svg" alt="\tau _{\Lambda } =\tau _{\Lambda }^{leaf} w_{leaf} +\tau _{\Lambda }^{stem} w_{stem} ."/></p>
+</div><p>The upscatter for diffuse radiation is</p>
+<div class="math" id="equation-3-13">
+<p><span class="eqno">(2.3.13)<a class="headerlink" href="#equation-3-13" title="Permalink to this equation">¶</a></span><img src="../../_images/math/000c492e55b21329b5a696c4dbbc3e7b15eccbc2.svg" alt="\omega _{\Lambda }^{veg} \beta _{\Lambda }^{veg} =\frac{1}{2} \left[\alpha _{\Lambda } +\tau _{\Lambda } +\left(\alpha _{\Lambda } -\tau _{\Lambda } \right)\cos ^{2} \bar{\theta }\right]"/></p>
+</div><p>where <img class="math" src="../../_images/math/1ccc1c7f3e8a91dbc082a11c1d78fea50265c49f.svg" alt="\bar{\theta }"/> is the mean leaf inclination angle relative
+to the horizontal plane (i.e., the angle between leaf normal and local
+vertical) (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellers1985"><span class="std std-ref">Sellers (1985)</span></a>). Here, <img class="math" src="../../_images/math/e4a52b3958562854b6f9a7477eaa18fa18622d3a.svg" alt="\cos \bar{\theta }"/> is
+approximated by</p>
+<div class="math" id="equation-3-14">
+<p><span class="eqno">(2.3.14)<a class="headerlink" href="#equation-3-14" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8686e175cba44d511ed044e917abb5522f916a45.svg" alt="\cos \bar{\theta }=\frac{1+\chi _{L} }{2}"/></p>
+</div><p>Using this approximation, for vertical leaves (<img class="math" src="../../_images/math/216ecd0ac3e4400ed2a6aeaf15ea2c4e59635e56.svg" alt="\chi _{L} =-1"/>,
+<img class="math" src="../../_images/math/af7620b5c6f870caecbf75e48369c4f2a437c255.svg" alt="\bar{\theta }=90^{{\rm o}}"/> ),
+<img class="math" src="../../_images/math/32053dbdec6d72602b4b4bc93e0c924a905dd5c1.svg" alt="\omega _{\Lambda }^{veg} \beta _{\Lambda }^{veg} =0.5\left(\alpha _{\Lambda } +\tau _{\Lambda } \right)"/>,
+and for horizontal leaves (<img class="math" src="../../_images/math/7532f1883d4466457484107df6521991b42c57f1.svg" alt="\chi _{L} =1"/>,
+<img class="math" src="../../_images/math/4ebb8589848a75c8ff5ab7b4d9798c20cd195a39.svg" alt="\bar{\theta }=0^{{\rm o}}"/> ) ,
+<img class="math" src="../../_images/math/58be5c7cdfa1befb99c7fae1fd53d2827f8070da.svg" alt="\omega _{\Lambda }^{veg} \beta _{\Lambda }^{veg} =\alpha _{\Lambda }"/> ,
+which agree with both <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#dickinson1983"><span class="std std-ref">Dickinson (1983)</span></a> and <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellers1985"><span class="std std-ref">Sellers (1985)</span></a>. For random
+(spherically distributed) leaves (<img class="math" src="../../_images/math/0fb1aec3f1bfb65587ac81cd618338e9cf4ae8e4.svg" alt="\chi _{L} =0"/>,
+<img class="math" src="../../_images/math/f6d05f8697cc7147fb142bc875d94162c27e7919.svg" alt="\bar{\theta }=60^{{\rm o}}"/> ), the approximation yields
+<img class="math" src="../../_images/math/d5d4aa98447a9f9f927c527280b92494abea3b4f.svg" alt="\omega _{\Lambda }^{veg} \beta _{\Lambda }^{veg} ={5\mathord{\left/ {\vphantom {5 8}} \right. \kern-\nulldelimiterspace} 8} \alpha _{\Lambda } +{3\mathord{\left/ {\vphantom {3 8}} \right. \kern-\nulldelimiterspace} 8} \tau _{\Lambda }"/>
+whereas the approximate solution of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#dickinson1983"><span class="std std-ref">Dickinson (1983)</span></a> is
+<img class="math" src="../../_images/math/a1f5be23e8b701b390be8aea54d72cf0b85f819e.svg" alt="\omega _{\Lambda }^{veg} \beta _{\Lambda }^{veg} ={2\mathord{\left/ {\vphantom {2 3}} \right. \kern-\nulldelimiterspace} 3} \alpha _{\Lambda } +{1\mathord{\left/ {\vphantom {1 3}} \right. \kern-\nulldelimiterspace} 3} \tau _{\Lambda }"/> .
+This discrepancy arises from the fact that a spherical leaf angle
+distribution has a true mean leaf inclination
+<img class="math" src="../../_images/math/ddaec86367cfac83a586ea2fc2eee20ae5adc428.svg" alt="\bar{\theta }\approx 57"/> <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#campbellnorman1998"><span class="std std-ref">(Campbell and Norman 1998)</span></a> in equation ,
+while <img class="math" src="../../_images/math/668787ef7b5e7d5c035c97a037df6f0b9187e94e.svg" alt="\bar{\theta }=60"/> in equation . The upscatter for direct
+beam radiation is</p>
+<div class="math" id="equation-3-15">
+<p><span class="eqno">(2.3.15)<a class="headerlink" href="#equation-3-15" title="Permalink to this equation">¶</a></span><img src="../../_images/math/787361b974bee084f517d8d1e6f57028b9e2e5fc.svg" alt="\omega _{\Lambda }^{veg} \beta _{0,\, \Lambda }^{veg} =\frac{1+\bar{\mu }K}{\bar{\mu }K} a_{s} \left(\mu \right)_{\Lambda }"/></p>
+</div><p>where the single scattering albedo is</p>
+<div class="math" id="equation-3-16">
+<p><span class="eqno">(2.3.16)<a class="headerlink" href="#equation-3-16" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e70b8fe5a719a5dddd13370ecb87159748f74b4d.svg" alt="\begin{array}{rcl} {a_{s} \left(\mu \right)_{\Lambda } } &amp; {=} &amp; {\frac{\omega _{\Lambda }^{veg} }{2} \int _{0}^{1}\frac{\mu 'G\left(\mu \right)}{\mu G\left(\mu '\right)+\mu 'G\left(\mu \right)}  d\mu '} \\ {} &amp; {=} &amp; {\frac{\omega _{\Lambda }^{veg} }{2} \frac{G\left(\mu \right)}{\max (\mu \phi _{2} +G\left(\mu \right),1e-6)} \left[1-\frac{\mu \phi _{1} }{\max (\mu \phi _{2} +G\left(\mu \right),1e-6)} \ln \left(\frac{\mu \phi _{1} +\max (\mu \phi _{2} +G\left(\mu \right),1e-6)}{\mu \phi _{1} } \right)\right].} \end{array}"/></p>
+</div><p>Note here the restriction on <img class="math" src="../../_images/math/49a4ac81dda4748f4b8bea188880b420b9275942.svg" alt="\mu \phi _{2} +G\left(\mu \right)"/>.  We have seen cases where small values
+can cause unrealistic single scattering albedo associated with the log calculation,
+thereby eventually causing a negative soil albedo.</p>
+<p>The upward diffuse fluxes per unit incident direct beam and diffuse flux
+(i.e., the surface albedos) are</p>
+<div class="math" id="equation-3-17">
+<p><span class="eqno">(2.3.17)<a class="headerlink" href="#equation-3-17" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ab3bb08aa3667fa93d3dd4296482443330a24663.svg" alt="I\, \uparrow _{\Lambda }^{\mu } =\frac{h_{1} }{\sigma } +h_{2} +h_{3}"/></p>
+</div><div class="math" id="equation-3-18">
+<p><span class="eqno">(2.3.18)<a class="headerlink" href="#equation-3-18" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d5eb55fbfe5d55206a00868faac0125c96c5126d.svg" alt="I\, \uparrow _{\Lambda } =h_{7} +h_{8} ."/></p>
+</div><p>The downward diffuse fluxes per unit incident direct beam and diffuse
+radiation, respectively, are</p>
+<div class="math" id="equation-3-19">
+<p><span class="eqno">(2.3.19)<a class="headerlink" href="#equation-3-19" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c0e42ab77256d51db1462c276f07b9a1aa078a1b.svg" alt="I\, \downarrow _{\Lambda }^{\mu } =\frac{h_{4} }{\sigma } e^{-K\left(L+S\right)} +h_{5} s_{1} +\frac{h_{6} }{s_{1} }"/></p>
+</div><div class="math" id="equation-3-20">
+<p><span class="eqno">(2.3.20)<a class="headerlink" href="#equation-3-20" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4a919d0ee50e1541099324049dbe2e6ea22264c2.svg" alt="I\, \downarrow _{\Lambda } =h_{9} s_{1} +\frac{h_{10} }{s_{1} } ."/></p>
+</div><p>With reference to <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#figure-radiation-schematic"><span class="std std-numref">Figure 2.4.1</span></a>, the direct beam flux transmitted through
+the canopy, per unit incident flux, is <img class="math" src="../../_images/math/068bcbb577b30e69d3abce2d7a8de582aad1d7e3.svg" alt="e^{-K\left(L+S\right)}"/> ,
+and the direct beam and diffuse fluxes absorbed by the vegetation, per
+unit incident flux, are</p>
+<div class="math" id="equation-3-21">
+<p><span class="eqno">(2.3.21)<a class="headerlink" href="#equation-3-21" title="Permalink to this equation">¶</a></span><img src="../../_images/math/acb330da6321f353a973d96e1875d7dbb37f469c.svg" alt="\vec{I}_{\Lambda }^{\mu } =1-I\, \uparrow _{\Lambda }^{\mu } -\left(1-\alpha _{g,\, \Lambda } \right)I\, \downarrow _{\Lambda }^{\mu } -\left(1-\alpha _{g,\, \Lambda }^{\mu } \right)e^{-K\left(L+S\right)}"/></p>
+</div><div class="math" id="equation-3-22">
+<p><span class="eqno">(2.3.22)<a class="headerlink" href="#equation-3-22" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5d82309adf970ac6584bdd06e391988993e6731e.svg" alt="\vec{I}_{\Lambda } =1-I\, \uparrow _{\Lambda } -\left(1-\alpha _{g,\, \Lambda } \right)I\, \downarrow _{\Lambda } ."/></p>
+</div><p>These fluxes are partitioned to the sunlit and shaded canopy using an
+analytical solution to the two-stream approximation for sunlit and
+shaded leaves <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#daietal2004"><span class="std std-ref">(Dai et al. 2004)</span></a>, as described by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2011"><span class="std std-ref">Bonan et al. (2011)</span></a>.
+The absorption of direct beam radiation by sunlit leaves is</p>
+<div class="math" id="equation-3-23">
+<p><span class="eqno">(2.3.23)<a class="headerlink" href="#equation-3-23" title="Permalink to this equation">¶</a></span><img src="../../_images/math/537ceb7ee76bf6a413606e23012be1a6c664bd0b.svg" alt="\vec{I}_{sun,\Lambda }^{\mu } =\left(1-\omega _{\Lambda } \right)\left[1-s_{2} +\frac{1}{\bar{\mu }} \left(a_{1} +a_{2} \right)\right]"/></p>
+</div><p>and for shaded leaves is</p>
+<div class="math" id="equation-3-24">
+<p><span class="eqno">(2.3.24)<a class="headerlink" href="#equation-3-24" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ec4f9f9cf74febe68b8e5c4eca128dd91a36a8dc.svg" alt="\vec{I}_{sha,\Lambda }^{\mu } =\vec{I}_{\Lambda }^{\mu } -\vec{I}_{sun,\Lambda }^{\mu }"/></p>
+</div><p>with</p>
+<div class="math" id="equation-3-25">
+<p><span class="eqno">(2.3.25)<a class="headerlink" href="#equation-3-25" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9bbe2bd3b20d0c9c2d919c5fe7cb89738a7556f1.svg" alt="a_{1} =\frac{h_{1} }{\sigma } \left[\frac{1-s_{2}^{2} }{2K} \right]+h_{2} \left[\frac{1-s_{2} s_{1} }{K+h} \right]+h_{3} \left[\frac{1-{s_{2} \mathord{\left/ {\vphantom {s_{2}  s_{1} }} \right. \kern-\nulldelimiterspace} s_{1} } }{K-h} \right]"/></p>
+</div><div class="math" id="equation-3-26">
+<p><span class="eqno">(2.3.26)<a class="headerlink" href="#equation-3-26" title="Permalink to this equation">¶</a></span><img src="../../_images/math/865bf64fc8364c69516a44784a57de56aebba49e.svg" alt="a_{2} =\frac{h_{4} }{\sigma } \left[\frac{1-s_{2}^{2} }{2K} \right]+h_{5} \left[\frac{1-s_{2} s_{1} }{K+h} \right]+h_{6} \left[\frac{1-{s_{2} \mathord{\left/ {\vphantom {s_{2}  s_{1} }} \right. \kern-\nulldelimiterspace} s_{1} } }{K-h} \right]."/></p>
+</div><p>For diffuse radiation, the absorbed radiation for sunlit leaves is</p>
+<div class="math" id="equation-3-27">
+<p><span class="eqno">(2.3.27)<a class="headerlink" href="#equation-3-27" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3d8ac750673b8bbdac28a047a89c8bb3e570c688.svg" alt="\vec{I}_{sun,\Lambda }^{} =\left[\frac{1-\omega _{\Lambda } }{\bar{\mu }} \right]\left(a_{1} +a_{2} \right)"/></p>
+</div><p>and for shaded leaves is</p>
+<div class="math" id="equation-3-28">
+<p><span class="eqno">(2.3.28)<a class="headerlink" href="#equation-3-28" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2dd7e892fae679238546167ac0093fdc28c3b8e4.svg" alt="\vec{I}_{sha,\Lambda }^{} =\vec{I}_{\Lambda }^{} -\vec{I}_{sun,\Lambda }^{}"/></p>
+</div><p>with</p>
+<div class="math" id="equation-3-29">
+<p><span class="eqno">(2.3.29)<a class="headerlink" href="#equation-3-29" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b2b97276550c9ee5a4f845c83f668ee8e9c0d6a7.svg" alt="a_{1} =h_{7} \left[\frac{1-s_{2} s_{1} }{K+h} \right]+h_{8} \left[\frac{1-{s_{2} \mathord{\left/ {\vphantom {s_{2}  s_{1} }} \right. \kern-\nulldelimiterspace} s_{1} } }{K-h} \right]"/></p>
+</div><div class="math" id="equation-3-30">
+<p><span class="eqno">(2.3.30)<a class="headerlink" href="#equation-3-30" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4166da332ef358e0238f85e6ed9fbfcdac378b92.svg" alt="a_{2} =h_{9} \left[\frac{1-s_{2} s_{1} }{K+h} \right]+h_{10} \left[\frac{1-{s_{2} \mathord{\left/ {\vphantom {s_{2}  s_{1} }} \right. \kern-\nulldelimiterspace} s_{1} } }{K-h} \right]."/></p>
+</div><p>The parameters <img class="math" src="../../_images/math/56e6b9e7b5a121bcd5088af6b0f846ad6084c99c.svg" alt="h_{1}"/> –<img class="math" src="../../_images/math/caa708449c15e239773adc62e21826326a7b9132.svg" alt="h_{10}"/> , <img class="math" src="../../_images/math/b52df27bfb0b1e3af0c2c68a7b9da459178c2a7d.svg" alt="\sigma"/> ,
+<img class="math" src="../../_images/math/4c120f773ab4e1c59ad2bd44aae969ce24dd190a.svg" alt="h"/>, <img class="math" src="../../_images/math/c5a1d4f9751fb244dc3c974c9e2d677a788db541.svg" alt="s_{1}"/> , and <img class="math" src="../../_images/math/befec5b12f014d6e5ab20a9b867b8412b06f18d2.svg" alt="s_{2}"/>  are from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellers1985"><span class="std std-ref">Sellers (1985)</span></a>
+[note the error in <img class="math" src="../../_images/math/d09095d47374e57ed14efb6eca4f9c01522ad34a.svg" alt="h_{4}"/>  in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellers1985"><span class="std std-ref">Sellers (1985)</span></a>]:</p>
+<div class="math" id="equation-3-31">
+<p><span class="eqno">(2.3.31)<a class="headerlink" href="#equation-3-31" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a6d3281bd49d784860afac4144dc842dad7b0a81.svg" alt="b=1-\omega _{\Lambda } +\omega _{\Lambda } \beta _{\Lambda }"/></p>
+</div><div class="math" id="equation-3-32">
+<p><span class="eqno">(2.3.32)<a class="headerlink" href="#equation-3-32" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3aff4a2996f4f07eca029129e7e821d7c9b3e68a.svg" alt="c=\omega _{\Lambda } \beta _{\Lambda }"/></p>
+</div><div class="math" id="equation-3-33">
+<p><span class="eqno">(2.3.33)<a class="headerlink" href="#equation-3-33" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6e2c4f009a16cffc408914c533c86a85a6263b24.svg" alt="d=\omega _{\Lambda } \bar{\mu }K\beta _{0,\, \Lambda }"/></p>
+</div><div class="math" id="equation-3-34">
+<p><span class="eqno">(2.3.34)<a class="headerlink" href="#equation-3-34" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4c1c0b753189e6d986d63d570b5b6c0dde540650.svg" alt="f=\omega _{\Lambda } \bar{\mu }K\left(1-\beta _{0,\, \Lambda } \right)"/></p>
+</div><div class="math" id="equation-3-35">
+<p><span class="eqno">(2.3.35)<a class="headerlink" href="#equation-3-35" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fa758d50c3360eef2a119d1b97db2cb7f1d2ac9d.svg" alt="h=\frac{\sqrt{b^{2} -c^{2} } }{\bar{\mu }}"/></p>
+</div><div class="math" id="equation-3-36">
+<p><span class="eqno">(2.3.36)<a class="headerlink" href="#equation-3-36" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5f0b687cd348f35211827d4675db3cadc32bd902.svg" alt="\sigma =\left(\bar{\mu }K\right)^{2} +c^{2} -b^{2}"/></p>
+</div><div class="math" id="equation-3-37">
+<p><span class="eqno">(2.3.37)<a class="headerlink" href="#equation-3-37" title="Permalink to this equation">¶</a></span><img src="../../_images/math/cc93bd20b8ce6065529573654bea51eefc1e91a9.svg" alt="u_{1} =b-{c\mathord{\left/ {\vphantom {c \alpha _{g,\, \Lambda }^{\mu } }} \right. \kern-\nulldelimiterspace} \alpha _{g,\, \Lambda }^{\mu } } {\rm \; or\; }u_{1} =b-{c\mathord{\left/ {\vphantom {c \alpha _{g,\, \Lambda } }} \right. \kern-\nulldelimiterspace} \alpha _{g,\, \Lambda } }"/></p>
+</div><div class="math" id="equation-3-38">
+<p><span class="eqno">(2.3.38)<a class="headerlink" href="#equation-3-38" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0c6d6b179523e462d52f3ab312b48b08c68b781d.svg" alt="u_{2} =b-c\alpha _{g,\, \Lambda }^{\mu } {\rm \; or\; }u_{2} =b-c\alpha _{g,\, \Lambda }"/></p>
+</div><div class="math" id="equation-3-39">
+<p><span class="eqno">(2.3.39)<a class="headerlink" href="#equation-3-39" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2b795e1705ab104c14b02a918e72da7f8467d158.svg" alt="u_{3} =f+c\alpha _{g,\, \Lambda }^{\mu } {\rm \; or\; }u_{3} =f+c\alpha _{g,\, \Lambda }"/></p>
+</div><div class="math" id="equation-3-40">
+<p><span class="eqno">(2.3.40)<a class="headerlink" href="#equation-3-40" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e210fd67f4e845d7028b7e45ab26fec546d6919b.svg" alt="s_{1} =\exp \left\{-\min \left[h\left(L+S\right),40\right]\right\}"/></p>
+</div><div class="math" id="equation-3-41">
+<p><span class="eqno">(2.3.41)<a class="headerlink" href="#equation-3-41" title="Permalink to this equation">¶</a></span><img src="../../_images/math/60eb5eb61f489a06348225d95fab0a8821e86f3f.svg" alt="s_{2} =\exp \left\{-\min \left[K\left(L+S\right),40\right]\right\}"/></p>
+</div><div class="math" id="equation-3-42">
+<p><span class="eqno">(2.3.42)<a class="headerlink" href="#equation-3-42" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9f6b4e9c34e17335e250731460477e578ef2b3da.svg" alt="p_{1} =b+\bar{\mu }h"/></p>
+</div><div class="math" id="equation-3-43">
+<p><span class="eqno">(2.3.43)<a class="headerlink" href="#equation-3-43" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e31190ae21ef47ff9d80564756faa0a033de861d.svg" alt="p_{2} =b-\bar{\mu }h"/></p>
+</div><div class="math" id="equation-3-44">
+<p><span class="eqno">(2.3.44)<a class="headerlink" href="#equation-3-44" title="Permalink to this equation">¶</a></span><img src="../../_images/math/cf3102b7415948a9542294845dc705fb209c2345.svg" alt="p_{3} =b+\bar{\mu }K"/></p>
+</div><div class="math" id="equation-3-45">
+<p><span class="eqno">(2.3.45)<a class="headerlink" href="#equation-3-45" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ef2196ad3e8292113497b739af135e95f2005947.svg" alt="p_{4} =b-\bar{\mu }K"/></p>
+</div><div class="math" id="equation-3-46">
+<p><span class="eqno">(2.3.46)<a class="headerlink" href="#equation-3-46" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a9143ae7097306593437fc796b5b62d600214423.svg" alt="d_{1} =\frac{p_{1} \left(u_{1} -\bar{\mu }h\right)}{s_{1} } -p_{2} \left(u_{1} +\bar{\mu }h\right)s_{1}"/></p>
+</div><div class="math" id="equation-3-47">
+<p><span class="eqno">(2.3.47)<a class="headerlink" href="#equation-3-47" title="Permalink to this equation">¶</a></span><img src="../../_images/math/93567daef1bb2be462808f1f6e572b6088edfdc6.svg" alt="d_{2} =\frac{u_{2} +\bar{\mu }h}{s_{1} } -\left(u_{2} -\bar{\mu }h\right)s_{1}"/></p>
+</div><div class="math" id="equation-3-48">
+<p><span class="eqno">(2.3.48)<a class="headerlink" href="#equation-3-48" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8675f0fd31a5b77c6023fe6da312feff94e11cd8.svg" alt="h_{1} =-dp_{4} -cf"/></p>
+</div><div class="math" id="equation-3-49">
+<p><span class="eqno">(2.3.49)<a class="headerlink" href="#equation-3-49" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bf9e20e796a468d33f9595f2a67737a7c8c1d253.svg" alt="h_{2} =\frac{1}{d_{1} } \left[\left(d-\frac{h_{1} }{\sigma } p_{3} \right)\frac{\left(u_{1} -\bar{\mu }h\right)}{s_{1} } -p_{2} \left(d-c-\frac{h_{1} }{\sigma } \left(u_{1} +\bar{\mu }K\right)\right)s_{2} \right]"/></p>
+</div><div class="math" id="equation-3-50">
+<p><span class="eqno">(2.3.50)<a class="headerlink" href="#equation-3-50" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3bb1a219643a78c6ad469bd890fd524dcfd6c992.svg" alt="h_{3} =\frac{-1}{d_{1} } \left[\left(d-\frac{h_{1} }{\sigma } p_{3} \right)\left(u_{1} +\bar{\mu }h\right)s_{1} -p_{1} \left(d-c-\frac{h_{1} }{\sigma } \left(u_{1} +\bar{\mu }K\right)\right)s_{2} \right]"/></p>
+</div><div class="math" id="equation-3-51">
+<p><span class="eqno">(2.3.51)<a class="headerlink" href="#equation-3-51" title="Permalink to this equation">¶</a></span><img src="../../_images/math/aeb5ee0ae7b8d75d32002b090773abb55d209363.svg" alt="h_{4} =-fp_{3} -cd"/></p>
+</div><div class="math" id="equation-3-52">
+<p><span class="eqno">(2.3.52)<a class="headerlink" href="#equation-3-52" title="Permalink to this equation">¶</a></span><img src="../../_images/math/64c3c69b8860f7448e128d7a42f351e49b4c2cf0.svg" alt="h_{5} =\frac{-1}{d_{2} } \left[\left(\frac{h_{4} \left(u_{2} +\bar{\mu }h\right)}{\sigma s_{1} } \right)+\left(u_{3} -\frac{h_{4} }{\sigma } \left(u_{2} -\bar{\mu }K\right)\right)s_{2} \right]"/></p>
+</div><div class="math" id="equation-3-53">
+<p><span class="eqno">(2.3.53)<a class="headerlink" href="#equation-3-53" title="Permalink to this equation">¶</a></span><img src="../../_images/math/93e47f3a64e2df2a757499fe60d1f79c15abd556.svg" alt="h_{6} =\frac{1}{d_{2} } \left[\frac{h_{4} }{\sigma } \left(u_{2} -\bar{\mu }h\right)s_{1} +\left(u_{3} -\frac{h_{4} }{\sigma } \left(u_{2} -\bar{\mu }K\right)\right)s_{2} \right]"/></p>
+</div><div class="math" id="equation-3-54">
+<p><span class="eqno">(2.3.54)<a class="headerlink" href="#equation-3-54" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2cd5118a074007e17e1b72a2d91c85c54c61ab48.svg" alt="h_{7} =\frac{c\left(u_{1} -\bar{\mu }h\right)}{d_{1} s_{1} }"/></p>
+</div><div class="math" id="equation-3-55">
+<p><span class="eqno">(2.3.55)<a class="headerlink" href="#equation-3-55" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b922617749da11ce2567b136d25d8c75d2e117c3.svg" alt="h_{8} =\frac{-c\left(u_{1} +\bar{\mu }h\right)s_{1} }{d_{1} }"/></p>
+</div><div class="math" id="equation-3-56">
+<p><span class="eqno">(2.3.56)<a class="headerlink" href="#equation-3-56" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fdfd18f591a11163b37c97fe04683ae9d24e07c9.svg" alt="h_{9} =\frac{u_{2} +\bar{\mu }h}{d_{2} s_{1} }"/></p>
+</div><div class="math" id="equation-3-57">
+<p><span class="eqno">(2.3.57)<a class="headerlink" href="#equation-3-57" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9953f922afc7264258ff09ef834db4cad3d06178.svg" alt="h_{10} =\frac{-s_{1} \left(u_{2} -\bar{\mu }h\right)}{d_{2} } ."/></p>
+</div><p>Plant functional type optical properties (<a class="reference internal" href="#table-plant-functional-type-optical-properties"><span class="std std-numref">Table 2.3.1</span></a>)
+for trees and shrubs are from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#dormansellers1989"><span class="std std-ref">Dorman and Sellers (1989)</span></a>. Leaf and stem optical
+properties (VIS and NIR reflectance and transmittance) were derived
+for grasslands and crops from full optical range spectra of measured
+optical properties (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#asneretal1998"><span class="std std-ref">Asner et al. 1998</span></a>). Optical properties for
+intercepted snow (<a class="reference internal" href="#table-intercepted-snow-optical-properties"><span class="std std-numref">Table 2.3.2</span></a>) are from
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#sellersetal1986"><span class="std std-ref">Sellers et al. (1986)</span></a>.</p>
+<span id="table-plant-functional-type-optical-properties"></span><table class="docutils align-default" id="id7">
+<caption><span class="caption-number">Table 2.3.1 </span><span class="caption-text">Plant functional type optical properties</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 7%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Plant Functional Type</p></th>
+<th class="head"><p><img class="math" src="../../_images/math/14c7313c083e1d2ac31561b5d6eb28a76fdc24d7.svg" alt="\chi _{L}"/></p></th>
+<th class="head"><p><img class="math" src="../../_images/math/b1c200a42a45d3b41dee3550200bf4b74839b349.svg" alt="\alpha _{vis}^{leaf}"/></p></th>
+<th class="head"><p><img class="math" src="../../_images/math/db2a6245dc5e635cad6be259366ded5b6caf4397.svg" alt="\alpha _{nir}^{leaf}"/></p></th>
+<th class="head"><p><img class="math" src="../../_images/math/a38044cb0f1edf1947d8e54a531b1b6b8a9b1c01.svg" alt="\alpha _{vis}^{stem}"/></p></th>
+<th class="head"><p><img class="math" src="../../_images/math/5a06dafdc4eeb069100e11b161a2c23e32bb8bf0.svg" alt="\alpha _{nir}^{stem}"/></p></th>
+<th class="head"><p><img class="math" src="../../_images/math/7628f776461127a2810063d549e54a6ce70eba66.svg" alt="\tau _{vis}^{leaf}"/></p></th>
+<th class="head"><p><img class="math" src="../../_images/math/269589016bccd78130763b8e0b77ffd9246f721d.svg" alt="\tau _{nir}^{leaf}"/></p></th>
+<th class="head"><p><img class="math" src="../../_images/math/8b7ca20fd0e3c1213389c8e001792220bc742f9d.svg" alt="\tau _{vis}^{stem}"/></p></th>
+<th class="head"><p><img class="math" src="../../_images/math/7b24bbe4892ba192375d308ff96d4ab5558d5303.svg" alt="\tau _{nir}^{stem}"/></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NET Temperate</p></td>
+<td><p>0.01</p></td>
+<td><p>0.07</p></td>
+<td><p>0.35</p></td>
+<td><p>0.16</p></td>
+<td><p>0.39</p></td>
+<td><p>0.05</p></td>
+<td><p>0.10</p></td>
+<td><p>0.001</p></td>
+<td><p>0.001</p></td>
+</tr>
+<tr class="row-odd"><td><p>NET Boreal</p></td>
+<td><p>0.01</p></td>
+<td><p>0.07</p></td>
+<td><p>0.35</p></td>
+<td><p>0.16</p></td>
+<td><p>0.39</p></td>
+<td><p>0.05</p></td>
+<td><p>0.10</p></td>
+<td><p>0.001</p></td>
+<td><p>0.001</p></td>
+</tr>
+<tr class="row-even"><td><p>NDT Boreal</p></td>
+<td><p>0.01</p></td>
+<td><p>0.07</p></td>
+<td><p>0.35</p></td>
+<td><p>0.16</p></td>
+<td><p>0.39</p></td>
+<td><p>0.05</p></td>
+<td><p>0.10</p></td>
+<td><p>0.001</p></td>
+<td><p>0.001</p></td>
+</tr>
+<tr class="row-odd"><td><p>BET Tropical</p></td>
+<td><p>0.10</p></td>
+<td><p>0.10</p></td>
+<td><p>0.45</p></td>
+<td><p>0.16</p></td>
+<td><p>0.39</p></td>
+<td><p>0.05</p></td>
+<td><p>0.25</p></td>
+<td><p>0.001</p></td>
+<td><p>0.001</p></td>
+</tr>
+<tr class="row-even"><td><p>BET temperate</p></td>
+<td><p>0.10</p></td>
+<td><p>0.10</p></td>
+<td><p>0.45</p></td>
+<td><p>0.16</p></td>
+<td><p>0.39</p></td>
+<td><p>0.05</p></td>
+<td><p>0.25</p></td>
+<td><p>0.001</p></td>
+<td><p>0.001</p></td>
+</tr>
+<tr class="row-odd"><td><p>BDT tropical</p></td>
+<td><p>0.01</p></td>
+<td><p>0.10</p></td>
+<td><p>0.45</p></td>
+<td><p>0.16</p></td>
+<td><p>0.39</p></td>
+<td><p>0.05</p></td>
+<td><p>0.25</p></td>
+<td><p>0.001</p></td>
+<td><p>0.001</p></td>
+</tr>
+<tr class="row-even"><td><p>BDT temperate</p></td>
+<td><p>0.25</p></td>
+<td><p>0.10</p></td>
+<td><p>0.45</p></td>
+<td><p>0.16</p></td>
+<td><p>0.39</p></td>
+<td><p>0.05</p></td>
+<td><p>0.25</p></td>
+<td><p>0.001</p></td>
+<td><p>0.001</p></td>
+</tr>
+<tr class="row-odd"><td><p>BDT boreal</p></td>
+<td><p>0.25</p></td>
+<td><p>0.10</p></td>
+<td><p>0.45</p></td>
+<td><p>0.16</p></td>
+<td><p>0.39</p></td>
+<td><p>0.05</p></td>
+<td><p>0.25</p></td>
+<td><p>0.001</p></td>
+<td><p>0.001</p></td>
+</tr>
+<tr class="row-even"><td><p>BES temperate</p></td>
+<td><p>0.01</p></td>
+<td><p>0.07</p></td>
+<td><p>0.35</p></td>
+<td><p>0.16</p></td>
+<td><p>0.39</p></td>
+<td><p>0.05</p></td>
+<td><p>0.10</p></td>
+<td><p>0.001</p></td>
+<td><p>0.001</p></td>
+</tr>
+<tr class="row-odd"><td><p>BDS temperate</p></td>
+<td><p>0.25</p></td>
+<td><p>0.10</p></td>
+<td><p>0.45</p></td>
+<td><p>0.16</p></td>
+<td><p>0.39</p></td>
+<td><p>0.05</p></td>
+<td><p>0.25</p></td>
+<td><p>0.001</p></td>
+<td><p>0.001</p></td>
+</tr>
+<tr class="row-even"><td><p>BDS boreal</p></td>
+<td><p>0.25</p></td>
+<td><p>0.10</p></td>
+<td><p>0.45</p></td>
+<td><p>0.16</p></td>
+<td><p>0.39</p></td>
+<td><p>0.05</p></td>
+<td><p>0.25</p></td>
+<td><p>0.001</p></td>
+<td><p>0.001</p></td>
+</tr>
+<tr class="row-odd"><td><p>C<sub>3</sub> arctic grass</p></td>
+<td><p>-0.30</p></td>
+<td><p>0.11</p></td>
+<td><p>0.35</p></td>
+<td><p>0.31</p></td>
+<td><p>0.53</p></td>
+<td><p>0.05</p></td>
+<td><p>0.34</p></td>
+<td><p>0.120</p></td>
+<td><p>0.250</p></td>
+</tr>
+<tr class="row-even"><td><p>C<sub>3</sub> grass</p></td>
+<td><p>-0.30</p></td>
+<td><p>0.11</p></td>
+<td><p>0.35</p></td>
+<td><p>0.31</p></td>
+<td><p>0.53</p></td>
+<td><p>0.05</p></td>
+<td><p>0.34</p></td>
+<td><p>0.120</p></td>
+<td><p>0.250</p></td>
+</tr>
+<tr class="row-odd"><td><p>C<sub>4</sub> grass</p></td>
+<td><p>-0.30</p></td>
+<td><p>0.11</p></td>
+<td><p>0.35</p></td>
+<td><p>0.31</p></td>
+<td><p>0.53</p></td>
+<td><p>0.05</p></td>
+<td><p>0.34</p></td>
+<td><p>0.120</p></td>
+<td><p>0.250</p></td>
+</tr>
+<tr class="row-even"><td><p>C<sub>3</sub> Crop</p></td>
+<td><p>-0.30</p></td>
+<td><p>0.11</p></td>
+<td><p>0.35</p></td>
+<td><p>0.31</p></td>
+<td><p>0.53</p></td>
+<td><p>0.05</p></td>
+<td><p>0.34</p></td>
+<td><p>0.120</p></td>
+<td><p>0.250</p></td>
+</tr>
+<tr class="row-odd"><td><p>Temp Corn</p></td>
+<td><p>-0.50</p></td>
+<td><p>0.11</p></td>
+<td><p>0.35</p></td>
+<td><p>0.31</p></td>
+<td><p>0.53</p></td>
+<td><p>0.05</p></td>
+<td><p>0.34</p></td>
+<td><p>0.120</p></td>
+<td><p>0.250</p></td>
+</tr>
+<tr class="row-even"><td><p>Spring Wheat</p></td>
+<td><p>-0.50</p></td>
+<td><p>0.11</p></td>
+<td><p>0.35</p></td>
+<td><p>0.31</p></td>
+<td><p>0.53</p></td>
+<td><p>0.05</p></td>
+<td><p>0.34</p></td>
+<td><p>0.120</p></td>
+<td><p>0.250</p></td>
+</tr>
+<tr class="row-odd"><td><p>Temp Soybean</p></td>
+<td><p>-0.50</p></td>
+<td><p>0.11</p></td>
+<td><p>0.35</p></td>
+<td><p>0.31</p></td>
+<td><p>0.53</p></td>
+<td><p>0.05</p></td>
+<td><p>0.34</p></td>
+<td><p>0.120</p></td>
+<td><p>0.250</p></td>
+</tr>
+<tr class="row-even"><td><p>Cotton</p></td>
+<td><p>-0.50</p></td>
+<td><p>0.11</p></td>
+<td><p>0.35</p></td>
+<td><p>0.31</p></td>
+<td><p>0.53</p></td>
+<td><p>0.05</p></td>
+<td><p>0.34</p></td>
+<td><p>0.120</p></td>
+<td><p>0.250</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rice</p></td>
+<td><p>-0.50</p></td>
+<td><p>0.11</p></td>
+<td><p>0.35</p></td>
+<td><p>0.31</p></td>
+<td><p>0.53</p></td>
+<td><p>0.05</p></td>
+<td><p>0.34</p></td>
+<td><p>0.120</p></td>
+<td><p>0.250</p></td>
+</tr>
+<tr class="row-even"><td><p>Sugarcane</p></td>
+<td><p>-0.50</p></td>
+<td><p>0.11</p></td>
+<td><p>0.35</p></td>
+<td><p>0.31</p></td>
+<td><p>0.53</p></td>
+<td><p>0.05</p></td>
+<td><p>0.34</p></td>
+<td><p>0.120</p></td>
+<td><p>0.250</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tropical Corn</p></td>
+<td><p>-0.50</p></td>
+<td><p>0.11</p></td>
+<td><p>0.35</p></td>
+<td><p>0.31</p></td>
+<td><p>0.53</p></td>
+<td><p>0.05</p></td>
+<td><p>0.34</p></td>
+<td><p>0.120</p></td>
+<td><p>0.250</p></td>
+</tr>
+<tr class="row-even"><td><p>Tropical Soybean</p></td>
+<td><p>-0.50</p></td>
+<td><p>0.11</p></td>
+<td><p>0.35</p></td>
+<td><p>0.31</p></td>
+<td><p>0.53</p></td>
+<td><p>0.05</p></td>
+<td><p>0.34</p></td>
+<td><p>0.120</p></td>
+<td><p>0.250</p></td>
+</tr>
+</tbody>
+</table>
+<span id="table-intercepted-snow-optical-properties"></span><table class="docutils align-default" id="id8">
+<caption><span class="caption-number">Table 2.3.2 </span><span class="caption-text">Intercepted snow optical properties</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 67%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>vis</p></th>
+<th class="head"><p>nir</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/ec7a1fc1a943b8f4f1e0ca3e9098d574e50d01c2.svg" alt="\omega ^{sno}"/></p></td>
+<td><p>0.8</p></td>
+<td><p>0.4</p></td>
+</tr>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/aa30e6a2fa0198fd86e5018b8f57a857359a2d48.svg" alt="\beta ^{sno}"/></p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+</tr>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/0f45526502945874e107cdd93e9f90e4b06f488a.svg" alt="\beta _{0}^{sno}"/></p></td>
+<td><p>0.5</p></td>
+<td><p>0.5</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ground-albedos">
+<span id="id2"></span><h2><span class="section-number">2.3.2. </span>Ground Albedos<a class="headerlink" href="#ground-albedos" title="Permalink to this headline">¶</a></h2>
+<p>The overall direct beam <img class="math" src="../../_images/math/68b80363460973ddb13c7edd3d5f9afe55ba91fe.svg" alt="\alpha _{g,\, \Lambda }^{\mu }"/>  and diffuse
+<img class="math" src="../../_images/math/85ae5ffc464a0eed942df6bc7fa36a8c10638af0.svg" alt="\alpha _{g,\, \Lambda }"/>  ground albedos are weighted
+combinations of “soil” and snow albedos</p>
+<div class="math" id="equation-3-58">
+<p><span class="eqno">(2.3.58)<a class="headerlink" href="#equation-3-58" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1e5f7f754d7ad07e099cbc9670805d0e5742b1c0.svg" alt="\alpha _{g,\, \Lambda }^{\mu } =\alpha _{soi,\, \Lambda }^{\mu } \left(1-f_{sno} \right)+\alpha _{sno,\, \Lambda }^{\mu } f_{sno}"/></p>
+</div><div class="math" id="equation-3-59">
+<p><span class="eqno">(2.3.59)<a class="headerlink" href="#equation-3-59" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d4e6cd2717f808aad7cb86fe12cbc0a89c512f8e.svg" alt="\alpha _{g,\, \Lambda } =\alpha _{soi,\, \Lambda } \left(1-f_{sno} \right)+\alpha _{sno,\, \Lambda } f_{sno}"/></p>
+</div><p>where <img class="math" src="../../_images/math/c60372a6f53c2d97b34b11fcde01de439482b692.svg" alt="f_{sno}"/>  is the fraction of the ground covered with snow
+(section <a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html#snow-covered-area-fraction"><span class="std std-numref">2.8.1</span></a>).</p>
+<p><img class="math" src="../../_images/math/1489ea70c4e9165c8c814ffa0822467833b07b6e.svg" alt="\alpha _{soi,\, \Lambda }^{\mu }"/>  and
+<img class="math" src="../../_images/math/7103b76cf2ff7d0060d7069d7b430bf15d02c39a.svg" alt="\alpha _{soi,\, \Lambda }"/>  vary with glacier, lake, and
+soil surfaces. Glacier albedos are from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#paterson1994"><span class="std std-ref">Paterson (1994)</span></a></p>
+<div class="math">
+<p><img src="../../_images/math/eb078561187fbc0561eb3b058452535f80792aba.svg" alt="\alpha _{soi,\, vis}^{\mu } =\alpha _{soi,\, vis} =0.6"/></p>
+</div><div class="math">
+<p><img src="../../_images/math/6eacf9f18c1eeedf98b12b7664976a8cca669568.svg" alt="\alpha _{soi,\, nir}^{\mu } =\alpha _{soi,\, nir} =0.4."/></p>
+</div><p>Unfrozen lake albedos depend on the cosine of the solar
+zenith angle <img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/></p>
+<div class="math" id="equation-3-60">
+<p><span class="eqno">(2.3.60)<a class="headerlink" href="#equation-3-60" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c22b56bc3514adb41f55daacce367eff911744fa.svg" alt="\alpha _{soi,\, \Lambda }^{\mu } =\alpha _{soi,\, \Lambda } =0.05\left(\mu +0.15\right)^{-1} ."/></p>
+</div><p>Frozen lake albedos are from NCAR LSM (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonan1996"><span class="std std-ref">Bonan 1996</span></a>)</p>
+<div class="math">
+<p><img src="../../_images/math/9f34ea448601407cbe2ada2224dcd55da4475097.svg" alt="\alpha _{soi,\, vis}^{\mu } =\alpha _{soi,\, vis} =0.60"/></p>
+</div><div class="math">
+<p><img src="../../_images/math/4cef56c05b40172ce0be7918b4e065f1e8127d81.svg" alt="\alpha _{soi,\, nir}^{\mu } =\alpha _{soi,\, nir} =0.40."/></p>
+</div><p>As in NCAR LSM (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonan1996"><span class="std std-ref">Bonan 1996</span></a>), soil albedos vary with color class</p>
+<div class="math" id="equation-3-61">
+<p><span class="eqno">(2.3.61)<a class="headerlink" href="#equation-3-61" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b36181c337bac1ddfc3d1273287588fbcbb8bb3a.svg" alt="\alpha _{soi,\, \Lambda }^{\mu } =\alpha _{soi,\, \Lambda } =\left(\alpha _{sat,\, \Lambda } +\Delta \right)\le \alpha _{dry,\, \Lambda }"/></p>
+</div><p>where <img class="math" src="../../_images/math/6450616b75212cb568e905db49efd0c3dd584648.svg" alt="\Delta"/>  depends on the volumetric water content of the
+first soil layer <img class="math" src="../../_images/math/752e6f72ae39335fab52af3eebe476b4f51a6c57.svg" alt="\theta _{1}"/>  (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#soil-water"><span class="std std-numref">2.7.3</span></a>) as
+<img class="math" src="../../_images/math/445be71f24583000ba2ece91fa646268b80ec677.svg" alt="\Delta =0.11-0.40\theta _{1} &gt;0"/>, and
+<img class="math" src="../../_images/math/98a7fc58f4c025db91d919bb9c9430b011140c47.svg" alt="\alpha _{sat,\, \Lambda }"/>  and
+<img class="math" src="../../_images/math/38e3bc7166d78371e66243ee851733c45531383f.svg" alt="\alpha _{dry,\, \Lambda }"/>  are albedos for saturated and dry
+soil color classes (<a class="reference internal" href="#table-dry-and-saturated-soil-albedos"><span class="std std-numref">Table 2.3.3</span></a>).</p>
+<p>CLM soil colors are prescribed so that they best reproduce observed
+MODIS local solar noon surface albedo values at the CLM grid cell
+following the methods of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lawrencechase2007"><span class="std std-ref">Lawrence and Chase (2007)</span></a>.
+The soil colors are fitted over the range of 20 soil classes shown in
+<a class="reference internal" href="#table-dry-and-saturated-soil-albedos"><span class="std std-numref">Table 2.3.3</span></a> and compared
+to the MODIS monthly local solar noon all-sky surface albedo as
+described in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#strahleretal1999"><span class="std std-ref">Strahler et al. (1999)</span></a> and
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#schaafetal2002"><span class="std std-ref">Schaaf et al. (2002)</span></a>. The CLM
+two-stream radiation model was used to calculate the model equivalent
+surface albedo using climatological monthly soil moisture along with the
+vegetation parameters of PFT fraction, LAI, and SAI. The soil color that
+produced the closest all-sky albedo in the two-stream radiation model
+was selected as the best fit for the month. The fitted monthly soil
+colors were averaged over all snow-free months to specify a
+representative soil color for the grid cell. In cases where there was no
+snow-free surface albedo for the year, the soil color derived from
+snow-affected albedo was used to give a representative soil color that
+included the effects of the minimum permanent snow cover.</p>
+<span id="table-dry-and-saturated-soil-albedos"></span><table class="docutils align-default" id="id9">
+<caption><span class="caption-number">Table 2.3.3 </span><span class="caption-text">Dry and saturated soil albedos</span><a class="headerlink" href="#id9" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 16%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td></td>
+<td colspan="2"><p>Dry</p></td>
+<td colspan="2"><p>Saturated</p></td>
+<td></td>
+<td colspan="2"><p>Dry</p></td>
+<td colspan="2"><p>Saturated</p></td>
+</tr>
+<tr class="row-even"><td><p>Color Class</p></td>
+<td><p>vis</p></td>
+<td><p>nir</p></td>
+<td><p>vis</p></td>
+<td><p>nir</p></td>
+<td><p>Color Class</p></td>
+<td><p>vis</p></td>
+<td><p>nir</p></td>
+<td><p>vis</p></td>
+<td><p>nir</p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p>0.36</p></td>
+<td><p>0.61</p></td>
+<td><p>0.25</p></td>
+<td><p>0.50</p></td>
+<td><p>11</p></td>
+<td><p>0.24</p></td>
+<td><p>0.37</p></td>
+<td><p>0.13</p></td>
+<td><p>0.26</p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p>0.34</p></td>
+<td><p>0.57</p></td>
+<td><p>0.23</p></td>
+<td><p>0.46</p></td>
+<td><p>12</p></td>
+<td><p>0.23</p></td>
+<td><p>0.35</p></td>
+<td><p>0.12</p></td>
+<td><p>0.24</p></td>
+</tr>
+<tr class="row-odd"><td><p>3</p></td>
+<td><p>0.32</p></td>
+<td><p>0.53</p></td>
+<td><p>0.21</p></td>
+<td><p>0.42</p></td>
+<td><p>13</p></td>
+<td><p>0.22</p></td>
+<td><p>0.33</p></td>
+<td><p>0.11</p></td>
+<td><p>0.22</p></td>
+</tr>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>0.31</p></td>
+<td><p>0.51</p></td>
+<td><p>0.20</p></td>
+<td><p>0.40</p></td>
+<td><p>14</p></td>
+<td><p>0.20</p></td>
+<td><p>0.31</p></td>
+<td><p>0.10</p></td>
+<td><p>0.20</p></td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
+<td><p>0.30</p></td>
+<td><p>0.49</p></td>
+<td><p>0.19</p></td>
+<td><p>0.38</p></td>
+<td><p>15</p></td>
+<td><p>0.18</p></td>
+<td><p>0.29</p></td>
+<td><p>0.09</p></td>
+<td><p>0.18</p></td>
+</tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>0.29</p></td>
+<td><p>0.48</p></td>
+<td><p>0.18</p></td>
+<td><p>0.36</p></td>
+<td><p>16</p></td>
+<td><p>0.16</p></td>
+<td><p>0.27</p></td>
+<td><p>0.08</p></td>
+<td><p>0.16</p></td>
+</tr>
+<tr class="row-odd"><td><p>7</p></td>
+<td><p>0.28</p></td>
+<td><p>0.45</p></td>
+<td><p>0.17</p></td>
+<td><p>0.34</p></td>
+<td><p>17</p></td>
+<td><p>0.14</p></td>
+<td><p>0.25</p></td>
+<td><p>0.07</p></td>
+<td><p>0.14</p></td>
+</tr>
+<tr class="row-even"><td><p>8</p></td>
+<td><p>0.27</p></td>
+<td><p>0.43</p></td>
+<td><p>0.16</p></td>
+<td><p>0.32</p></td>
+<td><p>18</p></td>
+<td><p>0.12</p></td>
+<td><p>0.23</p></td>
+<td><p>0.06</p></td>
+<td><p>0.12</p></td>
+</tr>
+<tr class="row-odd"><td><p>9</p></td>
+<td><p>0.26</p></td>
+<td><p>0.41</p></td>
+<td><p>0.15</p></td>
+<td><p>0.30</p></td>
+<td><p>19</p></td>
+<td><p>0.10</p></td>
+<td><p>0.21</p></td>
+<td><p>0.05</p></td>
+<td><p>0.10</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>0.25</p></td>
+<td><p>0.39</p></td>
+<td><p>0.14</p></td>
+<td><p>0.28</p></td>
+<td><p>20</p></td>
+<td><p>0.08</p></td>
+<td><p>0.16</p></td>
+<td><p>0.04</p></td>
+<td><p>0.08</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="snow-albedo">
+<span id="id3"></span><h3><span class="section-number">2.3.2.1. </span>Snow Albedo<a class="headerlink" href="#snow-albedo" title="Permalink to this headline">¶</a></h3>
+<p>Snow albedo and solar absorption within each snow layer are simulated
+with the Snow, Ice, and Aerosol Radiative Model (SNICAR), which
+incorporates a two-stream radiative transfer solution from
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#toonetal1989"><span class="std std-ref">Toon et al. (1989)</span></a>. Albedo and the vertical absorption
+profile depend on solar zenith angle, albedo of the substrate underlying snow, mass
+concentrations of atmospheric-deposited aerosols (black carbon, mineral
+dust, and organic carbon), and ice effective grain size
+(<img class="math" src="../../_images/math/16fc97ff9980f1a30cd8e5d7b8678233d623af00.svg" alt="r_{e}"/>), which is simulated with a snow aging routine
+described in section <a class="reference internal" href="#snow-aging"><span class="std std-numref">2.3.2.3</span></a>. Representation of impurity mass
+concentrations within the snowpack is described in section
+<a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html#black-and-organic-carbon-and-mineral-dust-within-snow"><span class="std std-numref">2.8.4</span></a>.
+Implementation of SNICAR in CLM is also described somewhat by
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#flannerzender2005"><span class="std std-ref">Flanner and Zender (2005)</span></a> and
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#flanneretal2007"><span class="std std-ref">Flanner et al. (2007)</span></a>.</p>
+<p>The two-stream solution requires the following bulk optical properties
+for each snow layer and spectral band: extinction optical depth
+(<img class="math" src="../../_images/math/914b2d4b6659b86d3153d5510839dfb254dfc8a3.svg" alt="\tau"/>), single-scatter albedo (<img class="math" src="../../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.svg" alt="\omega"/>), and
+scattering asymmetry parameter (<em>g</em>). The snow layers used for radiative
+calculations are identical to snow layers applied elsewhere in CLM,
+except for the case when snow mass is greater than zero but no snow
+layers exist. When this occurs, a single radiative layer is specified to
+have the column snow mass and an effective grain size of freshly-fallen
+snow (section <a class="reference internal" href="#snow-aging"><span class="std std-numref">2.3.2.3</span></a>). The bulk optical properties are weighted functions
+of each constituent <em>k</em>, computed for each snow layer and spectral band
+as</p>
+<div class="math" id="equation-3-62">
+<p><span class="eqno">(2.3.62)<a class="headerlink" href="#equation-3-62" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2b9e96ffd7b5e856c1668f9b373a0e9af58b3503.svg" alt="\tau =\sum _{1}^{k}\tau _{k}"/></p>
+</div><div class="math" id="equation-3-63">
+<p><span class="eqno">(2.3.63)<a class="headerlink" href="#equation-3-63" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2432f65068e4001e8dc77025cdb9ecdee150e3c5.svg" alt="\omega =\frac{\sum _{1}^{k}\omega _{k} \tau _{k}  }{\sum _{1}^{k}\tau _{k}  }"/></p>
+</div><div class="math" id="equation-3-64">
+<p><span class="eqno">(2.3.64)<a class="headerlink" href="#equation-3-64" title="Permalink to this equation">¶</a></span><img src="../../_images/math/748a4de77bbfa8c9a526c7ba98b032a7c5735b4e.svg" alt="g=\frac{\sum _{1}^{k}g_{k} \omega _{k} \tau _{k}  }{\sum _{1}^{k}\omega _{k} \tau _{k}  }"/></p>
+</div><p>For each constituent (ice, two black carbon species, two organic carbon species, and
+four dust species), <img class="math" src="../../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.svg" alt="\omega"/>, <em>g</em>, and the mass extinction cross-section
+<img class="math" src="../../_images/math/b6c245d487949782a89cab9ee83504a62fdc2337.svg" alt="\psi"/> (m<sup>2</sup> kg<sub>-1</sub>) are computed offline with Mie Theory, e.g.,
+applying the computational technique from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bohrenhuffman1983"><span class="std std-ref">Bohren and Huffman (1983)</span></a>.
+The extinction optical depth for each constituent depends on its mass  extinction
+cross-section and layer mass, <img class="math" src="../../_images/math/fbb5d79901df51d57dee8409db0870850b603f8d.svg" alt="w _{k}"/> (kgm<sup>-1</sup>) as</p>
+<div class="math" id="equation-3-65">
+<p><span class="eqno">(2.3.65)<a class="headerlink" href="#equation-3-65" title="Permalink to this equation">¶</a></span><img src="../../_images/math/34ce186114cb628aa3ac7e61afc665ccec6a77d2.svg" alt="\tau _{k} =\psi _{k} w_{k}"/></p>
+</div><p>The two-stream solution (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#toonetal1989"><span class="std std-ref">Toon et al. (1989)</span></a>) applies a tri-diagonal matrix
+solution to produce upward and downward radiative fluxes at each layer
+interface, from which net radiation, layer absorption, and surface
+albedo are easily derived. Solar fluxes are computed in five spectral
+bands, listed in <a class="reference internal" href="#table-spectral-bands-and-weights-used-for-snow-radiative-transfer"><span class="std std-numref">Table 2.3.4</span></a>.
+Because snow albedo varies strongly across
+the solar spectrum, it was determined that four bands were needed to
+accurately represent the near-infrared (NIR) characteristics of snow,
+whereas only one band was needed for the visible spectrum. Boundaries of
+the NIR bands were selected to capture broad radiative features and
+maximize accuracy and computational efficiency. We partition NIR (0.7-5.0
+<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> m) surface downwelling flux from CLM according to the weights listed
+in <a class="reference internal" href="#table-spectral-bands-and-weights-used-for-snow-radiative-transfer"><span class="std std-numref">Table 2.3.4</span></a>,
+which are unique for diffuse and direct incident flux. These fixed weights were
+determined with offline hyperspectral radiative transfer calculations for an
+atmosphere typical of mid-latitude winter (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#flanneretal2007"><span class="std std-ref">Flanner et al. (2007)</span></a>).
+The tri-diagonal solution includes intermediate terms that allow for easy
+interchange of two-stream techniques. We apply the Eddington solution
+for the visible band (following <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#wiscombewarren1980"><span class="std std-ref">Wiscombe and Warren 1980</span></a>) and the
+hemispheric mean solution ((<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#toonetal1989"><span class="std std-ref">Toon et al. (1989)</span></a>) for NIR bands. These
+choices were made because the Eddington scheme works well for highly
+scattering media, but can produce negative albedo for absorptive NIR
+bands with diffuse incident flux. Delta scalings are applied to
+<img class="math" src="../../_images/math/914b2d4b6659b86d3153d5510839dfb254dfc8a3.svg" alt="\tau"/>, <img class="math" src="../../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.svg" alt="\omega"/>, and <img class="math" src="../../_images/math/157ba5711de84b4c715a0478fd8ae440e596d96e.svg" alt="g"/> (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#wiscombewarren1980"><span class="std std-ref">Wiscombe and Warren 1980</span></a>) in
+all spectral bands, producing effective values (denoted with *) that
+are applied in the two-stream solution</p>
+<div class="math" id="equation-3-66">
+<p><span class="eqno">(2.3.66)<a class="headerlink" href="#equation-3-66" title="Permalink to this equation">¶</a></span><img src="../../_images/math/35cb142d7a46a063d3e2d646bbd9e7bba4c6b7ea.svg" alt="\tau ^{*} =\left(1-\omega g^{2} \right)\tau"/></p>
+</div><div class="math" id="equation-3-67">
+<p><span class="eqno">(2.3.67)<a class="headerlink" href="#equation-3-67" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2625644a4aa4bd7c249e91299106ea6cc1e077a7.svg" alt="\omega ^{*} =\frac{\left(1-g^{2} \right)\omega }{1-g^{2} \omega }"/></p>
+</div><div class="math" id="equation-3-68">
+<p><span class="eqno">(2.3.68)<a class="headerlink" href="#equation-3-68" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5e931b7193f86b8abb9c466a051b11b1eb1d651d.svg" alt="g^{*} =\frac{g}{1+g}"/></p>
+</div><span id="table-spectral-bands-and-weights-used-for-snow-radiative-transfer"></span><table class="docutils align-default" id="id10">
+<caption><span class="caption-number">Table 2.3.4 </span><span class="caption-text">Spectral bands and weights used for snow radiative transfer</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 59%" />
+<col style="width: 23%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Spectral band</p></th>
+<th class="head"><p>Direct-beam weight</p></th>
+<th class="head"><p>Diffuse weight</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Band 1: 0.3-0.7<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/>m (visible)</p></td>
+<td><p>(1.0)</p></td>
+<td><p>(1.0)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Band 2: 0.7-1.0<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/>m (near-IR)</p></td>
+<td><p>0.494</p></td>
+<td><p>0.586</p></td>
+</tr>
+<tr class="row-even"><td><p>Band 3: 1.0-1.2<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/>m (near-IR)</p></td>
+<td><p>0.181</p></td>
+<td><p>0.202</p></td>
+</tr>
+<tr class="row-odd"><td><p>Band 4: 1.2-1.5<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/>m (near-IR)</p></td>
+<td><p>0.121</p></td>
+<td><p>0.109</p></td>
+</tr>
+<tr class="row-even"><td><p>Band 5: 1.5-5.0<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/>m (near-IR)</p></td>
+<td><p>0.204</p></td>
+<td><p>0.103</p></td>
+</tr>
+</tbody>
+</table>
+<p>Under direct-beam conditions, singularities in the radiative
+approximation are occasionally approached in spectral bands 4 and 5 that
+produce unrealistic conditions (negative energy absorption in a layer,
+negative albedo, or total absorbed flux greater than incident flux).
+When any of these three conditions occur, the Eddington approximation is
+attempted instead, and if both approximations fail, the cosine of the
+solar zenith angle is adjusted by 0.02 (conserving incident flux) and a
+warning message is produced. This situation occurs in only about 1 in
+10 <sup>6</sup> computations of snow albedo. After looping over the
+five spectral bands, absorption fluxes and albedo are averaged back into
+the bulk NIR band used by the rest of CLM.</p>
+<p>Soil albedo (or underlying substrate albedo), which is defined for
+visible and NIR bands, is a required boundary condition for the snow
+radiative transfer calculation. Currently, the bulk NIR soil albedo is
+applied to all four NIR snow bands. With ground albedo as a lower
+boundary condition, SNICAR simulates solar absorption in all snow layers
+as well as the underlying soil or ground. With a thin snowpack,
+penetrating solar radiation to the underlying soil can be quite large
+and heat cannot be released from the soil to the atmosphere in this
+situation. Thus, if the snowpack has total snow depth less than 0.1 m
+(<img class="math" src="../../_images/math/f95af14b1ae982ebbe05ec9853aad9680c00fa4f.svg" alt="z_{sno} &lt; 0.1"/>) and there are no explicit snow layers, the solar
+radiation is absorbed by the top soil layer.  If there is a single snow layer,
+the solar radiation is absorbed in that layer.  If there is more than a single
+snow layer, 75% of the solar radiation is absorbed in the top snow layer,
+and 25% is absorbed in the next lowest snow layer. This prevents unrealistic
+soil warming within a single timestep.</p>
+<p>The radiative transfer calculation is performed twice for each column
+containing a mass of snow greater than
+<img class="math" src="../../_images/math/45da528758afa3204f2189019e6f583205c989dd.svg" alt="1 \times 10^{-30}"/> kgm<sup>-2</sup> (excluding lake and urban columns); once each for
+direct-beam and diffuse incident flux. Absorption in each layer
+<img class="math" src="../../_images/math/5aa339d4daf45a810dda332e3c80a0698e526e04.svg" alt="i"/> of pure snow is initially recorded as absorbed flux per unit
+incident flux on the ground (<img class="math" src="../../_images/math/26f4a77ec4e19c0bdc52c46098aec6b1a72a44c0.svg" alt="S_{sno,\, i}"/> ), as albedos must be
+calculated for the next timestep with unknown incident flux. The snow
+absorption fluxes that are used for column temperature calculations are</p>
+<div class="math" id="equation-zeqnnum275338">
+<p><span class="eqno">(2.3.69)<a class="headerlink" href="#equation-zeqnnum275338" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d3bcb31a71c61040ef2febfbdea579753efbfe0c.svg" alt="S_{g,\, i} =S_{sno,\, i} \left(1-\alpha _{sno} \right)"/></p>
+</div><p>This weighting is performed for direct-beam and diffuse, visible and NIR
+fluxes. After the ground-incident fluxes (transmitted through the
+vegetation canopy) have been calculated for the current time step
+(sections <a class="reference internal" href="#canopy-radiative-transfer"><span class="std std-numref">2.3.1</span></a> and <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#solar-fluxes"><span class="std std-numref">2.4.1</span></a>),
+the layer absorption factors</p>
+<p>(<img class="math" src="../../_images/math/1561fd1170b09273e6e90496f13476cc9491720a.svg" alt="S_{g,\, i}"/>) are multiplied by the ground-incident fluxes to
+produce solar absorption (W m<sup>-2</sup>) in each snow layer and
+the underlying ground.</p>
+</div>
+<div class="section" id="snowpack-optical-properties">
+<span id="id4"></span><h3><span class="section-number">2.3.2.2. </span>Snowpack Optical Properties<a class="headerlink" href="#snowpack-optical-properties" title="Permalink to this headline">¶</a></h3>
+<p>Ice optical properties for the five spectral bands are derived offline
+and stored in a namelist-defined lookup table for online retrieval (see
+CLM5.0 User’s Guide). Mie properties are first computed at fine spectral
+resolution (470 bands), and are then weighted into the five bands
+applied by CLM according to incident solar flux,
+<img class="math" src="../../_images/math/8ae604657192d8126d802f0eb130e8145e883437.svg" alt="I^{\downarrow } (\lambda )"/>. For example, the broadband
+mass-extinction cross section (<img class="math" src="../../_images/math/6c091b8de5f56d791664c48a12ce331e25f74471.svg" alt="\bar{\psi }"/>) over wavelength
+interval <img class="math" src="../../_images/math/7c54e7cf3980a89ab9a1bef84e34ef2c9f9f58c1.svg" alt="\lambda _{1}"/> to <img class="math" src="../../_images/math/0f5699f82720036978896fa8952da82e577c0c97.svg" alt="\lambda _{2}"/> is</p>
+<div class="math" id="equation-3-70">
+<p><span class="eqno">(2.3.70)<a class="headerlink" href="#equation-3-70" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4d0c015b321ae4804eb5ee825ada2ebaeedd1bf4.svg" alt="\bar{\psi }=\frac{\int _{\lambda _{1} }^{\lambda _{2} }\psi \left(\lambda \right) I^{\downarrow } \left(\lambda \right){\rm d}\lambda }{\int _{\lambda _{1} }^{\lambda _{2} }I^{\downarrow } \left(\lambda \right){\rm d}\lambda  }"/></p>
+</div><p>Broadband single-scatter albedo (<img class="math" src="../../_images/math/8d78a50056284ea9e216093d586fc5d3fef0c570.svg" alt="\bar{\omega }"/>) is additionally
+weighted by the diffuse albedo for a semi-infinite snowpack (<img class="math" src="../../_images/math/61df45bd254dd348bb6ee03453dee8789461e303.svg" alt="\alpha _{sno}"/>)</p>
+<div class="math" id="equation-3-71">
+<p><span class="eqno">(2.3.71)<a class="headerlink" href="#equation-3-71" title="Permalink to this equation">¶</a></span><img src="../../_images/math/492903d25b0f14207a6276d415de331f8f95a68b.svg" alt="\bar{\omega }=\frac{\int _{\lambda _{1} }^{\lambda _{2} }\omega (\lambda )I^{\downarrow } ( \lambda )\alpha _{sno} (\lambda ){\rm d}\lambda }{\int _{\lambda _{1} }^{\lambda _{2} }I^{\downarrow } ( \lambda )\alpha _{sno} (\lambda ){\rm d}\lambda }"/></p>
+</div><p>Inclusion of this additional albedo weight was found to improve accuracy
+of the five-band albedo solutions (relative to 470-band solutions)
+because of the strong dependence of optically-thick snowpack albedo on
+ice grain single-scatter albedo (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#flanneretal2007"><span class="std std-ref">Flanner et al. (2007)</span></a>).
+The lookup tables contain optical properties for lognormal distributions of ice
+particles over the range of effective radii: 30<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/>m
+<img class="math" src="../../_images/math/ee9cef010f22b9bda84b479db4407de1195a2464.svg" alt="&lt; r _{e} &lt; \text{1500} \mu \text{m}"/>, at 1 <img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> m resolution.
+Single-scatter albedos for the end-members of this size range are listed in
+<a class="reference internal" href="#table-single-scatter-albedo-values-used-for-snowpack-impurities-and-ice"><span class="std std-numref">Table 2.3.5</span></a>.</p>
+<p>Optical properties for black carbon are described in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#flanneretal2007"><span class="std std-ref">Flanner et al. (2007)</span></a>.
+Single-scatter albedo, mass extinction cross-section, and
+asymmetry parameter values for all snowpack species, in the five
+spectral bands used, are listed in <a class="reference internal" href="#table-single-scatter-albedo-values-used-for-snowpack-impurities-and-ice"><span class="std std-numref">Table 2.3.5</span></a>,
+<a class="reference internal" href="#table-mass-extinction-values"><span class="std std-numref">Table 2.3.6</span></a>, and
+<a class="reference internal" href="#table-asymmetry-scattering-parameters-used-for-snowpack-impurities-and-ice"><span class="std std-numref">Table 2.3.7</span></a>.
+These properties were also derived with Mie Theory, using various published
+sources of indices of refraction and assumptions about particle size
+distribution. Weighting into the five CLM spectral bands was determined
+only with incident solar flux, as in equation .</p>
+<span id="table-single-scatter-albedo-values-used-for-snowpack-impurities-and-ice"></span><table class="docutils align-default" id="id11">
+<caption><span class="caption-number">Table 2.3.5 </span><span class="caption-text">Single-scatter albedo values used for snowpack impurities and ice</span><a class="headerlink" href="#id11" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 56%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Species</p></th>
+<th class="head"><p>Band 1</p></th>
+<th class="head"><p>Band 2</p></th>
+<th class="head"><p>Band 3</p></th>
+<th class="head"><p>Band 4</p></th>
+<th class="head"><p>Band 5</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Hydrophilic black carbon</p></td>
+<td><p>0.516</p></td>
+<td><p>0.434</p></td>
+<td><p>0.346</p></td>
+<td><p>0.276</p></td>
+<td><p>0.139</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hydrophobic black carbon</p></td>
+<td><p>0.288</p></td>
+<td><p>0.187</p></td>
+<td><p>0.123</p></td>
+<td><p>0.089</p></td>
+<td><p>0.040</p></td>
+</tr>
+<tr class="row-even"><td><p>Hydrophilic organic carbon</p></td>
+<td><p>0.997</p></td>
+<td><p>0.994</p></td>
+<td><p>0.990</p></td>
+<td><p>0.987</p></td>
+<td><p>0.951</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hydrophobic organic carbon</p></td>
+<td><p>0.963</p></td>
+<td><p>0.921</p></td>
+<td><p>0.860</p></td>
+<td><p>0.814</p></td>
+<td><p>0.744</p></td>
+</tr>
+<tr class="row-even"><td><p>Dust 1</p></td>
+<td><p>0.979</p></td>
+<td><p>0.994</p></td>
+<td><p>0.993</p></td>
+<td><p>0.993</p></td>
+<td><p>0.953</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dust 2</p></td>
+<td><p>0.944</p></td>
+<td><p>0.984</p></td>
+<td><p>0.989</p></td>
+<td><p>0.992</p></td>
+<td><p>0.983</p></td>
+</tr>
+<tr class="row-even"><td><p>Dust 3</p></td>
+<td><p>0.904</p></td>
+<td><p>0.965</p></td>
+<td><p>0.969</p></td>
+<td><p>0.973</p></td>
+<td><p>0.978</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dust 4</p></td>
+<td><p>0.850</p></td>
+<td><p>0.940</p></td>
+<td><p>0.948</p></td>
+<td><p>0.953</p></td>
+<td><p>0.955</p></td>
+</tr>
+<tr class="row-even"><td><p>Ice (<img class="math" src="../../_images/math/4d1db5e90b13a0cc3e21ef3d3397b4816d29a120.svg" alt="r _{e}"/> = 30 <img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> m)</p></td>
+<td><p>0.9999</p></td>
+<td><p>0.9999</p></td>
+<td><p>0.9992</p></td>
+<td><p>0.9938</p></td>
+<td><p>0.9413</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ice (<img class="math" src="../../_images/math/4d1db5e90b13a0cc3e21ef3d3397b4816d29a120.svg" alt="r _{e}"/> = 1500 <img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> m)</p></td>
+<td><p>0.9998</p></td>
+<td><p>0.9960</p></td>
+<td><p>0.9680</p></td>
+<td><p>0.8730</p></td>
+<td><p>0.5500</p></td>
+</tr>
+</tbody>
+</table>
+<span id="table-mass-extinction-values"></span><table class="docutils align-default" id="id12">
+<caption><span class="caption-number">Table 2.3.6 </span><span class="caption-text">Mass extinction values (m<sup>2</sup> kg<sup>-1</sup>) used for snowpack impurities and ice</span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 56%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Species</p></th>
+<th class="head"><p>Band 1</p></th>
+<th class="head"><p>Band 2</p></th>
+<th class="head"><p>Band 3</p></th>
+<th class="head"><p>Band 4</p></th>
+<th class="head"><p>Band 5</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Hydrophilic black carbon</p></td>
+<td><p>25369</p></td>
+<td><p>12520</p></td>
+<td><p>7739</p></td>
+<td><p>5744</p></td>
+<td><p>3527</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hydrophobic black carbon</p></td>
+<td><p>11398</p></td>
+<td><p>5923</p></td>
+<td><p>4040</p></td>
+<td><p>3262</p></td>
+<td><p>2224</p></td>
+</tr>
+<tr class="row-even"><td><p>Hydrophilic organic carbon</p></td>
+<td><p>37774</p></td>
+<td><p>22112</p></td>
+<td><p>14719</p></td>
+<td><p>10940</p></td>
+<td><p>5441</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hydrophobic organic carbon</p></td>
+<td><p>3289</p></td>
+<td><p>1486</p></td>
+<td><p>872</p></td>
+<td><p>606</p></td>
+<td><p>248</p></td>
+</tr>
+<tr class="row-even"><td><p>Dust 1</p></td>
+<td><p>2687</p></td>
+<td><p>2420</p></td>
+<td><p>1628</p></td>
+<td><p>1138</p></td>
+<td><p>466</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dust 2</p></td>
+<td><p>841</p></td>
+<td><p>987</p></td>
+<td><p>1184</p></td>
+<td><p>1267</p></td>
+<td><p>993</p></td>
+</tr>
+<tr class="row-even"><td><p>Dust 3</p></td>
+<td><p>388</p></td>
+<td><p>419</p></td>
+<td><p>400</p></td>
+<td><p>397</p></td>
+<td><p>503</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dust 4</p></td>
+<td><p>197</p></td>
+<td><p>203</p></td>
+<td><p>208</p></td>
+<td><p>205</p></td>
+<td><p>229</p></td>
+</tr>
+<tr class="row-even"><td><p>Ice (<img class="math" src="../../_images/math/4d1db5e90b13a0cc3e21ef3d3397b4816d29a120.svg" alt="r _{e}"/> = 30 <img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> m)</p></td>
+<td><p>55.7</p></td>
+<td><p>56.1</p></td>
+<td><p>56.3</p></td>
+<td><p>56.6</p></td>
+<td><p>57.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ice (<img class="math" src="../../_images/math/4d1db5e90b13a0cc3e21ef3d3397b4816d29a120.svg" alt="r _{e}"/> = 1500 <img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> m)</p></td>
+<td><p>1.09</p></td>
+<td><p>1.09</p></td>
+<td><p>1.09</p></td>
+<td><p>1.09</p></td>
+<td><p>1.1</p></td>
+</tr>
+</tbody>
+</table>
+<span id="table-asymmetry-scattering-parameters-used-for-snowpack-impurities-and-ice"></span><table class="docutils align-default" id="id13">
+<caption><span class="caption-number">Table 2.3.7 </span><span class="caption-text">Asymmetry scattering parameters used for snowpack impurities and ice.</span><a class="headerlink" href="#id13" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 56%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Species</p></th>
+<th class="head"><p>Band 1</p></th>
+<th class="head"><p>Band 2</p></th>
+<th class="head"><p>Band 3</p></th>
+<th class="head"><p>Band 4</p></th>
+<th class="head"><p>Band 5</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Hydrophilic black carbon</p></td>
+<td><p>0.52</p></td>
+<td><p>0.34</p></td>
+<td><p>0.24</p></td>
+<td><p>0.19</p></td>
+<td><p>0.10</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hydrophobic black carbon</p></td>
+<td><p>0.35</p></td>
+<td><p>0.21</p></td>
+<td><p>0.15</p></td>
+<td><p>0.11</p></td>
+<td><p>0.06</p></td>
+</tr>
+<tr class="row-even"><td><p>Hydrophilic organic carbon</p></td>
+<td><p>0.77</p></td>
+<td><p>0.75</p></td>
+<td><p>0.72</p></td>
+<td><p>0.70</p></td>
+<td><p>0.64</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hydrophobic organic carbon</p></td>
+<td><p>0.62</p></td>
+<td><p>0.57</p></td>
+<td><p>0.54</p></td>
+<td><p>0.51</p></td>
+<td><p>0.44</p></td>
+</tr>
+<tr class="row-even"><td><p>Dust 1</p></td>
+<td><p>0.69</p></td>
+<td><p>0.72</p></td>
+<td><p>0.67</p></td>
+<td><p>0.61</p></td>
+<td><p>0.44</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dust 2</p></td>
+<td><p>0.70</p></td>
+<td><p>0.65</p></td>
+<td><p>0.70</p></td>
+<td><p>0.72</p></td>
+<td><p>0.70</p></td>
+</tr>
+<tr class="row-even"><td><p>Dust 3</p></td>
+<td><p>0.79</p></td>
+<td><p>0.75</p></td>
+<td><p>0.68</p></td>
+<td><p>0.63</p></td>
+<td><p>0.67</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dust 4</p></td>
+<td><p>0.83</p></td>
+<td><p>0.79</p></td>
+<td><p>0.77</p></td>
+<td><p>0.76</p></td>
+<td><p>0.73</p></td>
+</tr>
+<tr class="row-even"><td><p>Ice (<img class="math" src="../../_images/math/4d1db5e90b13a0cc3e21ef3d3397b4816d29a120.svg" alt="r _{e}"/> = 30<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/>m)</p></td>
+<td><p>0.88</p></td>
+<td><p>0.88</p></td>
+<td><p>0.88</p></td>
+<td><p>0.88</p></td>
+<td><p>0.90</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ice (<img class="math" src="../../_images/math/4d1db5e90b13a0cc3e21ef3d3397b4816d29a120.svg" alt="r _{e}"/> = 1500<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/>m)</p></td>
+<td><p>0.89</p></td>
+<td><p>0.90</p></td>
+<td><p>0.90</p></td>
+<td><p>0.92</p></td>
+<td><p>0.97</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="snow-aging">
+<span id="id5"></span><h3><span class="section-number">2.3.2.3. </span>Snow Aging<a class="headerlink" href="#snow-aging" title="Permalink to this headline">¶</a></h3>
+<p>Snow aging is represented as evolution of the ice effective grain size
+(<img class="math" src="../../_images/math/16fc97ff9980f1a30cd8e5d7b8678233d623af00.svg" alt="r_{e}"/>). Previous studies have shown that use of spheres
+which conserve the surface area-to-volume ratio (or specific surface
+area) of ice media composed of more complex shapes produces relatively
+small errors in simulated hemispheric fluxes
+(e.g., <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#grenfellwarren1999"><span class="std std-ref">Grenfell and Warren 1999</span></a>).
+Effective radius is the surface area-weighted mean
+radius of an ensemble of spherical particles and is directly related to specific
+surface area (<em>SSA</em>) as
+<img class="math" src="../../_images/math/06bc1b828e34e5a3b3cbf8a984088817ce5452d0.svg" alt="r_{e} ={3\mathord{\left/ {\vphantom {3 \left(\rho _{ice} SSA\right)}} \right. \kern-\nulldelimiterspace} \left(\rho _{ice} SSA\right)}"/> ,
+where <img class="math" src="../../_images/math/7c574bf4458d029d1a70cf8ce42e0a04ef505dba.svg" alt="\rho_{ice}"/> is the density of ice. Hence,
+<img class="math" src="../../_images/math/16fc97ff9980f1a30cd8e5d7b8678233d623af00.svg" alt="r_{e}"/> is a simple and practical metric for relating the
+snowpack microphysical state to dry snow radiative characteristics.</p>
+<p>Wet snow processes can also drive rapid changes in albedo. The presence
+of liquid water induces rapid coarsening of the surrounding ice grains
+(e.g., <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#brun1989"><span class="std std-ref">Brun 1989</span></a>), and liquid water tends to refreeze into large ice
+clumps that darken the bulk snowpack. The presence of small liquid
+drops, by itself, does not significantly darken snowpack, as ice and
+water have very similar indices of refraction throughout the solar
+spectrum. Pooled or ponded water, however, can significantly darken
+snowpack by greatly reducing the number of refraction events per unit
+mass. This influence is not currently accounted for.</p>
+<p>The net change in effective grain size occurring each time step is
+represented in each snow layer as a summation of changes caused by dry
+snow metamorphism (<img class="math" src="../../_images/math/1d1042d28e4e1069fdfcea41266b50cd3c9a1bdf.svg" alt="dr_{e,dry}"/>), liquid water-induced
+metamorphism (<img class="math" src="../../_images/math/ff4000d100f11d25a79307e7587bf91d6b79112c.svg" alt="dr_{e,wet}"/>), refreezing of liquid water, and
+addition of freshly-fallen snow. The mass of each snow layer is
+partitioned into fractions of snow carrying over from the previous time
+step (<img class="math" src="../../_images/math/a39cd7a4584e3c3091ce48e840eca4297aa96609.svg" alt="f_{old}"/>), freshly-fallen snow
+(<img class="math" src="../../_images/math/87ba8ce5ab3bedc0ea5602d2a002e7aab973e7f0.svg" alt="f_{new}"/>), and refrozen liquid water
+(<img class="math" src="../../_images/math/f50b387e0e43259d6e5f3f10d1467e3ccb1f7ec4.svg" alt="f_{rfz}"/>), such that snow <img class="math" src="../../_images/math/16fc97ff9980f1a30cd8e5d7b8678233d623af00.svg" alt="r_{e}"/> is updated
+each time step <em>t</em> as</p>
+<div class="math" id="equation-3-72">
+<p><span class="eqno">(2.3.72)<a class="headerlink" href="#equation-3-72" title="Permalink to this equation">¶</a></span><img src="../../_images/math/34f4378f9b18a2e6cb25bc01c5dafeb53984e998.svg" alt="r_{e} \left(t\right)=\left[r_{e} \left(t-1\right)+dr_{e,\, dry} +dr_{e,\, wet} \right]f_{old} +r_{e,\, 0} f_{new} +r_{e,\, rfz} f_{rfrz}"/></p>
+</div><p>Here, the effective radius of freshly-fallen snow
+(<img class="math" src="../../_images/math/612bbe227e41f566ebe0327e67af6f02f573065d.svg" alt="r_{e,0}"/>) is based on a simple linear temperature-relationship.
+Below -30 degrees Celsius, a minimum value is enforced of 54.5 <img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> m
+(corresponding to a specific surface area of 60 m<sup>2</sup> kg<sup>-1</sup>).
+Above 0 degrees Celsius, a maximum value is enforced of 204.5  <img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> m.
+Between -30 and 0 a linear ramp is used.</p>
+<p>The effective radius of refrozen liquid water (<img class="math" src="../../_images/math/cde94c1766cf3b895d1f5e17c730f42699f6c3d6.svg" alt="r_{e,rfz}"/>) is set to 1000<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> m.</p>
+<p>Dry snow aging is based on a microphysical model described by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#flannerzender2006"><span class="std std-ref">Flanner
+and Zender (2006)</span></a>. This model simulates diffusive vapor flux
+amongst collections of ice crystals with various size and inter-particle
+spacing. Specific surface area and effective radius are prognosed for
+any combination of snow temperature, temperature gradient, density, and
+initial size distribution. The combination of warm snow, large
+temperature gradient, and low density produces the most rapid snow
+aging, whereas aging proceeds slowly in cold snow, regardless of
+temperature gradient and density. Because this model is currently too
+computationally expensive for inclusion in climate models, we fit
+parametric curves to model output over a wide range of snow conditions
+and apply these parameters in CLM. The functional form of the parametric
+equation is</p>
+<div class="math" id="equation-3-73">
+<p><span class="eqno">(2.3.73)<a class="headerlink" href="#equation-3-73" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5d50086b1bdaaccde9d97ca1661458b81c63b838.svg" alt="\frac{dr_{e,\, dry} }{dt} =\left(\frac{dr_{e} }{dt} \right)_{0} \left(\frac{\eta }{\left(r_{e} -r_{e,\, 0} \right)+\eta } \right)^{{1\mathord{\left/ {\vphantom {1 \kappa }} \right. \kern-\nulldelimiterspace} \kappa } }"/></p>
+</div><p>The parameters <img class="math" src="../../_images/math/633023695959a8b9fe2a42fd208d2e1230432bba.svg" alt="{(\frac{dr_{e}}{dt}})_{0}"/>,
+<img class="math" src="../../_images/math/97db043c7cba573ac389b71add78b048077e8a13.svg" alt="\eta"/>, and <img class="math" src="../../_images/math/261e3eb56c1757dd003745ee4cc53aa595565af1.svg" alt="\kappa"/> are retrieved interactively from a
+lookup table with dimensions corresponding to snow temperature,
+temperature gradient, and density. The domain covered by this lookup
+table includes temperature ranging from 223 to 273 K, temperature
+gradient ranging from 0 to 300 K m<sup>-1</sup>, and density ranging
+from 50 to 400 kg m<sup>-3</sup>. Temperature gradient is calculated
+at the midpoint of each snow layer <em>n</em>, using mid-layer temperatures
+(<img class="math" src="../../_images/math/20c6e297ce04e8fef5e9ca837423c5401e77ad65.svg" alt="T_{n}"/>) and snow layer thicknesses (<img class="math" src="../../_images/math/93b0a24df9d7ceea6a7f2a90b7f9500175270d32.svg" alt="dz_{n}"/>), as</p>
+<div class="math" id="equation-3-74">
+<p><span class="eqno">(2.3.74)<a class="headerlink" href="#equation-3-74" title="Permalink to this equation">¶</a></span><img src="../../_images/math/68f192aa6010d470f4293c9600cfb17839bf681e.svg" alt="\left(\frac{dT}{dz} \right)_{n} =\frac{1}{dz_{n} } abs\left[\frac{T_{n-1} dz_{n} +T_{n} dz_{n-1} }{dz_{n} +dz_{n-1} } +\frac{T_{n+1} dz_{n} +T_{n} dz_{n+1} }{dz_{n} +dz_{n+1} } \right]"/></p>
+</div><p>For the bottom snow layer (<img class="math" src="../../_images/math/8a2377d9f9f7b3c6510e0619d487013bb93df230.svg" alt="n=0"/>),
+<img class="math" src="../../_images/math/ea08978fec80ab5a29e8a6475d092b1427f91450.svg" alt="T_{n+1}"/> is taken as the temperature of the
+top soil layer, and for the top snow layer it is assumed that
+<img class="math" src="../../_images/math/e74ba289cc708cb0710a74152d51b8430cd0d33a.svg" alt="T_{n-1}"/> = <img class="math" src="../../_images/math/20c6e297ce04e8fef5e9ca837423c5401e77ad65.svg" alt="T_{n}"/>.</p>
+<p>The contribution of liquid water to enhanced metamorphism is based on
+parametric equations published by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#brun1989"><span class="std std-ref">Brun (1989)</span></a>, who measured grain
+growth rates under different liquid water contents. This relationship,
+expressed in terms of <img class="math" src="../../_images/math/95a22669b54a957e90f80c32ae994ae2cf6815fa.svg" alt="r_{e} (\mu \text{m})"/> and
+subtracting an offset due to dry aging, depends on the mass liquid water
+fraction <img class="math" src="../../_images/math/062e28fc07ac99f550fac18c304dd39c62f4fa82.svg" alt="f_{liq}"/> as</p>
+<div class="math" id="equation-3-75">
+<p><span class="eqno">(2.3.75)<a class="headerlink" href="#equation-3-75" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e0af9e5bdcc21d01b8ce7a1721c86a50b5733631.svg" alt="\frac{dr_{e} }{dt} =\frac{10^{18} C_{1} f_{liq} ^{3} }{4\pi r_{e} ^{2} }"/></p>
+</div><p>The constant <em>C</em><sub>1</sub> is 4.22<img class="math" src="../../_images/math/8ef1f282527041d7d5c4a46dd2c60a02a7a7c00b.svg" alt="\times"/>10<sup>-13</sup>, and:
+<img class="math" src="../../_images/math/74caa2ea8471427104d6d13ac64e6d57732cda3b.svg" alt="f_{liq} =w_{liq} /(w_{liq} +w_{ice} )"/>(Chapter <a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html#rst-snow-hydrology"><span class="std std-numref">2.8</span></a>).</p>
+<p>In cases where snow mass is greater than zero, but a snow layer has not
+yet been defined, <img class="math" src="../../_images/math/16fc97ff9980f1a30cd8e5d7b8678233d623af00.svg" alt="r_{e}"/> is set to <img class="math" src="../../_images/math/612bbe227e41f566ebe0327e67af6f02f573065d.svg" alt="r_{e,0}"/>. When snow layers are combined or
+divided, <img class="math" src="../../_images/math/16fc97ff9980f1a30cd8e5d7b8678233d623af00.svg" alt="r_{e}"/> is calculated as a mass-weighted mean of
+the two layers, following computations of other state variables (section
+<a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html#snow-layer-combination-and-subdivision"><span class="std std-numref">2.8.7</span></a>). Finally, the allowable range of <img class="math" src="../../_images/math/16fc97ff9980f1a30cd8e5d7b8678233d623af00.svg" alt="r_{e}"/>,
+corresponding to the range over which Mie optical properties have been
+defined, is 30-1500<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> m.</p>
+</div>
+</div>
+<div class="section" id="solar-zenith-angle">
+<span id="id6"></span><h2><span class="section-number">2.3.3. </span>Solar Zenith Angle<a class="headerlink" href="#solar-zenith-angle" title="Permalink to this headline">¶</a></h2>
+<p>The CLM uses the same formulation for solar zenith angle as the
+Community Atmosphere Model. The cosine of the solar zenith angle
+<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/>  is</p>
+<div class="math" id="equation-3-76">
+<p><span class="eqno">(2.3.76)<a class="headerlink" href="#equation-3-76" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a8474fe2f0538bc5a31a4808393b178c48025c26.svg" alt="\mu =\sin \phi \sin \delta -\cos \phi \cos \delta \cos h"/></p>
+</div><p>where <img class="math" src="../../_images/math/4c120f773ab4e1c59ad2bd44aae969ce24dd190a.svg" alt="h"/> is the solar hour angle (radians) (24 hour periodicity),
+<img class="math" src="../../_images/math/652b9d8b65c10aed0fdcdbde47396c879ed5bd33.svg" alt="\delta"/>  is the solar declination angle (radians), and
+<img class="math" src="../../_images/math/fffd2357ee88a9c50ba9e831ed64c39c73d54a07.svg" alt="\phi"/>  is latitude (radians) (positive in Northern Hemisphere).
+The solar hour angle <img class="math" src="../../_images/math/4c120f773ab4e1c59ad2bd44aae969ce24dd190a.svg" alt="h"/> (radians) is</p>
+<div class="math" id="equation-3-77">
+<p><span class="eqno">(2.3.77)<a class="headerlink" href="#equation-3-77" title="Permalink to this equation">¶</a></span><img src="../../_images/math/65ae0fefceabb16b4f48810d23bb9a1c0a0fb139.svg" alt="h=2\pi d+\theta"/></p>
+</div><p>where <img class="math" src="../../_images/math/badad346f6fbe2e237af99bfbd9a93a4da53a3da.svg" alt="d"/> is calendar day (<img class="math" src="../../_images/math/1e3824fd29e25fc34d070712c0966f7f364c03d1.svg" alt="d=0.0"/> at 0Z on January 1), and
+<img class="math" src="../../_images/math/8a87f04e7d7cca18343c084cceca5237fae62491.svg" alt="\theta"/>  is longitude (radians) (positive east of the
+Greenwich meridian).</p>
+<p>The solar declination angle <img class="math" src="../../_images/math/652b9d8b65c10aed0fdcdbde47396c879ed5bd33.svg" alt="\delta"/>  is calculated as in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#berger1978a"><span class="std std-ref">Berger
+(1978a,b)</span></a> and is valid for one million years past or hence, relative to
+1950 A.D. The orbital parameters may be specified directly or the
+orbital parameters are calculated for the desired year. The required
+orbital parameters to be input by the user are the obliquity of the
+Earth <img class="math" src="../../_images/math/cc7cc8f478074da39b2a04d286fe2444178ba85e.svg" alt="\varepsilon"/>  (degrees,
+<img class="math" src="../../_images/math/5993b6a06d144b979c771de8b5f4ef2c0259cf6c.svg" alt="-90^{\circ } &lt;\varepsilon &lt;90^{\circ }"/> ), Earth’s eccentricity
+<img class="math" src="../../_images/math/60f4822f02b44d931c5d0595da71dcf34e270437.svg" alt="e"/> (<img class="math" src="../../_images/math/3669b97096550f102a475cd2dbe220eff2044b00.svg" alt="0.0&lt;e&lt;0.1"/>), and the longitude of the perihelion
+relative to the moving vernal equinox <img class="math" src="../../_images/math/11b565bb1e0c07f24c63b7b52dc276d93116a6e2.svg" alt="\tilde{\omega }"/>
+(<img class="math" src="../../_images/math/45c69f79eb52e6de56f0d6aded36b92d2322db50.svg" alt="0^{\circ } &lt;\tilde{\omega }&lt;360^{\circ }"/> ) (unadjusted for the
+apparent orbit of the Sun around the Earth (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bergeretal1993"><span class="std std-ref">Berger et al. 1993</span></a>)). The
+solar declination <img class="math" src="../../_images/math/652b9d8b65c10aed0fdcdbde47396c879ed5bd33.svg" alt="\delta"/>  (radians) is</p>
+<div class="math" id="equation-3-78">
+<p><span class="eqno">(2.3.78)<a class="headerlink" href="#equation-3-78" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0943685981db0f72d1ab7a18f332376d3cb635b4.svg" alt="\delta =\sin ^{-1} \left[\sin \left(\varepsilon \right)\sin \left(\lambda \right)\right]"/></p>
+</div><p>where <img class="math" src="../../_images/math/cc7cc8f478074da39b2a04d286fe2444178ba85e.svg" alt="\varepsilon"/>  is Earth’s obliquity and <img class="math" src="../../_images/math/cefc603e5658facb747581f9567192993f21c7ab.svg" alt="\lambda"/>  is
+the true longitude of the Earth.</p>
+<p>The obliquity of the Earth <img class="math" src="../../_images/math/cc7cc8f478074da39b2a04d286fe2444178ba85e.svg" alt="\varepsilon"/>  (degrees) is</p>
+<div class="math" id="equation-3-79">
+<p><span class="eqno">(2.3.79)<a class="headerlink" href="#equation-3-79" title="Permalink to this equation">¶</a></span><img src="../../_images/math/09d846df37b3e45cdc4781b139e0825c3c05f1a7.svg" alt="\varepsilon =\varepsilon *+\sum _{i=1}^{i=47}A_{i}  \cos \left(f_{i} t+\delta _{i} \right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/fc82ae71c7cf1a0d2935a4fd5c0943e79caa5472.svg" alt="\varepsilon *"/> is a constant of integration (<a class="reference internal" href="#table-orbital-parameters"><span class="std std-numref">Table 2.3.8</span></a>),
+<img class="math" src="../../_images/math/b6257049b58f99042cb3fb6efc6f2ac700fb27da.svg" alt="A_{i}"/> , <img class="math" src="../../_images/math/29fe6f37efa6f85ed93a76c0f5b5724874127372.svg" alt="f_{i}"/> , and <img class="math" src="../../_images/math/353a19743caa5d18e409e7a6fd69bb49bdf11b3e.svg" alt="\delta _{i}"/>  are amplitude,
+mean rate, and phase terms in the cosine series expansion (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#berger1978a"><span class="std std-ref">Berger
+(1978a,b)</span></a>, and <img class="math" src="../../_images/math/0e1da2f769a461f5bd68810a39c5085f860b4cc6.svg" alt="t=t_{0} -1950"/> where <img class="math" src="../../_images/math/400168b1b97dfbe85fe1a71d0f3d47b5e16e42e9.svg" alt="t_{0}"/>  is the year.
+The series expansion terms are not shown here but can be found in the
+source code file shr_orb_mod.F90.</p>
+<p>The true longitude of the Earth <img class="math" src="../../_images/math/cefc603e5658facb747581f9567192993f21c7ab.svg" alt="\lambda"/>  (radians) is counted
+counterclockwise from the vernal equinox (<img class="math" src="../../_images/math/763db6582028c87c5278635a0d85b12abca53103.svg" alt="\lambda =0"/> at the
+vernal equinox)</p>
+<div class="math" id="equation-3-80">
+<p><span class="eqno">(2.3.80)<a class="headerlink" href="#equation-3-80" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3e9c503b296e56be5a9bac9a9211e1e3108a0f0f.svg" alt="\lambda =\lambda _{m} +\left(2e-\frac{1}{4} e^{3} \right)\sin \left(\lambda _{m} -\tilde{\omega }\right)+\frac{5}{4} e^{2} \sin 2\left(\lambda _{m} -\tilde{\omega }\right)+\frac{13}{12} e^{3} \sin 3\left(\lambda _{m} -\tilde{\omega }\right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/5efa99709207c1dde8547fc3d9bb5a2ad8d76cb7.svg" alt="\lambda _{m}"/>  is the mean longitude of the Earth at the
+vernal equinox, <img class="math" src="../../_images/math/60f4822f02b44d931c5d0595da71dcf34e270437.svg" alt="e"/> is Earth’s eccentricity, and
+<img class="math" src="../../_images/math/11b565bb1e0c07f24c63b7b52dc276d93116a6e2.svg" alt="\tilde{\omega }"/> is the longitude of the perihelion relative to
+the moving vernal equinox. The mean longitude <img class="math" src="../../_images/math/5efa99709207c1dde8547fc3d9bb5a2ad8d76cb7.svg" alt="\lambda _{m}"/>  is</p>
+<div class="math" id="equation-3-81">
+<p><span class="eqno">(2.3.81)<a class="headerlink" href="#equation-3-81" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b7a1b29589289fde6ac636ba49e95d506d1827f5.svg" alt="\lambda _{m} =\lambda _{m0} +\frac{2\pi \left(d-d_{ve} \right)}{365}"/></p>
+</div><p>where <img class="math" src="../../_images/math/6ce4790df5a74692cc2343333d99baaa61065951.svg" alt="d_{ve} =80.5"/> is the calendar day at vernal equinox (March
+21 at noon), and</p>
+<div class="math" id="equation-3-82">
+<p><span class="eqno">(2.3.82)<a class="headerlink" href="#equation-3-82" title="Permalink to this equation">¶</a></span><img src="../../_images/math/da12fb8bab1d2df11fffd87315a1738146d071ee.svg" alt="\lambda _{m0} =2\left[\left(\frac{1}{2} e+\frac{1}{8} e^{3} \right)\left(1+\beta \right)\sin \tilde{\omega }-\frac{1}{4} e^{2} \left(\frac{1}{2} +\beta \right)\sin 2\tilde{\omega }+\frac{1}{8} e^{3} \left(\frac{1}{3} +\beta \right)\sin 3\tilde{\omega }\right]"/></p>
+</div><p>where <img class="math" src="../../_images/math/daffe4d39dfe96dd0cbcb30ee9cbb68790729652.svg" alt="\beta =\sqrt{1-e^{2} }"/> . Earth’s eccentricity <img class="math" src="../../_images/math/60f4822f02b44d931c5d0595da71dcf34e270437.svg" alt="e"/>
+is</p>
+<div class="math" id="equation-3-83">
+<p><span class="eqno">(2.3.83)<a class="headerlink" href="#equation-3-83" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d6274557e275c43436387c8c52adc484913ca8f5.svg" alt="e=\sqrt{\left(e^{\cos } \right)^{2} +\left(e^{\sin } \right)^{2} }"/></p>
+</div><p>where</p>
+<div class="math" id="equation-3-84">
+<p><span class="eqno">(2.3.84)<a class="headerlink" href="#equation-3-84" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b2ba508351df05b890d9a1f5d93bc89a533d9500.svg" alt="\begin{array}{l} {e^{\cos } =\sum _{j=1}^{19}M_{j} \cos \left(g_{j} t+B_{j} \right) ,} \\ {e^{\sin } =\sum _{j=1}^{19}M_{j} \sin \left(g_{j} t+B_{j} \right) } \end{array}"/></p>
+</div><p>are the cosine and sine series expansions for <img class="math" src="../../_images/math/60f4822f02b44d931c5d0595da71dcf34e270437.svg" alt="e"/>, and
+<img class="math" src="../../_images/math/b64784f2041f84bed50ea2c36df554f3e157e315.svg" alt="M_{j}"/> , <img class="math" src="../../_images/math/be94614ff501f1f1d5fef183eaed04fd46000d77.svg" alt="g_{j}"/> , and <img class="math" src="../../_images/math/eb4ebb20ddbef21cc0f29cf9de6ee263053e2b5c.svg" alt="B_{j}"/>  are amplitude, mean
+rate, and phase terms in the series expansions (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#berger1978a"><span class="std std-ref">Berger (1978a,b)</span></a>). The
+longitude of the perihelion relative to the moving vernal equinox
+<img class="math" src="../../_images/math/11b565bb1e0c07f24c63b7b52dc276d93116a6e2.svg" alt="\tilde{\omega }"/> (degrees) is</p>
+<div class="math" id="equation-3-85">
+<p><span class="eqno">(2.3.85)<a class="headerlink" href="#equation-3-85" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0f77c5565e131066b7d951b95d2f7b725cbab4eb.svg" alt="\tilde{\omega }=\Pi \frac{180}{\pi } +\psi"/></p>
+</div><p>where <img class="math" src="../../_images/math/de9b6b5bc530ec0271a98cbdfb305e5cf8c4a6f6.svg" alt="\Pi"/>  is the longitude of the perihelion measured from the
+reference vernal equinox (i.e., the vernal equinox at 1950 A.D.) and
+describes the absolute motion of the perihelion relative to the fixed
+stars, and <img class="math" src="../../_images/math/b6c245d487949782a89cab9ee83504a62fdc2337.svg" alt="\psi"/>  is the annual general precession in longitude
+and describes the absolute motion of the vernal equinox along Earth’s
+orbit relative to the fixed stars. The general precession <img class="math" src="../../_images/math/b6c245d487949782a89cab9ee83504a62fdc2337.svg" alt="\psi"/>
+(degrees) is</p>
+<div class="math" id="equation-3-86">
+<p><span class="eqno">(2.3.86)<a class="headerlink" href="#equation-3-86" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7b7913ebd09fef0ce91256657ce6bfb91d28fe19.svg" alt="\psi =\frac{\tilde{\psi }t}{3600} +\zeta +\sum _{i=1}^{78}F_{i}  \sin \left(f_{i} ^{{'} } t+\delta _{i} ^{{'} } \right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/9d49c02ef69645415fc500cd6fc2b63680b87cb3.svg" alt="\tilde{\psi }"/> (arcseconds) and <img class="math" src="../../_images/math/3ef1157ea7221d7eda6098e1fd7a04a28a555e6d.svg" alt="\zeta"/>  (degrees)
+are constants (<a class="reference internal" href="#table-orbital-parameters"><span class="std std-numref">Table 2.3.8</span></a>), and <img class="math" src="../../_images/math/2df97b34b05534178308bf59f6a774c04894b7f8.svg" alt="F_{i}"/> , <img class="math" src="../../_images/math/8c633b979b6cee84dd81caa96576b9ec24e37a0d.svg" alt="f_{i} ^{{'} }"/> ,
+and <img class="math" src="../../_images/math/53f00d93facadeaf23db1f0b9807fc396df7300f.svg" alt="\delta _{i} ^{{'} }"/>  are amplitude, mean rate, and phase
+terms in the sine series expansion (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#berger1978a"><span class="std std-ref">Berger (1978a,b)</span></a>)). The longitude of
+the perihelion <img class="math" src="../../_images/math/de9b6b5bc530ec0271a98cbdfb305e5cf8c4a6f6.svg" alt="\Pi"/>  (radians) depends on the sine and cosine
+series expansions for the eccentricity <img class="math" src="../../_images/math/60f4822f02b44d931c5d0595da71dcf34e270437.svg" alt="e"/>as follows:</p>
+<div class="math" id="equation-3-87">
+<p><span class="eqno">(2.3.87)<a class="headerlink" href="#equation-3-87" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f083a8710a48909e8d2d5b5e5b6a6a2e2270d595.svg" alt="\Pi =\left\{\begin{array}{lr}
+0 &amp; \qquad {\rm for\; -1}\times {\rm 10}^{{\rm -8}} \le e^{\cos } \le 1\times 10^{-8} {\rm \; and\; }e^{\sin } = 0 \\
+1.5\pi &amp; \qquad {\rm for\; -1}\times {\rm 10}^{{\rm -8}} \le e^{\cos } \le 1\times 10^{-8} {\rm \; and\; }e^{\sin } &lt; 0 \\
+0.5\pi &amp; \qquad {\rm for\; -1}\times {\rm 10}^{{\rm -8}} \le e^{\cos } \le 1\times 10^{-8} {\rm \; and\; }e^{\sin } &gt; 0 \\
+\tan ^{-1} \left[\frac{e^{\sin } }{e^{\cos } } \right]+\pi &amp; \qquad {\rm for\; }e^{\cos } &lt;{\rm -1}\times {\rm 10}^{{\rm -8}}  \\
+\tan ^{-1} \left[\frac{e^{\sin } }{e^{\cos } } \right]+2\pi &amp; \qquad {\rm for\; }e^{\cos } &gt;{\rm 1}\times {\rm 10}^{{\rm -8}} {\rm \; and\; }e^{\sin } &lt;0 \\
+\tan ^{-1} \left[\frac{e^{\sin } }{e^{\cos } } \right] &amp; \qquad {\rm for\; }e^{\cos } &gt;{\rm 1}\times {\rm 10}^{{\rm -8}} {\rm \; and\; }e^{\sin } \ge 0
+\end{array}\right\}."/></p>
+</div><p>The numerical solution for the longitude of the perihelion
+<img class="math" src="../../_images/math/11b565bb1e0c07f24c63b7b52dc276d93116a6e2.svg" alt="\tilde{\omega }"/> is constrained to be between 0 and 360 degrees
+(measured from the autumn equinox). A constant 180 degrees is then added
+to <img class="math" src="../../_images/math/11b565bb1e0c07f24c63b7b52dc276d93116a6e2.svg" alt="\tilde{\omega }"/> because the Sun is considered as revolving
+around the Earth (geocentric coordinate system) (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bergeretal1993"><span class="std std-ref">Berger et al. 1993</span></a>)).</p>
+<span id="table-orbital-parameters"></span><table class="docutils align-default" id="id14">
+<caption><span class="caption-number">Table 2.3.8 </span><span class="caption-text">Orbital parameters</span><a class="headerlink" href="#id14" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 75%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/fc82ae71c7cf1a0d2935a4fd5c0943e79caa5472.svg" alt="\varepsilon *"/></p></td>
+<td><p>23.320556</p></td>
+</tr>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/9d49c02ef69645415fc500cd6fc2b63680b87cb3.svg" alt="\tilde{\psi }"/> (arcseconds)</p></td>
+<td><p>50.439273</p></td>
+</tr>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/3ef1157ea7221d7eda6098e1fd7a04a28a555e6d.svg" alt="\zeta"/>  (degrees)</p></td>
+<td><p>3.392506</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html" class="btn btn-neutral float-right" title="2.4. Radiative Fluxes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html" class="btn btn-neutral" title="2.2. Surface Characterization, Vertical Discretization, and Model Input Requirements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

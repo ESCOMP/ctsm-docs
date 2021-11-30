@@ -1,0 +1,598 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1.3.5. Creating Surface Datasets &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="1.3. Using CLM tools" href="index.html"/>
+        <link rel="next" title="1.3.6. Datasets for Observational Sites" href="datasts-for-observational-sites.html"/>
+        <link rel="prev" title="1.3.4. Creating input for surface dataset generation" href="creating-input-for-surface-dataset-generation.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">1. CLM5.0 User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../overview/index.html">1.1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../setting-up-and-running-a-case/index.html">1.2. Setting Up and Running a Case</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">1.3. Using CLM tools</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="what-are-the-clm-tools.html">1.3.1. What are the CLM tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="building-the-clm-tools.html">1.3.2. Building the CLM tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="building-the-clm-tools.html#building-the-clm-tools-that-use-the-cime-configure-build-system">1.3.3. Building the CLM tools that use the CIME configure/build system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-input-for-surface-dataset-generation.html">1.3.4. Creating input for surface dataset generation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.3.5. Creating Surface Datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-complete-set-of-files-for-input-to-clm">1.3.5.1. Creating a Complete Set of Files for Input to CLM</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="datasts-for-observational-sites.html">1.3.6. Datasets for Observational Sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-domain-files.html">1.3.7. Creating CLM domain files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="observational-sites-datasets.html">1.3.8. Observational Sites Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cprnc.html">1.3.9. Comparing History Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../adding-new-resolutions/index.html">1.4. Adding New Resolutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-special-cases/index.html">1.5. Running Special Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-single-points/index.html">1.6. Running Single Point Regional Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-PTCLM/index.html">1.7. Running PTCLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trouble-shooting/index.html">1.8. Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">1.9. Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">1. </span>CLM5.0 User’s Guide</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">1.3. </span>Using CLM tools</a> &raquo;</li>
+        
+      <li><span class="section-number">1.3.5. </span>Creating Surface Datasets</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/users_guide/using-clm-tools/creating-surface-datasets.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="creating-surface-datasets">
+<span id="id1"></span><h1><span class="section-number">1.3.5. </span>Creating Surface Datasets<a class="headerlink" href="#creating-surface-datasets" title="Permalink to this headline">¶</a></h1>
+<p>When just creating a replacement file for an existing one, the relevant tool should be used directly to create the file. When you are creating a set of files for a new resolution there are some dependencies between the tools that you need to keep in mind when creating them. The main dependency is that you MUST create a SCRIP grid file first as the SCRIP grid dataset is then input into the other tools. Also look at <a class="reference external" href="CLM-URL">Table 3-1</a> which gives information on the files required and when. <a class="reference internal" href="#figure-data-flow"><span class="std std-numref">Figure 1.3.2</span></a> shows an overview of the general data-flow for creation of the fsurdat datasets.</p>
+<div class="figure align-default" id="id2">
+<span id="figure-data-flow"></span><img alt="../../_images/mkmapdata_mksurfdata.jpeg" src="../../_images/mkmapdata_mksurfdata.jpeg" />
+<p class="caption"><span class="caption-number">Figure 1.3.2 </span><span class="caption-text">Data Flow for Creation of Surface Datasets from Raw SCRIP Grid Files</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>Starting from a SCRIP grid file that describes the grid you will run the model on, you first run <strong>mkmapdata.sh</strong> to create a list of mapping files. See <a class="reference internal" href="creating-input-for-surface-dataset-generation.html#figure-mkmapdata-sh"><span class="std std-numref">Figure 1.3.1</span></a> for a more detailed view of how <strong>mkmapdata.sh</strong> works. The mapping files tell <strong>mksurfdata_map</strong> how to map between the output grid and the raw datasets that it uses as input. The output of <strong>mksurfdata_map</strong> is a surface dataset that you then use for running the model. See <cite>Figure :numref:`Figure mksurfdatamap</cite> for a more detailed view of how <strong>mksurfdata_map</strong> works.</p>
+<p><a class="reference internal" href="#figure-data-flow-legend"><span class="std std-numref">Figure 1.3.3</span></a> is the legend for this figure (<a class="reference internal" href="#figure-data-flow"><span class="std std-numref">Figure 1.3.2</span></a>) and other figures in this chapter (<code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">Global_Domain</span></code>, <a class="reference internal" href="creating-domain-files.html#figure-mknoocnmap-pl"><span class="std std-numref">Figure 1.3.5</span></a> and <code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">mksurfdatamap</span></code>).</p>
+<div class="figure align-default" id="id3">
+<span id="figure-data-flow-legend"></span><img alt="../../_images/LegendCLMToolDataFlow.jpeg" src="../../_images/LegendCLMToolDataFlow.jpeg" />
+<p class="caption"><span class="caption-number">Figure 1.3.3 </span><span class="caption-text">Legend for Data Flow Figures</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>Green arrows define the input to a program, while red arrows define the output. Cylinders define files that are either created by a program or used as input for a program. Boxes are programs.</p>
+<p>You start with a description of a SCRIP grid file for your output grid file and then create mapping files from the raw datasets to it. Once, the mapping files are created <strong>mksurfdata_map</strong> is run to create the surface dataset to run the model.</p>
+<div class="section" id="creating-a-complete-set-of-files-for-input-to-clm">
+<h2><span class="section-number">1.3.5.1. </span>Creating a Complete Set of Files for Input to CLM<a class="headerlink" href="#creating-a-complete-set-of-files-for-input-to-clm" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>Create SCRIP grid datasets (if NOT already done)</p>
+<p>First you need to create a descriptor file for your grid, that includes the locations of cell centers and cell corners. There is also a “mask” field, but in this case the mask is set to one everywhere (i.e. all of the masks for the output model grid are “nomask”). An example SCRIP grid file is: $CSMDATA/lnd/clm2/mappingdata/grids/SCRIPgrid_10x15_nomask_c110308.nc. The mkmapgrids and mkscripgrid.ncl NCL script in the $CTSMROOT/tools/mkmapgrids directory can help you with this. SCRIP grid files for all the standard CLM grids are already created for you. See the Section called Creating an output SCRIP grid file at a resolution to run the model on for more information on this.</p>
+</li>
+<li><p>Create domain dataset (if NOT already done)</p>
+<p>Next use gen_domain to create a domain file for use by DATM and CLM. This is required, unless a domain file was already created. See the Section called Creating a domain file for CLM and DATM for more information on this.</p>
+</li>
+<li><p>Create mapping files for mksurfdata_map (if NOT already done)</p>
+<p>Create mapping files for mksurfdata_map with mkmapdata.sh in $CTSMROOT/tools/mkmapdata. See the Section called Creating mapping files that mksurfdata_map will use for more information on this.</p>
+</li>
+<li><p>Create surface datasets</p>
+<p>Next use mksurfdata_map to create a surface dataset, using the mapping datasets created on the previous step as input. There is a version for either clm4_0 or CLM5.0 for this program. See the Section called Using mksurfdata_map to create surface datasets from grid datasets for more information on this.</p>
+</li>
+<li><p>Enter the new datasets into the build-namelist XML database
+The last optional thing to do is to enter the new datasets into the build-namelist XML database. See Chapter 3 for more information on doing this. This is optional because the user may enter these files into their namelists manually. The advantage of entering them into the database is so that they automatically come up when you create new cases.</p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/tools/README</span></code> goes through the complete process for creating input files needed to run CLM. We repeat that file here:</p>
+<pre class="literal-block">$CTSMROOT/tools/README                                  Jun/08/2018
+
+CLM tools for analysis of CLM history files -- or for creation or
+modification of CLM input files.
+        
+I.  General directory structure:
+
+    $CTSMROOT/tools
+        mksurfdata_map --- Create surface datasets.
+        (NOTE: interpinic now longer included as now an online capability in CLM)
+
+        mkmapgrids ------- Create regular lat/lon SCRIP grid files needed by mkmapdata 
+        mkmapdata -------- Create SCRIP mapping data from SCRIP grid files (uses ESMF)
+        mkprocdata_map --- Convert output unstructured grids into a 2D format that
+                           can be plotted easily
+        ncl_scripts ------ NCL post or pre processing scripts.
+
+        contrib ---------- Miscellaneous tools for pre or post processing of CTSM.
+                           Typically these are contributed by anyone who has something
+                           they think might be helpful to the community. They may not
+                           be as well tested or supported as other tools.
+
+    cime-tools ($CIMEROOT/tools/) (CIMEROOT is ../cime for a CTSM checkout and ../../../cime for a CESM checkout)
+        $CIMEROOT/mapping/gen_domain_files
+            gen_domain ------- Create data model domain datasets from SCRIP mapping datasets.
+
+II. Notes on building/running for each of the above tools:
+
+    Each tool that has FORTRAN source code (mksurfdata_map and mkprocdata_map) has the following files:
+
+        README ------- Specific help for using the specific tool and help on specific 
+                       files in that directory.
+        src/Filepath ----- List of directories needed to build the tool 
+                           (some files in ../src directories are required).
+        src/Makefile ----- GNU Makefile to build the tool 
+                           (these are identical between tools.
+        src/Macros.custom  Customization of make macros for the particular tool in question
+        src/Srcfiles ----- List of source files that are needed.
+        src/Mkdepends ---- Dependency generator program
+
+    mkmapdata, mkmapgrids and ncl_scripts only contain scripts so don't have the above build files.
+
+    Most tools have copies of files from other directories -- see the README.filecopies
+    file for more information on this.
+
+    Tools may also have files with the directory name followed by namelist to provide sample namelists.
+
+        &lt;directory&gt;.namelist ------ Namelist to create a global file.
+
+    These files are also used by the test scripts to test the tools (see the
+    README.testing) file.
+
+    NOTE: Be sure to change the path of the datasets references by these namelists to 
+    point to where you have exported your CESM inputdata datasets.
+
+    To build:
+
+        cd &lt;directory&gt;
+        setenv INC_NETCDF &lt;path-to-NetCDF-include-files&gt;
+        setenv LIB_NETCDF &lt;path-to-NetCDF-library-files&gt;
+        gmake
+
+    The process will create a file called &quot;Depends&quot; which has the dependencies
+    for the build of each file on other files.
+
+      By default some codes may be compiled non-optimized 
+      so that you can use the debugger, and with bounds-checking, and float trapping on. 
+      To speed up do the following...
+
+   gmake OPT=TRUE  (by default already on for interpinic and mksurfdata_map)
+
+      Also some of the tools allow for OpenMP shared memory parallelism 
+      (such as interpinic and mksurfdata) with
+
+   gmake SMP=TRUE
+
+    To run a program with a namelist:
+
+        ./program &lt; namelist
+
+    To get help on running a program with command line options (e.g., interpinic):
+
+        ./program
+
+    To run a program built with SMP=TRUE:
+
+        setenv OMP_NUM_THREADS=&lt;number_of_threads_to_use&gt;
+
+        run normally as above
+
+III. Process sequence to create input datasets needed to run CLM
+
+    1.) Create SCRIP grid files (if needed)
+
+       a.) For standard resolutions these files will already be created. (done)
+
+       b.) To create regular lat-lon regional/single-point grids run mknoocnmap.pl
+
+        This will create both SCRIP grid files and a mapping file that will
+        be valid if the region includes NO ocean whatsoever (so you can skip step 2).
+        You can also use this script to create SCRIP grid files for a region
+        (or even a global grid) that DOES include ocean if you use step 2 to
+        create mapping files for it (simply discard the non-ocean map created by
+        this script).
+
+        Example, for single-point over Boulder Colorado.
+
+           cd mkmapdata
+           ./mknoocnmap.pl -p 40,255 -n 1x1_boulderCO
+
+       c.) General case
+
+        You'll need to convert or create SCRIP grid files on your own (using scripts
+        or other tools) for the general case where you have an unstructured grid, or 
+        a grid that is not regular in latitude and longitude.
+
+       example format
+         ==================     
+          netcdf fv1.9x2.5_090205 {                                
+          dimensions:                                              
+               grid_size = 13824 ;                                 
+               grid_corners = 4 ;                                  
+               grid_rank = 2 ;                                     
+          variables:                                               
+               double grid_center_lat(grid_size) ;                 
+                       grid_center_lat:units = &quot;degrees&quot; ;         
+               double grid_center_lon(grid_size) ;                 
+                       grid_center_lon:units = &quot;degrees&quot; ;         
+               double grid_corner_lat(grid_size, grid_corners) ;  
+                       grid_corner_lat:units = &quot;degrees&quot; ;         
+               double grid_corner_lon(grid_size, grid_corners) ;  
+                       grid_corner_lon:units = &quot;degrees&quot; ;         
+               int grid_dims(grid_rank) ;                          
+               int grid_imask(grid_size) ;                         
+                       grid_imask:units = &quot;unitless&quot; ;            
+
+    2.) Create ocean to atmosphere mapping file (if needed)
+
+        a.) Standard resolutions (done)
+
+        If this is a standard resolution with a standard ocean resolution -- this
+        step is already done, the files already exist.
+
+        b.) Region without Ocean (done in step 1.b)
+
+        IF YOU RAN mknoocnmap.pl FOR A REGION WITHOUT OCEAN THIS STEP IS ALREADY DONE.
+
+        c.) New atmosphere or ocean resolution
+
+        If the region DOES include ocean, use $CIMEROOT/tools/mapping/gen_domain_files/gen_maps.sh to create a 
+        mapping file for it.
+
+    Example:
+
+    cd $CIMEROOT/tools/mapping/gen_domain_files
+    ./gen_maps.sh -focn &lt;ocngrid&gt; -fatm &lt;atmgrid&gt; -nocn &lt;ocnname&gt; -natm &lt;atmname&gt;
+
+
+    3.) Add SCRIP grid file(s) created in (1) into XML database in CLM (optional)
+
+        See the &quot;Adding New Resolutions or New Files to the build-namelist Database&quot; 
+        Chapter in the CLM User's Guide
+
+  http://www.cesm.ucar.edu/models/cesm1.0/clm/models/lnd/clm/doc/UsersGuide/book1.html
+
+         If you don't do this step, you'll need to specify the file to mkmapdata 
+         in step (3) using the &quot;-f&quot; option.
+
+    4.) Create mapping files for use by mksurfdata_map with mkmapdata
+        (See mkmapdata/README for more help on doing this)
+
+       - this step uses the results of (1) that were entered into the XML database
+         by step (3). If you don't enter datasets in, you need to specify the 
+         SCRIP grid file using the &quot;-f&quot; option to mkmapdata.sh.
+
+       Example: to generate all necessary mapping files for the ne30np4 grid
+
+           cd mkmapdata
+           ./mkmapdata.sh -r ne30np4
+
+    5.) Add mapping file(s) created in step (4) into XML database in CLM (optional)
+
+       See notes on doing this in step (3) above. 
+       Edit ../bld/namelist_files/namelist_defaults_clm.xml to incorporate new 
+       mapping files.
+
+       If you don't do this step, you'll need to specify the grid resolution name
+       and file creation dates to mksurfdata_map in step (5) below.
+
+    6.) Convert map of ocean to atm for use by DATM and CLM with gen_domain
+        (See $CIMEROOT/tools/mapping/README for more help on doing this)
+
+       - gen_domain uses the map from step (2) (or previously created CESM maps)
+
+       Example:
+
+        cd $CIMEROOT/tools/mapping/gen_domain_files/src
+        gmake
+        cd ..
+        setenv CDATE       090206
+        setenv OCNGRIDNAME gx1v6
+        setenv ATMGRIDNAME fv1.9x2.5
+        setenv MAPFILE $CSMDATA/cpl/cpl6/map_${OCNGRIDNAME}_to_${ATMGRIDNAME}_aave_da_${CDATE}.nc
+        ./gen_domain -m $MAPFILE -o $OCNGRIDNAME -l $ATMGRIDNAME
+
+        Normally for I compsets running CLM only you will discard the ocean domain 
+        file, and only use the atmosphere domain file for datm and as the fatmlndfrc 
+        file for CLM. Output domain files will be named according to the input OCN/LND
+        gridnames.
+
+    7.) Create surface datasets with mksurfdata_map
+        (See mksurfdata_map/README for more help on doing this)
+
+       - Run mksurfdata_map/mksurfdata.pl
+       - This step uses the results of step (4) entered into the XML database
+         in step (5).
+       - If datasets were NOT entered into the XML database, set the resolution
+         to &quot;usrspec&quot; and use the &quot;-usr_gname&quot;, and &quot;-usr_gdate&quot; options.
+
+       Example: for 0.9x1.25 resolution
+
+       cd mksurfdata_map/src
+       gmake
+       cd ..
+       ./mksurfdata.pl -r 0.9x1.25
+   
+       NOTE that surface dataset will be used by default for fatmgrid - and it will 
+       contain the lat,lon,edges and area values for the atm grid - ASSUMING that 
+       the atm and land grid are the same 
+
+    8.) Interpolate initial conditions using interpinic (optional)
+        (See interpinic/README for more help on doing this)
+
+    9.) Add new files to XML data or using user_nl_clm (optional)
+
+       See notes on doing this in step (3) above. 
+
+IV. Example of creating single-point datasets without entering into XML database.
+
+    Here we apply the process described in III. for a single-point dataset
+    where we don't enter the datasets into the XML database (thus skipping
+    steps 3, 5 and 9), but use the needed command line options to specify where the
+    files are. This also skips step (2) since step 1 creates the needed mapping file.
+    We also skip step (8) and do NOT create a finidat file.
+
+    0.) Set name of grid to use and the creation date to be used later...
+       setenv GRIDNAME 1x1_boulderCO
+       setenv CDATE    `date +%y%m%d`
+    1.) SCRIP grid and atm to ocn mapping file
+       cd mkmapdata
+       ./mknoocnmap.pl -p 40,255 -n $GRIDNAME
+       # Set pointer to MAPFILE that will be used in step (6)
+       setenv MAPFILE `pwd`/map_${GRIDNAME}_noocean_to_${GRIDNAME}_nomask_aave_da_${CDATE}.nc
+       cd ../..
+    2.) skip
+    3.) skip
+    4.) Mapping files needed for mksurfdata_map
+       cd mkmapdata
+       setenv GRIDFILE ../mkmapgrids/SCRIPgrid_${GRIDNAME}_nomask_${CDATE}.nc
+       ./mkmapdata.sh -r $GRIDNAME -f $GRIDFILE -t regional
+       cd ../..
+    5.) skip
+    6.) Generate domain file for datm and CLM
+        cd $CIMEROOT/tools/mapping/gen_domain_files/src
+        gmake
+        cd ..
+        setenv OCNDOM domain.ocn_noocean.nc
+        setenv ATMDOM domain.lnd.{$GRIDNAME}_noocean.nc
+        ./gen_domain -m $MAPFILE -o $OCNDOM -l $ATMDOM
+    7.) Create surface dataset for CLM
+       cd mksurfdata_map/src
+       gmake
+       cd ..
+       ./mksurfdata.pl -r usrspec -usr_gname $GRIDNAME -usr_gdate $CDATE
+    8.) skip
+    9.) skip
+
+V.  Notes on which input datasets are needed for CLM
+
+       global or regional/single-point grids
+         - need fsurdata and fatmlndfrc
+
+      fsurdata ---- from mksurfdata_map in step (III.7)
+      fatmlndfrc -- use the domain.lnd file from gen_domain in step (III.6)
+
+</pre>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="datasts-for-observational-sites.html" class="btn btn-neutral float-right" title="1.3.6. Datasets for Observational Sites" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="creating-input-for-surface-dataset-generation.html" class="btn btn-neutral" title="1.3.4. Creating input for surface dataset generation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

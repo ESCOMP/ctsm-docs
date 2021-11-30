@@ -1,0 +1,408 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1.3.2. Building the CLM tools &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="1.3. Using CLM tools" href="index.html"/>
+        <link rel="next" title="1.3.4. Creating input for surface dataset generation" href="creating-input-for-surface-dataset-generation.html"/>
+        <link rel="prev" title="1.3.1. What are the CLM tools" href="what-are-the-clm-tools.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">1. CLM5.0 User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../overview/index.html">1.1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../setting-up-and-running-a-case/index.html">1.2. Setting Up and Running a Case</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">1.3. Using CLM tools</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="what-are-the-clm-tools.html">1.3.1. What are the CLM tools</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.3.2. Building the CLM tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-the-clm-tools-that-use-the-cime-configure-build-system">1.3.3. Building the CLM tools that use the CIME configure/build system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-input-for-surface-dataset-generation.html">1.3.4. Creating input for surface dataset generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-surface-datasets.html">1.3.5. Creating Surface Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="datasts-for-observational-sites.html">1.3.6. Datasets for Observational Sites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="creating-domain-files.html">1.3.7. Creating CLM domain files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="observational-sites-datasets.html">1.3.8. Observational Sites Datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cprnc.html">1.3.9. Comparing History Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../adding-new-resolutions/index.html">1.4. Adding New Resolutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-special-cases/index.html">1.5. Running Special Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-single-points/index.html">1.6. Running Single Point Regional Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-PTCLM/index.html">1.7. Running PTCLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trouble-shooting/index.html">1.8. Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">1.9. Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">1. </span>CLM5.0 User’s Guide</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">1.3. </span>Using CLM tools</a> &raquo;</li>
+        
+      <li><span class="section-number">1.3.2. </span>Building the CLM tools</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/users_guide/using-clm-tools/building-the-clm-tools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="building-the-clm-tools">
+<h1><span class="section-number">1.3.2. </span>Building the CLM tools<a class="headerlink" href="#building-the-clm-tools" title="Permalink to this headline">¶</a></h1>
+<p>The CLM FORTRAN tools all have similar makefiles, and similar options for building.  The tools
+<strong>cprnc</strong> and <strong>gen_domain</strong> use the CIME configure/build system which is described in the next section.</p>
+<p>The Makefiles (for <strong>mksurfdata_map</strong> and <strong>mkprocdata_map</strong>) use GNU Make extensions and thus require that you use GNU make to use them.
+They also auto detect the type of platform you are on, using “uname -s” and set the compiler, compiler flags and such accordingly.
+There are also environment variables that can be set to set things that must be customized.
+All the tools use NetCDF and hence require the path to the NetCDF libraries and include files.
+On some platforms (such as Linux) multiple compilers can be used, and hence there are env variables that can be set to change the FORTRAN and/or “C” compilers used.
+The tools also allow finer control, by also allowing the user to add compiler flags they choose, for both FORTRAN and “C”, as well as picking the compiler, linker and and add linker options.
+Finally the tools allow you to turn optimization on (which is off by default but on for <strong>mksurfdata_map</strong>) with the OPT flag so that the tool will run faster.</p>
+<p>Options used by all:  <strong>mksurfdata_map</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">LIB_NETCDF</span></code> – sets the location of the NetCDF library.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INC_NETCDF</span></code> – sets the location of the NetCDF include files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USER_FC</span></code> – sets the name of the FORTRAN compiler.</p></li>
+</ul>
+<p>Options used by: <strong>mkprocdata_map</strong>, and <strong>mksurfdata_map</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MOD_NETCDF</span></code> – sets the location of the NetCDF FORTRAN module.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USER_LINKER</span></code> – sets the name of the linker to use.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USER_CPPDEFS</span></code> – adds any CPP defines to use.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USER_CFLAGS</span></code> – add any “C” compiler flags to use.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USER_FFLAGS</span></code> – add any FORTRAN compiler flags to use.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USER_LDFLAGS</span></code> – add any linker flags to use.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USER_CC</span></code> – sets the name of the “C” compiler to use.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OPT</span></code> – set to TRUE to compile the code optimized (TRUE or FALSE)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SMP</span></code> – set to TRUE to turn on shared memory parallelism (i.e. OpenMP) (TRUE or FALSE)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Filepath</span></code> – list of directories to build source code from.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Srcfiles</span></code> – list of source code filenames to build executable from.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Makefile</span></code> – customized makefile options for this particular tool.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mkDepends</span></code> – figure out dependencies between source files, so make can compile in order..</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Makefile.common</span></code> – General tool Makefile that should be the same between all tools.</p></li>
+</ul>
+<p>More details on each environment variable.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">LIB_NETCDF</span></code></dt><dd><p>This variable sets the path to the NetCDF library file (<code class="docutils literal notranslate"><span class="pre">libnetcdf.a</span></code>). If not set it defaults to <code class="docutils literal notranslate"><span class="pre">/usr/local/lib</span></code>. In order to use the tools you need to build the NetCDF library and be able to link to it. In order to build the model with a particular compiler you may have to compile the NetCDF library with the same compiler (or at least a compatible one).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">INC_NETCDF</span></code></dt><dd><p>This variable sets the path to the NetCDF include directory (in order to find the include file <code class="docutils literal notranslate"><span class="pre">netcdf.inc</span></code>). if not set it defaults to <code class="docutils literal notranslate"><span class="pre">/usr/local/include</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">MOD_NETCDF</span></code></dt><dd><p>This variable sets the path to the NetCDF module directory (in order to find the NetCDF FORTRAN-90 module file when NetCDF is used with a FORTRAN-90 <strong>use statement</strong>. When not set it defaults to the <code class="docutils literal notranslate"><span class="pre">LIB_NETCDF</span></code> value.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">USER_FC</span></code></dt><dd><p>This variable sets the command name to the FORTRAN-90 compiler to use when compiling the tool. The default compiler to use depends on the platform. And for example, on the AIX platform this variable is NOT used</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">USER_LINKER</span></code></dt><dd><p>This variable sets the command name to the linker to use when linking the object files from the compiler together to build the executable. By default this is set to the value of the FORTRAN-90 compiler used to compile the source code.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">USER_CPPDEFS</span></code></dt><dd><p>This variable adds additional optional values to define for the C preprocessor. Normally, there is no reason to do this as there are very few CPP tokens in the CLM tools. However, if you modify the tools there may be a reason to define new CPP tokens.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">USER_CC</span></code></dt><dd><p>This variable sets the command name to the “C” compiler to use when compiling the tool. The default compiler to use depends on the platform. And for example, on the AIX platform this variable is NOT used</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">USER_CFLAGS</span></code></dt><dd><p>This variable adds additional compiler options for the “C” compiler to use when compiling the tool. By default the compiler options are picked according to the platform and compiler that will be used.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">USER_FFLAGS</span></code></dt><dd><p>This variable adds additional compiler options for the FORTRAN-90 compiler to use when compiling the tool. By default the compiler options are picked according to the platform and compiler that will be used.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">USER_LDFLAGS</span></code></dt><dd><p>This variable adds additional options to the linker that will be used when linking the object files into the executable. By default the linker options are picked according to the platform and compiler that is used.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">SMP</span></code></dt><dd><p>This variable flags if shared memory parallelism (using OpenMP) should be used when compiling the tool. It can be set to either TRUE or FALSE, by default it is set to FALSE, so shared memory parallelism is NOT used. When set to TRUE you can set the number of threads by using the OMP_NUM_THREADS environment variable. Normally, the most you would set this to would be to the number of on-node CPU processors. Turning this on should make the tool run much faster.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note, that depending on the compiler answers may be different when SMP is activated.</p>
+</div>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">OPT</span></code></dt><dd><p>This variable flags if compiler optimization should be used when compiling the tool. It can be set to either <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> or <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>, by default it is set to for both <strong>mksurfdata_map</strong> and <strong>mkprocdata_map</strong>. Turning this on should make the tool run much faster.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note, you should expect that answers will be different when <code class="docutils literal notranslate"><span class="pre">OPT</span></code> is activated.</p>
+</div>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">Filepath</span></code></dt><dd><p>All of the tools are stand-alone and don’t need any outside code to operate. The Filepath is the list of directories needed to compile and hence is always simply “.” the current directory. Several tools use copies of code outside their directory that is in the CESM distribution (either <code class="docutils literal notranslate"><span class="pre">csm_share</span></code> code or CLM source code).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Srcfiles</span></code></dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">Srcfiles</span></code> lists the filenames of the source code to use when building the tool.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Makefile</span></code></dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> is the custom GNU Makefile for this particular tool. It will customize the <code class="docutils literal notranslate"><span class="pre">EXENAME</span></code> and the optimization settings for this particular tool.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">Makefile.common</span></code></dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">Makefile.common</span></code> is the copy of the general GNU Makefile for all the CLM tools. This file should be identical between the different tools. This file has different sections of compiler options for different Operating Systems and compilers.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">mkDepends</span></code></dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">mkDepends</span></code> is the copy of the perl script used by the <code class="docutils literal notranslate"><span class="pre">Makefile.common</span></code> to figure out the dependencies between the source files so that it can compile in the necessary order. This file should be identical between the different tools.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are several files that are copies of the original files. By having copies the tools can all be made stand-alone, but any changes to the originals will have to be put into the tool directories as well.</p>
+</div>
+<p>The <em>README.filecopies</em> (which can be found in <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/tools</span></code>) is repeated here.</p>
+<pre class="literal-block">tools/README.filecopies                       May/26/2011
+
+There are several files that are copies of the original files from
+either CTSM src/main, cime/src/share/utils,
+cime/src/share/unit_test_stubs, or copies from other tool
+directories. By having copies the tools can all be made stand-alone,
+but any changes to the originals will have to be put into the tool
+directories as well.
+
+I. Files that are IDENTICAL:
+
+   1. csm_share files copied that should be identical to cime/share/utils:
+
+       shr_kind_mod.F90
+       shr_const_mod.F90
+       shr_log_mod.F90
+       shr_timer_mod.F90
+       shr_string_mod.F90
+       shr_file_mod.F90
+       
+   2. csm_share files copied that should be identical to cime/share/csm_share/unit_testers:
+
+       test_mod.F90
+
+II. Files with differences
+
+   1. csm_share files copied with differences:
+
+       shr_sys_mod.F90 - Remove mpi abort and reference to shr_mpi_mod.F90.
+
+   2. CTSM src/utils files with differences:
+
+       fileutils.F90 --- Remove use of masterproc and spmdMod and endrun in abortutils.
+
+   3. Files in mksurfdata_map
+
+       mkvarpar.F90
+       nanMod.F90
+</pre>
+</div>
+<div class="section" id="building-the-clm-tools-that-use-the-cime-configure-build-system">
+<h1><span class="section-number">1.3.3. </span>Building the CLM tools that use the CIME configure/build system<a class="headerlink" href="#building-the-clm-tools-that-use-the-cime-configure-build-system" title="Permalink to this headline">¶</a></h1>
+<p><strong>cprnc</strong> and <em>gen_domain*</em> both use the CIME configure/build system rather than the CLM specific version described above.</p>
+<p>See <a class="reference external" href="http://esmci.github.io/cime/users_guide/grids.html?highlight=gen_domain#adding-grids">CIME documentation on adding grids</a> for
+more information on adding grids, creating mapping files,  and running <strong>gen_domain</strong>. Also see the CIME file:
+<code class="docutils literal notranslate"><span class="pre">$CTSMROOT/tools/mapping/gen_domain_files/INSTALL</span></code> for how to build <strong>gen_domain</strong>.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="creating-input-for-surface-dataset-generation.html" class="btn btn-neutral float-right" title="1.3.4. Creating input for surface dataset generation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="what-are-the-clm-tools.html" class="btn btn-neutral" title="1.3.1. What are the CLM tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

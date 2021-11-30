@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1.7.5. Adding PTCLMmkdata Site Data &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="1.7. Running PTCLM" href="index.html"/>
+        <link rel="next" title="1.8. Troubleshooting" href="../trouble-shooting/index.html"/>
+        <link rel="prev" title="1.7.4. Examples of using PTCLMmkdata" href="ptclm-examples.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">1. CLM5.0 User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../overview/index.html">1.1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../setting-up-and-running-a-case/index.html">1.2. Setting Up and Running a Case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using-clm-tools/index.html">1.3. Using CLM tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adding-new-resolutions/index.html">1.4. Adding New Resolutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-special-cases/index.html">1.5. Running Special Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-single-points/index.html">1.6. Running Single Point Regional Cases</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">1.7. Running PTCLM</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction-to-ptclm.html">1.7.1. What is PTCLMmkdata?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction-to-ptclm.html#details-of-ptclmmkdata">1.7.2. Details of PTCLMmkdata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using-ptclm.html">1.7.3. Using PTCLMmkdata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptclm-examples.html">1.7.4. Examples of using PTCLMmkdata</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.7.5. Adding PTCLMmkdata Site Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dynamic-land-use-change-files-for-use-by-ptclmmkdata">1.7.5.1. Dynamic Land-Use Change Files for use by PTCLMmkdata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#converting-ameriflux-data-for-use-by-ptclmmkdata">1.7.5.2. Converting AmeriFlux Data for use by PTCLMmkdata</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-ptclmmkdata-transient-example-over-a-shorter-time-period">1.7.5.3. Example: PTCLMmkdata transient example over a shorter time period</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../trouble-shooting/index.html">1.8. Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">1.9. Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">1. </span>CLM5.0 User’s Guide</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">1.7. </span>Running PTCLM</a> &raquo;</li>
+        
+      <li><span class="section-number">1.7.5. </span>Adding PTCLMmkdata Site Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/users_guide/running-PTCLM/adding-ptclm-site-data.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="adding-ptclmmkdata-site-data">
+<span id="adding-ptclm-site-data"></span><h1><span class="section-number">1.7.5. </span>Adding PTCLMmkdata Site Data<a class="headerlink" href="#adding-ptclmmkdata-site-data" title="Permalink to this headline">¶</a></h1>
+<p>The “sitegroupname” option to PTCLMmkdata looks for groups of sites in the files in the <code class="docutils literal notranslate"><span class="pre">PTCLM_sitedata</span></code> directory under the PTCLMmkdata directory.
+You can add new names available for this option including your own lists of sites, by adding more files in this directory.
+There are three files for each “sitegroupname”: <code class="docutils literal notranslate"><span class="pre">$SITEGROUP_sitedata.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">$SITEGROUP_soildata.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">$SITEGROUP_pftdata.txt</span></code> (where <code class="docutils literal notranslate"><span class="pre">$SITEGROUP</span></code> is the name that would be entered as “sitegroupname” to PTCLMmkdata).
+Each file needs to have the same list of sites, but gives different information: site data, PFT data, and soil data respectively.
+Although the site codes need to be the same between the three files, the files do NOT have to be in the same order.
+Each file has a one-line header that lists the contents of each column which are separated by commas.
+The first column for each of the files is the “site_code” which must be consistent between the three files.
+The site code can be any unique character string, but in general we use the AmeriFlux site code.</p>
+<p>Site data file:`` $SITEGROUP_sitedata.txt``): The header for this file is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">site_code</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">state</span><span class="p">,</span><span class="n">lon</span><span class="p">,</span><span class="n">lat</span><span class="p">,</span><span class="n">elev</span><span class="p">,</span><span class="n">startyear</span><span class="p">,</span><span class="n">endyear</span><span class="p">,</span><span class="n">alignyear</span>
+</pre></div>
+</div>
+<p>The columns: name, state, and elevation are informational only. Name is a longer descriptive name of the site, and state is the state for U.S. sites or country for non U.S. sites. The columns: lon and lat are the longitude and latitude of the location in decimal degrees. The last three columns are the start and ending year for the data and the align year for an 1850 case for the data. The align year is currently unused.</p>
+<p>Soil data file: <code class="docutils literal notranslate"><span class="pre">$SITEGROUP_soildata.txt</span></code>): The header for this file is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">site_code</span><span class="p">,</span><span class="n">soil_depth</span><span class="p">,</span><span class="n">n_layers</span><span class="p">,</span><span class="n">layer_depth</span><span class="p">,</span><span class="n">layer_sand</span><span class="o">%</span><span class="p">,</span><span class="n">layer_clay</span><span class="o">%</span>
+</pre></div>
+</div>
+<p>The first three fields after “site_code” are currently unused. The only two that are used are the percent sand and clay columns to set the soil texture.</p>
+<p>PFT data file: <code class="docutils literal notranslate"><span class="pre">$SITEGROUP_pftdata.txt`</span></code>): The header for this file is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">site_code</span><span class="p">,</span><span class="n">pft_f1</span><span class="p">,</span><span class="n">pft_c1</span><span class="p">,</span><span class="n">pft_f2</span><span class="p">,</span><span class="n">pft_c2</span><span class="p">,</span><span class="n">pft_f3</span><span class="p">,</span><span class="n">pft_c3</span><span class="p">,</span><span class="n">pft_f4</span><span class="p">,</span><span class="n">pft_c4</span><span class="p">,</span><span class="n">pft_f5</span><span class="p">,</span><span class="n">pft_c5</span>
+</pre></div>
+</div>
+<p>This file gives the vegetation coverage for the different vegetation types for the site. The file only supports up to five PFT’s at the same time. The columns with “pft_f” are the fractions for each PFT, and the columns with “pft_c” is the integer index of the given PFT. Look at the pft-physiology file to see what the PFT index for each PFT type is.</p>
+<div class="section" id="dynamic-land-use-change-files-for-use-by-ptclmmkdata">
+<h2><span class="section-number">1.7.5.1. </span>Dynamic Land-Use Change Files for use by PTCLMmkdata<a class="headerlink" href="#dynamic-land-use-change-files-for-use-by-ptclmmkdata" title="Permalink to this headline">¶</a></h2>
+<p>There is a mechanism for giving site-specific land-use change in PTCLMmkdata. Adding site specific files to the <code class="docutils literal notranslate"><span class="pre">PTCLM_sitedata</span></code> directory under PTCLMmkdata allows you to specify the change in vegetation and change in harvesting (for the CN model) for that site. Files are named: <code class="docutils literal notranslate"><span class="pre">$SITE_dynpftdata.txt</span></code>. There is a sample file for the US-Ha1 site called: <code class="docutils literal notranslate"><span class="pre">US-Ha1_dynpftdata.txt</span></code>. The file has a one-line header with the information that the file has, and then one-line for each year with a transition. The header line is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trans_year</span><span class="p">,</span><span class="n">pft_f1</span><span class="p">,</span><span class="n">pft_c1</span><span class="p">,</span><span class="n">pft_f2</span><span class="p">,</span><span class="n">pft_c2</span><span class="p">,</span><span class="n">pft_f3</span><span class="p">,</span><span class="n">pft_c3</span><span class="p">,</span><span class="n">pft_f4</span><span class="p">,</span><span class="n">pft_c4</span><span class="p">,</span><span class="n">pft_f5</span><span class="p">,</span><span class="n">pft_c5</span><span class="p">,</span><span class="n">har_vh1</span><span class="p">,</span><span class="n">har_vh2</span><span class="p">,</span><span class="n">har_sh1</span><span class="p">,</span><span class="n">har_sh2</span><span class="p">,</span><span class="n">har_sh3</span><span class="p">,</span><span class="n">graze</span><span class="p">,</span><span class="n">hold_harv</span><span class="p">,</span><span class="n">hold_graze</span>
+</pre></div>
+</div>
+<p>This file only requires a line for each year where a transition or harvest happens. As in the “pftdata” file above “pft_f” refers to the fraction and “pft_c” refers to the PFT index, and only up to five vegetation types are allowed to co-exist. The last eight columns have to do with harvesting and grazing. The last two columns are whether to hold harvesting and/or grazing constant until the next transition year and will just be either 1 or 0. This file will be converted by the <strong>PTCLM_sitedata/cnvrt_trnsyrs2_pftdyntxtfile.pl</strong> script in the PTCLMmkdata directory to a format that <strong>mksurfdata_map</strong> can read that has an entry for each year for the range of years valid for the compset in question.</p>
+</div>
+<div class="section" id="converting-ameriflux-data-for-use-by-ptclmmkdata">
+<h2><span class="section-number">1.7.5.2. </span>Converting AmeriFlux Data for use by PTCLMmkdata<a class="headerlink" href="#converting-ameriflux-data-for-use-by-ptclmmkdata" title="Permalink to this headline">¶</a></h2>
+<p>AmeriFlux data comes in comma separated format and is available from:
+<a class="reference external" href="http://public.ornl.gov/ameriflux/dataproducts.shtml">http://public.ornl.gov/ameriflux/dataproducts.shtml</a>. Before you download the data you need to agree to the usage terms.</p>
+<p>Here is a copy of the usage terms from the web-site on June/13/2011.</p>
+<p>“The AmeriFlux data provided on this site are freely available and were furnished by individual AmeriFlux scientists who encourage their use.
+Please kindly inform the appropriate AmeriFlux scientist(s) of how you are using the data and of any publication plans.
+Please acknowledge the data source as a citation or in the acknowledgments if the data are not yet published.
+If the AmeriFlux Principal Investigators (PIs) feel that they should be acknowledged or offered participation as authors, they will let you know and we assume that an agreement on such matters will be reached before publishing and/or use of the data for publication.
+If your work directly competes with the PI’s analysis they may ask that they have the opportunity to submit a manuscript before you submit one that uses unpublished data.
+In addition, when publishing, please acknowledge the agency that supported the research.
+Lastly, we kindly request that those publishing papers using AmeriFlux data provide preprints to the PIs providing the data and to the data archive at the Carbon Dioxide Information Analysis Center (CDIAC).”</p>
+<p>The above agreement applies to the “US-UMB” dataset imported into our repository as well, and Gil Bohrer is the PI on record for that dataset.</p>
+<p>The CESM can NOT handle missing data, so we recommend using the “Level 4” Gap filled datasets.
+The fields will also need to be renamed.
+The “WS” column becomes “WIND”, “PREC” becomes “PRECmms”, “RH” stays as “RH”, “TA” becomes “TBOT”, “Rg” becomes “FSDS”, “Rgl” becomes “FLDS”, “PRESS” becomes “PSRF”.
+“ZBOT” can just be set to the constant of “30” (m).
+The units of Temperature need to be converted from “Celsius” to “Kelvin” (use the value in <code class="docutils literal notranslate"><span class="pre">SHR_CONST_TKFRZ</span></code> in the file <code class="docutils literal notranslate"><span class="pre">models/csm_share/shr/shr_const.F90</span></code> of <code class="docutils literal notranslate"><span class="pre">273.15</span></code>.
+The units of Pressure also need to be converted from “kPa” to “Pa”. LATIXY, and LONGXY should also be set to the latitude and longitude of the site.</p>
+</div>
+<div class="section" id="example-ptclmmkdata-transient-example-over-a-shorter-time-period">
+<h2><span class="section-number">1.7.5.3. </span>Example: PTCLMmkdata transient example over a shorter time period<a class="headerlink" href="#example-ptclmmkdata-transient-example-over-a-shorter-time-period" title="Permalink to this headline">¶</a></h2>
+<p>This is an example of using PTCLMmkdata for Harvard Forest (AmeriFlux site code US-Ha1) for transient land use 1991-2006.
+In order to do this we would’ve needed to have converted the AmeriFlux data into NetCDF format as show in the <a class="reference external" href="CLM-URL">the Section called Converting AmeriFlux Data for use by PTCLMmkdata</a> section above.
+Also note that this site has a site-specific dynamic land-use change file for it <code class="docutils literal notranslate"><span class="pre">PTCLM_sitedata/US-Ha1_dynpftdata.txt</span></code> in the PTCLMmkdata directory and this file will be used for land-use change and harvesting rather than the global dataset.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/tools/PTCLM
+# We are going to use forcing data over 1991 to 2006, but we need to start with
+# a transient compset to do so, so we use the 20th Century transient: 1850-2000
+# Note: When creating the fpftdyn dataset for this site it will use the
+#     PTCLM_sitedata/US-Ha1_dynpftdata.txt
+# file for land-use change and harvesting
+&gt; ./PTCLMmkdata -s US-Ha1 -d $MYCSMDATA --sitegroupname AmeriFlux
+&gt; mkdir $MYCSMDATA/atm/datm7/CLM1PT_data/1x1pt_US-Ha1
+&gt; cd $MYCSMDATA/atm/datm7/CLM1PT_data/1x1pt_US-Ha1
+# Copy data in NetCDF format to this directory, filenames should be YYYY-MM.nc
+# The fieldnames on the file should be:
+#    FLDS,FSDS,LATIXY,   LONGXY,   PRECTmms,PSRF,RH,TBOT,WIND,ZBOT
+# With units
+#    W/m2,W/m2,degrees_N,degrees_E,mm/s,    Pa,  %, K,   m/s, m
+# The time coordinate units should be: days since YYYY-MM-DD 00:00:00
+&gt; cd ../../../../../US-Ha1_I20TRCRUCLM45BGC
+# Now we need to set the start date to 1991, and make sure the align year is for 1991
+&gt; ./xmlchange RUN_STARTDATE=1991-01-01,DATM_CLMNCEP_YR_ALIGN=1991
+# Similarly for Nitrogen deposition data we cycle over: 1991 to 2006
+&gt; cat &lt;&lt; EOF &gt;&gt; user_nl_clm
+model_year_align_ndep=1991,stream_year_first_ndep=1991,stream_year_last_ndep=2006
+EOF
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../trouble-shooting/index.html" class="btn btn-neutral float-right" title="1.8. Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ptclm-examples.html" class="btn btn-neutral" title="1.7.4. Examples of using PTCLMmkdata" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,660 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.13. Glaciers &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="2. CLM Technical Note" href="../index.html"/>
+        <link rel="next" title="2.14. Model for Scale Adaptive River Transport (MOSART)" href="../MOSART/CLM50_Tech_Note_MOSART.html"/>
+        <link rel="prev" title="2.12. Lake Model" href="../Lake/CLM50_Tech_Note_Lake.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/index.html">1. CLM5.0 User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">2. CLM Technical Note</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/CLM50_Tech_Note_Introduction.html">2.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html">2.2. Surface Characterization, Vertical Discretization, and Model Input Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html">2.3. Surface Albedos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html">2.4. Radiative Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html">2.5. Momentum, Sensible Heat, and Latent Heat Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html">2.6. Soil and Snow Temperatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html">2.7. Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html">2.8. Snow Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html">2.9. Stomatal Resistance and Photosynthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html">2.10. Photosynthetic Capacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html">2.11. Plant Hydraulics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html">2.12. Lake Model</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.13. Glaciers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#summary-of-clm5-0-updates-relative-to-clm4-5">2.13.1. Summary of CLM5.0 updates relative to CLM4.5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overview">2.13.2. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#glacier-regions-and-their-behaviors">2.13.3. Glacier regions and their behaviors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-elevation-class-scheme">2.13.4. Multiple elevation class scheme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#computation-of-the-surface-mass-balance">2.13.5. Computation of the surface mass balance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html">2.14. Model for Scale Adaptive River Transport (MOSART)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Urban/CLM50_Tech_Note_Urban.html">2.15. Urban Model (CLMU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Pools/CLM50_Tech_Note_CN_Pools.html">2.16. CN Pools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html">2.17. Plant Respiration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html">2.18. Fixation and Uptake of Nitrogen (FUN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html">2.19. Carbon and Nitrogen Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html">2.20. Vegetation Phenology and Turnover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decomposition/CLM50_Tech_Note_Decomposition.html">2.21. Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html">2.22. External Nitrogen Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Mortality/CLM50_Tech_Note_Plant_Mortality.html">2.23. Plant Mortality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fire/CLM50_Tech_Note_Fire.html">2.24. Fire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Methane/CLM50_Tech_Note_Methane.html">2.25. Methane Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html">2.26. Crops and Irrigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html">2.27. Transient Land Use and Land Cover Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html">2.28. Dynamic Global Vegetation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html#technical-documentation-for-fates">2.29. Technical Documentation for FATES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BVOCs/CLM50_Tech_Note_BVOCs.html">2.30. Biogenic Volatile Organic Compounds (BVOCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dust/CLM50_Tech_Note_Dust.html">2.31. Dust Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Isotopes/CLM50_Tech_Note_Isotopes.html">2.32. Carbon Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Land-Only_Mode/CLM50_Tech_Note_Land-Only_Mode.html">2.33. Land-Only Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../References/CLM50_Tech_Note_References.html">2.34. References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">2. </span>CLM Technical Note</a> &raquo;</li>
+        
+      <li><span class="section-number">2.13. </span>Glaciers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/tech_note/Glacier/CLM50_Tech_Note_Glacier.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="glaciers">
+<span id="rst-glaciers"></span><h1><span class="section-number">2.13. </span>Glaciers<a class="headerlink" href="#glaciers" title="Permalink to this headline">¶</a></h1>
+<p>This chapter describes features of CLM that are specific to coupling to
+an ice sheet model (in the CESM context, this is the CISM model;
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lipscombsacks2012"><span class="std std-ref">Lipscomb and Sacks (2012)</span></a> provide
+documentation and user’s guide for CISM). General information
+about glacier land units can be found elsewhere in this document (see
+Chapter <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#rst-surface-characterization-vertical-discretization-and-model-input-requirements"><span class="std std-numref">2.2</span></a> for an overview).</p>
+<div class="section" id="summary-of-clm5-0-updates-relative-to-clm4-5">
+<span id="glaciers-summary-of-clm5-0-updates-relative-to-clm4-5"></span><h2><span class="section-number">2.13.1. </span>Summary of CLM5.0 updates relative to CLM4.5<a class="headerlink" href="#summary-of-clm5-0-updates-relative-to-clm4-5" title="Permalink to this headline">¶</a></h2>
+<p>Compared with CLM4.5 (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#olesonetal2013"><span class="std std-ref">Oleson et al. 2013</span></a>),
+CLM5.0 contains substantial improvements in its capabilities for
+land-ice science. This section summarizes these improvements, and the
+following sections provide more details.</p>
+<ul class="simple">
+<li><p>All runs include multiple glacier elevation classes over Greenland and
+Antarctica and compute ice sheet surface mass balance in those
+regions.</p></li>
+<li><p>A number of namelist parameters offer fine-grained control over
+glacier behavior in different regions of the world (section
+<a class="reference internal" href="#glacier-regions"><span class="std std-numref">2.13.3</span></a>). (The options used outside of Greenland and
+Antarctica reproduce the standard CLM4.5 glacier behavior.)</p></li>
+<li><p>CLM can now keep its glacier areas and elevations in sync with CISM
+when running with an evolving ice sheet. (However, in typical
+configurations, the ice sheet geometry still remains fixed throughout
+the run.)</p></li>
+<li><p>The downscaling to elevation classes now includes downwelling longwave
+radiation and partitioning of precipitation into rain vs. snow
+(section <a class="reference internal" href="#multiple-elevation-class-scheme"><span class="std std-numref">2.13.4</span></a>).</p></li>
+<li><p>Other land units within the CISM domain undergo the same downscaling
+as the glacier land unit, and surface mass balance is computed for the
+natural vegetated land unit. This allows CLM to produce glacial
+inception when running with an evolving ice sheet model.</p></li>
+<li><p>There have also been substantial improvements to CLM’s snow physics,
+as described in other chapters of this document.</p></li>
+</ul>
+</div>
+<div class="section" id="overview">
+<span id="overview-glaciers"></span><h2><span class="section-number">2.13.2. </span>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>CLM is responsible for computing two quantities that are passed to the
+ice sheet model:</p>
+<ol class="arabic simple">
+<li><p>Surface mass balance (SMB) - the net annual accumulation/ablation of
+mass at the upper surface (section
+<a class="reference internal" href="#computation-of-the-surface-mass-balance"><span class="std std-numref">2.13.5</span></a>)</p></li>
+<li><p>Ground surface temperature, which serves as an upper boundary
+condition for CISM’s temperature calculation</p></li>
+</ol>
+<p>The ice sheet model is typically run at much higher resolution than CLM
+(e.g., <img class="math" src="../../_images/math/18a4271606c39920a281ba499c2f33ff2e925ce9.svg" alt="\sim"/>5 km rather than <img class="math" src="../../_images/math/18a4271606c39920a281ba499c2f33ff2e925ce9.svg" alt="\sim"/>100 km). To improve
+the downscaling from CLM’s grid to the ice sheet grid, the glaciated
+portion of each grid cell is divided into multiple elevation classes
+(section <a class="reference internal" href="#multiple-elevation-class-scheme"><span class="std std-numref">2.13.4</span></a>). The above
+quantities are computed separately in each elevation class. The CESM
+coupler then computes high-resolution quantities via horizontal and
+vertical interpolation, and passes these high-resolution quantities to
+CISM.</p>
+<p>There are several reasons for computing the SMB in CLM rather than in
+CISM:</p>
+<ol class="arabic simple">
+<li><p>It is much cheaper to compute the SMB in CLM for <img class="math" src="../../_images/math/18a4271606c39920a281ba499c2f33ff2e925ce9.svg" alt="\sim"/>10
+elevation classes than in CISM. For example, suppose we are
+running CLM at a resolution of <img class="math" src="../../_images/math/18a4271606c39920a281ba499c2f33ff2e925ce9.svg" alt="\sim"/>50 km and CISM at
+<img class="math" src="../../_images/math/18a4271606c39920a281ba499c2f33ff2e925ce9.svg" alt="\sim"/>5 km. Greenland has dimensions of about 1000 x 2000 km.
+For CLM we would have 20 x 40 x 10 = 8,000 columns, whereas for
+CISM we would have 200 x 400 = 80,000 columns.</p></li>
+<li><p>We can use the sophisticated snow physics parameterization already in
+CLM instead of implementing a separate scheme for CISM. Any
+improvements to CLM are applied to ice sheets automatically.</p></li>
+<li><p>The atmosphere model can respond during runtime to ice-sheet surface
+changes (even in the absence of two-way feedbacks with CISM). As
+shown by <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#pritchardetal2008"><span class="std std-ref">Pritchard et al. (2008)</span></a>, runtime
+albedo feedback from the ice sheet is critical for simulating
+ice-sheet retreat on paleoclimate time scales. Without this feedback
+the atmosphere warms much less, and the retreat is delayed.</p></li>
+<li><p>The improved SMB is potentially available in CLM for all glaciated
+grid cells (e.g., in the Alps, Rockies, Andes, and Himalayas), not
+just those which are part of ice sheets.</p></li>
+</ol>
+<p>In typical runs, CISM is not evolving; CLM computes the SMB and sends it
+to CISM, but CISM’s ice sheet geometry remains fixed over the course of
+the run. In these runs, CISM serves two roles in the system:</p>
+<ol class="arabic simple">
+<li><p>Over the CISM domain (typically Greenland in CESM2), CISM dictates
+glacier areas and topographic elevations, overriding the values on
+CLM’s surface dataset. CISM also dictates the elevation of
+non-glacier land units in its domain, and only in this domain are
+atmospheric fields downscaled to non-glacier land units. (So if you
+run with a stub glacier model - SGLC - then glacier areas and
+elevations will be taken entirely from CLM’s surface dataset, and no
+downscaling will be done over non-glacier land units.)</p></li>
+<li><p>CISM provides the grid onto which SMB is downscaled. (If you run with
+SGLC then SMB will still be computed in CLM, but it won’t be
+downscaled to a high-resolution ice sheet grid.)</p></li>
+</ol>
+<p>It is also possible to run CESM with an evolving ice sheet. In this
+case, CLM responds to CISM’s evolution by adjusting the areas of the
+glacier land unit and each elevation class within this land unit, as well
+as the mean topographic heights of each elevation class. Thus, CLM’s
+glacier areas and elevations remain in sync with CISM’s. Conservation of
+mass and energy is done as for other landcover change (see Chapter
+<a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html#rst-transient-landcover-change"><span class="std std-numref">2.27</span></a>).</p>
+</div>
+<div class="section" id="glacier-regions-and-their-behaviors">
+<span id="glacier-regions"></span><h2><span class="section-number">2.13.3. </span>Glacier regions and their behaviors<a class="headerlink" href="#glacier-regions-and-their-behaviors" title="Permalink to this headline">¶</a></h2>
+<p>The world’s glaciers and ice sheets are broken down into a number of
+different regions (four by default) that differ in three respects:</p>
+<ol class="arabic simple">
+<li><p>Whether the gridcell’s glacier land unit contains:</p>
+<ol class="loweralpha simple">
+<li><p>Multiple elevation classes (section <a class="reference internal" href="#multiple-elevation-class-scheme"><span class="std std-numref">2.13.4</span></a>)</p></li>
+<li><p>Multiple elevation classes plus virtual elevation classes</p></li>
+<li><p>Just a single elevation class whose elevation matches the
+atmosphere’s topographic height (so there is no adjustment in
+atmospheric forcings due to downscaling).</p></li>
+</ol>
+</li>
+<li><p>Treatment of glacial melt water:</p>
+<ol class="loweralpha simple">
+<li><p>Glacial melt water runs off and is replaced by ice, thus keeping
+the column always frozen. In the absence of a dynamic ice sheet
+model, this behavior implicitly assumes an infinite store of
+glacial ice that can be melted (with appropriate adjustments made
+to ensure mass and energy conservation). This behavior is
+discussed in more detail in section <a class="reference internal" href="#computation-of-the-surface-mass-balance"><span class="std std-numref">2.13.5</span></a>.</p></li>
+<li><p>Glacial melt water remains in place until it refreezes - possibly
+remaining in place indefinitely if the glacier column is in a warm
+climate. With this behavior, ice melt does not result in any
+runoff. Regions with this behavior cannot compute SMB, because
+negative SMB would be meaningless (due to the liquid water on top
+of the ice column). This behavior produces less realistic glacier
+physics. However, it avoids the negative ice runoff that is needed
+for the “replaced by ice” behavior to conserve mass and energy (as
+described in section <a class="reference internal" href="#computation-of-the-surface-mass-balance"><span class="std std-numref">2.13.5</span></a>). Thus, in regions where CLM has glaciers but the
+atmospheric forcings are too warm to sustain those glaciers, this
+behavior avoids persistent negative ice runoff. This situation can
+often occur for mountain glaciers, where topographic smoothing in
+the atmosphere results in a too-warm climate. There, avoiding
+persistent negative ice runoff can be more important than getting
+the right glacier ice physics.</p></li>
+</ol>
+</li>
+<li><p>Treatment of ice runoff from snow capping (as described in section
+<a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#runoff-from-glaciers-and-snow-capped-surfaces"><span class="std std-numref">2.7.6</span></a>). Note that this
+is irrelevant in regions with an evolving, two-way-coupled ice sheet
+(where the snow capping term is sent to CISM rather than running off):</p>
+<ol class="loweralpha simple">
+<li><p>Ice runoff from snow capping remains ice. This is a crude
+parameterization of iceberg calving, and so is appropriate in
+regions where there is substantial iceberg calving in reality.</p></li>
+<li><p>Ice runoff from snow capping is melted (generating a negative
+sensible heat flux) and runs off as liquid. This matches the
+behavior for non-glacier columns. This is appropriate in regions
+that have little iceberg calving in reality. This can be important
+to avoid unrealistic cooling of the ocean and consequent runaway
+sea ice growth.</p></li>
+</ol>
+</li>
+</ol>
+<p>The default behaviors for the world’s glacier and ice sheet regions are
+described in <a class="reference internal" href="#table-glacier-region-behaviors"><span class="std std-numref">Table 2.13.1</span></a>. Note that the
+standard CISM grid covers Greenland plus enough surrounding area to
+allow for ice sheet growth and to have a regular rectangular grid. We
+need to have the “replaced by ice” melt behavior within the CISM domain
+in order to compute SMB there, and we need virtual elevation classes in
+that domain in order to compute SMB for all elevation classes and to
+facilitate glacial advance and retreat in the two-way-coupled
+case. However, this domain is split into Greenland itself and areas
+outside Greenland so that ice runoff in the Canadian archipelago (which
+is inside the CISM domain) is melted before reaching the ocean, to avoid
+runaway sea ice growth in that region.</p>
+<span id="table-glacier-region-behaviors"></span><table class="docutils align-default" id="id3">
+<caption><span class="caption-number">Table 2.13.1 </span><span class="caption-text">Glacier region behaviors</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Region</p></th>
+<th class="head"><p>Elevation
+classes</p></th>
+<th class="head"><p>Glacial melt</p></th>
+<th class="head"><p>Ice runoff</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Greenland</p></td>
+<td><p>Virtual</p></td>
+<td><p>Replaced by
+ice</p></td>
+<td><p>Remains ice</p></td>
+</tr>
+<tr class="row-odd"><td><p>Inside
+standard CISM
+grid but
+outside
+Greenland
+itself</p></td>
+<td><p>Virtual</p></td>
+<td><p>Replaced by
+ice</p></td>
+<td><p>Melted</p></td>
+</tr>
+<tr class="row-even"><td><p>Antarctica</p></td>
+<td><p>Multiple</p></td>
+<td><p>Replaced by
+ice</p></td>
+<td><p>Remains ice</p></td>
+</tr>
+<tr class="row-odd"><td><p>All others</p></td>
+<td><p>Single</p></td>
+<td><p>Remains in
+place</p></td>
+<td><p>Melted</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In regions that have both the <code class="docutils literal notranslate"><span class="pre">Glacial</span> <span class="pre">melt</span> <span class="pre">=</span> <span class="pre">Replaced</span> <span class="pre">by</span> <span class="pre">ice</span></code> and the <code class="docutils literal notranslate"><span class="pre">Ice</span> <span class="pre">runoff</span> <span class="pre">=</span>
+<span class="pre">Melted</span></code> behaviors (by default, this is just the region inside the standard CISM grid
+but outside Greenland itself): During periods of glacial melt, a negative ice runoff is
+generated (due to the <code class="docutils literal notranslate"><span class="pre">Glacial</span> <span class="pre">melt</span> <span class="pre">=</span> <span class="pre">Replaced</span> <span class="pre">by</span> <span class="pre">ice</span></code> behavior); this negative ice
+runoff is converted to a negative liquid runoff plus a positive sensible heat flux (due
+to the <code class="docutils literal notranslate"><span class="pre">Ice</span> <span class="pre">runoff</span> <span class="pre">=</span> <span class="pre">Melted</span></code> behavior). We recommend that you limit the portion of
+the globe with both of these behaviors combined, in order to avoid having too large of
+an impact of this non-physical behavior.</p>
+</div>
+</div>
+<div class="section" id="multiple-elevation-class-scheme">
+<span id="id1"></span><h2><span class="section-number">2.13.4. </span>Multiple elevation class scheme<a class="headerlink" href="#multiple-elevation-class-scheme" title="Permalink to this headline">¶</a></h2>
+<p>The glacier land unit contains multiple columns based on surface
+elevation. These are known as elevation classes, and the land unit is
+referred to as <em>glacier_mec</em>. (As described in section <a class="reference internal" href="#glacier-regions"><span class="std std-numref">2.13.3</span></a>, some regions have only a single elevation class, but they are
+still referred to as <em>glacier_mec</em> land units.) The default is to have 10
+elevation classes whose lower limits are 0, 200, 400, 700, 1000, 1300,
+1600, 2000, 2500, and 3000 m. Each column is characterized by a
+fractional area and surface elevation that are read in during model
+initialization, and then possibly overridden by CISM as the run
+progresses. Each <em>glacier_mec</em> column within a grid cell has distinct ice
+and snow temperatures, snow water content, surface fluxes, and SMB.</p>
+<p>The atmospheric surface temperature, potential temperature, specific
+humidity, density, and pressure are downscaled from the atmosphere’s
+mean grid cell elevation to the <em>glacier_mec</em> column elevation using a
+specified lapse rate (typically 6.0 deg/km) and an assumption of uniform
+relative humidity. Longwave radiation is downscaled by assuming a linear
+decrease in downwelling longwave radiation with increasing elevation
+(0.032 W m<sup>-2</sup> m<sup>-1</sup>, limited to 0.5 - 1.5 times the
+gridcell mean value, then normalized to conserve gridcell total energy)
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#vantrichtetal2016"><span class="std std-ref">(Van Tricht et al., 2016)</span></a>. Total precipitation
+is partitioned into rain vs. snow as described in Chapter
+<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#rst-surface-characterization-vertical-discretization-and-model-input-requirements"><span class="std std-numref">2.2</span></a>. The partitioning of precipitation is based on
+the downscaled temperature, allowing rain to fall at lower elevations
+while snow falls at higher elevations.</p>
+<p>This downscaling allows lower-elevation columns to undergo surface
+melting while columns at higher elevations remain frozen. This gives a
+more accurate simulation of summer melting, which is a highly nonlinear
+function of air temperature.</p>
+<p>Within the CISM domain, this same downscaling procedure is also applied
+to all non-urban land units. The elevation of non-glacier land units is
+taken from the mean elevation of ice-free grid cells in CISM. This is
+done in order to keep the glaciated and non-glaciated portions of the
+CISM domain as consistent as possible.</p>
+<p>In contrast to most CLM subgrid units, glacier_mec columns can be
+active (i.e., have model calculations run there) even if their area is
+zero. These are known as “virtual” columns. This is done because the ice
+sheet model may require a SMB for some grid cells where CLM has zero
+glacier area in that elevation range. Virtual columns also facilitate
+glacial advance and retreat in the two-way coupled case. Virtual columns
+do not affect energy exchange between the land and the atmosphere.</p>
+</div>
+<div class="section" id="computation-of-the-surface-mass-balance">
+<span id="id2"></span><h2><span class="section-number">2.13.5. </span>Computation of the surface mass balance<a class="headerlink" href="#computation-of-the-surface-mass-balance" title="Permalink to this headline">¶</a></h2>
+<p>This section describes the computation of surface mass balance and
+associated runoff terms. The description here only applies to regions
+where glacial melt runs off and is replaced by ice, not to regions where
+glacial melt remains in place. Thus, by default, this only applies to
+Greenland and Antarctica, not to mountain glaciers elsewhere in the
+world. (See also section <a class="reference internal" href="#glacier-regions"><span class="std std-numref">2.13.3</span></a>.)</p>
+<p>The SMB of a glacier or ice sheet is the net annual
+accumulation/ablation of mass at the upper surface. Ablation is defined
+as the mass of water that runs off to the ocean. Not all the surface
+meltwater runs off; some of the melt percolates into the snow and
+refreezes. Accumulation is primarily by snowfall and deposition, and
+ablation is primarily by melting and evaporation/sublimation. CLM uses a
+surface-energy-balance (SEB) scheme to compute the SMB. In this scheme,
+the melting depends on the sum of the radiative, turbulent, and
+conductive fluxes reaching the surface, as described elsewhere in this
+document.</p>
+<p>Note that the SMB typically is defined as the total accumulation of ice
+and snow, minus the total ablation. The SMB flux passed to CISM is the
+mass balance for ice alone, not snow. We can think of CLM as owning the
+snow, whereas CISM owns the underlying ice.  Fluctuations in snow depth
+between 0 and 10 m water equivalent are not reflected in the SMB passed
+to CISM. In transient runs, this can lead to delays of a few decades in
+the onset of accumulation or ablation in a given glacier column.</p>
+<p>SMB is computed and sent to the CESM coupler regardless of whether and
+where CISM is operating. However, the effect of SMB terms on runoff
+fluxes differs depending on whether and where CISM is evolving in
+two-way-coupled mode. This is described by the variable
+<em>glc_dyn_runoff_routing</em>. (This is real-valued in the code to handle
+the edge case where a CLM grid cell partially overlaps with the CISM
+grid, but we describe it as a logical variable here for simplicity.) In
+typical cases where CISM is not evolving, <em>glc_dyn_runoff_routing</em>
+will be false everywhere; in these cases, CISM’s mass is not considered
+to be part of the coupled system. In cases where CISM is evolving and
+sending its own calving flux to the coupler, <em>glc_dyn_runoff_routing</em>
+will be true over the CISM domain and false elsewhere.</p>
+<p>Any snow capping (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#runoff-from-glaciers-and-snow-capped-surfaces"><span class="std std-numref">2.7.6</span></a>) is added to <img class="math" src="../../_images/math/497b8d973a0728ee600014df084e5caacf99414f.svg" alt="q_{ice,frz}"/>. Any liquid water (i.e.,
+melted ice) below the snow pack in the glacier column is added to
+<img class="math" src="../../_images/math/a0f1f4a2e29e1a777aa4c926c23868991b268b4f.svg" alt="q_{ice,melt}"/>, then is converted back to ice to maintain a
+pure-ice column. Then the total SMB is given by <img class="math" src="../../_images/math/377e4bb0b27b890c2a0d7e880da1d862661db9d5.svg" alt="q_{ice,tot}"/>:</p>
+<div class="math" id="equation-13-1">
+<p><span class="eqno">(2.13.1)<a class="headerlink" href="#equation-13-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/10aa5c35f7a9d3969c26620027de197321f749e3.svg" alt="q_{ice,tot} = q_{ice,frz} - q_{ice,melt}"/></p>
+</div><p>CLM is responsible for generating glacial surface melt, even when
+running with an evolving ice sheet. Thus, <img class="math" src="../../_images/math/a0f1f4a2e29e1a777aa4c926c23868991b268b4f.svg" alt="q_{ice,melt}"/> is always
+added to liquid runoff (<img class="math" src="../../_images/math/6d7c02d0713c157e7bb6ca4cb646659248f5a0d9.svg" alt="q_{rgwl}"/>), regardless of
+<em>glc_dyn_runoff_routing</em>. However, the ice runoff flux depends on
+<em>glc_dyn_runoff_routing</em>. If <em>glc_dyn_runoff_routing</em> is true,
+then CISM controls the fate of the snow capping mass in
+<img class="math" src="../../_images/math/497b8d973a0728ee600014df084e5caacf99414f.svg" alt="q_{ice,frz}"/> (e.g., eventually transporting it to lower
+elevations where it can be melted or calved). Since CISM will now own
+this mass, the snow capping flux does <em>not</em> contribute to any runoff
+fluxes generated by CLM in this case.</p>
+<p>If <em>glc_dyn_runoff_routing</em> is false, then CLM sends the snow capping
+flux as runoff, as a crude representation of ice calving (see also
+sections <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#runoff-from-glaciers-and-snow-capped-surfaces"><span class="std std-numref">2.7.6</span></a> and
+<a class="reference internal" href="#glacier-regions"><span class="std std-numref">2.13.3</span></a>). However, this ice runoff flux is reduced by
+<img class="math" src="../../_images/math/a0f1f4a2e29e1a777aa4c926c23868991b268b4f.svg" alt="q_{ice,melt}"/>. This reduction is needed for conservation; its
+need is subtle, but can be understood with either of these explanations:</p>
+<ul class="simple">
+<li><p>When ice melts, we let the liquid run off and replace it with new
+ice. That new ice needs to come from somewhere to keep the coupled
+system in water balance. We “request” the new ice from the ocean by
+generating a negative ice runoff equivalent to the amount we have
+melted.</p></li>
+<li><p>Ice melt removes mass from the system, as it should. But the snow
+capping flux also removes mass from the system. The latter is a crude
+parameterization of calving, assuming steady state - i.e., all ice
+gain is balanced by ice loss. This removal of mass due to both
+accumulation and melt represents a double-counting. Each unit of melt
+indicates that one unit of accumulation should not have made it to the
+ocean as ice, but instead melted before it got there. So we need to
+correct for this double-counting by removing one unit of ice runoff
+for each unit of melt.</p></li>
+</ul>
+<p>For a given point in space or time, this reduction can result in
+negative ice runoff. However, when integrated over space and time, for
+an ice sheet that is near equilibrium, this just serves to decrease the
+too-high positive ice runoff from snow capping. (The treatment of snow
+capping with <em>glc_dyn_runoff_routing</em> false is based on this
+near-equilibrium assumption - i.e., that ice accumulation is roughly
+balanced by <img class="math" src="../../_images/math/fa8633413ddf98b928ef913b321ac19b5aea6780.svg" alt="calving + melt"/>, integrated across space and time.
+For glaciers and ice sheets that violate this assumption, either because
+they are far out of equilibrium with the climate or because the model is
+being run for hundreds of years, there are two ways to avoid the
+unrealistic ice runoff from snow capping: by running with an evolving,
+two-way-coupled ice sheet or by changing a glacier region’s ice runoff
+behavior as described in section <a class="reference internal" href="#glacier-regions"><span class="std std-numref">2.13.3</span></a>.)</p>
+<p>In regions where SMB is computed for glaciers, SMB is also computed for
+the natural vegetated land unit. Because there is no ice to melt in this
+land unit, it can only generate a zero or positive SMB. A positive SMB
+is generated once the snow pack reaches its maximum depth. When running
+with an evolving ice sheet, this condition triggers glacial inception.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../MOSART/CLM50_Tech_Note_MOSART.html" class="btn btn-neutral float-right" title="2.14. Model for Scale Adaptive River Transport (MOSART)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../Lake/CLM50_Tech_Note_Lake.html" class="btn btn-neutral" title="2.12. Lake Model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

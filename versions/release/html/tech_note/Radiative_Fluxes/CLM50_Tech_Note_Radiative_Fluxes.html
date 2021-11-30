@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.4. Radiative Fluxes &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="2. CLM Technical Note" href="../index.html"/>
+        <link rel="next" title="2.5. Momentum, Sensible Heat, and Latent Heat Fluxes" href="../Fluxes/CLM50_Tech_Note_Fluxes.html"/>
+        <link rel="prev" title="2.3. Surface Albedos" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/index.html">1. CLM5.0 User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">2. CLM Technical Note</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/CLM50_Tech_Note_Introduction.html">2.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html">2.2. Surface Characterization, Vertical Discretization, and Model Input Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html">2.3. Surface Albedos</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.4. Radiative Fluxes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#solar-fluxes">2.4.1. Solar Fluxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#longwave-fluxes">2.4.2. Longwave Fluxes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html">2.5. Momentum, Sensible Heat, and Latent Heat Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html">2.6. Soil and Snow Temperatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html">2.7. Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html">2.8. Snow Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html">2.9. Stomatal Resistance and Photosynthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html">2.10. Photosynthetic Capacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html">2.11. Plant Hydraulics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html">2.12. Lake Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Glacier/CLM50_Tech_Note_Glacier.html">2.13. Glaciers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html">2.14. Model for Scale Adaptive River Transport (MOSART)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Urban/CLM50_Tech_Note_Urban.html">2.15. Urban Model (CLMU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Pools/CLM50_Tech_Note_CN_Pools.html">2.16. CN Pools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html">2.17. Plant Respiration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html">2.18. Fixation and Uptake of Nitrogen (FUN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html">2.19. Carbon and Nitrogen Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html">2.20. Vegetation Phenology and Turnover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decomposition/CLM50_Tech_Note_Decomposition.html">2.21. Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html">2.22. External Nitrogen Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Mortality/CLM50_Tech_Note_Plant_Mortality.html">2.23. Plant Mortality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fire/CLM50_Tech_Note_Fire.html">2.24. Fire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Methane/CLM50_Tech_Note_Methane.html">2.25. Methane Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html">2.26. Crops and Irrigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html">2.27. Transient Land Use and Land Cover Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html">2.28. Dynamic Global Vegetation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html#technical-documentation-for-fates">2.29. Technical Documentation for FATES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BVOCs/CLM50_Tech_Note_BVOCs.html">2.30. Biogenic Volatile Organic Compounds (BVOCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dust/CLM50_Tech_Note_Dust.html">2.31. Dust Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Isotopes/CLM50_Tech_Note_Isotopes.html">2.32. Carbon Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Land-Only_Mode/CLM50_Tech_Note_Land-Only_Mode.html">2.33. Land-Only Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../References/CLM50_Tech_Note_References.html">2.34. References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">2. </span>CLM Technical Note</a> &raquo;</li>
+        
+      <li><span class="section-number">2.4. </span>Radiative Fluxes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/tech_note/Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="radiative-fluxes">
+<span id="rst-radiative-fluxes"></span><h1><span class="section-number">2.4. </span>Radiative Fluxes<a class="headerlink" href="#radiative-fluxes" title="Permalink to this headline">¶</a></h1>
+<p>The net radiation at the surface is
+<img class="math" src="../../_images/math/725e212d7157c89576e115b8d2ab4b4e0cc4e0d4.svg" alt="\left(\vec{S}_{v} +\vec{S}_{g} \right)-\left(\vec{L}_{v} +\vec{L}_{g} \right)"/>,
+where <img class="math" src="../../_images/math/319674bf1e16ff95fd1d8d98877b8001dcf61882.svg" alt="\vec{S}"/> is the net solar flux absorbed by the vegetation
+(“v”) and the ground (“g”) and <img class="math" src="../../_images/math/6c4d6e9234ba9471931b2218cd9c8e3cd40042c3.svg" alt="\vec{L}"/> is the net longwave flux
+(positive toward the atmosphere) (W m<sup>-2</sup>).</p>
+<div class="section" id="solar-fluxes">
+<span id="id1"></span><h2><span class="section-number">2.4.1. </span>Solar Fluxes<a class="headerlink" href="#solar-fluxes" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="#figure-radiation-schematic"><span class="std std-numref">Figure 2.4.1</span></a> illustrates the direct beam and diffuse fluxes in the canopy.</p>
+<p><img class="math" src="../../_images/math/ce0ee84e33df01d8e54200d1e343b21504967490.svg" alt="I\, \uparrow _{\Lambda }^{\mu }"/>  and
+<img class="math" src="../../_images/math/797a2988c3aed45a3857460ee80c721cc567e151.svg" alt="I\, \uparrow _{\Lambda }"/>  are the upward diffuse fluxes, per
+unit incident direct beam and diffuse flux (section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#canopy-radiative-transfer"><span class="std std-numref">2.3.1</span></a>).
+<img class="math" src="../../_images/math/413c3028e826142ebc3721c32c0f086d884e0ae1.svg" alt="I\, \downarrow _{\Lambda }^{\mu }"/>  and
+<img class="math" src="../../_images/math/2baaeb1102605221d60185d5c88a179410ca3a89.svg" alt="I\, \downarrow _{\Lambda }"/> are the downward diffuse fluxes
+below the vegetation per unit incident direct beam and diffuse radiation
+(section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#canopy-radiative-transfer"><span class="std std-numref">2.3.1</span></a>). The direct beam flux
+transmitted through the canopy, per
+unit incident flux, is <img class="math" src="../../_images/math/068bcbb577b30e69d3abce2d7a8de582aad1d7e3.svg" alt="e^{-K\left(L+S\right)}"/> .
+<img class="math" src="../../_images/math/a90837402b7e8968a1f0187529d51e2983422396.svg" alt="\vec{I}_{\Lambda }^{\mu }"/>  and <img class="math" src="../../_images/math/109162595195192e31d1164aaa5c42a49853e467.svg" alt="\vec{I}_{\Lambda }^{}"/>
+are the fluxes absorbed by the vegetation, per unit incident direct beam
+and diffuse radiation (section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#canopy-radiative-transfer"><span class="std std-numref">2.3.1</span></a>).
+<img class="math" src="../../_images/math/68b80363460973ddb13c7edd3d5f9afe55ba91fe.svg" alt="\alpha _{g,\, \Lambda }^{\mu }"/>  and
+<img class="math" src="../../_images/math/85ae5ffc464a0eed942df6bc7fa36a8c10638af0.svg" alt="\alpha _{g,\, \Lambda }"/>  are the direct beam and diffuse ground
+albedos (section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#ground-albedos"><span class="std std-numref">2.3.2</span></a>). <img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/> and <img class="math" src="../../_images/math/b988975be41fd13b4d091c10202ba19374643586.svg" alt="S"/> are the exposed leaf area
+index and stem area index (section <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#phenology-and-vegetation-burial-by-snow"><span class="std std-numref">2.2.1.4</span></a>).
+<img class="math" src="../../_images/math/52ddc0cde6d632f631533173562fe3ca375b1f32.svg" alt="K"/> is the optical
+depth of direct beam per unit leaf and stem area (section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#canopy-radiative-transfer"><span class="std std-numref">2.3.1</span></a>).</p>
+<div class="figure align-default" id="id3">
+<span id="figure-radiation-schematic"></span><img alt="../../_images/image15.png" src="../../_images/image15.png" />
+<p class="caption"><span class="caption-number">Figure 2.4.1 </span><span class="caption-text">Schematic diagram of (a) direct beam radiation, (b) diffuse
+solar radiation, and (c) longwave radiation absorbed, transmitted, and
+reflected by vegetation and ground.</span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+<p>For clarity, terms involving <img class="math" src="../../_images/math/301e9c89fb1db1c5d54c972fd49d190e83a1f575.svg" alt="T^{n+1} -T^{n}"/>  are not shown in
+(c).</p>
+<p>The total solar radiation absorbed by the vegetation and ground is</p>
+<div class="math" id="equation-4-1">
+<p><span class="eqno">(2.4.1)<a class="headerlink" href="#equation-4-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6e20b9d6b8345730a190ff89eab654d108ef5fbc.svg" alt="\vec{S}_{v} =\sum _{\Lambda }S_{atm} \, \downarrow _{\Lambda }^{\mu } \overrightarrow{I}_{\Lambda }^{\mu } +S_{atm} \, \downarrow _{\Lambda } \overrightarrow{I}_{\Lambda }"/></p>
+</div><div class="math" id="equation-4-2">
+<p><span class="eqno">(2.4.2)<a class="headerlink" href="#equation-4-2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/56b300bb70539324f7b57f0efe1a4e03c05865d4.svg" alt="\begin{array}{l} {\vec{S}_{g} =\sum _{\Lambda }S_{atm} \, \downarrow _{\Lambda }^{\mu } e^{-K\left(L+S\right)} \left(1-\alpha _{g,\, \Lambda }^{\mu } \right) +} \\ {\qquad \left(S_{atm} \, \downarrow _{\Lambda }^{\mu } I\downarrow _{\Lambda }^{\mu } +S_{atm} \downarrow _{\Lambda } I\downarrow _{\Lambda } \right)\left(1-\alpha _{g,\, \Lambda } \right)} \end{array}"/></p>
+</div><p>where <img class="math" src="../../_images/math/871c261480a423907bae7c588dad94390ba355ed.svg" alt="S_{atm} \, \downarrow _{\Lambda }^{\mu }"/>  and
+<img class="math" src="../../_images/math/1f49801cb860232a8adf8b45482bef3ca8a9f76e.svg" alt="S_{atm} \, \downarrow _{\Lambda }"/>  are the incident direct beam
+and diffuse solar fluxes (W m<sup>-2</sup>). For non-vegetated
+surfaces, <img class="math" src="../../_images/math/b4feec64e52818150e861b1f07c97a36551cbd95.svg" alt="e^{-K\left(L+S\right)} =1"/>,
+<img class="math" src="../../_images/math/8849fa16b1d273be2fc7548f9ab7cf5c0c548899.svg" alt="\overrightarrow{I}_{\Lambda }^{\mu } =\overrightarrow{I}_{\Lambda } =0"/>,
+<img class="math" src="../../_images/math/5032a13a6b6e5c57661890bfe0cbaf5f9c6367ac.svg" alt="I\, \downarrow _{\Lambda }^{\mu } =0"/>, and
+<img class="math" src="../../_images/math/e0a9ebab7c57b5c88b71e2d9869dc1a1ecbe9e1f.svg" alt="I\, \downarrow _{\Lambda } =1"/>, so that</p>
+<div class="math" id="equation-4-3">
+<p><span class="eqno">(2.4.3)<a class="headerlink" href="#equation-4-3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e1ca327ed43204f6ab9325638e2f003f9cba0539.svg" alt="\begin{array}{l} {\vec{S}_{g} =\sum _{\Lambda }S_{atm} \, \downarrow _{\Lambda }^{\mu } \left(1-\alpha _{g,\, \Lambda }^{\mu } \right) +S_{atm} \, \downarrow _{\Lambda } \left(1-\alpha _{g,\, \Lambda } \right)} \\ {\vec{S}_{v} =0} \end{array}."/></p>
+</div><p>Solar radiation is conserved as</p>
+<div class="math" id="equation-4-4">
+<p><span class="eqno">(2.4.4)<a class="headerlink" href="#equation-4-4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/410c7ca4d6a64cb2d8c96676885c6cf9114b7198.svg" alt="\sum _{\Lambda }\left(S_{atm} \, \downarrow _{\Lambda }^{\mu } +S_{atm} \, \downarrow _{\Lambda } \right)=\left(\vec{S}_{v} +\vec{S}_{g} \right) +\sum _{\Lambda }\left(S_{atm} \, \downarrow _{\Lambda }^{\mu } I\uparrow _{\Lambda }^{\mu } +S_{atm} \, \downarrow _{\Lambda } I\uparrow _{\Lambda } \right)"/></p>
+</div><p>where the latter term in parentheses is reflected solar radiation.</p>
+<p>Photosynthesis and transpiration depend non-linearly on solar radiation,
+via the light response of stomata. The canopy is treated as two leaves
+(sunlit and shaded) and the solar radiation in the visible waveband
+(<img class="math" src="../../_images/math/62e1fa786f6b8b7d3bb1eb4eb6c26685c7ccb999.svg" alt="&lt;"/> 0.7 µm) absorbed by the vegetation is apportioned to the
+sunlit and shaded leaves (section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#canopy-radiative-transfer"><span class="std std-numref">2.3.1</span></a>).
+The absorbed photosynthetically
+active (visible waveband) radiation averaged over the sunlit canopy (per
+unit plant area) is</p>
+<div class="math" id="equation-4-5">
+<p><span class="eqno">(2.4.5)<a class="headerlink" href="#equation-4-5" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0687a935b8cf394f4d673bfac281d56dfa94a8dc.svg" alt="\phi ^{sun} ={\left(\vec{I}_{sun,vis}^{\mu } S_{atm} \downarrow _{vis}^{\mu } +\vec{I}_{sun,vis}^{} S_{atm} \downarrow _{vis}^{} \right)\mathord{\left/ {\vphantom {\left(\vec{I}_{sun,vis}^{\mu } S_{atm} \downarrow _{vis}^{\mu } +\vec{I}_{sun,vis}^{} S_{atm} \downarrow _{vis}^{} \right) L^{sun} }} \right. \kern-\nulldelimiterspace} L^{sun} }"/></p>
+</div><p>and the absorbed radiation for the average shaded leaf (per unit plant
+area) is</p>
+<div class="math" id="equation-4-6">
+<p><span class="eqno">(2.4.6)<a class="headerlink" href="#equation-4-6" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a6fc6e7241e6d806ed0a22018ab7a0e5619ff707.svg" alt="\phi ^{sha} ={\left(\vec{I}_{sha,vis}^{\mu } S_{atm} \downarrow _{vis}^{\mu } +\vec{I}_{sha,vis}^{} S_{atm} \downarrow _{vis}^{} \right)\mathord{\left/ {\vphantom {\left(\vec{I}_{sha,vis}^{\mu } S_{atm} \downarrow _{vis}^{\mu } +\vec{I}_{sha,vis}^{} S_{atm} \downarrow _{vis}^{} \right) L^{sha} }} \right. \kern-\nulldelimiterspace} L^{sha} }"/></p>
+</div><p>with <img class="math" src="../../_images/math/2fac4e1202fee460cd6145e0afe9f53fca7babe8.svg" alt="L^{sun}"/>  and <img class="math" src="../../_images/math/fb97a55d86319185e6f9bb370e832442ef3fdb66.svg" alt="L^{sha}"/>  the sunlit and shaded plant
+area index, respectively. The sunlit plant area index is</p>
+<div class="math" id="equation-4-7">
+<p><span class="eqno">(2.4.7)<a class="headerlink" href="#equation-4-7" title="Permalink to this equation">¶</a></span><img src="../../_images/math/daf2dd037b572bfd99a9a1cd7db8662e4f098ce8.svg" alt="L^{sun} =\frac{1-e^{-K(L+S)} }{K}"/></p>
+</div><p>and the shaded leaf area index is <img class="math" src="../../_images/math/fd646d9daba348a01aeae2a4a67063bcbcb66eeb.svg" alt="L^{sha} =(L+S)-L^{sun}"/> . In
+calculating <img class="math" src="../../_images/math/2fac4e1202fee460cd6145e0afe9f53fca7babe8.svg" alt="L^{sun}"/> ,</p>
+<div class="math" id="equation-4-8">
+<p><span class="eqno">(2.4.8)<a class="headerlink" href="#equation-4-8" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5de6ce0501daf62125d71965da4cc5258b40eaf5.svg" alt="K=\frac{G\left(\mu \right)}{\mu }"/></p>
+</div><p>where <img class="math" src="../../_images/math/ab72aa45e4c5c3a9bbabd43055f609879bde8d7c.svg" alt="G\left(\mu \right)"/> and <img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/>  are parameters in the
+two-stream approximation (section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#canopy-radiative-transfer"><span class="std std-numref">2.3.1</span></a>).</p>
+<p>The model uses the two-stream approximation to calculate radiative
+transfer of direct and diffuse radiation through a canopy that is
+differentiated into leaves that are sunlit and those that are shaded
+(section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#canopy-radiative-transfer"><span class="std std-numref">2.3.1</span></a>). The two-stream equations
+are integrated over all plant
+area (leaf and stem area) in the canopy. The model has an optional
+(though not supported) multi-layer canopy, as described by
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#bonanetal2012"><span class="std std-ref">Bonan et al. (2012)</span></a>.
+The multi-layer model is only intended to address the
+non-linearity of light profiles, photosynthesis, and stomatal
+conductance in the plant canopy.</p>
+<p>In the multi-layer canopy, canopy-integrated radiative fluxes are
+calculated from the two-stream approximation. The model additionally
+derives the light profile with depth in the canopy by taking the
+derivatives of the absorbed radiative fluxes with respect to plant area
+index (<img class="math" src="../../_images/math/5742c1a554667758db21afe40c6eb00f624dcf42.svg" alt="L'=L+S"/>) and evaluating them incrementally through the
+canopy with cumulative plant area index (<img class="math" src="../../_images/math/888f7c323ac0341871e867220ae2d76467d74d6e.svg" alt="x"/>). The terms
+<img class="math" src="../../_images/math/8f123bc76515ce11c8b6ec3bc83a055b21490a5b.svg" alt="{d\vec{I}_{sun,\Lambda }^{\mu } (x)\mathord{\left/ {\vphantom {d\vec{I}_{sun,\Lambda }^{\mu } (x) dL'}} \right. \kern-\nulldelimiterspace} dL'}"/>
+and
+<img class="math" src="../../_images/math/a33808e8c5d1707ddc596fc6cddd42d554cf063f.svg" alt="{d\vec{I}_{sun,\Lambda }^{} (x)\mathord{\left/ {\vphantom {d\vec{I}_{sun,\Lambda }^{} (x) dL'}} \right. \kern-\nulldelimiterspace} dL'}"/>
+are the direct beam and diffuse solar radiation, respectively, absorbed
+by the sunlit fraction of the canopy (per unit plant area) at a depth
+defined by the cumulative plant area index <img class="math" src="../../_images/math/888f7c323ac0341871e867220ae2d76467d74d6e.svg" alt="x"/>;
+<img class="math" src="../../_images/math/7be488c170d4da7120b56596bcb9ee74a7e4c895.svg" alt="{d\vec{I}_{sha,\Lambda }^{\mu } (x)\mathord{\left/ {\vphantom {d\vec{I}_{sha,\Lambda }^{\mu } (x) dL'}} \right. \kern-\nulldelimiterspace} dL'}"/> and
+<img class="math" src="../../_images/math/5b218fb77abea6ec30aa00fc7a4065d86d085950.svg" alt="{d\vec{I}_{sha,\Lambda }^{} (x)\mathord{\left/ {\vphantom {d\vec{I}_{sha,\Lambda }^{} (x) dL'}} \right. \kern-\nulldelimiterspace} dL'}"/>
+are the corresponding fluxes for the shaded fraction of the canopy at
+depth <img class="math" src="../../_images/math/888f7c323ac0341871e867220ae2d76467d74d6e.svg" alt="x"/>. These fluxes are normalized by the sunlit or shaded
+fraction at depth <img class="math" src="../../_images/math/888f7c323ac0341871e867220ae2d76467d74d6e.svg" alt="x"/>, defined by
+<img class="math" src="../../_images/math/c71ddfcb8ad1dccc3acb3c20f0485f074527e144.svg" alt="f_{sun} =\exp \left(-Kx\right)"/>, to give fluxes per unit sunlit
+or shaded plant area at depth <img class="math" src="../../_images/math/888f7c323ac0341871e867220ae2d76467d74d6e.svg" alt="x"/>.</p>
+</div>
+<div class="section" id="longwave-fluxes">
+<span id="id2"></span><h2><span class="section-number">2.4.2. </span>Longwave Fluxes<a class="headerlink" href="#longwave-fluxes" title="Permalink to this headline">¶</a></h2>
+<p>The net longwave radiation (W m<sup>-2</sup>) (positive toward the
+atmosphere) at the surface is</p>
+<div class="math" id="equation-4-9">
+<p><span class="eqno">(2.4.9)<a class="headerlink" href="#equation-4-9" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b391ce41d1b598112a3c8901fa8d61446df9b5e5.svg" alt="\vec{L}=L\, \uparrow -L_{atm} \, \downarrow"/></p>
+</div><p>where <img class="math" src="../../_images/math/b096f95812f8d997cfd2a4efdefc6607d3355d87.svg" alt="L\, \uparrow"/>  is the upward longwave radiation from the
+surface and <img class="math" src="../../_images/math/ccc95491a8c2361dd7c3d10b736d2c324f96b6aa.svg" alt="L_{atm} \, \downarrow"/>  is the downward atmospheric
+longwave radiation (W m<sup>-2</sup>). The radiative temperature
+<img class="math" src="../../_images/math/596d2fe0ae101ca17100c3f34cbc7ffbcb7fd981.svg" alt="T_{rad}"/>  (K) is defined from the upward longwave radiation as</p>
+<div class="math" id="equation-4-10">
+<p><span class="eqno">(2.4.10)<a class="headerlink" href="#equation-4-10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/69c2164609af13882029018efb9f7cba72b937ec.svg" alt="T_{rad} =\left(\frac{L\, \uparrow }{\sigma } \right)^{{1\mathord{\left/ {\vphantom {1 4}} \right. \kern-\nulldelimiterspace} 4} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/b52df27bfb0b1e3af0c2c68a7b9da459178c2a7d.svg" alt="\sigma"/>  is the Stefan-Boltzmann constant (Wm<sup>-2</sup> K<sup>-4</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>). With reference to
+<a class="reference internal" href="#figure-radiation-schematic"><span class="std std-numref">Figure 2.4.1</span></a>, the upward longwave radiation from the surface to the atmosphere is</p>
+<div class="math" id="equation-4-11">
+<p><span class="eqno">(2.4.11)<a class="headerlink" href="#equation-4-11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7f1cb87cac2391d77928104fe72512550fc4bf7d.svg" alt="\begin{array}{l} {L\, \uparrow =\delta _{veg} L_{vg} \, \uparrow +\left(1-\delta _{veg} \right)\left(1-\varepsilon _{g} \right)L_{atm} \, \downarrow +} \\ {\qquad \left(1-\delta _{veg} \right)\varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{4} +4\varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{3} \left(T_{g}^{n+1} -T_{g}^{n} \right)} \end{array}"/></p>
+</div><p>where <img class="math" src="../../_images/math/4a05d719895dab5fc4c4843755817513143d47c2.svg" alt="L_{vg} \, \uparrow"/>  is the upward longwave radiation from
+the vegetation/soil system for exposed leaf and stem area
+<img class="math" src="../../_images/math/80fc05d98ff9986cbc5f41ecab71b3f1bc64ad3a.svg" alt="L+S\ge 0.05"/>, <img class="math" src="../../_images/math/b244d889305dabd63d5bfc1f6c15712b1713e4b2.svg" alt="\delta _{veg}"/>  is a step function and is
+zero for <img class="math" src="../../_images/math/26cad81bbfbcbd8c038b94abe9aa3771b6791ba6.svg" alt="L+S&lt;0.05"/> and one otherwise, <img class="math" src="../../_images/math/5dd60e5fcc2d3f25179d6b12e15d6720b6a261d7.svg" alt="\varepsilon _{g}"/>
+is the ground emissivity, and <img class="math" src="../../_images/math/ea883e8a6148ec2d9d5a080a373f20125c56e73a.svg" alt="T_{g}^{n+1}"/>  and
+<img class="math" src="../../_images/math/d73f3bdc631bff85b939e2f4a176d2e566721597.svg" alt="T_{g}^{n}"/>  are the snow/soil surface temperatures at the current
+and previous time steps, respectively (<a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#rst-soil-and-snow-temperatures"><span class="std std-ref">Soil and Snow Temperatures</span></a>).</p>
+<p>For non-vegetated surfaces, the above equation reduces to</p>
+<div class="math" id="equation-4-12">
+<p><span class="eqno">(2.4.12)<a class="headerlink" href="#equation-4-12" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fa01cb130edfa6038b954d2ed473c59c305414b7.svg" alt="L\, \uparrow =\left(1-\varepsilon _{g} \right)L_{atm} \, \downarrow +\varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{4} +4\varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{3} \left(T_{g}^{n+1} -T_{g}^{n} \right)"/></p>
+</div><p>where the first term is the atmospheric longwave radiation reflected by
+the ground, the second term is the longwave radiation emitted by the
+ground, and the last term is the increase (decrease) in longwave
+radiation emitted by the ground due to an increase (decrease) in ground
+temperature.</p>
+<p>For vegetated surfaces, the upward longwave radiation from the surface
+reduces to</p>
+<div class="math" id="equation-4-13">
+<p><span class="eqno">(2.4.13)<a class="headerlink" href="#equation-4-13" title="Permalink to this equation">¶</a></span><img src="../../_images/math/79407728b0b59b3602b885ff4e026be695a412c0.svg" alt="L\, \uparrow =L_{vg} \, \uparrow +4\varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{3} \left(T_{g}^{n+1} -T_{g}^{n} \right)"/></p>
+</div><p>where</p>
+<div class="math" id="equation-4-14">
+<p><span class="eqno">(2.4.14)<a class="headerlink" href="#equation-4-14" title="Permalink to this equation">¶</a></span><img src="../../_images/math/19151daf18953c44aff1cfecb6ef94784751635b.svg" alt="\begin{array}{l} {L_{vg} \, \uparrow =\left(1-\varepsilon _{g} \right)\left(1-\varepsilon _{v} \right)\left(1-\varepsilon _{v} \right)L_{atm} \, \downarrow } \\ {\qquad \qquad +\varepsilon _{v} \left[1+\left(1-\varepsilon _{g} \right)\left(1-\varepsilon _{v} \right)\right]\sigma \left(T_{v}^{n} \right)^{3} \left[T_{v}^{n} +4\left(T_{v}^{n+1} -T_{v}^{n} \right)\right]} \\ {\qquad \qquad +\varepsilon _{g} \left(1-\varepsilon _{v} \right)\sigma \left(T_{g}^{n} \right)^{4} } \\ {\qquad =\left(1-\varepsilon _{g} \right)\left(1-\varepsilon _{v} \right)\left(1-\varepsilon _{v} \right)L_{atm} \, \downarrow } \\ {\qquad \qquad +\varepsilon _{v} \sigma \left(T_{v}^{n} \right)^{4} } \\ {\qquad \qquad +\varepsilon _{v} \left(1-\varepsilon _{g} \right)\left(1-\varepsilon _{v} \right)\sigma \left(T_{v}^{n} \right)^{4} } \\ {\qquad \qquad +4\varepsilon _{v} \sigma \left(T_{v}^{n} \right)^{3} \left(T_{v}^{n+1} -T_{v}^{n} \right)} \\ {\qquad \qquad +4\varepsilon _{v} \left(1-\varepsilon _{g} \right)\left(1-\varepsilon _{v} \right)\sigma \left(T_{v}^{n} \right)^{3} \left(T_{v}^{n+1} -T_{v}^{n} \right)} \\ {\qquad \qquad +\varepsilon _{g} \left(1-\varepsilon _{v} \right)\sigma \left(T_{g}^{n} \right)^{4} } \end{array}"/></p>
+</div><p>where <img class="math" src="../../_images/math/aab0bd7882c8fbd2432b84743109e4048ffb1664.svg" alt="\varepsilon _{v}"/>  is the vegetation emissivity and
+<img class="math" src="../../_images/math/bfdc30ce03e7f5fb1e52988b01bd7531005f07d2.svg" alt="T_{v}^{n+1}"/>  and <img class="math" src="../../_images/math/c73f5cdcde88f31aefc92a11defb086631777760.svg" alt="T_{v}^{n}"/>  are the vegetation
+temperatures at the current and previous time steps, respectively
+(<a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#rst-momentum-sensible-heat-and-latent-heat-fluxes"><span class="std std-ref">Momentum, Sensible Heat, and Latent Heat Fluxes</span></a>).
+The first term in the equation above is the atmospheric
+longwave radiation that is transmitted through the canopy, reflected by
+the ground, and transmitted through the canopy to the atmosphere. The
+second term is the longwave radiation emitted by the canopy directly to
+the atmosphere. The third term is the longwave radiation emitted
+downward from the canopy, reflected by the ground, and transmitted
+through the canopy to the atmosphere. The fourth term is the increase
+(decrease) in longwave radiation due to an increase (decrease) in canopy
+temperature that is emitted by the canopy directly to the atmosphere.
+The fifth term is the increase (decrease) in longwave radiation due to
+an increase (decrease) in canopy temperature that is emitted downward
+from the canopy, reflected from the ground, and transmitted through the
+canopy to the atmosphere. The last term is the longwave radiation
+emitted by the ground and transmitted through the canopy to the
+atmosphere.</p>
+<p>The upward longwave radiation from the ground is</p>
+<div class="math" id="equation-4-15">
+<p><span class="eqno">(2.4.15)<a class="headerlink" href="#equation-4-15" title="Permalink to this equation">¶</a></span><img src="../../_images/math/411823cec96e769445762c58c44df365b5c06f8c.svg" alt="L_{g} \, \uparrow =\left(1-\varepsilon _{g} \right)L_{v} \, \downarrow +\varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{4}"/></p>
+</div><p>where <img class="math" src="../../_images/math/4271ff1fe7e02161bbd08c5b56d1b3a08be25d6e.svg" alt="L_{v} \, \downarrow"/>  is the downward longwave radiation
+below the vegetation</p>
+<div class="math" id="equation-4-16">
+<p><span class="eqno">(2.4.16)<a class="headerlink" href="#equation-4-16" title="Permalink to this equation">¶</a></span><img src="../../_images/math/872f786cfddeb5d6ab5be716fb9ccc3ccbe0c920.svg" alt="L_{v} \, \downarrow =\left(1-\varepsilon _{v} \right)L_{atm} \, \downarrow +\varepsilon _{v} \sigma \left(T_{v}^{n} \right)^{4} +4\varepsilon _{v} \sigma \left(T_{v}^{n} \right)^{3} \left(T_{v}^{n+1} -T_{v}^{n} \right)."/></p>
+</div><p>The net longwave radiation flux for the ground is (positive toward the
+atmosphere)</p>
+<div class="math" id="equation-4-17">
+<p><span class="eqno">(2.4.17)<a class="headerlink" href="#equation-4-17" title="Permalink to this equation">¶</a></span><img src="../../_images/math/99c7dff9bf014b80d2efcef45f4ce8f8573e93de.svg" alt="\vec{L}_{g} =\varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{4} -\delta _{veg} \varepsilon _{g} L_{v} \, \downarrow -\left(1-\delta _{veg} \right)\varepsilon _{g} L_{atm} \, \downarrow ."/></p>
+</div><p>The above expression for <img class="math" src="../../_images/math/9fa3c5ffd3b77b11e430b40fbecb9779ac2ba18a.svg" alt="\vec{L}_{g}"/>  is the net longwave
+radiation forcing that is used in the soil temperature calculation
+(<a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#rst-soil-and-snow-temperatures"><span class="std std-ref">Soil and Snow Temperatures</span></a>). Once updated soil
+temperatures have been obtained, the term
+<img class="math" src="../../_images/math/299902bca3b86a42428c48f61511e552aa716398.svg" alt="4\varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{3} \left(T_{g}^{n+1} -T_{g}^{n} \right)"/>
+is added to <img class="math" src="../../_images/math/9fa3c5ffd3b77b11e430b40fbecb9779ac2ba18a.svg" alt="\vec{L}_{g}"/>  to calculate the ground heat flux
+(section <a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html#update-of-ground-sensible-and-latent-heat-fluxes"><span class="std std-numref">2.5.4</span></a>)</p>
+<p>The net longwave radiation flux for vegetation is (positive toward the
+atmosphere)</p>
+<div class="math" id="equation-4-18">
+<p><span class="eqno">(2.4.18)<a class="headerlink" href="#equation-4-18" title="Permalink to this equation">¶</a></span><img src="../../_images/math/53340ab3e894a2b6992c5c329e265b483b887fd1.svg" alt="\vec{L}_{v} =\left[2-\varepsilon _{v} \left(1-\varepsilon _{g} \right)\right]\varepsilon _{v} \sigma \left(T_{v} \right)^{4} -\varepsilon _{v} \varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{4} -\varepsilon _{v} \left[1+\left(1-\varepsilon _{g} \right)\left(1-\varepsilon _{v} \right)\right]L_{atm} \, \downarrow ."/></p>
+</div><p>These equations assume that absorptivity equals emissivity. The
+emissivity of the ground is</p>
+<div class="math" id="equation-4-19">
+<p><span class="eqno">(2.4.19)<a class="headerlink" href="#equation-4-19" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e8625a004f5130619e343d6a8bbf70c9901512c6.svg" alt="\varepsilon _{g} =\varepsilon _{soi} \left(1-f_{sno} \right)+\varepsilon _{sno} f_{sno}"/></p>
+</div><p>where <img class="math" src="../../_images/math/abca5e66ce10cc16d165a114363fb0552adc829e.svg" alt="\varepsilon _{soi} =0.96"/> for soil, 0.97 for glacier,
+<img class="math" src="../../_images/math/1af0afdca66858d2c54dca84527523794b6fa1bb.svg" alt="\varepsilon _{sno} =0.97"/>, and <img class="math" src="../../_images/math/c60372a6f53c2d97b34b11fcde01de439482b692.svg" alt="f_{sno}"/>
+is the fraction of ground covered by snow
+(section <a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html#snow-covered-area-fraction"><span class="std std-numref">2.8.1</span></a>). The
+vegetation emissivity is</p>
+<div class="math" id="equation-4-20">
+<p><span class="eqno">(2.4.20)<a class="headerlink" href="#equation-4-20" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b216ff97e9b2d29aeea7be8a38d8f35dc9458b5f.svg" alt="\varepsilon _{v} =1-e^{-{\left(L+S\right)\mathord{\left/ {\vphantom {\left(L+S\right) \bar{\mu }}} \right. \kern-\nulldelimiterspace} \bar{\mu }} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/> and <img class="math" src="../../_images/math/b988975be41fd13b4d091c10202ba19374643586.svg" alt="S"/> are the leaf and stem area indices
+(section <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#phenology-and-vegetation-burial-by-snow"><span class="std std-numref">2.2.1.4</span></a>) and
+<img class="math" src="../../_images/math/369bec768dfa4873f695b28f17b797011b8682d2.svg" alt="\bar{\mu }=1"/> is the average inverse optical
+depth for longwave radiation.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Fluxes/CLM50_Tech_Note_Fluxes.html" class="btn btn-neutral float-right" title="2.5. Momentum, Sensible Heat, and Latent Heat Fluxes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html" class="btn btn-neutral" title="2.3. Surface Albedos" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

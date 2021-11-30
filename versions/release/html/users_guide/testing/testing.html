@@ -1,0 +1,502 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1.9.1. Testing &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="1.9. Testing" href="index.html"/>
+        <link rel="next" title="2. CLM Technical Note" href="../../tech_note/index.html"/>
+        <link rel="prev" title="1.9. Testing" href="index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">1. CLM5.0 User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../overview/index.html">1.1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../setting-up-and-running-a-case/index.html">1.2. Setting Up and Running a Case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using-clm-tools/index.html">1.3. Using CLM tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adding-new-resolutions/index.html">1.4. Adding New Resolutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-special-cases/index.html">1.5. Running Special Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-single-points/index.html">1.6. Running Single Point Regional Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-PTCLM/index.html">1.7. Running PTCLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trouble-shooting/index.html">1.8. Troubleshooting</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">1.9. Testing</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.9.1. Testing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cime-testing-scripts">1.9.1.1. CIME Testing scripts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ctsm-tools-testing">1.9.1.2. CTSM Tools Testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ctsm-fortran-unit-tests">1.9.1.3. CTSM Fortran Unit Tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ctsm-build-namelist-tests">1.9.1.4. CTSM Build-namelist Tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#testing-ptclm">1.9.1.5. Testing PTCLM</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">1. </span>CLM5.0 User’s Guide</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">1.9. </span>Testing</a> &raquo;</li>
+        
+      <li><span class="section-number">1.9.1. </span>Testing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/users_guide/testing/testing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="testing">
+<span id="id1"></span><h1><span class="section-number">1.9.1. </span>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<p>Technically, you could use the customization we gave in <a class="reference external" href="CLM-URL">Chapter 1</a> to test various configuration and namelist options for CLM.
+Sometimes, it’s also useful to have automated tests though to test that restarts give exactly the same results as without a restart.
+It’s also useful to have automated tests to run over a wide variety of configurations, resolutions, and namelist options.
+To do that we have several different types of scripts set up to make running comprehensive testing of CLM easy.
+There are two types of testing scripts for CLM.
+The first are the CESM test scripts, which utilize the <strong>create_newcase</strong> scripts that we shown how to use in this User’s Guide.
+The second are a set of stand-alone scripts that use the CLM <strong>configure</strong> and <strong>build-namelist</strong> scripts to build and test the model as well as testing the CLM tools as well.
+Below we will go into further details of how to use both methods.</p>
+<div class="section" id="cime-testing-scripts">
+<h2><span class="section-number">1.9.1.1. </span>CIME Testing scripts<a class="headerlink" href="#cime-testing-scripts" title="Permalink to this headline">¶</a></h2>
+<p>We first introduce the test scripts that work for all CESM components.
+The CIME script <strong>create_test</strong> runs a specific type of test, at a given resolution, for a given compset using a given machine.
+See <a class="reference external" href="http://esmci.github.io/cime/users_guide/testing.html">CIME Chapter on Testing</a> for how to use it to run single
+tests as well as lists of tests. The standard testname for CLM is “aux_clm” for cheyenne with intel and gnu compilers as
+well as the CGD machine hobart for intel, nag, and pgi compilers.  There’s also a shorter test list called “clm_short”. Also
+see the <a class="reference external" href="https://github.com/ESCOMP/ctsm/wiki/System-Testing-Guide">CTSM Wiki on Testing</a>.</p>
+</div>
+<div class="section" id="ctsm-tools-testing">
+<h2><span class="section-number">1.9.1.2. </span>CTSM Tools Testing<a class="headerlink" href="#ctsm-tools-testing" title="Permalink to this headline">¶</a></h2>
+<pre class="literal-block">$CTSMROOT/clm/test/tools/README                                 06/08/2018
+
+Scripts for testing the CLM support tools with many different 
+configurations and run-time options.
+
+I.   MAIN SCRIPTS:
+
+test_driver.sh - Test the CLM offline tools
+
+To use...
+
+./test_driver.sh -i
+
+on cheyenne
+
+qcmd -l walltime=06:00:00 -- ./test_driver.sh -i &gt;&amp; run.out &amp;
+
+Intended for use on NCAR machines cheyenne, geyser (DAV) and hobart.
+
+II. RUNNING test_driver.sh TOOLS TESTING:
+
+Basic use:
+
+./test_driver.sh -i
+./test_driver.sh -h   # to get help on options
+ 
+Important environment variables (just used by test_driver.sh)
+
+BL_ROOT ---------------- Root directory of CLM baseline code to compare to 
+                         (if not set BL test will not be performed)
+BL_TESTDIR ------------- Root directory of where to put baseline tests
+CLM_INPUT_TESTS -------- Filename of file with list of tests to perform
+CLM_TESTDIR ------------ Root directory of where to put most tests
+CLM_RETAIN_FILES ------- If set to TRUE -- don't cleanup files after testing
+CLM_FC ----------------- Use given compiler
+CLM_JOBID -------------- Job identification number to use (rather than process ID)
+CLM_THREADS ------------ Number of open-MP threads to use 
+                         (by default this is set differently by machine)
+CLM_SOFF --------------- If set to TRUE -- stop on first failed test (default FALSE)
+
+Important files for test_driver tools testing:
+
+test_driver.sh ------- Main test script for tools
+nl_files ------------- Directory with various namelists to test
+config_files --------- Directory with various configurations to test
+input_tests_master --- Master list of tests
+tests_pretag_* ------- Tests for specific machines to do by default before a tag is done
+tests_posttag_* ------ Tests for specific machines to do for more extensive testing 
+                       after a tag is done
+CLM_compare.sh ------- Compares output history files between two cases
+T*.sh ---------------- Basic test script to do a specific type of test
+gen_test_table.sh ---- Creates HTML table of tests
+Makefile ------------- Will build the HTML table of tests
+
+../../tools/README.testing - Information on how the testing works for the CLM tools
+</pre>
+</div>
+<div class="section" id="ctsm-fortran-unit-tests">
+<h2><span class="section-number">1.9.1.3. </span>CTSM Fortran Unit Tests<a class="headerlink" href="#ctsm-fortran-unit-tests" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># To run all CTSM unit tests on caldera, run the following command:
+#
+# The creation of a temporary directory ensures that you are doing a completely
+# clean build of the unit tests. (The use of the --clean flag to run_tests.py
+# cleans most, but not all of the files created by the unit test build.) For
+# rerunning the tests after an incremental change, you can instead use an
+# existing build directory.
+
+# From a standalone CTSM checkout:
+../cime/scripts/fortran_unit_testing/run_tests.py --build-dir `mktemp -d --tmpdir=. unit_tests.XXXXXXXX`
+
+# If you are within a full CESM checkout, you would instead do:
+# ../../../cime/scripts/fortran_unit_testing/run_tests.py --build-dir `mktemp -d --tmpdir=. unit_tests.XXXXXXXX`
+</pre></div>
+</div>
+</div>
+<div class="section" id="ctsm-build-namelist-tests">
+<h2><span class="section-number">1.9.1.4. </span>CTSM Build-namelist Tests<a class="headerlink" href="#ctsm-build-namelist-tests" title="Permalink to this headline">¶</a></h2>
+<p>Run the following perl tester that</p>
+<dl class="simple">
+<dt>::</dt><dd><p>&gt; cd bld/unit_testers
+&gt; ./build-namelist_test.pl</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="testing-ptclm">
+<h2><span class="section-number">1.9.1.5. </span>Testing PTCLM<a class="headerlink" href="#testing-ptclm" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>PTCLM/README                04/10/2015
+
+PTCLMmkdata is a python tool built on top of CLM tools and CESM scripts
+for building datasets to run CLM &quot;I&quot; cases for data from Ameriflux Tower-sites,
+or other user-supplied single-point datasets.
+
+Original Authors:
+
+Daniel M. Ricciuto, Dali Wang, Peter E. Thornton, Wilfred M. Post
+
+Environmental Sciences Division, Oak Ridge National Laboratory (ORNL)
+
+R. Quinn Thomas
+
+Cornell University
+
+Modified by:
+
+Erik Kluzek (NCAR)
+
+General Directory structure:
+
+  PTCLM/PTCLMmkdata ----- Main script
+  PTCLM/PTCLM_sitedata  - Site data files of 
+        static information latitude, longitude, soil info., and PFT information 
+        for each site Also different &quot;groups&quot; of site-data lists, and the script to
+        convert the transient years landuse_timeseries files into landuse_timeseries text files that
+        mksurfdata can use.
+  PTCLM/mydatafiles ----- Default location of
+        data files that will be created by PTCLMmkdata. Sites will be built
+        in their own subdirectories under here. Optionally you can give your
+        own location you&#39;d like to use for your data.
+
+  PTCLM/PTCLMsublist --------- Script to submit a list of PTCLM
+        sites to the batch que (only setup for a few machines).
+  PTCLM/PTCLMsublist_prog.py - Python module to support submit
+        list script. Handles command line arguments and such.
+  PTCLM/batchque.py ---------- Python module for batch submital.
+  PTCLM/buildtools ----------- Script to build the CLM
+        tools needed to run PTCLMmkdata (mksurfdata_map and gen_domain). Works on cheyenne.
+
+Quickstart:
+
+# ASSUMPTIONS:
+# For this example I&#39;m running a I1PtClm50SpGs case on cheyenne using  
+# CSMDATA in the standard location
+# Finally we use the 6-digit AmeriFlux site code for the University of Mich. Biological
+# Station US-UMB (data for this station is checked into the inputdata repository).
+# I also assume you are using UNIX C-shell, and GNU make is called gmake
+setenv CSMDATA   /glade/p/cesm/cseg/inputdata
+setenv SITE      US-UMB
+
+
+cd PTCLM
+setenv MYDATAFILES `pwd`/mydatafiles
+
+# Next build all of the clm tools you will need
+# The following script assumes cheyenne, hobart, or izumi for other machines
+# you&#39;ll need to build each tool by hand
+./buildtools
+# next run PTCLMsublist which will submit PTCLMmkdata to batch queue (NOTE -- MAKE SURE python, NCO AND NCL IS IN YOUR PATH)
+#       PTCLMsublist is only setup for a few batch machines, you&#39;ll need to update them to add new machines
+#       or create your own batch submission script.
+# NOTE: Every day you run PTCLMmkdata it will remake the map called
+#       renamemapfiles to rename files with todays creation date.
+#       This makes running PTCLMmkdata a reasonable amount of time.
+#       However, you can use the script in mydatafiles
+#
+qcmd -l walltime=02:00:00 -- ./PTCLMsublist -l $SITE -d $CSMDATA --account=XXXXXXXXX --mach=cheyenne
+
+# NOTE: To submit several sites at once, make the &quot;-l&quot; option a comma delimited
+#       list of site names.
+
+# Next copy the towersite meterology datafiles into your $MYDATAFILES space
+# (For the US-UMB station you can skip this step as the .build step will bring the data over) 
+cd $MYDATAFILES/1x1pt_$SITE
+mkdir $MYDATAFILES/1x1pt_$SITE/CLM1PT_data
+# Copy meteorology data NetCDF files into 1x1pt_$SITE sub-directory 
+# (with filenames of yyyy-mm.nc)
+# The variables assumed to be on the files are: 
+#     ZBOT, TBOT, RH, WIND, PRECTmms, FSDS, PSRF, FLDS
+# (if other fields are available or with different names this can be changed by
+#  adding a user_nl_datm.streams.txt file as we outline below)
+# Make sure your data has time with the attribute: calendar=&quot;gregorian&quot;
+
+# Make sure the forcing directory points to the location of your data
+# (PTCLMmkdata should already do this)
+./xmlchange DIN_LOC_ROOT_CLMFORC=$MYDATAFILES/1x1pt_$SITE
+
+# Then create a case using the data you just created
+setenv MYCASE &quot;testPTCLM&quot;
+cd $CTSMROOT/cime
+setenv CIMEROOT `pwd`
+cd $CIMEROOT/scripts
+./create_newcase --user-mods-dir $MYDATAFILES/1x1pt_$SITE --case $MYCASE --res CLM_USRDAT --compset I1PtClm50SpGs --mach cheyenne
+
+# Next setup as normal
+cd $MYCASE
+./case.setup
+
+# If you need to customize your list of fields uncomment and do the following...
+# cp CaseDocs/datm.streams.txt.CLM1PT.CLM_USRDAT user_datm.streams.txt.CLM1PT.CLM_USRDAT
+# chmod u+w user_datm.streams.txt.CLM1PT.CLM_USRDAT
+# $EDITOR user_datm.streams.txt.CLM1PT.CLM_USRDAT
+# ./preview_namelists
+
+# Finally build, and run the case as normal
+./case.build
+./case.submit
+</pre></div>
+</div>
+<p>To run on cheyenne, you do the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="n">cd</span> <span class="o">..</span>
+<span class="o">.</span> <span class="o">/</span><span class="n">glade</span><span class="o">/</span><span class="n">u</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="n">ch</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">lmod</span><span class="o">/</span><span class="mf">7.2</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span><span class="n">lmod</span><span class="o">/</span><span class="n">lmod</span><span class="o">/</span><span class="n">init</span><span class="o">/</span><span class="n">sh</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">ncl</span>
+<span class="o">./</span><span class="n">buildtools</span>
+<span class="n">cd</span> <span class="n">test</span>
+<span class="o">./</span><span class="n">run_PTCLM_tests</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../tech_note/index.html" class="btn btn-neutral float-right" title="2. CLM Technical Note" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="1.9. Testing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

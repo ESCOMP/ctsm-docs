@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.10. Photosynthetic Capacity &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="2. CLM Technical Note" href="../index.html"/>
+        <link rel="next" title="2.11. Plant Hydraulics" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html"/>
+        <link rel="prev" title="2.9. Stomatal Resistance and Photosynthesis" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/index.html">1. CLM5.0 User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">2. CLM Technical Note</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/CLM50_Tech_Note_Introduction.html">2.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html">2.2. Surface Characterization, Vertical Discretization, and Model Input Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html">2.3. Surface Albedos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html">2.4. Radiative Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html">2.5. Momentum, Sensible Heat, and Latent Heat Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html">2.6. Soil and Snow Temperatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html">2.7. Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html">2.8. Snow Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html">2.9. Stomatal Resistance and Photosynthesis</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.10. Photosynthetic Capacity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#model-inputs-and-parameter-estimations">2.10.1. Model inputs and parameter estimations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-structure">2.10.2. Model structure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#plant-nitrogen">2.10.2.1. Plant Nitrogen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#maximum-electron-transport-rate">2.10.2.2. Maximum electron transport rate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#maximum-rate-of-carboxylation">2.10.2.3. Maximum rate of carboxylation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#implementation-of-photosynthetic-capacity">2.10.2.4. Implementation of Photosynthetic Capacity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#total-respiration">2.10.2.5. Total Respiration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#numerical-scheme">2.10.3. Numerical scheme</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html">2.11. Plant Hydraulics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html">2.12. Lake Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Glacier/CLM50_Tech_Note_Glacier.html">2.13. Glaciers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html">2.14. Model for Scale Adaptive River Transport (MOSART)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Urban/CLM50_Tech_Note_Urban.html">2.15. Urban Model (CLMU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Pools/CLM50_Tech_Note_CN_Pools.html">2.16. CN Pools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html">2.17. Plant Respiration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html">2.18. Fixation and Uptake of Nitrogen (FUN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html">2.19. Carbon and Nitrogen Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html">2.20. Vegetation Phenology and Turnover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decomposition/CLM50_Tech_Note_Decomposition.html">2.21. Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html">2.22. External Nitrogen Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Mortality/CLM50_Tech_Note_Plant_Mortality.html">2.23. Plant Mortality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fire/CLM50_Tech_Note_Fire.html">2.24. Fire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Methane/CLM50_Tech_Note_Methane.html">2.25. Methane Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html">2.26. Crops and Irrigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html">2.27. Transient Land Use and Land Cover Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html">2.28. Dynamic Global Vegetation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html#technical-documentation-for-fates">2.29. Technical Documentation for FATES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BVOCs/CLM50_Tech_Note_BVOCs.html">2.30. Biogenic Volatile Organic Compounds (BVOCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dust/CLM50_Tech_Note_Dust.html">2.31. Dust Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Isotopes/CLM50_Tech_Note_Isotopes.html">2.32. Carbon Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Land-Only_Mode/CLM50_Tech_Note_Land-Only_Mode.html">2.33. Land-Only Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../References/CLM50_Tech_Note_References.html">2.34. References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">2. </span>CLM Technical Note</a> &raquo;</li>
+        
+      <li><span class="section-number">2.10. </span>Photosynthetic Capacity</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/tech_note/Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="photosynthetic-capacity">
+<span id="rst-photosynthetic-capacity"></span><h1><span class="section-number">2.10. </span>Photosynthetic Capacity<a class="headerlink" href="#photosynthetic-capacity" title="Permalink to this headline">¶</a></h1>
+<p>The photosynthetic capacity is represented by two key parameters: 1) the maximum rate of carboxylation at
+25 <sup>o</sup>C, <img class="math" src="../../_images/math/270eed670e921f052ecb42e56ce1ab7c99677bf9.svg" alt="V_{\text{c,max25}}"/>; and 2) the maximum rate of electron transport at
+25 <sup>o</sup>C, <img class="math" src="../../_images/math/a33540e05e264050201e6a325be834a6d967c4e5.svg" alt="J_{\text{max25}}"/> . They are predicted by a mechanistic model of leaf
+utilization of nitrogen for assimilation (LUNA V1.0) (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#alietal2016"><span class="std std-ref">Ali et al. 2016</span></a>) based on an optimality hypothesis to nitrogen allocation
+among light capture, electron transport, carboxylation, respiration and storage.
+Specifically, the model allocates the nitrogen by maximizing the daily
+net photosynthetic carbon gain under following two key assumptions:</p>
+<ul class="simple">
+<li><p>nitrogen allocated for light capture, electron transport and carboxylation are co-limiting;</p></li>
+<li><p>respiratory nitrogen is allocated to maintain dark respiration determined by <img class="math" src="../../_images/math/a6d126799203d43b7f5a738569d4c10f532e73ef.svg" alt="V_{\text{c,max}}"/>.</p></li>
+</ul>
+<p>Compared to traditional photosynthetic capacity models, a key advantage of LUNA is that the model is able to predict the potential
+acclimation of photosynthetic capacities at different environmental conditions as determined by temperature, radiation,
+CO <sub>2</sub> concentrations, day length, and humidity.</p>
+<div class="section" id="model-inputs-and-parameter-estimations">
+<span id="id1"></span><h2><span class="section-number">2.10.1. </span>Model inputs and parameter estimations<a class="headerlink" href="#model-inputs-and-parameter-estimations" title="Permalink to this headline">¶</a></h2>
+<p>The LUNA model includes the following four unitless parameters:</p>
+<ul class="simple">
+<li><p><img class="math" src="../../_images/math/3272668346374d3ac5923a747c3e554734332976.svg" alt="J_{maxb0}"/> , which specifies the baseline proportion of nitrogen allocated for electron transport;</p></li>
+<li><p><img class="math" src="../../_images/math/a256c7763fa3bcb5143552a47c1659273c05b775.svg" alt="J_{maxb1}"/> , which determines response of electron transport rate to light availability;</p></li>
+<li><p><img class="math" src="../../_images/math/3ca1fd48aad5b21a8cfae668017abfa5c064dc9c.svg" alt="t_{c,j0}"/> , which defines the baseline ratio of Rubisco-limited rate to light-limited rate;</p></li>
+<li><p><img class="math" src="../../_images/math/cb5de54f699cf4b3c7c1a3e87313d11d536c0d88.svg" alt="H"/> , which determines the response of electron transport rate to relative humidity.</p></li>
+</ul>
+<p>The above four parameters are estimated by fitting the LUNA model to a global compilation of &gt;800 obervations
+located at different biomes, canopy locations, and time of the year from 1993-2013 (Ali et al. 2015). The model inputs
+are area-based leaf nitrogen content, leaf mass per unit leaf area and the driving environmental conditions (average of past 10 days)
+including temperature, CO <sub>2</sub> concentrations, daily mean and maximum radiation, relative humidity and day length.
+The estimated values in CLM5 for the listed parameters are 0.0311, 0.1745, 0.8054, and 6.0999, repectively. In LUNA V1.0, the estimated
+parameter values are for C3 natural vegetations. In view that potentially large differences in photosythetic capacity could exist
+between crops and natural vegetations due to human selection and genetic modifications, in CLM5,
+the LUNA model are used only for C3 natural vegetations. The photosynthetic capacity for crops and C4 plants are thus
+still kept the same as CLM4.5. Namely, it is estimated based on the leaf nitrogen content, fixed RUBISCO allocations for
+<img class="math" src="../../_images/math/aae346b049c065c06feda5f90267999b39470e9b.svg" alt="V_{c\max 25}"/> and an adjusting factor to account for the impact of day length. In CLM5, the model simulates both sun-lit and shaded leaves;
+however, because the sun-lit and shaded leaves can changes through the day based on the sun angles,
+we do not differentiate the photosynthetic capacity difference for sun-lit or shaded leaves.</p>
+</div>
+<div class="section" id="model-structure">
+<span id="id2"></span><h2><span class="section-number">2.10.2. </span>Model structure<a class="headerlink" href="#model-structure" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="plant-nitrogen">
+<h3><span class="section-number">2.10.2.1. </span>Plant Nitrogen<a class="headerlink" href="#plant-nitrogen" title="Permalink to this headline">¶</a></h3>
+<p>The structure of the LUNA model is adapted from <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#xuetal2012"><span class="std std-ref">Xu et al. (2012)</span></a>, where the plant nitrogen at the leaf level ( <img class="math" src="../../_images/math/b7b54fa39b95cb79dc4eb4211fbadb36d22fc697.svg" alt="\text{LNC}_{a}"/>;  gN/ m <sup>2</sup> leaf) is divided into
+four pools: structural nitrogen( <img class="math" src="../../_images/math/13cc3a11bd3d5ed55e3d0a80a5e6b96dd29045ae.svg" alt="N_{\text{str}}"/>;  gN/m <sup>2</sup> leaf),
+photosynthetic nitrogen ( <img class="math" src="../../_images/math/32c6339dd76d64dd455a7772e60411fd7c307293.svg" alt="N_{\text{psn}}"/>; gN/m <sup>2</sup> leaf),
+storage nitrogen( <img class="math" src="../../_images/math/21a1c5832bae03e1ae19a73585b00a7fe5eb6fb3.svg" alt="N_{\text{store}}"/>;  gN/m <sup>2</sup> leaf),
+and respiratory nitrogen ( <img class="math" src="../../_images/math/26a00312126d3ba82dd743ad69885b02763db05a.svg" alt="N_{\text{resp}}"/>;  gN/m <sup>2</sup> leaf).
+Namely,</p>
+<div class="math" id="equation-10-1">
+<p><span class="eqno">(2.10.1)<a class="headerlink" href="#equation-10-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5b23ce5d0b714244c33716242d541dbbf0c341f9.svg" alt="\text{LNC}_{a} = N_{\text{psn}} + N_{\text{str}}+ N_{\text{store}} + N_{\text{resp}}."/></p>
+</div><p>The photosynthetic nitrogen, <img class="math" src="../../_images/math/32c6339dd76d64dd455a7772e60411fd7c307293.svg" alt="N_{\text{psn}}"/>, is further divided into
+nitrogen for light capture ( <img class="math" src="../../_images/math/5c04cf5f301447d300c6c8731adb81fcfde011a7.svg" alt="N_{\text{lc}}"/>;   gN/m <sup>2</sup> leaf),
+nitrogen for electron transport ( <img class="math" src="../../_images/math/88b35e1c2245f24dd83d395f29fc2b48cc5044a5.svg" alt="N_{\text{et}}"/>;  gN/m <sup>2</sup> leaf),
+and nitrogen for carboxylation ( <img class="math" src="../../_images/math/961932b98403ee919cfefd9b55d9d60c72c6db1e.svg" alt="N_{\text{cb}}"/>;  gN/m <sup>2</sup> leaf).
+Namely,</p>
+<div class="math" id="equation-10-2">
+<p><span class="eqno">(2.10.2)<a class="headerlink" href="#equation-10-2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4880daf7f20ff70d37ee3172e2f6af4eabbe4afc.svg" alt="N_{\text{psn}} =N_{\text{et}} + N_{\text{cb}} + N_{\text{lc}}."/></p>
+</div><p>The structural nitrogen,  <img class="math" src="../../_images/math/13cc3a11bd3d5ed55e3d0a80a5e6b96dd29045ae.svg" alt="N_{\text{str}}"/>, is calculated as the
+multiplication of leaf mass per unit area (<img class="math" src="../../_images/math/d3ee9764b7590278a7a409223fa7d7eb60ad3a59.svg" alt="\text{LMA}"/>; g biomass/m <sup>2</sup> leaf), and the structural nitrogen content (<img class="math" src="../../_images/math/6efd933c865cf9b7ae0abe87b2f40e7e5d28b83c.svg" alt="\text{SNC}"/>; gN/g biomass). Namely,</p>
+<div class="math" id="equation-10-3">
+<p><span class="eqno">(2.10.3)<a class="headerlink" href="#equation-10-3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ff88d7fb8fb8256efda77431528d68786d350eac.svg" alt="N_{\text{str}} = \text{SNC} \cdot \text{LMA}"/></p>
+</div><p>where <img class="math" src="../../_images/math/6efd933c865cf9b7ae0abe87b2f40e7e5d28b83c.svg" alt="\text{SNC}"/> is set to be fixed at 0.002 (gN/g biomass), based on data on C:N ratio from dead wood (White etal.,2000),
+and <img class="math" src="../../_images/math/d3ee9764b7590278a7a409223fa7d7eb60ad3a59.svg" alt="\text{LMA}"/> is the inverse of specific leaf area at the canopy top (<img class="math" src="../../_images/math/4d8ba75c30e8d02b5eb1e6e15e6e9131e8c9513d.svg" alt="SLA_{\text{0}}"/>), a PFT-level parameter (<a class="reference internal" href="#table-plant-functional-type-pft-leaf-n-parameters"><span class="std std-numref">Table 2.10.1</span></a>).</p>
+<span id="table-plant-functional-type-pft-leaf-n-parameters"></span><table class="docutils align-default" id="id4">
+<caption><span class="caption-number">Table 2.10.1 </span><span class="caption-text">Plant functional type (PFT) leaf N parameters.</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>PFT</p></th>
+<th class="head"><p><img class="math" src="../../_images/math/4d8ba75c30e8d02b5eb1e6e15e6e9131e8c9513d.svg" alt="SLA_{\text{0}}"/></p></th>
+<th class="head"><p><img class="math" src="../../_images/math/961932b98403ee919cfefd9b55d9d60c72c6db1e.svg" alt="N_{\text{cb}}"/></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NET Temperate</p></td>
+<td><p>0.0100</p></td>
+<td><p>0.0509</p></td>
+</tr>
+<tr class="row-odd"><td><p>NET Boreal</p></td>
+<td><p>0.0100</p></td>
+<td><p>0.0466</p></td>
+</tr>
+<tr class="row-even"><td><p>NDT Boreal</p></td>
+<td><p>0.0202</p></td>
+<td><p>0.0546</p></td>
+</tr>
+<tr class="row-odd"><td><p>BET Tropical</p></td>
+<td><p>0.0190</p></td>
+<td><p>0.0461</p></td>
+</tr>
+<tr class="row-even"><td><p>BET temperate</p></td>
+<td><p>0.0190</p></td>
+<td><p>0.0515</p></td>
+</tr>
+<tr class="row-odd"><td><p>BDT tropical</p></td>
+<td><p>0.0308</p></td>
+<td><p>0.0716</p></td>
+</tr>
+<tr class="row-even"><td><p>BDT temperate</p></td>
+<td><p>0.0308</p></td>
+<td><p>0.1007</p></td>
+</tr>
+<tr class="row-odd"><td><p>BDT boreal</p></td>
+<td><p>0.0308</p></td>
+<td><p>0.1007</p></td>
+</tr>
+<tr class="row-even"><td><p>BES temperate</p></td>
+<td><p>0.0180</p></td>
+<td><p>0.0517</p></td>
+</tr>
+<tr class="row-odd"><td><p>BDS temperate</p></td>
+<td><p>0.0307</p></td>
+<td><p>0.0943</p></td>
+</tr>
+<tr class="row-even"><td><p>BDS boreal</p></td>
+<td><p>0.0307</p></td>
+<td><p>0.0943</p></td>
+</tr>
+<tr class="row-odd"><td><p>C<sub>3</sub> arctic grass</p></td>
+<td><p>0.0402</p></td>
+<td><p>0.1365</p></td>
+</tr>
+<tr class="row-even"><td><p>C<sub>3</sub> grass</p></td>
+<td><p>0.0402</p></td>
+<td><p>0.1365</p></td>
+</tr>
+<tr class="row-odd"><td><p>C<sub>4</sub> grass</p></td>
+<td><p>0.0385</p></td>
+<td><p>0.0900</p></td>
+</tr>
+<tr class="row-even"><td><p>Temperate Corn</p></td>
+<td><p>0.0500</p></td>
+<td><p>0.2930</p></td>
+</tr>
+<tr class="row-odd"><td><p>Spring Wheat</p></td>
+<td><p>0.0350</p></td>
+<td><p>0.4102</p></td>
+</tr>
+<tr class="row-even"><td><p>Temperate Soybean</p></td>
+<td><p>0.0350</p></td>
+<td><p>0.4102</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cotton</p></td>
+<td><p>0.0350</p></td>
+<td><p>0.4102</p></td>
+</tr>
+<tr class="row-even"><td><p>Rice</p></td>
+<td><p>0.0350</p></td>
+<td><p>0.4102</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sugarcane</p></td>
+<td><p>0.0500</p></td>
+<td><p>0.2930</p></td>
+</tr>
+<tr class="row-even"><td><p>Tropical Corn</p></td>
+<td><p>0.0500</p></td>
+<td><p>0.2930</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tropical Soybean</p></td>
+<td><p>0.0350</p></td>
+<td><p>0.4102</p></td>
+</tr>
+</tbody>
+</table>
+<p>Notes: <img class="math" src="../../_images/math/4d8ba75c30e8d02b5eb1e6e15e6e9131e8c9513d.svg" alt="SLA_{\text{0}}"/> is the specific leaf area at the canopy top (m <sup>2</sup> leaf/g biomass),
+and <img class="math" src="../../_images/math/961932b98403ee919cfefd9b55d9d60c72c6db1e.svg" alt="N_{\text{cb}}"/> is the fraction of leaf nitrogen in Rubisco (g N in Rubisco g <sup>-1</sup> N)</p>
+<p>We assume that plants optimize their nitrogen allocations (i.e., <img class="math" src="../../_images/math/21a1c5832bae03e1ae19a73585b00a7fe5eb6fb3.svg" alt="N_{\text{store}}"/>,  <img class="math" src="../../_images/math/26a00312126d3ba82dd743ad69885b02763db05a.svg" alt="N_{\text{resp}}"/>,  <img class="math" src="../../_images/math/5c04cf5f301447d300c6c8731adb81fcfde011a7.svg" alt="N_{\text{lc}}"/>,  <img class="math" src="../../_images/math/88b35e1c2245f24dd83d395f29fc2b48cc5044a5.svg" alt="N_{\text{et}}"/>, <img class="math" src="../../_images/math/961932b98403ee919cfefd9b55d9d60c72c6db1e.svg" alt="N_{\text{cb}}"/>) to maximize the photosynthetic carbon gain, defined as
+the gross photosynthesis ( <img class="math" src="../../_images/math/211284f68205c3e66773eaf026f32a0acdd3dfb3.svg" alt="A"/> ) minus the maintenance respiration for
+photosynthetic enzymes ( <img class="math" src="../../_images/math/b85cf7f19cee76ac2e0148d549fec99fb8e2bfc4.svg" alt="R_{\text{psn}}"/> ), under specific
+environmental conditions and given plant’s strategy of leaf nitrogen
+use. Namely, the solutions of nitrogen allocations { <img class="math" src="../../_images/math/21a1c5832bae03e1ae19a73585b00a7fe5eb6fb3.svg" alt="N_{\text{store}}"/>,  <img class="math" src="../../_images/math/26a00312126d3ba82dd743ad69885b02763db05a.svg" alt="N_{\text{resp}}"/>,  <img class="math" src="../../_images/math/5c04cf5f301447d300c6c8731adb81fcfde011a7.svg" alt="N_{\text{lc}}"/>,  <img class="math" src="../../_images/math/88b35e1c2245f24dd83d395f29fc2b48cc5044a5.svg" alt="N_{\text{et}}"/>, <img class="math" src="../../_images/math/961932b98403ee919cfefd9b55d9d60c72c6db1e.svg" alt="N_{\text{cb}}"/> } can be estimated as follows,</p>
+<div class="math" id="equation-10-4">
+<p><span class="eqno">(2.10.4)<a class="headerlink" href="#equation-10-4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/14349addadba22810eb63c41e317961a30089273.svg" alt="\left\{\hat{N}_{\text{{store}}}, \hat{N}_{\text{{resp}}},
+  \hat{\mathrm{N}}_{\text{lc}}, \hat{N}_{\text{et}}, \hat{\mathrm{N}}_{\text{cb}}
+\right\} = \underset{\mathrm{N}_{\text{store}}\,+\,\mathrm{N}_{\text{resp}}\,+\,\mathrm{N}_{\text{lc}}\,+\,\mathrm{N}_{\text{et}}\,+\,\mathrm{N}_{\text{cb}}\,&lt;\text{FNC}_{\mathrm{a}}}{\text{argmax}} (A-R_{\text{psn}}),"/></p>
+</div><p>where  <img class="math" src="../../_images/math/ea3402f4163fb8e2d5b5ed04c60fd517c4fb051c.svg" alt="\text{FNC}_{a}"/> is the functional nitrogen content defined as the total leaf nitrogen content ( <img class="math" src="../../_images/math/b7b54fa39b95cb79dc4eb4211fbadb36d22fc697.svg" alt="\text{LNC}_{a}"/>) minus the structural nitrogen content ( <img class="math" src="../../_images/math/13cc3a11bd3d5ed55e3d0a80a5e6b96dd29045ae.svg" alt="N_{\text{str}}"/> ).</p>
+<p>The gross photosynthesis, <img class="math" src="../../_images/math/211284f68205c3e66773eaf026f32a0acdd3dfb3.svg" alt="A"/>, was calculated with a coupled leaf gas exchange model based on the <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#farquharetal1980"><span class="std std-ref">Farquhar et al. (1980)</span></a> model of
+photosynthesis and Ball–Berry-type stomatal conductance model (Ball et al. 1987). The maintenance respiration for photosynthetic enzymes, <img class="math" src="../../_images/math/b85cf7f19cee76ac2e0148d549fec99fb8e2bfc4.svg" alt="R_{\text{psn}}"/>, is
+calculated by the multiplication of total photosynthetic nitrogen ( <img class="math" src="../../_images/math/32c6339dd76d64dd455a7772e60411fd7c307293.svg" alt="N_{\text{psn}}"/> ) and the maintenance respiration cost for photosynthetic enzymes.</p>
+</div>
+<div class="section" id="maximum-electron-transport-rate">
+<h3><span class="section-number">2.10.2.2. </span>Maximum electron transport rate<a class="headerlink" href="#maximum-electron-transport-rate" title="Permalink to this headline">¶</a></h3>
+<p>In the LUNA model, the maximum electron transport rate
+( <img class="math" src="../../_images/math/56c119629a80f7629fc8181c70ffa624be7e4aca.svg" alt="J_{\text{max}}"/>; <img class="math" src="../../_images/math/a797594cbcd7972258187beb9dfe5c1e6391914a.svg" alt="{\mu} mol"/>  electron / m <sup>2</sup>/s)
+is simulated to have a baseline allocation of nitrogen and additional
+nitrogen allocation to change depending on the average daytime
+photosynthetic active radiation (PAR;  <img class="math" src="../../_images/math/a797594cbcd7972258187beb9dfe5c1e6391914a.svg" alt="{\mu} mol"/>  electron / m <sup>2</sup>/s), day length (hours) and air humidity.
+Specifically, the LUNA model has</p>
+<div class="math" id="equation-10-5">
+<p><span class="eqno">(2.10.5)<a class="headerlink" href="#equation-10-5" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b390f3a794df4038d77ae5058655c1ce6e24e9ab.svg" alt="J_{\text{{max}}} = J_{\text{max}0} + J_{\text{max}b1}
+f\left(\text{day length} \right)f\left(\text{humidity}
+\right)\alpha \text{PAR}"/></p>
+</div><p>The baseline electron transport rate, <img class="math" src="../../_images/math/079ddb57e11d3de631ecc71d710460d4d503501f.svg" alt="J_{\text{max}0}"/>, is calculated as follows,</p>
+<div class="math" id="equation-10-6">
+<p><span class="eqno">(2.10.6)<a class="headerlink" href="#equation-10-6" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b9bf8f71ab5d0d4181a13e9af06311bd011da903.svg" alt="J_{\text{max}0} = J_{\text{max}b0}{\text{FNC}}_{\mathrm{a}}{\text{NUE}}_{J_{\text{{max}}}}"/></p>
+</div><p>where <img class="math" src="../../_images/math/8b3e94980e921ff71dc7b22a77dbe07b76a00a75.svg" alt="J_{\text{max}b0}"/> (unitless) is the baseline proportion of nitrogen
+allocated for electron transport rate.  <img class="math" src="../../_images/math/7d78c33f7f5f28745f0ba8d94c8a5b18fda47d86.svg" alt="{\text{NUE}}_{J_{\text{{max}}}}"/> ( <img class="math" src="../../_images/math/a797594cbcd7972258187beb9dfe5c1e6391914a.svg" alt="{\mu} mol"/>  electron /s/g N)
+is the nitrogen use efficiency of <img class="math" src="../../_images/math/b5420419f2d521f75ce4a1447eb05ae1286f8465.svg" alt="J_{\text{{max}}}"/>. <img class="math" src="../../_images/math/0493ee74c9f0f6c40ec7b195de1fad57d1b40db3.svg" alt="J_{\text{max}b1}"/> (unitless) is a coefficient determining the response of the electron
+transport rate to amount of absorbed light (i.e., <img class="math" src="../../_images/math/d151b5ec7c2f7207bc60bc88fdecad9451ec8edd.svg" alt="\alpha \text{PAR}"/>).
+<img class="math" src="../../_images/math/4ccca4658eef5741d84bc0658f97d87739204e4f.svg" alt="f\left(\text{day length} \right)"/> is a function specifies the impact of day
+length (hours) on <img class="math" src="../../_images/math/56c119629a80f7629fc8181c70ffa624be7e4aca.svg" alt="J_{\text{max}}"/> in view that longer day length has been demonstrated by previous studies to alter <img class="math" src="../../_images/math/ef04833efe2e8446ca97491b964462055e4f3e52.svg" alt="V_{\mathrm{c}\text{max}25}"/> and
+<img class="math" src="../../_images/math/a5009e60d3ab1980cecaeae37fe8a2dae5ea2f5b.svg" alt="J_{\text{max}25}"/> (Bauerle et al. 2012; Comstock and Ehleringer 1986) through photoperiod sensing and regulation (e.g., Song et al. 2013).
+Following Bauerle et al. (2012), <img class="math" src="../../_images/math/4ccca4658eef5741d84bc0658f97d87739204e4f.svg" alt="f\left(\text{day length} \right)"/> is simulated as follows,</p>
+<div class="math" id="equation-10-7">
+<p><span class="eqno">(2.10.7)<a class="headerlink" href="#equation-10-7" title="Permalink to this equation">¶</a></span><img src="../../_images/math/15e3e74a309209d98dedc412bb9b50379db70fc9.svg" alt="f\left(\text{day length} \right) = \left(\frac{\text{day length}}{12} \right)^{2}."/></p>
+</div><p><img class="math" src="../../_images/math/cd0b5652c592ef5ca9669ecf0f4ee124321063a9.svg" alt="f\left(\text{humidity} \right)"/> represents the impact of air humidity on
+<img class="math" src="../../_images/math/b5420419f2d521f75ce4a1447eb05ae1286f8465.svg" alt="J_{\text{{max}}}"/>. We assume that higher humidity leads to higher
+<img class="math" src="../../_images/math/b5420419f2d521f75ce4a1447eb05ae1286f8465.svg" alt="J_{\text{{max}}}"/> with less water limiation on stomta opening and that low
+relative humidity has a stronger impact on nitrogen allocation due to greater
+water limitation. When relative humidity (RH; unitless) is too low, we assume
+that plants are physiologically unable to reallocate nitrogen. We therefore
+assume that there exists a critical value of relative humidity ( <img class="math" src="../../_images/math/521575f5615fd8c5ffe539a935567403ae390149.svg" alt="RH_{0} =
+0.25"/>; unitless), below which there is no optimal nitrogen allocation. Based
+on the above assumptions, we have</p>
+<div class="math" id="equation-10-8">
+<p><span class="eqno">(2.10.8)<a class="headerlink" href="#equation-10-8" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d073c4c7ff7c350f18f5e43c413f8d3d9b2d95c7.svg" alt="f\left(\text{humidity}
+\right) = \left(1-\mathrm{e}^{\left(-H
+      \frac{\text{max}\left(\text{RH}-{\text{RH}}_{0}, 0 \right)}{1-\text{RH}_{0}} \right)} \right),"/></p>
+</div><p>where <img class="math" src="../../_images/math/cb5de54f699cf4b3c7c1a3e87313d11d536c0d88.svg" alt="H"/> (unitless) specifies the impact of relative humidity on electron transport rate.</p>
+<p>The efficiency of light energy absorption (unitless),  <img class="math" src="../../_images/math/2f5aa019312e1bbc969deab8dca8b00f76025404.svg" alt="\alpha"/>, is calculated
+depending on the amount of nitrogen allocated for light capture,
+<img class="math" src="../../_images/math/b7a308fd97c7507693d643432e1e74caa71eb2c2.svg" alt="\mathrm{N}_{\text{lc}}"/>. Following Niinemets and Tenhunen (1997), the LUNA model has,</p>
+<div class="math" id="equation-10-9">
+<p><span class="eqno">(2.10.9)<a class="headerlink" href="#equation-10-9" title="Permalink to this equation">¶</a></span><img src="../../_images/math/008d2ff3aa1ce1615a3f920020127989f037c4ea.svg" alt="\alpha =\frac{0.292}{1+\frac{0.076}{\mathrm{N}_{\text{lc}}C_{b}}}"/></p>
+</div><p>where 0.292 is the conversion factor from photon to electron. <img class="math" src="../../_images/math/615d0254598921ee6f6f282cc9c14c87c4a55f8d.svg" alt="C_{b}"/>
+is the conversion factor (1.78) from nitrogen to chlorophyll. After we
+estimate <img class="math" src="../../_images/math/b5420419f2d521f75ce4a1447eb05ae1286f8465.svg" alt="J_{\text{{max}}}"/>, the actual electron transport rate with
+the daily maximum radiation ( <img class="math" src="../../_images/math/1c52e49777d2330d2df9cb3e2081d1d62b8acb16.svg" alt="J_{x}"/>) can be calculated using the
+empirical expression of  leaf (1937),</p>
+<div class="math" id="equation-10-10">
+<p><span class="eqno">(2.10.10)<a class="headerlink" href="#equation-10-10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8668a289ec62ed09563cbc2b6449bdcc672aa25f.svg" alt="J_{x} = \frac{\alpha \text{PAR}_{\text{max}}} {\left(1 + \frac{\alpha^{2}{\text{PAR}}_{\text{{max}}}^{2}}{J_{\text{{max}}}^{2}}
+  \right)^{0.5}}"/></p>
+</div><p>where <img class="math" src="../../_images/math/33fc86bab5d0afae9cca6d583bb857a59b9f1487.svg" alt="\text{PAR}_{\text{{max}}}"/> ( <img class="math" src="../../_images/math/457010ab27c8ffc958b19a1958eb01f8b90a51ff.svg" alt="\mu mol"/>/m <sup>2</sup>/s) is the
+maximum photosynthetically active radiation during the day.</p>
+</div>
+<div class="section" id="maximum-rate-of-carboxylation">
+<h3><span class="section-number">2.10.2.3. </span>Maximum rate of carboxylation<a class="headerlink" href="#maximum-rate-of-carboxylation" title="Permalink to this headline">¶</a></h3>
+<p>The maximum rate of carboxylation at 25<sup>o</sup>C varies with
+foliage nitrogen concentration and specific leaf area and is calculated
+as in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thorntonzimmermann2007"><span class="std std-ref">Thornton and Zimmermann (2007)</span></a>. At 25ºC,</p>
+<div class="math" id="equation-10-11">
+<p><span class="eqno">(2.10.11)<a class="headerlink" href="#equation-10-11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/380eb0f6ad7b75083a4f54175b6f4145806aaa94.svg" alt="V_{c\max 25} = N_{cb} NUE_{V_{c\max 25}}"/></p>
+</div><p>where <img class="math" src="../../_images/math/dd2779fdc3c9d6c1ebbb3c8c2ebbc67a4aa3ba55.svg" alt="N_{cb}"/> is nitrogen for carboxylation (g N m<sup>-2</sup> leaf,
+<a class="reference internal" href="#table-plant-functional-type-pft-leaf-n-parameters"><span class="std std-numref">Table 2.10.1</span></a>),
+and <img class="math" src="../../_images/math/cca3ebcf686d36fce8c81d21d4d450e2fb10a730.svg" alt="NUE_{V_{c\max 25}}"/> = 47.3 x 6.25 and is the nitrogen use efficiency for <img class="math" src="../../_images/math/aae346b049c065c06feda5f90267999b39470e9b.svg" alt="V_{c\max 25}"/>.
+The constant 47.3 is the specific Rubisco activity ( <img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> mol CO<sub>2</sub> g<sup>-1</sup> Rubisco s<sup>-1</sup>)
+measured at 25<sup>o</sup>C, and the constant 6.25 is the nitrogen binding factor for Rubisco
+(g Rubisco g<sup>-1</sup> N; <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#rogers2014"><span class="std std-ref">Rogers 2014</span></a>).</p>
+<p><img class="math" src="../../_images/math/aae346b049c065c06feda5f90267999b39470e9b.svg" alt="V_{c\max 25}"/>  additionally varies with daylength (<img class="math" src="../../_images/math/0b1d4e885b0934f8a286ab63fc9459df41742f11.svg" alt="DYL"/>)
+using the function <img class="math" src="../../_images/math/39878b8199c795c2f74c9ed392051a32b1eb3d19.svg" alt="f(DYL)"/>, which introduces seasonal variation
+to <img class="math" src="../../_images/math/fbce5fde8e144a4072c6a5f4fb5553a6c6b1d538.svg" alt="V_{c\max }"/></p>
+<div class="math" id="equation-10-12">
+<p><span class="eqno">(2.10.12)<a class="headerlink" href="#equation-10-12" title="Permalink to this equation">¶</a></span><img src="../../_images/math/87f2c6870dea3e9724503d8532e46724b5ec1caa.svg" alt="f\left(DYL\right)=\frac{\left(DYL\right)^{2} }{\left(DYL_{\max } \right)^{2} }"/></p>
+</div><p>with <img class="math" src="../../_images/math/159d8aa8a6ebb6d7784d5bd3eaaca2c6dbb0aae7.svg" alt="0.01\le f\left(DYL\right)\le 1"/>. Daylength (seconds) is
+given by</p>
+<div class="math" id="equation-10-13">
+<p><span class="eqno">(2.10.13)<a class="headerlink" href="#equation-10-13" title="Permalink to this equation">¶</a></span><img src="../../_images/math/60c7471488d0a8102c8f4a8bb00aa1fae3413597.svg" alt="DYL=2\times 13750.9871\cos ^{-1} \left[\frac{-\sin \left(lat\right)\sin \left(decl\right)}{\cos \left(lat\right)\cos \left(decl\right)} \right]"/></p>
+</div><p>where <img class="math" src="../../_images/math/20d1ee5da32b7ef5124099d5e77302364df68d9f.svg" alt="lat"/> (latitude) and <img class="math" src="../../_images/math/593ad966246f4806869dbaad2e488fa47ea7995c.svg" alt="decl"/> (declination angle) are
+from section <a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html#solar-zenith-angle"><span class="std std-numref">2.3.3</span></a>. Maximum daylength (<img class="math" src="../../_images/math/86cc5ac98a89717f514d97e4a9399aea1e560c0d.svg" alt="DYL_{\max }"/> ) is calculated
+similarly but using the maximum declination angle for present-day
+orbital geometry (<img class="math" src="../../_images/math/c1b04b17db55f1b4279eba10c6244b33b4673748.svg" alt="\pm"/>23.4667º [<img class="math" src="../../_images/math/c1b04b17db55f1b4279eba10c6244b33b4673748.svg" alt="\pm"/>0.409571 radians],
+positive for Northern Hemisphere latitudes and negative for Southern
+Hemisphere).</p>
+</div>
+<div class="section" id="implementation-of-photosynthetic-capacity">
+<h3><span class="section-number">2.10.2.4. </span>Implementation of Photosynthetic Capacity<a class="headerlink" href="#implementation-of-photosynthetic-capacity" title="Permalink to this headline">¶</a></h3>
+<p>Based on <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#farquharetal1980"><span class="std std-ref">Farquhar et al. (1980)</span></a> and Wullschleger (1993), we can calculate the
+electron-limited photosynthetic rate under daily maximum radiation ( <img class="math" src="../../_images/math/985f393482743cbf9810b3ad60123603e039ea8e.svg" alt="W_{jx}"/>)
+and the Rubisco-limited photosynthetic rate ( <img class="math" src="../../_images/math/a1988ffa1c924f7079bd3481bfdbba06ad86f8d7.svg" alt="W_{\mathrm{c}}"/>) as follows,</p>
+<div class="math" id="equation-10-14">
+<p><span class="eqno">(2.10.14)<a class="headerlink" href="#equation-10-14" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e73e673f4a8d3de59b48c6f4c5ac7f1240f6b193.svg" alt="W_{J_{x}} = K_{j}J_{x} ,"/></p>
+</div><div class="math" id="equation-10-15">
+<p><span class="eqno">(2.10.15)<a class="headerlink" href="#equation-10-15" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d9708b323f450dd8715e48a91f292fb32884eef6.svg" alt="W_{\mathrm{c}} = K_{\mathrm{c}} V_{{\mathrm{c}, \text{max}}},"/></p>
+</div><p>where <img class="math" src="../../_images/math/9722051a0136ed02777a3f9d4e6bb4b3449d879c.svg" alt="K_{j}"/> and <img class="math" src="../../_images/math/29883930d83ce8b2451fb72f1c04b2d4f672fd6d.svg" alt="K_{\mathrm{c}}"/> as the conversion factors for
+<img class="math" src="../../_images/math/1c52e49777d2330d2df9cb3e2081d1d62b8acb16.svg" alt="J_{x}"/> and  <img class="math" src="../../_images/math/1ab80d2308e0297f866f8cfa1b7889fe522b61d2.svg" alt="V_{{\mathrm{c}, \text{max}}}"/> ( <img class="math" src="../../_images/math/1ab80d2308e0297f866f8cfa1b7889fe522b61d2.svg" alt="V_{{\mathrm{c}, \text{max}}}"/> to
+<img class="math" src="../../_images/math/a1988ffa1c924f7079bd3481bfdbba06ad86f8d7.svg" alt="W_{\mathrm{c}}"/> and <img class="math" src="../../_images/math/1c52e49777d2330d2df9cb3e2081d1d62b8acb16.svg" alt="J_{x}"/> to <img class="math" src="../../_images/math/f519c3b16e75d8fe4386aed009773ec7638f913f.svg" alt="W_{J_{x}}"/>), respectively. Based on
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#xuetal2012"><span class="std std-ref">Xu et al. (2012)</span></a>, Maire et al. (2012) and Walker et al. (2014), we
+assume that <img class="math" src="../../_images/math/a1988ffa1c924f7079bd3481bfdbba06ad86f8d7.svg" alt="W_{\mathrm{c}}"/> is proportional to
+<img class="math" src="../../_images/math/f519c3b16e75d8fe4386aed009773ec7638f913f.svg" alt="W_{J_{x}}"/>. Specifically, we have</p>
+<div class="math" id="equation-10-16">
+<p><span class="eqno">(2.10.16)<a class="headerlink" href="#equation-10-16" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9dfe938d06256cc327bcf7085119bf97447f2f3a.svg" alt="W_{\mathrm{c}}=t_{\alpha}t_{\mathrm{c}, j0}W_{J_{x}}"/></p>
+</div><p>where <img class="math" src="../../_images/math/88a46763f3cb2dfc30e27662a3413d12a6fec672.svg" alt="t_{\mathrm{c}, j0}"/> is the baseline ratio of <img class="math" src="../../_images/math/a1988ffa1c924f7079bd3481bfdbba06ad86f8d7.svg" alt="W_{\mathrm{c}}"/> to
+<img class="math" src="../../_images/math/f519c3b16e75d8fe4386aed009773ec7638f913f.svg" alt="W_{J_{x}}"/>. We recognize that this ratio may change depending on the
+nitrogen use efficiency of carboxylation and electron transport (Ainsworth and Rogers 2007),
+therefore the LUNA model has the modification factor, <img class="math" src="../../_images/math/28c470810bf1480be4c483007cedec0d6fa1c34c.svg" alt="t_{\alpha}"/>, to adjust baseline
+the ratio depending on the nitrogen use efficiency for electron vs carboxylation (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#alietal2016"><span class="std std-ref">Ali et al. 2016</span></a>).</p>
+</div>
+<div class="section" id="total-respiration">
+<h3><span class="section-number">2.10.2.5. </span>Total Respiration<a class="headerlink" href="#total-respiration" title="Permalink to this headline">¶</a></h3>
+<p>Following <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#collatzetal1991"><span class="std std-ref">Collatz et al. (1991)</span></a>, the total respiration ( <img class="math" src="../../_images/math/729bee87fafb476fd7615b5281c593b003835d12.svg" alt="R_{\mathrm{t}}"/>) is
+calculated in proportion to <img class="math" src="../../_images/math/a6d126799203d43b7f5a738569d4c10f532e73ef.svg" alt="V_{\text{c,max}}"/>,</p>
+<div class="math" id="equation-10-17">
+<p><span class="eqno">(2.10.17)<a class="headerlink" href="#equation-10-17" title="Permalink to this equation">¶</a></span><img src="../../_images/math/025b6a70bf7c95634b923f09fbe4f46779f7b659.svg" alt="R_{\mathrm{t}} = 0.015 V_{\text{c,max}}."/></p>
+</div><p>Accounting for the daytime and nighttime temperature, the daily respirations is calculated as follows,</p>
+<div class="math" id="equation-10-18">
+<p><span class="eqno">(2.10.18)<a class="headerlink" href="#equation-10-18" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a1b839e2ccb27dda1a663ca22d59a5c6259c9c0f.svg" alt="R_{\text{td}}={R}_{\mathrm{t}} [D_{\text{day}} + D_{\text{night}} f_{\mathrm{r}}{(T_{\text{night}})/f_{\mathrm{r}}{(T_{\text{day}})}}],"/></p>
+</div><p>where <img class="math" src="../../_images/math/0a93837768a737284a6ca82c4bcc0dec386a7c41.svg" alt="D_{\text{day}}"/> and <img class="math" src="../../_images/math/0bd07f08ced1ce42bc676d446a4c327ef8bf1297.svg" alt="D_{\text{night}}"/> are daytime and
+nighttime durations in seconds. <img class="math" src="../../_images/math/9ea7b305a797793d71767dec8ea2e53e7b4eca23.svg" alt="f_{\mathrm{r}}(T_{\text{night}})"/> and
+<img class="math" src="../../_images/math/5a7535efff343f58a1f15eb2c74998514d7bd4a2.svg" alt="f_{\mathrm{r}}(T_{\text{day}})"/> are the temperature response functions for
+respiration (see Appendix B in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#alietal2016"><span class="std std-ref">Ali et al. (2016)</span></a> for details).</p>
+</div>
+</div>
+<div class="section" id="numerical-scheme">
+<span id="id3"></span><h2><span class="section-number">2.10.3. </span>Numerical scheme<a class="headerlink" href="#numerical-scheme" title="Permalink to this headline">¶</a></h2>
+<p>The LUNA model searches for the “optimal” nitrogen allocations for maximum net photosynthetic carbon gain
+by incrementally increase the nitrogen allocated for light capture (i.e.,  <img class="math" src="../../_images/math/5c04cf5f301447d300c6c8731adb81fcfde011a7.svg" alt="N_{\text{lc}}"/>) (see <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#alietal2016"><span class="std std-ref">Ali et al. (2016)</span></a> for details).
+We assume that  plants only optimize the nitrogen allocation when they can grow (i.e., GPP&gt;0.0).
+If GPP become zero under stress, then the LUNA model assume a certain amount of enzyme will decay at daily rates of 0.1,
+in view that the half-life time for photosynthetic enzymes are short (~7 days) (Suzuki et al. 2001).
+To avoid unrealistic low values of photosynthetic capacity, the decay is only limited to 50 percent of the original enzyme levels.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html" class="btn btn-neutral float-right" title="2.11. Plant Hydraulics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html" class="btn btn-neutral" title="2.9. Stomatal Resistance and Photosynthesis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

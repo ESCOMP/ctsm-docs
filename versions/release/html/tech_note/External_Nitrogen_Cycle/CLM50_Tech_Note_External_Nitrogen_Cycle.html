@@ -1,0 +1,525 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.22. External Nitrogen Cycle &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="2. CLM Technical Note" href="../index.html"/>
+        <link rel="next" title="2.23. Plant Mortality" href="../Plant_Mortality/CLM50_Tech_Note_Plant_Mortality.html"/>
+        <link rel="prev" title="2.21. Decomposition" href="../Decomposition/CLM50_Tech_Note_Decomposition.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/index.html">1. CLM5.0 User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">2. CLM Technical Note</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/CLM50_Tech_Note_Introduction.html">2.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html">2.2. Surface Characterization, Vertical Discretization, and Model Input Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html">2.3. Surface Albedos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html">2.4. Radiative Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fluxes/CLM50_Tech_Note_Fluxes.html">2.5. Momentum, Sensible Heat, and Latent Heat Fluxes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html">2.6. Soil and Snow Temperatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html">2.7. Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html">2.8. Snow Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html">2.9. Stomatal Resistance and Photosynthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html">2.10. Photosynthetic Capacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html">2.11. Plant Hydraulics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html">2.12. Lake Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Glacier/CLM50_Tech_Note_Glacier.html">2.13. Glaciers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html">2.14. Model for Scale Adaptive River Transport (MOSART)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Urban/CLM50_Tech_Note_Urban.html">2.15. Urban Model (CLMU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Pools/CLM50_Tech_Note_CN_Pools.html">2.16. CN Pools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html">2.17. Plant Respiration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html">2.18. Fixation and Uptake of Nitrogen (FUN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html">2.19. Carbon and Nitrogen Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html">2.20. Vegetation Phenology and Turnover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decomposition/CLM50_Tech_Note_Decomposition.html">2.21. Decomposition</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.22. External Nitrogen Cycle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#summary-of-clm5-0-updates-relative-to-clm4-5">2.22.1. Summary of CLM5.0 updates relative to CLM4.5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#overview">2.22.2. Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#atmospheric-nitrogen-deposition">2.22.3. Atmospheric Nitrogen Deposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#biological-nitrogen-fixation">2.22.4. Biological Nitrogen Fixation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nitrification-and-denitrification-losses-of-nitrogen">2.22.5. Nitrification and Denitrification Losses of Nitrogen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#leaching-losses-of-nitrogen">2.22.6. Leaching Losses of Nitrogen</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#losses-of-nitrogen-due-to-fire">2.22.7. Losses of Nitrogen Due to Fire</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Mortality/CLM50_Tech_Note_Plant_Mortality.html">2.23. Plant Mortality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fire/CLM50_Tech_Note_Fire.html">2.24. Fire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Methane/CLM50_Tech_Note_Methane.html">2.25. Methane Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html">2.26. Crops and Irrigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html">2.27. Transient Land Use and Land Cover Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html">2.28. Dynamic Global Vegetation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html#technical-documentation-for-fates">2.29. Technical Documentation for FATES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BVOCs/CLM50_Tech_Note_BVOCs.html">2.30. Biogenic Volatile Organic Compounds (BVOCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dust/CLM50_Tech_Note_Dust.html">2.31. Dust Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Isotopes/CLM50_Tech_Note_Isotopes.html">2.32. Carbon Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Land-Only_Mode/CLM50_Tech_Note_Land-Only_Mode.html">2.33. Land-Only Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../References/CLM50_Tech_Note_References.html">2.34. References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">2. </span>CLM Technical Note</a> &raquo;</li>
+        
+      <li><span class="section-number">2.22. </span>External Nitrogen Cycle</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/tech_note/External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="external-nitrogen-cycle">
+<span id="rst-external-nitrogen-cycle"></span><h1><span class="section-number">2.22. </span>External Nitrogen Cycle<a class="headerlink" href="#external-nitrogen-cycle" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary-of-clm5-0-updates-relative-to-clm4-5">
+<span id="id1"></span><h2><span class="section-number">2.22.1. </span>Summary of CLM5.0 updates relative to CLM4.5<a class="headerlink" href="#summary-of-clm5-0-updates-relative-to-clm4-5" title="Permalink to this headline">¶</a></h2>
+<p>We describe external inputs to the nitrogen cycle in CLM5.0.  Much of the following information appeared in the CLM4.5 Technical Note (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#olesonetal2013"><span class="std std-ref">Oleson et al. 2013</span></a>) as well as <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#kovenetal2013"><span class="std std-ref">Koven et al. (2013)</span></a>.</p>
+<p>CLM5.0 includes the following changes to terrestrial nitrogen inputs:</p>
+<ul class="simple">
+<li><p>Time varrying deposition of reactive nitrogen. In off-line runs this changes monthly. In coupled simulations N deposition is passed at the coupling timestep (e.g., half-hourly).</p></li>
+<li><p>Asymbiotic (or free living) N fixation is a function of evapotranspiration and is added to the inorganic nitrogen (NH<sub>4</sub><sup>+</sup>) pool (described below).</p></li>
+<li><p>Symbiotic N fixation is handled by the FUN model (chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">2.18</span></a>) and is passed straight to the plant, not the mineral nitrogen pool.</p></li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h2><span class="section-number">2.22.2. </span>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the relatively rapid cycling of nitrogen within the plant
+– litter – soil organic matter system, CLM also represents several
+processes which couple the internal nitrogen cycle to external sources
+and sinks. Inputs of new mineral nitrogen are from atmospheric
+deposition and biological nitrogen fixation. Losses of mineral nitrogen
+are due to nitrification, denitrification, leaching, and losses in fire.
+While the short-term dynamics of nitrogen limitation depend on the
+behavior of the internal nitrogen cycle, establishment of total
+ecosystem nitrogen stocks depends on the balance between sources and
+sinks in the external nitrogen cycle (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#thomasetal2015"><span class="std std-ref">Thomas et al. 2015</span></a>).</p>
+<p>As with CLM4.5, CLM5.0 represents inorganic N transformations based on the Century N-gas model; this
+includes separate NH<sub>4</sub><sup>+</sup> and
+NO<sub>3</sub><sup>-</sup> pools, as well as
+environmentally controlled nitrification and denitrification rates that is described below.</p>
+</div>
+<div class="section" id="atmospheric-nitrogen-deposition">
+<h2><span class="section-number">2.22.3. </span>Atmospheric Nitrogen Deposition<a class="headerlink" href="#atmospheric-nitrogen-deposition" title="Permalink to this headline">¶</a></h2>
+<p>CLM uses a single variable to represent the total deposition of mineral
+nitrogen onto the land surface, combining wet and dry deposition of
+NO<sub>y</sub> and NH<sub>x</sub> as a single flux
+(<img class="math" src="../../_images/math/b25b9ae3b81bca433300d33d8b4ada3defdac196.svg" alt="{NF}_{ndep\_sminn}"/>, gN m<sup>-2</sup> s<sup>-1</sup>). This flux
+is intended to represent total reactive
+nitrogen deposited to the land surface which originates from the
+following natural and anthropogenic sources (Galloway et al. 2004):
+formation of NO<sub>x</sub> during lightning,
+NO<img class="math" src="../../_images/math/5436b69b1e7387be75186c1f44928108fcec1bd3.svg" alt="{}_{x }"/>and NH<sub>3</sub> emission from wildfire,
+NO<sub>x</sub> emission from natural soils, NH<sub>3</sub>
+emission from natural soils, vegetation, and wild animals,
+NO<sub>x</sub> and NH<sub>3</sub> emission during fossil fuel
+combustion (both thermal and fuel NO<sub>x</sub> production),
+NO<sub>x</sub> and NH<sub>3</sub> emission from other industrial
+processes, NO<sub>x</sub> and NH<sub>3</sub> emission from fire
+associated with deforestation, NO<sub>x</sub> and NH<sub>3</sub>
+emission from agricultural burning, NO<sub>x</sub> emission from
+agricultural soils, NH<sub>3</sub> emission from agricultural crops,
+NH<sub>3</sub> emission from agricultural animal waste, and
+NH<sub>3</sub> emission from human waste and waste water. The
+deposition flux is provided as a spatially and (potentially) temporally
+varying dataset (see section <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#atmospheric-coupling"><span class="std std-numref">2.2.3.1</span></a> for a description of the default
+input dataset).</p>
+<p>The nitrogen deposition flux is assumed to enter the NH<sub>4</sub><sup>+</sup> pool,
+and is vertically distributed throughout the soil profile. Although N deposition
+inputs include both oxidized and reduced forms, CLM5 only reads in total
+N deposition. This approach is held over from CLM4.0, which only represented a
+single mineral nitrogen pool, however, real pathways for wet and dry
+nitrogen deposition can be more complex than currently represented in
+the CLM5.0, including release from melting snowpack and direct foliar
+uptake of deposited NO<sub>y</sub> (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#tyeetal2005"><span class="std std-ref">Tye et al. 2005</span></a>;
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#vallanosparks2007"><span class="std std-ref">Vallano and Sparks, 2007</span></a>).</p>
+<p>In offline (uncoupled) CLM5.0 simulations monthly
+estimates of N deposition are provided, as opposed to decadal files
+supplied with previous versions of the model. In coupled simulations,
+N depositions fluxes are passed to the land model at the frequency of
+the time step (every half hour) through the coupler.</p>
+</div>
+<div class="section" id="biological-nitrogen-fixation">
+<h2><span class="section-number">2.22.4. </span>Biological Nitrogen Fixation<a class="headerlink" href="#biological-nitrogen-fixation" title="Permalink to this headline">¶</a></h2>
+<p>The fixation of new reactive nitrogen from atmospheric N<sub>2</sub>
+by soil microorganisms is an important component of both preindustrial
+and modern-day nitrogen budgets, but a mechanistic understanding of
+global-scale controls on biological nitrogen fixation (BNF) is still
+only poorly developed (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#clevelandetal1999"><span class="std std-ref">Cleveland et al. 1999</span></a>;
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#gallowayetal2004"><span class="std std-ref">Galloway et al. 2004</span></a>). CLM5.0 uses the FUN
+model (chapter <a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html#rst-fun"><span class="std std-numref">2.18</span></a>) to
+calculate the carbon cost and nitrogen acquired through symbotic
+nitrogen fixation. This nitrogen is immediately available to plants.</p>
+<p><a class="reference internal" href="../References/CLM50_Tech_Note_References.html#clevelandetal1999"><span class="std std-ref">Cleveland et al. (1999)</span></a> suggested
+an empirical relationships that predicts BNF as a function of
+either evapotranspiration rate or net primary productivity for
+natural vegetation. CLM5.0 adopts the evapotranspiration approach
+to calculate asymbiotic, or free-living, N fixation. This function
+has been modified from the <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#clevelandetal1999"><span class="std std-ref">Cleveland et al. (1999)</span></a> estimates to provide lower estimate of
+free-living nitrogen fixation in CLM5.0
+(<img class="math" src="../../_images/math/f94cbb9ebff0c17a4e0d28bbdd9dcb89927b544b.svg" alt="{CF}_{ann\_ET}"/>, mm yr<sup>-1</sup>).
+This moves away from the NPP approach used in CLM4.0 and 4.5 and
+avoids unrealistically increasing freeliving rates of N fixation
+under global change scenarios (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#wiederetal2015"><span class="std std-ref">Wieder et al. 2015</span></a> The expression used is:</p>
+<div class="math" id="equation-22-1">
+<p><span class="eqno">(2.22.1)<a class="headerlink" href="#equation-22-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6101bdbec9189dd0a4e0f9b1ee9297c27bd67ee8.svg" alt="NF_{nfix,sminn} ={0.0006\left(0.0117+CF_{ann\_ ET}\right)\mathord{\left/ {\vphantom {0.0006\left(0.0117+ CF_{ann\_ ET}\right) \left(86400\cdot 365\right)}} \right. \kern-\nulldelimiterspace} \left(86400\cdot 365\right)}"/></p>
+</div><p>Where <img class="math" src="../../_images/math/69696592e594744679bb482bd3bb39be21131d72.svg" alt="{NF}_{nfix,sminn}"/> (gN m<sup>-2</sup> s<sup>-1</sup>) is the rate of free-living nitrogen fixation in <a class="reference internal" href="#figure-biological-nitrogen-fixation"><span class="std std-numref">Figure 2.22.1</span></a>.</p>
+<div class="figure align-default" id="id2">
+<span id="figure-biological-nitrogen-fixation"></span><img alt="../../_images/image11.png" src="../../_images/image11.png" />
+<p class="caption"><span class="caption-number">Figure 2.22.1 </span><span class="caption-text">Free-living nitrogen fixation as a function of annual evapotranspiration. Results here show annual N inputs from free-living N fixations, but the model actually calculates inputs on a per second basis.</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</div>
+<p>As with Atmospheric N deposition, free-living N inputs are added directly to the
+NH<sub>4</sub><sup>+</sup> pool.</p>
+</div>
+<div class="section" id="nitrification-and-denitrification-losses-of-nitrogen">
+<h2><span class="section-number">2.22.5. </span>Nitrification and Denitrification Losses of Nitrogen<a class="headerlink" href="#nitrification-and-denitrification-losses-of-nitrogen" title="Permalink to this headline">¶</a></h2>
+<p>Nitrification is an autotrophic process that converts less mobile ammonium
+ions into nitrate, that can more easily be lost from soil systems by leaching
+or denitrification.  The process catalyzed by ammonia oxidizing archaea and
+bacteria that convert ammonium (NH<sub>4</sub><sup>+</sup>) into nitrite, which
+is subsequently oxidized into nitrate (NO<sub>3</sub><sup>-</sup>). Conditions
+favoring nitrification include high NH<sub>4</sub><sup>+</sup> concentrations,
+well aerated soils, a neutral pH and warmer temperatures.</p>
+<p>Under aerobic conditions in the soil oxygen is the preferred electron
+acceptor supporting the metabolism of heterotrophs, but anaerobic
+conditions favor the activity of soil heterotrophs which use nitrate as
+an electron acceptor (e.g. <em>Pseudomonas</em> and <em>Clostridium</em>) supporting
+respiration. This process, known as denitrification, results in the
+transformation of nitrate to gaseous N<sub>2</sub>, with smaller
+associated production of NO<sub>x</sub> and N<sub>2</sub>O. It
+is typically assumed that nitrogen fixation and denitrification
+were approximately balanced in the preindustrial biosphere (
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#gallowayetal2004"><span class="std std-ref">Galloway et al. 2004</span></a>). It is likely
+that denitrification can occur within anaerobic
+microsites within an otherwise aerobic soil environment, leading to
+large global denitrification fluxes even when fluxes per unit area are
+rather low (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#gallowayetal2004"><span class="std std-ref">Galloway et al. 2004</span></a>).</p>
+<p>CLM includes a detailed representation of nitrification and
+denitrification based on the Century N model (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#partonetal1996"><span class="std std-ref">Parton
+et al. 1996</span></a>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#partonetal2001"><span class="std std-ref">2001</span></a>;
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#delgrossoetal2000"><span class="std std-ref">del Grosso et al. 2000</span></a>). In this
+approach, nitrification of NH<sub>4</sub><sup>+</sup> to NO<sub>3</sub><sup>-</sup>
+is a function of temperature, moisture, and pH:</p>
+<div class="math" id="equation-22-2">
+<p><span class="eqno">(2.22.2)<a class="headerlink" href="#equation-22-2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/754fcc261328c668270e1fa672fdc7256eedcfc0.svg" alt="f_{nitr,p} =\left[NH_{4} \right]k_{nitr} f\left(T\right)f\left(H_{2} O\right)f\left(pH\right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/d0763a0049bd6e704844818a8e258c6182543e7f.svg" alt="{f}_{nitr,p}"/> is the potential nitrification rate
+(prior to competition for NH<sub>4</sub><sup>+</sup> by plant
+uptake and N immobilization), <img class="math" src="../../_images/math/c51e6a1edf6583b8b60ff41128a16d9a16e5662e.svg" alt="{k}_{nitr}"/> is the maximum
+nitrification rate (10 % day<img class="math" src="../../_images/math/cf1b8501b66d845576e1c695bfeb03585a61cdbe.svg" alt="\mathrm{-}"/>1,
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#partonetal2001"><span class="std std-ref">Parton et al. 2001</span></a>), and <em>f(T)</em> and
+<em>f(H)</em><sub>2</sub>O) are rate modifiers for temperature and
+moisture content. CLM uses the same rate modifiers as
+are used in the decomposition routine. <em>f(pH)</em> is a rate
+modifier for pH; however, because CLM does not calculate pH,
+instead a fixed pH value of 6.5 is used in the pH function of
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#partonetal1996"><span class="std std-ref">Parton et al. (1996)</span></a>.</p>
+<p>The potential denitrification rate is co-limited by
+NO<sup>-3</sup> concentration and C consumption rates, and occurs only in the anoxic fraction of soils:</p>
+<div class="math" id="equation-22-3">
+<p><span class="eqno">(2.22.3)<a class="headerlink" href="#equation-22-3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3d83924538d099c8ba826044c8ea5d784db74b7d.svg" alt="f_{denitr,p} =\min \left(f(decomp),f\left(\left[NO_{3} ^{-} \right]\right)\right)frac_{anox}"/></p>
+</div><p>where <img class="math" src="../../_images/math/615eec489e90e9fb9f953b7669d592276df4ce3c.svg" alt="{f}_{denitr,p}"/> is the potential denitrification rate
+and <em>f(decomp)</em> and <em>f([NO</em><sub>3</sub><sup>-</sup> <em>])</em>
+are the carbon- and nitrate- limited denitrification rate functions,
+respectively, (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#delgrossoetal2000"><span class="std std-ref">del Grosso et al. 2000</span></a>).
+Because the modified CLM includes explicit treatment of soil
+biogeochemical vertical profiles, including diffusion of the trace
+gases O<sub>2</sub> and CH<sub>4</sub> (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#rileyetal2011a"><span class="std std-ref">Riley et al. 2011a</span></a>), the calculation of anoxic fraction  <img class="math" src="../../_images/math/c0be741fe8768ce6cdff4a5913a5a8ecc9835432.svg" alt="{frac}_{anox}"/>
+uses this information following the anoxic microsite formulation
+of <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#arahvinten1995"><span class="std std-ref">Arah and Vinten (1995)</span></a>.</p>
+<div class="math" id="equation-22-4">
+<p><span class="eqno">(2.22.4)<a class="headerlink" href="#equation-22-4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6e36af8fe7b96c3d84bf5f1086983904b73f08d5.svg" alt="frac_{anox} =\exp \left(-aR_{\psi }^{-\alpha } V^{-\beta } C^{\gamma } \left[\theta +\chi \varepsilon \right]^{\delta } \right)"/></p>
+</div><p>where <em>a</em>, <img class="math" src="../../_images/math/2f5aa019312e1bbc969deab8dca8b00f76025404.svg" alt="\alpha"/>, <img class="math" src="../../_images/math/7138dad9ac96835665b17f5817eacfcaa9b834c9.svg" alt="\beta"/>, <img class="math" src="../../_images/math/34d137cf01c787ecda732761c3f95b0f65a6c3e9.svg" alt="\gamma"/>, and <img class="math" src="../../_images/math/652b9d8b65c10aed0fdcdbde47396c879ed5bd33.svg" alt="\delta"/> are constants (equal to
+1.5x10<sup>-10</sup>, 1.26, 0.6, 0.6, and 0.85, respectively), <img class="math" src="../../_images/math/c9b328390c6c83b7054db78fa0f1267f1688644f.svg" alt="{R}_{\psi}"/> is the
+radius of a typical pore space at moisture content <img class="math" src="../../_images/math/b6c245d487949782a89cab9ee83504a62fdc2337.svg" alt="\psi"/>, <em>V</em>
+is the O<sub>2</sub> consumption rate, <em>C</em> is the O<sub>2</sub>
+concentration, <img class="math" src="../../_images/math/8a87f04e7d7cca18343c084cceca5237fae62491.svg" alt="\theta"/> is the water-filled pore space,
+<img class="math" src="../../_images/math/52b130781cb6e2b47a5efb235ac1cb4162210d12.svg" alt="\chi"/> is the ratio of diffusivity of oxygen in water to that in
+air, and <img class="math" src="../../_images/math/0ad7b30534898f253002222f998f38001e604648.svg" alt="\epsilon"/> is the air-filled pore space (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#arahvinten1995"><span class="std std-ref">Arah and
+Vinten (1995)</span></a>). These parameters are all calculated
+separately at each
+layer to define a profile of anoxic porespace fraction in the soil.</p>
+<p>The nitrification/denitrification models used here also predict fluxes
+of N<sub>2</sub>O via a “hole-in-the-pipe” approach (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#firestonedavidson1989"><span class="std std-ref">Firestone and
+Davidson, 1989</span></a>). A constant fraction
+(6 * 10<img class="math" src="../../_images/math/1b7e1bd4c66438b8517e79609b46f14b4a6354cd.svg" alt="{}^{-4}"/>, <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#lietal2000"><span class="std std-ref">Li et al. 2000</span></a>) of the
+nitrification flux is assumed to be N<sub>2</sub>O, while the fraction
+of denitrification going to N<sub>2</sub>O, <img class="math" src="../../_images/math/052f584341041303f7c029f9b77dd6f6df9d92ea.svg" alt="{P}_{N2:N2O}"/>, is variable, following
+the Century (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#delgrossoetal2000"><span class="std std-ref">del Grosso et al. 2000</span></a>) approach:</p>
+<div class="math" id="equation-22-5">
+<p><span class="eqno">(2.22.5)<a class="headerlink" href="#equation-22-5" title="Permalink to this equation">¶</a></span><img src="../../_images/math/38a0248a73cc501f6e1693c2cc7eacdc3ee48d45.svg" alt="P_{N_{2} :N_{2} O} =\max \left(0.16k_{1} ,k_{1} \exp \left(-0.8P_{NO_{3} :CO_{2} } \right)\right)f_{WFPS}"/></p>
+</div><p>where <img class="math" src="../../_images/math/e3c2c9aadd89de0bfa1ab6f55d898f03cae64c92.svg" alt="{P}_{NO3:CO2}"/> is the ratio of CO<sub>2</sub>
+production in a given soil layer to the
+NO<sub>3</sub><sup>-`</sup> concentration, <img class="math" src="../../_images/math/0040771b628d88a7f8f956bdfbd9691c6d124f6b.svg" alt="{k}_{1}"/> is
+a function of <img class="math" src="../../_images/math/fb823e0d956635fc829dc2292dd3ba966923870a.svg" alt="{d}_{g}"/>, the gas diffusivity through the soil
+matrix:</p>
+<div class="math" id="equation-22-6">
+<p><span class="eqno">(2.22.6)<a class="headerlink" href="#equation-22-6" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6c2ba2d75ee82e854cf2b77724b06b8f4bf146bf.svg" alt="k_{1} =\max \left(1.7,38.4-350*d_{g} \right)"/></p>
+</div><p>and <img class="math" src="../../_images/math/09a223d563632c0243b3e6e2fe35faa759be3c19.svg" alt="{f}_{WFPS}"/> is a function of the water filled pore space <em>WFPS:</em></p>
+<div class="math" id="equation-22-16">
+<p><span class="eqno">(2.22.7)<a class="headerlink" href="#equation-22-16" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9db41df7450431144824a26bea5a507dbbe0b275.svg" alt="f_{WFPS} =\max \left(0.1,0.015\times WFPS-0.32\right)"/></p>
+</div></div>
+<div class="section" id="leaching-losses-of-nitrogen">
+<h2><span class="section-number">2.22.6. </span>Leaching Losses of Nitrogen<a class="headerlink" href="#leaching-losses-of-nitrogen" title="Permalink to this headline">¶</a></h2>
+<p>Soil mineral nitrogen remaining after plant uptake, immobilization, and
+denitrification is subject to loss as a dissolved component of
+hydrologic outflow from the soil column (leaching). This leaching loss
+(<img class="math" src="../../_images/math/2f0957d6c4f94ae55701f7daa4c2505275da3628.svg" alt="{NF}_{leached}"/>, gN m<sup>-2</sup> s<sup>-1</sup>)
+depends on the concentration of dissolved mineral (inorganic) nitrogen
+in soil water solution (<em>DIN</em>, gN kgH<sub>2</sub>O), and the rate
+of hydrologic discharge from the soil column to streamflow
+(<img class="math" src="../../_images/math/c70ea6b9fe0e4a1084b985f6156740e5ecc5f36c.svg" alt="{Q}_{dis}"/>, kgH<sub>2</sub>O m<sup>-2</sup>
+s<sup>-1</sup>, section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#lateral-sub-surface-runoff"><span class="std std-numref">2.7.5</span></a>), as</p>
+<div class="math" id="equation-22-17">
+<p><span class="eqno">(2.22.8)<a class="headerlink" href="#equation-22-17" title="Permalink to this equation">¶</a></span><img src="../../_images/math/dc760e8d5b03aab20aadecb68e0fb5f9764bc064.svg" alt="NF_{leached} =DIN\cdot Q_{dis} ."/></p>
+</div><p><em>DIN</em> is calculated assuming that a constant fraction (<em>sf</em>, proportion)
+of the remaining soil mineral N pool is in soluble form, and that this
+entire fraction is dissolved in the total soil water.  For the Century-
+based formulation in CLM5.0, the leaching acts only on the
+NO<sub>3</sub><sup>-`</sup> pool (which is assumed to be 100%
+soluble), while the NH<sub>4</sub><sup>+</sup> pool is assumed
+to be 100% adsorbed onto mineral surfaces and unaffected by leaching.
+<em>DIN</em> is then given as</p>
+<div class="math" id="equation-22-18">
+<p><span class="eqno">(2.22.9)<a class="headerlink" href="#equation-22-18" title="Permalink to this equation">¶</a></span><img src="../../_images/math/634dcd47e2058b4668b44d8267d2a859d4459287.svg" alt="DIN=\frac{NS_{sminn} sf}{WS_{tot\_ soil} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/2122a083390a60476bda0774bde44a11af607fdc.svg" alt="{WS}_{tot\_soil}"/> (kgH:sub:<cite>2</cite>O m<sup>-2</sup>) is the total mass of soil water content integrated
+over the column. The total mineral nitrogen leaching flux is limited on
+each time step to not exceed the soluble fraction of <img class="math" src="../../_images/math/1bd308ab933525ea04313102086567234ab0ba48.svg" alt="{NS}_{sminn}"/></p>
+<div class="math" id="equation-22-19">
+<p><span class="eqno">(2.22.10)<a class="headerlink" href="#equation-22-19" title="Permalink to this equation">¶</a></span><img src="../../_images/math/516c2f81223ef184e7ed79b13e1a5d409b393c20.svg" alt="NF_{leached} =\min \left(NF_{leached} ,\frac{NS_{sminn} sf}{\Delta t} \right)."/></p>
+</div></div>
+<div class="section" id="losses-of-nitrogen-due-to-fire">
+<h2><span class="section-number">2.22.7. </span>Losses of Nitrogen Due to Fire<a class="headerlink" href="#losses-of-nitrogen-due-to-fire" title="Permalink to this headline">¶</a></h2>
+<p>The final pathway for nitrogen loss is through combustion, also known as
+pyrodenitrification. Detailed equations are provided, together with the
+effects of fire on the carbon budget, in Chapter <a class="reference internal" href="../Fire/CLM50_Tech_Note_Fire.html#rst-fire"><span class="std std-numref">2.24</span></a>). It is assumed in
+CLM-CN that losses of N due to fire are restricted to vegetation and
+litter pools (including coarse woody debris). Loss rates of N are
+determined by the fraction of biomass lost to combustion, assuming that
+most of the nitrogen in the burned biomass is lost to the atmosphere
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#schlesinger1997"><span class="std std-ref">Schlesinger, 1997</span></a>; <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#smithetal2005"><span class="std std-ref">Smith et al. 2005</span></a>). It is assumed that soil organic
+matter pools of carbon and nitrogen are not directly affected by fire
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#neffetal2005"><span class="std std-ref">Neff et al. 2005</span></a>).</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Plant_Mortality/CLM50_Tech_Note_Plant_Mortality.html" class="btn btn-neutral float-right" title="2.23. Plant Mortality" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../Decomposition/CLM50_Tech_Note_Decomposition.html" class="btn btn-neutral" title="2.21. Decomposition" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

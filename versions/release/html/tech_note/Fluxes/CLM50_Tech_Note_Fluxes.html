@@ -1,0 +1,1565 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.5. Momentum, Sensible Heat, and Latent Heat Fluxes &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="2. CLM Technical Note" href="../index.html"/>
+        <link rel="next" title="2.6. Soil and Snow Temperatures" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html"/>
+        <link rel="prev" title="2.4. Radiative Fluxes" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../users_guide/index.html">1. CLM5.0 User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">2. CLM Technical Note</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/CLM50_Tech_Note_Introduction.html">2.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html">2.2. Surface Characterization, Vertical Discretization, and Model Input Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Surface_Albedos/CLM50_Tech_Note_Surface_Albedos.html">2.3. Surface Albedos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html">2.4. Radiative Fluxes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.5. Momentum, Sensible Heat, and Latent Heat Fluxes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#monin-obukhov-similarity-theory">2.5.1. Monin-Obukhov Similarity Theory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sensible-and-latent-heat-fluxes-for-non-vegetated-surfaces">2.5.2. Sensible and Latent Heat Fluxes for Non-Vegetated Surfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces">2.5.3. Sensible and Latent Heat Fluxes and Temperature for Vegetated Surfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#theory">2.5.3.1. Theory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#numerical-implementation">2.5.3.2. Numerical Implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#update-of-ground-sensible-and-latent-heat-fluxes">2.5.4. Update of Ground Sensible and Latent Heat Fluxes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#saturation-vapor-pressure">2.5.5. Saturation Vapor Pressure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html">2.6. Soil and Snow Temperatures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html">2.7. Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html">2.8. Snow Hydrology</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html">2.9. Stomatal Resistance and Photosynthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html">2.10. Photosynthetic Capacity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Hydraulics/CLM50_Tech_Note_Plant_Hydraulics.html">2.11. Plant Hydraulics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html">2.12. Lake Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Glacier/CLM50_Tech_Note_Glacier.html">2.13. Glaciers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MOSART/CLM50_Tech_Note_MOSART.html">2.14. Model for Scale Adaptive River Transport (MOSART)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Urban/CLM50_Tech_Note_Urban.html">2.15. Urban Model (CLMU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Pools/CLM50_Tech_Note_CN_Pools.html">2.16. CN Pools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Respiration/CLM50_Tech_Note_Plant_Respiration.html">2.17. Plant Respiration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../FUN/CLM50_Tech_Note_FUN.html">2.18. Fixation and Uptake of Nitrogen (FUN)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html">2.19. Carbon and Nitrogen Allocation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html">2.20. Vegetation Phenology and Turnover</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decomposition/CLM50_Tech_Note_Decomposition.html">2.21. Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../External_Nitrogen_Cycle/CLM50_Tech_Note_External_Nitrogen_Cycle.html">2.22. External Nitrogen Cycle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Plant_Mortality/CLM50_Tech_Note_Plant_Mortality.html">2.23. Plant Mortality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fire/CLM50_Tech_Note_Fire.html">2.24. Fire</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Methane/CLM50_Tech_Note_Methane.html">2.25. Methane Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Crop_Irrigation/CLM50_Tech_Note_Crop_Irrigation.html">2.26. Crops and Irrigation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Transient_Landcover/CLM50_Tech_Note_Transient_Landcover.html">2.27. Transient Land Use and Land Cover Change</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html">2.28. Dynamic Global Vegetation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../DGVM/CLM50_Tech_Note_DGVM.html#technical-documentation-for-fates">2.29. Technical Documentation for FATES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BVOCs/CLM50_Tech_Note_BVOCs.html">2.30. Biogenic Volatile Organic Compounds (BVOCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Dust/CLM50_Tech_Note_Dust.html">2.31. Dust Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Isotopes/CLM50_Tech_Note_Isotopes.html">2.32. Carbon Isotopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Land-Only_Mode/CLM50_Tech_Note_Land-Only_Mode.html">2.33. Land-Only Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../References/CLM50_Tech_Note_References.html">2.34. References</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">2. </span>CLM Technical Note</a> &raquo;</li>
+        
+      <li><span class="section-number">2.5. </span>Momentum, Sensible Heat, and Latent Heat Fluxes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/tech_note/Fluxes/CLM50_Tech_Note_Fluxes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="momentum-sensible-heat-and-latent-heat-fluxes">
+<span id="rst-momentum-sensible-heat-and-latent-heat-fluxes"></span><h1><span class="section-number">2.5. </span>Momentum, Sensible Heat, and Latent Heat Fluxes<a class="headerlink" href="#momentum-sensible-heat-and-latent-heat-fluxes" title="Permalink to this headline">¶</a></h1>
+<p>The zonal <img class="math" src="../../_images/math/a90a310ebff7afbce9b50817ed36ea2065ff78e2.svg" alt="\tau _{x}"/>  and meridional <img class="math" src="../../_images/math/cd74ac25a5485170d2abd54e5464bb98632dbce3.svg" alt="\tau _{y}"/>  momentum
+fluxes (kg m<sup>-1</sup> s<sup>-2</sup>), sensible heat flux
+<img class="math" src="../../_images/math/cb5de54f699cf4b3c7c1a3e87313d11d536c0d88.svg" alt="H"/> (W m<sup>-2</sup>), and water vapor flux <img class="math" src="../../_images/math/1815f600df7845409443aed470eac2d449e4ddb0.svg" alt="E"/> (kg m<sup>-2</sup> s<sup>-1</sup>) between the atmosphere at
+reference height <img class="math" src="../../_images/math/2df88534edb9b75f931c83fc84b38d36ba4f80cb.svg" alt="z_{atm,\, x}"/>  (m) [where <img class="math" src="../../_images/math/888f7c323ac0341871e867220ae2d76467d74d6e.svg" alt="x"/> is height
+for wind (momentum) (<img class="math" src="../../_images/math/e9bc7da808d33a16a8347f27a519bd067186aa66.svg" alt="m"/>), temperature (sensible heat)
+(<img class="math" src="../../_images/math/4c120f773ab4e1c59ad2bd44aae969ce24dd190a.svg" alt="h"/>), and humidity (water vapor) (<img class="math" src="../../_images/math/cc87ee665749db882f94e0d3707eb23e39638650.svg" alt="w"/>); with zonal and
+meridional winds <img class="math" src="../../_images/math/c29be431d76209d110ff5be1e1cd0536e08a2162.svg" alt="u_{atm}"/>  and <img class="math" src="../../_images/math/fb50f7ca086ea4d8525bce6ca7745332fd05ac8b.svg" alt="v_{atm}"/>  (m
+s<sup>-1</sup>), potential temperature <img class="math" src="../../_images/math/af2f2fe15f712f41bfd5d61f3812d9b24068c0de.svg" alt="\theta _{atm}"/>  (K),
+and specific humidity <img class="math" src="../../_images/math/885134885c18e4056938b65622871e57d85052ea.svg" alt="q_{atm}"/>  (kg kg<sup>-1</sup>)] and the
+surface [with <img class="math" src="../../_images/math/3ed754ab52006246cb61d9b06f85baab12e5643d.svg" alt="u_{s}"/> , <img class="math" src="../../_images/math/c2d0db4740470a146ef1b4a15b37b272633dc51f.svg" alt="v_{s}"/> , <img class="math" src="../../_images/math/d3b6c6d729146d6f43461ba7ba24d9aed9baa8ea.svg" alt="\theta _{s}"/> , and
+<img class="math" src="../../_images/math/127bb8489d5544b0e2d3bd4748b5d04c9a4acdce.svg" alt="q_{s}"/> ] are</p>
+<div class="math" id="equation-5-1">
+<p><span class="eqno">(2.5.1)<a class="headerlink" href="#equation-5-1" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d7dca5f8baa0e057c7b3540a70dcc65e7c67c6f6.svg" alt="\tau _{x} =-\rho _{atm} \frac{\left(u_{atm} -u_{s} \right)}{r_{am} }"/></p>
+</div><div class="math" id="equation-5-2">
+<p><span class="eqno">(2.5.2)<a class="headerlink" href="#equation-5-2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ed2bde6217bf4659bbea52877bc653ba88557360.svg" alt="\tau _{y} =-\rho _{atm} \frac{\left(v_{atm} -v_{s} \right)}{r_{am} }"/></p>
+</div><div class="math" id="equation-5-3">
+<p><span class="eqno">(2.5.3)<a class="headerlink" href="#equation-5-3" title="Permalink to this equation">¶</a></span><img src="../../_images/math/997f9380c82b56b023d7913292adaf15217facef.svg" alt="H=-\rho _{atm} C_{p} \frac{\left(\theta _{atm} -\theta _{s} \right)}{r_{ah} }"/></p>
+</div><div class="math" id="equation-5-4">
+<p><span class="eqno">(2.5.4)<a class="headerlink" href="#equation-5-4" title="Permalink to this equation">¶</a></span><img src="../../_images/math/82f25e46f2695c9118c1175a639d94f625a96c36.svg" alt="E=-\rho _{atm} \frac{\left(q_{atm} -q_{s} \right)}{r_{aw} } ."/></p>
+</div><p>These fluxes are derived in the next section from Monin-Obukhov
+similarity theory developed for the surface layer (i.e., the nearly
+constant flux layer above the surface sublayer). In this derivation,
+<img class="math" src="../../_images/math/3ed754ab52006246cb61d9b06f85baab12e5643d.svg" alt="u_{s}"/>  and <img class="math" src="../../_images/math/c2d0db4740470a146ef1b4a15b37b272633dc51f.svg" alt="v_{s}"/>  are defined to equal zero at height
+<img class="math" src="../../_images/math/63dd1d70e5ee1579d3b56e0c1b28d51e876aaf8c.svg" alt="z_{0m} +d"/> (the apparent sink for momentum) so that
+<img class="math" src="../../_images/math/15213a2ac305f78767254ec4339ad668ca53dee9.svg" alt="r_{am}"/>  is the aerodynamic resistance (s m<sup>-1</sup>) for
+momentum between the atmosphere at height <img class="math" src="../../_images/math/b83f0adecf4e431a0796e25984ec73fdadc1346d.svg" alt="z_{atm,\, m}"/>  and the
+surface at height <img class="math" src="../../_images/math/63dd1d70e5ee1579d3b56e0c1b28d51e876aaf8c.svg" alt="z_{0m} +d"/>. Thus, the momentum fluxes become</p>
+<div class="math" id="equation-5-5">
+<p><span class="eqno">(2.5.5)<a class="headerlink" href="#equation-5-5" title="Permalink to this equation">¶</a></span><img src="../../_images/math/111c213a510fb0751d445b9aa97dca9aa4b2da74.svg" alt="\tau _{x} =-\rho _{atm} \frac{u_{atm} }{r_{am} }"/></p>
+</div><div class="math" id="equation-5-6">
+<p><span class="eqno">(2.5.6)<a class="headerlink" href="#equation-5-6" title="Permalink to this equation">¶</a></span><img src="../../_images/math/984f6b9f18c1e5871e1ff273a7c3a88ab9f9da7b.svg" alt="\tau _{y} =-\rho _{atm} \frac{v_{atm} }{r_{am} } ."/></p>
+</div><p>Likewise, <img class="math" src="../../_images/math/d3b6c6d729146d6f43461ba7ba24d9aed9baa8ea.svg" alt="\theta _{s}"/>  and <img class="math" src="../../_images/math/127bb8489d5544b0e2d3bd4748b5d04c9a4acdce.svg" alt="q_{s}"/>  are defined at
+heights <img class="math" src="../../_images/math/01a5f1fc868691660edf7d1279fcd87ca6913a97.svg" alt="z_{0h} +d"/> and <img class="math" src="../../_images/math/3bac5d4734174f524ca3b3904f59bdc2202b7660.svg" alt="z_{0w} +d"/> (the apparent sinks for
+heat and water vapor, respectively</p>
+<p><img class="math" src="../../_images/math/85a0c80ad359f97cb02cc5171e92ae204c6e9ec8.svg" alt="r_{aw}"/>  are the aerodynamic resistances (s m<sup>-1</sup>)
+to sensible heat and water vapor transfer between the atmosphere at
+heights <img class="math" src="../../_images/math/2af7dd1ff334bcd62a67b28aecb736e30b118581.svg" alt="z_{atm,\, h}"/>  and <img class="math" src="../../_images/math/37ba0c6b09ed71c4b0394275000dab163f017fea.svg" alt="z_{atm,\, w}"/>  and the surface
+at heights <img class="math" src="../../_images/math/01a5f1fc868691660edf7d1279fcd87ca6913a97.svg" alt="z_{0h} +d"/> and <img class="math" src="../../_images/math/3bac5d4734174f524ca3b3904f59bdc2202b7660.svg" alt="z_{0w} +d"/>, respectively. The
+specific heat capacity of air <img class="math" src="../../_images/math/8989d060c617786544e17af5ab94a15848aed0b5.svg" alt="C_{p}"/>  (J kg<sup>-1</sup>
+K<sup>-1</sup>) is a constant (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>). The atmospheric potential
+temperature used here is</p>
+<div class="math" id="equation-5-7">
+<p><span class="eqno">(2.5.7)<a class="headerlink" href="#equation-5-7" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9b4ea2c32c7cd00b0111d8f11932c8539a26a807.svg" alt="\theta _{atm} =T_{atm} +\Gamma _{d} z_{atm,\, h}"/></p>
+</div><p>where <img class="math" src="../../_images/math/8f206aba68b1dec84f4148fc27b767d2d09a545b.svg" alt="T_{atm}"/>  is the air temperature (K) at height
+<img class="math" src="../../_images/math/2af7dd1ff334bcd62a67b28aecb736e30b118581.svg" alt="z_{atm,\, h}"/>  and <img class="math" src="../../_images/math/95e15ae6fb933d9821ec850587261bfb6aebfddc.svg" alt="\Gamma _{d} =0.0098"/> K
+m<sup>-1</sup> is the negative of the dry adiabatic lapse rate [this
+expression is first-order equivalent to
+<img class="math" src="../../_images/math/0af27eb488ca990e359131c1ab65b31a52e212bc.svg" alt="\theta _{atm} =T_{atm} \left({P_{srf} \mathord{\left/ {\vphantom {P_{srf}  P_{atm} }} \right. \kern-\nulldelimiterspace} P_{atm} } \right)^{{R_{da} \mathord{\left/ {\vphantom {R_{da}  C_{p} }} \right. \kern-\nulldelimiterspace} C_{p} } }"/>
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#stull1988"><span class="std std-ref">Stull 1988</span></a>), where <img class="math" src="../../_images/math/f47d9befbabe8b67dce4db9df2efe3af2fc82dab.svg" alt="P_{srf}"/>  is the surface pressure (Pa),
+<img class="math" src="../../_images/math/ff05e47d449c882a4b702cc6b3e8c247ebb0feca.svg" alt="P_{atm}"/>  is the atmospheric pressure (Pa), and <img class="math" src="../../_images/math/a4c54778e1a83db2d753043162693fc8b2a8056e.svg" alt="R_{da}"/>
+is the gas constant for dry air (J kg<sup>-1</sup> K<sup>-1</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>)]. By definition,
+<img class="math" src="../../_images/math/875543972f37607161ef5a9114634a679fa4765c.svg" alt="\theta _{s} =T_{s}"/> . The density of moist air (kg m<sup>-3</sup>) is</p>
+<div class="math" id="equation-5-8">
+<p><span class="eqno">(2.5.8)<a class="headerlink" href="#equation-5-8" title="Permalink to this equation">¶</a></span><img src="../../_images/math/303f25b15cb8b8f31b0ecbec8fa9ceb13de54e34.svg" alt="\rho _{atm} =\frac{P_{atm} -0.378e_{atm} }{R_{da} T_{atm} }"/></p>
+</div><p>where the atmospheric vapor pressure <img class="math" src="../../_images/math/4fcbeb74ff93152703661c9b021cf4cdac11f5d9.svg" alt="e_{atm}"/>  (Pa) is derived
+from the atmospheric specific humidity <img class="math" src="../../_images/math/885134885c18e4056938b65622871e57d85052ea.svg" alt="q_{atm}"/></p>
+<div class="math" id="equation-5-9">
+<p><span class="eqno">(2.5.9)<a class="headerlink" href="#equation-5-9" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c79783eb2081fe8778c4333f231d59bf38e15390.svg" alt="e_{atm} =\frac{q_{atm} P_{atm} }{0.622+0.378q_{atm} } ."/></p>
+</div><div class="section" id="monin-obukhov-similarity-theory">
+<span id="id1"></span><h2><span class="section-number">2.5.1. </span>Monin-Obukhov Similarity Theory<a class="headerlink" href="#monin-obukhov-similarity-theory" title="Permalink to this headline">¶</a></h2>
+<p>The surface vertical kinematic fluxes of momentum
+<img class="math" src="../../_images/math/776525df4b009985011b0122bc4821132e49ddb5.svg" alt="\overline{u'w'}"/> and <img class="math" src="../../_images/math/bf9bebb0943fe4f5e519a08995768952b823d98f.svg" alt="\overline{v'w'}"/> (m<sup>2</sup> s<sub>-2</sub>), sensible heat <img class="math" src="../../_images/math/86b292cd82221ebf4321985371227dcb545f4e72.svg" alt="\overline{\theta 'w'}"/>
+(K m s <sup>-1</sup>), and latent heat <img class="math" src="../../_images/math/f5904d1fd9d694cfc33fe4ba54a7d693389514fd.svg" alt="\overline{q'w'}"/> (kg kg<sup>-1</sup> m s<sup>-1</sup>), where <img class="math" src="../../_images/math/142bd33bf565a5153193942134b754a2a398f8e2.svg" alt="u'"/>, <img class="math" src="../../_images/math/24c10c2ab2d74d5e54a79510bb4aee1ff71261b1.svg" alt="v'"/>,
+<img class="math" src="../../_images/math/5d790d2228d5d10ec4fce20ccf3aeb8df14b7a22.svg" alt="w'"/>, <img class="math" src="../../_images/math/ab84d4a6082e9b6f89f62ec01137ece5709ff2bf.svg" alt="\theta '"/>, and <img class="math" src="../../_images/math/ea8d6810deb9eac495c1e9e07be00b67f65284e3.svg" alt="q'"/> are zonal horizontal wind,
+meridional horizontal wind, vertical velocity, potential temperature,
+and specific humidity turbulent fluctuations about the mean, are defined
+from Monin-Obukhov similarity applied to the surface layer. This theory
+states that when scaled appropriately, the dimensionless mean horizontal
+wind speed, mean potential temperature, and mean specific humidity
+profile gradients depend on unique functions of
+<img class="math" src="../../_images/math/3c113e35b4aee7e0aa3ade564d18fa136634dc92.svg" alt="\zeta =\frac{z-d}{L}"/>  (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#zengetal1998"><span class="std std-ref">Zeng et al. 1998</span></a>) as</p>
+<div class="math" id="equation-5-10">
+<p><span class="eqno">(2.5.10)<a class="headerlink" href="#equation-5-10" title="Permalink to this equation">¶</a></span><img src="../../_images/math/394bcd056f574e188f8faa86e2941fa8e6f87332.svg" alt="\frac{k\left(z-d\right)}{u_{*} } \frac{\partial \left|{\it u}\right|}{\partial z} =\phi _{m} \left(\zeta \right)"/></p>
+</div><div class="math" id="equation-5-11">
+<p><span class="eqno">(2.5.11)<a class="headerlink" href="#equation-5-11" title="Permalink to this equation">¶</a></span><img src="../../_images/math/71424ee2c955a73d2324e109281817f3fd685525.svg" alt="\frac{k\left(z-d\right)}{\theta _{*} } \frac{\partial \theta }{\partial z} =\phi _{h} \left(\zeta \right)"/></p>
+</div><div class="math" id="equation-5-12">
+<p><span class="eqno">(2.5.12)<a class="headerlink" href="#equation-5-12" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9ac25e74cc87ca725c09b46511ceadb8900458fb.svg" alt="\frac{k\left(z-d\right)}{q_{*} } \frac{\partial q}{\partial z} =\phi _{w} \left(\zeta \right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/8d051150f8669295ecdbe92367941012175a824d.svg" alt="z"/> is height in the surface layer (m), <img class="math" src="../../_images/math/badad346f6fbe2e237af99bfbd9a93a4da53a3da.svg" alt="d"/> is the
+displacement height (m), <img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/> is the Monin-Obukhov length scale (m)
+that accounts for buoyancy effects resulting from vertical density
+gradients (i.e., the atmospheric stability), k is the von Karman
+constant (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>), and <img class="math" src="../../_images/math/92128828b43cdf0adc4ff7d99ca6c0ca76c89798.svg" alt="\left|{\it u}\right|"/> is the
+atmospheric wind speed (m s<sup>-1</sup>). <img class="math" src="../../_images/math/efdec00596f9359266e459675bc7a3e1ec111d01.svg" alt="\phi _{m}"/> ,
+<img class="math" src="../../_images/math/7dfcd14faa52b342022c51476105b4a4b1e589b6.svg" alt="\phi _{h}"/> , and <img class="math" src="../../_images/math/7ad081d318c42d90036391eb4c87ddfed6761f53.svg" alt="\phi _{w}"/>  are universal (over any
+surface) similarity functions of <img class="math" src="../../_images/math/3ef1157ea7221d7eda6098e1fd7a04a28a555e6d.svg" alt="\zeta"/>  that relate the constant
+fluxes of momentum, sensible heat, and latent heat to the mean profile
+gradients of <img class="math" src="../../_images/math/92128828b43cdf0adc4ff7d99ca6c0ca76c89798.svg" alt="\left|{\it u}\right|"/>, <img class="math" src="../../_images/math/8a87f04e7d7cca18343c084cceca5237fae62491.svg" alt="\theta"/> , and
+<img class="math" src="../../_images/math/a5fa84b363f309ebc8fe7db38304541732c7de9a.svg" alt="q"/> in the surface layer. In neutral conditions,
+<img class="math" src="../../_images/math/509cad371b54e8f96e4c9f0b9d19e323bc95f419.svg" alt="\phi _{m} =\phi _{h} =\phi _{w} =1"/>. The velocity (i.e., friction
+velocity) <img class="math" src="../../_images/math/516b9c30962238d94ecafe606557781201918e30.svg" alt="u_{\*}"/>  (m s<sup>-1</sup>), temperature
+<img class="math" src="../../_images/math/688481d5a00fecf2c9055f48edc6f35ec7f5fa16.svg" alt="\theta _{\*}"/>  (K), and moisture <img class="math" src="../../_images/math/07d9fe1c03450407ca9a97585194ac78e8fefc76.svg" alt="q_{\*}"/>  (kg kg<sup>-1</sup>) scales are</p>
+<div class="math" id="equation-5-13">
+<p><span class="eqno">(2.5.13)<a class="headerlink" href="#equation-5-13" title="Permalink to this equation">¶</a></span><img src="../../_images/math/653ba1109df06fd87cfcad404b1361f60eceeaeb.svg" alt="u_{*}^{2} =\sqrt{\left(\overline{u'w'}\right)^{2} +\left(\overline{v'w'}\right)^{2} } =\frac{\left|{\it \tau }\right|}{\rho _{atm} }"/></p>
+</div><div class="math" id="equation-5-14">
+<p><span class="eqno">(2.5.14)<a class="headerlink" href="#equation-5-14" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1194f08de3ed59aca907005bad252cdfc07ad1cd.svg" alt="\theta _{*} u_{*} =-\overline{\theta 'w'}=-\frac{H}{\rho _{atm} C_{p} }"/></p>
+</div><div class="math" id="equation-5-15">
+<p><span class="eqno">(2.5.15)<a class="headerlink" href="#equation-5-15" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fdef2d2474103b58d533ca21bebadae0a8326e47.svg" alt="q_{*} u_{*} =-\overline{q'w'}=-\frac{E}{\rho _{atm} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/9d1b2d29e1c64dacc0b32c3407f770bfdedfe8ce.svg" alt="\left|{\it \tau }\right|"/> is the shearing stress (kg m<sup>-1</sup> s<sup>-2</sup>), with zonal and meridional
+components <img class="math" src="../../_images/math/7a9ed8a415521342c60df1032b9ea688808ffb04.svg" alt="\overline{u'w'}=-\frac{\tau _{x} }{\rho _{atm} }"/>  and
+<img class="math" src="../../_images/math/b6bb0dd53cd7e52c3e8844dcfcff7723be08aa7e.svg" alt="\overline{v'w'}=-\frac{\tau _{y} }{\rho _{atm} }"/> , respectively,
+<img class="math" src="../../_images/math/cb5de54f699cf4b3c7c1a3e87313d11d536c0d88.svg" alt="H"/> is the sensible heat flux (W m<sup>-2</sup>) and <img class="math" src="../../_images/math/1815f600df7845409443aed470eac2d449e4ddb0.svg" alt="E"/>
+is the water vapor flux (kg m<sup>-2</sup> s<sup>-1</sup>).</p>
+<p>The length scale <img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/> is the Monin-Obukhov length defined as</p>
+<div class="math" id="equation-5-16">
+<p><span class="eqno">(2.5.16)<a class="headerlink" href="#equation-5-16" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c23a9f8e1c4b72f9656f239f2743201874b5ed56.svg" alt="L=-\frac{u_{*}^{3} }{k\left(\frac{g}{\overline{\theta _{v,\, atm} }} \right)\theta '_{v} w'} =\frac{u_{*}^{2} \overline{\theta _{v,\, atm} }}{kg\theta _{v*} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/157ba5711de84b4c715a0478fd8ae440e596d96e.svg" alt="g"/> is the acceleration of gravity (m s<sup>-2</sup>)
+(<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>), and
+<img class="math" src="../../_images/math/0f6bd64195fb8a40fa63ab69c7d4e3cb7ac409fd.svg" alt="\overline{\theta _{v,\, atm} }=\overline{\theta _{atm} }\left(1+0.61q_{atm} \right)"/>
+is the reference virtual potential temperature. <img class="math" src="../../_images/math/8d47f093d4bac307a27b7ea2715301f841cb4940.svg" alt="L&gt;0"/> indicates
+stable conditions. <img class="math" src="../../_images/math/60d1f2aa574fea4d46cd058cb822ec5c3690e2cc.svg" alt="L&lt;0"/> indicates unstable conditions.
+<img class="math" src="../../_images/math/ee020e5093f43075a2baad5f1a568647fa55c545.svg" alt="L=\infty"/>  for neutral conditions. The temperature scale
+<img class="math" src="../../_images/math/1315e13c4e0673038f74e03b8bb5249c812b6770.svg" alt="\theta _{v*}"/>  is defined as</p>
+<div class="math" id="equation-5-17">
+<p><span class="eqno">(2.5.17)<a class="headerlink" href="#equation-5-17" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0bec2e2024552c8a68fbc8eeecbea24727aa975a.svg" alt="\theta _{v*} u_{*} =\left[\theta _{*} \left(1+0.61q_{atm} \right)+0.61\overline{\theta _{atm} }q_{*} \right]u_{*}"/></p>
+</div><p>where <img class="math" src="../../_images/math/39ab795b54d71b92cfed25192e1a9ff6db4f5cdd.svg" alt="\overline{\theta _{atm} }"/> is the atmospheric potential
+temperature.</p>
+<p>Following <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#panofskydutton1984"><span class="std std-ref">Panofsky and Dutton (1984)</span></a>, the differential equations for
+<img class="math" src="../../_images/math/9510c6b61ebc70d7358c223ddfb366a57ab4d2b4.svg" alt="\phi _{m} \left(\zeta \right)"/>,
+<img class="math" src="../../_images/math/da76a7bb28405f8a83eb73a681059d072621af4a.svg" alt="\phi _{h} \left(\zeta \right)"/>, and
+<img class="math" src="../../_images/math/9efc846eb3f9cf9864fd8e458bdd2362ffa56e49.svg" alt="\phi _{w} \left(\zeta \right)"/> can be integrated formally without
+commitment to their exact forms. Integration between two arbitrary
+heights in the surface layer <img class="math" src="../../_images/math/abf37c20bbac5e4755c5ba28d788bb71620e4bcf.svg" alt="z_{2}"/>  and <img class="math" src="../../_images/math/afb5274d31555fb8f182238e7cf5068c81521d51.svg" alt="z_{1}"/>
+(<img class="math" src="../../_images/math/d500a63d133e1ed33f99b7cdc8a869223a12285b.svg" alt="z_{2} &gt;z_{1}"/> ) with horizontal winds
+<img class="math" src="../../_images/math/b25dcef0617a6890a05f4d73c4bbb5776ad921c6.svg" alt="\left|{\it u}\right|_{1}"/>  and <img class="math" src="../../_images/math/407a4bb6c2592b79b6e3e0e4600074e754ac1807.svg" alt="\left|{\it u}\right|_{2}"/> ,
+potential temperatures <img class="math" src="../../_images/math/752e6f72ae39335fab52af3eebe476b4f51a6c57.svg" alt="\theta _{1}"/>  and <img class="math" src="../../_images/math/625a66369606284a7b12dca5e982a615c0ec5eab.svg" alt="\theta _{2}"/> ,
+and specific humidities <img class="math" src="../../_images/math/270f3253868d3be77326deec58c869cb6e5d379d.svg" alt="q_{1}"/>  and <img class="math" src="../../_images/math/4b6dd20ca78a1617efae03bb745efb18fe74eea2.svg" alt="q_{2}"/>  results in</p>
+<div class="math" id="equation-5-18">
+<p><span class="eqno">(2.5.18)<a class="headerlink" href="#equation-5-18" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1fbfd3b4185c44ab8a2f56f0c5b751d954141bce.svg" alt="\left|{\it u}\right|_{2} -\left|{\it u}\right|_{1} =\frac{u_{*} }{k} \left[\ln \left(\frac{z_{2} -d}{z_{1} -d} \right)-\psi _{m} \left(\frac{z_{2} -d}{L} \right)+\psi _{m} \left(\frac{z_{1} -d}{L} \right)\right]"/></p>
+</div><div class="math" id="equation-5-19">
+<p><span class="eqno">(2.5.19)<a class="headerlink" href="#equation-5-19" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1a117773549d34d357a6784b65e3ccde46565892.svg" alt="\theta _{2} -\theta _{1} =\frac{\theta _{*} }{k} \left[\ln \left(\frac{z_{2} -d}{z_{1} -d} \right)-\psi _{h} \left(\frac{z_{2} -d}{L} \right)+\psi _{h} \left(\frac{z_{1} -d}{L} \right)\right]"/></p>
+</div><div class="math" id="equation-5-20">
+<p><span class="eqno">(2.5.20)<a class="headerlink" href="#equation-5-20" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9878fbe4202a7ab29b8482e7eaf85a014860194f.svg" alt="q_{2} -q_{1} =\frac{q_{*} }{k} \left[\ln \left(\frac{z_{2} -d}{z_{1} -d} \right)-\psi _{w} \left(\frac{z_{2} -d}{L} \right)+\psi _{w} \left(\frac{z_{1} -d}{L} \right)\right]."/></p>
+</div><p>The functions <img class="math" src="../../_images/math/3de9f18dea6fea1b620118a1e115979a73fbc4a2.svg" alt="\psi _{m} \left(\zeta \right)"/>,
+<img class="math" src="../../_images/math/9cc0e5e8c4f26f10c75a4c526ba4f6233067984a.svg" alt="\psi _{h} \left(\zeta \right)"/>, and
+<img class="math" src="../../_images/math/5ab31cc91bf1938bd806b7671fa50890a305e25f.svg" alt="\psi _{w} \left(\zeta \right)"/> are defined as</p>
+<div class="math" id="equation-5-21">
+<p><span class="eqno">(2.5.21)<a class="headerlink" href="#equation-5-21" title="Permalink to this equation">¶</a></span><img src="../../_images/math/20acba095543076620368054816dcf3a32c90230.svg" alt="\psi _{m} \left(\zeta \right)=\int _{{z_{0m} \mathord{\left/ {\vphantom {z_{0m}  L}} \right. \kern-\nulldelimiterspace} L} }^{\zeta }\frac{\left[1-\phi _{m} \left(x\right)\right]}{x} \, dx"/></p>
+</div><div class="math" id="equation-5-22">
+<p><span class="eqno">(2.5.22)<a class="headerlink" href="#equation-5-22" title="Permalink to this equation">¶</a></span><img src="../../_images/math/437334eae19b60f3e50531380ddc0da774c52666.svg" alt="\psi _{h} \left(\zeta \right)=\int _{{z_{0h} \mathord{\left/ {\vphantom {z_{0h}  L}} \right. \kern-\nulldelimiterspace} L} }^{\zeta }\frac{\left[1-\phi _{h} \left(x\right)\right]}{x} \, dx"/></p>
+</div><div class="math" id="equation-5-23">
+<p><span class="eqno">(2.5.23)<a class="headerlink" href="#equation-5-23" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4e90a749bc7aac3e14410b060bddf97668e575ba.svg" alt="\psi _{w} \left(\zeta \right)=\int _{{z_{0w} \mathord{\left/ {\vphantom {z_{0w}  L}} \right. \kern-\nulldelimiterspace} L} }^{\zeta }\frac{\left[1-\phi _{w} \left(x\right)\right]}{x} \, dx"/></p>
+</div><p>where <img class="math" src="../../_images/math/60e28eaa04e4d407de5c37b34c7be49751923efe.svg" alt="z_{0m}"/> , <img class="math" src="../../_images/math/602eb1671e079a96fbefee1a1c5f878effbaf86f.svg" alt="z_{0h}"/> , and <img class="math" src="../../_images/math/dccabde3bded3085623124fc5bfa1310b7e8c9c8.svg" alt="z_{0w}"/>  are the
+roughness lengths (m) for momentum, sensible heat, and water vapor,
+respectively.</p>
+<p>Defining the surface values</p>
+<div class="math">
+<p><img src="../../_images/math/7b883cf40846dae3c39c9eada1a059b99da862d4.svg" alt="\left|{\it u}\right|_{1} =0{\rm \; at\; }z_{1} =z_{0m} +d,"/></p>
+</div><div class="math">
+<p><img src="../../_images/math/cf624faad773314cfe379183f171c4fec41ead64.svg" alt="\theta _{1} =\theta _{s} {\rm \; at\; }z_{1} =z_{0h} +d,{\rm \; and}"/></p>
+</div><div class="math">
+<p><img src="../../_images/math/a8e8852b6c41a8e1092096fa7cff6183f14e51eb.svg" alt="q_{1} =q_{s} {\rm \; at\; }z_{1} =z_{0w} +d,"/></p>
+</div><p>and the atmospheric values at <img class="math" src="../../_images/math/23626cbdc1444e0eca6c6301079927a6012003d6.svg" alt="z_{2} =z_{atm,\, x}"/></p>
+<div class="math" id="equation-5-24">
+<p><span class="eqno">(2.5.24)<a class="headerlink" href="#equation-5-24" title="Permalink to this equation">¶</a></span><img src="../../_images/math/628eaf14fc46f7d2c29f5aadc42904b69bcc1338.svg" alt="\left|{\it u}\right|_{2} =V_{a} {\rm =\; }\sqrt{u_{atm}^{2} +v_{atm}^{2} +U_{c}^{2} } \ge 1,"/></p>
+</div><div class="math">
+<p><img src="../../_images/math/12709047a8e28e00c4216e10928317c691f3085d.svg" alt="\theta _{2} =\theta _{atm} {\rm ,\; and}"/></p>
+</div><div class="math">
+<p><img src="../../_images/math/9f2dcad43f5c6a524da8579c4bd5e0045e90a85b.svg" alt="q_{2} =q_{atm} {\rm ,\; }"/></p>
+</div><p>the integral forms of the flux-gradient relations are</p>
+<div class="math" id="equation-5-25">
+<p><span class="eqno">(2.5.25)<a class="headerlink" href="#equation-5-25" title="Permalink to this equation">¶</a></span><img src="../../_images/math/40a356a7098c2b96ccaedea3ecdb435599246f81.svg" alt="V_{a} =\frac{u_{*} }{k} \left[\ln \left(\frac{z_{atm,\, m} -d}{z_{0m} } \right)-\psi _{m} \left(\frac{z_{atm,\, m} -d}{L} \right)+\psi _{m} \left(\frac{z_{0m} }{L} \right)\right]"/></p>
+</div><div class="math" id="equation-5-26">
+<p><span class="eqno">(2.5.26)<a class="headerlink" href="#equation-5-26" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a46340ae3cd1a1bf27e262ad0f037d19461a2aad.svg" alt="\theta _{atm} -\theta _{s} =\frac{\theta _{*} }{k} \left[\ln \left(\frac{z_{atm,\, h} -d}{z_{0h} } \right)-\psi _{h} \left(\frac{z_{atm,\, h} -d}{L} \right)+\psi _{h} \left(\frac{z_{0h} }{L} \right)\right]"/></p>
+</div><div class="math" id="equation-5-27">
+<p><span class="eqno">(2.5.27)<a class="headerlink" href="#equation-5-27" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0113d41833f190cc531e908cb8cd35433104e605.svg" alt="q_{atm} -q_{s} =\frac{q_{*} }{k} \left[\ln \left(\frac{z_{atm,\, w} -d}{z_{0w} } \right)-\psi _{w} \left(\frac{z_{atm,\, w} -d}{L} \right)+\psi _{w} \left(\frac{z_{0w} }{L} \right)\right]."/></p>
+</div><p>The constraint <img class="math" src="../../_images/math/78542709aeb3c5c88d6627f9aa29df30a774bb9e.svg" alt="V_{a} \ge 1"/> is required simply for numerical
+reasons to prevent <img class="math" src="../../_images/math/cb5de54f699cf4b3c7c1a3e87313d11d536c0d88.svg" alt="H"/> and <img class="math" src="../../_images/math/1815f600df7845409443aed470eac2d449e4ddb0.svg" alt="E"/> from becoming small with
+small wind speeds. The convective velocity <img class="math" src="../../_images/math/f16d9888b58877ef05b7140d861d0c081c780d82.svg" alt="U_{c}"/>  accounts for
+the contribution of large eddies in the convective boundary layer to
+surface fluxes as follows</p>
+<div class="math" id="equation-5-28">
+<p><span class="eqno">(2.5.28)<a class="headerlink" href="#equation-5-28" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b5eea0f5e93dec5bbf4533a895796b0072eaefa2.svg" alt="U_{c} = \left\{
+\begin{array}{ll}
+0 &amp; \qquad \zeta \ge {\rm 0} \quad {\rm (stable)} \\
+\beta w_{*} &amp; \qquad \zeta &lt; 0 \quad {\rm (unstable)}
+\end{array} \right\}"/></p>
+</div><p>where <img class="math" src="../../_images/math/83d832825bc9a3667e7a1a67375f943a241fbe55.svg" alt="w_{*}"/>  is the convective velocity scale</p>
+<div class="math" id="equation-5-29">
+<p><span class="eqno">(2.5.29)<a class="headerlink" href="#equation-5-29" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8639207cebbbbf778de25b586594b190ee315fa3.svg" alt="w_{*} =\left(\frac{-gu_{\*} \theta _{v*} z_{i} }{\overline{\theta _{v,\, atm} }} \right)^{{1\mathord{\left/ {\vphantom {1 3}} \right. \kern-\nulldelimiterspace} 3} } ,"/></p>
+</div><p><img class="math" src="../../_images/math/7ede751c63cc7014863b8fe28d280e963dc073bd.svg" alt="z_{i} =1000"/> is the convective boundary layer height (m), and <img class="math" src="../../_images/math/32f5f857cb890a500b9c570369ad7df19d6b2828.svg" alt="\beta =1"/>.</p>
+<p>The momentum flux gradient relations are (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#zengetal1998"><span class="std std-ref">Zeng et al. 1998</span></a>)</p>
+<div class="math" id="equation-5-30">
+<p><span class="eqno">(2.5.30)<a class="headerlink" href="#equation-5-30" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7eb86999d9d6253cc08869b84e8bd7d5b0111088.svg" alt="\begin{array}{llr}
+\phi _{m} \left(\zeta \right)=0.7k^{{2\mathord{\left/ {\vphantom {2 3}} \right. \kern-\nulldelimiterspace} 3} } \left(-\zeta \right)^{{1\mathord{\left/ {\vphantom {1 3}} \right. \kern-\nulldelimiterspace} 3} } &amp; \qquad {\rm for\; }\zeta &lt;-1.574 &amp; \ {\rm \; (very\; unstable)} \\
+\phi _{m} \left(\zeta \right)=\left(1-16\zeta \right)^{-{1\mathord{\left/ {\vphantom {1 4}} \right. \kern-\nulldelimiterspace} 4} } &amp; \qquad {\rm for\; -1.574}\le \zeta &lt;0 &amp; \ {\rm \; (unstable)} \\
+\phi _{m} \left(\zeta \right)=1+5\zeta &amp; \qquad {\rm for\; }0\le \zeta \le 1&amp; \ {\rm \; (stable)} \\
+\phi _{m} \left(\zeta \right)=5+\zeta &amp; \qquad {\rm for\; }\zeta  &gt;1 &amp; \ {\rm\; (very\; stable).}
+\end{array}"/></p>
+</div><p>The sensible and latent heat flux gradient relations are (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#zengetal1998"><span class="std std-ref">Zeng et al. 1998</span></a>)</p>
+<div class="math" id="equation-5-31">
+<p><span class="eqno">(2.5.31)<a class="headerlink" href="#equation-5-31" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ab117aad14d50d6a62caa0e567a8166371ec98e1.svg" alt="\begin{array}{llr}
+\phi _{h} \left(\zeta \right)=\phi _{w} \left(\zeta \right)=0.9k^{{4\mathord{\left/ {\vphantom {4 3}} \right. \kern-\nulldelimiterspace} 3} } \left(-\zeta \right)^{{-1\mathord{\left/ {\vphantom {-1 3}} \right. \kern-\nulldelimiterspace} 3} } &amp; \qquad {\rm for\; }\zeta &lt;-0.465 &amp; \ {\rm \; (very\; unstable)} \\
+\phi _{h} \left(\zeta \right)=\phi _{w} \left(\zeta \right)=\left(1-16\zeta \right)^{-{1\mathord{\left/ {\vphantom {1 2}} \right. \kern-\nulldelimiterspace} 2} } &amp; \qquad {\rm for\; -0.465}\le \zeta &lt;0 &amp; \ {\rm \; (unstable)} \\
+\phi _{h} \left(\zeta \right)=\phi _{w} \left(\zeta \right)=1+5\zeta &amp; \qquad {\rm for\; }0\le \zeta \le 1 &amp; \ {\rm \; (stable)} \\
+\phi _{h} \left(\zeta \right)=\phi _{w} \left(\zeta \right)=5+\zeta &amp; \qquad {\rm for\; }\zeta  &gt;1 &amp; \ {\rm \; (very\; stable).}
+\end{array}"/></p>
+</div><p>To ensure continuous functions of
+<img class="math" src="../../_images/math/9510c6b61ebc70d7358c223ddfb366a57ab4d2b4.svg" alt="\phi _{m} \left(\zeta \right)"/>,
+<img class="math" src="../../_images/math/da76a7bb28405f8a83eb73a681059d072621af4a.svg" alt="\phi _{h} \left(\zeta \right)"/>, and
+<img class="math" src="../../_images/math/9efc846eb3f9cf9864fd8e458bdd2362ffa56e49.svg" alt="\phi _{w} \left(\zeta \right)"/>, the simplest approach (i.e.,
+without considering any transition regimes) is to match the relations
+for very unstable and unstable conditions at <img class="math" src="../../_images/math/e6edd9033c77454cac6c75bc9c33db9f1acfb397.svg" alt="\zeta _{m} =-1.574"/>
+for <img class="math" src="../../_images/math/9510c6b61ebc70d7358c223ddfb366a57ab4d2b4.svg" alt="\phi _{m} \left(\zeta \right)"/> and
+<img class="math" src="../../_images/math/724fa38b46a4056a892aa9f22a0278cf7f969c1e.svg" alt="\zeta _{h} =\zeta _{w} =-0.465"/> for
+<img class="math" src="../../_images/math/f5bdccfcf94dc41ec7da8de75b5ada99d66f66a0.svg" alt="\phi _{h} \left(\zeta \right)=\phi _{w} \left(\zeta \right)"/>
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#zengetal1998"><span class="std std-ref">Zeng et al. 1998</span></a>). The flux gradient relations can be integrated to
+yield wind profiles for the following conditions:</p>
+<p>Very unstable <img class="math" src="../../_images/math/553d8e5fe5d1417f57ec0a1b8d4f89d240fa4082.svg" alt="\left(\zeta &lt;-1.574\right)"/></p>
+<div class="math" id="equation-5-32">
+<p><span class="eqno">(2.5.32)<a class="headerlink" href="#equation-5-32" title="Permalink to this equation">¶</a></span><img src="../../_images/math/0d63442f383da815174b7cd4b77b42e9d0c15c45.svg" alt="V_{a} =\frac{u_{*} }{k} \left\{\left[\ln \frac{\zeta _{m} L}{z_{0m} } -\psi _{m} \left(\zeta _{m} \right)\right]+1.14\left[\left(-\zeta \right)^{{1\mathord{\left/ {\vphantom {1 3}} \right. \kern-\nulldelimiterspace} 3} } -\left(-\zeta _{m} \right)^{{1\mathord{\left/ {\vphantom {1 3}} \right. \kern-\nulldelimiterspace} 3} } \right]+\psi _{m} \left(\frac{z_{0m} }{L} \right)\right\}"/></p>
+</div><p>Unstable <img class="math" src="../../_images/math/fc3202f5ac81bcac1bf23d15b22a0e13fdebc5d3.svg" alt="\left(-1.574\le \zeta &lt;0\right)"/></p>
+<div class="math" id="equation-5-33">
+<p><span class="eqno">(2.5.33)<a class="headerlink" href="#equation-5-33" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b0c46f94fd06f1d020c4e5a57506c3c54bb6b71f.svg" alt="V_{a} =\frac{u_{*} }{k} \left\{\left[\ln \frac{z_{atm,\, m} -d}{z_{0m} } -\psi _{m} \left(\zeta \right)\right]+\psi _{m} \left(\frac{z_{0m} }{L} \right)\right\}"/></p>
+</div><p>Stable <img class="math" src="../../_images/math/de26531fe74d0a9de57c59d7bb824f4bc1088a3b.svg" alt="\left(0\le \zeta \le 1\right)"/></p>
+<div class="math" id="equation-5-34">
+<p><span class="eqno">(2.5.34)<a class="headerlink" href="#equation-5-34" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1148dbd2df65b959106dbff21be884968c943ee9.svg" alt="V_{a} =\frac{u_{*} }{k} \left\{\left[\ln \frac{z_{atm,\, m} -d}{z_{0m} } +5\zeta \right]-5\frac{z_{0m} }{L} \right\}"/></p>
+</div><p>Very stable <img class="math" src="../../_images/math/3b378d6a9f7cf2b4734928c83386066e419a5ff3.svg" alt="\left(\zeta &gt;1\right)"/></p>
+<div class="math" id="equation-5-35">
+<p><span class="eqno">(2.5.35)<a class="headerlink" href="#equation-5-35" title="Permalink to this equation">¶</a></span><img src="../../_images/math/40b684cf0b539eb226997c0e29e75786261e1a36.svg" alt="V_{a} =\frac{u_{*} }{k} \left\{\left[\ln \frac{L}{z_{0m} } +5\right]+\left[5\ln \zeta +\zeta -1\right]-5\frac{z_{0m} }{L} \right\}"/></p>
+</div><p>where</p>
+<div class="math" id="equation-5-36">
+<p><span class="eqno">(2.5.36)<a class="headerlink" href="#equation-5-36" title="Permalink to this equation">¶</a></span><img src="../../_images/math/38dbefa4a21f93e710705acd31e2e9601802f715.svg" alt="\psi _{m} \left(\zeta \right)=2\ln \left(\frac{1+x}{2} \right)+\ln \left(\frac{1+x^{2} }{2} \right)-2\tan ^{-1} x+\frac{\pi }{2}"/></p>
+</div><p>and</p>
+<p><img class="math" src="../../_images/math/d13395fe5cd4cb33a90e1cbafd60db52d1b5cf86.svg" alt="x=\left(1-16\zeta \right)^{{1\mathord{\left/ {\vphantom {1 4}} \right. \kern-\nulldelimiterspace} 4} }"/> .</p>
+<p>The potential temperature profiles are:</p>
+<p>Very unstable <img class="math" src="../../_images/math/d5677b4d04949381db0f39cd5e063201013d07e4.svg" alt="\left(\zeta &lt;-0.465\right)"/></p>
+<div class="math" id="equation-5-37">
+<p><span class="eqno">(2.5.37)<a class="headerlink" href="#equation-5-37" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9a5a95c510491497546e64f778bdae23ed3b5f82.svg" alt="\theta _{atm} -\theta _{s} =\frac{\theta _{*} }{k} \left\{\left[\ln \frac{\zeta _{h} L}{z_{0h} } -\psi _{h} \left(\zeta _{h} \right)\right]+0.8\left[\left(-\zeta _{h} \right)^{{-1\mathord{\left/ {\vphantom {-1 3}} \right. \kern-\nulldelimiterspace} 3} } -\left(-\zeta \right)^{{-1\mathord{\left/ {\vphantom {-1 3}} \right. \kern-\nulldelimiterspace} 3} } \right]+\psi _{h} \left(\frac{z_{0h} }{L} \right)\right\}"/></p>
+</div><p>Unstable <img class="math" src="../../_images/math/4c5618146072bdd704c4725a4e396b618f27521b.svg" alt="\left(-0.465\le \zeta &lt;0\right)"/></p>
+<div class="math" id="equation-5-38">
+<p><span class="eqno">(2.5.38)<a class="headerlink" href="#equation-5-38" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c05fef9ce1cf271c0debc0fe183b8673d7146385.svg" alt="\theta _{atm} -\theta _{s} =\frac{\theta _{*} }{k} \left\{\left[\ln \frac{z_{atm,\, h} -d}{z_{0h} } -\psi _{h} \left(\zeta \right)\right]+\psi _{h} \left(\frac{z_{0h} }{L} \right)\right\}"/></p>
+</div><p>Stable <img class="math" src="../../_images/math/de26531fe74d0a9de57c59d7bb824f4bc1088a3b.svg" alt="\left(0\le \zeta \le 1\right)"/></p>
+<div class="math" id="equation-5-39">
+<p><span class="eqno">(2.5.39)<a class="headerlink" href="#equation-5-39" title="Permalink to this equation">¶</a></span><img src="../../_images/math/81452a020de7ad417d8f7f759e759588c33edbe9.svg" alt="\theta _{atm} -\theta _{s} =\frac{\theta _{*} }{k} \left\{\left[\ln \frac{z_{atm,\, h} -d}{z_{0h} } +5\zeta \right]-5\frac{z_{0h} }{L} \right\}"/></p>
+</div><p>Very stable <img class="math" src="../../_images/math/3b378d6a9f7cf2b4734928c83386066e419a5ff3.svg" alt="\left(\zeta &gt;1\right)"/></p>
+<div class="math" id="equation-5-40">
+<p><span class="eqno">(2.5.40)<a class="headerlink" href="#equation-5-40" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5ac6dbe284e03bc64cd6e9e0a23f51a2f2ca89cb.svg" alt="\theta _{atm} -\theta _{s} =\frac{\theta _{*} }{k} \left\{\left[\ln \frac{L}{z_{0h} } +5\right]+\left[5\ln \zeta +\zeta -1\right]-5\frac{z_{0h} }{L} \right\}."/></p>
+</div><p>The specific humidity profiles are:</p>
+<p>Very unstable <img class="math" src="../../_images/math/d5677b4d04949381db0f39cd5e063201013d07e4.svg" alt="\left(\zeta &lt;-0.465\right)"/></p>
+<div class="math" id="equation-5-41">
+<p><span class="eqno">(2.5.41)<a class="headerlink" href="#equation-5-41" title="Permalink to this equation">¶</a></span><img src="../../_images/math/cc058d94b6e83307b53e1dbc31d134d47f71d3e5.svg" alt="q_{atm} -q_{s} =\frac{q_{*} }{k} \left\{\left[\ln \frac{\zeta _{w} L}{z_{0w} } -\psi _{w} \left(\zeta _{w} \right)\right]+0.8\left[\left(-\zeta _{w} \right)^{{-1\mathord{\left/ {\vphantom {-1 3}} \right. \kern-\nulldelimiterspace} 3} } -\left(-\zeta \right)^{{-1\mathord{\left/ {\vphantom {-1 3}} \right. \kern-\nulldelimiterspace} 3} } \right]+\psi _{w} \left(\frac{z_{0w} }{L} \right)\right\}"/></p>
+</div><p>Unstable <img class="math" src="../../_images/math/4c5618146072bdd704c4725a4e396b618f27521b.svg" alt="\left(-0.465\le \zeta &lt;0\right)"/></p>
+<div class="math" id="equation-5-42">
+<p><span class="eqno">(2.5.42)<a class="headerlink" href="#equation-5-42" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b7558103ccdbad0d0e3d345eb25e2e400f079f51.svg" alt="q_{atm} -q_{s} =\frac{q_{*} }{k} \left\{\left[\ln \frac{z_{atm,\, w} -d}{z_{0w} } -\psi _{w} \left(\zeta \right)\right]+\psi _{w} \left(\frac{z_{0w} }{L} \right)\right\}"/></p>
+</div><p>Stable <img class="math" src="../../_images/math/de26531fe74d0a9de57c59d7bb824f4bc1088a3b.svg" alt="\left(0\le \zeta \le 1\right)"/></p>
+<div class="math" id="equation-5-43">
+<p><span class="eqno">(2.5.43)<a class="headerlink" href="#equation-5-43" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d10db8ce715bfd9ad9852da57fc55551dc8b69cb.svg" alt="q_{atm} -q_{s} =\frac{q_{*} }{k} \left\{\left[\ln \frac{z_{atm,\, w} -d}{z_{0w} } +5\zeta \right]-5\frac{z_{0w} }{L} \right\}"/></p>
+</div><p>Very stable <img class="math" src="../../_images/math/3b378d6a9f7cf2b4734928c83386066e419a5ff3.svg" alt="\left(\zeta &gt;1\right)"/></p>
+<div class="math" id="equation-5-44">
+<p><span class="eqno">(2.5.44)<a class="headerlink" href="#equation-5-44" title="Permalink to this equation">¶</a></span><img src="../../_images/math/db95ad0ab8009571756c10b7a2b13f375f4352a7.svg" alt="q_{atm} -q_{s} =\frac{q_{*} }{k} \left\{\left[\ln \frac{L}{z_{0w} } +5\right]+\left[5\ln \zeta +\zeta -1\right]-5\frac{z_{0w} }{L} \right\}"/></p>
+</div><p>where</p>
+<div class="math" id="equation-5-45">
+<p><span class="eqno">(2.5.45)<a class="headerlink" href="#equation-5-45" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f938945e056d65c6e604ea85d5e64438bc0463c0.svg" alt="\psi _{h} \left(\zeta \right)=\psi _{w} \left(\zeta \right)=2\ln \left(\frac{1+x^{2} }{2} \right)."/></p>
+</div><p>Using the definitions of <img class="math" src="../../_images/math/613f9a39e93c2fa397418cd29e02a7a7cc910081.svg" alt="u_{*}"/> , <img class="math" src="../../_images/math/4098d8cdf9836543b4a621e925891e4ec90bbff7.svg" alt="\theta _{*}"/> , and
+<img class="math" src="../../_images/math/9332e41705e4b25b0fb9e4a73375f4e78b63266a.svg" alt="q_{*}"/> , an iterative solution of these equations can be used to
+calculate the surface momentum, sensible heat, and water vapor flux
+using atmospheric and surface values for <img class="math" src="../../_images/math/92128828b43cdf0adc4ff7d99ca6c0ca76c89798.svg" alt="\left|{\it u}\right|"/>,
+<img class="math" src="../../_images/math/8a87f04e7d7cca18343c084cceca5237fae62491.svg" alt="\theta"/> , and <img class="math" src="../../_images/math/a5fa84b363f309ebc8fe7db38304541732c7de9a.svg" alt="q"/> except that <img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/> depends on
+<img class="math" src="../../_images/math/613f9a39e93c2fa397418cd29e02a7a7cc910081.svg" alt="u_{*}"/> , <img class="math" src="../../_images/math/4098d8cdf9836543b4a621e925891e4ec90bbff7.svg" alt="\theta _{*}"/> , and <img class="math" src="../../_images/math/9332e41705e4b25b0fb9e4a73375f4e78b63266a.svg" alt="q_{*}"/> . However, the
+bulk Richardson number</p>
+<div class="math" id="equation-5-46">
+<p><span class="eqno">(2.5.46)<a class="headerlink" href="#equation-5-46" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d41ea1cb8180b186d5c19119a16a2b9806f2e9b0.svg" alt="R_{iB} =\frac{\theta _{v,\, atm} -\theta _{v,\, s} }{\overline{\theta _{v,\, atm} }} \frac{g\left(z_{atm,\, m} -d\right)}{V_{a}^{2} }"/></p>
+</div><p>is related to <img class="math" src="../../_images/math/3ef1157ea7221d7eda6098e1fd7a04a28a555e6d.svg" alt="\zeta"/>  (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#arya2001"><span class="std std-ref">Arya 2001</span></a>) as</p>
+<div class="math" id="equation-5-47">
+<p><span class="eqno">(2.5.47)<a class="headerlink" href="#equation-5-47" title="Permalink to this equation">¶</a></span><img src="../../_images/math/50a7a240537b92383443bb9db794a3c8f0632ba6.svg" alt="R_{iB} =\zeta \left[\ln \left(\frac{z_{atm,\, h} -d}{z_{0h} } \right)-\psi _{h} \left(\zeta \right)\right]\left[\ln \left(\frac{z_{atm,\, m} -d}{z_{0m} } \right)-\psi _{m} \left(\zeta \right)\right]^{-2} ."/></p>
+</div><p>Using
+<img class="math" src="../../_images/math/ed6714a448f2a75ad03e03a4f64ef16d1a9b0e10.svg" alt="\phi _{h} =\phi _{m}^{2} =\left(1-16\zeta \right)^{-{1\mathord{\left/ {\vphantom {1 2}} \right. \kern-\nulldelimiterspace} 2} }"/>
+for unstable conditions and <img class="math" src="../../_images/math/25df2d5caf75b18ab12b69f224345f430f51019f.svg" alt="\phi _{h} =\phi _{m} =1+5\zeta"/>  for
+stable conditions to determine <img class="math" src="../../_images/math/3de9f18dea6fea1b620118a1e115979a73fbc4a2.svg" alt="\psi _{m} \left(\zeta \right)"/> and
+<img class="math" src="../../_images/math/9cc0e5e8c4f26f10c75a4c526ba4f6233067984a.svg" alt="\psi _{h} \left(\zeta \right)"/>, the inverse relationship
+<img class="math" src="../../_images/math/19fbd1898e6a4a60260d93e4ca1ac2f2ebac83a9.svg" alt="\zeta =f\left(R_{iB} \right)"/> can be solved to obtain a first
+guess for <img class="math" src="../../_images/math/3ef1157ea7221d7eda6098e1fd7a04a28a555e6d.svg" alt="\zeta"/>  and thus <img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/> from</p>
+<div class="math" id="equation-5-48">
+<p><span class="eqno">(2.5.48)<a class="headerlink" href="#equation-5-48" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1f6df1ce2b654d13e6f24fa080efb749ad728add.svg" alt="\begin{array}{lcr}
+\zeta =\frac{R_{iB} \ln \left(\frac{z_{atm,\, m} -d}{z_{0m} } \right)}{1-5\min \left(R_{iB} ,0.19\right)} &amp; \qquad 0.01\le \zeta \le 2 &amp; \qquad {\rm for\; }R_{iB} \ge 0 {\rm \; (neutral\; or\; stable)} \\
+\zeta =R_{iB} \ln \left(\frac{z_{atm,\, m} -d}{z_{0m} } \right) &amp; \qquad -100\le \zeta \le -0.01 &amp; \qquad {\rm for\; }R_{iB} &lt;0 \ {\rm \; (unstable)}
+\end{array}."/></p>
+</div><p>Upon iteration (section <a class="reference internal" href="#numerical-implementation"><span class="std std-numref">2.5.3.2</span></a>), the following is used to determine
+<img class="math" src="../../_images/math/3ef1157ea7221d7eda6098e1fd7a04a28a555e6d.svg" alt="\zeta"/>  and thus <img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/></p>
+<div class="math" id="equation-5-49">
+<p><span class="eqno">(2.5.49)<a class="headerlink" href="#equation-5-49" title="Permalink to this equation">¶</a></span><img src="../../_images/math/512ddf2ed7fc41aa43c0302b9f2901a4d09d117b.svg" alt="\zeta =\frac{\left(z_{atm,\, m} -d\right)kg\theta _{v*} }{u_{*}^{2} \overline{\theta _{v,\, atm} }}"/></p>
+</div><p>where</p>
+<div class="math">
+<p><img src="../../_images/math/ad4f99babd3eecd3bb92a7673adbb629908c4af1.svg" alt="\begin{array}{cr}
+0.01\le \zeta \le 2 &amp; \qquad {\rm for\; }\zeta \ge 0{\rm \; (neutral\; or\; stable)} \\
+{\rm -100}\le \zeta \le {\rm -0.01} &amp; \qquad {\rm for\; }\zeta &lt;0{\rm \; (unstable)}
+\end{array}."/></p>
+</div><p>The difference in virtual potential air temperature between the
+reference height and the surface is</p>
+<div class="math" id="equation-5-50">
+<p><span class="eqno">(2.5.50)<a class="headerlink" href="#equation-5-50" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8d4fdae737c767a8e7141e962a2deda0ea18d3cb.svg" alt="\theta _{v,\, atm} -\theta _{v,\, s} =\left(\theta _{atm} -\theta _{s} \right)\left(1+0.61q_{atm} \right)+0.61\overline{\theta _{atm} }\left(q_{atm} -q_{s} \right)."/></p>
+</div><p>The momentum, sensible heat, and water vapor fluxes between the surface
+and the atmosphere can also be written in the form</p>
+<div class="math" id="equation-5-51">
+<p><span class="eqno">(2.5.51)<a class="headerlink" href="#equation-5-51" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d7dca5f8baa0e057c7b3540a70dcc65e7c67c6f6.svg" alt="\tau _{x} =-\rho _{atm} \frac{\left(u_{atm} -u_{s} \right)}{r_{am} }"/></p>
+</div><div class="math" id="equation-5-52">
+<p><span class="eqno">(2.5.52)<a class="headerlink" href="#equation-5-52" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ed2bde6217bf4659bbea52877bc653ba88557360.svg" alt="\tau _{y} =-\rho _{atm} \frac{\left(v_{atm} -v_{s} \right)}{r_{am} }"/></p>
+</div><div class="math" id="equation-5-53">
+<p><span class="eqno">(2.5.53)<a class="headerlink" href="#equation-5-53" title="Permalink to this equation">¶</a></span><img src="../../_images/math/997f9380c82b56b023d7913292adaf15217facef.svg" alt="H=-\rho _{atm} C_{p} \frac{\left(\theta _{atm} -\theta _{s} \right)}{r_{ah} }"/></p>
+</div><div class="math" id="equation-5-54">
+<p><span class="eqno">(2.5.54)<a class="headerlink" href="#equation-5-54" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a359cbaf47d83d0a6a746b2eb12f58c17861549e.svg" alt="E=-\rho _{atm} \frac{\left(q_{atm} -q_{s} \right)}{r_{aw} }"/></p>
+</div><p>where the aerodynamic resistances (s m<sup>-1</sup>) are</p>
+<div class="math" id="equation-5-55">
+<p><span class="eqno">(2.5.55)<a class="headerlink" href="#equation-5-55" title="Permalink to this equation">¶</a></span><img src="../../_images/math/54d5654abdc749c76c8fb7a99a93dd1265099d72.svg" alt="r_{am} =\frac{V_{a} }{u_{*}^{2} } =\frac{1}{k^{2} V_{a} } \left[\ln \left(\frac{z_{atm,\, m} -d}{z_{0m} } \right)-\psi _{m} \left(\frac{z_{atm,\, m} -d}{L} \right)+\psi _{m} \left(\frac{z_{0m} }{L} \right)\right]^{2}"/></p>
+</div><div class="math" id="equation-5-56">
+<p><span class="eqno">(2.5.56)<a class="headerlink" href="#equation-5-56" title="Permalink to this equation">¶</a></span><img src="../../_images/math/061689ef4571d989824ec898587f72f7d58bc232.svg" alt="\begin{array}{l} {r_{ah} =\frac{\theta _{atm} -\theta _{s} }{\theta _{*} u_{*} } =\frac{1}{k^{2} V_{a} } \left[\ln \left(\frac{z_{atm,\, m} -d}{z_{0m} } \right)-\psi _{m} \left(\frac{z_{atm,\, m} -d}{L} \right)+\psi _{m} \left(\frac{z_{0m} }{L} \right)\right]} \\ {\qquad \left[\ln \left(\frac{z_{atm,\, h} -d}{z_{0h} } \right)-\psi _{h} \left(\frac{z_{atm,\, h} -d}{L} \right)+\psi _{h} \left(\frac{z_{0h} }{L} \right)\right]} \end{array}"/></p>
+</div><div class="math" id="equation-5-57">
+<p><span class="eqno">(2.5.57)<a class="headerlink" href="#equation-5-57" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4ea6bb39de08a5b4dac11e3325e716758fc00cb9.svg" alt="\begin{array}{l} {r_{aw} =\frac{q_{atm} -q_{s} }{q_{*} u_{*} } =\frac{1}{k^{2} V_{a} } \left[\ln \left(\frac{z_{atm,\, m} -d}{z_{0m} } \right)-\psi _{m} \left(\frac{z_{atm,\, m} -d}{L} \right)+\psi _{m} \left(\frac{z_{0m} }{L} \right)\right]} \\ {\qquad \left[\ln \left(\frac{z_{atm,\, {\it w}} -d}{z_{0w} } \right)-\psi _{w} \left(\frac{z_{atm,\, w} -d}{L} \right)+\psi _{w} \left(\frac{z_{0w} }{L} \right)\right]} \end{array}."/></p>
+</div><p>A 2-m height “screen” temperature is useful for comparison with
+observations</p>
+<div class="math" id="equation-5-58">
+<p><span class="eqno">(2.5.58)<a class="headerlink" href="#equation-5-58" title="Permalink to this equation">¶</a></span><img src="../../_images/math/11537cacf8438e7839b08c08e13e86053aab0c56.svg" alt="T_{2m} =\theta _{s} +\frac{\theta _{*} }{k} \left[\ln \left(\frac{2+z_{0h} }{z_{0h} } \right)-\psi _{h} \left(\frac{2+z_{0h} }{L} \right)+\psi _{h} \left(\frac{z_{0h} }{L} \right)\right]"/></p>
+</div><p>where for convenience, “2-m” is defined as 2 m above the apparent sink
+for sensible heat (<img class="math" src="../../_images/math/01a5f1fc868691660edf7d1279fcd87ca6913a97.svg" alt="z_{0h} +d"/>). Similarly, a 2-m height specific
+humidity is defined as</p>
+<div class="math" id="equation-5-59">
+<p><span class="eqno">(2.5.59)<a class="headerlink" href="#equation-5-59" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c5bb6dabf0e995da2326cba863b789a9f6ea79d4.svg" alt="q_{2m} =q_{s} +\frac{q_{*} }{k} \left[\ln \left(\frac{2+z_{0w} }{z_{0w} } \right)-\psi _{w} \left(\frac{2+z_{0w} }{L} \right)+\psi _{w} \left(\frac{z_{0w} }{L} \right)\right]."/></p>
+</div><p>Relative humidity is</p>
+<div class="math" id="equation-5-60">
+<p><span class="eqno">(2.5.60)<a class="headerlink" href="#equation-5-60" title="Permalink to this equation">¶</a></span><img src="../../_images/math/722a0da65085bc8d9cc3078d16774828f2753455.svg" alt="RH_{2m} =\min \left(100,\, \frac{q_{2m} }{q_{sat}^{T_{2m} } } \times 100\right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/01eeb060c68701e47744964ac81b25b152c8b7e4.svg" alt="q_{sat}^{T_{2m} }"/>  is the saturated specific humidity at
+the 2-m temperature <img class="math" src="../../_images/math/16b962ea5d5a382b6adc8f6be0daef19704a5301.svg" alt="T_{2m}"/>  (section <a class="reference internal" href="#saturation-vapor-pressure"><span class="std std-numref">2.5.5</span></a>).</p>
+<p>A 10-m wind speed is calculated as (note that this is not consistent
+with the 10-m wind speed calculated for the dust model as described in
+Chapter <a class="reference internal" href="../Dust/CLM50_Tech_Note_Dust.html#rst-dust-model"><span class="std std-numref">2.31</span></a>)</p>
+<div class="math" id="equation-5-61">
+<p><span class="eqno">(2.5.61)<a class="headerlink" href="#equation-5-61" title="Permalink to this equation">¶</a></span><img src="../../_images/math/75f62e471eefd7d569f388250e52780ccb498ff0.svg" alt="u_{10m} =\left\{\begin{array}{l} {V_{a} \qquad z_{atm,\, m} \le 10} \\ {V_{a} -\frac{u_{*} }{k} \left[\ln \left(\frac{z_{atm,\, m} -d}{10+z_{0m} } \right)-\psi _{m} \left(\frac{z_{atm,\, m} -d}{L} \right)+\psi _{m} \left(\frac{10+z_{0m} }{L} \right)\right]\qquad z_{atm,\, m} &gt;10} \end{array}\right\}"/></p>
+</div></div>
+<div class="section" id="sensible-and-latent-heat-fluxes-for-non-vegetated-surfaces">
+<span id="id2"></span><h2><span class="section-number">2.5.2. </span>Sensible and Latent Heat Fluxes for Non-Vegetated Surfaces<a class="headerlink" href="#sensible-and-latent-heat-fluxes-for-non-vegetated-surfaces" title="Permalink to this headline">¶</a></h2>
+<p>Surfaces are considered non-vegetated for the surface flux calculations
+if leaf plus stem area index <img class="math" src="../../_images/math/26cad81bbfbcbd8c038b94abe9aa3771b6791ba6.svg" alt="L+S&lt;0.05"/> (section
+<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#phenology-and-vegetation-burial-by-snow"><span class="std std-numref">2.2.1.4</span></a>). By
+definition, this includes bare soil and glaciers. The
+solution for lakes is described in Chapter <a class="reference internal" href="../Lake/CLM50_Tech_Note_Lake.html#rst-lake-model"><span class="std std-numref">2.12</span></a>. For these surfaces, the
+surface may be exposed to the atmosphere, snow covered, and/or surface
+water covered, so that the sensible heat flux <img class="math" src="../../_images/math/26d67841bdbc655b0cafdb0e16024cda6cee4b5d.svg" alt="H_{g}"/>  (W
+m<sup>-2</sup>) is, with reference to <a class="reference internal" href="#figure-schematic-diagram-of-sensible-heat-fluxes"><span class="std std-numref">Figure 2.5.1</span></a>,</p>
+<div class="math" id="equation-5-62">
+<p><span class="eqno">(2.5.62)<a class="headerlink" href="#equation-5-62" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6dba4fabbebe45355eef4f7908f73eb23d655a0a.svg" alt="H_{g} =\left(1-f_{sno} -f_{h2osfc} \right)H_{soil} +f_{sno} H_{snow} +f_{h2osfc} H_{h2osfc}"/></p>
+</div><p>where <img class="math" src="../../_images/math/f6945bff1b862930233da15e0acceed3cbb66309.svg" alt="\left(1-f_{sno} -f_{h2osfc} \right)"/>, <img class="math" src="../../_images/math/c60372a6f53c2d97b34b11fcde01de439482b692.svg" alt="f_{sno}"/> , and
+<img class="math" src="../../_images/math/c5802e8292e9844cf96892648ea23ec07a667076.svg" alt="f_{h2osfc}"/>  are the exposed, snow covered, and surface water
+covered fractions of the grid cell. The individual fluxes based on the
+temperatures of the soil <img class="math" src="../../_images/math/46344fcbc2c51e2c54b364ddd21b9391c20e0c02.svg" alt="T_{1}"/> , snow <img class="math" src="../../_images/math/ffd60907b6f8113b9c5663c7ee18cd41c4727bf7.svg" alt="T_{snl+1}"/> , and
+surface water <img class="math" src="../../_images/math/7b0b5fbc1075dc2b20f5262787798615a8e62008.svg" alt="T_{h2osfc}"/>  are</p>
+<div class="math" id="equation-5-63">
+<p><span class="eqno">(2.5.63)<a class="headerlink" href="#equation-5-63" title="Permalink to this equation">¶</a></span><img src="../../_images/math/af51f3fab2aa453ec5d3266e92e9e02449380684.svg" alt="H_{soil} =-\rho _{atm} C_{p} \frac{\left(\theta _{atm} -T_{1} \right)}{r_{ah} }"/></p>
+</div><div class="math" id="equation-5-64">
+<p><span class="eqno">(2.5.64)<a class="headerlink" href="#equation-5-64" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9a8e90d52652977c9b7fe043f9caa0856eae480a.svg" alt="H_{sno} =-\rho _{atm} C_{p} \frac{\left(\theta _{atm} -T_{snl+1} \right)}{r_{ah} }"/></p>
+</div><div class="math" id="equation-5-65">
+<p><span class="eqno">(2.5.65)<a class="headerlink" href="#equation-5-65" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5b79f5abb6f5cafe9ae3894e37a59c505ca0a682.svg" alt="H_{h2osfc} =-\rho _{atm} C_{p} \frac{\left(\theta _{atm} -T_{h2osfc} \right)}{r_{ah} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/77f4cb1efad35b9a55daa385dfa750f917ad7df0.svg" alt="\rho _{atm}"/>  is the density of atmospheric air (kg m<sup>-3</sup>), <img class="math" src="../../_images/math/8989d060c617786544e17af5ab94a15848aed0b5.svg" alt="C_{p}"/>  is the specific heat capacity of air
+(J kg<sup>-1</sup> K<sup>-1</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>),
+<img class="math" src="../../_images/math/af2f2fe15f712f41bfd5d61f3812d9b24068c0de.svg" alt="\theta _{atm}"/>  is the atmospheric potential temperature (K), and
+<img class="math" src="../../_images/math/a627f97ea8b1e75fe8e101b724d3dae68bafdc1f.svg" alt="r_{ah}"/>  is the aerodynamic resistance to sensible heat transfer
+(s m<sup>-1</sup>).</p>
+<p>The water vapor flux <img class="math" src="../../_images/math/57733e627038e5a98203d064d11161de0e2dedbc.svg" alt="E_{g}"/>  (kg m<sup>-2</sup> s<sup>-1</sup>) is, with reference to
+<a class="reference internal" href="#figure-schematic-diagram-of-latent-heat-fluxes"><span class="std std-numref">Figure 2.5.2</span></a>,</p>
+<div class="math" id="equation-5-66">
+<p><span class="eqno">(2.5.66)<a class="headerlink" href="#equation-5-66" title="Permalink to this equation">¶</a></span><img src="../../_images/math/dfd01c2bf4166ee9ffa99e07d7fe8df8e166a77b.svg" alt="E_{g} =\left(1-f_{sno} -f_{h2osfc} \right)E_{soil} +f_{sno} E_{snow} +f_{h2osfc} E_{h2osfc}"/></p>
+</div><div class="math" id="equation-5-67">
+<p><span class="eqno">(2.5.67)<a class="headerlink" href="#equation-5-67" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f896e472b6162853801d2bf564c52f7cf9109415.svg" alt="E_{soil} =-\frac{\rho _{atm} \left(q_{atm} -q_{soil} \right)}{r_{aw} + r_{soil}}"/></p>
+</div><div class="math" id="equation-5-68">
+<p><span class="eqno">(2.5.68)<a class="headerlink" href="#equation-5-68" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ca8dc746ca32d32ba2937bbdddb843b5b48fa735.svg" alt="E_{sno} =-\frac{\rho _{atm} \left(q_{atm} -q_{sno} \right)}{r_{aw} }"/></p>
+</div><div class="math" id="equation-5-69">
+<p><span class="eqno">(2.5.69)<a class="headerlink" href="#equation-5-69" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ec7a23c8e740f848325011670764c0f3314aba81.svg" alt="E_{h2osfc} =-\frac{\rho _{atm} \left(q_{atm} -q_{h2osfc} \right)}{r_{aw} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/885134885c18e4056938b65622871e57d85052ea.svg" alt="q_{atm}"/>  is the atmospheric specific humidity (kg kg<sup>-1</sup>), <img class="math" src="../../_images/math/6f1788560607c6f07a222ecc8354c9d4f8ade539.svg" alt="q_{soil}"/> , <img class="math" src="../../_images/math/a59fa4b8f0590c9daad7d918cc939fadb2d07e4c.svg" alt="q_{sno}"/> ,
+and <img class="math" src="../../_images/math/6fe1329fa91153cda11828930bf45c539c1dd8c3.svg" alt="q_{h2osfc}"/>  are the specific humidities (kg kg<sup>-1</sup>) of the soil, snow, and surface water, respectively,
+<img class="math" src="../../_images/math/85a0c80ad359f97cb02cc5171e92ae204c6e9ec8.svg" alt="r_{aw}"/>  is the aerodynamic resistance to water vapor transfer (s m<sup>-1</sup>), and  <img class="math" src="../../_images/math/3941f6576fc826d349a43f9e9a9a7bff0dccd1ec.svg" alt="r _{soi}"/>  is the soil
+resistance to water vapor transfer (s m<sup>-1</sup>). The specific humidities of the snow <img class="math" src="../../_images/math/a59fa4b8f0590c9daad7d918cc939fadb2d07e4c.svg" alt="q_{sno}"/>  and surface water
+<img class="math" src="../../_images/math/6fe1329fa91153cda11828930bf45c539c1dd8c3.svg" alt="q_{h2osfc}"/>  are assumed to be at the saturation specific humidity of their respective temperatures</p>
+<div class="math" id="equation-5-70">
+<p><span class="eqno">(2.5.70)<a class="headerlink" href="#equation-5-70" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b3f7337ca348d1eb160bae21e7c3d51e81e75669.svg" alt="q_{sno} =q_{sat}^{T_{snl+1} }"/></p>
+</div><div class="math" id="equation-5-71">
+<p><span class="eqno">(2.5.71)<a class="headerlink" href="#equation-5-71" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2e519d27519b1748b50dfe89ca16e50fe41dfc6b.svg" alt="q_{h2osfc} =q_{sat}^{T_{h2osfc} }"/></p>
+</div><p>The specific humidity of the soil surface <img class="math" src="../../_images/math/6f1788560607c6f07a222ecc8354c9d4f8ade539.svg" alt="q_{soil}"/>  is assumed
+to be proportional to the saturation specific humidity</p>
+<div class="math" id="equation-5-72">
+<p><span class="eqno">(2.5.72)<a class="headerlink" href="#equation-5-72" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1313711a93729a43f36c49363bc511c89c81be2d.svg" alt="q_{soil} =\alpha _{soil} q_{sat}^{T_{1} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/961a79536a60ed7f95fb4824ff4c875885d926ee.svg" alt="q_{sat}^{T_{1} }"/>  is the saturated specific humidity at
+the soil surface temperature <img class="math" src="../../_images/math/46344fcbc2c51e2c54b364ddd21b9391c20e0c02.svg" alt="T_{1}"/>  (section <a class="reference internal" href="#saturation-vapor-pressure"><span class="std std-numref">2.5.5</span></a>). The factor
+<img class="math" src="../../_images/math/da047e6c4cd1aff4bc7b82e34a8d74ec4d87adf3.svg" alt="\alpha _{soil}"/>  is a function of the surface soil water matric
+potential <img class="math" src="../../_images/math/b6c245d487949782a89cab9ee83504a62fdc2337.svg" alt="\psi"/>  as in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#philip1957"><span class="std std-ref">Philip (1957)</span></a></p>
+<div class="math" id="equation-5-73">
+<p><span class="eqno">(2.5.73)<a class="headerlink" href="#equation-5-73" title="Permalink to this equation">¶</a></span><img src="../../_images/math/877f00e6f08c794bd344c3cd610b3e8ecd770d61.svg" alt="\alpha _{soil} =\exp \left(\frac{\psi _{1} g}{1\times 10^{3} R_{wv} T_{1} } \right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/fed2fdc0417cc1bee3a1a7076b9a332a788d8a6c.svg" alt="R_{wv}"/>  is the gas constant for water vapor (J kg<sup>-1</sup> K<sup>-1</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>), <img class="math" src="../../_images/math/157ba5711de84b4c715a0478fd8ae440e596d96e.svg" alt="g"/> is the
+gravitational acceleration (m s<sup>-2</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>), and
+<img class="math" src="../../_images/math/866e20965866380f5c70585f9303bb4e495fe301.svg" alt="\psi _{1}"/>  is the soil water matric potential of the top soil
+layer (mm). The soil water matric potential <img class="math" src="../../_images/math/866e20965866380f5c70585f9303bb4e495fe301.svg" alt="\psi _{1}"/>  is</p>
+<div class="math" id="equation-5-74">
+<p><span class="eqno">(2.5.74)<a class="headerlink" href="#equation-5-74" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a52bf609b388429d3e229b043839b3231130eff1.svg" alt="\psi _{1} =\psi _{sat,\, 1} s_{1}^{-B_{1} } \ge -1\times 10^{8}"/></p>
+</div><p>where <img class="math" src="../../_images/math/da7ceb761a8e9a20a1fdbfe0c2d0a85006406caa.svg" alt="\psi _{sat,\, 1}"/>  is the saturated matric potential (mm)
+(section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#hydraulic-properties"><span class="std std-numref">2.7.3.1</span></a>),
+<img class="math" src="../../_images/math/bff747ae7239c790e4ada5abcb633d074d510d7a.svg" alt="B_{1}"/>  is the <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#clapphornberger1978"><span class="std std-ref">Clapp and Hornberger (1978)</span></a>
+parameter (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#hydraulic-properties"><span class="std std-numref">2.7.3.1</span></a>),
+and <img class="math" src="../../_images/math/c5a1d4f9751fb244dc3c974c9e2d677a788db541.svg" alt="s_{1}"/>  is the wetness of the top soil layer with respect to saturation.
+The surface wetness <img class="math" src="../../_images/math/c5a1d4f9751fb244dc3c974c9e2d677a788db541.svg" alt="s_{1}"/>  is a function of the liquid water and ice content</p>
+<div class="math" id="equation-5-75">
+<p><span class="eqno">(2.5.75)<a class="headerlink" href="#equation-5-75" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d31f1e5600ac26f42c27fd052cb8c28511bc2286.svg" alt="s_{1} =\frac{1}{\Delta z_{1} \theta _{sat,\, 1} } \left[\frac{w_{liq,\, 1} }{\rho _{liq} } +\frac{w_{ice,\, 1} }{\rho _{ice} } \right]\qquad 0.01\le s_{1} \le 1.0"/></p>
+</div><p>where <img class="math" src="../../_images/math/3cc8a04cd8cc9651d8b93db81bc568a540af0675.svg" alt="\Delta z_{1}"/>  is the thickness of the top soil layer (m),
+<img class="math" src="../../_images/math/9cc467f2cbd1d76cabdfce551c9ac309e22cb365.svg" alt="\rho _{liq}"/>  and <img class="math" src="../../_images/math/a35b47eb1f16ad1480586b5bdda372213424c119.svg" alt="\rho _{ice}"/>  are the density of liquid
+water and ice (kg m<sup>-3</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>), <img class="math" src="../../_images/math/723bcd91908210ae7e39e3a9ceded7ad01af39c5.svg" alt="w_{liq,\, 1}"/>
+and <img class="math" src="../../_images/math/bbb4b0d7dc5f5971eff783fcc132d1b91a839df6.svg" alt="w_{ice,\, 1}"/>  are the mass of liquid water and ice of the
+top soil layer (kg m<sup>-2</sup>) (Chapter <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#rst-hydrology"><span class="std std-numref">2.7</span></a>), and
+<img class="math" src="../../_images/math/af9ec80e215fa033c75ecc0164059cba83fd21d0.svg" alt="\theta _{sat,\, 1}"/>  is the saturated volumetric water content
+(i.e., porosity) of the top soil layer (mm<sup>3</sup> mm<sup>-3</sup>) (section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#hydraulic-properties"><span class="std std-numref">2.7.3.1</span></a>). If
+<img class="math" src="../../_images/math/73777919142ca52a11f2f0c10a1b157701ca4842.svg" alt="q_{sat}^{T_{1} } &gt;q_{atm}"/>  and <img class="math" src="../../_images/math/44390bb10881982a31429949660cdcc69c17072c.svg" alt="q_{atm} &gt;q_{soil}"/> , then
+<img class="math" src="../../_images/math/c0844f5ef6b32e2a3ef7c368caf57086a24e2311.svg" alt="q_{soil} =q_{atm}"/>  and <img class="math" src="../../_images/math/034729c71c0ef3bcb84ed07f4da113a6e2982a7b.svg" alt="\frac{dq_{soil} }{dT} =0"/>. This
+prevents large increases (decreases) in <img class="math" src="../../_images/math/6f1788560607c6f07a222ecc8354c9d4f8ade539.svg" alt="q_{soil}"/>  for small
+increases (decreases) in soil moisture in very dry soils.</p>
+<p>The resistance to water vapor transfer occurring within the soil matrix
+<img class="math" src="../../_images/math/1790f62f020c08ccdd85aabb182d31c6381ecbb8.svg" alt="r_{soil}"/> (s m<sup>-1</sup>) is</p>
+<div class="math" id="equation-5-76">
+<p><span class="eqno">(2.5.76)<a class="headerlink" href="#equation-5-76" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b192ecf31e3cb2bc730e1655f790d73470c7955f.svg" alt="r_{soil} = \frac{DSL}{D_{v} \tau}"/></p>
+</div><p>where <img class="math" src="../../_images/math/fcce7ea589eeabf5fb25cb125a0c1426f063d72f.svg" alt="DSL"/> is the thickness of the dry surface layer (m), <img class="math" src="../../_images/math/ac386d909421227577ca7c1dc514821d56e0bb7c.svg" alt="D_{v}"/>
+is the molecular diffusivity of water vapor in air (m<sup>2</sup> s<sup>-2</sup>)
+and <img class="math" src="../../_images/math/914b2d4b6659b86d3153d5510839dfb254dfc8a3.svg" alt="\tau"/> (<em>unitless</em>) describes the tortuosity of the vapor flow paths through
+the soil matrix (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#swensonlawrence2014"><span class="std std-ref">Swenson and Lawrence 2014</span></a>).</p>
+<p>The thickness of the dry surface layer is given by</p>
+<div class="math" id="equation-5-77">
+<p><span class="eqno">(2.5.77)<a class="headerlink" href="#equation-5-77" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b266e86156245c74a1a35fb75c7b0a34e65d294c.svg" alt="DSL =
+\begin{array}{lr}
+D_{max} \ \frac{\left( \theta_{init} - \theta_{1}\right)}
+{\left(\theta_{init} - \theta_{air}\right)} &amp; \qquad \theta_{1} &lt; \theta_{init} \\
+0 &amp;  \qquad \theta_{1} \ge \theta_{init}
+\end{array}"/></p>
+</div><p>where <img class="math" src="../../_images/math/1ba9df1b0b6659e9b8d73c73aeb2ed2743aeab77.svg" alt="D_{max}"/> is a parameter specifying the length scale
+of the maximum DSL thickness (default value = 15 mm),
+<img class="math" src="../../_images/math/1a13711423bb6ab17f142e0ad86d19a374288787.svg" alt="\theta_{init}"/> (mm<sup>3</sup> mm<sup>-3</sup>) is the moisture value
+at which the DSL initiates, <img class="math" src="../../_images/math/ce9b889f139e7c9aeca846a8bdff4a556e94ab9c.svg" alt="\theta_{1}"/> (mm<sup>3</sup> mm<sup>-3</sup>)
+is the moisture value of the top model soil layer, and
+<img class="math" src="../../_images/math/b4e486a84f95b4f433c333fa1df801ce0e8956b0.svg" alt="\theta_{air}"/> (mm<sup>3</sup> mm<sup>-3</sup>) is the ‘air dry’ soil
+moisture value (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#dingman2002"><span class="std std-ref">Dingman 2002</span></a>):</p>
+<div class="math" id="equation-5-78">
+<p><span class="eqno">(2.5.78)<a class="headerlink" href="#equation-5-78" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b47489188bce1c3434caa44b810386e50c7969ed.svg" alt="\theta_{air} = \Phi \left( \frac{\Psi_{sat}}{\Psi_{air}} \right)^{\frac{1}{B_{1}}} \ ."/></p>
+</div><p>where <img class="math" src="../../_images/math/d8ee85ac4d75924cdf4b18f5fb3b46550932fc26.svg" alt="\Phi"/> is the porosity (mm<sup>3</sup> mm<sup>-3</sup>),
+<img class="math" src="../../_images/math/b131293d62f4fa5fc1ee05539c1119f96c3e2ddc.svg" alt="\Psi_{sat}"/> is the saturated soil matric potential (mm),
+<img class="math" src="../../_images/math/ea05685b6ffec566c8af7e0f6289a54bd21a1492.svg" alt="\Psi_{air} = 10^{7}"/> mm is the air dry matric potential, and
+<img class="math" src="../../_images/math/bff747ae7239c790e4ada5abcb633d074d510d7a.svg" alt="B_{1}"/> is a function of soil texture (section
+<a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#hydraulic-properties"><span class="std std-numref">2.7.3.1</span></a>).</p>
+<p>The soil tortuosity is</p>
+<div class="math" id="equation-5-79">
+<p><span class="eqno">(2.5.79)<a class="headerlink" href="#equation-5-79" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d33d7a1e3f113fbd67ab9a9bf092261641ad366f.svg" alt="\tau = \Phi^{2}_{air}\left(\frac{\Phi_{air}}{\Phi}\right)^{\frac{3}{B_{1}}}"/></p>
+</div><p>where <img class="math" src="../../_images/math/fc5f871d86509a4c1cf42339395cd8109aecc3fa.svg" alt="\Phi_{air}"/> (mm<sup>3</sup> mm<sup>-3</sup>) is the air filled pore space</p>
+<div class="math" id="equation-5-80">
+<p><span class="eqno">(2.5.80)<a class="headerlink" href="#equation-5-80" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b5d0638627b6814532633a07483324896ba3b705.svg" alt="\Phi_{air} = \Phi - \theta_{air} \ ."/></p>
+</div><p><img class="math" src="../../_images/math/ac386d909421227577ca7c1dc514821d56e0bb7c.svg" alt="D_{v}"/> depends on temperature</p>
+<div class="math" id="equation-5-81">
+<p><span class="eqno">(2.5.81)<a class="headerlink" href="#equation-5-81" title="Permalink to this equation">¶</a></span><img src="../../_images/math/58fc8c796fdb9e59b063b381eacb37af2ef6c36b.svg" alt="D_{v} = 2.12 \times 10^{-5} \left(\frac{T_{1}}{T_{f}}\right)^{1.75} \ ."/></p>
+</div><p>where <img class="math" src="../../_images/math/46344fcbc2c51e2c54b364ddd21b9391c20e0c02.svg" alt="T_{1}"/> (K) is the temperature of the top soil layer and
+<img class="math" src="../../_images/math/96c3fcc57a3f63abb80a31e942194072ea0cc0cf.svg" alt="T_{f}"/> (K) is the freezing temperature of water
+(<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>).</p>
+<p>The roughness lengths used to calculate <img class="math" src="../../_images/math/15213a2ac305f78767254ec4339ad668ca53dee9.svg" alt="r_{am}"/> ,
+<img class="math" src="../../_images/math/a627f97ea8b1e75fe8e101b724d3dae68bafdc1f.svg" alt="r_{ah}"/> , and <img class="math" src="../../_images/math/85a0c80ad359f97cb02cc5171e92ae204c6e9ec8.svg" alt="r_{aw}"/>  are <img class="math" src="../../_images/math/77073de486e162e72d0eca4b2c0292de61a27e97.svg" alt="z_{0m} =z_{0m,\, g}"/> ,
+<img class="math" src="../../_images/math/2911295886ad2d8c9a67be11d5e254b0c435ba7a.svg" alt="z_{0h} =z_{0h,\, g}"/> , and <img class="math" src="../../_images/math/b8bab215c982d3fe452855bd4890c60a3a34e4d4.svg" alt="z_{0w} =z_{0w,\, g}"/> . The
+displacement height <img class="math" src="../../_images/math/30708c0f68bca32e67b03e9283835c93bfe842c1.svg" alt="d=0"/>. The momentum roughness length is
+<img class="math" src="../../_images/math/32cd5c21768a9839a2e1f3cc8924a88d331da7bd.svg" alt="z_{0m,\, g} =0.01"/> for soil, glaciers, and
+<img class="math" src="../../_images/math/42987ed04935f09f74801916e5ee34c38efc0ba1.svg" alt="z_{0m,\, g} =0.0024"/> for snow-covered surfaces
+(<img class="math" src="../../_images/math/320bc5261a852128f7635a028fd0d65c8c8585f4.svg" alt="f_{sno} &gt;0"/>). In general, <img class="math" src="../../_images/math/60e28eaa04e4d407de5c37b34c7be49751923efe.svg" alt="z_{0m}"/>  is different from
+<img class="math" src="../../_images/math/602eb1671e079a96fbefee1a1c5f878effbaf86f.svg" alt="z_{0h}"/>  because the transfer of momentum is affected by pressure
+fluctuations in the turbulent waves behind the roughness elements, while
+for heat and water vapor transfer no such dynamical mechanism exists.
+Rather, heat and water vapor must be transferred by molecular diffusion
+across the interfacial sublayer. The following relation from
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#zilitinkevich1970"><span class="std std-ref">Zilitinkevich (1970)</span></a> is adopted by
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#zengdickinson1998"><span class="std std-ref">Zeng and Dickinson 1998</span></a></p>
+<div class="math" id="equation-5-82">
+<p><span class="eqno">(2.5.82)<a class="headerlink" href="#equation-5-82" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f146709d3a359b40f5db1070bf95bdc975e2ba1f.svg" alt="z_{0h,\, g} =z_{0w,\, g} =z_{0m,\, g} e^{-a\left({u_{*} z_{0m,\, g} \mathord{\left/ {\vphantom {u_{*} z_{0m,\, g}  \upsilon }} \right. \kern-\nulldelimiterspace} \upsilon } \right)^{0.45} }"/></p>
+</div><p>where the quantity
+<img class="math" src="../../_images/math/ddd273c15344b351f8f6adb7713254e9f2c78b7d.svg" alt="{u_{\*} z_{0m,\, g} \mathord{\left/ {\vphantom {u_{*} z_{0m,\, g}  \upsilon }} \right. \kern-\nulldelimiterspace} \upsilon }"/>
+is the roughness Reynolds number (and may be interpreted as the Reynolds number of the smallest turbulent eddy in the flow) with the kinematic
+viscosity of air <img class="math" src="../../_images/math/c32da67e0e2867cec4337eb40a0c8eb2e910df1c.svg" alt="\upsilon =1.5\times 10^{-5}"/>  m<sup>2</sup> s<sup>-1</sup> and <img class="math" src="../../_images/math/b9e46783e82825eb37b0553184ddf07268376977.svg" alt="a=0.13"/>.</p>
+<p>The numerical solution for the fluxes of momentum, sensible heat, and
+water vapor flux from non-vegetated surfaces proceeds as follows:</p>
+<ol class="arabic simple">
+<li><p>An initial guess for the wind speed <img class="math" src="../../_images/math/e9183e50a01a40564bd494fa1fb39ace1e0424ac.svg" alt="V_{a}"/>  is obtained from
+<a class="reference internal" href="#equation-5-24">(2.5.24)</a> assuming an initial convective velocity <img class="math" src="../../_images/math/6789b91b4e5ac5a769e86c6ed488dc8de9876805.svg" alt="U_{c} =0"/> m
+s<sup>-1</sup> for stable conditions
+(<img class="math" src="../../_images/math/9ac45a6a8d16a9fb4acbb235b382bfa9ec4aea3e.svg" alt="\theta _{v,\, atm} -\theta _{v,\, s} \ge 0"/> as evaluated from
+<a class="reference internal" href="#equation-5-50">(2.5.50)</a> ) and <img class="math" src="../../_images/math/bce9271534630c6b0677f3aac9d73f53d9c2bf68.svg" alt="U_{c} =0.5"/> for unstable conditions
+(<img class="math" src="../../_images/math/89c3bbdc70f79099a768e60901f8faefb22e91d4.svg" alt="\theta _{v,\, atm} -\theta _{v,\, s} &lt;0"/>).</p></li>
+<li><p>An initial guess for the Monin-Obukhov length <img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/> is obtained
+from the bulk Richardson number using <a class="reference internal" href="#equation-5-46">(2.5.46)</a> and <a class="reference internal" href="#equation-5-48">(2.5.48)</a>.</p></li>
+<li><p>The following system of equations is iterated three times:</p></li>
+<li><p>Friction velocity <img class="math" src="../../_images/math/613f9a39e93c2fa397418cd29e02a7a7cc910081.svg" alt="u_{*}"/>  (<a class="reference internal" href="#equation-5-32">(2.5.32)</a>, <a class="reference internal" href="#equation-5-33">(2.5.33)</a>, <a class="reference internal" href="#equation-5-34">(2.5.34)</a>, <a class="reference internal" href="#equation-5-35">(2.5.35)</a>)</p></li>
+<li><p>Potential temperature scale <img class="math" src="../../_images/math/4098d8cdf9836543b4a621e925891e4ec90bbff7.svg" alt="\theta _{*}"/>  (<a class="reference internal" href="#equation-5-37">(2.5.37)</a> , <a class="reference internal" href="#equation-5-38">(2.5.38)</a>, <a class="reference internal" href="#equation-5-39">(2.5.39)</a>, <a class="reference internal" href="#equation-5-40">(2.5.40)</a>)</p></li>
+<li><p>Humidity scale <img class="math" src="../../_images/math/9332e41705e4b25b0fb9e4a73375f4e78b63266a.svg" alt="q_{*}"/>  (<a class="reference internal" href="#equation-5-41">(2.5.41)</a>, <a class="reference internal" href="#equation-5-42">(2.5.42)</a>, <a class="reference internal" href="#equation-5-43">(2.5.43)</a>, <a class="reference internal" href="#equation-5-44">(2.5.44)</a>)</p></li>
+<li><p>Roughness lengths for sensible <img class="math" src="../../_images/math/e9dfa25b54df6410a1aaf9aac0a992ec814bcc9b.svg" alt="z_{0h,\, g}"/>  and latent heat
+<img class="math" src="../../_images/math/aeab82cda87e4f3b3eb76db2d16e88706dbe506f.svg" alt="z_{0w,\, g}"/>  (<a class="reference internal" href="#equation-5-82">(2.5.82)</a> )</p></li>
+<li><p>Virtual potential temperature scale <img class="math" src="../../_images/math/1315e13c4e0673038f74e03b8bb5249c812b6770.svg" alt="\theta _{v*}"/>  ( <a class="reference internal" href="#equation-5-17">(2.5.17)</a>)</p></li>
+<li><p>Wind speed including the convective velocity, <img class="math" src="../../_images/math/e9183e50a01a40564bd494fa1fb39ace1e0424ac.svg" alt="V_{a}"/>  ( <a class="reference internal" href="#equation-5-24">(2.5.24)</a>)</p></li>
+<li><p>Monin-Obukhov length <img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/> (<a class="reference internal" href="#equation-5-49">(2.5.49)</a>)</p></li>
+<li><p>Aerodynamic resistances <img class="math" src="../../_images/math/15213a2ac305f78767254ec4339ad668ca53dee9.svg" alt="r_{am}"/> , <img class="math" src="../../_images/math/a627f97ea8b1e75fe8e101b724d3dae68bafdc1f.svg" alt="r_{ah}"/> , and
+<img class="math" src="../../_images/math/85a0c80ad359f97cb02cc5171e92ae204c6e9ec8.svg" alt="r_{aw}"/>  (<a class="reference internal" href="#equation-5-55">(2.5.55)</a>, <a class="reference internal" href="#equation-5-56">(2.5.56)</a>, <a class="reference internal" href="#equation-5-57">(2.5.57)</a>)</p></li>
+<li><p>Momentum fluxes <img class="math" src="../../_images/math/a90a310ebff7afbce9b50817ed36ea2065ff78e2.svg" alt="\tau _{x}"/> , <img class="math" src="../../_images/math/cd74ac25a5485170d2abd54e5464bb98632dbce3.svg" alt="\tau _{y}"/>  (<a class="reference internal" href="#equation-5-5">(2.5.5)</a>, <a class="reference internal" href="#equation-5-6">(2.5.6)</a>)</p></li>
+<li><p>Sensible heat flux <img class="math" src="../../_images/math/26d67841bdbc655b0cafdb0e16024cda6cee4b5d.svg" alt="H_{g}"/>  (<a class="reference internal" href="#equation-5-62">(2.5.62)</a>)</p></li>
+<li><p>Water vapor flux <img class="math" src="../../_images/math/57733e627038e5a98203d064d11161de0e2dedbc.svg" alt="E_{g}"/>  (<a class="reference internal" href="#equation-5-66">(2.5.66)</a>)</p></li>
+<li><p>2-m height air temperature <img class="math" src="../../_images/math/16b962ea5d5a382b6adc8f6be0daef19704a5301.svg" alt="T_{2m}"/>  and specific humidity
+<img class="math" src="../../_images/math/e979ab217340cbe6363251549a7f9ae8e89e70f8.svg" alt="q_{2m}"/>  (<a class="reference internal" href="#equation-5-58">(2.5.58)</a> , <a class="reference internal" href="#equation-5-59">(2.5.59)</a>)</p></li>
+</ol>
+<p>The partial derivatives of the soil surface fluxes with respect to
+ground temperature, which are needed for the soil temperature calculations (section
+<a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#numerical-solution-temperature"><span class="std std-numref">2.6.1</span></a>) and to update the soil surface fluxes
+(section <a class="reference internal" href="#update-of-ground-sensible-and-latent-heat-fluxes"><span class="std std-numref">2.5.4</span></a>), are</p>
+<div class="math" id="equation-5-83">
+<p><span class="eqno">(2.5.83)<a class="headerlink" href="#equation-5-83" title="Permalink to this equation">¶</a></span><img src="../../_images/math/3b3b975d41d876528d7d9aaa155b8dc03dbd400d.svg" alt="\frac{\partial H_{g} }{\partial T_{g} } =\frac{\rho _{atm} C_{p} }{r_{ah} }"/></p>
+</div><div class="math" id="equation-5-84">
+<p><span class="eqno">(2.5.84)<a class="headerlink" href="#equation-5-84" title="Permalink to this equation">¶</a></span><img src="../../_images/math/12831df54562b378ab307dc6749d5d35730bfce5.svg" alt="\frac{\partial E_{g} }{\partial T_{g} } =\frac{\beta _{soi} \rho _{atm} }{r_{aw} } \frac{dq_{g} }{dT_{g} }"/></p>
+</div><p>where</p>
+<div class="math" id="equation-5-85">
+<p><span class="eqno">(2.5.85)<a class="headerlink" href="#equation-5-85" title="Permalink to this equation">¶</a></span><img src="../../_images/math/afc6518071ac82c576f03a21c1de6e2cf6bd1e96.svg" alt="\frac{dq_{g} }{dT_{g} } =\left(1-f_{sno} -f_{h2osfc} \right)\alpha _{soil} \frac{dq_{sat}^{T_{soil} } }{dT_{soil} } +f_{sno} \frac{dq_{sat}^{T_{sno} } }{dT_{sno} } +f_{h2osfc} \frac{dq_{sat}^{T_{h2osfc} } }{dT_{h2osfc} } ."/></p>
+</div><p>The partial derivatives
+<img class="math" src="../../_images/math/9d1dc0ead7e01da603650f5f8fce8643b5101593.svg" alt="\frac{\partial r_{ah} }{\partial T_{g} }"/>  and
+<img class="math" src="../../_images/math/059156aa4d8fab260ca7af7ef27d3fa4323d308e.svg" alt="\frac{\partial r_{aw} }{\partial T_{g} }"/> , which cannot be
+determined analytically, are ignored for
+<img class="math" src="../../_images/math/80ebc39f2164401fe0e0eff75be4de541c02d4a7.svg" alt="\frac{\partial H_{g} }{\partial T_{g} }"/>  and
+<img class="math" src="../../_images/math/b40c4748a86cf53f33015f48423dc6634afa09b6.svg" alt="\frac{\partial E_{g} }{\partial T_{g} }"/> .</p>
+</div>
+<div class="section" id="sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces">
+<span id="id3"></span><h2><span class="section-number">2.5.3. </span>Sensible and Latent Heat Fluxes and Temperature for Vegetated Surfaces<a class="headerlink" href="#sensible-and-latent-heat-fluxes-and-temperature-for-vegetated-surfaces" title="Permalink to this headline">¶</a></h2>
+<p>In the case of a vegetated surface, the sensible heat <img class="math" src="../../_images/math/cb5de54f699cf4b3c7c1a3e87313d11d536c0d88.svg" alt="H"/> and
+water vapor flux <img class="math" src="../../_images/math/1815f600df7845409443aed470eac2d449e4ddb0.svg" alt="E"/> are partitioned into vegetation and ground
+fluxes that depend on vegetation <img class="math" src="../../_images/math/ad7c90a4efeb31f2a1f794d4715f83bc48acd8f2.svg" alt="T_{v}"/>  and ground
+<img class="math" src="../../_images/math/53cba0c126e1c7541e1fb95a12310ef787d3d9a2.svg" alt="T_{g}"/>  temperatures in addition to surface temperature
+<img class="math" src="../../_images/math/cd68161a74fd8f87d773aa03bb3251be8f9288bb.svg" alt="T_{s}"/>  and specific humidity <img class="math" src="../../_images/math/127bb8489d5544b0e2d3bd4748b5d04c9a4acdce.svg" alt="q_{s}"/> . Because of the
+coupling between vegetation temperature and fluxes, Newton-Raphson
+iteration is used to solve for the vegetation temperature and the
+sensible heat and water vapor fluxes from vegetation simultaneously
+using the ground temperature from the previous time step. In section
+<a class="reference internal" href="#theory"><span class="std std-numref">2.5.3.1</span></a>, the equations used in the iteration scheme are derived. Details
+on the numerical scheme are provided in section <a class="reference internal" href="#numerical-implementation"><span class="std std-numref">2.5.3.2</span></a>.</p>
+<div class="section" id="theory">
+<span id="id4"></span><h3><span class="section-number">2.5.3.1. </span>Theory<a class="headerlink" href="#theory" title="Permalink to this headline">¶</a></h3>
+<p>The air within the canopy is assumed to have negligible capacity to
+store heat so that the sensible heat flux <img class="math" src="../../_images/math/cb5de54f699cf4b3c7c1a3e87313d11d536c0d88.svg" alt="H"/> between the surface
+at height <img class="math" src="../../_images/math/01a5f1fc868691660edf7d1279fcd87ca6913a97.svg" alt="z_{0h} +d"/> and the atmosphere at height
+<img class="math" src="../../_images/math/2af7dd1ff334bcd62a67b28aecb736e30b118581.svg" alt="z_{atm,\, h}"/>  must be balanced by the sum of the sensible heat
+from the vegetation <img class="math" src="../../_images/math/54445cb7049e57da1b97f97a2b8e67598724194e.svg" alt="H_{v}"/>  and the ground <img class="math" src="../../_images/math/26d67841bdbc655b0cafdb0e16024cda6cee4b5d.svg" alt="H_{g}"/></p>
+<div class="math" id="equation-5-86">
+<p><span class="eqno">(2.5.86)<a class="headerlink" href="#equation-5-86" title="Permalink to this equation">¶</a></span><img src="../../_images/math/50e62827b6ab34b2d04e14dd28305204c554273f.svg" alt="H=H_{v} +H_{g}"/></p>
+</div><p>where, with reference to <a class="reference internal" href="#figure-schematic-diagram-of-sensible-heat-fluxes"><span class="std std-numref">Figure 2.5.1</span></a>,</p>
+<div class="math" id="equation-5-87">
+<p><span class="eqno">(2.5.87)<a class="headerlink" href="#equation-5-87" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f517be64f122b5dca50acac34860bcb20451a046.svg" alt="H=-\rho _{atm} C_{p} \frac{\left(\theta _{atm} -T_{s} \right)}{r_{ah} }"/></p>
+</div><div class="math" id="equation-5-88">
+<p><span class="eqno">(2.5.88)<a class="headerlink" href="#equation-5-88" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8876913a499f8c9d07229f55d7b55b792b001cc3.svg" alt="H_{v} =-\rho _{atm} C_{p} \left(T_{s} -T_{v} \right)\frac{\left(L+S\right)}{r_{b} }"/></p>
+</div><div class="math" id="equation-5-89">
+<p><span class="eqno">(2.5.89)<a class="headerlink" href="#equation-5-89" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7a2ac30db47d6e652ae50dd8beadfdc0d13d9d48.svg" alt="H_{g} =\left(1-f_{sno} -f_{h2osfc} \right)H_{soil} +f_{sno} H_{snow} +f_{h2osfc} H_{h2osfc} \ ,"/></p>
+</div><p>where</p>
+<div class="math" id="equation-5-90">
+<p><span class="eqno">(2.5.90)<a class="headerlink" href="#equation-5-90" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4997c6111b76d64674a4e201011508a2e17a38fa.svg" alt="H_{soil} =-\rho _{atm} C_{p} \frac{\left(T_{s} -T_{1} \right)}{r_{ah} ^{{'} } }"/></p>
+</div><div class="math" id="equation-5-91">
+<p><span class="eqno">(2.5.91)<a class="headerlink" href="#equation-5-91" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b9bfcca57fdd8af2e2ea0c258ac895a9456585a0.svg" alt="H_{sno} =-\rho _{atm} C_{p} \frac{\left(T_{s} -T_{snl+1} \right)}{r_{ah} ^{{'} } }"/></p>
+</div><div class="math" id="equation-5-92">
+<p><span class="eqno">(2.5.92)<a class="headerlink" href="#equation-5-92" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c808c2d62ac197682103d777f8cc09f8136adf03.svg" alt="H_{h2osfc} =-\rho _{atm} C_{p} \frac{\left(T_{s} -T_{h2osfc} \right)}{r_{ah} ^{{'} } }"/></p>
+</div><p>where <img class="math" src="../../_images/math/77f4cb1efad35b9a55daa385dfa750f917ad7df0.svg" alt="\rho _{atm}"/>  is the density of atmospheric air (kg m<sup>-3</sup>), <img class="math" src="../../_images/math/8989d060c617786544e17af5ab94a15848aed0b5.svg" alt="C_{p}"/>  is the specific heat capacity of air
+(J kg<sup>-1</sup> K<sup>-1</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>),
+<img class="math" src="../../_images/math/af2f2fe15f712f41bfd5d61f3812d9b24068c0de.svg" alt="\theta _{atm}"/>  is the atmospheric potential temperature (K), and
+<img class="math" src="../../_images/math/a627f97ea8b1e75fe8e101b724d3dae68bafdc1f.svg" alt="r_{ah}"/>  is the aerodynamic resistance to sensible heat transfer
+(s m<sup>-1</sup>).</p>
+<p>Here, <img class="math" src="../../_images/math/cd68161a74fd8f87d773aa03bb3251be8f9288bb.svg" alt="T_{s}"/>  is the surface temperature at height
+<img class="math" src="../../_images/math/01a5f1fc868691660edf7d1279fcd87ca6913a97.svg" alt="z_{0h} +d"/>, also referred to as the canopy air temperature.
+<img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/> and <img class="math" src="../../_images/math/b988975be41fd13b4d091c10202ba19374643586.svg" alt="S"/> are the exposed leaf and stem area indices
+(section <a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#phenology-and-vegetation-burial-by-snow"><span class="std std-numref">2.2.1.4</span></a>), <img class="math" src="../../_images/math/0d6f594491997eb982e1e691cda655a4cfd238a7.svg" alt="r_{b}"/>  is the leaf boundary layer resistance (s
+m<sup>-1</sup>), and <img class="math" src="../../_images/math/b304e495572934b3a67ef4692c5b1850e7f0b7d6.svg" alt="r_{ah} ^{{'} }"/>  is the aerodynamic
+resistance (s m<sup>-1</sup>) to heat transfer between the ground at
+height <img class="math" src="../../_images/math/de86c93986d3c04785e77cf7f894f4266e576cee.svg" alt="z_{0h} ^{{'} }"/>  and the canopy air at height
+<img class="math" src="../../_images/math/01a5f1fc868691660edf7d1279fcd87ca6913a97.svg" alt="z_{0h} +d"/>.</p>
+<div class="figure align-default" id="id8">
+<span id="figure-schematic-diagram-of-sensible-heat-fluxes"></span><img alt="../../_images/image12.png" src="../../_images/image12.png" />
+<p class="caption"><span class="caption-number">Figure 2.5.1 </span><span class="caption-text">Figure Schematic diagram of sensible heat fluxes for (a)
+non-vegetated surfaces and (b) vegetated surfaces.</span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="id9">
+<span id="figure-schematic-diagram-of-latent-heat-fluxes"></span><img alt="../../_images/image2.png" src="../../_images/image2.png" />
+<p class="caption"><span class="caption-number">Figure 2.5.2 </span><span class="caption-text">Figure Schematic diagram of water vapor fluxes for (a)
+non-vegetated surfaces and (b) vegetated surfaces.</span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+<p>Equations <a class="reference internal" href="#equation-5-86">(2.5.86)</a> - <a class="reference internal" href="#equation-5-89">(2.5.89)</a> can be solved for the canopy air
+temperature <img class="math" src="../../_images/math/cd68161a74fd8f87d773aa03bb3251be8f9288bb.svg" alt="T_{s}"/></p>
+<div class="math" id="equation-5-93">
+<p><span class="eqno">(2.5.93)<a class="headerlink" href="#equation-5-93" title="Permalink to this equation">¶</a></span><img src="../../_images/math/13b30d327e00731dac7d1593c75e5461c2b16e8b.svg" alt="T_{s} =\frac{c_{a}^{h} \theta _{atm} +c_{g}^{h} T_{g} +c_{v}^{h} T_{v} }{c_{a}^{h} +c_{g}^{h} +c_{v}^{h} }"/></p>
+</div><p>where</p>
+<div class="math" id="equation-5-94">
+<p><span class="eqno">(2.5.94)<a class="headerlink" href="#equation-5-94" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7e9f8fcc72594604831f9308688d036aa4f76395.svg" alt="c_{a}^{h} =\frac{1}{r_{ah} }"/></p>
+</div><div class="math" id="equation-5-95">
+<p><span class="eqno">(2.5.95)<a class="headerlink" href="#equation-5-95" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fb21c1a18c8aba8fb17a8921317274f2c349466d.svg" alt="c_{g}^{h} =\frac{1}{r_{ah} ^{{'} } }"/></p>
+</div><div class="math" id="equation-5-96">
+<p><span class="eqno">(2.5.96)<a class="headerlink" href="#equation-5-96" title="Permalink to this equation">¶</a></span><img src="../../_images/math/dd5a484f488fd08c75f4376d8999a2408aa24dac.svg" alt="c_{v}^{h} =\frac{\left(L+S\right)}{r_{b} }"/></p>
+</div><p>are the sensible heat conductances from the canopy air to the
+atmosphere, the ground to canopy air, and leaf surface to canopy air,
+respectively (m s<sup>-1</sup>).</p>
+<p>When the expression for <img class="math" src="../../_images/math/cd68161a74fd8f87d773aa03bb3251be8f9288bb.svg" alt="T_{s}"/>  is substituted into equation <a class="reference internal" href="#equation-5-88">(2.5.88)</a>,
+the sensible heat flux from vegetation <img class="math" src="../../_images/math/54445cb7049e57da1b97f97a2b8e67598724194e.svg" alt="H_{v}"/>  is a function of
+<img class="math" src="../../_images/math/af2f2fe15f712f41bfd5d61f3812d9b24068c0de.svg" alt="\theta _{atm}"/> , <img class="math" src="../../_images/math/53cba0c126e1c7541e1fb95a12310ef787d3d9a2.svg" alt="T_{g}"/> , and <img class="math" src="../../_images/math/ad7c90a4efeb31f2a1f794d4715f83bc48acd8f2.svg" alt="T_{v}"/></p>
+<div class="math" id="equation-5-97">
+<p><span class="eqno">(2.5.97)<a class="headerlink" href="#equation-5-97" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ef45eb6735f2788e23304c3aff041eba9e7815bd.svg" alt="H_{v} = -\rho _{atm} C_{p} \left[c_{a}^{h} \theta _{atm} +c_{g}^{h} T_{g} -\left(c_{a}^{h} +c_{g}^{h} \right)T_{v} \right]\frac{c_{v}^{h} }{c_{a}^{h} +c_{v}^{h} +c_{g}^{h} } ."/></p>
+</div><p>Similarly, the expression for <img class="math" src="../../_images/math/cd68161a74fd8f87d773aa03bb3251be8f9288bb.svg" alt="T_{s}"/>  can be substituted into
+equation to obtain the sensible heat flux from ground <img class="math" src="../../_images/math/26d67841bdbc655b0cafdb0e16024cda6cee4b5d.svg" alt="H_{g}"/></p>
+<div class="math" id="equation-5-98">
+<p><span class="eqno">(2.5.98)<a class="headerlink" href="#equation-5-98" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ec89b18c70827e1c22ccd4c99a5b6cfdb9975cc7.svg" alt="H_{g} = -\rho _{atm} C_{p} \left[c_{a}^{h} \theta _{atm} +c_{v}^{h} T_{v} -\left(c_{a}^{h} +c_{v}^{h} \right)T_{g} \right]\frac{c_{g}^{h} }{c_{a}^{h} +c_{v}^{h} +c_{g}^{h} } ."/></p>
+</div><p>The air within the canopy is assumed to have negligible capacity to
+store water vapor so that the water vapor flux <img class="math" src="../../_images/math/1815f600df7845409443aed470eac2d449e4ddb0.svg" alt="E"/> between the
+surface at height <img class="math" src="../../_images/math/3bac5d4734174f524ca3b3904f59bdc2202b7660.svg" alt="z_{0w} +d"/> and the atmosphere at height
+<img class="math" src="../../_images/math/37ba0c6b09ed71c4b0394275000dab163f017fea.svg" alt="z_{atm,\, w}"/>  must be balanced by the sum of the water vapor
+flux from the vegetation <img class="math" src="../../_images/math/d9ed4766c991ae41b6a9b260f262e04305108144.svg" alt="E_{v}"/>  and the ground <img class="math" src="../../_images/math/57733e627038e5a98203d064d11161de0e2dedbc.svg" alt="E_{g}"/></p>
+<div class="math" id="equation-5-99">
+<p><span class="eqno">(2.5.99)<a class="headerlink" href="#equation-5-99" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a4e0f5406afc425d014f97195c9538d850d9091b.svg" alt="E = E_{v} +E_{g}"/></p>
+</div><p>where, with reference to <a class="reference internal" href="#figure-schematic-diagram-of-latent-heat-fluxes"><span class="std std-numref">Figure 2.5.2</span></a>,</p>
+<div class="math" id="equation-5-100">
+<p><span class="eqno">(2.5.100)<a class="headerlink" href="#equation-5-100" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a86e179c45bb17cef49fc2e07e884892428a98b8.svg" alt="E = -\rho _{atm} \frac{\left(q_{atm} -q_{s} \right)}{r_{aw} }"/></p>
+</div><div class="math" id="equation-5-101">
+<p><span class="eqno">(2.5.101)<a class="headerlink" href="#equation-5-101" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fb8e1e7d9940e3db8cc3d7c707eacfd8535f3cdc.svg" alt="E_{v} = -\rho _{atm} \frac{\left(q_{s} -q_{sat}^{T_{v} } \right)}{r_{total} }"/></p>
+</div><div class="math" id="equation-5-102">
+<p><span class="eqno">(2.5.102)<a class="headerlink" href="#equation-5-102" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9c80b3e93b204495acc589f173d5424c0114d0b9.svg" alt="E_{g} = \left(1-f_{sno} -f_{h2osfc} \right)E_{soil} +f_{sno} E_{snow} +f_{h2osfc} E_{h2osfc} \ ,"/></p>
+</div><p>where</p>
+<div class="math" id="equation-5-103">
+<p><span class="eqno">(2.5.103)<a class="headerlink" href="#equation-5-103" title="Permalink to this equation">¶</a></span><img src="../../_images/math/bad0db9a12a90445b2e5fc161d63df3dcffe0c05.svg" alt="E_{soil} = -\rho _{atm} \frac{\left(q_{s} -q_{soil} \right)}{r_{aw} ^{{'} } +r_{soil} }"/></p>
+</div><div class="math" id="equation-5-104">
+<p><span class="eqno">(2.5.104)<a class="headerlink" href="#equation-5-104" title="Permalink to this equation">¶</a></span><img src="../../_images/math/53aac91febac6c6211be9e50264794b7612a1e6c.svg" alt="E_{sno} = -\rho _{atm} \frac{\left(q_{s} -q_{sno} \right)}{r_{aw} ^{{'} } +r_{soil} }"/></p>
+</div><div class="math" id="equation-5-105">
+<p><span class="eqno">(2.5.105)<a class="headerlink" href="#equation-5-105" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a5cc208b8159dd4e813ca9ab60f52a2fdaf342fe.svg" alt="E_{h2osfc} = -\rho _{atm} \frac{\left(q_{s} -q_{h2osfc} \right)}{r_{aw} ^{{'} } +r_{soil} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/885134885c18e4056938b65622871e57d85052ea.svg" alt="q_{atm}"/>  is the atmospheric specific humidity (kg kg<sup>-1</sup>), <img class="math" src="../../_images/math/85a0c80ad359f97cb02cc5171e92ae204c6e9ec8.svg" alt="r_{aw}"/>  is the aerodynamic resistance to
+water vapor transfer (s m<sup>-1</sup>), <img class="math" src="../../_images/math/1dfcbb15553d5116b494d47ce0c5165a29c9a44e.svg" alt="q_{sat}^{T_{v} }"/>
+(kg kg<sup>-1</sup>) is the saturation water vapor specific humidity
+at the vegetation temperature (section <a class="reference internal" href="#saturation-vapor-pressure"><span class="std std-numref">2.5.5</span></a>), <img class="math" src="../../_images/math/894ad80e12ffd9b1ec46047e004a0d41af588f20.svg" alt="q_{g}"/>  ,
+<img class="math" src="../../_images/math/a59fa4b8f0590c9daad7d918cc939fadb2d07e4c.svg" alt="q_{sno}"/>  , and <img class="math" src="../../_images/math/6fe1329fa91153cda11828930bf45c539c1dd8c3.svg" alt="q_{h2osfc}"/>  are the specific humidities
+of the soil, snow, and surface water (section <a class="reference internal" href="#sensible-and-latent-heat-fluxes-for-non-vegetated-surfaces"><span class="std std-numref">2.5.2</span></a>),
+<img class="math" src="../../_images/math/2b002705ed809e7d93554435ce447a340b030d72.svg" alt="r_{aw} ^{{'} }"/>  is the aerodynamic resistance (s
+m<sup>-1</sup>) to water vapor transfer between the ground at height
+<img class="math" src="../../_images/math/71b6ad2a078b4376e30506546cd7babc5b8ca28b.svg" alt="z_{0w} ^{{'} }"/>  and the canopy air at height <img class="math" src="../../_images/math/3bac5d4734174f524ca3b3904f59bdc2202b7660.svg" alt="z_{0w} +d"/>,
+and <img class="math" src="../../_images/math/1790f62f020c08ccdd85aabb182d31c6381ecbb8.svg" alt="r_{soil}"/>  (<a class="reference internal" href="#equation-5-76">(2.5.76)</a>) is a resistance to diffusion through the soil
+(s m<sup>-1</sup>). <img class="math" src="../../_images/math/5b7976e47aad73dad6ffa0231c59e08c2fe59c21.svg" alt="r_{total}"/>  is the total resistance to
+water vapor transfer from the canopy to the canopy air and includes
+contributions from leaf boundary layer and sunlit and shaded stomatal
+resistances <img class="math" src="../../_images/math/0d6f594491997eb982e1e691cda655a4cfd238a7.svg" alt="r_{b}"/> , <img class="math" src="../../_images/math/fcf968734e3755e6e07d61d9e26bf1ba6d2c3296.svg" alt="r_{s}^{sun}"/> , and
+<img class="math" src="../../_images/math/8dce19aad3dfacd69a67b9792cacf8dc6247b4c4.svg" alt="r_{s}^{sha}"/>  (<a class="reference internal" href="#figure-schematic-diagram-of-latent-heat-fluxes"><span class="std std-numref">Figure 2.5.2</span></a>).
+The water vapor flux from vegetation
+is the sum of water vapor flux from wetted leaf and stem area
+<img class="math" src="../../_images/math/190a68cbdee589855e69168fab9140b42656a63f.svg" alt="E_{v}^{w}"/>  (evaporation of water intercepted by the canopy) and
+transpiration from dry leaf surfaces <img class="math" src="../../_images/math/6f7ecb70c0679fa9b1b6253afa9372c51320249e.svg" alt="E_{v}^{t}"/></p>
+<div class="math" id="equation-5-106">
+<p><span class="eqno">(2.5.106)<a class="headerlink" href="#equation-5-106" title="Permalink to this equation">¶</a></span><img src="../../_images/math/b074d8a180e88d6a30e2c8d8f974a55e27fd9bab.svg" alt="E_{v} =E_{v}^{w} +E_{v}^{t} ."/></p>
+</div><p>Equations <a class="reference internal" href="#equation-5-99">(2.5.99)</a> - <a class="reference internal" href="#equation-5-102">(2.5.102)</a> can be solved for the canopy specific humidity
+<img class="math" src="../../_images/math/127bb8489d5544b0e2d3bd4748b5d04c9a4acdce.svg" alt="q_{s}"/></p>
+<div class="math" id="equation-5-107">
+<p><span class="eqno">(2.5.107)<a class="headerlink" href="#equation-5-107" title="Permalink to this equation">¶</a></span><img src="../../_images/math/1136051587ff0d746b897f95d61de73251cdb0ae.svg" alt="q_{s} =\frac{c_{a}^{w} q_{atm} +c_{g}^{w} q_{g} +c_{v}^{w} q_{sat}^{T_{v} } }{c_{a}^{w} +c_{v}^{w} +c_{g}^{w} }"/></p>
+</div><p>where</p>
+<div class="math" id="equation-5-108">
+<p><span class="eqno">(2.5.108)<a class="headerlink" href="#equation-5-108" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d9fd17903ef00b4dbbf8ce469c8c951fef78fad9.svg" alt="c_{a}^{w} =\frac{1}{r_{aw} }"/></p>
+</div><div class="math" id="equation-5-109">
+<p><span class="eqno">(2.5.109)<a class="headerlink" href="#equation-5-109" title="Permalink to this equation">¶</a></span><img src="../../_images/math/13bd6e442e904ca9aca155851e45c5ae64c554be.svg" alt="c_{v}^{w} =\frac{\left(L+S\right)}{r_{b} } r''"/></p>
+</div><div class="math" id="equation-5-110">
+<p><span class="eqno">(2.5.110)<a class="headerlink" href="#equation-5-110" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f8293142f3c20978fc6baa9d33527cd35f56c5e7.svg" alt="c_{g}^{w} =\frac{1}{r_{aw} ^{{'} } +r_{soil} }"/></p>
+</div><p>are the water vapor conductances from the canopy air to the atmosphere,
+the leaf to canopy air, and ground to canopy air, respectively. The term
+<img class="math" src="../../_images/math/9c13c902b75902edc48cada4cd5c95788f32888d.svg" alt="r''"/> is determined from contributions by wet leaves and
+transpiration and limited by available water and potential evaporation
+as</p>
+<div class="math" id="equation-5-111">
+<p><span class="eqno">(2.5.111)<a class="headerlink" href="#equation-5-111" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ede0e888dcdaac5c6c9ef5b16fd51728a524bec1.svg" alt="r'' = \left\{
+\begin{array}{lr}
+\min \left(f_{wet} +r_{dry} ^{{'} {'} } ,\, \frac{E_{v}^{w,\, pot} r_{dry} ^{{'} {'} } +\frac{W_{can} }{\Delta t} }{E_{v}^{w,\, pot} } \right) &amp; \qquad E_{v}^{w,\, pot} &gt;0,\, \beta _{t} &gt;0 \\
+\min \left(f_{wet} ,\, \frac{E_{v}^{w,\, pot} r_{dry} ^{{'} {'} } +\frac{W_{can} }{\Delta t} }{E_{v}^{w,\, pot} } \right) &amp; \qquad E_{v}^{w,\, pot} &gt;0,\, \beta _{t} \le 0 \\
+1 &amp; \qquad E_{v}^{w,\, pot} \le 0
+\end{array}\right\}"/></p>
+</div><p>where <img class="math" src="../../_images/math/95d2caffc09f8d1db76dbbee0352c7e1e68eba47.svg" alt="f_{wet}"/>  is the fraction of leaves and stems that are wet
+(section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#canopy-water"><span class="std std-numref">2.7.1</span></a>), <img class="math" src="../../_images/math/65bd7a9a3c8374c0e8711cfd88e0d51b7375e2db.svg" alt="W_{can}"/>  is canopy water (kg m<sup>-2</sup>)
+(section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#canopy-water"><span class="std std-numref">2.7.1</span></a>), <img class="math" src="../../_images/math/b4ed9c2e208e08edeca8b1550ec0840acd090276.svg" alt="\Delta t"/> is the time step (s), and
+<img class="math" src="../../_images/math/2d977a2876fbe6aabde03137b0ca0bc270c9cd93.svg" alt="\beta _{t}"/>  is a soil moisture function limiting transpiration
+(Chapter <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#rst-stomatal-resistance-and-photosynthesis"><span class="std std-numref">2.9</span></a>). The potential
+evaporation from wet foliage per unit wetted area is</p>
+<div class="math" id="equation-5-112">
+<p><span class="eqno">(2.5.112)<a class="headerlink" href="#equation-5-112" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f3d40e3e96c1d352d4bcbccb395657e348563ee1.svg" alt="E_{v}^{w,\, pot} =-\frac{\rho _{atm} \left(q_{s} -q_{sat}^{T_{v} } \right)}{r_{b} } ."/></p>
+</div><p>The term <img class="math" src="../../_images/math/bac6ef05b8448099981f5a507ee14b638cca0876.svg" alt="r_{dry} ^{{'} {'} }"/>  is</p>
+<div class="math" id="equation-5-113">
+<p><span class="eqno">(2.5.113)<a class="headerlink" href="#equation-5-113" title="Permalink to this equation">¶</a></span><img src="../../_images/math/97ddacb669b0b50570a5f608625d522ceeb60c82.svg" alt="r_{dry} ^{{'} {'} } =\frac{f_{dry} r_{b} }{L} \left(\frac{L^{sun} }{r_{b} +r_{s}^{sun} } +\frac{L^{sha} }{r_{b} +r_{s}^{sha} } \right)"/></p>
+</div><p>where <img class="math" src="../../_images/math/a37531506eafc777ba8c0bee7114483659c9ba91.svg" alt="f_{dry}"/>  is the fraction of leaves that are dry (section
+<a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#canopy-water"><span class="std std-numref">2.7.1</span></a>), <img class="math" src="../../_images/math/2fac4e1202fee460cd6145e0afe9f53fca7babe8.svg" alt="L^{sun}"/>  and <img class="math" src="../../_images/math/fb97a55d86319185e6f9bb370e832442ef3fdb66.svg" alt="L^{sha}"/>  are the sunlit and shaded
+leaf area indices (section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#solar-fluxes"><span class="std std-numref">2.4.1</span></a>), and <img class="math" src="../../_images/math/fcf968734e3755e6e07d61d9e26bf1ba6d2c3296.svg" alt="r_{s}^{sun}"/>  and
+<img class="math" src="../../_images/math/8dce19aad3dfacd69a67b9792cacf8dc6247b4c4.svg" alt="r_{s}^{sha}"/>  are the sunlit and shaded stomatal resistances (s
+m<sup>-1</sup>) (Chapter <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#rst-stomatal-resistance-and-photosynthesis"><span class="std std-numref">2.9</span></a>).</p>
+<p>When the expression for <img class="math" src="../../_images/math/127bb8489d5544b0e2d3bd4748b5d04c9a4acdce.svg" alt="q_{s}"/>  is substituted into equation <a class="reference internal" href="#equation-5-101">(2.5.101)</a>,
+the water vapor flux from vegetation <img class="math" src="../../_images/math/d9ed4766c991ae41b6a9b260f262e04305108144.svg" alt="E_{v}"/>  is a function of
+<img class="math" src="../../_images/math/885134885c18e4056938b65622871e57d85052ea.svg" alt="q_{atm}"/> , <img class="math" src="../../_images/math/894ad80e12ffd9b1ec46047e004a0d41af588f20.svg" alt="q_{g}"/> , and <img class="math" src="../../_images/math/1dfcbb15553d5116b494d47ce0c5165a29c9a44e.svg" alt="q_{sat}^{T_{v} }"/></p>
+<div class="math" id="equation-5-114">
+<p><span class="eqno">(2.5.114)<a class="headerlink" href="#equation-5-114" title="Permalink to this equation">¶</a></span><img src="../../_images/math/21644b2733cdfaa2465b50b050ddcb03efee6ffa.svg" alt="E_{v} =-\rho _{atm} \left[c_{a}^{w} q_{atm} +c_{g}^{w} q_{g} -\left(c_{a}^{w} +c_{g}^{w} \right)q_{sat}^{T_{v} } \right]\frac{c_{v}^{w} }{c_{a}^{w} +c_{v}^{w} +c_{g}^{w} } ."/></p>
+</div><p>Similarly, the expression for <img class="math" src="../../_images/math/127bb8489d5544b0e2d3bd4748b5d04c9a4acdce.svg" alt="q_{s}"/>  can be substituted into
+<a class="reference internal" href="#equation-5-84">(2.5.84)</a> to obtain the water vapor flux from the ground beneath the
+canopy <img class="math" src="../../_images/math/57733e627038e5a98203d064d11161de0e2dedbc.svg" alt="E_{g}"/></p>
+<div class="math" id="equation-5-115">
+<p><span class="eqno">(2.5.115)<a class="headerlink" href="#equation-5-115" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f62f0567b0eebedf60b429da85aa7c2e0c094453.svg" alt="E_{g} =-\rho _{atm} \left[c_{a}^{w} q_{atm} +c_{v}^{w} q_{sat}^{T_{v} } -\left(c_{a}^{w} +c_{v}^{w} \right)q_{g} \right]\frac{c_{g}^{w} }{c_{a}^{w} +c_{v}^{w} +c_{g}^{w} } ."/></p>
+</div><p>The aerodynamic resistances to heat (moisture) transfer between the
+ground at height <img class="math" src="../../_images/math/de86c93986d3c04785e77cf7f894f4266e576cee.svg" alt="z_{0h} ^{{'} }"/>  (<img class="math" src="../../_images/math/71b6ad2a078b4376e30506546cd7babc5b8ca28b.svg" alt="z_{0w} ^{{'} }"/> ) and
+the canopy air at height <img class="math" src="../../_images/math/01a5f1fc868691660edf7d1279fcd87ca6913a97.svg" alt="z_{0h} +d"/> (<img class="math" src="../../_images/math/3bac5d4734174f524ca3b3904f59bdc2202b7660.svg" alt="z_{0w} +d"/>) are</p>
+<div class="math" id="equation-5-116">
+<p><span class="eqno">(2.5.116)<a class="headerlink" href="#equation-5-116" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fa8fa836fdfbfb1ed49245a3e392f328ec416093.svg" alt="r_{ah} ^{{'} } =r_{aw} ^{{'} } =\frac{1}{C_{s} U_{av} }"/></p>
+</div><p>where</p>
+<div class="math" id="equation-5-117">
+<p><span class="eqno">(2.5.117)<a class="headerlink" href="#equation-5-117" title="Permalink to this equation">¶</a></span><img src="../../_images/math/25ba9b8e362283a56c22356511d03b580501ef78.svg" alt="U_{av} =V_{a} \sqrt{\frac{1}{r_{am} V_{a} } } =u_{*}"/></p>
+</div><p>is the magnitude of the wind velocity incident on the leaves
+(equivalent here to friction velocity) (m s<sup>-1</sup>) and
+<img class="math" src="../../_images/math/9a466f9b67c43a58b3733231251922805003d1a6.svg" alt="C_{s}"/>  is the turbulent transfer coefficient between the
+underlying soil and the canopy air. <img class="math" src="../../_images/math/9a466f9b67c43a58b3733231251922805003d1a6.svg" alt="C_{s}"/>  is obtained by
+interpolation between values for dense canopy and bare soil
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#zengetal2005"><span class="std std-ref">Zeng et al. 2005</span></a>)</p>
+<div class="math" id="equation-5-118">
+<p><span class="eqno">(2.5.118)<a class="headerlink" href="#equation-5-118" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e0406775608b504dd3e0fe8b1104032c1814f242.svg" alt="C_{s} =C_{s,\, bare} W+C_{s,\, dense} (1-W)"/></p>
+</div><p>where the weight <img class="math" src="../../_images/math/1fbee781f84569077719a167b64e12064360fac1.svg" alt="W"/> is</p>
+<div class="math" id="equation-5-119">
+<p><span class="eqno">(2.5.119)<a class="headerlink" href="#equation-5-119" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7625fbc1637e9d5deb6271f581256830da14df4c.svg" alt="W=e^{-\left(L+S\right)} ."/></p>
+</div><p>The dense canopy turbulent transfer coefficient
+(<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#dickinsonetal1993"><span class="std std-ref">Dickinson et al. 1993</span></a>) is</p>
+<div class="math" id="equation-5-120">
+<p><span class="eqno">(2.5.120)<a class="headerlink" href="#equation-5-120" title="Permalink to this equation">¶</a></span><img src="../../_images/math/76b09a420ff88eeef806800f6cb70be2d7a31422.svg" alt="C_{s,\, dense} =0.004 \ ."/></p>
+</div><p>The bare soil turbulent transfer coefficient is</p>
+<div class="math" id="equation-5-121">
+<p><span class="eqno">(2.5.121)<a class="headerlink" href="#equation-5-121" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4f11a23d1e1aee7d83602ba4ed1d6f70145a8d6b.svg" alt="C_{s,\, bare} =\frac{k}{a} \left(\frac{z_{0m,\, g} U_{av} }{\upsilon } \right)^{-0.45}"/></p>
+</div><p>where the kinematic viscosity of air
+<img class="math" src="../../_images/math/c32da67e0e2867cec4337eb40a0c8eb2e910df1c.svg" alt="\upsilon =1.5\times 10^{-5}"/>  m<sup>2</sup> s<sup>-1</sup> and <img class="math" src="../../_images/math/b9e46783e82825eb37b0553184ddf07268376977.svg" alt="a=0.13"/>.</p>
+<p>The leaf boundary layer resistance <img class="math" src="../../_images/math/0d6f594491997eb982e1e691cda655a4cfd238a7.svg" alt="r_{b}"/>  is</p>
+<div class="math" id="equation-5-122">
+<p><span class="eqno">(2.5.122)<a class="headerlink" href="#equation-5-122" title="Permalink to this equation">¶</a></span><img src="../../_images/math/8b4355825e7351bbb30b409489e2117aeb492a1c.svg" alt="r_{b} =\frac{1}{C_{v} } \left({U_{av} \mathord{\left/ {\vphantom {U_{av}  d_{leaf} }} \right. \kern-\nulldelimiterspace} d_{leaf} } \right)^{{-1\mathord{\left/ {\vphantom {-1 2}} \right. \kern-\nulldelimiterspace} 2} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/7a18d1e42ae15436a244b63feaae4d73fd4e32fa.svg" alt="C_{v} =0.01"/> ms<sup>-1/2</sup> is the turbulent
+transfer coefficient between the canopy surface and canopy air, and
+<img class="math" src="../../_images/math/b5984c8419a9cb4898884ea8b8ec9d796831d83f.svg" alt="d_{leaf}"/>  is the characteristic dimension of the leaves in the
+direction of wind flow (<a class="reference internal" href="#table-plant-functional-type-aerodynamic-parameters"><span class="std std-numref">Table 2.5.1</span></a>).</p>
+<p>The partial derivatives of the fluxes from the soil beneath the canopy
+with respect to ground temperature, which are needed for the soil
+temperature calculations (section <a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#numerical-solution-temperature"><span class="std std-numref">2.6.1</span></a>)
+and to update the soil surface fluxes (section
+<a class="reference internal" href="#update-of-ground-sensible-and-latent-heat-fluxes"><span class="std std-numref">2.5.4</span></a>), are</p>
+<div class="math" id="equation-5-123">
+<p><span class="eqno">(2.5.123)<a class="headerlink" href="#equation-5-123" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c6b142cf92c06c5258afed7b82bedf210401dcb6.svg" alt="\frac{\partial H_{g} }{\partial T_{g} } = \frac{\rho _{atm} C_{p} }{r'_{ah} } \frac{c_{a}^{h} +c_{v}^{h} }{c_{a}^{h} +c_{v}^{h} +c_{g}^{h} }"/></p>
+</div><div class="math" id="equation-5-124">
+<p><span class="eqno">(2.5.124)<a class="headerlink" href="#equation-5-124" title="Permalink to this equation">¶</a></span><img src="../../_images/math/88a2eb0e14177d11e3a8f21d45d5fabab4c592a7.svg" alt="\frac{\partial E_{g} }{\partial T_{g} } = \frac{\rho _{atm} }{r'_{aw} +r_{soil} } \frac{c_{a}^{w} +c_{v}^{w} }{c_{a}^{w} +c_{v}^{w} +c_{g}^{w} } \frac{dq_{g} }{dT_{g} } ."/></p>
+</div><p>The partial derivatives
+<img class="math" src="../../_images/math/c2cb878d8f11e0f9e2e54ef98ed32b78ded67dba.svg" alt="\frac{\partial r'_{ah} }{\partial T_{g} }"/>  and
+<img class="math" src="../../_images/math/b64387bab3e3bd17f26df014cd11a4b60f7764db.svg" alt="\frac{\partial r'_{aw} }{\partial T_{g} }"/> , which cannot be
+determined analytically, are ignored for
+<img class="math" src="../../_images/math/80ebc39f2164401fe0e0eff75be4de541c02d4a7.svg" alt="\frac{\partial H_{g} }{\partial T_{g} }"/>  and
+<img class="math" src="../../_images/math/b40c4748a86cf53f33015f48423dc6634afa09b6.svg" alt="\frac{\partial E_{g} }{\partial T_{g} }"/> .</p>
+<p>The roughness lengths used to calculate <img class="math" src="../../_images/math/15213a2ac305f78767254ec4339ad668ca53dee9.svg" alt="r_{am}"/> ,
+<img class="math" src="../../_images/math/a627f97ea8b1e75fe8e101b724d3dae68bafdc1f.svg" alt="r_{ah}"/> , and <img class="math" src="../../_images/math/85a0c80ad359f97cb02cc5171e92ae204c6e9ec8.svg" alt="r_{aw}"/>  from <a class="reference internal" href="#equation-5-55">(2.5.55)</a>, <a class="reference internal" href="#equation-5-56">(2.5.56)</a>, and <a class="reference internal" href="#equation-5-57">(2.5.57)</a> are
+<img class="math" src="../../_images/math/1f9e480f04770bdcbd99afe016eb0f00b46639bd.svg" alt="z_{0m} =z_{0m,\, v}"/> , <img class="math" src="../../_images/math/efdf977735b7c393872457f33b9174804673b073.svg" alt="z_{0h} =z_{0h,\, v}"/> , and
+<img class="math" src="../../_images/math/1cf8de570c4cc2419c4456845aed5949e76d8bd5.svg" alt="z_{0w} =z_{0w,\, v}"/> . The vegetation displacement height
+<img class="math" src="../../_images/math/badad346f6fbe2e237af99bfbd9a93a4da53a3da.svg" alt="d"/> and the roughness lengths are a function of plant height and
+adjusted for canopy density following <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#zengwang2007"><span class="std std-ref">Zeng and Wang (2007)</span></a></p>
+<div class="math" id="equation-5-125">
+<p><span class="eqno">(2.5.125)<a class="headerlink" href="#equation-5-125" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ae28a305177b670fd6ff18b8461b7f741d5af8e7.svg" alt="z_{0m,\, v} = z_{0h,\, v} =z_{0w,\, v} =\exp \left[V\ln \left(z_{top} R_{z0m} \right)+\left(1-V\right)\ln \left(z_{0m,\, g} \right)\right]"/></p>
+</div><div class="math" id="equation-5-126">
+<p><span class="eqno">(2.5.126)<a class="headerlink" href="#equation-5-126" title="Permalink to this equation">¶</a></span><img src="../../_images/math/5fa3d9b74b805a7ee46642c9a5c30ee1bb7a055a.svg" alt="d = z_{top} R_{d} V"/></p>
+</div><p>where <img class="math" src="../../_images/math/5c101b7e039708093413751993eb68931fe631fc.svg" alt="z_{top}"/>  is canopy top height (m)
+(<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-plant-functional-type-canopy-top-and-bottom-heights"><span class="std std-numref">Table 2.2.2</span></a>),
+<img class="math" src="../../_images/math/6eee5bcfb560e9c99b98550a40f26872f6fe42c1.svg" alt="R_{z0m}"/>  and <img class="math" src="../../_images/math/c07651fbc2e97094edf5693f5300e1356ff7be8e.svg" alt="R_{d}"/>  are the ratio of momentum roughness
+length and displacement height to canopy top height, respectively
+(<a class="reference internal" href="#table-plant-functional-type-aerodynamic-parameters"><span class="std std-numref">Table 2.5.1</span></a>), and <img class="math" src="../../_images/math/c6a48fdd913d4728d7947684f0f1df9694804415.svg" alt="z_{0m,\, g}"/>
+is the ground momentum roughness length (m) (section
+<a class="reference internal" href="#sensible-and-latent-heat-fluxes-for-non-vegetated-surfaces"><span class="std std-numref">2.5.2</span></a>). The
+fractional weight <img class="math" src="../../_images/math/e4762cec46619bf7781cae62216214f909395368.svg" alt="V"/> is determined from</p>
+<div class="math" id="equation-5-127">
+<p><span class="eqno">(2.5.127)<a class="headerlink" href="#equation-5-127" title="Permalink to this equation">¶</a></span><img src="../../_images/math/442ad5e6d6aa503dea22155c8fd01e0d07a8d625.svg" alt="V = \frac{1-\exp \left\{-\beta \min \left[L+S,\, \left(L+S\right)_{cr} \right]\right\}}{1-\exp \left[-\beta \left(L+S\right)_{cr} \right]}"/></p>
+</div><p>where <img class="math" src="../../_images/math/32f5f857cb890a500b9c570369ad7df19d6b2828.svg" alt="\beta =1"/> and <img class="math" src="../../_images/math/435e46b6ebc8daeb742e127e76e1a4b7fbedcf61.svg" alt="\left(L+S\right)_{cr} = 2"/>
+(m<sup>2</sup> m<sup>-2</sup>) is a critical value of exposed leaf
+plus stem area for which <img class="math" src="../../_images/math/60e28eaa04e4d407de5c37b34c7be49751923efe.svg" alt="z_{0m}"/>  reaches its maximum.</p>
+<span id="table-plant-functional-type-aerodynamic-parameters"></span><table class="docutils align-default" id="id10">
+<caption><span class="caption-number">Table 2.5.1 </span><span class="caption-text">Plant functional type aerodynamic parameters</span><a class="headerlink" href="#id10" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Plant functional type</p></th>
+<th class="head"><p><img class="math" src="../../_images/math/6eee5bcfb560e9c99b98550a40f26872f6fe42c1.svg" alt="R_{z0m}"/></p></th>
+<th class="head"><p><img class="math" src="../../_images/math/c07651fbc2e97094edf5693f5300e1356ff7be8e.svg" alt="R_{d}"/></p></th>
+<th class="head"><p><img class="math" src="../../_images/math/b5984c8419a9cb4898884ea8b8ec9d796831d83f.svg" alt="d_{leaf}"/>  (m)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NET Temperate</p></td>
+<td><p>0.055</p></td>
+<td><p>0.67</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>NET Boreal</p></td>
+<td><p>0.055</p></td>
+<td><p>0.67</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-even"><td><p>NDT Boreal</p></td>
+<td><p>0.055</p></td>
+<td><p>0.67</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>BET Tropical</p></td>
+<td><p>0.075</p></td>
+<td><p>0.67</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-even"><td><p>BET temperate</p></td>
+<td><p>0.075</p></td>
+<td><p>0.67</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>BDT tropical</p></td>
+<td><p>0.055</p></td>
+<td><p>0.67</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-even"><td><p>BDT temperate</p></td>
+<td><p>0.055</p></td>
+<td><p>0.67</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>BDT boreal</p></td>
+<td><p>0.055</p></td>
+<td><p>0.67</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-even"><td><p>BES temperate</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>BDS temperate</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-even"><td><p>BDS boreal</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>C<sub>3</sub> arctic grass</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-even"><td><p>C<sub>3</sub> grass</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>C<sub>4</sub> grass</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-even"><td><p>Crop R</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>Crop I</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-even"><td><p>Corn R</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>Corn I</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-even"><td><p>Temp Cereal R</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>Temp Cereal I</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-even"><td><p>Winter Cereal R</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>Winter Cereal I</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-even"><td><p>Soybean R</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+<tr class="row-odd"><td><p>Soybean I</p></td>
+<td><p>0.120</p></td>
+<td><p>0.68</p></td>
+<td><p>0.04</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="numerical-implementation">
+<span id="id5"></span><h3><span class="section-number">2.5.3.2. </span>Numerical Implementation<a class="headerlink" href="#numerical-implementation" title="Permalink to this headline">¶</a></h3>
+<p>Canopy energy conservation gives</p>
+<div class="math" id="equation-5-128">
+<p><span class="eqno">(2.5.128)<a class="headerlink" href="#equation-5-128" title="Permalink to this equation">¶</a></span><img src="../../_images/math/35efc6b9b6b37732bb1c9d41a10c0a15f8a92128.svg" alt="-\overrightarrow{S}_{v} +\overrightarrow{L}_{v} \left(T_{v} \right)+H_{v} \left(T_{v} \right)+\lambda E_{v} \left(T_{v} \right)=0"/></p>
+</div><p>where <img class="math" src="../../_images/math/c6610bb3169034d16c718f89a2d6ad334c924828.svg" alt="\overrightarrow{S}_{v}"/>  is the solar radiation absorbed by
+the vegetation (section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#solar-fluxes"><span class="std std-numref">2.4.1</span></a>), <img class="math" src="../../_images/math/a22956039edc74f3d250dd6a20ddaab735210f28.svg" alt="\overrightarrow{L}_{v}"/>  is the net
+longwave radiation absorbed by vegetation (section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#longwave-fluxes"><span class="std std-numref">2.4.2</span></a>), and
+<img class="math" src="../../_images/math/54445cb7049e57da1b97f97a2b8e67598724194e.svg" alt="H_{v}"/>  and <img class="math" src="../../_images/math/0c05919ec095e4a10f2da0db392ec8d9543decb7.svg" alt="\lambda E_{v}"/>  are the sensible and latent
+heat fluxes from vegetation, respectively. The term <img class="math" src="../../_images/math/cefc603e5658facb747581f9567192993f21c7ab.svg" alt="\lambda"/>  is
+taken to be the latent heat of vaporization <img class="math" src="../../_images/math/0e55c1e2767e89acb3d4c5e3dc8fe36405b8e9a1.svg" alt="\lambda _{vap}"/>
+(<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>).</p>
+<p><img class="math" src="../../_images/math/a22956039edc74f3d250dd6a20ddaab735210f28.svg" alt="\overrightarrow{L}_{v}"/> , <img class="math" src="../../_images/math/54445cb7049e57da1b97f97a2b8e67598724194e.svg" alt="H_{v}"/> , and
+<img class="math" src="../../_images/math/0c05919ec095e4a10f2da0db392ec8d9543decb7.svg" alt="\lambda E_{v}"/>  depend on the vegetation temperature
+<img class="math" src="../../_images/math/ad7c90a4efeb31f2a1f794d4715f83bc48acd8f2.svg" alt="T_{v}"/> . The Newton-Raphson method for finding roots of
+non-linear systems of equations can be applied to iteratively solve for
+<img class="math" src="../../_images/math/ad7c90a4efeb31f2a1f794d4715f83bc48acd8f2.svg" alt="T_{v}"/>  as</p>
+<div class="math" id="equation-5-129">
+<p><span class="eqno">(2.5.129)<a class="headerlink" href="#equation-5-129" title="Permalink to this equation">¶</a></span><img src="../../_images/math/46cc94720d77d1636907aa62dc33c70e83fc5602.svg" alt="\Delta T_{v} =\frac{\overrightarrow{S}_{v} -\overrightarrow{L}_{v} -H_{v} -\lambda E_{v} }{\frac{\partial \overrightarrow{L}_{v} }{\partial T_{v} } +\frac{\partial H_{v} }{\partial T_{v} } +\frac{\partial \lambda E_{v} }{\partial T_{v} } }"/></p>
+</div><p>where <img class="math" src="../../_images/math/0abef49fecd1a6667a2cb462b139b0a1ecb89ad0.svg" alt="\Delta T_{v} =T_{v}^{n+1} -T_{v}^{n}"/>  and the subscript
+“n” indicates the iteration.</p>
+<p>The partial derivatives are</p>
+<div class="math" id="equation-5-130">
+<p><span class="eqno">(2.5.130)<a class="headerlink" href="#equation-5-130" title="Permalink to this equation">¶</a></span><img src="../../_images/math/9daa8472d501d7c93047c6dff9578b690fc57387.svg" alt="\frac{\partial \overrightarrow{L}_{v} }{\partial T_{v} } =4\varepsilon _{v} \sigma \left[2-\varepsilon _{v} \left(1-\varepsilon _{g} \right)\right]T_{v}^{3}"/></p>
+</div><div class="math" id="equation-5-131">
+<p><span class="eqno">(2.5.131)<a class="headerlink" href="#equation-5-131" title="Permalink to this equation">¶</a></span><img src="../../_images/math/4c331f0ceda7fb657af88b5cae12c7961998422f.svg" alt="\frac{\partial H_{v} }{\partial T_{v} } =\rho _{atm} C_{p} \left(c_{a}^{h} +c_{g}^{h} \right)\frac{c_{v}^{h} }{c_{a}^{h} +c_{v}^{h} +c_{g}^{h} }"/></p>
+</div><div class="math" id="equation-5-132">
+<p><span class="eqno">(2.5.132)<a class="headerlink" href="#equation-5-132" title="Permalink to this equation">¶</a></span><img src="../../_images/math/701a201be9e2db8d4c1aabae9b737f985251deca.svg" alt="\frac{\partial \lambda E_{v} }{\partial T_{v} } =\lambda \rho _{atm} \left(c_{a}^{w} +c_{g}^{w} \right)\frac{c_{v}^{w} }{c_{a}^{w} +c_{v}^{w} +c_{g}^{w} } \frac{dq_{sat}^{T_{v} } }{dT_{v} } ."/></p>
+</div><p>The partial derivatives
+<img class="math" src="../../_images/math/99a17a35b53d85b2aba0ad0a4b12859d9a5a7251.svg" alt="\frac{\partial r_{ah} }{\partial T_{v} }"/>  and
+<img class="math" src="../../_images/math/6ef3672a999bc133cdcfdb464d473016f13af5be.svg" alt="\frac{\partial r_{aw} }{\partial T_{v} }"/> , which cannot be
+determined analytically, are ignored for
+<img class="math" src="../../_images/math/cb8fa40863b8a3d4122b5318932b06683845807a.svg" alt="\frac{\partial H_{v} }{\partial T_{v} }"/>  and
+<img class="math" src="../../_images/math/8e2f67d84ee4a0ac49ad47c1b264efdf2c38705e.svg" alt="\frac{\partial \lambda E_{v} }{\partial T_{v} }"/> . However, if
+<img class="math" src="../../_images/math/3ef1157ea7221d7eda6098e1fd7a04a28a555e6d.svg" alt="\zeta"/>  changes sign more than four times during the temperature
+iteration, <img class="math" src="../../_images/math/aee44435ceea3c20a7c3022fc9fcf72990715a5c.svg" alt="\zeta =-0.01"/>. This helps prevent “flip-flopping”
+between stable and unstable conditions. The total water vapor flux
+<img class="math" src="../../_images/math/d9ed4766c991ae41b6a9b260f262e04305108144.svg" alt="E_{v}"/> , transpiration flux <img class="math" src="../../_images/math/6f7ecb70c0679fa9b1b6253afa9372c51320249e.svg" alt="E_{v}^{t}"/> , and sensible heat
+flux <img class="math" src="../../_images/math/54445cb7049e57da1b97f97a2b8e67598724194e.svg" alt="H_{v}"/>  are updated for changes in leaf temperature as</p>
+<div class="math" id="equation-5-133">
+<p><span class="eqno">(2.5.133)<a class="headerlink" href="#equation-5-133" title="Permalink to this equation">¶</a></span><img src="../../_images/math/be57613113bdcd6eb3af5cac2c5dbb503e478b19.svg" alt="E_{v} =-\rho _{atm} \left[c_{a}^{w} q_{atm} +c_{g}^{w} q_{g} -\left(c_{a}^{w} +c_{g}^{w} \right)\left(q_{sat}^{T_{v} } +\frac{dq_{sat}^{T_{v} } }{dT_{v} } \Delta T_{v} \right)\right]\frac{c_{v}^{w} }{c_{a}^{w} +c_{v}^{w} +c_{g}^{w} }"/></p>
+</div><div class="math" id="equation-5-134">
+<p><span class="eqno">(2.5.134)<a class="headerlink" href="#equation-5-134" title="Permalink to this equation">¶</a></span><img src="../../_images/math/710eda6e747220f2db2bcad8c44b1f518f1bf0d9.svg" alt="E_{v}^{t} =-r_{dry} ^{{'} {'} } \rho _{atm} \left[c_{a}^{w} q_{atm} +c_{g}^{w} q_{g} -\left(c_{a}^{w} +c_{g}^{w} \right)\left(q_{sat}^{T_{v} } +\frac{dq_{sat}^{T_{v} } }{dT_{v} } \Delta T_{v} \right)\right]\frac{c_{v}^{h} }{c_{a}^{w} +c_{v}^{w} +c_{g}^{w} }"/></p>
+</div><div class="math" id="equation-5-135">
+<p><span class="eqno">(2.5.135)<a class="headerlink" href="#equation-5-135" title="Permalink to this equation">¶</a></span><img src="../../_images/math/cfee6fad705e8e2321235a06f34cabf0d2ca7c18.svg" alt="H_{v} =-\rho _{atm} C_{p} \left[c_{a}^{h} \theta _{atm} +c_{g}^{h} T_{g} -\left(c_{a}^{h} +c_{g}^{h} \right)\left(T_{v} +\Delta T_{v} \right)\right]\frac{c_{v}^{h} }{c_{a}^{h} +c_{v}^{h} +c_{g}^{h} } ."/></p>
+</div><p>The numerical solution for vegetation temperature and the fluxes of
+momentum, sensible heat, and water vapor flux from vegetated surfaces
+proceeds as follows:</p>
+<ol class="arabic">
+<li><p>Initial values for canopy air temperature and specific humidity are
+obtained from</p>
+<div class="math" id="equation-5-136">
+<p><span class="eqno">(2.5.136)<a class="headerlink" href="#equation-5-136" title="Permalink to this equation">¶</a></span><img src="../../_images/math/6e64c4bb6154ddcb1b37ecb45c5cca541ee3b6b1.svg" alt="T_{s} =\frac{T_{g} +\theta _{atm} }{2}"/></p>
+</div><div class="math" id="equation-5-137">
+<p><span class="eqno">(2.5.137)<a class="headerlink" href="#equation-5-137" title="Permalink to this equation">¶</a></span><img src="../../_images/math/2ef5fb9577bcb57d373a0e52d2e404f4a8c41c3f.svg" alt="q_{s} =\frac{q_{g} +q_{atm} }{2} ."/></p>
+</div></li>
+<li><p>An initial guess for the wind speed <img class="math" src="../../_images/math/e9183e50a01a40564bd494fa1fb39ace1e0424ac.svg" alt="V_{a}"/>  is obtained from
+<a class="reference internal" href="#equation-5-24">(2.5.24)</a> assuming an initial convective velocity <img class="math" src="../../_images/math/6789b91b4e5ac5a769e86c6ed488dc8de9876805.svg" alt="U_{c} =0"/> m
+s<sup>-1</sup> for stable conditions
+(<img class="math" src="../../_images/math/9ac45a6a8d16a9fb4acbb235b382bfa9ec4aea3e.svg" alt="\theta _{v,\, atm} -\theta _{v,\, s} \ge 0"/> as evaluated from
+<a class="reference internal" href="#equation-5-50">(2.5.50)</a> ) and <img class="math" src="../../_images/math/bce9271534630c6b0677f3aac9d73f53d9c2bf68.svg" alt="U_{c} =0.5"/> for unstable conditions
+(<img class="math" src="../../_images/math/89c3bbdc70f79099a768e60901f8faefb22e91d4.svg" alt="\theta _{v,\, atm} -\theta _{v,\, s} &lt;0"/>).</p></li>
+<li><p>An initial guess for the Monin-Obukhov length <img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/> is obtained
+from the bulk Richardson number using equation and  <a class="reference internal" href="#equation-5-46">(2.5.46)</a> and <a class="reference internal" href="#equation-5-48">(2.5.48)</a>.</p></li>
+<li><p>Iteration proceeds on the following system of equations:</p></li>
+<li><p>Friction velocity <img class="math" src="../../_images/math/613f9a39e93c2fa397418cd29e02a7a7cc910081.svg" alt="u_{*}"/>  (<a class="reference internal" href="#equation-5-32">(2.5.32)</a>, <a class="reference internal" href="#equation-5-33">(2.5.33)</a>, <a class="reference internal" href="#equation-5-34">(2.5.34)</a>, <a class="reference internal" href="#equation-5-35">(2.5.35)</a>)</p></li>
+<li><p>Ratio <img class="math" src="../../_images/math/9951e30da145e3802cc846c90ea90df1d5e1ca59.svg" alt="\frac{\theta _{*} }{\theta _{atm} -\theta _{s} }"/>
+(<a class="reference internal" href="#equation-5-37">(2.5.37)</a> , <a class="reference internal" href="#equation-5-38">(2.5.38)</a>, <a class="reference internal" href="#equation-5-39">(2.5.39)</a>, <a class="reference internal" href="#equation-5-40">(2.5.40)</a>)</p></li>
+<li><p>Ratio <img class="math" src="../../_images/math/b08f023eead7434a346d05ceb0b25090a7b89fdc.svg" alt="\frac{q_{*} }{q_{atm} -q_{s} }"/>  (<a class="reference internal" href="#equation-5-41">(2.5.41)</a>, <a class="reference internal" href="#equation-5-42">(2.5.42)</a>, <a class="reference internal" href="#equation-5-43">(2.5.43)</a>, <a class="reference internal" href="#equation-5-44">(2.5.44)</a>)</p></li>
+<li><p>Aerodynamic resistances <img class="math" src="../../_images/math/15213a2ac305f78767254ec4339ad668ca53dee9.svg" alt="r_{am}"/> , <img class="math" src="../../_images/math/a627f97ea8b1e75fe8e101b724d3dae68bafdc1f.svg" alt="r_{ah}"/> , and
+<img class="math" src="../../_images/math/85a0c80ad359f97cb02cc5171e92ae204c6e9ec8.svg" alt="r_{aw}"/>  (<a class="reference internal" href="#equation-5-55">(2.5.55)</a>, <a class="reference internal" href="#equation-5-56">(2.5.56)</a>, <a class="reference internal" href="#equation-5-57">(2.5.57)</a>)</p></li>
+<li><p>Magnitude of the wind velocity incident on the leaves <img class="math" src="../../_images/math/6706522bda9b5c541f6e4aef02b93d8ae3987327.svg" alt="U_{av}"/>
+(<a class="reference internal" href="#equation-5-117">(2.5.117)</a> )</p></li>
+<li><p>Leaf boundary layer resistance <img class="math" src="../../_images/math/0d6f594491997eb982e1e691cda655a4cfd238a7.svg" alt="r_{b}"/>  (<a class="reference internal" href="#equation-5-136">(2.5.136)</a> )</p></li>
+<li><p>Aerodynamic resistances <img class="math" src="../../_images/math/b304e495572934b3a67ef4692c5b1850e7f0b7d6.svg" alt="r_{ah} ^{{'} }"/>  and
+<img class="math" src="../../_images/math/2b002705ed809e7d93554435ce447a340b030d72.svg" alt="r_{aw} ^{{'} }"/>  (<a class="reference internal" href="#equation-5-116">(2.5.116)</a> )</p></li>
+<li><p>Sunlit and shaded stomatal resistances <img class="math" src="../../_images/math/fcf968734e3755e6e07d61d9e26bf1ba6d2c3296.svg" alt="r_{s}^{sun}"/>  and
+<img class="math" src="../../_images/math/8dce19aad3dfacd69a67b9792cacf8dc6247b4c4.svg" alt="r_{s}^{sha}"/>  (Chapter <a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#rst-stomatal-resistance-and-photosynthesis"><span class="std std-numref">2.9</span></a>)</p></li>
+<li><p>Sensible heat conductances <img class="math" src="../../_images/math/00253ffe04b90820afe62d99c03777168477deff.svg" alt="c_{a}^{h}"/> , <img class="math" src="../../_images/math/95e4c4f6c94ba1590cd0435095b4130a1523e254.svg" alt="c_{g}^{h}"/> ,
+and <img class="math" src="../../_images/math/49e80c008996f92521f39f985f61bbca24b8c178.svg" alt="c_{v}^{h}"/>  (<a class="reference internal" href="#equation-5-94">(2.5.94)</a>, <a class="reference internal" href="#equation-5-95">(2.5.95)</a>, <a class="reference internal" href="#equation-5-96">(2.5.96)</a>)</p></li>
+<li><p>Latent heat conductances <img class="math" src="../../_images/math/174f0ce154a6f9832e12127951a8de918f24f54e.svg" alt="c_{a}^{w}"/> , <img class="math" src="../../_images/math/7e6f0bc75fea04f63e3ab095993e17ab3ae2045f.svg" alt="c_{v}^{w}"/> , and
+<img class="math" src="../../_images/math/2c5500908d8b0f44aea6c7d105ddaeff50789003.svg" alt="c_{g}^{w}"/>  (<a class="reference internal" href="#equation-5-108">(2.5.108)</a>, <a class="reference internal" href="#equation-5-109">(2.5.109)</a>, <a class="reference internal" href="#equation-5-110">(2.5.110)</a>)</p></li>
+<li><p>Sensible heat flux from vegetation <img class="math" src="../../_images/math/54445cb7049e57da1b97f97a2b8e67598724194e.svg" alt="H_{v}"/>  (<a class="reference internal" href="#equation-5-97">(2.5.97)</a> )</p></li>
+<li><p>Latent heat flux from vegetation <img class="math" src="../../_images/math/0c05919ec095e4a10f2da0db392ec8d9543decb7.svg" alt="\lambda E_{v}"/>  (<a class="reference internal" href="#equation-5-101">(2.5.101)</a> )</p></li>
+<li><p>If the latent heat flux has changed sign from the latent heat flux
+computed at the previous iteration
+(<img class="math" src="../../_images/math/fb7ac8248d00e24c4b068e2d0a7588238ca232d8.svg" alt="\lambda E_{v} ^{n+1} \times \lambda E_{v} ^{n} &lt;0"/>), the
+latent heat flux is constrained to be 10% of the computed value. The
+difference between the constrained and computed value
+(<img class="math" src="../../_images/math/34714ebd6e9b899a2405acc7d898e942d97e3619.svg" alt="\Delta _{1} =0.1\lambda E_{v} ^{n+1} -\lambda E_{v} ^{n+1}"/> )
+is added to the sensible heat flux later.</p></li>
+<li><p>Change in vegetation temperature <img class="math" src="../../_images/math/4d14e7a5f39173c15842e41798dc837474a9d5a8.svg" alt="\Delta T_{v}"/>  (<a class="reference internal" href="#equation-5-129">(2.5.129)</a> ) and
+update the vegetation temperature as
+<img class="math" src="../../_images/math/8bfda0aba9ba9fdb2500f2d810941801008d0d0f.svg" alt="T_{v}^{n+1} =T_{v}^{n} +\Delta T_{v}"/> . <img class="math" src="../../_images/math/ad7c90a4efeb31f2a1f794d4715f83bc48acd8f2.svg" alt="T_{v}"/>  is
+constrained to change by no more than 1ºK in one iteration. If this
+limit is exceeded, the energy error is</p>
+<div class="math" id="equation-5-138">
+<p><span class="eqno">(2.5.138)<a class="headerlink" href="#equation-5-138" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f15a17c71e975c5548c11445dff1fc5d603ac126.svg" alt="\Delta _{2} =\overrightarrow{S}_{v} -\overrightarrow{L}_{v} -\frac{\partial \overrightarrow{L}_{v} }{\partial T_{v} } \Delta T_{v} -H_{v} -\frac{\partial H_{v} }{\partial T_{v} } \Delta T_{v} -\lambda E_{v} -\frac{\partial \lambda E_{v} }{\partial T_{v} } \Delta T_{v}"/></p>
+</div></li>
+</ol>
+<p>where <img class="math" src="../../_images/math/2a9de6da5e9daa0500d4a7e575e08bac5f7316f8.svg" alt="\Delta T_{v} =1{\rm \; or\; }-1"/>. The error
+<img class="math" src="../../_images/math/51ae19fb4f42454abf7d42cd5fd2e5ccb83ab60b.svg" alt="\Delta _{2}"/>  is added to the sensible heat flux later.</p>
+<ol class="arabic">
+<li><p>Water vapor flux <img class="math" src="../../_images/math/d9ed4766c991ae41b6a9b260f262e04305108144.svg" alt="E_{v}"/>  (<a class="reference internal" href="#equation-5-133">(2.5.133)</a> )</p></li>
+<li><p>Transpiration <img class="math" src="../../_images/math/6f7ecb70c0679fa9b1b6253afa9372c51320249e.svg" alt="E_{v}^{t}"/>  (<a class="reference internal" href="#equation-5-134">(2.5.134)</a> if <img class="math" src="../../_images/math/666c3ba7c1bc7d34a37381b1b5f3aba09451b8fb.svg" alt="\beta_{t} &gt;0"/>,
+otherwise <img class="math" src="../../_images/math/ead93e6546afaa5652a6d64c379303a406456014.svg" alt="E_{v}^{t} =0"/>)</p></li>
+<li><p>The water vapor flux <img class="math" src="../../_images/math/d9ed4766c991ae41b6a9b260f262e04305108144.svg" alt="E_{v}"/>  is constrained to be less than or
+equal to the sum of transpiration <img class="math" src="../../_images/math/6f7ecb70c0679fa9b1b6253afa9372c51320249e.svg" alt="E_{v}^{t}"/>  and the water
+available from wetted leaves and stems
+<img class="math" src="../../_images/math/048500e6f9fb52fd7a4e9f67f33f507553972680.svg" alt="{W_{can} \mathord{\left/ {\vphantom {W_{can}  \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t}"/> .
+The energy error due to this constraint is</p>
+<div class="math" id="equation-5-139">
+<p><span class="eqno">(2.5.139)<a class="headerlink" href="#equation-5-139" title="Permalink to this equation">¶</a></span><img src="../../_images/math/31ce18e3b1bf6846de7df61e325363623929ba12.svg" alt="\Delta _{3} =\max \left(0,\, E_{v} -E_{v}^{t} -\frac{W_{can} }{\Delta t} \right)."/></p>
+</div></li>
+</ol>
+<p>The error <img class="math" src="../../_images/math/f699bef31b04d59a0caa43486772311b9de2e83f.svg" alt="\lambda \Delta _{3}"/>  is added to the sensible heat
+flux later.</p>
+<ol class="arabic simple">
+<li><p>Sensible heat flux <img class="math" src="../../_images/math/54445cb7049e57da1b97f97a2b8e67598724194e.svg" alt="H_{v}"/>  (<a class="reference internal" href="#equation-5-135">(2.5.135)</a> ). The three energy error
+terms, <img class="math" src="../../_images/math/fbb95a53d12879af112670b306051af93a07a7c6.svg" alt="\Delta _{1}"/> , <img class="math" src="../../_images/math/51ae19fb4f42454abf7d42cd5fd2e5ccb83ab60b.svg" alt="\Delta _{2}"/> , and
+<img class="math" src="../../_images/math/f699bef31b04d59a0caa43486772311b9de2e83f.svg" alt="\lambda \Delta _{3}"/>  are also added to the sensible heat
+flux.</p></li>
+<li><p>The saturated vapor pressure <img class="math" src="../../_images/math/62857be112982178271a6d7f0ff5cc1fb4f92d8c.svg" alt="e_{i}"/>  (Chapter
+<a class="reference internal" href="../Photosynthesis/CLM50_Tech_Note_Photosynthesis.html#rst-stomatal-resistance-and-photosynthesis"><span class="std std-numref">2.9</span></a>), saturated
+specific humidity <img class="math" src="../../_images/math/1dfcbb15553d5116b494d47ce0c5165a29c9a44e.svg" alt="q_{sat}^{T_{v} }"/>  and its derivative
+<img class="math" src="../../_images/math/2af858eb1815ce25585e2050821c876961ea7c4a.svg" alt="\frac{dq_{sat}^{T_{v} } }{dT_{v} }"/>  at the leaf surface
+(section <a class="reference internal" href="#saturation-vapor-pressure"><span class="std std-numref">2.5.5</span></a>), are re-evaluated based on
+the new <img class="math" src="../../_images/math/ad7c90a4efeb31f2a1f794d4715f83bc48acd8f2.svg" alt="T_{v}"/> .</p></li>
+<li><p>Canopy air temperature <img class="math" src="../../_images/math/cd68161a74fd8f87d773aa03bb3251be8f9288bb.svg" alt="T_{s}"/>  (<a class="reference internal" href="#equation-5-93">(2.5.93)</a> )</p></li>
+<li><p>Canopy air specific humidity <img class="math" src="../../_images/math/127bb8489d5544b0e2d3bd4748b5d04c9a4acdce.svg" alt="q_{s}"/>  (<a class="reference internal" href="#equation-5-107">(2.5.107)</a> )</p></li>
+<li><p>Temperature difference <img class="math" src="../../_images/math/6fa1cda35983d5c4b1698734a1b21c05d8feb199.svg" alt="\theta _{atm} -\theta _{s}"/></p></li>
+<li><p>Specific humidity difference <img class="math" src="../../_images/math/73325ba91b8dca93f556d8d32fe766787fe204f6.svg" alt="q_{atm} -q_{s}"/></p></li>
+<li><p>Potential temperature scale
+<img class="math" src="../../_images/math/29cd0b73a342ca5f3e26434d4c9195f5330daec6.svg" alt="\theta _{*} =\frac{\theta _{*} }{\theta _{atm} -\theta _{s} } \left(\theta _{atm} -\theta _{s} \right)"/>
+where <img class="math" src="../../_images/math/9951e30da145e3802cc846c90ea90df1d5e1ca59.svg" alt="\frac{\theta _{*} }{\theta _{atm} -\theta _{s} }"/>  was
+calculated earlier in the iteration</p></li>
+<li><p>Humidity scale
+<img class="math" src="../../_images/math/ada12f3ad4a0504f6bb84c847178a7828860cd9e.svg" alt="q_{*} =\frac{q_{*} }{q_{atm} -q_{s} } \left(q_{atm} -q_{s} \right)"/>
+where <img class="math" src="../../_images/math/b08f023eead7434a346d05ceb0b25090a7b89fdc.svg" alt="\frac{q_{*} }{q_{atm} -q_{s} }"/>  was calculated earlier
+in the iteration</p></li>
+<li><p>Virtual potential temperature scale <img class="math" src="../../_images/math/1315e13c4e0673038f74e03b8bb5249c812b6770.svg" alt="\theta _{v*}"/>  (<a class="reference internal" href="#equation-5-17">(2.5.17)</a> )</p></li>
+<li><p>Wind speed including the convective velocity, <img class="math" src="../../_images/math/e9183e50a01a40564bd494fa1fb39ace1e0424ac.svg" alt="V_{a}"/>  (<a class="reference internal" href="#equation-5-24">(2.5.24)</a> )</p></li>
+<li><p>Monin-Obukhov length <img class="math" src="../../_images/math/19eef1966f7c545af3ac8c0fa486974d873e3c65.svg" alt="L"/> (<a class="reference internal" href="#equation-5-49">(2.5.49)</a> )</p></li>
+<li><p>The iteration is stopped after two or more steps if
+<img class="math" src="../../_images/math/a59791916e8a92eafae19b56712e07601983cfac.svg" alt="\tilde{\Delta }T_{v} &lt;0.01"/> and
+<img class="math" src="../../_images/math/1616cf21bb2e68d407283c310db64b53f5d0fec7.svg" alt="\left|\lambda E_{v}^{n+1} -\lambda E_{v}^{n} \right|&lt;0.1"/>
+where
+<img class="math" src="../../_images/math/3970797c37d575106a930eebc568e2208fc8b3a4.svg" alt="\tilde{\Delta }T_{v} =\max \left(\left|T_{v}^{n+1} -T_{v}^{n} \right|,\, \left|T_{v}^{n} -T_{v}^{n-1} \right|\right)"/>,
+or after forty iterations have been carried out.</p></li>
+<li><p>Momentum fluxes <img class="math" src="../../_images/math/a90a310ebff7afbce9b50817ed36ea2065ff78e2.svg" alt="\tau _{x}"/> , <img class="math" src="../../_images/math/cd74ac25a5485170d2abd54e5464bb98632dbce3.svg" alt="\tau _{y}"/>  (<a class="reference internal" href="#equation-5-5">(2.5.5)</a>, <a class="reference internal" href="#equation-5-6">(2.5.6)</a>)</p></li>
+<li><p>Sensible heat flux from ground <img class="math" src="../../_images/math/26d67841bdbc655b0cafdb0e16024cda6cee4b5d.svg" alt="H_{g}"/>  (<a class="reference internal" href="#equation-5-89">(2.5.89)</a> )</p></li>
+<li><p>Water vapor flux from ground <img class="math" src="../../_images/math/57733e627038e5a98203d064d11161de0e2dedbc.svg" alt="E_{g}"/>  (<a class="reference internal" href="#equation-5-102">(2.5.102)</a> )</p></li>
+<li><p>2-m height air temperature <img class="math" src="../../_images/math/16b962ea5d5a382b6adc8f6be0daef19704a5301.svg" alt="T_{2m}"/> , specific humidity
+<img class="math" src="../../_images/math/e979ab217340cbe6363251549a7f9ae8e89e70f8.svg" alt="q_{2m}"/> , relative humidity <img class="math" src="../../_images/math/901dbf3d4c1163fcf8fb7990a6f0d690b118d838.svg" alt="RH_{2m}"/> (<a class="reference internal" href="#equation-5-58">(2.5.58)</a> , <a class="reference internal" href="#equation-5-59">(2.5.59)</a>, <a class="reference internal" href="#equation-5-60">(2.5.60)</a>)</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="update-of-ground-sensible-and-latent-heat-fluxes">
+<span id="id6"></span><h2><span class="section-number">2.5.4. </span>Update of Ground Sensible and Latent Heat Fluxes<a class="headerlink" href="#update-of-ground-sensible-and-latent-heat-fluxes" title="Permalink to this headline">¶</a></h2>
+<p>The sensible and water vapor heat fluxes derived above for bare soil and
+soil beneath canopy are based on the ground surface temperature from the
+previous time step <img class="math" src="../../_images/math/d73f3bdc631bff85b939e2f4a176d2e566721597.svg" alt="T_{g}^{n}"/>  and are used as the surface
+forcing for the solution of the soil temperature equations (section
+<a class="reference internal" href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html#numerical-solution-temperature"><span class="std std-numref">2.6.1</span></a>). This solution yields a new ground
+surface temperature <img class="math" src="../../_images/math/ea883e8a6148ec2d9d5a080a373f20125c56e73a.svg" alt="T_{g}^{n+1}"/> . The ground sensible and water
+vapor fluxes are then updated for <img class="math" src="../../_images/math/ea883e8a6148ec2d9d5a080a373f20125c56e73a.svg" alt="T_{g}^{n+1}"/>  as</p>
+<div class="math" id="equation-5-140">
+<p><span class="eqno">(2.5.140)<a class="headerlink" href="#equation-5-140" title="Permalink to this equation">¶</a></span><img src="../../_images/math/48d7622e6292ed2e0025b9c5a8c7ab6a6fbfdbee.svg" alt="H'_{g} =H_{g} +\left(T_{g}^{n+1} -T_{g}^{n} \right)\frac{\partial H_{g} }{\partial T_{g} }"/></p>
+</div><div class="math" id="equation-5-141">
+<p><span class="eqno">(2.5.141)<a class="headerlink" href="#equation-5-141" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e6bfb4ffcf3d3f2d459bc1d6ef8369024ef614fc.svg" alt="E'_{g} =E_{g} +\left(T_{g}^{n+1} -T_{g}^{n} \right)\frac{\partial E_{g} }{\partial T_{g} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/26d67841bdbc655b0cafdb0e16024cda6cee4b5d.svg" alt="H_{g}"/>  and <img class="math" src="../../_images/math/57733e627038e5a98203d064d11161de0e2dedbc.svg" alt="E_{g}"/>  are the sensible heat and water
+vapor fluxes derived from equations and for non-vegetated surfaces and
+equations and for vegetated surfaces using <img class="math" src="../../_images/math/d73f3bdc631bff85b939e2f4a176d2e566721597.svg" alt="T_{g}^{n}"/> . One
+further adjustment is made to <img class="math" src="../../_images/math/eb50637e1d0484da7817f180f7160e20f717098c.svg" alt="H'_{g}"/>  and <img class="math" src="../../_images/math/b358976c021e2a8e2e6221d05fd8fd9e0827962a.svg" alt="E'_{g}"/> . If
+the soil moisture in the top snow/soil layer is not sufficient to
+support the updated ground evaporation, i.e., if <img class="math" src="../../_images/math/58cda15df0ab18bbd48c11ec574204772ce82d30.svg" alt="E'_{g} &gt; 0"/> and
+<img class="math" src="../../_images/math/a59309c495fc8f68edfe72c16008867d46591bc6.svg" alt="f_{evap} &lt; 1"/> where</p>
+<div class="math" id="equation-5-142">
+<p><span class="eqno">(2.5.142)<a class="headerlink" href="#equation-5-142" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a26a488a7dc692d7b6267d3c5c5a2b9ac88af503.svg" alt="f_{evap} =\frac{{\left(w_{ice,\; snl+1} +w_{liq,\, snl+1} \right)\mathord{\left/ {\vphantom {\left(w_{ice,\; snl+1} +w_{liq,\, snl+1} \right) \Delta t}} \right. \kern-\nulldelimiterspace} \Delta t} }{\sum _{j=1}^{npft}\left(E'_{g} \right)_{j} \left(wt\right)_{j}  } \le 1,"/></p>
+</div><p>an adjustment is made to reduce the ground evaporation accordingly as</p>
+<div class="math" id="equation-5-143">
+<p><span class="eqno">(2.5.143)<a class="headerlink" href="#equation-5-143" title="Permalink to this equation">¶</a></span><img src="../../_images/math/e3c4573a343ed890412fa5f5fd30a61de783b7fe.svg" alt="E''_{g} =f_{evap} E'_{g} ."/></p>
+</div><p>The term
+<img class="math" src="../../_images/math/fb9312b31d617f7a109ff6863393e131cb6629f6.svg" alt="\sum _{j=1}^{npft}\left(E'_{g} \right)_{j} \left(wt\right)_{j}"/>
+is the sum of <img class="math" src="../../_images/math/b358976c021e2a8e2e6221d05fd8fd9e0827962a.svg" alt="E'_{g}"/>  over all evaporating PFTs where
+<img class="math" src="../../_images/math/621cf707968c96bfb8b22320b82115d4d8466f53.svg" alt="\left(E'_{g} \right)_{j}"/>  is the ground evaporation from the
+<img class="math" src="../../_images/math/84c95c5cbf1d18d325539baa27f22bc3b7453acf.svg" alt="j^{th}"/>  PFT on the column, <img class="math" src="../../_images/math/62b1f29ce548cb51c477b7c8fa8091d249eb4501.svg" alt="\left(wt\right)_{j}"/>  is the
+relative area of the <img class="math" src="../../_images/math/84c95c5cbf1d18d325539baa27f22bc3b7453acf.svg" alt="j^{th}"/>  PFT with respect to the column, and
+<img class="math" src="../../_images/math/77738db1a42d51109e213259db193702d3043714.svg" alt="npft"/> is the number of PFTs on the column.
+<img class="math" src="../../_images/math/908742cb91d8bcdd1dbc8365c7ea52873ba29d0b.svg" alt="w_{ice,\, snl+1}"/>  and <img class="math" src="../../_images/math/9012056216b8dac7156dc02b3e72422f3ece51bc.svg" alt="w_{liq,\, snl+1}"/>  are the ice and
+liquid water contents (kg m<sup>-2</sup>) of the top snow/soil layer
+(Chapter <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#rst-hydrology"><span class="std std-numref">2.7</span></a>). Any resulting energy deficit is assigned
+to sensible heat
+as</p>
+<div class="math" id="equation-5-144">
+<p><span class="eqno">(2.5.144)<a class="headerlink" href="#equation-5-144" title="Permalink to this equation">¶</a></span><img src="../../_images/math/d821bfe62d524bb860fc1c4b257f5a4d76749e7a.svg" alt="H''_{g} =H_{g} +\lambda \left(E'_{g} -E''_{g} \right)."/></p>
+</div><p>The ground water vapor flux <img class="math" src="../../_images/math/ec39c0225a721c472efdaa249a4b464700c3955d.svg" alt="E''_{g}"/>  is partitioned into evaporation
+of liquid water from snow/soil <img class="math" src="../../_images/math/e8639655aae1a8d38835e176a4c9dd5313e38c68.svg" alt="q_{seva}"/> (kgm<sup>-2</sup> s<sup>-1</sup>),
+sublimation from snow/soil ice <img class="math" src="../../_images/math/cde2a1256f69e3ad80e1efe9d732c1389b045796.svg" alt="q_{subl}"/>  (kg m<sup>-2</sup> s<sup>-1</sup>),
+liquid dew on snow/soil <img class="math" src="../../_images/math/7ba38a1f0a1f4ca0cd527ab586336b7fd8594ff8.svg" alt="q_{sdew}"/>  (kg m<sup>-2</sup> s<sup>-1</sup>), or
+frost on snow/soil <img class="math" src="../../_images/math/1bdc17afec0d9e47a2721a04898ebabc6d6f68c9.svg" alt="q_{frost}"/>  (kg m<sup>-2</sup> s<sup>-1</sup>) as</p>
+<div class="math" id="equation-5-145">
+<p><span class="eqno">(2.5.145)<a class="headerlink" href="#equation-5-145" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f2940e604bf21f8f0386b3fda32c35cded657c63.svg" alt="q_{seva} =\max \left(E''_{sno} \frac{w_{liq,\, snl+1} }{w_{ice,\; snl+1} +w_{liq,\, snl+1} } ,0\right)\qquad E''_{sno} \ge 0,\, w_{ice,\; snl+1} +w_{liq,\, snl+1} &gt;0"/></p>
+</div><div class="math" id="equation-5-146">
+<p><span class="eqno">(2.5.146)<a class="headerlink" href="#equation-5-146" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7c4d7e9a060c914c8a632cd9b640ab2f67b267d6.svg" alt="q_{subl} =E''_{sno} -q_{seva} \qquad E''_{sno} \ge 0"/></p>
+</div><div class="math" id="equation-5-147">
+<p><span class="eqno">(2.5.147)<a class="headerlink" href="#equation-5-147" title="Permalink to this equation">¶</a></span><img src="../../_images/math/ab5d24cf672b65de2bcdebfd5ec7bcaa2115f803.svg" alt="q_{sdew} =\left|E''_{sno} \right|\qquad E''_{sno} &lt;0{\rm \; and\; }T_{g} \ge T_{f}"/></p>
+</div><div class="math" id="equation-5-148">
+<p><span class="eqno">(2.5.148)<a class="headerlink" href="#equation-5-148" title="Permalink to this equation">¶</a></span><img src="../../_images/math/191d91db0309c39d69993ccafe14cce26e21bee3.svg" alt="q_{frost} =\left|E''_{sno} \right|\qquad E''_{sno} &lt;0{\rm \; and\; }T_{g} &lt;T_{f} ."/></p>
+</div><p>The loss or gain in snow mass due to <img class="math" src="../../_images/math/e8639655aae1a8d38835e176a4c9dd5313e38c68.svg" alt="q_{seva}"/> ,
+<img class="math" src="../../_images/math/cde2a1256f69e3ad80e1efe9d732c1389b045796.svg" alt="q_{subl}"/> , <img class="math" src="../../_images/math/7ba38a1f0a1f4ca0cd527ab586336b7fd8594ff8.svg" alt="q_{sdew}"/> , and <img class="math" src="../../_images/math/1bdc17afec0d9e47a2721a04898ebabc6d6f68c9.svg" alt="q_{frost}"/>  on a snow
+surface are accounted for during the snow hydrology calculations
+(Chapter <a class="reference internal" href="../Snow_Hydrology/CLM50_Tech_Note_Snow_Hydrology.html#rst-snow-hydrology"><span class="std std-numref">2.8</span></a>). The loss of soil and surface water due to
+<img class="math" src="../../_images/math/e8639655aae1a8d38835e176a4c9dd5313e38c68.svg" alt="q_{seva}"/>  is accounted for in the calculation of infiltration
+(section <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#infiltration"><span class="std std-numref">2.7.2.3</span></a>), while losses or gains due to <img class="math" src="../../_images/math/cde2a1256f69e3ad80e1efe9d732c1389b045796.svg" alt="q_{subl}"/> ,
+<img class="math" src="../../_images/math/7ba38a1f0a1f4ca0cd527ab586336b7fd8594ff8.svg" alt="q_{sdew}"/> , and <img class="math" src="../../_images/math/1bdc17afec0d9e47a2721a04898ebabc6d6f68c9.svg" alt="q_{frost}"/>  on a soil surface are
+accounted for following the sub-surface drainage calculations (section
+<a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#lateral-sub-surface-runoff"><span class="std std-numref">2.7.5</span></a>).</p>
+<p>The ground heat flux <img class="math" src="../../_images/math/89878909dbb648acdc4a44ded1bd982d7bddef5d.svg" alt="G"/> is calculated as</p>
+<div class="math" id="equation-5-149">
+<p><span class="eqno">(2.5.149)<a class="headerlink" href="#equation-5-149" title="Permalink to this equation">¶</a></span><img src="../../_images/math/90ef955eaa8985b65efc0d407cb37ddbe22f4923.svg" alt="G=\overrightarrow{S}_{g} -\overrightarrow{L}_{g} -H_{g} -\lambda E_{g}"/></p>
+</div><p>where <img class="math" src="../../_images/math/b7fa2cf33621bb84521d705a1a6b8bb122d8d433.svg" alt="\overrightarrow{S}_{g}"/>  is the solar radiation absorbed by
+the ground (section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#solar-fluxes"><span class="std std-numref">2.4.1</span></a>), <img class="math" src="../../_images/math/54e8bdff225b49d9b45d7f64e90fd5c254dfdd69.svg" alt="\overrightarrow{L}_{g}"/>  is the net
+longwave radiation absorbed by the ground (section <a class="reference internal" href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html#longwave-fluxes"><span class="std std-numref">2.4.2</span></a>)</p>
+<div class="math" id="equation-5-150">
+<p><span class="eqno">(2.5.150)<a class="headerlink" href="#equation-5-150" title="Permalink to this equation">¶</a></span><img src="../../_images/math/fcfe4cc2ec4980fe69f1e30cdc433a8660faf52b.svg" alt="\vec{L}_{g} =L_{g} \uparrow -\delta _{veg} \varepsilon _{g} L_{v} \, \downarrow -\left(1-\delta _{veg} \right)\varepsilon _{g} L_{atm} \, \downarrow +4\varepsilon _{g} \sigma \left(T_{g}^{n} \right)^{3} \left(T_{g}^{n+1} -T_{g}^{n} \right),"/></p>
+</div><p>where</p>
+<div class="math" id="equation-5-151">
+<p><span class="eqno">(2.5.151)<a class="headerlink" href="#equation-5-151" title="Permalink to this equation">¶</a></span><img src="../../_images/math/96b8a66f3afe956ab9f0a7a69a5f9e6a001d4527.svg" alt="L_{g} \uparrow =\varepsilon _{g} \sigma \left[\left(1-f_{sno} -f_{h2osfc} \right)\left(T_{1}^{n} \right)^{4} +f_{sno} \left(T_{sno}^{n} \right)^{4} +f_{h2osfc} \left(T_{h2osfc}^{n} \right)^{4} \right]"/></p>
+</div><p>and <img class="math" src="../../_images/math/26d67841bdbc655b0cafdb0e16024cda6cee4b5d.svg" alt="H_{g}"/>  and <img class="math" src="../../_images/math/6de917aad26e1bdd5bae9e4573163ca4892c4630.svg" alt="\lambda E_{g}"/>  are the sensible and
+latent heat fluxes after the adjustments described above.</p>
+<p>When converting ground water vapor flux to an energy flux, the term
+<img class="math" src="../../_images/math/cefc603e5658facb747581f9567192993f21c7ab.svg" alt="\lambda"/>  is arbitrarily assumed to be</p>
+<div class="math" id="equation-5-152">
+<p><span class="eqno">(2.5.152)<a class="headerlink" href="#equation-5-152" title="Permalink to this equation">¶</a></span><img src="../../_images/math/19c6dae1a67bd0c112b84fcee3f09b376eadd753.svg" alt="\lambda =\left\{\begin{array}{l} {\lambda _{sub} \qquad {\rm if\; }w_{liq,\, snl+1} =0{\rm \; and\; }w_{ice,\, snl+1} &gt;0} \\ {\lambda _{vap} \qquad {\rm otherwise}} \end{array}\right\}"/></p>
+</div><p>where <img class="math" src="../../_images/math/98e01d6c013ee68a357b69dda36a272a7b281115.svg" alt="\lambda _{sub}"/>  and <img class="math" src="../../_images/math/0e55c1e2767e89acb3d4c5e3dc8fe36405b8e9a1.svg" alt="\lambda _{vap}"/>  are the latent
+heat of sublimation and vaporization, respectively (J
+(kg<sup>-1</sup>) (<a class="reference internal" href="../Ecosystem/CLM50_Tech_Note_Ecosystem.html#table-physical-constants"><span class="std std-numref">Table 2.2.7</span></a>). When converting vegetation water vapor
+flux to an energy flux, <img class="math" src="../../_images/math/0e55c1e2767e89acb3d4c5e3dc8fe36405b8e9a1.svg" alt="\lambda _{vap}"/>  is used.</p>
+<p>The system balances energy as</p>
+<div class="math" id="equation-5-153">
+<p><span class="eqno">(2.5.153)<a class="headerlink" href="#equation-5-153" title="Permalink to this equation">¶</a></span><img src="../../_images/math/7ec02747123b9be676adc2884364d7f9b40a740e.svg" alt="\overrightarrow{S}_{g} +\overrightarrow{S}_{v} +L_{atm} \, \downarrow -L\, \uparrow -H_{v} -H_{g} -\lambda _{vap} E_{v} -\lambda E_{g} -G=0."/></p>
+</div></div>
+<div class="section" id="saturation-vapor-pressure">
+<span id="id7"></span><h2><span class="section-number">2.5.5. </span>Saturation Vapor Pressure<a class="headerlink" href="#saturation-vapor-pressure" title="Permalink to this headline">¶</a></h2>
+<p>Saturation vapor pressure <img class="math" src="../../_images/math/416c419a3e60d409515358d4117aefd644d0bf6a.svg" alt="e_{sat}^{T}"/>  (Pa) and its derivative
+<img class="math" src="../../_images/math/2a8a5b78ab642b6cf62aa3b90c2776b62b51676a.svg" alt="\frac{de_{sat}^{T} }{dT}"/> , as a function of temperature
+<img class="math" src="../../_images/math/e8dea8254118f111b5fb20895b03528c17566f06.svg" alt="T"/> (ºC), are calculated from the eighth-order polynomial fits of
+<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#flatauetal1992"><span class="std std-ref">Flatau et al. (1992)</span></a></p>
+<div class="math" id="equation-5-154">
+<p><span class="eqno">(2.5.154)<a class="headerlink" href="#equation-5-154" title="Permalink to this equation">¶</a></span><img src="../../_images/math/265f5935948d0ecdefce73b47f337c8e9f0ecfc3.svg" alt="e_{sat}^{T} =100\left[a_{0} +a_{1} T+\cdots +a_{n} T^{n} \right]"/></p>
+</div><div class="math" id="equation-5-155">
+<p><span class="eqno">(2.5.155)<a class="headerlink" href="#equation-5-155" title="Permalink to this equation">¶</a></span><img src="../../_images/math/f659f04bd6d238274d8a10ead2e498c91a8adf94.svg" alt="\frac{de_{sat}^{T} }{dT} =100\left[b_{0} +b_{1} T+\cdots +b_{n} T^{n} \right]"/></p>
+</div><p>where the coefficients for ice are valid for
+<img class="math" src="../../_images/math/8d50075d54d8c534f379aa9e79299ca79120deda.svg" alt="-75\, ^{\circ } {\rm C}\le T&lt;0\, ^{\circ } {\rm C}"/> and the
+coefficients for water are valid for
+<img class="math" src="../../_images/math/977f9b990b37de1e88f91c7b03fc65c45a809ff8.svg" alt="0\, ^{\circ } {\rm C}\le T\le 100\, ^{\circ } {\rm C}"/>
+(<a class="reference internal" href="#table-coefficients-for-saturation-vapor-pressure"><span class="std std-numref">Table 2.5.2</span></a> and
+<a class="reference internal" href="#table-coefficients-for-derivative-of-esat"><span class="std std-numref">Table 2.5.3</span></a>).
+The saturated water vapor specific humidity <img class="math" src="../../_images/math/a42a57bde492e01c94ef5c1ae178938cb29a4434.svg" alt="q_{sat}^{T}"/> and its derivative
+<img class="math" src="../../_images/math/26dd08a97659ab945f0fbd3c45e04b5ba64e568d.svg" alt="\frac{dq_{sat}^{T} }{dT}"/> are</p>
+<div class="math" id="equation-5-156">
+<p><span class="eqno">(2.5.156)<a class="headerlink" href="#equation-5-156" title="Permalink to this equation">¶</a></span><img src="../../_images/math/22c8a5605b290fce54ae6ab1f23d291cdb39dbaa.svg" alt="q_{sat}^{T} =\frac{0.622e_{sat}^{T} }{P_{atm} -0.378e_{sat}^{T} }"/></p>
+</div><div class="math" id="equation-5-157">
+<p><span class="eqno">(2.5.157)<a class="headerlink" href="#equation-5-157" title="Permalink to this equation">¶</a></span><img src="../../_images/math/faecd76755e393de8b94f9c4f0fd3b292071a544.svg" alt="\frac{dq_{sat}^{T} }{dT} =\frac{0.622P_{atm} }{\left(P_{atm} -0.378e_{sat}^{T} \right)^{2} } \frac{de_{sat}^{T} }{dT} ."/></p>
+</div><span id="table-coefficients-for-saturation-vapor-pressure"></span><table class="docutils align-default" id="id11">
+<caption><span class="caption-number">Table 2.5.2 </span><span class="caption-text">Coefficients for <img class="math" src="../../_images/math/416c419a3e60d409515358d4117aefd644d0bf6a.svg" alt="e_{sat}^{T}"/></span><a class="headerlink" href="#id11" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 42%" />
+<col style="width: 0%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>water</p></th>
+<th class="head" colspan="2"><p>ice</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/1f6d755ca2d6b15fcdf8915cadb500e38c747016.svg" alt="a_{0}"/></p></td>
+<td><p>6.11213476</p></td>
+<td colspan="2"><p>6.11123516</p></td>
+</tr>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/41d508b57736b5126c8c8276e51407ad3640e49d.svg" alt="a_{1}"/></p></td>
+<td colspan="3"><p>4.44007856 <img class="math" src="../../_images/math/4a139c3481c1015073b557bc47399613288d803c.svg" alt="\times 10^{-1}"/>        | 5.03109514<img class="math" src="../../_images/math/4a139c3481c1015073b557bc47399613288d803c.svg" alt="\times 10^{-1}"/></p></td>
+</tr>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/9fbdde4b7b2f29d2cad7c02764a4626a87da5c2d.svg" alt="a_{2}"/></p></td>
+<td colspan="3"><p>1.43064234 <img class="math" src="../../_images/math/c6f8b611d63294df637bb0f44921c0c846ed3553.svg" alt="\times 10^{-2}"/>        | 1.88369801<img class="math" src="../../_images/math/c6f8b611d63294df637bb0f44921c0c846ed3553.svg" alt="\times 10^{-2}"/></p></td>
+</tr>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/18c44c0c0fee68b1ae2adbe1e7e2868bc8ed31be.svg" alt="a_{3}"/></p></td>
+<td colspan="3"><p>2.64461437 <img class="math" src="../../_images/math/bc3b6aeada4ec9c0f6a453a3f5f22a73a9f1614e.svg" alt="\times 10^{-4}"/>        | 4.20547422<img class="math" src="../../_images/math/bc3b6aeada4ec9c0f6a453a3f5f22a73a9f1614e.svg" alt="\times 10^{-4}"/></p></td>
+</tr>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/da91f94a1b4b24e2befcacbb77831a84355c6c43.svg" alt="a_{4}"/></p></td>
+<td colspan="3"><p>3.05903558 <img class="math" src="../../_images/math/28ed9d37062cb77fbe7f8a06d313a59183578975.svg" alt="\times 10^{-6}"/>        | 6.14396778<img class="math" src="../../_images/math/28ed9d37062cb77fbe7f8a06d313a59183578975.svg" alt="\times 10^{-6}"/></p></td>
+</tr>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/47e4c7d6dadd326f7f26709b278b31fa7ef6d5ba.svg" alt="a_{5}"/></p></td>
+<td colspan="3"><p>1.96237241 <img class="math" src="../../_images/math/8cf4e11d1ffa6ef77302dc8bc15465dff3ea70b6.svg" alt="\times 10^{-8}"/>        | 6.02780717<img class="math" src="../../_images/math/8cf4e11d1ffa6ef77302dc8bc15465dff3ea70b6.svg" alt="\times 10^{-8}"/></p></td>
+</tr>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/a61200227b2fe897105738bd90d5dfef77d9b41c.svg" alt="a_{6}"/></p></td>
+<td colspan="3"><p>8.92344772 <img class="math" src="../../_images/math/c92e6117b024e87b4debe125fb7718871233a0bf.svg" alt="\times 10^{-11}"/>       | 3.87940929<img class="math" src="../../_images/math/4110a43b2bceea62e9795d585ee0e63bed077ec4.svg" alt="\times 10^{-10}"/></p></td>
+</tr>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/7de06d32a078f61479ff07fd7b657fe22319e0a1.svg" alt="a_{7}"/></p></td>
+<td colspan="3"><p>-3.73208410 <img class="math" src="../../_images/math/3352e43e0cb0990396740ae39b9c3960f75b66c2.svg" alt="\times 10^{-13}"/>      | 1.49436277<img class="math" src="../../_images/math/cfed49c12abb7d21cc2828cbdd2121691248fe3a.svg" alt="\times 10^{-12}"/></p></td>
+</tr>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/4943b2d08552df5263b5046d2f89d35d596eccad.svg" alt="a_{8}"/></p></td>
+<td colspan="3"><p>2.09339997 <img class="math" src="../../_images/math/f7dbbb1f92874a886baf50aca518f209a7989c22.svg" alt="\times 10^{-16}"/>       | 2.62655803<img class="math" src="../../_images/math/839f70963bf314a55fc13f93b6fcae238f8c1722.svg" alt="\times 10^{-15}"/></p></td>
+</tr>
+</tbody>
+</table>
+<span id="table-coefficients-for-derivative-of-esat"></span><table class="docutils align-default" id="id12">
+<caption><span class="caption-number">Table 2.5.3 </span><span class="caption-text">Coefficients for <img class="math" src="../../_images/math/2a8a5b78ab642b6cf62aa3b90c2776b62b51676a.svg" alt="\frac{de_{sat}^{T} }{dT}"/></span><a class="headerlink" href="#id12" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 41%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>water</p></th>
+<th class="head"><p>ice</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/e5076a4781a7ad4a6d3b52cef69d0862cb49ee5e.svg" alt="b_{0}"/></p></td>
+<td><p>4.44017302<img class="math" src="../../_images/math/4a139c3481c1015073b557bc47399613288d803c.svg" alt="\times 10^{-1}"/></p></td>
+<td><p>5.03277922<img class="math" src="../../_images/math/4a139c3481c1015073b557bc47399613288d803c.svg" alt="\times 10^{-1}"/></p></td>
+</tr>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/b889d5d0225eae5bba4452230c122dd13e504d9c.svg" alt="b_{1}"/></p></td>
+<td><p>2.86064092<img class="math" src="../../_images/math/c6f8b611d63294df637bb0f44921c0c846ed3553.svg" alt="\times 10^{-2}"/></p></td>
+<td><p>3.77289173<img class="math" src="../../_images/math/c6f8b611d63294df637bb0f44921c0c846ed3553.svg" alt="\times 10^{-2}"/></p></td>
+</tr>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/b788002e6615282773087f0eb3b89754cf8ae389.svg" alt="b_{2}"/></p></td>
+<td><p>7.94683137<img class="math" src="../../_images/math/bc3b6aeada4ec9c0f6a453a3f5f22a73a9f1614e.svg" alt="\times 10^{-4}"/></p></td>
+<td><p>1.26801703<img class="math" src="../../_images/math/06df04b97f6e5c760584aef2bf188e1a74f941fb.svg" alt="\times 10^{-3}"/></p></td>
+</tr>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/0d6b0b75d91bf18591a2800c4927cbd313e9f139.svg" alt="b_{3}"/></p></td>
+<td><p>1.21211669<img class="math" src="../../_images/math/8000f844ddd14a7232c12521e4564987d6d273e3.svg" alt="\times 10^{-5}"/></p></td>
+<td><p>2.49468427<img class="math" src="../../_images/math/8000f844ddd14a7232c12521e4564987d6d273e3.svg" alt="\times 10^{-5}"/></p></td>
+</tr>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/8f470c87046427cb6993e55fffaf61264a1185bd.svg" alt="b_{4}"/></p></td>
+<td><p>1.03354611<img class="math" src="../../_images/math/f43558bc664605d4157cb93dac7782c6ac85d9cd.svg" alt="\times 10^{-7}"/></p></td>
+<td><p>3.13703411<img class="math" src="../../_images/math/f43558bc664605d4157cb93dac7782c6ac85d9cd.svg" alt="\times 10^{-7}"/></p></td>
+</tr>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/22a3f12f075958ff811af631ffd14cccf5f3e73f.svg" alt="b_{5}"/></p></td>
+<td><p>4.04125005<img class="math" src="../../_images/math/4110a43b2bceea62e9795d585ee0e63bed077ec4.svg" alt="\times 10^{-10}"/></p></td>
+<td><p>2.57180651<img class="math" src="../../_images/math/dfe24a36e866b3832b5842add585ec9dae78a6f6.svg" alt="\times 10^{-9}"/></p></td>
+</tr>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/58acdd241b5635383dffeb1e21316e51a7e8bec1.svg" alt="b_{6}"/></p></td>
+<td><p>-7.88037859 <img class="math" src="../../_images/math/3352e43e0cb0990396740ae39b9c3960f75b66c2.svg" alt="\times 10^{-13}"/></p></td>
+<td><p>1.33268878<img class="math" src="../../_images/math/c92e6117b024e87b4debe125fb7718871233a0bf.svg" alt="\times 10^{-11}"/></p></td>
+</tr>
+<tr class="row-odd"><td><p><img class="math" src="../../_images/math/99ddaa4fc138eabc4acaed0e55ef6e5a4861870d.svg" alt="b_{7}"/></p></td>
+<td><p>-1.14596802 <img class="math" src="../../_images/math/3c02ef71efc7e98e7072a4da3e8aec3f0dc4cab5.svg" alt="\times 10^{-14}"/></p></td>
+<td><p>3.94116744<img class="math" src="../../_images/math/3c02ef71efc7e98e7072a4da3e8aec3f0dc4cab5.svg" alt="\times 10^{-14}"/></p></td>
+</tr>
+<tr class="row-even"><td><p><img class="math" src="../../_images/math/bafca6b7a6717d4589d59ef99261d908888c8311.svg" alt="b_{8}"/></p></td>
+<td><p>3.81294516<img class="math" src="../../_images/math/bb4ead41e36ceb1f38bc0b8f2e6e19dd72a9960e.svg" alt="\times 10^{-17}"/></p></td>
+<td><p>4.98070196<img class="math" src="../../_images/math/bb4ead41e36ceb1f38bc0b8f2e6e19dd72a9960e.svg" alt="\times 10^{-17}"/></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Soil_Snow_Temperatures/CLM50_Tech_Note_Soil_Snow_Temperatures.html" class="btn btn-neutral float-right" title="2.6. Soil and Snow Temperatures" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../Radiative_Fluxes/CLM50_Tech_Note_Radiative_Fluxes.html" class="btn btn-neutral" title="2.4. Radiative Fluxes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

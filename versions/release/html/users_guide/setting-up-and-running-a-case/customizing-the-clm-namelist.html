@@ -1,0 +1,499 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1.2.3. Customizing CLM’s namelist &mdash; ctsm release-clm5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm release-clm5.0 documentation" href="../../index.html"/>
+        <link rel="up" title="1.2. Setting Up and Running a Case" href="index.html"/>
+        <link rel="next" title="1.2.4. Customizing the DATM namelist" href="customizing-the-datm-namelist.html"/>
+        <link rel="prev" title="1.2.2. Customizing CLM’s Configuration" href="customizing-the-clm-configuration.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CLM5.0</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">1. CLM5.0 User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../overview/index.html">1.1. Overview</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">1.2. Setting Up and Running a Case</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="choosing-a-compset.html">1.2.1. Choosing a compset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="customizing-the-clm-configuration.html">1.2.2. Customizing CLM’s Configuration</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.2.3. Customizing CLM’s namelist</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#definition-of-namelist-items-and-their-default-values">1.2.3.1. Definition of Namelist items and their default values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#examples-of-using-different-namelist-features">1.2.3.2. Examples of using different namelist features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="customizing-the-datm-namelist.html">1.2.4. Customizing the DATM namelist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="master_list_file.html">1.2.5. CTSM History Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../using-clm-tools/index.html">1.3. Using CLM tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adding-new-resolutions/index.html">1.4. Adding New Resolutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-special-cases/index.html">1.5. Running Special Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-single-points/index.html">1.6. Running Single Point Regional Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-PTCLM/index.html">1.7. Running PTCLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trouble-shooting/index.html">1.8. Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">1.9. Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">1. </span>CLM5.0 User’s Guide</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">1.2. </span>Setting Up and Running a Case</a> &raquo;</li>
+        
+      <li><span class="section-number">1.2.3. </span>Customizing CLM’s namelist</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/users_guide/setting-up-and-running-a-case/customizing-the-clm-namelist.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="customizing-clm-s-namelist">
+<span id="customizing-a-case"></span><h1><span class="section-number">1.2.3. </span>Customizing CLM’s namelist<a class="headerlink" href="#customizing-clm-s-namelist" title="Permalink to this headline">¶</a></h1>
+<p>Once a case has run <strong>case.setup</strong>, we can then customize the case further, by editing the run-time namelist for CLM. First let’s list the definition of each namelist item and their valid values, and then we’ll list the default values for them. Next for some of the most used or tricky namelist items we’ll give examples of their use, and give you example namelists that highlight these features.</p>
+<p>In the following, various examples of namelists are provided that feature the use of different namelist options to customize a case for particular uses.
+Most the examples revolve around how to customize the output history fields.
+This should give you a good basis for setting up your own CLM namelist.</p>
+<div class="section" id="definition-of-namelist-items-and-their-default-values">
+<h2><span class="section-number">1.2.3.1. </span>Definition of Namelist items and their default values<a class="headerlink" href="#definition-of-namelist-items-and-their-default-values" title="Permalink to this headline">¶</a></h2>
+<p>Here we point to you where you can find the definition of each namelist item and separately the default values for them. The default values may change depending on the resolution, land-mask, simulation-year and other attributes. Both of these files are viewable in your web browser, and then expand each in turn.</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="CLM-URL">Definition of Namelists Relevant for |version|</a></p></li>
+<li><p><a class="reference external" href="CLM-URL">Default values of each CLM4.0 Namelist Item</a></p></li>
+<li><p><a class="reference external" href="CLM-URL">Default values of each |version| Namelist Item</a></p></li>
+</ol>
+<div class="section" id="list-of-fields-that-can-be-added-to-your-output-history-files-by-namelist">
+<h3><span class="section-number">1.2.3.1.1. </span>List of fields that can be added to your output history files by namelist<a class="headerlink" href="#list-of-fields-that-can-be-added-to-your-output-history-files-by-namelist" title="Permalink to this headline">¶</a></h3>
+<p>One set of the namelist items allows you to add fields to the output history files: <code class="docutils literal notranslate"><span class="pre">hist_fincl1</span></code>, <code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code>, <code class="docutils literal notranslate"><span class="pre">hist_fincl3</span></code>, <code class="docutils literal notranslate"><span class="pre">hist_fincl4</span></code>, <code class="docutils literal notranslate"><span class="pre">hist_fincl5</span></code>, and <code class="docutils literal notranslate"><span class="pre">hist_fincl6</span></code>. The following links for <a class="reference external" href="CLM-URL">CLM4.0 History Fields</a> and <a class="reference external" href="CLM-URL">|version| History Fields</a> documents all of the history fields available and gives the long-name and units for each. The table below lists all the CLM5.0 history fields.</p>
+</div>
+<div class="section" id="definition-of-clm-history-variables">
+<h3><span class="section-number">1.2.3.1.2. </span>Definition of CLM history variables<a class="headerlink" href="#definition-of-clm-history-variables" title="Permalink to this headline">¶</a></h3>
+<p>Included in the table are the following pieces of information:</p>
+<ul class="simple">
+<li><p>Variable name.</p></li>
+<li><p>Long name description.</p></li>
+<li><p>units</p></li>
+</ul>
+</div>
+<div class="section" id="table-1-3-clm-history-fields">
+<h3><span class="section-number">1.2.3.1.3. </span>Table 1-3. CLM History Fields<a class="headerlink" href="#table-1-3-clm-history-fields" title="Permalink to this headline">¶</a></h3>
+<p>For Table, please see <a class="reference internal" href="master_list_file.html"><span class="doc">CTSM History Fields</span></a>.</p>
+</div>
+</div>
+<div class="section" id="examples-of-using-different-namelist-features">
+<h2><span class="section-number">1.2.3.2. </span>Examples of using different namelist features<a class="headerlink" href="#examples-of-using-different-namelist-features" title="Permalink to this headline">¶</a></h2>
+<p>Below we will give examples of user namelists that activate different commonly used namelist features. We will discuss the namelist features in different examples and then show a user namelist that includes an example of the use of these features. First we will show the default namelist that doesn’t activate any user options.</p>
+<div class="section" id="the-default-namelist">
+<h3><span class="section-number">1.2.3.2.1. </span>The default namelist<a class="headerlink" href="#the-default-namelist" title="Permalink to this headline">¶</a></h3>
+<p>Here we give the default namelist as it would be created for an “I1850Clm50BgcCropCru” compset at 0.9x1.25 resolution with a gx1v7 land-mask on cheyenne. To edit the namelist you would edit the <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> user namelist with just the items you want to change. For simplicity we will just show the CLM namelist and NOT the entire file. In the sections below, for simplicity we will just show the user namelist (<code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code>) that will add (or modify existing) namelist items to the namelist.</p>
+</div>
+<div class="section" id="example-1-2-default-clm-namelist">
+<h3><span class="section-number">1.2.3.2.2. </span>Example 1-2. Default CLM Namelist<a class="headerlink" href="#example-1-2-default-clm-namelist" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&amp;</span><span class="n">clm_inparm</span>
+ <span class="n">albice</span> <span class="o">=</span> <span class="mf">0.60</span><span class="p">,</span><span class="mf">0.40</span>
+ <span class="n">co2_ppmv</span> <span class="o">=</span> <span class="mf">284.7</span>
+ <span class="n">co2_type</span> <span class="o">=</span> <span class="s1">&#39;constant&#39;</span>
+ <span class="n">create_crop_landunit</span> <span class="o">=</span> <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+ <span class="n">dtime</span> <span class="o">=</span> <span class="mi">1800</span>
+ <span class="n">fatmlndfrc</span> <span class="o">=</span> <span class="s1">&#39;/glade/p/cesm/cseg/inputdata/share/domains/domain.lnd.fv0.9x1.25_gx1v6.090309.nc&#39;</span>
+ <span class="n">finidat</span> <span class="o">=</span> <span class="s1">&#39;$DIN_LOC_ROOT/lnd/clm2/initdata_map/clmi.I1850Clm50BgcCropCru.0241-01-01.0.9x1.25_g1v6_simyr1850_c130531.nc&#39;</span>
+ <span class="n">fpftcon</span> <span class="o">=</span> <span class="s1">&#39;/glade/p/cesm/cseg/inputdata/lnd/clm2/pftdata/pft-physiology.c130503.nc&#39;</span>
+ <span class="n">fsnowaging</span> <span class="o">=</span> <span class="s1">&#39;/glade/p/cesm/cseg/inputdata/lnd/clm2/snicardata/snicar_drdt_bst_fit_60_c070416.nc&#39;</span>
+ <span class="n">fsnowoptics</span> <span class="o">=</span> <span class="s1">&#39;/glade/p/cesm/cseg/inputdata/lnd/clm2/snicardata/snicar_optics_5bnd_c090915.nc&#39;</span>
+ <span class="n">fsurdat</span> <span class="o">=</span> <span class="s1">&#39;/glade/p/cesm/cseg/inputdata/lnd/clm2/surfdata_map/surfdata_0.9x1.25_simyr1850_c130415.nc&#39;</span>
+ <span class="n">maxpatch_glcmec</span> <span class="o">=</span> <span class="mi">0</span>
+ <span class="n">more_vertlayers</span> <span class="o">=</span> <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+ <span class="n">nsegspc</span> <span class="o">=</span> <span class="mi">20</span>
+ <span class="n">spinup_state</span> <span class="o">=</span> <span class="mi">0</span>
+ <span class="n">urban_hac</span> <span class="o">=</span> <span class="s1">&#39;ON&#39;</span>
+ <span class="n">urban_traffic</span> <span class="o">=</span> <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+<span class="o">/</span>
+<span class="o">&amp;</span><span class="n">ndepdyn_nml</span>
+ <span class="n">ndepmapalgo</span> <span class="o">=</span> <span class="s1">&#39;bilinear&#39;</span>
+ <span class="n">stream_fldfilename_ndep</span> <span class="o">=</span> <span class="s1">&#39;/glade/p/cesm/cseg/inputdata/lnd/clm2/ndepdata/fndep_clm_hist_simyr1849-2006_1.9x2.5_c100428.nc&#39;</span>
+ <span class="n">stream_year_first_ndep</span> <span class="o">=</span> <span class="mi">1850</span>
+ <span class="n">stream_year_last_ndep</span> <span class="o">=</span> <span class="mi">1850</span>
+<span class="o">/</span>
+<span class="o">&amp;</span><span class="n">popd_streams</span>
+ <span class="n">popdensmapalgo</span> <span class="o">=</span> <span class="s1">&#39;bilinear&#39;</span>
+ <span class="n">stream_fldfilename_popdens</span> <span class="o">=</span> <span class="s1">&#39;$DIN_LOC_ROOT/lnd/clm2/firedata/clmforc.Li_2012_hdm_0.5x0.5_AVHRR_simyr1850-2010_c130401.nc&#39;</span>
+ <span class="n">stream_year_first_popdens</span> <span class="o">=</span> <span class="mi">1850</span>
+ <span class="n">stream_year_last_popdens</span> <span class="o">=</span> <span class="mi">1850</span>
+<span class="o">/</span>
+<span class="o">&amp;</span><span class="n">light_streams</span>
+ <span class="n">lightngmapalgo</span> <span class="o">=</span> <span class="s1">&#39;bilinear&#39;</span>
+ <span class="n">stream_fldfilename_lightng</span> <span class="o">=</span> <span class="s1">&#39;/glade/p/cesm/cseg/inputdata/atm/datm7/NASA_LIS/clmforc.Li_2012_climo1995-2011.T62.lnfm_c130327.nc&#39;</span>
+ <span class="n">stream_year_first_lightng</span> <span class="o">=</span> <span class="mi">0001</span>
+ <span class="n">stream_year_last_lightng</span> <span class="o">=</span> <span class="mi">0001</span>
+<span class="o">/</span>
+<span class="o">&amp;</span><span class="n">clm_hydrology1_inparm</span>
+<span class="o">/</span>
+<span class="o">&amp;</span><span class="n">clm_soilhydrology_inparm</span>
+<span class="o">/</span>
+<span class="o">&amp;</span><span class="n">ch4par_in</span>
+ <span class="n">fin_use_fsat</span> <span class="o">=</span> <span class="o">.</span><span class="n">true</span><span class="o">.</span>
+<span class="o">/</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-removing-fields-on-your-primary-history-file">
+<h3><span class="section-number">1.2.3.2.3. </span>Adding/removing fields on your primary history file<a class="headerlink" href="#adding-removing-fields-on-your-primary-history-file" title="Permalink to this headline">¶</a></h3>
+<p>The primary history files are output monthly, and contain an extensive list of fieldnames, but the list of fieldnames can be added to using <code class="docutils literal notranslate"><span class="pre">hist_fincl1</span></code> or removed from by adding fieldnames to <code class="docutils literal notranslate"><span class="pre">hist_fexcl1</span></code>.
+A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> adding few new fields (cosine of solar zenith angle, and solar declination) and excluding a few standard fields is (ground temperature, vegetation temperature, soil temperature and soil water).:</p>
+</div>
+<div class="section" id="example-1-3-example-user-nl-clm-namelist-adding-and-removing-fields-on-primary-history-file">
+<h3><span class="section-number">1.2.3.2.4. </span>Example 1-3. Example user_nl_clm namelist adding and removing fields on primary history file<a class="headerlink" href="#example-1-3-example-user-nl-clm-namelist-adding-and-removing-fields-on-primary-history-file" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hist_fincl1</span> <span class="o">=</span> <span class="s1">&#39;COSZEN&#39;</span><span class="p">,</span> <span class="s1">&#39;DECL&#39;</span>
+<span class="n">hist_fexcl1</span> <span class="o">=</span> <span class="s1">&#39;TG&#39;</span><span class="p">,</span> <span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;TSOI&#39;</span><span class="p">,</span> <span class="s1">&#39;H2OSOI&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-auxiliary-history-files-and-changing-output-frequency">
+<h3><span class="section-number">1.2.3.2.5. </span>Adding auxiliary history files and changing output frequency<a class="headerlink" href="#adding-auxiliary-history-files-and-changing-output-frequency" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code> through <code class="docutils literal notranslate"><span class="pre">hist_fincl6</span></code> set of namelist variables add given history fieldnames to auxiliary history file “streams”, and <code class="docutils literal notranslate"><span class="pre">hist_fexcl2</span></code> through <code class="docutils literal notranslate"><span class="pre">hist_fexcl6</span></code> set of namelist variables remove given history fieldnames from history file auxiliary “streams”.
+A history “stream” is a set of history files that are produced at a given frequency.
+By default there is only one stream of monthly data files.
+To add more streams you add history fieldnames to <code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code> through <code class="docutils literal notranslate"><span class="pre">hist_fincl6</span></code>.
+The output frequency and the way averaging is done can be different for each history file stream.
+By default the primary history files are monthly and any others are daily. You can have up to six active history streams, but you need to activate them in order. So if you activate stream “6” by setting <code class="docutils literal notranslate"><span class="pre">hist_fincl6</span></code>, but if any of <code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code> through <code class="docutils literal notranslate"><span class="pre">hist_fincl5</span></code> are unset, only the history streams up to the first blank one will be activated.</p>
+<p>The frequency of the history file streams is given by the namelist variable <code class="docutils literal notranslate"><span class="pre">hist_nhtfrq</span></code> which is an array of rank six for each history stream. The values of the array <code class="docutils literal notranslate"><span class="pre">hist_nhtfrq</span></code> must be integers, where the following values have the given meaning:</p>
+<p><em>Positive value</em> means the output frequency is the number of model steps between output.
+<em>Negative value</em> means the output frequency is the absolute value in hours given (i.e -1 would mean an hour and -24 would mean a full day). Daily (-24) is the default value for all auxiliary files.
+<em>Zero</em> means the output frequency is monthly. This is the default for the primary history files.</p>
+<p>The number of samples on each history file stream is given by the namelist variable <code class="docutils literal notranslate"><span class="pre">hist_mfilt</span></code> which is an array of rank six for each history stream. The values of the array <code class="docutils literal notranslate"><span class="pre">hist_mfilt</span></code> must be positive integers. By default the primary history file stream has one time sample on it (i.e. output is to separate monthly files), and all other streams have thirty time samples on them.</p>
+<p>A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> turning on four extra file streams for output: daily, six-hourly, hourly, and every time-step, leaving the primary history files as monthly, and changing the number of samples on the streams to: yearly (12), thirty, weekly (28), daily (24), and daily (48) is:</p>
+</div>
+<div class="section" id="example-user-nl-clm-namelist-adding-auxiliary-history-files-and-changing-output-frequency">
+<h3><span class="section-number">1.2.3.2.6. </span>Example: user_nl_clm namelist adding auxiliary history files and changing output frequency<a class="headerlink" href="#example-user-nl-clm-namelist-adding-auxiliary-history-files-and-changing-output-frequency" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hist_fincl2</span> <span class="o">=</span> <span class="s1">&#39;TG&#39;</span><span class="p">,</span> <span class="s1">&#39;TV&#39;</span>
+<span class="n">hist_fincl3</span> <span class="o">=</span> <span class="s1">&#39;TG&#39;</span><span class="p">,</span> <span class="s1">&#39;TV&#39;</span>
+<span class="n">hist_fincl4</span> <span class="o">=</span> <span class="s1">&#39;TG&#39;</span><span class="p">,</span> <span class="s1">&#39;TV&#39;</span>
+<span class="n">hist_fincl5</span> <span class="o">=</span> <span class="s1">&#39;TG&#39;</span><span class="p">,</span> <span class="s1">&#39;TV&#39;</span>
+<span class="n">hist_nhtfrq</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">24</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+<span class="n">hist_mfilt</span>  <span class="o">=</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">48</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="removing-all-history-fields">
+<h3><span class="section-number">1.2.3.2.7. </span>Removing all history fields<a class="headerlink" href="#removing-all-history-fields" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes for various reasons you want to remove all the history fields either because you want to do testing without any output, or you only want a very small custom list of output fields rather than the default extensive list of fields.
+By default only the primary history files are active, so technically using <code class="docutils literal notranslate"><span class="pre">hist_fexcl1</span></code> explained in the first example, you could list ALL of the history fields that are output in <code class="docutils literal notranslate"><span class="pre">hist_fexcl1</span></code> and then you wouldn’t get any output.
+However, as the list is very extensive this would be a cumbersome thing to do.
+So to facilitate this <code class="docutils literal notranslate"><span class="pre">hist_empty_htapes</span></code> allows you to turn off all default output.
+You can still use <code class="docutils literal notranslate"><span class="pre">hist_fincl1</span></code> to turn your own list of fields on, but you then start from a clean slate.
+A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> turning off all history fields and then activating just a few selected fields (ground and vegetation temperatures and absorbed solar radiation) is:</p>
+</div>
+<div class="section" id="example-1-5-example-user-nl-clm-namelist-removing-all-history-fields">
+<h3><span class="section-number">1.2.3.2.8. </span>Example 1-5. Example user_nl_clm namelist removing all history fields<a class="headerlink" href="#example-1-5-example-user-nl-clm-namelist-removing-all-history-fields" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hist_empty_htapes</span> <span class="o">=</span> <span class="o">.</span><span class="n">true</span><span class="o">.</span>
+<span class="n">hist_fincl1</span> <span class="o">=</span> <span class="s1">&#39;TG&#39;</span><span class="p">,</span> <span class="s1">&#39;TV&#39;</span><span class="p">,</span> <span class="s1">&#39;FSA&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="various-ways-to-change-history-output-averaging-flags">
+<h3><span class="section-number">1.2.3.2.9. </span>Various ways to change history output averaging flags<a class="headerlink" href="#various-ways-to-change-history-output-averaging-flags" title="Permalink to this headline">¶</a></h3>
+<p>There are two ways to change the averaging of output history fields.
+The first is using <code class="docutils literal notranslate"><span class="pre">hist_avgflag_pertape</span></code> which gives a default value for each history stream, the second is when you add fields using <code class="docutils literal notranslate"><span class="pre">hist_fincl*</span></code>, you add an averaging flag to the end of the field name after a colon (for example ‘TSOI:X’, would output the maximum of TSOI).
+The types of averaging that can be done are:</p>
+<ul class="simple">
+<li><p><em>A</em> Average, over the output interval.</p></li>
+<li><p><em>I</em> Instantaneous, output the value at the output interval.</p></li>
+<li><p><em>X</em> Maximum, over the output interval.</p></li>
+<li><p><em>M</em> Minimum, over the output interval.</p></li>
+</ul>
+<p>The default averaging depends on the specific fields, but for most fields is an average.
+A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> making the monthly output fields all averages (except TSOI for the first two streams and FIRE for the 5th stream), and adding auxiliary file streams for instantaneous (6-hourly), maximum (daily), minimum (daily), and average (daily).
+For some of the fields we diverge from the per-tape value given and customize to some different type of optimization.</p>
+</div>
+<div class="section" id="example-user-nl-clm-namelist-with-various-ways-to-average-history-fields">
+<h3><span class="section-number">1.2.3.2.10. </span>Example: user_nl_clm namelist with various ways to average history fields<a class="headerlink" href="#example-user-nl-clm-namelist-with-various-ways-to-average-history-fields" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hist_empty_htapes</span> <span class="o">=</span> <span class="o">.</span><span class="n">true</span><span class="o">.</span>
+<span class="n">hist_fincl1</span> <span class="o">=</span> <span class="s1">&#39;TSOI:X&#39;</span><span class="p">,</span> <span class="s1">&#39;TG&#39;</span><span class="p">,</span>   <span class="s1">&#39;TV&#39;</span><span class="p">,</span>   <span class="s1">&#39;FIRE&#39;</span><span class="p">,</span>   <span class="s1">&#39;FSR&#39;</span><span class="p">,</span> <span class="s1">&#39;FSH&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;EFLX_LH_TOT&#39;</span><span class="p">,</span> <span class="s1">&#39;WT&#39;</span>
+<span class="n">hist_fincl2</span> <span class="o">=</span> <span class="s1">&#39;TSOI:X&#39;</span><span class="p">,</span> <span class="s1">&#39;TG&#39;</span><span class="p">,</span>   <span class="s1">&#39;TV&#39;</span><span class="p">,</span>   <span class="s1">&#39;FIRE&#39;</span><span class="p">,</span>   <span class="s1">&#39;FSR&#39;</span><span class="p">,</span> <span class="s1">&#39;FSH&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;EFLX_LH_TOT&#39;</span><span class="p">,</span> <span class="s1">&#39;WT&#39;</span>
+<span class="n">hist_fincl3</span> <span class="o">=</span> <span class="s1">&#39;TSOI&#39;</span><span class="p">,</span>   <span class="s1">&#39;TG:I&#39;</span><span class="p">,</span> <span class="s1">&#39;TV&#39;</span><span class="p">,</span>   <span class="s1">&#39;FIRE&#39;</span><span class="p">,</span>   <span class="s1">&#39;FSR&#39;</span><span class="p">,</span> <span class="s1">&#39;FSH&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;EFLX_LH_TOT&#39;</span><span class="p">,</span> <span class="s1">&#39;WT&#39;</span>
+<span class="n">hist_fincl4</span> <span class="o">=</span> <span class="s1">&#39;TSOI&#39;</span><span class="p">,</span>   <span class="s1">&#39;TG&#39;</span><span class="p">,</span>   <span class="s1">&#39;TV:I&#39;</span><span class="p">,</span> <span class="s1">&#39;FIRE&#39;</span><span class="p">,</span>   <span class="s1">&#39;FSR&#39;</span><span class="p">,</span> <span class="s1">&#39;FSH&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;EFLX_LH_TOT&#39;</span><span class="p">,</span> <span class="s1">&#39;WT&#39;</span>
+<span class="n">hist_fincl5</span> <span class="o">=</span> <span class="s1">&#39;TSOI&#39;</span><span class="p">,</span>   <span class="s1">&#39;TG&#39;</span><span class="p">,</span>   <span class="s1">&#39;TV&#39;</span><span class="p">,</span>   <span class="s1">&#39;FIRE:I&#39;</span><span class="p">,</span> <span class="s1">&#39;FSR&#39;</span><span class="p">,</span> <span class="s1">&#39;FSH&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;EFLX_LH_TOT&#39;</span><span class="p">,</span> <span class="s1">&#39;WT&#39;</span>
+<span class="n">hist_avgflag_pertape</span> <span class="o">=</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span>   <span class="s1">&#39;M&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span>
+<span class="n">hist_nhtfrq</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">24</span><span class="p">,</span> <span class="o">-</span><span class="mi">24</span><span class="p">,</span> <span class="o">-</span><span class="mi">24</span>
+</pre></div>
+</div>
+<p>In the example we put the same list of fields on each of the tapes: soil-temperature, ground temperature, vegetation temperature, emitted longwave radiation, reflected solar radiation, sensible heat, total latent-heat, and total water storage.
+We also modify the soil-temperature for the primary and secondary auxiliary tapes by outputting them for a maximum instead of the prescribed per-tape of average and instantaneous respectively.
+For the tertiary auxiliary tape we output ground temperature instantaneous instead of as a maximum, and for the fourth auxiliary tape we output vegetation temperature instantaneous instead of as a minimum.
+Finally, for the fifth auxiliary tapes we output <code class="docutils literal notranslate"><span class="pre">FIRE</span></code> instantaneously instead of as an average.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We also use <code class="docutils literal notranslate"><span class="pre">hist_empty_htapes</span></code> as in the previous example, so we can list ONLY the fields that we want on the primary history tapes.</p>
+</div>
+</div>
+<div class="section" id="outputting-history-files-as-a-vector-in-order-to-analyze-the-plant-function-types-within-gridcells">
+<h3><span class="section-number">1.2.3.2.11. </span>Outputting history files as a vector in order to analyze the plant function types within gridcells<a class="headerlink" href="#outputting-history-files-as-a-vector-in-order-to-analyze-the-plant-function-types-within-gridcells" title="Permalink to this headline">¶</a></h3>
+<p>By default the output to history files are the grid-cell average of all land-units, and vegetation types within that grid-cell, and output is on the full 2D latitude/longitude grid with ocean masked out.
+Sometimes it’s important to understand how different land-units or vegetation types are acting within a grid-cell.
+The way to do this is to output history files as a 1D-vector of all land-units and vegetation types.
+In order to display this, you’ll need to do extensive post-processing to make sense of the output.
+Often you may only be interested in a few points, so once you figure out the 1D indices for the grid-cells of interest, you can easily view that data.
+1D vector output can also be useful for single point datasets, since it’s then obvious that all data is for the same grid cell.</p>
+<p>To do this you use <code class="docutils literal notranslate"><span class="pre">hist_dov2xy</span></code> which is an array of rank six for each history stream.
+Set it to <code class="docutils literal notranslate"><span class="pre">.false.</span></code> if you want one of the history streams to be a 1D vector.
+You can also use <code class="docutils literal notranslate"><span class="pre">hist_type1d_pertape</span></code> if you want to average over all the: Plant-Function-Types, columns, land-units, or grid-cells.
+A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> leaving the primary monthly files as 2D, and then doing grid-cell (GRID), column (COLS), and no averaging over auxiliary tapes output daily for a single field (ground temperature) is:</p>
+</div>
+<div class="section" id="example-user-nl-clm-namelist-outputting-some-files-in-1d-vector-format">
+<h3><span class="section-number">1.2.3.2.12. </span>Example: user_nl_clm namelist outputting some files in 1D Vector format<a class="headerlink" href="#example-user-nl-clm-namelist-outputting-some-files-in-1d-vector-format" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hist_fincl2</span> <span class="o">=</span> <span class="s1">&#39;TG&#39;</span>
+<span class="n">hist_fincl3</span> <span class="o">=</span> <span class="s1">&#39;TG&#39;</span>
+<span class="n">hist_fincl4</span> <span class="o">=</span> <span class="s1">&#39;TG&#39;</span>
+<span class="n">hist_fincl5</span> <span class="o">=</span> <span class="s1">&#39;TG&#39;</span>
+<span class="n">hist_fincl6</span> <span class="o">=</span> <span class="s1">&#39;TG&#39;</span>
+<span class="n">hist_dov2xy</span> <span class="o">=</span> <span class="o">.</span><span class="n">true</span><span class="o">.</span><span class="p">,</span> <span class="o">.</span><span class="n">false</span><span class="o">.</span><span class="p">,</span> <span class="o">.</span><span class="n">false</span><span class="o">.</span><span class="p">,</span> <span class="o">.</span><span class="n">false</span><span class="o">.</span>
+<span class="n">hist_type2d_pertape</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;GRID&#39;</span><span class="p">,</span> <span class="s1">&#39;COLS&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span>
+<span class="n">hist_nhtfrq</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">24</span><span class="p">,</span> <span class="o">-</span><span class="mi">24</span><span class="p">,</span> <span class="o">-</span><span class="mi">24</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>LAND and COLS are also options to the pertape averaging, but currently there is a bug with them and they fail to work.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Technically the default for hist_nhtfrq is for primary files output monthly and the other auxiliary tapes for daily, so we don’t actually have to include hist_nhtfrq, we could use the default for it. Here we specify it for clarity.</p>
+</div>
+<p>Visualizing global 1D vector files will take effort.
+You’ll probably want to do some post-processing and possibly just extract out single points of interest to see what is going on.
+Since, the output is a 1D vector, of only land-points traditional plots won’t be helpful.
+The number of points per grid-cell will also vary for anything, but grid-cell averaging.
+You’ll need to use the output fields pfts1d_ixy, and pfts1d_jxy, to get the mapping of the fields to the global 2D array.
+pfts1d_itype_veg gives you the PFT number for each PFT.
+Most likely you’ll want to do this analysis in a data processing tool (such as NCL, Matlab, Mathmatica, IDL, etcetera that is able to read and process NetCDF data files).</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="customizing-the-datm-namelist.html" class="btn btn-neutral float-right" title="1.2.4. Customizing the DATM namelist" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="customizing-the-clm-configuration.html" class="btn btn-neutral" title="1.2.2. Customizing CLM’s Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
