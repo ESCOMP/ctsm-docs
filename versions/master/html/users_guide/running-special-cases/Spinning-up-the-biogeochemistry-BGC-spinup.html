@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>1.5.5. Spinup of CLM5.0-BGC-Crop &mdash; ctsm CTSM master documentation</title>
+  <title>1.5.5. Spinup of CTSM1-BGC-Crop &mdash; ctsm CTSM master documentation</title>
   
 
   
@@ -117,7 +117,7 @@
 <li class="toctree-l3"><a class="reference internal" href="running-the-prognostic-crop-model.html">1.5.2. Running the prognostic crop model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="running-with-irrigation.html">1.5.3. Running with irrigation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Spinning-up-the-Satellite-Phenology-Model-CLMSP-spinup.html">1.5.4. Spinning up the Satellite Phenology Model</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">1.5.5. Spinup of CLM5.0-BGC-Crop</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.5.5. Spinup of CTSM1-BGC-Crop</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#example-ad-spinup-simulation-for-version-bgc">1.5.5.1. Example:: AD_SPINUP Simulation for CTSM1-BGC</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#example-final-clmbgc-spinup-simulation-for-version-bgc">1.5.5.2. Example: Final CLMBGC Spinup Simulation for CTSM1-BGC</a></li>
 </ul>
@@ -184,7 +184,7 @@
         
           <li><a href="index.html"><span class="section-number">1.5. </span>Running Special Cases</a> &raquo;</li>
         
-      <li><span class="section-number">1.5.5. </span>Spinup of CLM5.0-BGC-Crop</li>
+      <li><span class="section-number">1.5.5. </span>Spinup of CTSM1-BGC-Crop</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -203,8 +203,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="spinup-of-clm5-0-bgc-crop">
-<span id="spinning-up-clm50-bgc"></span><h1><span class="section-number">1.5.5. </span>Spinup of CLM5.0-BGC-Crop<a class="headerlink" href="#spinup-of-clm5-0-bgc-crop" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="spinup-of-version-bgc-crop">
+<span id="spinning-up-clm50-bgc"></span><h1><span class="section-number">1.5.5. </span>Spinup of CTSM1-BGC-Crop<a class="headerlink" href="#spinup-of-version-bgc-crop" title="Permalink to this headline">¶</a></h1>
 <p>To get the CTSM1-BGC model to a steady state, you first run it from arbitrary initial conditions using the “accelerated decomposition spinup” (-bgc_spinup on in CLM <strong>configure</strong>, see example below) mode for about 200 simulation years. <a class="reference internal" href="#figure-bgc-ad-spinup-plot-for-1850-gswp3"><span class="std std-numref">Figure 1.5.3</span></a> shows spinup behavior for an 1850
 BGC accelerated decomposition (AD) case using GSWP3 atmospheric forcing. Generally, the criteria that less than 3% of the land surface be in
 total ecosystem carbon disequilibrium takes the longest to satisfy due to slow soil carbon (TOTSOMC) turnover times in the Arctic.</p>
@@ -240,7 +240,7 @@ equilibrium (e.g., TOTECOSYSC, TOTSOMC, TOTVEGC), particularly at high latitudes
 reach a new equilibrium. In this configuration, this will also automatically reseed “dead” plant functional types in the initial file with a
 bit of leaf carbon to give those plant functional types another chance to grow under the new atmospheric forcing or model conditions.</p>
 <dl class="simple">
-<dt><strong>1. 50_AD_SPINUP</strong></dt><dd><p>For the first step of running 200+ years in “-bgc_spinup on” mode, you will setup a case, and then edit the values in env_build.xml and env_run.xml so that the right configuration is turned on and the simulation is setup to run for the required length of simulation time. So do the following:</p>
+<dt><strong>1. |version| accelerated-decomposition (AD) spinup</strong></dt><dd><p>For the first step of running 200+ years in “-bgc_spinup on” mode, you will setup a case, and then edit the values in env_build.xml and env_run.xml so that the right configuration is turned on and the simulation is setup to run for the required length of simulation time. So do the following:</p>
 </dd>
 </dl>
 <div class="section" id="example-ad-spinup-simulation-for-version-bgc">
@@ -255,7 +255,7 @@ bit of leaf carbon to give those plant functional types another chance to grow u
 <span class="c1"># Now build</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">build</span>
 <span class="c1"># The following sets RESUBMIT to 3 times in env_run.xml (you could also use an editor)</span>
-<span class="c1"># The following sets STOP_DATE,STOP_N and STOP_OPTION to Jan/1/0201, 20, &quot;nyears&quot; in env_run.xml (you could also use an       editor)</span>
+<span class="c1"># The following sets STOP_DATE,STOP_N and STOP_OPTION to Jan/1/0201, 20, &quot;nyears&quot; in env_run.xml (you could also use an editor)</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">RESUBMIT</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">STOP_N</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">STOP_OPTION</span><span class="o">=</span><span class="n">nyears</span><span class="p">,</span><span class="n">STOP_DATE</span><span class="o">=</span><span class="mi">02010101</span>
 <span class="c1"># Now run normally</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">submit</span>
@@ -278,12 +278,11 @@ bit of leaf carbon to give those plant functional types another chance to grow u
 &gt; cd BGC_finalspinup
 # Now, Copy the last CLM restart file from the earlier case into your run directory
 &gt; cp /ptmp/$LOGIN/archive/BGC_spinup/rest/BGC_spinup.clm*.r*.0201-01-01-00000.nc \
-/glade/scratch/$LOGIN/CN_finalspinup
+/glade/scratch/$LOGIN/CN_finalspinup/run
 # Set the runtype to startup
 &gt; ./xmlchange RUN_TYPE=startup
 # And copy the rpointer files for datm and drv from the earlier case
-&gt; cp /glade/scratch/$LOGIN/archive/BGC_spinup/rest/rpointer.atm /ptmp/$LOGIN/CN_finalspinup
-&gt; cp /glade/scratch/$LOGIN/archive/BGC_spinup/rest/rpointer.drv /ptmp/$LOGIN/CN_finalspinup
+&gt; cp /glade/scratch/$LOGIN/archive/BGC_spinup/rest/rpointer.atm /glade/scratch/$LOGIN/CN_finalspinup/run
 # Set the finidat file to the last restart file saved in previous step
 &gt; echo &#39; finidat = &quot;BGC_spinup.clm2.r.0201-01-01-00000.nc&quot;&#39; &gt; user_nl_clm
 # Now setup
