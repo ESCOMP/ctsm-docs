@@ -122,6 +122,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#soil-and-snow-thermal-properties">2.6.3. Soil and Snow Thermal Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#excess-ground-ice">2.6.4. Excess Ground Ice</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html">2.7. Hydrology</a></li>
@@ -376,9 +377,9 @@ conductivity <img class="math" src="../../_images/math/6e6484d93142c40484f81ccc9
 interface of two layers</p>
 <p><img class="math" src="../../_images/math/3adab28374e879a0644e8822dc38fa6b35a36db3.svg" alt="z_{h}"/> . The layer thickness is <img class="math" src="../../_images/math/f52e428a596299d136f6a197f954d730669c0253.svg" alt="\Delta z"/>. The heat fluxes
 <img class="math" src="../../_images/math/ace15fb537b403f9537878aa52ae2ac26143ff85.svg" alt="F_{i-1}"/>  and <img class="math" src="../../_images/math/2df97b34b05534178308bf59f6a774c04894b7f8.svg" alt="F_{i}"/>  are defined as positive upwards.</p>
-<div class="figure align-default" id="id5">
+<div class="figure align-default" id="id6">
 <span id="figure-soil-temperature-schematic"></span><img alt="../../_images/image17.png" src="../../_images/image17.png" />
-<p class="caption"><span class="caption-number">Figure 2.6.1 </span><span class="caption-text">Schematic diagram of numerical scheme used to solve for soil temperature.</span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-number">Figure 2.6.1 </span><span class="caption-text">Schematic diagram of numerical scheme used to solve for soil temperature.</span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
 </div>
 <p>The energy balance for the <img class="math" src="../../_images/math/3d2006e56cc72c929d49557c7d4b01e336b4ce6b.svg" alt="i^{th}"/>  layer is</p>
 <div class="math" id="equation-6-13">
@@ -808,6 +809,35 @@ the top layer is a blend of ice and soil heat capacity</p>
 <div class="math" id="equation-6-93">
 <p><span class="eqno">(2.6.91)<a class="headerlink" href="#equation-6-93" title="Permalink to this equation">¶</a></span><img src="../../_images/math/57743439d38026f6d8f39187ebba2f79b7055552.svg" alt="c_{1} =c_{1}^{*} +\frac{C_{ice} W_{sno} }{\Delta z_{1} }"/></p>
 </div><p>where <img class="math" src="../../_images/math/cb97e387fca97c8f1501d69ae58244267d9b080c.svg" alt="c_{1}^{*}"/>  is calculated from <a class="reference internal" href="#equation-6-89">(2.6.87)</a> or <a class="reference internal" href="#equation-6-92">(2.6.90)</a>.</p>
+</div>
+<div class="section" id="excess-ground-ice">
+<span id="id5"></span><h2><span class="section-number">2.6.4. </span>Excess Ground Ice<a class="headerlink" href="#excess-ground-ice" title="Permalink to this headline">¶</a></h2>
+<p>An optional parameterization of excess ground ice melt and respective subsidence based on (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#leeetal2014"><span class="std std-ref">Lee et al., (2014)</span></a>).
+Initial excess ground ice concentrations for soil columns are derived from (<a class="reference internal" href="../References/CLM50_Tech_Note_References.html#brownetal1997"><span class="std std-ref">Brown et al., (1997)</span></a>).
+When the excess ground ice is present in the soil column, soil depth for a given layer (<img class="math" src="../../_images/math/ba65f69dd9c400da3caba2f9bea6a428880c7e02.svg" alt="z_{i}"/>)
+is adjusted by the amount of excess ice in the column:</p>
+<div class="math" id="equation-6-94">
+<p><span class="eqno">(2.6.92)<a class="headerlink" href="#equation-6-94" title="Permalink to this equation">¶</a></span><img src="../../_images/math/20cb424c9d8890ce7ffbddbad291b63f0906d4f5.svg" alt="z_{i}^{'}=\Sigma_{j=1}^{i} \ z_{j}^{'}+\frac{w_{exice,\, j}}{\rho_{ice} }"/></p>
+</div><p>where <img class="math" src="../../_images/math/fa3b374e0c9f2774887e1b8b2c73a71087aacc80.svg" alt="w_{exice,\,j}"/> is excess ground ice amount (kg m <sup>-2</sup>) in layer <img class="math" src="../../_images/math/e3fc28292267f066fee7718c64f4bbfece521f24.svg" alt="j"/>
+and <img class="math" src="../../_images/math/7c574bf4458d029d1a70cf8ce42e0a04ef505dba.svg" alt="\rho_{ice}"/> is the density of ice (kg m <sup>-3</sup>).
+After adjustment of layer depths have been made, all of the soil temperature equations  (from <a class="reference internal" href="#equation-6-80">(2.6.78)</a> to <a class="reference internal" href="#equation-6-89">(2.6.87)</a>)
+are calculted based on the adjusted depths. Thermal properties are additionally adjusted (<a class="reference internal" href="#equation-6-8">(2.6.5)</a> and <a class="reference internal" href="#equation-6-8">(2.6.5)</a>) in the following way:</p>
+<div class="math" id="equation-6-95">
+<p><span class="eqno">(2.6.93)<a class="headerlink" href="#equation-6-95" title="Permalink to this equation">¶</a></span><img src="../../_images/math/c177a9a9927d3162dcb10a52883408006d3cce92.svg" alt="\begin{array}{lr}
+ \theta_{sat}^{'} =\frac{\theta _{liq} }{\theta _{liq} +\theta _{ice} +\theta_{exice}}{\theta_{sat}} \\
+ \lambda _{sat}^{'} =\lambda _{s}^{1-\theta _{sat}^{'} } \lambda _{liq}^{\frac{\theta _{liq} }{\theta _{liq} +\theta _{ice} +\theta_{exice}} \theta _{sat}^{'} } \lambda _{ice}^{\theta _{sat}^{'} \left(1-\frac{\theta _{liq} }{\theta _{liq} +\theta _{ice} +\theta_{exice}} \right)} \\
+ c_{i}^{'} =c_{s,\, i} \left(1-\theta _{sat,\, i}^{'} \right)+\frac{w_{ice,\, i} +w_{exice,\,j}}{\Delta z_{i}^{'} } C_{ice} +\frac{w_{liq,\, i} }{\Delta z_{i}^{'} } C_{liq}
+\end{array}"/></p>
+</div><p>Soil subsidence at the timestep <img class="math" src="../../_images/math/85f9a5bfa0dccf215f10e2a5005def3cbe2afc0d.svg" alt="n+1"/> (<img class="math" src="../../_images/math/4a0176c3d22c220a6cce672303903d94472a7720.svg" alt="z_{exice}^{n+1}"/>, m) is then calculated as:</p>
+<div class="math" id="equation-6-96">
+<p><span class="eqno">(2.6.94)<a class="headerlink" href="#equation-6-96" title="Permalink to this equation">¶</a></span><img src="../../_images/math/a036f5c354ba27477f5460566fd69dbea9bc8fc0.svg" alt="z_{exice}^{n+1}=\Sigma_{i=1}^{N_{levgrnd}} \ z_{j}^{',\ ,n+1}-z_{j}^{',\ ,n }"/></p>
+</div><p>With regards to hydraulic counductivity, excess ground ice is treated the same way normal soil
+ice is treated in <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#frozen-soils-and-perched-water-table"><span class="std std-numref">2.7.4</span></a>.
+When a soil layer thaws, excess ground ice is only allowed
+to melt when no normals soil ice is present in the layer.
+When a soil layer refreezes, liquid soil water can only turn into normal soil ice, thus, no new of excess ice can be created but only melted.
+The excess liquid soil moisture from excess ice melt is distributed within the soil column according
+to <a class="reference internal" href="../Hydrology/CLM50_Tech_Note_Hydrology.html#lateral-sub-surface-runoff"><span class="std std-numref">2.7.5</span></a>.</p>
 </div>
 </div>
 
