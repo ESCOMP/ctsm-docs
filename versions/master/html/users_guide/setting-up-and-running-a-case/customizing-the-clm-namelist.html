@@ -118,8 +118,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="customizing-the-datm-namelist.html">1.2.4. Customizing the DATM namelist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="master_list_nofates.html">1.2.5. CTSM History Fields (nofates)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="master_list_fates.html">1.2.6. CTSM History Fields (fates)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="history_fields_nofates.html">1.2.5. CTSM History Fields (nofates)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="history_fields_fates.html">1.2.6. CTSM History Fields (fates)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../using-clm-tools/index.html">1.3. Using CLM tools</a></li>
@@ -203,37 +203,17 @@
   <div class="section" id="customizing-clm-s-namelist">
 <span id="customizing-a-case"></span><h1><span class="section-number">1.2.3. </span>Customizing CLM’s namelist<a class="headerlink" href="#customizing-clm-s-namelist" title="Permalink to this headline">¶</a></h1>
 <p>Once a case has run <strong>case.setup</strong>, we can then customize the case further, by editing the run-time namelist for CLM. First let’s list the definition of each namelist item and their valid values, and then we’ll list the default values for them. Next for some of the most used or tricky namelist items we’ll give examples of their use, and give you example namelists that highlight these features.</p>
-<p>In the following, various examples of namelists are provided that feature the use of different namelist options to customize a case for particular uses.
-Most the examples revolve around how to customize the output history fields.
-This should give you a good basis for setting up your own CLM namelist.</p>
+<p>In the following, various examples of namelists are provided that feature the use of different namelist options to customize a case for particular uses. Most the examples revolve around how to customize the output history fields. This should give you a good basis for setting up your own CLM namelist.</p>
 <div class="section" id="definition-of-namelist-items-and-their-default-values">
-<h2><span class="section-number">1.2.3.1. </span>Definition of Namelist items and their default values<a class="headerlink" href="#definition-of-namelist-items-and-their-default-values" title="Permalink to this headline">¶</a></h2>
+<span id="def-nl-items-and-defaults"></span><h2><span class="section-number">1.2.3.1. </span>Definition of Namelist items and their default values<a class="headerlink" href="#definition-of-namelist-items-and-their-default-values" title="Permalink to this headline">¶</a></h2>
 <p>Here we point to you where you can find the definition of each namelist item and separately the default values for them. The default values may change depending on the resolution, land-mask, simulation-year and other attributes. Both of these files are viewable in your web browser, and then expand each in turn.</p>
 <ol class="arabic simple">
-<li><p><a class="reference external" href="CLM-URL">Definition of Namelists Relevant for |version|</a></p></li>
-<li><p><a class="reference external" href="CLM-URL">Default values of each CLM4.0 Namelist Item</a></p></li>
-<li><p><a class="reference external" href="CLM-URL">Default values of each |version| Namelist Item</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ESCOMP/CTSM/blob/master/bld/namelist_files/namelist_definition_ctsm.xml">Definition of Namelists</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ESCOMP/CTSM/blob/master/bld/namelist_files/namelist_defaults_ctsm.xml">Default values of each Namelist Item</a></p></li>
 </ol>
 <div class="section" id="list-of-fields-that-can-be-added-to-your-output-history-files-by-namelist">
 <h3><span class="section-number">1.2.3.1.1. </span>List of fields that can be added to your output history files by namelist<a class="headerlink" href="#list-of-fields-that-can-be-added-to-your-output-history-files-by-namelist" title="Permalink to this headline">¶</a></h3>
-<p>One set of the namelist items allows you to add fields to the output history files: <code class="docutils literal notranslate"><span class="pre">hist_fincl1</span></code>, <code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code>, <code class="docutils literal notranslate"><span class="pre">hist_fincl3</span></code>, <code class="docutils literal notranslate"><span class="pre">hist_fincl4</span></code>, <code class="docutils literal notranslate"><span class="pre">hist_fincl5</span></code>, and <code class="docutils literal notranslate"><span class="pre">hist_fincl6</span></code>. The following links for <a class="reference external" href="CLM-URL">CLM4.0 History Fields</a> and <a class="reference external" href="CLM-URL">|version| History Fields</a> documents all of the history fields available and gives the long-name and units for each. The table below lists all the CTSM1 history fields.</p>
-</div>
-<div class="section" id="definition-of-clm-history-variables">
-<h3><span class="section-number">1.2.3.1.2. </span>Definition of CLM history variables<a class="headerlink" href="#definition-of-clm-history-variables" title="Permalink to this headline">¶</a></h3>
-<p>Included in the table are the following pieces of information:</p>
-<ul class="simple">
-<li><p>Variable name.</p></li>
-<li><p>Long name description.</p></li>
-<li><p>units</p></li>
-</ul>
-</div>
-<div class="section" id="table-1-3-clm-history-fields-from-a-bgccrop-case">
-<h3><span class="section-number">1.2.3.1.3. </span>Table 1-3. CLM History Fields from a BgcCrop case<a class="headerlink" href="#table-1-3-clm-history-fields-from-a-bgccrop-case" title="Permalink to this headline">¶</a></h3>
-<p>For Table from a BgcCrop case, please see <a class="reference internal" href="master_list_nofates.html"><span class="doc">CTSM History Fields (nofates)</span></a>.</p>
-</div>
-<div class="section" id="table-1-4-clm-history-fields-from-a-fates-case">
-<h3><span class="section-number">1.2.3.1.4. </span>Table 1-4. CLM History Fields from a Fates case<a class="headerlink" href="#table-1-4-clm-history-fields-from-a-fates-case" title="Permalink to this headline">¶</a></h3>
-<p>For Table from a Fates case, please see <a class="reference internal" href="master_list_fates.html"><span class="doc">CTSM History Fields (fates)</span></a>.</p>
+<p>One set of the namelist items allows you to add fields to the output history files: <code class="docutils literal notranslate"><span class="pre">hist_fincl1</span></code>, <code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code>, <code class="docutils literal notranslate"><span class="pre">hist_fincl3</span></code>, <code class="docutils literal notranslate"><span class="pre">hist_fincl4</span></code>, <code class="docutils literal notranslate"><span class="pre">hist_fincl5</span></code>, and <code class="docutils literal notranslate"><span class="pre">hist_fincl6</span></code>. The <a class="reference internal" href="history_fields_nofates.html"><span class="doc">CTSM History Fields (nofates)</span></a> and <a class="reference internal" href="history_fields_fates.html"><span class="doc">CTSM History Fields (fates)</span></a> files list all of the history fields available and gives the long-name and units for each.</p>
 </div>
 </div>
 <div class="section" id="examples-of-using-different-namelist-features">
@@ -294,8 +274,7 @@ This should give you a good basis for setting up your own CLM namelist.</p>
 </div>
 <div class="section" id="adding-removing-fields-on-your-primary-history-file">
 <h3><span class="section-number">1.2.3.2.3. </span>Adding/removing fields on your primary history file<a class="headerlink" href="#adding-removing-fields-on-your-primary-history-file" title="Permalink to this headline">¶</a></h3>
-<p>The primary history files are output monthly, and contain an extensive list of fieldnames, but the list of fieldnames can be added to using <code class="docutils literal notranslate"><span class="pre">hist_fincl1</span></code> or removed from by adding fieldnames to <code class="docutils literal notranslate"><span class="pre">hist_fexcl1</span></code>.
-A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> adding few new fields (cosine of solar zenith angle, and solar declination) and excluding a few standard fields is (ground temperature, vegetation temperature, soil temperature and soil water).:</p>
+<p>The primary history files are output monthly, and contain an extensive list of fieldnames, but the list of fieldnames can be added to using <code class="docutils literal notranslate"><span class="pre">hist_fincl1</span></code> or removed from by adding fieldnames to <code class="docutils literal notranslate"><span class="pre">hist_fexcl1</span></code>. A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> adding few new fields (cosine of solar zenith angle, and solar declination) and excluding a few standard fields is (ground temperature, vegetation temperature, soil temperature and soil water).:</p>
 </div>
 <div class="section" id="example-1-3-example-user-nl-clm-namelist-adding-and-removing-fields-on-primary-history-file">
 <h3><span class="section-number">1.2.3.2.4. </span>Example 1-3. Example user_nl_clm namelist adding and removing fields on primary history file<a class="headerlink" href="#example-1-3-example-user-nl-clm-namelist-adding-and-removing-fields-on-primary-history-file" title="Permalink to this headline">¶</a></h3>
@@ -306,16 +285,9 @@ A sample user namelist <code class="docutils literal notranslate"><span class="p
 </div>
 <div class="section" id="adding-auxiliary-history-files-and-changing-output-frequency">
 <h3><span class="section-number">1.2.3.2.5. </span>Adding auxiliary history files and changing output frequency<a class="headerlink" href="#adding-auxiliary-history-files-and-changing-output-frequency" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code> through <code class="docutils literal notranslate"><span class="pre">hist_fincl6</span></code> set of namelist variables add given history fieldnames to auxiliary history file “streams”, and <code class="docutils literal notranslate"><span class="pre">hist_fexcl2</span></code> through <code class="docutils literal notranslate"><span class="pre">hist_fexcl6</span></code> set of namelist variables remove given history fieldnames from history file auxiliary “streams”.
-A history “stream” is a set of history files that are produced at a given frequency.
-By default there is only one stream of monthly data files.
-To add more streams you add history fieldnames to <code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code> through <code class="docutils literal notranslate"><span class="pre">hist_fincl6</span></code>.
-The output frequency and the way averaging is done can be different for each history file stream.
-By default the primary history files are monthly and any others are daily. You can have up to six active history streams, but you need to activate them in order. So if you activate stream “6” by setting <code class="docutils literal notranslate"><span class="pre">hist_fincl6</span></code>, but if any of <code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code> through <code class="docutils literal notranslate"><span class="pre">hist_fincl5</span></code> are unset, only the history streams up to the first blank one will be activated.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code> through <code class="docutils literal notranslate"><span class="pre">hist_fincl6</span></code> set of namelist variables add given history fieldnames to auxiliary history file “streams”, and <code class="docutils literal notranslate"><span class="pre">hist_fexcl2</span></code> through <code class="docutils literal notranslate"><span class="pre">hist_fexcl6</span></code> set of namelist variables remove given history fieldnames from history file auxiliary “streams”. A history “stream” is a set of history files that are produced at a given frequency. By default there is only one stream of monthly data files. To add more streams you add history fieldnames to <code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code> through <code class="docutils literal notranslate"><span class="pre">hist_fincl6</span></code>. The output frequency and the way averaging is done can be different for each history file stream. By default the primary history files are monthly and any others are daily. You can have up to six active history streams, but you need to activate them in order. So if you activate stream “6” by setting <code class="docutils literal notranslate"><span class="pre">hist_fincl6</span></code>, but if any of <code class="docutils literal notranslate"><span class="pre">hist_fincl2</span></code> through <code class="docutils literal notranslate"><span class="pre">hist_fincl5</span></code> are unset, only the history streams up to the first blank one will be activated.</p>
 <p>The frequency of the history file streams is given by the namelist variable <code class="docutils literal notranslate"><span class="pre">hist_nhtfrq</span></code> which is an array of rank six for each history stream. The values of the array <code class="docutils literal notranslate"><span class="pre">hist_nhtfrq</span></code> must be integers, where the following values have the given meaning:</p>
-<p><em>Positive value</em> means the output frequency is the number of model steps between output.
-<em>Negative value</em> means the output frequency is the absolute value in hours given (i.e -1 would mean an hour and -24 would mean a full day). Daily (-24) is the default value for all auxiliary files.
-<em>Zero</em> means the output frequency is monthly. This is the default for the primary history files.</p>
+<p><em>Positive value</em> means the output frequency is the number of model steps between output. <em>Negative value</em> means the output frequency is the absolute value in hours given (i.e -1 would mean an hour and -24 would mean a full day). Daily (-24) is the default value for all auxiliary files. <em>Zero</em> means the output frequency is monthly. This is the default for the primary history files.</p>
 <p>The number of samples on each history file stream is given by the namelist variable <code class="docutils literal notranslate"><span class="pre">hist_mfilt</span></code> which is an array of rank six for each history stream. The values of the array <code class="docutils literal notranslate"><span class="pre">hist_mfilt</span></code> must be positive integers. By default the primary history file stream has one time sample on it (i.e. output is to separate monthly files), and all other streams have thirty time samples on them.</p>
 <p>A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> turning on four extra file streams for output: daily, six-hourly, hourly, and every time-step, leaving the primary history files as monthly, and changing the number of samples on the streams to: yearly (12), thirty, weekly (28), daily (24), and daily (48) is:</p>
 </div>
@@ -332,12 +304,7 @@ By default the primary history files are monthly and any others are daily. You c
 </div>
 <div class="section" id="removing-all-history-fields">
 <h3><span class="section-number">1.2.3.2.7. </span>Removing all history fields<a class="headerlink" href="#removing-all-history-fields" title="Permalink to this headline">¶</a></h3>
-<p>Sometimes for various reasons you want to remove all the history fields either because you want to do testing without any output, or you only want a very small custom list of output fields rather than the default extensive list of fields.
-By default only the primary history files are active, so technically using <code class="docutils literal notranslate"><span class="pre">hist_fexcl1</span></code> explained in the first example, you could list ALL of the history fields that are output in <code class="docutils literal notranslate"><span class="pre">hist_fexcl1</span></code> and then you wouldn’t get any output.
-However, as the list is very extensive this would be a cumbersome thing to do.
-So to facilitate this <code class="docutils literal notranslate"><span class="pre">hist_empty_htapes</span></code> allows you to turn off all default output.
-You can still use <code class="docutils literal notranslate"><span class="pre">hist_fincl1</span></code> to turn your own list of fields on, but you then start from a clean slate.
-A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> turning off all history fields and then activating just a few selected fields (ground and vegetation temperatures and absorbed solar radiation) is:</p>
+<p>Sometimes for various reasons you want to remove all the history fields either because you want to do testing without any output, or you only want a very small custom list of output fields rather than the default extensive list of fields. By default only the primary history files are active, so technically using <code class="docutils literal notranslate"><span class="pre">hist_fexcl1</span></code> explained in the first example, you could list ALL of the history fields that are output in <code class="docutils literal notranslate"><span class="pre">hist_fexcl1</span></code> and then you wouldn’t get any output. However, as the list is very extensive this would be a cumbersome thing to do. So to facilitate this <code class="docutils literal notranslate"><span class="pre">hist_empty_htapes</span></code> allows you to turn off all default output. You can still use <code class="docutils literal notranslate"><span class="pre">hist_fincl1</span></code> to turn your own list of fields on, but you then start from a clean slate. A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> turning off all history fields and then activating just a few selected fields (ground and vegetation temperatures and absorbed solar radiation) is:</p>
 </div>
 <div class="section" id="example-1-5-example-user-nl-clm-namelist-removing-all-history-fields">
 <h3><span class="section-number">1.2.3.2.8. </span>Example 1-5. Example user_nl_clm namelist removing all history fields<a class="headerlink" href="#example-1-5-example-user-nl-clm-namelist-removing-all-history-fields" title="Permalink to this headline">¶</a></h3>
@@ -348,18 +315,14 @@ A sample user namelist <code class="docutils literal notranslate"><span class="p
 </div>
 <div class="section" id="various-ways-to-change-history-output-averaging-flags">
 <h3><span class="section-number">1.2.3.2.9. </span>Various ways to change history output averaging flags<a class="headerlink" href="#various-ways-to-change-history-output-averaging-flags" title="Permalink to this headline">¶</a></h3>
-<p>There are two ways to change the averaging of output history fields.
-The first is using <code class="docutils literal notranslate"><span class="pre">hist_avgflag_pertape</span></code> which gives a default value for each history stream, the second is when you add fields using <code class="docutils literal notranslate"><span class="pre">hist_fincl*</span></code>, you add an averaging flag to the end of the field name after a colon (for example ‘TSOI:X’, would output the maximum of TSOI).
-The types of averaging that can be done are:</p>
+<p>There are two ways to change the averaging of output history fields. The first is using <code class="docutils literal notranslate"><span class="pre">hist_avgflag_pertape</span></code> which gives a default value for each history stream, the second is when you add fields using <code class="docutils literal notranslate"><span class="pre">hist_fincl*</span></code>, you add an averaging flag to the end of the field name after a colon (for example ‘TSOI:X’, would output the maximum of TSOI). The types of averaging that can be done are:</p>
 <ul class="simple">
 <li><p><em>A</em> Average, over the output interval.</p></li>
 <li><p><em>I</em> Instantaneous, output the value at the output interval.</p></li>
 <li><p><em>X</em> Maximum, over the output interval.</p></li>
 <li><p><em>M</em> Minimum, over the output interval.</p></li>
 </ul>
-<p>The default averaging depends on the specific fields, but for most fields is an average.
-A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> making the monthly output fields all averages (except TSOI for the first two streams and FIRE for the 5th stream), and adding auxiliary file streams for instantaneous (6-hourly), maximum (daily), minimum (daily), and average (daily).
-For some of the fields we diverge from the per-tape value given and customize to some different type of optimization.</p>
+<p>The default averaging depends on the specific fields, but for most fields is an average. A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> making the monthly output fields all averages (except TSOI for the first two streams and FIRE for the 5th stream), and adding auxiliary file streams for instantaneous (6-hourly), maximum (daily), minimum (daily), and average (daily). For some of the fields we diverge from the per-tape value given and customize to some different type of optimization.</p>
 </div>
 <div class="section" id="example-user-nl-clm-namelist-with-various-ways-to-average-history-fields">
 <h3><span class="section-number">1.2.3.2.10. </span>Example: user_nl_clm namelist with various ways to average history fields<a class="headerlink" href="#example-user-nl-clm-namelist-with-various-ways-to-average-history-fields" title="Permalink to this headline">¶</a></h3>
@@ -378,10 +341,7 @@ For some of the fields we diverge from the per-tape value given and customize to
 <span class="n">hist_nhtfrq</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">24</span><span class="p">,</span> <span class="o">-</span><span class="mi">24</span><span class="p">,</span> <span class="o">-</span><span class="mi">24</span>
 </pre></div>
 </div>
-<p>In the example we put the same list of fields on each of the tapes: soil-temperature, ground temperature, vegetation temperature, emitted longwave radiation, reflected solar radiation, sensible heat, total latent-heat, and total water storage.
-We also modify the soil-temperature for the primary and secondary auxiliary tapes by outputting them for a maximum instead of the prescribed per-tape of average and instantaneous respectively.
-For the tertiary auxiliary tape we output ground temperature instantaneous instead of as a maximum, and for the fourth auxiliary tape we output vegetation temperature instantaneous instead of as a minimum.
-Finally, for the fifth auxiliary tapes we output <code class="docutils literal notranslate"><span class="pre">FIRE</span></code> instantaneously instead of as an average.</p>
+<p>In the example we put the same list of fields on each of the tapes: soil-temperature, ground temperature, vegetation temperature, emitted longwave radiation, reflected solar radiation, sensible heat, total latent-heat, and total water storage. We also modify the soil-temperature for the primary and secondary auxiliary tapes by outputting them for a maximum instead of the prescribed per-tape of average and instantaneous respectively. For the tertiary auxiliary tape we output ground temperature instantaneous instead of as a maximum, and for the fourth auxiliary tape we output vegetation temperature instantaneous instead of as a minimum. Finally, for the fifth auxiliary tapes we output <code class="docutils literal notranslate"><span class="pre">FIRE</span></code> instantaneously instead of as an average.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>We also use <code class="docutils literal notranslate"><span class="pre">hist_empty_htapes</span></code> as in the previous example, so we can list ONLY the fields that we want on the primary history tapes.</p>
@@ -389,16 +349,8 @@ Finally, for the fifth auxiliary tapes we output <code class="docutils literal n
 </div>
 <div class="section" id="outputting-history-files-as-a-vector-in-order-to-analyze-the-plant-function-types-within-gridcells">
 <h3><span class="section-number">1.2.3.2.11. </span>Outputting history files as a vector in order to analyze the plant function types within gridcells<a class="headerlink" href="#outputting-history-files-as-a-vector-in-order-to-analyze-the-plant-function-types-within-gridcells" title="Permalink to this headline">¶</a></h3>
-<p>By default the output to history files are the grid-cell average of all land-units, and vegetation types within that grid-cell, and output is on the full 2D latitude/longitude grid with ocean masked out.
-Sometimes it’s important to understand how different land-units or vegetation types are acting within a grid-cell.
-The way to do this is to output history files as a 1D-vector of all land-units and vegetation types.
-In order to display this, you’ll need to do extensive post-processing to make sense of the output.
-Often you may only be interested in a few points, so once you figure out the 1D indices for the grid-cells of interest, you can easily view that data.
-1D vector output can also be useful for single point datasets, since it’s then obvious that all data is for the same grid cell.</p>
-<p>To do this you use <code class="docutils literal notranslate"><span class="pre">hist_dov2xy</span></code> which is an array of rank six for each history stream.
-Set it to <code class="docutils literal notranslate"><span class="pre">.false.</span></code> if you want one of the history streams to be a 1D vector.
-You can also use <code class="docutils literal notranslate"><span class="pre">hist_type1d_pertape</span></code> if you want to average over all the: Plant-Function-Types, columns, land-units, or grid-cells.
-A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> leaving the primary monthly files as 2D, and then doing grid-cell (GRID), column (COLS), and no averaging over auxiliary tapes output daily for a single field (ground temperature) is:</p>
+<p>By default the output to history files are the grid-cell average of all land-units, and vegetation types within that grid-cell, and output is on the full 2D latitude/longitude grid with ocean masked out. Sometimes it’s important to understand how different land-units or vegetation types are acting within a grid-cell. The way to do this is to output history files as a 1D-vector of all land-units and vegetation types. In order to display this, you’ll need to do extensive post-processing to make sense of the output. Often you may only be interested in a few points, so once you figure out the 1D indices for the grid-cells of interest, you can easily view that data. 1D vector output can also be useful for single point datasets, since it’s then obvious that all data is for the same grid cell.</p>
+<p>To do this you use <code class="docutils literal notranslate"><span class="pre">hist_dov2xy</span></code> which is an array of rank six for each history stream. Set it to <code class="docutils literal notranslate"><span class="pre">.false.</span></code> if you want one of the history streams to be a 1D vector. You can also use <code class="docutils literal notranslate"><span class="pre">hist_type1d_pertape</span></code> if you want to average over all the: Plant-Function-Types, columns, land-units, or grid-cells. A sample user namelist <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> leaving the primary monthly files as 2D, and then doing grid-cell (GRID), column (COLS), and no averaging over auxiliary tapes output daily for a single field (ground temperature) is:</p>
 </div>
 <div class="section" id="example-user-nl-clm-namelist-outputting-some-files-in-1d-vector-format">
 <h3><span class="section-number">1.2.3.2.12. </span>Example: user_nl_clm namelist outputting some files in 1D Vector format<a class="headerlink" href="#example-user-nl-clm-namelist-outputting-some-files-in-1d-vector-format" title="Permalink to this headline">¶</a></h3>
@@ -420,13 +372,7 @@ A sample user namelist <code class="docutils literal notranslate"><span class="p
 <p class="admonition-title">Note</p>
 <p>Technically the default for hist_nhtfrq is for primary files output monthly and the other auxiliary tapes for daily, so we don’t actually have to include hist_nhtfrq, we could use the default for it. Here we specify it for clarity.</p>
 </div>
-<p>Visualizing global 1D vector files will take effort.
-You’ll probably want to do some post-processing and possibly just extract out single points of interest to see what is going on.
-Since, the output is a 1D vector, of only land-points traditional plots won’t be helpful.
-The number of points per grid-cell will also vary for anything, but grid-cell averaging.
-You’ll need to use the output fields pfts1d_ixy, and pfts1d_jxy, to get the mapping of the fields to the global 2D array.
-pfts1d_itype_veg gives you the PFT number for each PFT.
-Most likely you’ll want to do this analysis in a data processing tool (such as NCL, Matlab, Mathmatica, IDL, etcetera that is able to read and process NetCDF data files).</p>
+<p>Visualizing global 1D vector files will take effort. You’ll probably want to do some post-processing and possibly just extract out single points of interest to see what is going on. Since, the output is a 1D vector, of only land-points traditional plots won’t be helpful. The number of points per grid-cell will also vary for anything, but grid-cell averaging. You’ll need to use the output fields pfts1d_ixy, and pfts1d_jxy, to get the mapping of the fields to the global 2D array. pfts1d_itype_veg gives you the PFT number for each PFT. Most likely you’ll want to do this analysis in a data processing tool (such as NCL, Matlab, Mathmatica, IDL, etcetera that is able to read and process NetCDF data files).</p>
 </div>
 </div>
 </div>
@@ -482,6 +428,7 @@ Most likely you’ll want to do this analysis in a data processing tool (such as
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script src="../../_static/pop_ver.js"></script>
     
 

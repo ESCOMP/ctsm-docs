@@ -218,57 +218,17 @@
 <span id="rst-cn-pools"></span><h1><span class="section-number">2.16. </span>CN Pools<a class="headerlink" href="#cn-pools" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2><span class="section-number">2.16.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>CLM includes a prognostic treatment of the terrestrial carbon and
-nitrogen cycles including natural vegetation, crops, and soil biogeochemistry. The model is
-fully prognostic with respect to all carbon and nitrogen state variables
-in the vegetation, litter, and soil organic matter. The seasonal timing
-of new vegetation growth and litterfall is also prognostic, responding
-to soil and air temperature, soil water availability, daylength, and
-crop management practices in
-varying degrees depending on a specified phenology type or management for each PFT
-(Chapter
-<a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html#rst-vegetation-phenology-and-turnover"><span class="std std-numref">2.20</span></a>). The
-prognostic LAI, SAI,
-tissue stoichiometry, and vegetation heights are
-utilized by the biophysical model that couples carbon, water, and
-energy cycles.</p>
-<p>Separate state variables for C and N are tracked for leaf, live stem,
-dead stem, live coarse root, dead coarse root, fine root, and grain pools
-(<a class="reference internal" href="#figure-vegetation-fluxes-and-pools"><span class="std std-numref">Figure 2.16.1</span></a>). Each of these pools has two corresponding
-storage pools representing, respectively, short-term and long-term
-storage of non-structural carbohydrates and labile nitrogen. There are
-two additional carbon pools, one for the storage of growth respiration
-reserves, and another used to meet excess demand for maintenance
-respiration during periods with low photosynthesis. One additional
-nitrogen pool tracks retranslocated nitrogen, mobilized from leaf tissue
-prior to abscission and litterfall. Altogether there are 23 state
-variables for vegetation carbon, and 22 for vegetation nitrogen.</p>
+<p>CLM includes a prognostic treatment of the terrestrial carbon and nitrogen cycles including natural vegetation, crops, and soil biogeochemistry. The model is fully prognostic with respect to all carbon and nitrogen state variables in the vegetation, litter, and soil organic matter. The seasonal timing of new vegetation growth and litterfall is also prognostic, responding to soil and air temperature, soil water availability, daylength, and crop management practices in varying degrees depending on a specified phenology type or management for each PFT (Chapter <a class="reference internal" href="../Vegetation_Phenology_Turnover/CLM50_Tech_Note_Vegetation_Phenology_Turnover.html#rst-vegetation-phenology-and-turnover"><span class="std std-numref">2.20</span></a>). The prognostic LAI, SAI, tissue stoichiometry, and vegetation heights are utilized by the biophysical model that couples carbon, water, and energy cycles.</p>
+<p>Separate state variables for C and N are tracked for leaf, live stem, dead stem, live coarse root, dead coarse root, fine root, and grain pools (<a class="reference internal" href="#figure-vegetation-fluxes-and-pools"><span class="std std-numref">Figure 2.16.1</span></a>). Each of these pools has two corresponding storage pools representing, respectively, short-term and long-term storage of non-structural carbohydrates and labile nitrogen. There are two additional carbon pools, one for the storage of growth respiration reserves, and another used to meet excess demand for maintenance respiration during periods with low photosynthesis. One additional nitrogen pool tracks retranslocated nitrogen, mobilized from leaf tissue prior to abscission and litterfall. Altogether there are 23 state variables for vegetation carbon, and 22 for vegetation nitrogen.</p>
 <div class="figure align-default" id="id1">
 <span id="figure-vegetation-fluxes-and-pools"></span><a class="reference internal image-reference" href="../../_images/CLMCN_pool_structure_v2_lores.png"><img alt="../../_images/CLMCN_pool_structure_v2_lores.png" src="../../_images/CLMCN_pool_structure_v2_lores.png" style="width: 753px; height: 513px;" /></a>
 <p class="caption"><span class="caption-number">Figure 2.16.1 </span><span class="caption-text">Vegetation fluxes and pools for carbon cycle in CLM5.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
-<p>In addition to the vegetation pools, CLM includes a series of
-decomposing carbon and nitrogen pools as vegetation successively
-breaks down to CWD, and/or litter, and subsequently to soil organic
-matter. Discussion of the decomposition model, alternate
-specifications of decomposition rates, and methods to rapidly
-equilibrate the decomposition model, is in Chapter
-<a class="reference internal" href="../Decomposition/CLM50_Tech_Note_Decomposition.html#rst-decomposition"><span class="std std-numref">2.21</span></a>.</p>
+<p>In addition to the vegetation pools, CLM includes a series of decomposing carbon and nitrogen pools as vegetation successively breaks down to CWD, and/or litter, and subsequently to soil organic matter. Discussion of the decomposition model, alternate specifications of decomposition rates, and methods to rapidly equilibrate the decomposition model, is in Chapter <a class="reference internal" href="../Decomposition/CLM50_Tech_Note_Decomposition.html#rst-decomposition"><span class="std std-numref">2.21</span></a>.</p>
 </div>
 <div class="section" id="tissue-stoichiometry">
 <h2><span class="section-number">2.16.2. </span>Tissue Stoichiometry<a class="headerlink" href="#tissue-stoichiometry" title="Permalink to this headline">¶</a></h2>
-<p>As of CLM5, vegetation tissues have a flexible stoichiometry, as
-described in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#ghimireetal2016"><span class="std std-ref">Ghimire et al. (2016)</span></a>. Each
-tissue has a target C:N ratio, with the target leaf C:N varying by plant functional type
-(see <a class="reference internal" href="#table-plant-functional-type-pft-target-cn-parameters"><span class="std std-numref">Table 2.16.1</span></a>), and nitrogen is allocated at each
-timestep in order to allow the plant to best match the target
-stoichiometry.  Nitrogen downregulation of productivity acts by
-increasing the C:N ratio of leaves when insufficient nitrogen is
-available to meet stoichiometric demands of leaf growth, thereby
-reducing the N available for photosynthesis and reducing the <img class="math" src="../../_images/math/270eed670e921f052ecb42e56ce1ab7c99677bf9.svg" alt="V_{\text{c,max25}}"/> and
-<img class="math" src="../../_images/math/a33540e05e264050201e6a325be834a6d967c4e5.svg" alt="J_{\text{max25}}"/> terms, as described in Chapter
-<a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>.  Details of the flexible tissue
-stoichiometry are described in Chapter <a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html#rst-cn-allocation"><span class="std std-numref">2.19</span></a>.</p>
+<p>As of CLM5, vegetation tissues have a flexible stoichiometry, as described in <a class="reference internal" href="../References/CLM50_Tech_Note_References.html#ghimireetal2016"><span class="std std-ref">Ghimire et al. (2016)</span></a>. Each tissue has a target C:N ratio, with the target leaf C:N varying by plant functional type (see <a class="reference internal" href="#table-plant-functional-type-pft-target-cn-parameters"><span class="std std-numref">Table 2.16.1</span></a>), and nitrogen is allocated at each timestep in order to allow the plant to best match the target stoichiometry. Nitrogen downregulation of productivity acts by increasing the C:N ratio of leaves when insufficient nitrogen is available to meet stoichiometric demands of leaf growth, thereby reducing the N available for photosynthesis and reducing the <span class="math notranslate nohighlight">\(V_{\text{c,max25}}\)</span> and <span class="math notranslate nohighlight">\(J_{\text{max25}}\)</span> terms, as described in Chapter <a class="reference internal" href="../Photosynthetic_Capacity/CLM50_Tech_Note_Photosynthetic_Capacity.html#rst-photosynthetic-capacity"><span class="std std-numref">2.10</span></a>. Details of the flexible tissue stoichiometry are described in Chapter <a class="reference internal" href="../CN_Allocation/CLM50_Tech_Note_CN_Allocation.html#rst-cn-allocation"><span class="std std-numref">2.19</span></a>.</p>
 <span id="table-plant-functional-type-pft-target-cn-parameters"></span><table class="docutils align-default" id="id2">
 <caption><span class="caption-number">Table 2.16.1 </span><span class="caption-text">Plant functional type (PFT) target C:N parameters.</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -409,6 +369,7 @@ stoichiometry are described in Chapter <a class="reference internal" href="../CN
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script src="../../_static/pop_ver.js"></script>
     
 

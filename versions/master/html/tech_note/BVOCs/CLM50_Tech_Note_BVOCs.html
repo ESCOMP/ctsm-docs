@@ -212,53 +212,16 @@
             
   <div class="section" id="biogenic-volatile-organic-compounds-bvocs">
 <span id="rst-biogenic-volatile-organic-compounds-bvocs"></span><h1><span class="section-number">2.29. </span>Biogenic Volatile Organic Compounds (BVOCs)<a class="headerlink" href="#biogenic-volatile-organic-compounds-bvocs" title="Permalink to this headline">¶</a></h1>
-<p>This chapter briefly describes the biogenic volatile organic compound
-(BVOC) emissions model implemented in CLM. The CLM3 version (Levis et
-al. 2003; Oleson et al. 2004) was based on Guenther et al. (1995). Heald
-et al. (2008) updated this scheme in CLM4 based on Guenther et al.
-(2006). The current version was implemented in CLM4.5 and is based on MEGAN2.1 discussed in
-detail in Guenther et al. (2012). This update of MEGAN incorporates four
-main features: 1) expansion to 147 chemical compounds, 2) the treatment of the
-light-dependent fraction (LDF) for each compound, 3) inclusion of the
-inhibition of isoprene emission by atmospheric CO<sub>2</sub> and
-4) emission factors mapped to the specific PFTs of the CLM.</p>
-<p>MEGAN2.1 now describes the emissions of speciated monoterpenes,
-sesquiterpenes, oxygenated VOCs as well as isoprene. A flexible scheme
-has been implemented in the CLM to specify a subset of emissions. This
-allows for additional flexibility in grouping chemical compounds to form
-the lumped species frequently used in atmospheric chemistry. The mapping
-or grouping is therefore defined through a namelist parameter in
-drv_flds_in, e.g. megan_specifier = ’ISOP = isoprene’, ’BIGALK =
-pentane + hexane + heptane + tricyclene’.</p>
-<p>Terrestrial BVOC emissions from plants to the atmosphere are expressed
-as a flux, <img class="math" src="../../_images/math/2df97b34b05534178308bf59f6a774c04894b7f8.svg" alt="F_{i}"/> (<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> g C m<sup>-2</sup> ground area h<sup>-1</sup>), for emission of chemical compound
-<img class="math" src="../../_images/math/5aa339d4daf45a810dda332e3c80a0698e526e04.svg" alt="i"/></p>
-<div class="math" id="equation-zeqnnum964222">
-<p><span class="eqno">(2.29.1)<a class="headerlink" href="#equation-zeqnnum964222" title="Permalink to this equation">¶</a></span><img src="../../_images/math/366b281219902dc0a0737232bfda79cbecd66ead.svg" alt="F_{i} =\gamma _{i} \rho \sum _{j}\varepsilon _{i,j}  \left(wt\right)_{j}"/></p>
-</div><p>where <img class="math" src="../../_images/math/ee0c45cda16db525f0f9ed635ef94926e0a9711c.svg" alt="\gamma _{i}"/>  is the emission activity factor accounting
-for responses to meteorological and phenological conditions,
-<img class="math" src="../../_images/math/27dc86f9f1b1c3435b2403a869b5870c582facea.svg" alt="\rho"/>  is the canopy loss and production factor also known as
-escape efficiency (set to 1), and <img class="math" src="../../_images/math/ec675fbbffdb8a646f6a7cfe6bdc6235b766ea32.svg" alt="\varepsilon _{i,\, j}"/>
-(<img class="math" src="../../_images/math/4a3598141469c2555591e66606a1b86d4ec6dca9.svg" alt="\mu"/> g C m<sup>-2</sup> ground area h<sup>-1</sup>) is
-the emission factor at standard conditions of light, temperature, and
-leaf area for plant functional type <em>j</em> with fractional coverage
-<img class="math" src="../../_images/math/62b1f29ce548cb51c477b7c8fa8091d249eb4501.svg" alt="\left(wt\right)_{j}"/>  (Guenther et al. 2012). The emission
-activity factor <img class="math" src="../../_images/math/ee0c45cda16db525f0f9ed635ef94926e0a9711c.svg" alt="\gamma _{i}"/>  depends on plant functional type,
-temperature, LAI, leaf age, and soil moisture (Guenther et al. 2012).
-For isoprene only, the effect of CO<sub>2</sub> inhibition is now
-included as described by Heald et al. (2009). Previously, only isoprene
-was treated as a light-dependent emission. In MEGAN2.1, each chemical
-compound is assigned a LDF (ranging from 1.0 for isoprene to 0.2 for
-some monoterpenes, VOCs and acetone). The activity factor for the light
-response of emissions is therefore estimated as:</p>
-<div class="math" id="equation-28-2">
-<p><span class="eqno">(2.29.2)<a class="headerlink" href="#equation-28-2" title="Permalink to this equation">¶</a></span><img src="../../_images/math/21b33b198552a407cefef5044c4b7dcbe031438c.svg" alt="\gamma _{P,\, i} =\left(1-LDF_{i} \right)+\gamma _{P\_ LDF} LDF_{i}"/></p>
-</div><p>where the LDF activity factor (<img class="math" src="../../_images/math/be871ba0144950700a7cb5072751216ee6d0b8a5.svg" alt="\gamma _{P\_ LDF}"/> ) is specified
-as a function of PAR as in previous versions of MEGAN.</p>
-<p>The values for each emission factor <img class="math" src="../../_images/math/750fd8da3660ead2b6ebf31744c40cf107882b24.svg" alt="\epsilon _{i,\, j}"/>  are
-now available for each of the plant functional types in the CLM and
-each chemical compound. This information is distributed through an
-external file, allowing for more frequent and easier updates.</p>
+<p>This chapter briefly describes the biogenic volatile organic compound (BVOC) emissions model implemented in CLM. The CLM3 version (Levis et al. 2003; Oleson et al. 2004) was based on Guenther et al. (1995). Heald et al. (2008) updated this scheme in CLM4 based on Guenther et al (2006). The current version was implemented in CLM4.5 and is based on MEGAN2.1 discussed in detail in Guenther et al. (2012). This update of MEGAN incorporates four main features: 1) expansion to 147 chemical compounds, 2) the treatment of the light-dependent fraction (LDF) for each compound, 3) inclusion of the inhibition of isoprene emission by atmospheric CO<sub>2</sub> and 4) emission factors mapped to the specific PFTs of the CLM.</p>
+<p>MEGAN2.1 now describes the emissions of speciated monoterpenes, sesquiterpenes, oxygenated VOCs as well as isoprene. A flexible scheme has been implemented in the CLM to specify a subset of emissions. This allows for additional flexibility in grouping chemical compounds to form the lumped species frequently used in atmospheric chemistry. The mapping or grouping is therefore defined through a namelist parameter in drv_flds_in, e.g. megan_specifier = ‘ISOP = isoprene’, ‘BIGALK pentane + hexane + heptane + tricyclene’.</p>
+<p>Terrestrial BVOC emissions from plants to the atmosphere are expressed as a flux, <span class="math notranslate nohighlight">\(F_{i}\)</span> (<span class="math notranslate nohighlight">\(\mu\)</span> g C m<sup>-2</sup> ground area h<sup>-1</sup>), for emission of chemical compound <span class="math notranslate nohighlight">\(i\)</span></p>
+<div class="math notranslate nohighlight" id="equation-zeqnnum964222">
+<span class="eqno">(2.29.1)<a class="headerlink" href="#equation-zeqnnum964222" title="Permalink to this equation">¶</a></span>\[F_{i} =\gamma _{i} \rho \sum _{j}\varepsilon _{i,j}  \left(wt\right)_{j}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\gamma _{i}\)</span> is the emission activity factor accounting for responses to meteorological and phenological conditions, <span class="math notranslate nohighlight">\(\rho\)</span> is the canopy loss and production factor also known as escape efficiency (set to 1), and <span class="math notranslate nohighlight">\(\varepsilon _{i,\, j}\)</span> (<span class="math notranslate nohighlight">\(\mu\)</span> g C m<sup>-2</sup> ground area h<sup>-1</sup>) is the emission factor at standard conditions of light, temperature, and leaf area for plant functional type <em>j</em> with fractional coverage <span class="math notranslate nohighlight">\(\left(wt\right)_{j}\)</span> (Guenther et al. 2012). The emission activity factor <span class="math notranslate nohighlight">\(\gamma _{i}\)</span> depends on plant functional type, temperature, LAI, leaf age, and soil moisture (Guenther et al. 2012) For isoprene only, the effect of CO<sub>2</sub> inhibition is now included as described by Heald et al. (2009). Previously, only isoprene was treated as a light-dependent emission. In MEGAN2.1, each chemical compound is assigned a LDF (ranging from 1.0 for isoprene to 0.2 for some monoterpenes, VOCs and acetone). The activity factor for the light response of emissions is therefore estimated as:</p>
+<div class="math notranslate nohighlight" id="equation-28-2">
+<span class="eqno">(2.29.2)<a class="headerlink" href="#equation-28-2" title="Permalink to this equation">¶</a></span>\[\gamma _{P,\, i} =\left(1-LDF_{i} \right)+\gamma _{P\_ LDF} LDF_{i}\]</div>
+<p>where the LDF activity factor (<span class="math notranslate nohighlight">\(\gamma _{P\_ LDF}\)</span> ) is specified as a function of PAR as in previous versions of MEGAN.</p>
+<p>The values for each emission factor <span class="math notranslate nohighlight">\(\epsilon _{i,\, j}\)</span> are now available for each of the plant functional types in the CLM and each chemical compound. This information is distributed through an external file, allowing for more frequent and easier updates.</p>
 </div>
 
 
@@ -312,6 +275,7 @@ external file, allowing for more frequent and easier updates.</p>
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script src="../../_static/pop_ver.js"></script>
     
 

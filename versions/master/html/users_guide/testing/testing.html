@@ -200,22 +200,10 @@
             
   <div class="section" id="testing">
 <span id="id1"></span><h1><span class="section-number">1.9.1. </span>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
-<p>Technically, you could use the customization we gave in <a class="reference external" href="CLM-URL">Chapter 1</a> to test various configuration and namelist options for CLM.
-Sometimes, it’s also useful to have automated tests though to test that restarts give exactly the same results as without a restart.
-It’s also useful to have automated tests to run over a wide variety of configurations, resolutions, and namelist options.
-To do that we have several different types of scripts set up to make running comprehensive testing of CLM easy.
-There are two types of testing scripts for CLM.
-The first are the CESM test scripts, which utilize the <strong>create_newcase</strong> scripts that we shown how to use in this User’s Guide.
-The second are a set of stand-alone scripts that use the CLM <strong>configure</strong> and <strong>build-namelist</strong> scripts to build and test the model as well as testing the CLM tools as well.
-Below we will go into further details of how to use both methods.</p>
+<p>Technically, you could use the customization we gave in <a class="reference internal" href="../setting-up-and-running-a-case/index.html#customizing-section"><span class="std std-ref">Setting Up and Running a Case</span></a> to test various configuration and namelist options for CLM. Sometimes, it’s also useful to have automated tests though to test that restarts give exactly the same results as without a restart. It’s also useful to have automated tests to run over a wide variety of configurations, resolutions, and namelist options. To do that we have several different types of scripts set up to make running comprehensive testing of CLM easy. There are two types of testing scripts for CLM. The first are the CESM test scripts, which utilize the <strong>create_newcase</strong> scripts that we shown how to use in this User’s Guide. The second are a set of stand-alone scripts that use the CLM <strong>configure</strong> and <strong>build-namelist</strong> scripts to build and test the model as well as testing the CLM tools as well. Below we will go into further details of how to use both methods.</p>
 <div class="section" id="cime-testing-scripts">
 <h2><span class="section-number">1.9.1.1. </span>CIME Testing scripts<a class="headerlink" href="#cime-testing-scripts" title="Permalink to this headline">¶</a></h2>
-<p>We first introduce the test scripts that work for all CESM components.
-The CIME script <strong>create_test</strong> runs a specific type of test, at a given resolution, for a given compset using a given machine.
-See <a class="reference external" href="http://esmci.github.io/cime/users_guide/testing.html">CIME Chapter on Testing</a> for how to use it to run single
-tests as well as lists of tests. The standard testname for CLM is “aux_clm” for cheyenne with intel and gnu compilers as
-well as the CGD machine hobart for intel, nag, and pgi compilers.  There’s also a shorter test list called “clm_short”. Also
-see the <a class="reference external" href="https://github.com/ESCOMP/ctsm/wiki/System-Testing-Guide">CTSM Wiki on Testing</a>.</p>
+<p>We first introduce the test scripts that work for all CESM components. The CIME script <strong>create_test</strong> runs a specific type of test, at a given resolution, for a given compset using a given machine. See <a class="reference external" href="http://esmci.github.io/cime/users_guide/testing.html">CIME Chapter on Testing</a> for how to use it to run single tests as well as lists of tests. The standard testname for CLM is “aux_clm” for cheyenne with intel and gnu compilers as well as the CGD machine hobart for intel, nag, and pgi compilers. There’s also a shorter test list called “clm_short”. Also see the <a class="reference external" href="https://github.com/ESCOMP/ctsm/wiki/System-Testing-Guide">CTSM Wiki on Testing</a>.</p>
 </div>
 <div class="section" id="ctsm-tools-testing">
 <h2><span class="section-number">1.9.1.2. </span>CTSM Tools Testing<a class="headerlink" href="#ctsm-tools-testing" title="Permalink to this headline">¶</a></h2>
@@ -232,7 +220,7 @@ To use...
 
 ./test_driver.sh -i
 
-on cheyenne
+on Derecho
 
 qcmd -l walltime=08:00:00 -- ./test_driver.sh -i &gt;&amp; run.out &amp;
 
@@ -254,7 +242,7 @@ To run neon-specific tests, please use login nodes:
 env CLM_INPUT_TESTS=`pwd`/tests_pretag_nompi_neon ./test_driver.sh -i &gt; &amp; run_neon.out &amp;
 
 
-Intended for use on NCAR machines cheyenne, geyser (DAV) and hobart.
+Intended for use on NCAR machines Derecho, Casper (DAV) and izumi.
 
 II. RUNNING test_driver.sh TOOLS TESTING:
 
@@ -312,12 +300,16 @@ Makefile ------------- Will build the HTML table of tests
 </div>
 <div class="section" id="ctsm-build-namelist-tests">
 <h2><span class="section-number">1.9.1.4. </span>CTSM Build-namelist Tests<a class="headerlink" href="#ctsm-build-namelist-tests" title="Permalink to this headline">¶</a></h2>
-<p>Run the following perl tester that</p>
-<dl class="simple">
-<dt>::</dt><dd><p>&gt; cd bld/unit_testers
-&gt; ./build-namelist_test.pl</p>
-</dd>
-</dl>
+<p>Test the namelist build script by running the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">bld</span><span class="o">/</span><span class="n">unit_testers</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">build</span><span class="o">-</span><span class="n">namelist_test</span><span class="o">.</span><span class="n">pl</span> <span class="mi">1</span><span class="o">&gt;</span><span class="n">namelist_test</span><span class="o">.</span><span class="n">log</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span>
+</pre></div>
+</div>
+<p>When that’s complete, inspect <code class="docutils literal notranslate"><span class="pre">namelist_test.log</span></code> (e.g., with <code class="docutils literal notranslate"><span class="pre">less</span> <span class="pre">namelist_test.log</span></code>). If you see <code class="docutils literal notranslate"><span class="pre">Successfully</span> <span class="pre">ran</span> <span class="pre">all</span> <span class="pre">testing</span> <span class="pre">for</span> <span class="pre">build-namelist</span></code> but nothing like <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">Looks</span> <span class="pre">like</span> <span class="pre">you</span> <span class="pre">failed</span> <span class="pre">4</span> <span class="pre">tests</span> <span class="pre">of</span> <span class="pre">1999.</span></code>, then everything went fine.</p>
+<p>If something went wrong, you can find the failing tests like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">grep</span> <span class="o">-</span><span class="n">E</span> <span class="s2">&quot;^[0-9]+/[0-9]+ &lt; [a-zA-Z]+&quot;</span> <span class="n">namelist_test</span><span class="o">.</span><span class="n">log</span> <span class="o">|</span> <span class="n">grep</span> <span class="o">-</span><span class="n">v</span> <span class="s2">&quot;PASS&quot;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="testing-ptclm">
 <h2><span class="section-number">1.9.1.5. </span>Testing PTCLM<a class="headerlink" href="#testing-ptclm" title="Permalink to this headline">¶</a></h2>
@@ -376,6 +368,7 @@ Makefile ------------- Will build the HTML table of tests
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script src="../../_static/pop_ver.js"></script>
     
 
