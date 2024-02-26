@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1.5.5. Running with tillage &mdash; ctsm CTSM master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm CTSM master documentation" href="../../index.html"/>
+        <link rel="up" title="1.5. Running Special Cases" href="index.html"/>
+        <link rel="next" title="1.5.6. Spinning up the Satellite Phenology Model" href="Spinning-up-the-Satellite-Phenology-Model-CLMSP-spinup.html"/>
+        <link rel="prev" title="1.5.4. Running with custom crop calendars" href="running-with-custom-crop-calendars.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CTSM1</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">1. CTSM1 User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../overview/index.html">1.1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../setting-up-and-running-a-case/index.html">1.2. Setting Up and Running a Case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using-clm-tools/index.html">1.3. Using CLM tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adding-new-resolutions/index.html">1.4. Adding New Resolutions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">1.5. Running Special Cases</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="what-is-a-special-case.html">1.5.1. What is a special case?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-the-prognostic-crop-model.html">1.5.2. Running the prognostic crop model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-with-irrigation.html">1.5.3. Running with irrigation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-with-custom-crop-calendars.html">1.5.4. Running with custom crop calendars</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.5.5. Running with tillage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-crop-simulation-with-no-tillage">1.5.5.1. Example: Crop simulation with no tillage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reverting-fixes-relative-to-original-tillage-implementation">1.5.5.2. Reverting fixes relative to original tillage implementation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="Spinning-up-the-Satellite-Phenology-Model-CLMSP-spinup.html">1.5.6. Spinning up the Satellite Phenology Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Spinning-up-the-biogeochemistry-BGC-spinup.html">1.5.7. Spinup of CTSM1-BGC-Crop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-excess-ground-ice.html">1.5.8. Running with excess ground ice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-MOAR-data-as-atmospheric-forcing-to-spinup-the-model.html">1.5.9. Running with MOAR data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html">1.5.10. Running with atmospheric forcing from a previous simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-stand-alone-CLM-with-transient-historical-CO2-concentration.html">1.5.11. Running with historical CO2 forcing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-anomaly-forcing.html">1.5.12. Running with anomaly forcing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../running-single-points/index.html">1.6. Running Single Point Regional Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-PTCLM/index.html">1.7. Running PTCLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trouble-shooting/index.html">1.8. Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">1.9. Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lilac/index.html">3. CTSM-LILAC User’s Guide</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">1. </span>CTSM1 User’s Guide</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">1.5. </span>Running Special Cases</a> &raquo;</li>
+        
+      <li><span class="section-number">1.5.5. </span>Running with tillage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/users_guide/running-special-cases/running-with-tillage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="running-with-tillage">
+<span id="id1"></span><h1><span class="section-number">1.5.5. </span>Running with tillage<a class="headerlink" href="#running-with-tillage" title="Permalink to this headline">¶</a></h1>
+<p>Cropland tillage (Sect. <a class="reference internal" href="../../tech_note/Decomposition/CLM50_Tech_Note_Decomposition.html#decomp-mgmt-modifiers"><span class="std std-numref">2.21.4</span></a>) is set to <code class="docutils literal notranslate"><span class="pre">'low'</span></code> by default. This can be changed to a value of <code class="docutils literal notranslate"><span class="pre">'off'</span></code> (no tillage) or <code class="docutils literal notranslate"><span class="pre">'high'</span></code> (high-intensity tillage) for the  <code class="docutils literal notranslate"><span class="pre">tillage_mode</span></code> namelist option.</p>
+<p>Depth of tillage can be changed with the <code class="docutils literal notranslate"><span class="pre">max_tillage_depth</span></code> parameter (meters; default 0.26).</p>
+<p>Tillage multipliers for different soil pools and time since planting are defined on the parameter file, in variables <code class="docutils literal notranslate"><span class="pre">bgc_till_decompk_multipliers</span></code> (for CENTURY soil) and <code class="docutils literal notranslate"><span class="pre">mimics_till_decompk_multipliers</span></code> (for MIMICS soil). These variables were originally added with the script at <code class="docutils literal notranslate"><span class="pre">tools/contrib/add_tillage_to_paramsfile.py</span></code>, which can be modified as needed to change tillage multipliers.</p>
+<div class="section" id="example-crop-simulation-with-no-tillage">
+<h2><span class="section-number">1.5.5.1. </span>Example: Crop simulation with no tillage<a class="headerlink" href="#example-crop-simulation-with-no-tillage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cime</span><span class="o">/</span><span class="n">scripts</span><span class="o">/</span><span class="n">create_newcase</span> <span class="o">-</span><span class="n">case</span> <span class="n">IHistClm51BgcCrop_notill</span> <span class="o">-</span><span class="n">res</span> <span class="n">f19_g17_gl4</span> <span class="o">-</span><span class="n">compset</span> <span class="n">IHistClm51BgcCrop</span>
+
+
+<span class="o">&gt;</span> <span class="n">cd</span> <span class="n">IHistClm51BgcCrop_notill</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span>
+
+<span class="c1"># turn off tillage</span>
+<span class="o">&gt;</span> <span class="n">echo</span> <span class="s2">&quot;tillage_mode = &#39;off&#39;&quot;</span> <span class="o">&gt;&gt;</span> <span class="n">user_nl_clm</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reverting-fixes-relative-to-original-tillage-implementation">
+<h2><span class="section-number">1.5.5.2. </span>Reverting fixes relative to original tillage implementation<a class="headerlink" href="#reverting-fixes-relative-to-original-tillage-implementation" title="Permalink to this headline">¶</a></h2>
+<p>The current implementation of tillage in CTSM is based on work by <a class="reference internal" href="../../tech_note/References/CLM50_Tech_Note_References.html#grahametal2021"><span class="std std-ref">Graham et al. (2021)</span></a>, but with fixes to how days after planting is calculated and to default tillage depth. To run without those changes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">echo</span> <span class="s2">&quot;use_original_tillage_phases = .true.&quot;</span> <span class="o">&gt;&gt;</span> <span class="n">user_nl_clm</span>
+<span class="o">&gt;</span> <span class="n">echo</span> <span class="s2">&quot;max_tillage_depth = 0.32&quot;</span> <span class="o">&gt;&gt;</span> <span class="n">user_nl_clm</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Spinning-up-the-Satellite-Phenology-Model-CLMSP-spinup.html" class="btn btn-neutral float-right" title="1.5.6. Spinning up the Satellite Phenology Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="running-with-custom-crop-calendars.html" class="btn btn-neutral" title="1.5.4. Running with custom crop calendars" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -290,14 +290,11 @@
 <span class="n">end</span> <span class="k">if</span>
 </pre></div>
 </div>
-<p>By placing these write statements in the code, one can get a sense of how leafc is evolving toward a negative state and why.
-This is a very complex example of troubleshooting.  To make a long story short, as described <a class="reference external" href="https://github.com/ESCOMP/CTSM/issues/1163">here</a>, the error turned out to be caused by a few lines in the phenology code that weren’t handling a 20 minute time step properly, thus an actual bug in the code.  This was also a good example of where a much less computationally expensive land-only simulation was able to be used for debugging instead of the orginal expensive fully-coupled simulation.</p>
+<p>By placing these write statements in the code, one can get a sense of how leafc is evolving toward a negative state and why. This is a very complex example of troubleshooting. To make a long story short, as described <a class="reference external" href="https://github.com/ESCOMP/CTSM/issues/1163">here</a>, the error turned out to be caused by a few lines in the phenology code that weren’t handling a 20 minute time step properly, thus an actual bug in the code. This was also a good example of where a much less computationally expensive land-only simulation was able to be used for debugging instead of the orginal expensive fully-coupled simulation.</p>
 <p>Another method of troubleshooting is to use the <strong>point_of_interest</strong> module.</p>
 <div class="section" id="use-the-point-of-interest-module">
 <h3><span class="section-number">1.8.1.1.1. </span>Use the point_of_interest module<a class="headerlink" href="#use-the-point-of-interest-module" title="Permalink to this headline">¶</a></h3>
-<p>It is common, when debugging, to want to print the values of various variables for all patches or columns of certain landunit types within a certain grid cell of interest. For example, one might be able to identify a certain grid cell with an erroneous value for a particular history field variable (e.g., GPP) using for example ncview.  Once the latitude and longitude of this grid cell has been determined, the point_of_interest module (<strong>src/utils/point_of_interest.F90</strong>) helps create the logical functions needed to do this.
-This module is compiled into every CTSM build, but is not invoked by default.
-To use it</p>
+<p>It is common, when debugging, to want to print the values of various variables for all patches or columns of certain landunit types within a certain grid cell of interest. For example, one might be able to identify a certain grid cell with an erroneous value for a particular history field variable (e.g., GPP) using for example ncview. Once the latitude and longitude of this grid cell has been determined, the point_of_interest module (<strong>src/utils/point_of_interest.F90</strong>) helps create the logical functions needed to do this. This module is compiled into every CTSM build, but is not invoked by default. To use it</p>
 <ol class="arabic simple">
 <li><p>Enter in the latitude/longitude of the point of interest in the function <strong>at_poi</strong> in <strong>point_of_interest.F90</strong> by setting the variables <strong>poi_lat</strong> and <strong>poi_lon</strong>.</p></li>
 <li><p>You may customize the <strong>point_of_interest.F90</strong> code by changing the example function (<strong>poi_c</strong>) and/or adding new functions. Look for comments about “Customize” to see what to customize.</p></li>
@@ -364,11 +361,7 @@ end do
 </div>
 <div class="section" id="run-with-a-debugger">
 <h3><span class="section-number">1.8.1.1.6. </span>Run with a debugger<a class="headerlink" href="#run-with-a-debugger" title="Permalink to this headline">¶</a></h3>
-<p>Another suggestion is to run the model with a debugger such as: <strong>ddt</strong>, <strong>dbx</strong>, <strong>gdb</strong>, or <strong>totalview</strong>.
-Often to run with a debugger you will need to reduce the number of processors as outlined above.
-Some debuggers such as <strong>dbx</strong> will only work with one processor, while more advanced debuggers such as <strong>totalview</strong> can work with both MPI tasks and OMP threads.
-Even simple debuggers though can be used to query core files, to see where the code was at when it died (for example using the <strong>where</strong> in <strong>dbx</strong> for a core file can be very helpful.
-For help in running with a debugger you will need to contact your system administrators for the machine you are running on.</p>
+<p>Another suggestion is to run the model with a debugger such as: <strong>ddt</strong>, <strong>dbx</strong>, <strong>gdb</strong>, or <strong>totalview</strong>. Often to run with a debugger you will need to reduce the number of processors as outlined above. Some debuggers such as <strong>dbx</strong> will only work with one processor, while more advanced debuggers such as <strong>totalview</strong> can work with both MPI tasks and OMP threads. Even simple debuggers though can be used to query core files, to see where the code was at when it died (for example using the <strong>where</strong> in <strong>dbx</strong> for a core file can be very helpful. For help in running with a debugger you will need to contact your system administrators for the machine you are running on.</p>
 </div>
 </div>
 </div>
@@ -424,6 +417,7 @@ For help in running with a debugger you will need to contact your system adminis
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script src="../../_static/pop_ver.js"></script>
     
 

@@ -118,8 +118,8 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="customizing-the-clm-namelist.html">1.2.3. Customizing CLM’s namelist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="customizing-the-datm-namelist.html">1.2.4. Customizing the DATM namelist</a></li>
-<li class="toctree-l3"><a class="reference internal" href="master_list_nofates.html">1.2.5. CTSM History Fields (nofates)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="master_list_fates.html">1.2.6. CTSM History Fields (fates)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="history_fields_nofates.html">1.2.5. CTSM History Fields (nofates)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="history_fields_fates.html">1.2.6. CTSM History Fields (fates)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../using-clm-tools/index.html">1.3. Using CLM tools</a></li>
@@ -202,18 +202,15 @@
             
   <div class="section" id="customizing-clm-s-configuration">
 <span id="configuring-clm"></span><h1><span class="section-number">1.2.2. </span>Customizing CLM’s Configuration<a class="headerlink" href="#customizing-clm-s-configuration" title="Permalink to this headline">¶</a></h1>
-<p>The section of the CESM2.2 beta Quickstart <a class="reference external" href="https://escomp.github.io/cesm/release-cesm2/quickstart.html#create-a-case">CESM Create a Case</a> gives instructions on creating a case.
-Also see a similar section in the CIME User’s-Guide <a class="reference external" href="http://esmci.github.io/cime/users_guide/create-a-case.html">CIME Create a case</a>.
-What is of interest here is how to customize your use of CLM for the case that you created.</p>
+<p>The section of the CESM2.2 beta Quickstart <a class="reference external" href="https://escomp.github.io/cesm/release-cesm2/quickstart.html#create-a-case">CESM Create a Case</a> gives instructions on creating a case. Also see a similar section in the CIME User’s-Guide <a class="reference external" href="http://esmci.github.io/cime/users_guide/create-a-case.html">CIME Create a case</a>. What is of interest here is how to customize your use of CLM for the case that you created.</p>
 <p>For CLM when <strong>preview_namelist</strong>, <strong>case.build</strong>, or <strong>case.run</strong> are called there are two steps that take place:</p>
 <ol class="arabic simple">
-<li><p>The CLM “<strong>configure</strong>” script is called to setup the build-time configuration for CLM (more information on <strong>configure</strong> is given in <a class="reference external" href="CLM-URL">the Section called More information on the CLM configure script</a>). The env variables for <strong>configure</strong> are locked after the <strong>case.build</strong> step. So the results of the CLM <strong>configure</strong> are locked after the build has taken place.</p></li>
-<li><p>The CLM “<strong>build-namelist</strong>” script is called to generate the run-time namelist for CLM (more information on <strong>build-namelist</strong> is given below in <a class="reference external" href="CLM-URL">the Section called Definition of Namelist items and their default values</a>.</p></li>
+<li><p>The CLM “<strong>configure</strong>” script is called to setup the build-time configuration for CLM (see <a class="reference internal" href="#more-info-clm-config-script"><span class="std std-ref">More information on the CLM configure script</span></a>). The env variables for <strong>configure</strong> are locked after the <strong>case.build</strong> step. So the results of the CLM <strong>configure</strong> are locked after the build has taken place.</p></li>
+<li><p>The CLM “<strong>build-namelist</strong>” script is called to generate the run-time namelist for CLM (more information on <strong>build-namelist</strong> is given below in <a class="reference internal" href="customizing-the-clm-namelist.html#def-nl-items-and-defaults"><span class="std std-ref">Definition of Namelist items and their default values</span></a>).</p></li>
 </ol>
 <p>When customizing your case at the <strong>case.setup</strong> step you are able to modify the process by effecting either one or both of these steps. The CLM “<strong>configure</strong>” and “<strong>build-namelist</strong>” scripts are both available in the “$CTSMROOT/bld” directory in the distribution. Both of these scripts have a “-help” option that is useful to examine to see what types of options you can give either of them.</p>
 <p>There are five different types of customization for the configuration that we will discuss: CTSM1 in CESM2.2 beta build-time options, CTSM1 in CESM2.2 beta run-time options, User Namelist, other noteworthy CESM2.2 beta configuration items, the CLM <strong>configure</strong> script options, and the CLM <strong>build-namelist</strong> script options.</p>
-<p>Information on all of the CLM script, configuration, build and run items is found under <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/cime_config/config_component.xml</span></code>.
-See <a class="reference external" href="http://www.cesm.ucar.edu/models/cesm2/component_settings/clm4_5_input.html">CLM CASEROOT Variable Definitions</a>.</p>
+<p>Information on all of the CLM script, configuration, build and run items is found under <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/cime_config/config_component.xml</span></code>. See <a class="reference external" href="http://www.cesm.ucar.edu/models/cesm2/component_settings/clm4_5_input.html">CLM CASEROOT Variable Definitions</a>.</p>
 <div class="section" id="clm-script-configuration-items">
 <h2><span class="section-number">1.2.2.1. </span>CLM Script configuration items<a class="headerlink" href="#clm-script-configuration-items" title="Permalink to this headline">¶</a></h2>
 <p>Below we list each of the CESM configuration items that are specific to CLM. All of these are available in your: <code class="docutils literal notranslate"><span class="pre">env_build.xml</span></code> and <code class="docutils literal notranslate"><span class="pre">env_run.xml</span></code> files.</p>
@@ -232,72 +229,62 @@ See <a class="reference external" href="http://www.cesm.ucar.edu/models/cesm2/co
 <p>For the precedence of the different options to <strong>build-namelist</strong> see the section on precedence below.</p>
 <p>The first item <code class="docutils literal notranslate"><span class="pre">CLM_CONFIG_OPTS</span></code> has to do with customizing the CLM build-time options for your case, the rest all have to do with generating the namelist.</p>
 <dl>
-<dt>CLM_CONFIG_OPTS</dt><dd><p>The option <code class="docutils literal notranslate"><span class="pre">CLM_CONFIG_OPTS</span></code> is all about passing command line arguments to the CLM <strong>configure</strong> script.
-It is important to note that some compsets, may already put a value into the <code class="docutils literal notranslate"><span class="pre">CLM_CONFIG_OPTS</span></code> variable.
-You can still add more options to your <code class="docutils literal notranslate"><span class="pre">CLM_CONFIG_OPTS</span></code> but make sure you add to what is already there rather than replacing it.
-Hence, we recommend using the “-append” option to the xmlchange script.
-In <a class="reference external" href="CLM-URL">the Section called More information on the CLM configure script</a> below we will go into more details on options that can be customized in the CLM “<strong>configure</strong>” script.
-It’s also important to note that the <strong>$CTSMROOT/cime_config/buildnml</strong> script may already invoke certain CLM <strong>configure</strong> options and as such those command line options are NOT going to be available to change at this step (nor would you want to change them).
-The options to CLM <strong>configure</strong> are given with the “-help” option which is given in <a class="reference external" href="CLM-URL">the Section called More information on the CLM configure script</a>.
-.. note:: <code class="docutils literal notranslate"><span class="pre">CLM_CONFIG_OPTS</span></code> is locked after the <strong>case.build</strong> script is run. If you want to change something in <code class="docutils literal notranslate"><span class="pre">CLM_CONFIG_OPTS</span></code> you’ll need to clean the build and rerun <strong>case.build</strong>. The other env variables can be changed at run-time so are never locked.</p>
+<dt>CLM_CONFIG_OPTS</dt><dd><p>The option <code class="docutils literal notranslate"><span class="pre">CLM_CONFIG_OPTS</span></code> is all about passing command line arguments to the CLM <strong>configure</strong> script. It is important to note that some compsets, may already put a value into the <code class="docutils literal notranslate"><span class="pre">CLM_CONFIG_OPTS</span></code> variable. You can still add more options to your <code class="docutils literal notranslate"><span class="pre">CLM_CONFIG_OPTS</span></code> but make sure you add to what is already there rather than replacing it. Hence, we recommend using the “-append” option to the xmlchange script. In <a class="reference internal" href="#more-info-clm-config-script"><span class="std std-ref">More information on the CLM configure script</span></a> below we will go into more details on options that can be customized in the CLM “<strong>configure</strong>” script. It’s also important to note that the <strong>$CTSMROOT/cime_config/buildnml</strong> script may already invoke certain CLM <strong>configure</strong> options and as such those command line options are NOT going to be available to change at this step (nor would you want to change them). The options to CLM <strong>configure</strong> are given with the “-help” option which is given in <a class="reference internal" href="#more-info-clm-config-script"><span class="std std-ref">More information on the CLM configure script</span></a>… note:: <code class="docutils literal notranslate"><span class="pre">CLM_CONFIG_OPTS</span></code> is locked after the <strong>case.build</strong> script is run. If you want to change something in <code class="docutils literal notranslate"><span class="pre">CLM_CONFIG_OPTS</span></code> you’ll need to clean the build and rerun <strong>case.build</strong>. The other env variables can be changed at run-time so are never locked.</p>
 </dd>
-<dt>CLM_NML_USE_CASE</dt><dd><p><code class="docutils literal notranslate"><span class="pre">CLM_NML_USE_CASE</span></code> is used to set a particular set of conditions that set multiple namelist items, all centering around a particular usage of the model. To list the valid options do the following:</p>
+<dt>CLM_NML_USE_CASE</dt><dd><p><code class="docutils literal notranslate"><span class="pre">CLM_NML_USE_CASE</span></code> is used to set a particular set of conditions that set multiple namelist items, all centering around a particular usage of the model. (See <a class="reference internal" href="#precedence-of-opts"><span class="std std-ref">Precedence of Options</span></a> for the precedence of this option relative to the others.) To list the valid options do the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT
 &gt; ./bld/build-namelist -use_case list
 </pre></div>
 </div>
 <p>The output of the above command is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>CLM build-namelist - use cases: 1850-2100_rcp2.6_glacierMEC_transient 1850-2100_rcp2.6_transient  \
-1850-2100_rcp4.5_glacierMEC_transient 1850-2100_rcp4.5_transient  \
-1850-2100_rcp6_glacierMEC_transient 1850-2100_rcp6_transient  \
-1850-2100_rcp8.5_glacierMEC_transient 1850-2100_rcp8.5_transient 1850_control  \
-1850_glacierMEC_control 2000-2100_rcp8.5_transient 2000_control 2000_glacierMEC_control  \
-20thC_glacierMEC_transient 20thC_transient glacierMEC_pd stdurbpt_pd
-Use cases are:...
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CLM</span> <span class="n">build</span><span class="o">-</span><span class="n">namelist</span> <span class="o">-</span> <span class="n">use</span> <span class="n">cases</span><span class="p">:</span> <span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp2</span><span class="o">.</span><span class="mi">6</span><span class="n">_glacierMEC_transient</span> <span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp2</span><span class="o">.</span><span class="mi">6</span><span class="n">_transient</span>  \
+<span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp4</span><span class="o">.</span><span class="mi">5</span><span class="n">_glacierMEC_transient</span> <span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp4</span><span class="o">.</span><span class="mi">5</span><span class="n">_transient</span>  \
+<span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp6_glacierMEC_transient</span> <span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp6_transient</span>  \
+<span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp8</span><span class="o">.</span><span class="mi">5</span><span class="n">_glacierMEC_transient</span> <span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp8</span><span class="o">.</span><span class="mi">5</span><span class="n">_transient</span> <span class="mi">1850</span><span class="n">_control</span>  \
+<span class="mi">1850</span><span class="n">_glacierMEC_control</span> <span class="mi">2000</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp8</span><span class="o">.</span><span class="mi">5</span><span class="n">_transient</span> <span class="mi">2000</span><span class="n">_control</span> <span class="mi">2000</span><span class="n">_glacierMEC_control</span>  \
+<span class="mi">20</span><span class="n">thC_glacierMEC_transient</span> <span class="mi">20</span><span class="n">thC_transient</span> <span class="n">glacierMEC_pd</span> <span class="n">stdurbpt_pd</span>
+<span class="n">Use</span> <span class="n">cases</span> <span class="n">are</span><span class="p">:</span><span class="o">...</span>
 
-1850-2100_rcp2.6_glacierMEC_transient = Simulate transient land-use, and aerosol deposition changes  \
-with historical data from 1850 to 2005 and then with the RCP2.6 scenario from IMAGE
+<span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp2</span><span class="o">.</span><span class="mi">6</span><span class="n">_glacierMEC_transient</span> <span class="o">=</span> <span class="n">Simulate</span> <span class="n">transient</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span><span class="p">,</span> <span class="ow">and</span> <span class="n">aerosol</span> <span class="n">deposition</span> <span class="n">changes</span>  \
+<span class="k">with</span> <span class="n">historical</span> <span class="n">data</span> <span class="kn">from</span> <span class="mi">1850</span> <span class="n">to</span> <span class="mi">2005</span> <span class="ow">and</span> <span class="n">then</span> <span class="k">with</span> <span class="n">the</span> <span class="n">RCP2</span><span class="o">.</span><span class="mi">6</span> <span class="n">scenario</span> <span class="kn">from</span> <span class="nn">IMAGE</span>
 
-1850-2100_rcp2.6_transient = Simulate transient land-use, and aerosol deposition changes with  \
-historical data from 1850 to 2005 and then with the RCP2.6 scenario from IMAGE
+<span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp2</span><span class="o">.</span><span class="mi">6</span><span class="n">_transient</span> <span class="o">=</span> <span class="n">Simulate</span> <span class="n">transient</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span><span class="p">,</span> <span class="ow">and</span> <span class="n">aerosol</span> <span class="n">deposition</span> <span class="n">changes</span> <span class="k">with</span>  \
+<span class="n">historical</span> <span class="n">data</span> <span class="kn">from</span> <span class="mi">1850</span> <span class="n">to</span> <span class="mi">2005</span> <span class="ow">and</span> <span class="n">then</span> <span class="k">with</span> <span class="n">the</span> <span class="n">RCP2</span><span class="o">.</span><span class="mi">6</span> <span class="n">scenario</span> <span class="kn">from</span> <span class="nn">IMAGE</span>
 
-1850-2100_rcp4.5_glacierMEC_transient = Simulate transient land-use, and aerosol deposition changes  \
-with historical data from 1850 to 2005 and then with the RCP4.5 scenario from MINICAM
+<span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp4</span><span class="o">.</span><span class="mi">5</span><span class="n">_glacierMEC_transient</span> <span class="o">=</span> <span class="n">Simulate</span> <span class="n">transient</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span><span class="p">,</span> <span class="ow">and</span> <span class="n">aerosol</span> <span class="n">deposition</span> <span class="n">changes</span>  \
+<span class="k">with</span> <span class="n">historical</span> <span class="n">data</span> <span class="kn">from</span> <span class="mi">1850</span> <span class="n">to</span> <span class="mi">2005</span> <span class="ow">and</span> <span class="n">then</span> <span class="k">with</span> <span class="n">the</span> <span class="n">RCP4</span><span class="o">.</span><span class="mi">5</span> <span class="n">scenario</span> <span class="kn">from</span> <span class="nn">MINICAM</span>
 
-1850-2100_rcp4.5_transient = Simulate transient land-use, and aerosol deposition changes with  \
-historical data from 1850 to 2005 and then with the RCP4.5 scenario from MINICAM
+<span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp4</span><span class="o">.</span><span class="mi">5</span><span class="n">_transient</span> <span class="o">=</span> <span class="n">Simulate</span> <span class="n">transient</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span><span class="p">,</span> <span class="ow">and</span> <span class="n">aerosol</span> <span class="n">deposition</span> <span class="n">changes</span> <span class="k">with</span>  \
+<span class="n">historical</span> <span class="n">data</span> <span class="kn">from</span> <span class="mi">1850</span> <span class="n">to</span> <span class="mi">2005</span> <span class="ow">and</span> <span class="n">then</span> <span class="k">with</span> <span class="n">the</span> <span class="n">RCP4</span><span class="o">.</span><span class="mi">5</span> <span class="n">scenario</span> <span class="kn">from</span> <span class="nn">MINICAM</span>
 
-1850-2100_rcp6_glacierMEC_transient = Simulate transient land-use, and aerosol deposition changes  \
-with historical data from 1850 to 2005 and then with the RCP6 scenario from AIM
+<span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp6_glacierMEC_transient</span> <span class="o">=</span> <span class="n">Simulate</span> <span class="n">transient</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span><span class="p">,</span> <span class="ow">and</span> <span class="n">aerosol</span> <span class="n">deposition</span> <span class="n">changes</span>  \
+<span class="k">with</span> <span class="n">historical</span> <span class="n">data</span> <span class="kn">from</span> <span class="mi">1850</span> <span class="n">to</span> <span class="mi">2005</span> <span class="ow">and</span> <span class="n">then</span> <span class="k">with</span> <span class="n">the</span> <span class="n">RCP6</span> <span class="n">scenario</span> <span class="kn">from</span> <span class="nn">AIM</span>
 
-1850-2100_rcp6_transient = Simulate transient land-use, and aerosol deposition changes with  \
-historical data from 1850 to 2005 and then with the RCP6 scenario from AIM
+<span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp6_transient</span> <span class="o">=</span> <span class="n">Simulate</span> <span class="n">transient</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span><span class="p">,</span> <span class="ow">and</span> <span class="n">aerosol</span> <span class="n">deposition</span> <span class="n">changes</span> <span class="k">with</span>  \
+<span class="n">historical</span> <span class="n">data</span> <span class="kn">from</span> <span class="mi">1850</span> <span class="n">to</span> <span class="mi">2005</span> <span class="ow">and</span> <span class="n">then</span> <span class="k">with</span> <span class="n">the</span> <span class="n">RCP6</span> <span class="n">scenario</span> <span class="kn">from</span> <span class="nn">AIM</span>
 
-1850-2100_rcp8.5_glacierMEC_transient = Simulate transient land-use, and aerosol deposition changes  \
-with historical data from 1850 to 2005 and then with the RCP8.5 scenario from MESSAGE
+<span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp8</span><span class="o">.</span><span class="mi">5</span><span class="n">_glacierMEC_transient</span> <span class="o">=</span> <span class="n">Simulate</span> <span class="n">transient</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span><span class="p">,</span> <span class="ow">and</span> <span class="n">aerosol</span> <span class="n">deposition</span> <span class="n">changes</span>  \
+<span class="k">with</span> <span class="n">historical</span> <span class="n">data</span> <span class="kn">from</span> <span class="mi">1850</span> <span class="n">to</span> <span class="mi">2005</span> <span class="ow">and</span> <span class="n">then</span> <span class="k">with</span> <span class="n">the</span> <span class="n">RCP8</span><span class="o">.</span><span class="mi">5</span> <span class="n">scenario</span> <span class="kn">from</span> <span class="nn">MESSAGE</span>
 
-1850-2100_rcp8.5_transient = Simulate transient land-use, and aerosol deposition changes with  \
-historical data from 1850 to 2005 and then with the RCP8.5 scenario from MESSAGE
+<span class="mi">1850</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp8</span><span class="o">.</span><span class="mi">5</span><span class="n">_transient</span> <span class="o">=</span> <span class="n">Simulate</span> <span class="n">transient</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span><span class="p">,</span> <span class="ow">and</span> <span class="n">aerosol</span> <span class="n">deposition</span> <span class="n">changes</span> <span class="k">with</span>  \
+<span class="n">historical</span> <span class="n">data</span> <span class="kn">from</span> <span class="mi">1850</span> <span class="n">to</span> <span class="mi">2005</span> <span class="ow">and</span> <span class="n">then</span> <span class="k">with</span> <span class="n">the</span> <span class="n">RCP8</span><span class="o">.</span><span class="mi">5</span> <span class="n">scenario</span> <span class="kn">from</span> <span class="nn">MESSAGE</span>
 
-1850_control = Conditions to simulate 1850 land-use
-1850_glacierMEC_control = Running an IG case for 1850 conditions with the ice sheet model glimmer
-2000-2100_rcp8.5_transient = Simulate transient land-use, and aerosol deposition changes with  \
-historical data from 2000 to 2005 and then with the RCP8.5 scenario from MESSAGE
+<span class="mi">1850</span><span class="n">_control</span> <span class="o">=</span> <span class="n">Conditions</span> <span class="n">to</span> <span class="n">simulate</span> <span class="mi">1850</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span>
+<span class="mi">1850</span><span class="n">_glacierMEC_control</span> <span class="o">=</span> <span class="n">Running</span> <span class="n">an</span> <span class="n">IG</span> <span class="n">case</span> <span class="k">for</span> <span class="mi">1850</span> <span class="n">conditions</span> <span class="k">with</span> <span class="n">the</span> <span class="n">ice</span> <span class="n">sheet</span> <span class="n">model</span> <span class="n">glimmer</span>
+<span class="mi">2000</span><span class="o">-</span><span class="mi">2100</span><span class="n">_rcp8</span><span class="o">.</span><span class="mi">5</span><span class="n">_transient</span> <span class="o">=</span> <span class="n">Simulate</span> <span class="n">transient</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span><span class="p">,</span> <span class="ow">and</span> <span class="n">aerosol</span> <span class="n">deposition</span> <span class="n">changes</span> <span class="k">with</span>  \
+<span class="n">historical</span> <span class="n">data</span> <span class="kn">from</span> <span class="mi">2000</span> <span class="n">to</span> <span class="mi">2005</span> <span class="ow">and</span> <span class="n">then</span> <span class="k">with</span> <span class="n">the</span> <span class="n">RCP8</span><span class="o">.</span><span class="mi">5</span> <span class="n">scenario</span> <span class="kn">from</span> <span class="nn">MESSAGE</span>
 
-2000_control = Conditions to simulate 2000 land-use
-2000_glacierMEC_control = Running an IG case for 2000 conditions with the ice sheet model glimmer
-20thC_glacierMEC_transient = Simulate transient land-use, and aerosol deposition changes from 1850  \
-to 2005
-20thC_transient = Simulate transient land-use, and aerosol deposition changes from 1850 to 2005
-glacierMEC_pd = Running an IG case with the ice sheet model glimmer
-stdurbpt_pd = Standard Urban Point Namelist Settings
-
-.. note::See `the Section called Precedence of Options &lt;CLM-URL&gt;`_ section for the precedence of this option relative to the others.
+<span class="mi">2000</span><span class="n">_control</span> <span class="o">=</span> <span class="n">Conditions</span> <span class="n">to</span> <span class="n">simulate</span> <span class="mi">2000</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span>
+<span class="mi">2000</span><span class="n">_glacierMEC_control</span> <span class="o">=</span> <span class="n">Running</span> <span class="n">an</span> <span class="n">IG</span> <span class="n">case</span> <span class="k">for</span> <span class="mi">2000</span> <span class="n">conditions</span> <span class="k">with</span> <span class="n">the</span> <span class="n">ice</span> <span class="n">sheet</span> <span class="n">model</span> <span class="n">glimmer</span>
+<span class="mi">20</span><span class="n">thC_glacierMEC_transient</span> <span class="o">=</span> <span class="n">Simulate</span> <span class="n">transient</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span><span class="p">,</span> <span class="ow">and</span> <span class="n">aerosol</span> <span class="n">deposition</span> <span class="n">changes</span> <span class="kn">from</span> <span class="mi">1850</span>  \
+<span class="n">to</span> <span class="mi">2005</span>
+<span class="mi">20</span><span class="n">thC_transient</span> <span class="o">=</span> <span class="n">Simulate</span> <span class="n">transient</span> <span class="n">land</span><span class="o">-</span><span class="n">use</span><span class="p">,</span> <span class="ow">and</span> <span class="n">aerosol</span> <span class="n">deposition</span> <span class="n">changes</span> <span class="kn">from</span> <span class="mi">1850</span> <span class="n">to</span> <span class="mi">2005</span>
+<span class="n">glacierMEC_pd</span> <span class="o">=</span> <span class="n">Running</span> <span class="n">an</span> <span class="n">IG</span> <span class="n">case</span> <span class="k">with</span> <span class="n">the</span> <span class="n">ice</span> <span class="n">sheet</span> <span class="n">model</span> <span class="n">glimmer</span>
+<span class="n">stdurbpt_pd</span> <span class="o">=</span> <span class="n">Standard</span> <span class="n">Urban</span> <span class="n">Point</span> <span class="n">Namelist</span> <span class="n">Settings</span>
 </pre></div>
 </div>
 </dd>
-<dt>CLM_BLDNML_OPTS</dt><dd><p>The option CLM_BLDNML_OPTS is for passing options to the CLM “build-namelist” script.
-As with the CLM “configure” script the CLM $CTSMROOT/cime_config/buildnml may already invoke certain options and as such those options will NOT be available to be set here. The best way to see what options can be sent to the “build-namelist” script is to do</p>
+<dt>CLM_BLDNML_OPTS</dt><dd><p>The option CLM_BLDNML_OPTS is for passing options to the CLM “build-namelist” script. As with the CLM “configure” script the CLM $CTSMROOT/cime_config/buildnml may already invoke certain options and as such those options will NOT be available to be set here. The best way to see what options can be sent to the “build-namelist” script is to do</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/bld
 &gt; ./build-namelist -help
 </pre></div>
@@ -427,26 +414,23 @@ OPTIONS
                          &quot;-use_case list&quot; to list valid use-cases.
 -version                 Echo the SVN tag name used to check out this CLM distribution.
 
-
-
 Note: The precedence for setting the values of namelist variables is (highest to lowest):
- 0. namelist values set by specific command-line options, like, -d, -sim_year
+ 1. namelist values set by specific command-line options, like, -d, -sim_year
         (i.e.  CLM_BLDNML_OPTS env_run variable)
- 1. values set on the command-line using the -namelist option,
+ 2. values set on the command-line using the -namelist option,
         (i.e. CLM_NAMELIST_OPTS env_run variable)
- 2. values read from the file(s) specified by -infile,
+ 3. values read from the file(s) specified by -infile,
         (i.e.  user_nl_clm files)
- 3. datasets from the -clm_usr_name option,
+ 4. datasets from the -clm_usr_name option,
         (i.e.  CLM_USRDAT_NAME env_run variable)
- 4. values set from a use-case scenario, e.g., -use_case
+ 5. values set from a use-case scenario, e.g., -use_case
         (i.e.  CLM_NML_USE_CASE env_run variable)
- 5. values from the namelist defaults file.
+ 6. values from the namelist defaults file.
 </pre></div>
 </div>
 </dd>
 </dl>
-<p>The <strong>$CTSMROOT/cime_config/buildnml</strong> script already sets the resolution and mask as well as the CLM <strong>configure</strong> file, and defines an input namelist and namelist input file, and the output namelist directory, and sets the start-type (from <code class="docutils literal notranslate"><span class="pre">RUN_TYPE</span></code>), namelist options (from <code class="docutils literal notranslate"><span class="pre">CLM_NAMELIST_OPTS</span></code>), co2_ppmv (from <code class="docutils literal notranslate"><span class="pre">CCSM_CO2_PPMV</span></code>, co2_type (from <code class="docutils literal notranslate"><span class="pre">CLM_CO2_TYPE</span></code>), lnd_frac (from <code class="docutils literal notranslate"><span class="pre">LND_DOMAIN_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">LND_DOMAIN_FILE</span></code>), l_ncpl (from <code class="docutils literal notranslate"><span class="pre">LND_NCPL</span></code>, glc_grid, glc_smb, glc_nec (from <code class="docutils literal notranslate"><span class="pre">GLC_GRID</span></code>, <code class="docutils literal notranslate"><span class="pre">GLC_SMB</span></code>, and <code class="docutils literal notranslate"><span class="pre">GLC_NEC</span></code>), and “clm_usr_name” is set (to <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span> <span class="pre">&gt;``when</span> <span class="pre">the</span> <span class="pre">grid</span> <span class="pre">is</span> <span class="pre">set</span> <span class="pre">to</span> <span class="pre">``CLM_USRDAT_NAME</span></code>.
-Hence only the following different options can be set:</p>
+<p>The <strong>$CTSMROOT/cime_config/buildnml</strong> script already sets the resolution and mask as well as the CLM <strong>configure</strong> file, and defines an input namelist and namelist input file, and the output namelist directory, and sets the start-type (from <code class="docutils literal notranslate"><span class="pre">RUN_TYPE</span></code>), namelist options (from <code class="docutils literal notranslate"><span class="pre">CLM_NAMELIST_OPTS</span></code>), co2_ppmv (from <code class="docutils literal notranslate"><span class="pre">CCSM_CO2_PPMV</span></code>, co2_type (from <code class="docutils literal notranslate"><span class="pre">CLM_CO2_TYPE</span></code>), lnd_frac (from <code class="docutils literal notranslate"><span class="pre">LND_DOMAIN_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">LND_DOMAIN_FILE</span></code>), l_ncpl (from <code class="docutils literal notranslate"><span class="pre">LND_NCPL</span></code>, glc_grid, glc_smb, glc_nec (from <code class="docutils literal notranslate"><span class="pre">GLC_GRID</span></code>, <code class="docutils literal notranslate"><span class="pre">GLC_SMB</span></code>, and <code class="docutils literal notranslate"><span class="pre">GLC_NEC</span></code>), and “clm_usr_name” is set (to <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span> <span class="pre">&gt;``when</span> <span class="pre">the</span> <span class="pre">grid</span> <span class="pre">is</span> <span class="pre">set</span> <span class="pre">to</span> <span class="pre">``CLM_USRDAT_NAME</span></code>. Hence only the following different options can be set:</p>
 <p>1.
 -bgc_spinup</p>
 <ol class="arabic simple">
@@ -462,7 +446,7 @@ Hence only the following different options can be set:</p>
 <li><p>-sim_year</p></li>
 <li><p>-verbose</p></li>
 </ol>
-<p>“-bgc_spinup” is an option only available for CTSM1 for any configuration when CN is turned on (so either CLMCN or CLMBGC). It can be set to “on” or “off”. If “on” the model will go into Accelerated Decomposition mode, while for “off” (the default) it will have standard decomposition rates. If you are starting up from initial condition files the model will check what mode the initial condition file is in and do the appropriate action on the first time-step to change the Carbon pools to the appropriate spinup setting. See <a class="reference external" href="CLM-URL">the Section called Spinning up the |version| biogeochemistry (CLMBGC spinup) in Chapter 4</a> for an example using this option.</p>
+<p>“-bgc_spinup” is an option only available for CTSM1 for any configuration when CN is turned on (so either CLMCN or CLMBGC). It can be set to “on” or “off”. If “on” the model will go into Accelerated Decomposition mode, while for “off” (the default) it will have standard decomposition rates. If you are starting up from initial condition files the model will check what mode the initial condition file is in and do the appropriate action on the first time-step to change the Carbon pools to the appropriate spinup setting. See <a class="reference internal" href="../running-special-cases/Spinning-up-the-biogeochemistry-BGC-spinup.html#spinning-up-clm-bgc"><span class="std std-ref">Spinup of CTSM1-BGC-Crop</span></a> for an example using this option.</p>
 <p>“-chk_res” ensures that the resolution chosen is supported by CLM. If the resolution is NOT supported it will cause the CLM <strong>build-namelist</strong> to abort when run. So when either <strong>preview_namelist</strong>, <strong>case.build</strong> or <strong>case.run</strong> is executed it will abort early. Since, the CESM scripts only support certain resolutions anyway, in general this option is NOT needed in the context of running CESM cases.</p>
 <p>“-clm_demand” asks the <strong>build-namelist</strong> step to require that the list of variables entered be set. Typically, this is used to require that optional filenames be used and ensure they are set before continuing. For example, you may want to require that fpftdyn be set to get dynamically changing vegetation types. To do this you would do the following.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; ./xmlchange CLM_BLDNML_OPTS=&quot;-clm_demand fpftdyn&quot;``
@@ -480,9 +464,7 @@ Hence only the following different options can be set:</p>
 <p>“-drydep” adds the dry-deposition namelist to the driver. This is a driver namelist, but adding the option here has CLM <strong>build-namelist</strong> create the <code class="docutils literal notranslate"><span class="pre">drv_flds_in</span></code> file that the driver will copy over and use. Invoking this option does have an impact on performance even for I compsets and will slow the model down. It’s also only useful when running with an active atmosphere model that makes use of this information.</p>
 <p>“-ignore_ic_date” ignores the Initial Conditions (IC) date completely for finding initial condition files to startup from. Without this option or the “-ignore_ic_year” option below, the date of the file comes into play.</p>
 <p>“-ignore_ic_year” ignores the Initial Conditions (IC) year for finding initial condition files to startup from. The date is used, but the year is ignored. Without this option or the “-ignore_ic_date” option below, the date and year of the file comes into play.</p>
-<p>When “-irrig on” is used <strong>build-namelist</strong> will try to find surface datasets that have the irrigation model enabled (when running
-with Sattellitte Phenology). When running with the prognostic crop model on, “-irrig on” will turn irrigate crops on, while “-irrig off”
-will manage all crop areas as rain-fed without irrigation.</p>
+<p>When “-irrig on” is used <strong>build-namelist</strong> will try to find surface datasets that have the irrigation model enabled (when running with Sattellitte Phenology). When running with the prognostic crop model on, “-irrig on” will turn irrigate crops on, while “-irrig off” will manage all crop areas as rain-fed without irrigation.</p>
 <p>“no-megan” means do NOT add the MEGAN model Biogenic Volatile Organic Compounds (BVOC) namelist to the driver. This namelist is created by default, so normally this WILL be done. This is a driver namelist, so unless “no-megan” is specified the CLM <strong>build-namelist</strong> will create the <code class="docutils literal notranslate"><span class="pre">drv_flds_in</span></code> file that the driver will copy over and use (if you are running with CAM and CAM produces this file as well, it’s file will have precedence).</p>
 <p>“-note” adds a note to the bottom of the namelist file, that gives the details of how <strong>build-namelist</strong> was called, giving the specific command-line options given to it.</p>
 <p>“-rcp” is used to set the representative concentration pathway for the future scenarios you want the data-sets to simulate conditions for, in the input datasets. To list the valid options do the following:</p>
@@ -496,7 +478,7 @@ will manage all crop areas as rain-fed without irrigation.</p>
 </pre></div>
 </div>
 <dl>
-<dt><code class="docutils literal notranslate"><span class="pre">CLM_NAMELIST_OPTS</span></code></dt><dd><p>passes namelist items into one of the CLM namelists.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">CLM_NAMELIST_OPTS</span></code></dt><dd><p>passes namelist items into one of the CLM namelists. (See <a class="reference internal" href="#precedence-of-opts"><span class="std std-ref">Precedence of Options</span></a> for the precedence of this option relative to the others.)</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For character namelist items you need to use “&amp;apos;” as quotes for strings so that the scripts don’t get confused with other quotes they use.</p>
@@ -509,25 +491,18 @@ will manage all crop areas as rain-fed without irrigation.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">CLM_NAMELIST_OPTS</span><span class="o">=</span><span class="s2">&quot;hist_fincl1=&amp;apos;HK&amp;apos;&quot;</span>
 </pre></div>
 </div>
-<p>For a list of the history fields available see <a class="reference external" href="CLM-URL">CLM History Fields</a>.</p>
+<p>For lists of the history fields available see <a class="reference internal" href="index.html#customizing-section"><span class="std std-ref">Setting Up and Running a Case</span></a>.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">CLM_FORCE_COLDSTART</span></code></dt><dd><p>when set to on, <em>requires</em> that your simulation do a cold start from arbitrary initial conditions. If this is NOT set, it will use an initial condition file if it can find an appropriate one, and otherwise do a cold start. <code class="docutils literal notranslate"><span class="pre">CLM_FORCE_COLDSTART</span></code> is a good way to ensure that you are doing a cold start if that is what you want to do.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code></dt><dd><p>Provides a way to enter your own datasets into the namelist.
-The files you create must be named with specific naming conventions outlined in: <a class="reference external" href="CLM-URL">the Section called Creating your own single-point/regional surface datasets in Chapter 5</a>.
-To see what the expected names of the files are, use the <strong>queryDefaultNamelist.pl</strong> to see what the names will need to be.
-For example if your <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code> will be “1x1_boulderCO”, with a “navy” land-mask, constant simulation year range, for 1850, the following will list what your filenames should be:</p>
+<dt><code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code></dt><dd><p>Provides a way to enter your own datasets into the namelist. The files you create must be named with specific naming conventions outlined in <a class="reference internal" href="../running-single-points/running-single-point-configurations.html#creating-your-own-singlepoint-dataset"><span class="std std-ref">Creating your own single-point dataset</span></a>. To see what the expected names of the files are, use the <strong>queryDefaultNamelist.pl</strong> to see what the names will need to be. For example if your <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code> will be “1x1_boulderCO”, with a “navy” land-mask, constant simulation year range, for 1850, the following will list what your filenames should be:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/bld
 &gt; queryDefaultNamelist.pl -usrname &quot;1x1_boulderCO&quot; -options mask=navy,sim_year=1850,sim_year_range=&quot;constant&quot;  -csmdata $CSMDATA
-
-An example of using ``CLM_USRDAT_NAME`` for a simulation is given in `Example 5-4 &lt;CLM-URL&gt;`_.
 </pre></div>
 </div>
+<p>An example of using <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code> for a simulation is given in Example <a class="reference internal" href="../running-single-points/running-single-point-configurations.html#creating-your-own-singlepoint-dataset"><span class="std std-numref">1.6.3.3</span></a>.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">CLM_CO2_TYPE</span></code></dt><dd><p>sets the type of input CO2 for either “constant”, “diagnostic” or prognostic”.
-If “constant” the value from <code class="docutils literal notranslate"><span class="pre">CCSM_CO2_PPMV</span></code> will be used.
-If “diagnostic” or “prognostic” the values MUST be sent from the atmosphere model.
-For more information on how to send CO2 from the data atmosphere model see <a class="reference external" href="CLM-URL">the Section called Running stand-alone CLM with transient historical CO2 concentration in Chapter 4</a>.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">CLM_CO2_TYPE</span></code></dt><dd><p>sets the type of input CO2 for either “constant”, “diagnostic” or prognostic”. If “constant” the value from <code class="docutils literal notranslate"><span class="pre">CCSM_CO2_PPMV</span></code> will be used. If “diagnostic” or “prognostic” the values MUST be sent from the atmosphere model. See <a class="reference internal" href="../running-special-cases/Running-stand-alone-CLM-with-transient-historical-CO2-concentration.html#running-with-historical-co2-forcing"><span class="std std-ref">Running with historical CO2 forcing</span></a> for more information on how to send CO2 from the data atmosphere model.</p>
 </dd>
 </dl>
 </div>
@@ -576,12 +551,11 @@ hist_nhtfrq = 0, -24, -6, -1
 </pre></div>
 </div>
 <p><strong>Note:</strong> The comments at the top are some guidance given in the default user_nl_clm and just give some guidance on how to set variables and use the file.</p>
-<p><strong>Note:</strong> See <a class="reference external" href="CLM-link">the Section called Precedence of Options</a> section for the precedence of this option relative to the others.</p>
 <p><strong>Note:</strong> You do NOT need to specify the namelist group that the variables are in because the CLM <strong>build-namelist</strong> knows the namelist that specific variable names belong to, and it puts them there.</p>
 <p>Obviously, all of this would be difficult to put in the CLM_NAMELIST_OPTS variable, especially having to put &amp;apos; around all the character strings. For more information on the namelist variables being set here and what they mean, see the section on CLM namelists below, as well as the namelist definition that gives details on each variable.</p>
 </div>
 <div class="section" id="precedence-of-options">
-<h3><span class="section-number">1.2.2.2.2. </span>Precedence of Options<a class="headerlink" href="#precedence-of-options" title="Permalink to this headline">¶</a></h3>
+<span id="precedence-of-opts"></span><h3><span class="section-number">1.2.2.2.2. </span>Precedence of Options<a class="headerlink" href="#precedence-of-options" title="Permalink to this headline">¶</a></h3>
 <p>Note: The precedence for setting the values of namelist variables with the different env_build.xml, env_run.xml options is (highest to lowest):</p>
 <ol class="arabic simple">
 <li><p>Namelist values set by specific command-line options, like, -d, -sim_year (i.e. CLM_BLDNML_OPTS env_build.xml variable)</p></li>
@@ -594,29 +568,29 @@ hist_nhtfrq = 0, -24, -6, -1
 <p>Thus a setting in <code class="docutils literal notranslate"><span class="pre">CLM_BLDNML_OPTS</span></code> will override a setting for the same thing given in a use case with <code class="docutils literal notranslate"><span class="pre">CLM_NML_USE_CASE</span></code>. Likewise, a setting in <code class="docutils literal notranslate"><span class="pre">CLM_NAMELIST_OPTS</span></code> will override a setting in <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code>.</p>
 </div>
 <div class="section" id="setting-your-initial-conditions-file">
-<h3><span class="section-number">1.2.2.2.3. </span>Setting Your Initial Conditions File<a class="headerlink" href="#setting-your-initial-conditions-file" title="Permalink to this headline">¶</a></h3>
+<span id="setting-initial-conditions"></span><h3><span class="section-number">1.2.2.2.3. </span>Setting Your Initial Conditions File<a class="headerlink" href="#setting-your-initial-conditions-file" title="Permalink to this headline">¶</a></h3>
 <p>Especially with CLMBGC and CLMCN starting from initial conditions is very important. Even with CLMSP it takes many simulation years to get the model fully spunup. There are a couple different ways to provide an initial condition file.</p>
 <ul>
-<li><p><a class="reference external" href="CLM-URL">the Section called Doing a hybrid simulation to provide initial conditions</a></p></li>
-<li><p><a class="reference external" href="CLM-URL">the Section called Doing a branch simulation to provide initial conditions</a></p></li>
-<li><p><a class="reference external" href="CLM-URL">the Section called Providing a finidat file in your user_nl_clm file</a></p></li>
-<li><p><a class="reference external" href="CLM-URL">the Section called Adding a finidat file to the XML database</a></p>
+<li><p><a class="reference internal" href="#doing-a-hybrid-sim-for-init-conds"><span class="std std-ref">Doing a hybrid simulation to provide initial conditions</span></a></p></li>
+<li><p><a class="reference internal" href="#doing-a-branch-sim-for-init-conds"><span class="std std-ref">Doing a branch simulation to provide initial conditions</span></a></p></li>
+<li><p><a class="reference internal" href="#providing-finidat-in-usernlclm"><span class="std std-ref">Providing a finidat file in your user_nl_clm file</span></a></p></li>
+<li><p><a class="reference internal" href="#adding-finidat-to-xml"><span class="std std-ref">Adding a finidat file to the XML database</span></a></p>
 <p><strong>Note:</strong> Your initial condition file MUST agree with the surface dataset you are using to run the simulation. If the two files do NOT agree you will get a run-time about a mis-match in PFT weights, or in the number of PFT’s or columns.  To get around this you’ll need to add the “use_init_interp=T” namelist flag in your namelist so that the initial conditions will be interpolated on startup.**</p>
 </li>
 </ul>
 </div>
 <div class="section" id="doing-a-hybrid-simulation-to-provide-initial-conditions">
-<h3><span class="section-number">1.2.2.2.4. </span>Doing a hybrid simulation to provide initial conditions<a class="headerlink" href="#doing-a-hybrid-simulation-to-provide-initial-conditions" title="Permalink to this headline">¶</a></h3>
+<span id="doing-a-hybrid-sim-for-init-conds"></span><h3><span class="section-number">1.2.2.2.4. </span>Doing a hybrid simulation to provide initial conditions<a class="headerlink" href="#doing-a-hybrid-simulation-to-provide-initial-conditions" title="Permalink to this headline">¶</a></h3>
 <p>The first option is to setup a hybrid simulation and give a <code class="docutils literal notranslate"><span class="pre">RUN_REFCASE</span></code> and <code class="docutils literal notranslate"><span class="pre">RUN_REFDATE</span></code> to specify the reference case simulation name to use. When you setup coupled cases (assuming a CESM checkout), at the standard resolution of “f09” it will already do this for you. For example, if you run an “B1850” compset at “f09_g17_gl4” resolution the following settings will already be done for you.</p>
 <p><code class="docutils literal notranslate"><span class="pre">./xmlchange</span> <span class="pre">RUN_TYPE=hybrid,RUN_REFCASE=b.e20.B1850.f09_g17.pi_control.all.297,RUN_REFDATE=0130-01-01,GET_REFCASE=TRUE</span></code></p>
 <p>Setting the <code class="docutils literal notranslate"><span class="pre">GET_REFCASE</span></code> option to <code class="docutils literal notranslate"><span class="pre">TRUE</span> <span class="pre">means</span></code> it will copy the files from the RUN_REFDIR usually under: <code class="docutils literal notranslate"><span class="pre">$DIN_LOC_ROOT/cesm2_init/$RUN_REFCASE/$RUN_REFDATE</span></code> directory. Note, that the <code class="docutils literal notranslate"><span class="pre">RUN_REFCASE</span></code> and <code class="docutils literal notranslate"><span class="pre">RUN_REFDATE</span></code> variables are expanded to get the directory name above. If you do NOT set <code class="docutils literal notranslate"><span class="pre">GET_REFCASE</span></code> to <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> then you will need to have placed the file in your run directory yourself. In either case, the file is expected to be named: <code class="docutils literal notranslate"><span class="pre">$RUN_REFCASE.clm2.r.$RUN_REFDATE-00000.nc</span></code> with the variables expanded of course.</p>
 </div>
 <div class="section" id="doing-a-branch-simulation-to-provide-initial-conditions">
-<h3><span class="section-number">1.2.2.2.5. </span>Doing a branch simulation to provide initial conditions<a class="headerlink" href="#doing-a-branch-simulation-to-provide-initial-conditions" title="Permalink to this headline">¶</a></h3>
+<span id="doing-a-branch-sim-for-init-conds"></span><h3><span class="section-number">1.2.2.2.5. </span>Doing a branch simulation to provide initial conditions<a class="headerlink" href="#doing-a-branch-simulation-to-provide-initial-conditions" title="Permalink to this headline">¶</a></h3>
 <p>The setup for running a branch simulation is essentially the same as for a hybrid. With the exception of setting <code class="docutils literal notranslate"><span class="pre">RUN_TYPE</span></code> to branch rather than hybrid. A branch simulation runs the case essentially as restarting from it’s place before to exactly reproduce it (but possibly output more or different fields on the history files). While a hybrid simulation allows you to change the configuration or run-time options, as well as use a different code base than the original case that may have fewer fields on it than a full restart file. The <code class="docutils literal notranslate"><span class="pre">GET_REFCASE</span></code> option works similarly for a branch case as for a hybrid.</p>
 </div>
 <div class="section" id="providing-a-finidat-file-in-your-user-nl-clm-file">
-<h3><span class="section-number">1.2.2.2.6. </span>Providing a finidat file in your user_nl_clm file<a class="headerlink" href="#providing-a-finidat-file-in-your-user-nl-clm-file" title="Permalink to this headline">¶</a></h3>
+<span id="providing-finidat-in-usernlclm"></span><h3><span class="section-number">1.2.2.2.6. </span>Providing a finidat file in your user_nl_clm file<a class="headerlink" href="#providing-a-finidat-file-in-your-user-nl-clm-file" title="Permalink to this headline">¶</a></h3>
 <p>Setting up a branch or hybrid simulation requires the initial condition file to follow a standard naming convention, and a standard input directory if you use the <code class="docutils literal notranslate"><span class="pre">GET_REFCASE</span></code> option. If you want to name your file willy nilly and place it anywhere, you can set it in your <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> file as in this example.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">finidat</span>    <span class="o">=</span> <span class="s1">&#39;/glade/home/$USER/myinitdata/clmi_I1850CN_f09_g17_gl4_0182-01-01.c120329.nc&#39;</span>
 </pre></div>
@@ -624,15 +598,12 @@ hist_nhtfrq = 0, -24, -6, -1
 <p>Note, if you provide an initial condition file – you can NOT set <code class="docutils literal notranslate"><span class="pre">CLM_FORCE_COLDSTART</span></code> to <code class="docutils literal notranslate"><span class="pre">TRUE</span></code>.</p>
 </div>
 <div class="section" id="adding-a-finidat-file-to-the-xml-database">
-<h3><span class="section-number">1.2.2.2.7. </span>Adding a finidat file to the XML database<a class="headerlink" href="#adding-a-finidat-file-to-the-xml-database" title="Permalink to this headline">¶</a></h3>
+<span id="adding-finidat-to-xml"></span><h3><span class="section-number">1.2.2.2.7. </span>Adding a finidat file to the XML database<a class="headerlink" href="#adding-a-finidat-file-to-the-xml-database" title="Permalink to this headline">¶</a></h3>
 <p>Like other datasets, if you want to use a given initial condition file to be used for all (or most of) your cases you’ll want to put it in the XML database so it will be used by default. The initial condition files, are resolution dependent, and dependent on the number of PFT’s and other variables such as GLC_NEC or if irrigation is on or off. See Chapter 3 for more information on this.</p>
 </div>
 <div class="section" id="other-noteworthy-configuration-items">
 <h3><span class="section-number">1.2.2.2.8. </span>Other noteworthy configuration items<a class="headerlink" href="#other-noteworthy-configuration-items" title="Permalink to this headline">¶</a></h3>
-<p>For running “I” cases there are several other noteworthy configuration items that you may want to work with.
-Most of these involve settings for the DATM, but one <code class="docutils literal notranslate"><span class="pre">CCSM_CO2_PPMV</span></code> applies to all models.  The list of DATM
-settings is <a class="reference external" href="http://esmci.github.io/cime/data_models/data-atm.html">here</a>.
-If you are running an B, E, or F case that doesn’t use the DATM obviously the DATM_* settings will not be used. All of the settings below are in your <code class="docutils literal notranslate"><span class="pre">env_build.xml</span></code> and <code class="docutils literal notranslate"><span class="pre">env_run.xml</span></code> files</p>
+<p>For running “I” cases there are several other noteworthy configuration items that you may want to work with. Most of these involve settings for the DATM, but one <code class="docutils literal notranslate"><span class="pre">CCSM_CO2_PPMV</span></code> applies to all models. The list of DATM settings is <a class="reference external" href="http://esmci.github.io/cime/data_models/data-atm.html">here</a>. If you are running an B, E, or F case that doesn’t use the DATM obviously the DATM_* settings will not be used. All of the settings below are in your <code class="docutils literal notranslate"><span class="pre">env_build.xml</span></code> and <code class="docutils literal notranslate"><span class="pre">env_run.xml</span></code> files</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CCSM_CO2_PPMV</span>
 <span class="n">CCSM_BGC</span>
 <span class="n">DATM_MODE</span>
@@ -659,15 +630,17 @@ If you are running an B, E, or F case that doesn’t use the DATM obviously the 
 </pre></div>
 </div>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">CLMCRUNCEP</span></code></dt><dd><p>The standard mode for CLM4.5 of using global atmospheric data that was developed by CRU using NCEP data from 1901 to 2010 (version 4 of this series).
-See <a class="reference external" href="CLM-URL">the Section called CLMCRUNCEP mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal notranslate"><span class="pre">CLMCRUNCEP</span></code> mode.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">CLMCRUNCEP</span></code></dt><dd><p>The standard mode for CLM4.5 of using global atmospheric data that was developed by CRU using NCEP data from 1901 to 2010 (version 4 of this series). See <a class="reference internal" href="customizing-the-datm-namelist.html#clmcruncep-and-its-datm"><span class="std std-ref">CLMCRUNCEP mode and it’s DATM settings</span></a> for more information.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">CLMCRUNCEPv7</span></code></dt><dd><p>Version 7 of the CRUNCEP data from 1901 to 2016.
-See <a class="reference external" href="CLM-URL">the Section called CLMCRUNCEPv7 mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal notranslate"><span class="pre">CLMCRUNCEP</span></code> mode.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">CLMCRUNCEPv7</span></code></dt><dd><p>Version 7 of the CRUNCEP data from 1901 to 2016. See <a class="reference internal" href="customizing-the-datm-namelist.html#clmcruncep-and-its-datm"><span class="std std-ref">CLMCRUNCEP mode and it’s DATM settings</span></a> for more information.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">CLMGSWP3v1</span></code></dt><dd><p>GSWP3 version 1 forcing data based on NCEP reanalysis with bias corrections by GSWP3 from 1901 to 2010.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code></dt><dd><p>The standard mode for CLM4.0 of using global atmospheric data that was developed by Qian et. al. for CLM using NCEP data from 1948 to 2004. See the <a class="reference external" href="CLM-URL">Section called CLM_QIAN mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code> mode. <code class="docutils literal notranslate"><span class="pre">CLM1PT</span></code> is for the special cases where we have single-point tower data for particular sites. Right now we only have data for three urban locations: MexicoCity Mexico, Vancouver Canada, and the urban-c alpha site. And we have data for the US-UMB AmeriFlux tower site for University of Michigan Biological Station. See <a class="reference external" href="CLM-URL">the Section called CLM1PT mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal notranslate"><span class="pre">CLM1PT</span></code> mode. <code class="docutils literal notranslate"><span class="pre">CPLHISTForcing</span></code> is for running with atmospheric forcing from a previous CESM simulation. See <a class="reference external" href="CLM-URL">the Section called CPLHISTForcing mode and it’s DATM settings</a> for more information on the DATM settings for <code class="docutils literal notranslate"><span class="pre">CPLHISTForcing</span></code> mode.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">CLM_QIAN</span></code></dt><dd><p>The standard mode for CLM4.0 of using global atmospheric data that was developed by Qian et. al. for CLM using NCEP data from 1948 to 2004. See <a class="reference internal" href="customizing-the-datm-namelist.html#clmqian-and-its-datm"><span class="std std-ref">CLM_QIAN mode and it’s DATM settings</span></a> for more information.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">CLM1PT</span></code></dt><dd><p>This is for the special cases where we have single-point tower data for particular sites. Right now we only have data for three urban locations: MexicoCity Mexico, Vancouver Canada, and the urban-c alpha site. And we have data for the US-UMB AmeriFlux tower site for University of Michigan Biological Station. See <a class="reference internal" href="customizing-the-datm-namelist.html#clm1pt-and-its-datm"><span class="std std-ref">CLM1PT mode and it’s DATM settings</span></a> for more information.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">CPLHISTForcing</span></code></dt><dd><p>This is for running with atmospheric forcing from a previous CESM simulation. See <a class="reference internal" href="customizing-the-datm-namelist.html#cplhistforcing"><span class="std std-ref">CPLHISTForcing mode and it’s DATM settings</span></a> for more information.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">DATM_PRESAERO</span></code></dt><dd><p>sets the prescribed aerosol mode for the data atmosphere model. The list of valid options include:</p>
 <p><code class="docutils literal notranslate"><span class="pre">clim_1850</span></code> = constant year 1850 conditions</p>
@@ -710,8 +683,8 @@ See <a class="reference external" href="CLM-URL">the Section called CLMCRUNCEPv7
 <strong>datm.buildnml.csh</strong></p>
 </div>
 <div class="section" id="more-information-on-the-clm-configure-script">
-<h3><span class="section-number">1.2.2.2.11. </span>More information on the CLM configure script<a class="headerlink" href="#more-information-on-the-clm-configure-script" title="Permalink to this headline">¶</a></h3>
-<p>The CLM <strong>configure</strong> script defines the details of a clm configuration and summarizes it into a <code class="docutils literal notranslate"><span class="pre">config_cache.xml</span></code> file. The <code class="docutils literal notranslate"><span class="pre">config_cache.xml</span></code> will be placed in your case directory under <code class="docutils literal notranslate"><span class="pre">Buildconf/clmconf</span></code>. The <a class="reference external" href="CLM-URL">config_definition.xml</a> in <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/bld/config_files</span></code> gives a definition of each CLM configuration item, it is viewable in a web-browser. Many of these items are things that you would NOT change, but looking through the list gives you the valid options, and a good description of each. Below we repeat the <code class="docutils literal notranslate"><span class="pre">config_definition.xml</span></code> files contents:</p>
+<span id="more-info-clm-config-script"></span><h3><span class="section-number">1.2.2.2.11. </span>More information on the CLM configure script<a class="headerlink" href="#more-information-on-the-clm-configure-script" title="Permalink to this headline">¶</a></h3>
+<p>The CLM <code class="docutils literal notranslate"><span class="pre">configure</span></code> script defines the details of a clm configuration and summarizes it into a <code class="docutils literal notranslate"><span class="pre">config_cache.xml</span></code> file. The <code class="docutils literal notranslate"><span class="pre">config_cache.xml</span></code> will be placed in your case directory under <code class="docutils literal notranslate"><span class="pre">Buildconf/clmconf</span></code>. The <a class="reference external" href="https://github.com/ESCOMP/CTSM/blob/master/bld/config_files/config_definition_ctsm.xml">config_definition_ctsm.xml</a> in <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/bld/config_files</span></code> gives a definition of each CLM configuration item, it is viewable in a web-browser. Many of these items are things that you would NOT change, but looking through the list gives you the valid options, and a good description of each.</p>
 <div class="section" id="help-on-clm-configure">
 <h4><span class="section-number">1.2.2.2.11.1. </span>Help on CLM configure<a class="headerlink" href="#help-on-clm-configure" title="Permalink to this headline">¶</a></h4>
 <p>Coupling this with looking at the options to CLM <strong>configure</strong> with “-help” as below will enable you to understand how to set the different options.</p>
@@ -789,8 +762,7 @@ OPTIONS
                          [no-vert,no-cent,no-nitrif,no-vert:no-cent]
 </pre></div>
 </div>
-<p>We’ve given details on how to use the options in env_build.xml and env_run.xml to interact with the CLM “configure” and “build-namelist” scripts, as well as giving a good understanding of how these scripts work and the options to them.
-In the next section we give further details on the CLM namelist. You could customize the namelist for these options after “case.setup” is run.</p>
+<p>We’ve given details on how to use the options in env_build.xml and env_run.xml to interact with the CLM “configure” and “build-namelist” scripts, as well as giving a good understanding of how these scripts work and the options to them. In the next section we give further details on the CLM namelist. You could customize the namelist for these options after “case.setup” is run.</p>
 </div>
 </div>
 </div>
@@ -847,6 +819,7 @@ In the next section we give further details on the CLM namelist. You could custo
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script src="../../_static/pop_ver.js"></script>
     
 

@@ -39,7 +39,7 @@
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="ctsm CTSM master documentation" href="../../index.html"/>
         <link rel="up" title="1.5. Running Special Cases" href="index.html"/>
-        <link rel="next" title="1.5.4. Spinning up the Satellite Phenology Model" href="Spinning-up-the-Satellite-Phenology-Model-CLMSP-spinup.html"/>
+        <link rel="next" title="1.5.4. Running with custom crop calendars" href="running-with-custom-crop-calendars.html"/>
         <link rel="prev" title="1.5.2. Running the prognostic crop model" href="running-the-prognostic-crop-model.html"/> 
 
   
@@ -119,12 +119,15 @@
 <li class="toctree-l4"><a class="reference internal" href="#example-irrigation-simulation">1.5.3.1. Example: Irrigation Simulation</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="Spinning-up-the-Satellite-Phenology-Model-CLMSP-spinup.html">1.5.4. Spinning up the Satellite Phenology Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Spinning-up-the-biogeochemistry-BGC-spinup.html">1.5.5. Spinup of CTSM1-BGC-Crop</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Running-with-MOAR-data-as-atmospheric-forcing-to-spinup-the-model.html">1.5.6. Running with MOAR data</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html">1.5.7. Running with atmospheric forcing from a previous simulation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Running-stand-alone-CLM-with-transient-historical-CO2-concentration.html">1.5.8. Running with historical CO2 forcing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="Running-with-anomaly-forcing.html">1.5.9. Running with anomaly forcing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-with-custom-crop-calendars.html">1.5.4. Running with custom crop calendars</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-with-tillage.html">1.5.5. Running with tillage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Spinning-up-the-Satellite-Phenology-Model-CLMSP-spinup.html">1.5.6. Spinning up the Satellite Phenology Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Spinning-up-the-biogeochemistry-BGC-spinup.html">1.5.7. Spinup of CTSM1-BGC-Crop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-excess-ground-ice.html">1.5.8. Running with excess ground ice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-MOAR-data-as-atmospheric-forcing-to-spinup-the-model.html">1.5.9. Running with MOAR data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html">1.5.10. Running with atmospheric forcing from a previous simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-stand-alone-CLM-with-transient-historical-CO2-concentration.html">1.5.11. Running with historical CO2 forcing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-anomaly-forcing.html">1.5.12. Running with anomaly forcing</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../running-single-points/index.html">1.6. Running Single Point Regional Cases</a></li>
@@ -203,13 +206,8 @@
            <div itemprop="articleBody">
             
   <div class="section" id="running-with-irrigation">
-<h1><span class="section-number">1.5.3. </span>Running with irrigation<a class="headerlink" href="#running-with-irrigation" title="Permalink to this headline">¶</a></h1>
-<p>In CLM4.0 irrigation isn’t an allowed option.
-In CLM4.5 irrigation can ONLY be used WITH crop. With CLM5.0 irrigation can be used whether crop is on or not – <strong>BUT</strong>
-if crop is off, your surface datasets <strong>HAVE</strong> to have irrigation defined appropriately. Right now <em>ALL</em> surface
-datasets without crop enabled have irrigation hard-wired on. In order to create datasets with irrigation off, you’d need
-to make changes to <code class="docutils literal notranslate"><span class="pre">mksurfdata_map</span></code> in order to have all generic crops to be non-irrigated.
-To turn on irrigation in CTSM1 we simply add “-irrig on” to <code class="docutils literal notranslate"><span class="pre">CLM_BLDNML_OPTS</span></code>.</p>
+<span id="id1"></span><h1><span class="section-number">1.5.3. </span>Running with irrigation<a class="headerlink" href="#running-with-irrigation" title="Permalink to this headline">¶</a></h1>
+<p>In CLM4.0 irrigation isn’t an allowed option. In CLM4.5 irrigation can ONLY be used WITH crop. With CLM5.0 irrigation can be used whether crop is on or not – <strong>BUT</strong> if crop is off, your surface datasets <strong>HAVE</strong> to have irrigation defined appropriately. Right now <em>ALL</em> surface datasets without crop enabled have irrigation hard-wired on. In order to create datasets with irrigation off, you’d need to make changes to <code class="docutils literal notranslate"><span class="pre">mksurfdata_map</span></code> in order to have all generic crops to be non-irrigated. To turn on irrigation in CTSM1 we simply add “-irrig on” to <code class="docutils literal notranslate"><span class="pre">CLM_BLDNML_OPTS</span></code>.</p>
 <div class="section" id="example-irrigation-simulation">
 <h2><span class="section-number">1.5.3.1. </span>Example: Irrigation Simulation<a class="headerlink" href="#example-irrigation-simulation" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note here we do a CLMSP simulation as that is what has been validated</span>
@@ -240,7 +238,7 @@ To turn on irrigation in CTSM1 we simply add “-irrig on” to <code class="doc
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="Spinning-up-the-Satellite-Phenology-Model-CLMSP-spinup.html" class="btn btn-neutral float-right" title="1.5.4. Spinning up the Satellite Phenology Model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="running-with-custom-crop-calendars.html" class="btn btn-neutral float-right" title="1.5.4. Running with custom crop calendars" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="running-the-prognostic-crop-model.html" class="btn btn-neutral" title="1.5.2. Running the prognostic crop model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -281,6 +279,7 @@ To turn on irrigation in CTSM1 we simply add “-irrig on” to <code class="doc
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script src="../../_static/pop_ver.js"></script>
     
 

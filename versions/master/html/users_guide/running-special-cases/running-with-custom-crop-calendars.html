@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1.5.4. Running with custom crop calendars &mdash; ctsm CTSM master documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/custom.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="ctsm CTSM master documentation" href="../../index.html"/>
+        <link rel="up" title="1.5. Running Special Cases" href="index.html"/>
+        <link rel="next" title="1.5.5. Running with tillage" href="running-with-tillage.html"/>
+        <link rel="prev" title="1.5.3. Running with irrigation" href="running-with-irrigation.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ctsm
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                
+                  <div class="version-dropdown">
+                    <select class="version-list" id="version-list">
+                      <option value=''>CTSM1</option>
+                      
+                        
+                      
+                        
+                          <option value="">[placeholder]</option>
+                        
+                      
+                    </select>
+                  </div>
+                
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">1. CTSM1 User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../overview/index.html">1.1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../setting-up-and-running-a-case/index.html">1.2. Setting Up and Running a Case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../using-clm-tools/index.html">1.3. Using CLM tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../adding-new-resolutions/index.html">1.4. Adding New Resolutions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">1.5. Running Special Cases</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="what-is-a-special-case.html">1.5.1. What is a special case?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-the-prognostic-crop-model.html">1.5.2. Running the prognostic crop model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-with-irrigation.html">1.5.3. Running with irrigation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.5.4. Running with custom crop calendars</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sowing-window">1.5.4.1. Sowing window</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sowing-date">1.5.4.2. Sowing date</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#maturity-requirements">1.5.4.3. Maturity requirements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generating-maturity-requirements">1.5.4.4. Generating maturity requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="running-with-tillage.html">1.5.5. Running with tillage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Spinning-up-the-Satellite-Phenology-Model-CLMSP-spinup.html">1.5.6. Spinning up the Satellite Phenology Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Spinning-up-the-biogeochemistry-BGC-spinup.html">1.5.7. Spinup of CTSM1-BGC-Crop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-excess-ground-ice.html">1.5.8. Running with excess ground ice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-MOAR-data-as-atmospheric-forcing-to-spinup-the-model.html">1.5.9. Running with MOAR data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html">1.5.10. Running with atmospheric forcing from a previous simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-stand-alone-CLM-with-transient-historical-CO2-concentration.html">1.5.11. Running with historical CO2 forcing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Running-with-anomaly-forcing.html">1.5.12. Running with anomaly forcing</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../running-single-points/index.html">1.6. Running Single Point Regional Cases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running-PTCLM/index.html">1.7. Running PTCLM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../trouble-shooting/index.html">1.8. Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../testing/index.html">1.9. Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../tech_note/index.html">2. CLM Technical Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lilac/index.html">3. CTSM-LILAC User’s Guide</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ctsm</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html"><span class="section-number">1. </span>CTSM1 User’s Guide</a> &raquo;</li>
+        
+          <li><a href="index.html"><span class="section-number">1.5. </span>Running Special Cases</a> &raquo;</li>
+        
+      <li><span class="section-number">1.5.4. </span>Running with custom crop calendars</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/users_guide/running-special-cases/running-with-custom-crop-calendars.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="running-with-custom-crop-calendars">
+<h1><span class="section-number">1.5.4. </span>Running with custom crop calendars<a class="headerlink" href="#running-with-custom-crop-calendars" title="Permalink to this headline">¶</a></h1>
+<p>Since CLM5.1, functionality has been added to enable the customization of crop sowing window and maturity requirements.</p>
+<div class="section" id="sowing-window">
+<h2><span class="section-number">1.5.4.1. </span>Sowing window<a class="headerlink" href="#sowing-window" title="Permalink to this headline">¶</a></h2>
+<p>Crops are allowed to be sown only within certain date windows. By default, these are static in time and specific to each crop in each hemisphere. These values can be inspected by looking at (and changed by modifying) the following variables on the parameter file:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">min_NH_planting_date</span></code> (start of sowing window, northern hemisphere)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_NH_planting_date</span></code> (end of sowing window, northern hemisphere)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">min_SH_planting_date</span></code> (start of sowing window, southern hemisphere)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_SH_planting_date</span></code> (end of sowing window, southern hemisphere)</p></li>
+</ul>
+<p>However, geographically- and temporally-varying maps can also be used to prescribe sowing window like so (in <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! Input files with maps of the start and end date (1-365) of every crop
+stream_fldFileName_swindow_start = &#39;/glade/p/cesmdata/cseg/inputdata/lnd/clm2/cropdata/calendars/processed/swindow_starts_ggcmi_crop_calendar_phase3_v1.01.2000-2000.20231005_145103.nc&#39;
+stream_fldFileName_swindow_end = &#39;/glade/p/cesmdata/cseg/inputdata/lnd/clm2/cropdata/calendars/processed/swindow_ends_ggcmi_crop_calendar_phase3_v1.01.2000-2000.20231005_145103.nc&#39;
+
+! A mesh file matching the resolution of the sowing window datasets
+stream_meshfile_cropcal = &#39;/glade/p/cesmdata/cseg/inputdata/share/meshes/360x720_120830_ESMFmesh_c20210507_cdf5.nc&#39;
+
+! First and last years on the sowing window datasets
+stream_year_first_cropcal = 2000
+stream_year_last_cropcal = 2000
+</pre></div>
+</div>
+</div>
+<div class="section" id="sowing-date">
+<h2><span class="section-number">1.5.4.2. </span>Sowing date<a class="headerlink" href="#sowing-date" title="Permalink to this headline">¶</a></h2>
+<p>Specific sowing <em>dates</em> can be prescribed for any crop in any gridcell by setting the start and end dates of its sowing windows to the same value. The simplest way to do this for all crops in all gridcells is to specify the same file for both <code class="docutils literal notranslate"><span class="pre">stream_fldFileName_swindow_start</span></code> and <code class="docutils literal notranslate"><span class="pre">stream_fldFileName_swindow_end</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In cells with prescribed sowing dates, the usual weather- and climate-based criteria for determining whether planting is allowed are ignored. The crop will be planted on the prescribed day no matter what.</p>
+</div>
+</div>
+<div class="section" id="maturity-requirements">
+<h2><span class="section-number">1.5.4.3. </span>Maturity requirements<a class="headerlink" href="#maturity-requirements" title="Permalink to this headline">¶</a></h2>
+<p>The heat unit accumulation required for a crop to reach maturity (and thus be harvested) is typically determined by a formula with crop-specific parameters that are specified on the parameter file. However, geographically- and temporally-varying maps of maturity requirement (in units of degree-days) can also be specified using the <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code> input variable <code class="docutils literal notranslate"><span class="pre">stream_fldFileName_cultivar_gdds</span></code>. (Note that <code class="docutils literal notranslate"><span class="pre">stream_meshfile_cropcal</span></code>, <code class="docutils literal notranslate"><span class="pre">stream_year_first_cropcal</span></code>, and <code class="docutils literal notranslate"><span class="pre">stream_year_last_cropcal</span></code>—see above—are all also required.)</p>
+</div>
+<div class="section" id="generating-maturity-requirements">
+<h2><span class="section-number">1.5.4.4. </span>Generating maturity requirements<a class="headerlink" href="#generating-maturity-requirements" title="Permalink to this headline">¶</a></h2>
+<p>For phase 3 of the Global Gridded Crop Model Intercomparison (GGCMI), maturity requirements should be the average (over the 1980–2009 growing seasons) growing degree-days accumulated between specified observation-derived sowing and harvest dates. In CLM, this requires the use of a special “GDD-generating” run and some postprocessing.</p>
+<p>In a GDD-generating run, crops are planted on the specified sowing dates and are then left in the field—regardless of when they reach maturity and ignoring maximum growing season length—for 364 days. This is set up like so in <code class="docutils literal notranslate"><span class="pre">user_nl_clm</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! Variables that we introduced above
+stream_fldFileName_swindow_start = &#39;/path/to/sowing_date_file.nc&#39;
+stream_fldFileName_swindow_end = &#39;/path/to/sowing_date_file.nc&#39;
+stream_meshfile_cropcal = &#39;/path/to/mesh_file.nc&#39;
+stream_year_first_cropcal = YEAR
+stream_year_last_cropcal = YEAR
+
+! Special settings for &quot;GDD-generating&quot; run
+generate_crop_gdds = .true.
+use_mxmat = .false.
+
+! (h0) Save default variables monthly instead of daily to save space
+hist_nhtfrq = 0
+hist_mfilt = 12
+
+! (h1) Annual outputs for GDD generation
+hist_fincl2 = &#39;GRAINC_TO_FOOD_PERHARV&#39;, &#39;GRAINC_TO_FOOD_ANN&#39;, &#39;SDATES&#39;, &#39;SDATES_PERHARV&#39;, &#39;SYEARS_PERHARV&#39;, &#39;HDATES&#39;, &#39;GDDHARV_PERHARV&#39;, &#39;GDDACCUM_PERHARV&#39;, &#39;HUI_PERHARV&#39;, &#39;SOWING_REASON_PERHARV&#39;, &#39;HARVEST_REASON_PERHARV&#39;
+hist_nhtfrq(2) = 17520
+hist_mfilt(2) = 999
+hist_type1d_pertape(2) = &#39;PFTS&#39;
+hist_dov2xy(2) = .false.
+
+! (h2) Daily outputs for GDD generation
+hist_fincl3 = &#39;GDDACCUM&#39;, &#39;GDDHARV&#39;
+hist_nhtfrq(3) = -24
+hist_mfilt(3) = 365
+hist_type1d_pertape(3) = &#39;PFTS&#39;
+hist_dov2xy(3) = .false.
+</pre></div>
+</div>
+<p>Once the GDD-generating run completes, calling the following Python script will generate a file that can serve as <code class="docutils literal notranslate"><span class="pre">stream_fldFileName_cultivar_gdds</span></code> in subsequent runs (along with maps illustrating the results):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">python</span><span class="o">/</span><span class="n">ctsm</span><span class="o">/</span><span class="n">crop_calendars</span><span class="o">/</span><span class="n">generate_gdds</span><span class="o">.</span><span class="n">py</span> \
+<span class="o">--</span><span class="nb">input</span><span class="o">-</span><span class="nb">dir</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">output</span><span class="o">/</span><span class="nb">dir</span><span class="o">/</span><span class="n">from</span><span class="o">/</span><span class="n">gdd</span><span class="o">-</span><span class="n">generating</span><span class="o">-</span><span class="n">run</span> \
+<span class="o">--</span><span class="n">first</span><span class="o">-</span><span class="n">season</span> <span class="mi">1980</span> \
+<span class="o">--</span><span class="n">last</span><span class="o">-</span><span class="n">season</span> <span class="mi">2009</span> \
+<span class="o">--</span><span class="n">sdates</span><span class="o">-</span><span class="n">file</span> <span class="s1">&#39;/path/to/sowing_date_file.nc&#39;</span> \
+<span class="o">--</span><span class="n">hdates</span><span class="o">-</span><span class="n">file</span> <span class="s1">&#39;/path/to/harvest_date_file.nc&#39;</span> \
+<span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">dir</span> <span class="s1">&#39;/path/where/you/want/results/saved&#39;</span> \
+<span class="o">--</span><span class="n">skip</span><span class="o">-</span><span class="n">crops</span> <span class="n">miscanthus</span><span class="p">,</span><span class="n">irrigated_miscanthus</span>
+</pre></div>
+</div>
+<p>The entire process can be illustrated with the RXCROPMATURITY system test. E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run_sys_tests</span> <span class="o">-</span><span class="n">t</span> <span class="n">RXCROPMATURITY_Lm61</span><span class="o">.</span><span class="n">f10_f10_mg37</span><span class="o">.</span><span class="n">IHistClm51BgcCrop</span><span class="o">.</span><span class="n">cheyenne_intel</span><span class="o">.</span><span class="n">clm</span><span class="o">-</span><span class="n">cropMonthOutput</span> <span class="o">--</span><span class="n">skip</span><span class="o">-</span><span class="n">generate</span> <span class="o">--</span><span class="n">skip</span><span class="o">-</span><span class="n">compare</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="running-with-tillage.html" class="btn btn-neutral float-right" title="1.5.5. Running with tillage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="running-with-irrigation.html" class="btn btn-neutral" title="1.5.3. Running with irrigation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, UCAR.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+     
+<script>var version_json_loc = "../../../../versions.json";</script>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="../../_static/pop_ver.js"></script>
+    
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
