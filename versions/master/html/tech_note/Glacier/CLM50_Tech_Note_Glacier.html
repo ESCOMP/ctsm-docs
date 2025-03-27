@@ -255,7 +255,7 @@
 </div>
 <div class="section" id="glacier-regions-and-their-behaviors">
 <span id="glacier-regions"></span><h2><span class="section-number">2.13.3. </span>Glacier regions and their behaviors<a class="headerlink" href="#glacier-regions-and-their-behaviors" title="Permalink to this headline">¶</a></h2>
-<p>The world’s glaciers and ice sheets are broken down into a number of different regions (four by default) that differ in three respects:</p>
+<p>The world’s glaciers and ice sheets are broken down into a number of different regions (three by default) that differ in three respects:</p>
 <ol class="arabic simple">
 <li><p>Whether the gridcell’s glacier land unit contains:</p>
 <ol class="loweralpha simple">
@@ -277,7 +277,7 @@
 </ol>
 </li>
 </ol>
-<p>The default behaviors for the world’s glacier and ice sheet regions are described in <a class="reference internal" href="#table-glacier-region-behaviors"><span class="std std-numref">Table 2.13.1</span></a>. Note that the standard CISM grid covers Greenland plus enough surrounding area to allow for ice sheet growth and to have a regular rectangular grid. We need to have the “replaced by ice” melt behavior within the CISM domain in order to compute SMB there, and we need virtual elevation classes in that domain in order to compute SMB for all elevation classes and to facilitate glacial advance and retreat in the two-way-coupled case. However, this domain is split into Greenland itself and areas outside Greenland so that ice runoff in the Canadian archipelago (which is inside the CISM domain) is melted before reaching the ocean, to avoid runaway sea ice growth in that region.</p>
+<p>The default behaviors for the world’s glacier and ice sheet regions are described in <a class="reference internal" href="#table-glacier-region-behaviors"><span class="std std-numref">Table 2.13.1</span></a>. Note that the Greenland region stops at the edge of Greenland as defined by CISM. This means that, by default, SMB is not computed for grid cells outside Greenland but within the CISM domain. (This treatment of the non-Greenland portion of the CISM domain as being the same as the world’s mountain glaciers rather than like Greenland itself is mainly for the sake of avoiding unrealistic fluxes from the Canadian archipelago that can potentially result in runaway sea ice growth in that region.)</p>
 <span id="table-glacier-region-behaviors"></span><table class="docutils align-default" id="id3">
 <caption><span class="caption-number">Table 2.13.1 </span><span class="caption-text">Glacier region behaviors</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -301,24 +301,13 @@ classes</p></th>
 ice</p></td>
 <td><p>Remains ice</p></td>
 </tr>
-<tr class="row-odd"><td><p>Inside
-standard CISM
-grid but
-outside
-Greenland
-itself</p></td>
-<td><p>Virtual</p></td>
-<td><p>Replaced by
-ice</p></td>
-<td><p>Melted</p></td>
-</tr>
-<tr class="row-even"><td><p>Antarctica</p></td>
+<tr class="row-odd"><td><p>Antarctica</p></td>
 <td><p>Multiple</p></td>
 <td><p>Replaced by
 ice</p></td>
 <td><p>Remains ice</p></td>
 </tr>
-<tr class="row-odd"><td><p>All others</p></td>
+<tr class="row-even"><td><p>All others</p></td>
 <td><p>Single</p></td>
 <td><p>Remains in
 place</p></td>
@@ -326,9 +315,10 @@ place</p></td>
 </tr>
 </tbody>
 </table>
+<p>It is possible to have non-virtual, non-SMB-computing areas within the CISM domain (as is the case for the portion of CISM’s Greenland domain outside of Greenland itself). However, these areas will send 0 SMB and will not be able to adjust to CISM-dictated changes in glacier area. Therefore, it is best to set up the glacier regions and their behaviors so that as much of the CISM domain as possible is covered by virtual, SMB-computing areas.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In regions that have both the <code class="docutils literal notranslate"><span class="pre">Glacial</span> <span class="pre">melt</span> <span class="pre">=</span> <span class="pre">Replaced</span> <span class="pre">by</span> <span class="pre">ice</span></code> and the <code class="docutils literal notranslate"><span class="pre">Ice</span> <span class="pre">runoff</span> <span class="pre">=</span> <span class="pre">Melted</span></code> behaviors (by default, this is just the region inside the standard CISM grid but outside Greenland itself): During periods of glacial melt, a negative ice runoff is generated (due to the <code class="docutils literal notranslate"><span class="pre">Glacial</span> <span class="pre">melt</span> <span class="pre">=</span> <span class="pre">Replaced</span> <span class="pre">by</span> <span class="pre">ice</span></code> behavior); this negative ice runoff is converted to a negative liquid runoff plus a positive sensible heat flux (due to the <code class="docutils literal notranslate"><span class="pre">Ice</span> <span class="pre">runoff</span> <span class="pre">=</span> <span class="pre">Melted</span></code> behavior). We recommend that you limit the portion of the globe with both of these behaviors combined, in order to avoid having too large of an impact of this non-physical behavior.</p>
+<p>The combination of the <code class="docutils literal notranslate"><span class="pre">Glacial</span> <span class="pre">melt</span> <span class="pre">=</span> <span class="pre">Replaced</span> <span class="pre">by</span> <span class="pre">ice</span></code> and the <code class="docutils literal notranslate"><span class="pre">Ice</span> <span class="pre">runoff</span> <span class="pre">=</span> <span class="pre">Melted</span></code> behaviors results in particularly non-physical behavior: During periods of glacial melt, a negative ice runoff is generated (due to the <code class="docutils literal notranslate"><span class="pre">Glacial</span> <span class="pre">melt</span> <span class="pre">=</span> <span class="pre">Replaced</span> <span class="pre">by</span> <span class="pre">ice</span></code> behavior); this negative ice runoff is converted to a negative liquid runoff plus a positive sensible heat flux (due to the <code class="docutils literal notranslate"><span class="pre">Ice</span> <span class="pre">runoff</span> <span class="pre">=</span> <span class="pre">Melted</span></code> behavior). The net result is zero runoff but a positive sensible heat flux generated from glacial melt. Because of how physically unrealistic this is, CLM does not allow this combination of behaviors.</p>
 </div>
 </div>
 <div class="section" id="multiple-elevation-class-scheme">
