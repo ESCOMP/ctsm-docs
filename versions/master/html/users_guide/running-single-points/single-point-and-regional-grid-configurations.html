@@ -39,7 +39,7 @@
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="ctsm CTSM master documentation" href="../../index.html"/>
         <link rel="up" title="1.6. Running Single Point Regional Cases" href="index.html"/>
-        <link rel="next" title="1.6.2. Running a single point using global data - PTS_MODE" href="running-pts_mode-configurations.html"/>
+        <link rel="next" title="1.6.2. Running a single point using global data" href="running-single-point-subset-data.html"/>
         <link rel="prev" title="1.6. Running Single Point Regional Cases" href="index.html"/> 
 
   
@@ -118,8 +118,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#choosing-the-right-single-point-options">1.6.1.1. Choosing the right single point options</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="running-pts_mode-configurations.html">1.6.2. Running a single point using global data - PTS_MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-single-point-subset-data.html">1.6.2. Running a single point using global data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="running-single-point-configurations.html">1.6.3. Running Single Point Configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-pts_mode-configurations.html">1.6.4. Running a single point using global data - PTS_MODE</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../trouble-shooting/index.html">1.7. Troubleshooting</a></li>
@@ -201,7 +202,7 @@
 <p>CLM allows you to set up and run cases with a single-point or a local region as well as global resolutions. This is often useful for running quick cases for testing, evaluating specific vegetation types, or land-units, or running with observed data for a specific site.</p>
 <p>There are two different ways to do this for normal-supported site</p>
 <dl class="simple">
-<dt><code class="docutils literal notranslate"><span class="pre">PTS_MODE</span></code></dt><dd><p>runs for a single point using global datasets.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">subset_data</span></code></dt><dd><p>runs for a single point using global datasets.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code></dt><dd><p>runs using your own datasets (single-point or regional).</p>
 </dd>
@@ -209,8 +210,8 @@
 <div class="section" id="choosing-the-right-single-point-options">
 <span id="options-for-single-points"></span><h2><span class="section-number">1.6.1.1. </span>Choosing the right single point options<a class="headerlink" href="#choosing-the-right-single-point-options" title="Permalink to this headline">¶</a></h2>
 <p>Running for a <em>normal supported site</em> is a great solution, if one of the supported single-point/regional datasets, is your region of interest (see <a class="reference internal" href="running-single-point-configurations.html#running-single-point-datasets"><span class="std std-ref">Running Single Point Configurations</span></a>). All the datasets are created for you, and you can easily select one and run, out of the box with it using a supported resolution from the top level of the CESM scripts. The problem is that there is a very limited set of supported datasets. You can also use this method for your own datasets, but you have to create the datasets, and add them to the XML database in scripts, CLM and to the DATM. This is worthwhile if you want to repeat many multiple cases for a given point or region.</p>
-<p>In general <a class="reference internal" href="running-pts_mode-configurations.html#pts-mode"><span class="std std-ref">Running a single point using global data - PTS_MODE</span></a> is the quick and dirty method that gets you started without having to create datasets – but has limitations. It’s good for an initial attempt at seeing results for a point of interest, but since you can NOT restart with it, it’s usage is limited. It is the quickest method as you can create a case for it directly from <code class="docutils literal notranslate"><span class="pre">cime/scripts/create_newcase</span></code>. Although you can’t restart, running a single point is very fast, and you can run for long simulation times even without restarts.</p>
-<p>Next, <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code> is the best way to setup cases quickly where you have to create your own datasets (see <a class="reference internal" href="running-single-point-configurations.html#running-single-point-datasets"><span class="std std-ref">Running Single Point Configurations</span></a>). With this method you don’t have to change DATM or add files to the XML database – but you have to follow a strict naming convention for files. However, once the files are named and in the proper location, you can easily setup new cases that use these datasets. This is good for treating all the required datasets as a “group” and for a particular model version. For advanced CLM developers who need to track dataset changes with different model versions you would be best off adding these datasets as supported datasets with the “normal supported datasets” method.</p>
+<p>In general <a class="reference internal" href="running-single-point-subset-data.html#single-point-subset-data"><span class="std std-ref">Running a single point using global data</span></a> is the quick and dirty method that gets you started, but it has limitations. It’s good for an initial attempt at seeing results for a point of interest, but since you can NOT restart with it, its usage is limited. It is the quickest method as you can create a case for it directly from <code class="docutils literal notranslate"><span class="pre">cime/scripts/create_newcase</span></code>. Although you can’t restart, running a single point is very fast, and you can run for long simulation times even without restarts.</p>
+<p>Next, <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code> using <code class="docutils literal notranslate"><span class="pre">subset_data</span></code> is the best way to setup cases quickly where you have a simple tool to create your own datasets (see <a class="reference internal" href="running-single-point-subset-data.html#single-point-subset-data"><span class="std std-ref">Running a single point using global data</span></a>). With this method you don’t have to change DATM or add files to the XML database. <code class="docutils literal notranslate"><span class="pre">subset_data</span></code> will create a usermod directory where you can store your files and the files needed to directly run a case.</p>
 <p>Finally, if you also have meteorology data that you want to force your CLM simulations with you’ll need to setup cases as described in <a class="reference internal" href="running-single-point-configurations.html#creating-your-own-singlepoint-dataset"><span class="std std-ref">Creating your own single-point dataset</span></a>. You’ll need to create CLM datasets either according to <code class="docutils literal notranslate"><span class="pre">CLM_USRDAT_NAME</span></code>. You may also need to modify DATM to use your forcing data. And you’ll need to change your forcing data to be in a format that DATM can use.</p>
 </div>
 </div>
@@ -225,7 +226,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="running-pts_mode-configurations.html" class="btn btn-neutral float-right" title="1.6.2. Running a single point using global data - PTS_MODE" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="running-single-point-subset-data.html" class="btn btn-neutral float-right" title="1.6.2. Running a single point using global data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="1.6. Running Single Point Regional Cases" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
