@@ -236,7 +236,8 @@ P. O. Box 3000, Boulder, Colorado 80307-3000</p>
 <p><a class="reference internal" href="../using-clm-tools/index.html#using-clm-tools-section"><span class="std std-ref">Using CLM tools</span></a> gives instructions on the CLM tools for either CLM4.5 or CTSM1 physics for creating input datasets for use by CLM, for the expert user. There’s an overview of what each tool does, and some general notes on how to build the FORTRAN tools. Then each tool is described in detail along with different ways in which the tool might be used. A final section on how to customize datasets for observational sites for very savvy expert users is given as the last section of this chapter.</p>
 <p>As a followup to the tools chapter, <a class="reference internal" href="../adding-new-resolutions/index.html#adding-new-resolutions-section"><span class="std std-ref">Adding New Resolutions</span></a> tells how to add files to the XML database for build-namelist to use. This is important if you want to use the XML database to automatically select user-created input files that you have created when you setup new cases with CLM (CLM4.0, CLM4.5 and CTSM1 physics).</p>
 <p>In <a class="reference internal" href="../running-special-cases/index.html#running-special-cases-section"><span class="std std-ref">Running Special Cases</span></a>, again for the expert user, we give details on how to do some particularly difficult special cases. For example, we give the protocol for spinning up the CTSM1-BGC and CLMCN models as well as CLM with dynamic vegetation active (CNDV). We give instructions to do a spinup case from a previous case with Coupler history output for atmospheric forcing. We also give instructions on running both the prognostic crop and irrigation models. Lastly we tell the user how to use the DATM model to send historical CO2 data to CLM.</p>
-<p><a class="reference internal" href="../running-single-points/index.html#running-single-points"><span class="std std-ref">Running Single Point Regional Cases</span></a> outlines how to do single-point or regional simulations using CTSM1. This is useful to either compare CTSM1 simulations with point observational stations, such as tower sites (which might include your own atmospheric forcing), or to do quick simulations with CLM for example to test a new parameterization. There are several different ways given on how to perform single-point simulations which range from simple PTS_MODE to more complex where you create all your own datasets, tying into <a class="reference internal" href="../using-clm-tools/index.html#using-clm-tools-section"><span class="std std-ref">Using CLM tools</span></a> and also <a class="reference internal" href="../adding-new-resolutions/index.html#adding-new-resolutions-section"><span class="std std-ref">Adding New Resolutions</span></a> to add the files into the build-namelist XML database.</p>
+<p><a class="reference internal" href="../running-single-points/index.html#running-single-points"><span class="std std-ref">Running Single Point Regional Cases</span></a> outlines how to do single-point or regional simulations using CTSM1. This is useful to either compare CTSM1 simulations with point observational stations, such as tower sites (which might include your own atmospheric forcing), or to do quick simulations with CLM for example to test a new parameterization. There are several different ways given on how to perform single-point simulations which range from simple sampling of existing inputs to more complex where you create all your own datasets, tying into <a class="reference internal" href="../using-clm-tools/index.html#using-clm-tools-section"><span class="std std-ref">Using CLM tools</span></a> and also <a class="reference internal" href="../adding-new-resolutions/index.html#adding-new-resolutions-section"><span class="std std-ref">Adding New Resolutions</span></a> to add the files into the build-namelist XML database.</p>
+<p>There is also <a class="reference internal" href="../running-single-points/running-pts_mode-configurations.html#pts-mode"><span class="std std-ref">Running a single point using global data - PTS_MODE</span></a>, which is useful for running single points as part of the Single Column Atmospheric Model (SCAM).</p>
 <p><a class="reference internal" href="../trouble-shooting/index.html#troubleshooting-index"><span class="std std-ref">Troubleshooting</span></a> gives some guidance on trouble-shooting problems when using CTSM1. It doesn’t cover all possible problems with CLM, but gives you some guidelines for things that can be done for some common problems.</p>
 <p><a class="reference internal" href="../testing/index.html#testing-section"><span class="std std-ref">Testing</span></a> goes over the automated testing scripts for validating that the CLM is working correctly. The test scripts run many different configurations and options with CLM4.0 physics as well and CTSM1 physics making sure that they work, as well as doing automated testing to verify restarts are working correctly, and testing at many different resolutions. In general this is an activity important only for a developer of CTSM1, but could also be used by users who are doing extensive code modifications and want to ensure that the model continues to work correctly.</p>
 <p>In the appendices we talk about some issues that are useful for advanced users and developers of CTSM1.</p>
@@ -245,9 +246,9 @@ P. O. Box 3000, Boulder, Colorado 80307-3000</p>
 <div class="section" id="readme-file-describing-version">
 <span id="readme"></span><h1><span class="section-number">1.1.4. </span>README file describing CTSM1<a class="headerlink" href="#readme-file-describing-version" title="Permalink to this headline">¶</a></h1>
 <p>The README (which can be found in <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/doc</span></code>) is repeated here.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$CTSMROOT/README                                          04/19/2023
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$CTSMROOT/README                                          09/05/2024
 
-Community Terrestrial Systems Model (CTSM) science version 5.2  series -- source code, tools, 
+Community Terrestrial Systems Model (CTSM) science version 5.3 series -- source code, tools, 
 offline-build and test scripts. This gives you everything you need
 to run CTSM with CESM with the CMEPS driver and CDEPS data models to provide CRU NCEP or GSWP3 forcing data in 
 place of a modeled atmosphere.
@@ -298,7 +299,7 @@ tools ------------- CTSM Offline tools to prepare input datasets and process out
 cime_config ------- Configuration files of cime for compsets and CTSM settings
 bin/git-fleximod -- Script to manage the needed sub-component source directories (handled with git submodule)
 py_env_create ----- Script to setup the python environment for CTSM python tools using conda
-python ------------ Python modules used in tools and testing and automated checking of ALL CTSM python scirpts
+python ------------ Python modules used in tools and testing and automated checking of ALL CTSM python scripts
 
 Directory structure only for a CTSM checkout:
 
@@ -313,6 +314,8 @@ components/cmeps -------------------- CESM top level driver (for NUOPC driver [w
 components/cdeps -------------------- CESM top level data model shared code (for NUOPC driver).
 components/cism --------------------- CESM Community land Ice Sheet Model.
 components/mosart ------------------- Model for Scale Adaptive River Transport
+components/mizuRoute ---------------- Reached based river transport model for water routing 
+                                      (allows both gridded river and Hydrologic Responce Unit river grids)
 components/rtm ---------------------- CESM River Transport Model.
 
 Top level documentation ($CTSMROOT):
@@ -321,6 +324,7 @@ README ------------------- This file
 README.md ---------------- File that displays on github under https::/github.com/ESCOMP/CTSM.git
 README.rst --------------- File that displays under the project in github
 README_GITFLEXIMOD.rst --- Information on how to work with git-fleximod for CTSM
+WhatsNewInCTSM5.3.md ----- Overview document of the changes between ctsm5.2.0 and ctsm5.3.0
 CODE_OF_CONDUCT.md ------- Code of Conduct for how to work with each other on the CTSM project
 Copyright ---------------- CESM Copyright file
 doc/UpdateChangeLog.pl --- Script to add documentation on a tag to the
@@ -351,17 +355,16 @@ run_sys_tests --------------- Python script to send the standard CTSM testing of
 parse_cime.cs.status -------- Script to parse test status files cs.status.* created by create_test
                               (can be used along with run_sys_tests)
 doc/Quickstart.GUIDE -------- Quick guide to using NUOPC scripts.
-doc/IMPORTANT_NOTES --------- Some important notes about this version of 
-                                                 CTSM, configuration modes and namelist items 
-                                                 that are not validated or functional.
+doc/IMPORTANT_NOTES.md ------ Some important notes about this version of 
+                              CTSM, configuration modes and namelist items 
+                              that are not validated or functional.
 doc/ChangeLog --------------- Detailed list of changes for each model version.
 doc/ChangeSum --------------- Summary one-line list of changes for each 
                               model version.
 doc/UsersGuide -------------- CTSM Users Guide
-doc/IMPORTANT_NOTES --------- Some important notes on caveats for some configurations/namelist items
 
 bld/README ------------------ Description of how to use the build-namelist scripts.
-bld/build-namelist ---------- Script to build CTSM namelists.
+bld/build-namelist ---------- Lower level script to build CTSM namelists.
 
 cime_config/buildnml ------------- Build the CTSM namelist for CIME
 cime_config/buildlib ------------- Build the CTSM library
@@ -371,14 +374,12 @@ cime_config/config_tests.xml ----- Define CTSM specific tests
 cime_config/config_pes.xml ------- Define Processor layouts for various CTSM grids and compsets
 cime_config/testdefs ------------- Directory for specification of CTSM testing
 cime_config/testdefs/ExpectedTestFails.xml -- List of tests that are expected to fail
-cime_config/usermods_dirs -------- Directories of sets of user-modification subdirs
+cime_config/usermods_dirs/clm ---- Directories of sets of user-modification subdirs
                                    (These are directories that add specific user modifications to
-                                    simulations created using &quot;cime/scripts/create_newcase --user-mods-dir&quot;.)
+                                    simulations created using &quot;cime/scripts/create_newcase --user-mods-dir clm/*)
 
 tools/mksurfdata_esmf --------- Directory to build program to create surface dataset 
                                 at any resolution.
-tools/mkprocdata_map ---------- Process history data from unstructed grids to a gridded 
-                                format.
 tools/mkmapgrids -------------- NCL script to create a SCRIP grid file for a regular lat/lon grid (deprecated)
 tools/crop_calendars ---------- Tools to process and process and create crop calendar datasets for CTSM
 tools/modify_input_files ------ Script to modify existing CTSM input datasets in standard ways
@@ -402,9 +403,9 @@ src/dyn_subgrid --- Dynamic land unit change
 src/init_interp --- Online interpolation
 scr/fates --------- FATES model and sub-directories 
                     Functionally Assembled Terrestrial Ecosystem Simulator (FATES)
-                    Experimental Ecosystem Demography model
+                    Ecosystem Demography model
 src/utils --------- Utility codes
-src/self_tests ---- Internal testing (unit tests run as a part of a CTSM simulation)
+src/self_tests ---- Internal testing (unit tests run as a part of a CTSM system test)
 src/unit_test_shr - Unit test shared modules for unit testing
 src/unit_test_stubs Unit test stubs that replicate CTSM code simpler
 

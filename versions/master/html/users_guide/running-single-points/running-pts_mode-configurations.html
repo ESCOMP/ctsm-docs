@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>1.6.2. Running a single point using global data - PTS_MODE &mdash; ctsm CTSM master documentation</title>
+  <title>1.6.4. Running a single point using global data - PTS_MODE &mdash; ctsm CTSM master documentation</title>
   
 
   
@@ -39,8 +39,8 @@
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="ctsm CTSM master documentation" href="../../index.html"/>
         <link rel="up" title="1.6. Running Single Point Regional Cases" href="index.html"/>
-        <link rel="next" title="1.6.3. Running Single Point Configurations" href="running-single-point-configurations.html"/>
-        <link rel="prev" title="1.6.1. Single and Regional Grid Configurations" href="single-point-and-regional-grid-configurations.html"/> 
+        <link rel="next" title="1.7. Troubleshooting" href="../trouble-shooting/index.html"/>
+        <link rel="prev" title="1.6.3. Running Single Point Configurations" href="running-single-point-configurations.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -115,11 +115,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../running-special-cases/index.html">1.5. Running Special Cases</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">1.6. Running Single Point Regional Cases</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="single-point-and-regional-grid-configurations.html">1.6.1. Single and Regional Grid Configurations</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">1.6.2. Running a single point using global data - PTS_MODE</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#running-in-a-single-processor">1.6.2.1. Running in a single processor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-single-point-subset-data.html">1.6.2. Running a single point using global data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-single-point-configurations.html">1.6.3. Running Single Point Configurations</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.6.4. Running a single point using global data - PTS_MODE</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#running-in-a-single-processor">1.6.4.1. Running in a single processor</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="running-single-point-configurations.html">1.6.3. Running Single Point Configurations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../trouble-shooting/index.html">1.7. Troubleshooting</a></li>
@@ -177,7 +178,7 @@
         
           <li><a href="index.html"><span class="section-number">1.6. </span>Running Single Point Regional Cases</a> &raquo;</li>
         
-      <li><span class="section-number">1.6.2. </span>Running a single point using global data - PTS_MODE</li>
+      <li><span class="section-number">1.6.4. </span>Running a single point using global data - PTS_MODE</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -197,7 +198,11 @@
            <div itemprop="articleBody">
             
   <div class="section" id="running-a-single-point-using-global-data-pts-mode">
-<span id="pts-mode"></span><h1><span class="section-number">1.6.2. </span>Running a single point using global data - PTS_MODE<a class="headerlink" href="#running-a-single-point-using-global-data-pts-mode" title="Permalink to this headline">¶</a></h1>
+<span id="pts-mode"></span><h1><span class="section-number">1.6.4. </span>Running a single point using global data - PTS_MODE<a class="headerlink" href="#running-a-single-point-using-global-data-pts-mode" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code class="docutils literal notranslate"><span class="pre">PTS_MODE</span></code> has been mostly deprecated in favor of <code class="docutils literal notranslate"><span class="pre">subset_data</span></code> (Sect. <a class="reference internal" href="running-single-point-subset-data.html#single-point-subset-data"><span class="std std-numref">1.6.2</span></a>). You should only consider using it if you are using the Single Column Atmospheric Model (SCAM).</p>
+</div>
 <p><code class="docutils literal notranslate"><span class="pre">PTS_MODE</span></code> enables you to run the model using global datasets, but just picking a single point from those datasets and operating on it. It can be a very quick way to do fast simulations and get a quick turnaround.</p>
 <p>To setup a <code class="docutils literal notranslate"><span class="pre">PTS_MODE</span></code> simulation you use the <code class="docutils literal notranslate"><span class="pre">-pts_lat</span></code> and <code class="docutils literal notranslate"><span class="pre">-pts_lon</span></code> arguments to <code class="docutils literal notranslate"><span class="pre">cime/scripts/create_newcase</span></code> to give the latitude and longitude of the point you want to simulate for (the code will pick the point on the global grid nearest to the point you give. Here’s an example to setup a simulation for the nearest point at 2-degree resolution to Boulder Colorado.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">cime</span><span class="o">/</span><span class="n">scripts</span>
@@ -218,7 +223,7 @@
 <p>You can change the point you are simulating for at run-time by changing the values of <code class="docutils literal notranslate"><span class="pre">PTS_LAT</span></code> and <code class="docutils literal notranslate"><span class="pre">PTS_LON</span></code> in the <code class="docutils literal notranslate"><span class="pre">env_run.xml</span></code> file.</p>
 </div>
 <div class="section" id="running-in-a-single-processor">
-<h2><span class="section-number">1.6.2.1. </span>Running in a single processor<a class="headerlink" href="#running-in-a-single-processor" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.6.4.1. </span>Running in a single processor<a class="headerlink" href="#running-in-a-single-processor" title="Permalink to this headline">¶</a></h2>
 <p>Note, that when running with <code class="docutils literal notranslate"><span class="pre">PTS_MODE</span></code> the number of processors is automatically set to one. When running a single grid point you can only use a single processor. You might also want to set the <code class="docutils literal notranslate"><span class="pre">env_build.xml</span></code> variable: <code class="docutils literal notranslate"><span class="pre">MPILIB=mpi-serial</span></code> to <code class="docutils literal notranslate"><span class="pre">TRUE</span></code> so that you can also run interactively without having to use MPI to start up your job.</p>
 <p>On many machines, batch queues have a minimum number of nodes or processors that can be used. On these machines you may have to change the queue and possibly the time-limits of the job, to get it to run in the batch queue. On the NCAR machine, cheyenne, this is done for you automatically, and the “share” or “caldera” queue is used for such single-processor simulations. For single point mode you also may want to consider using a smaller workstation or cluster, rather than a super-computer, because you can’t take advantage of the multi-processing power of the super-computer anyway.</p>
 </div>
@@ -234,10 +239,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="running-single-point-configurations.html" class="btn btn-neutral float-right" title="1.6.3. Running Single Point Configurations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../trouble-shooting/index.html" class="btn btn-neutral float-right" title="1.7. Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="single-point-and-regional-grid-configurations.html" class="btn btn-neutral" title="1.6.1. Single and Regional Grid Configurations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="running-single-point-configurations.html" class="btn btn-neutral" title="1.6.3. Running Single Point Configurations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -122,7 +122,7 @@
 <li class="toctree-l3"><a class="reference internal" href="Spinning-up-the-biogeochemistry-BGC-spinup.html">1.5.7. Spinup of CTSM1-BGC-Crop</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Running-with-excess-ground-ice.html">1.5.8. Running with excess ground ice</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">1.5.9. Running with MOAR data</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#example-simulation-with-moar-data-on-cheyenne">1.5.9.1. Example: Simulation with MOAR Data on cheyenne</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-simulation-with-moar-data-on-derecho">1.5.9.1. Example: Simulation with MOAR Data on derecho</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html">1.5.10. Running with atmospheric forcing from a previous simulation</a></li>
@@ -206,18 +206,22 @@
             
   <div class="section" id="running-with-moar-data">
 <span id="id1"></span><h1><span class="section-number">1.5.9. </span>Running with MOAR data<a class="headerlink" href="#running-with-moar-data" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These instructions are outdated and will not work. This page will be either updated or removed as part of the CTSM6/CLM3 release.</p>
+</div>
 <p>Because it takes so long to spinup the CN model (as we just saw previously), if you are doing fully coupled simulations with active atmosphere and ocean, you will want to do the spinup portion of this “offline”. So instead of doing expensive fully coupled simulations for the spinup duration, you run CLM in a very cheap “I” compset using atmospheric forcing from a shorter fully coupled simulation (or a simulation run previously by someone else).</p>
 <p>In this example we will use the <code class="docutils literal notranslate"><span class="pre">I1850Clm50BgcSpinup</span> <span class="pre">compset</span></code> to setup CLM to run with atmospheric forcing from a previous fully coupled simulation with data that is already stored on disk on Cheyenne. There are several simulations that have high frequency data for which we can do this. You can also do this on a machine other than Cheyenne, but would need to download the data from the Earth System Grid and change the datapath similar to Example <a class="reference internal" href="Running-with-your-own-previous-simulation-as-atmospheric-forcing-to-spinup-the-model.html#eg-sim-data-from-prev-sim"><span class="std std-numref">1.5.10.2</span></a>.</p>
-<div class="section" id="example-simulation-with-moar-data-on-cheyenne">
-<h2><span class="section-number">1.5.9.1. </span>Example: Simulation with MOAR Data on cheyenne<a class="headerlink" href="#example-simulation-with-moar-data-on-cheyenne" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="example-simulation-with-moar-data-on-derecho">
+<h2><span class="section-number">1.5.9.1. </span>Example: Simulation with MOAR Data on derecho<a class="headerlink" href="#example-simulation-with-moar-data-on-derecho" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">cd</span> <span class="n">cime</span><span class="o">/</span><span class="n">scripts</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">create_newcase</span> <span class="o">-</span><span class="n">case</span> <span class="n">MOARforce1850</span> <span class="o">-</span><span class="n">res</span> <span class="n">f19_g17_gl4</span> <span class="o">-</span><span class="n">compset</span> <span class="n">I1850Clm50BgcSpinup</span>
 <span class="o">&gt;</span> <span class="n">cd</span> <span class="n">MOARforce1850</span>
 <span class="c1"># The following sets the casename to point to for atm forcing (you could also use an editor)</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">DATM_CPL_CASE</span><span class="o">=</span><span class="n">b40</span><span class="o">.</span><span class="mf">1850.</span><span class="n">track1</span><span class="o">.</span><span class="mi">1</span><span class="n">deg</span><span class="o">.</span><span class="mi">006</span><span class="n">a</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">DATM_CPLHIST_CASE</span><span class="o">=</span><span class="n">b40</span><span class="o">.</span><span class="mf">1850.</span><span class="n">track1</span><span class="o">.</span><span class="mi">1</span><span class="n">deg</span><span class="o">.</span><span class="mi">006</span><span class="n">a</span>
 <span class="c1"># The following sets the align year and years to run over for atm forcing</span>
 <span class="c1">#  (you could also use an editor)</span>
-<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">DATM_CPL_YR_ALIGN</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">DATM_CPL_YR_START</span><span class="o">=</span><span class="mi">960</span><span class="p">,</span><span class="n">DATM_CPL_YR_END</span><span class="o">=</span><span class="mi">1030</span>
+<span class="o">&gt;</span> <span class="o">./</span><span class="n">xmlchange</span> <span class="n">DATM_YR_ALIGN</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">DATM_YR_START</span><span class="o">=</span><span class="mi">960</span><span class="p">,</span><span class="n">DATM_YR_END</span><span class="o">=</span><span class="mi">1030</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">setup</span>
 <span class="c1"># Now build and run as normal</span>
 <span class="o">&gt;</span> <span class="o">./</span><span class="n">case</span><span class="o">.</span><span class="n">build</span>

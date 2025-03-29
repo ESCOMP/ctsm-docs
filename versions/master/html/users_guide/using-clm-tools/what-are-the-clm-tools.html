@@ -114,8 +114,6 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">1.3.1. What are the CLM tools</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#running-fortran-tools-with-namelists">1.3.1.1. Running FORTRAN tools with namelists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#running-fortran-tools-with-command-line-options">1.3.1.2. Running FORTRAN tools with command line options</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#running-fortran-tools-built-with-smp-true">1.3.1.3. Running FORTRAN tools built with SMP=TRUE</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#using-ncl">1.3.1.4. Using NCL</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="building-the-clm-tools.html">1.3.2. Building the CLM tools</a></li>
@@ -217,18 +215,18 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">./mkmapgrids</span></code> to create SCRIP grid data files from old CLM format grid files that can then be used to create new CLM datasets (deprecated). There is also a NCL script (<code class="docutils literal notranslate"><span class="pre">./mkmapgrids/mkscripgrid.ncl</span></code>) to create SCRIP grid files for regular latitude/longitude grids.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">./mkmapdata</span></code> to create SCRIP mapping data file from SCRIP grid files (uses ESMF).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mksurfdata_esmf</span></code> to create surface datasets from grid datasets (clm4_0 and CTSM1 versions).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">./mkprocdata_map</span></code> to interpolate output unstructured grids (such as the CAM HOMME dy-core “ne” grids like ne30np4) into a 2D regular lat/long grid format that can be plotted easily. Can be used by either clm4_0 or CTSM1.</p></li>
 </ol>
 <div class="admonition-todo admonition" id="id3">
 <p class="admonition-title">Todo</p>
 <p>Update the below, as domain files aren’t needed with nuopc.</p>
 </div>
 <ol class="arabic simple">
+<li><p><em>$CIMEROOT/tools/mapping/gen_domain_files/gen_domain</em> to create a domain file for datm from a mapping file. The domain file is then used by BOTH datm AND CLM to define the grid and land-mask.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">$CIMEROOT/tools/mapping/gen_domain_files/gen_domain</span></code> to create a domain file for datm from a mapping file. The domain file is then used by BOTH datm AND CLM to define the grid and land-mask.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">$CIMEROOT/tools/cprnc</span></code> to compare two NetCDF files.</p></li>
 </ol>
 <p>In the sections to come we will go into detailed description of how to use each of these tools in turn. First, however we will discuss the common environment variables and options that are used by all of the FORTRAN tools. Second, we go over the outline of the entire file creation process for all input files needed by CLM for a new resolution, then we turn to each tool. In the last section we will discuss how to customize files for particular observational sites.</p>
-<p>The FORTRAN tools (<code class="docutils literal notranslate"><span class="pre">mksurfdata_esmf</span></code> and <code class="docutils literal notranslate"><span class="pre">mkprocdata_map</span></code>) run, with a namelist (<code class="docutils literal notranslate"><span class="pre">mksurfdata_esmf</span></code>) to provide options, or with command line arguments (<code class="docutils literal notranslate"><span class="pre">mkprocdata_map</span></code>).</p>
+<p>The FORTRAN tool (<code class="docutils literal notranslate"><span class="pre">mksurfdata_esmf</span></code>) runs, with a namelist and has a namelist builder for it.</p>
 <p>In the following sections, we will outline how to make these files available for build-namelist so that you can easily create simulations that include them. In the chapter on single-point and regional datasets we also give an alternative way to enter new datasets without having to edit files.</p>
 <div class="section" id="running-fortran-tools-with-namelists">
 <h2><span class="section-number">1.3.1.1. </span>Running FORTRAN tools with namelists<a class="headerlink" href="#running-fortran-tools-with-namelists" title="Permalink to this headline">¶</a></h2>
@@ -236,27 +234,18 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">program</span> <span class="o">&lt;</span> <span class="n">namelist</span>
 </pre></div>
 </div>
-<p>There is a sample namelist called <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/tools/mksurfdata_esmf/gen_mksurfdata_namelist.xml</span></code> that shows you what the namelist should look like. <code class="docutils literal notranslate"><span class="pre">mksurfdata_esmf</span></code> also has a script that creates the namelist and runs the program for you. Namelists that you create should be similar to the example namelist. The namelist values are also documented along with the other namelists in the <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/bld/namelist_files/namelist_definition_ctsm.xml</span></code> file, with default values in the <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/bld/namelist_files/namelist_defaults_ctsm.xml</span></code> file.</p>
+<p><strong>mksurfdata_esmf</strong> also has a script that creates the namelist and runs the program for you. The namelist values are also documented along with the other namelists in the:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$CTSMROOT/tools/mksurfdata_esmf/gen_mksurfdata_namelist.xml`` file
+</pre></div>
+</div>
 </div>
 <div class="section" id="running-fortran-tools-with-command-line-options">
 <h2><span class="section-number">1.3.1.2. </span>Running FORTRAN tools with command line options<a class="headerlink" href="#running-fortran-tools-with-command-line-options" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="id4">
 <p class="admonition-title">Todo</p>
-<p>Remove reference to mkprocdata_map?</p>
-</div>
-<div class="admonition-todo admonition" id="id5">
-<p class="admonition-title">Todo</p>
 <p>Update the below, as domain files aren’t needed with nuopc.</p>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">gen_domain</span></code>, <code class="docutils literal notranslate"><span class="pre">mkprocdata_map</span></code>, and <code class="docutils literal notranslate"><span class="pre">cprnc</span></code> run with command line arguments. The detailed sections below will give you more information on the command line arguments specific to each tool. Also running the tool without any arguments will give you a general synopsis on how to run the tool.</p>
-</div>
-<div class="section" id="running-fortran-tools-built-with-smp-true">
-<h2><span class="section-number">1.3.1.3. </span>Running FORTRAN tools built with SMP=TRUE<a class="headerlink" href="#running-fortran-tools-built-with-smp-true" title="Permalink to this headline">¶</a></h2>
-<p>When you enable <code class="docutils literal notranslate"><span class="pre">SMP=TRUE</span></code> on your build of one of the tools that make use of it, you are using OpenMP for shared memory parallelism (SMP). In SMP loops are run in parallel with different threads run on different processors all of which access the same memory (called on-node). Thus you can only usefully run up to the number of processors that are available on a single-node of the machine you are running on. For example, on the NCAR machine cheyenne there are 36 processors per node, so you can use up to 36 processors.</p>
-</div>
-<div class="section" id="using-ncl">
-<span id="id6"></span><h2><span class="section-number">1.3.1.4. </span>Using NCL<a class="headerlink" href="#using-ncl" title="Permalink to this headline">¶</a></h2>
-<p>In the tools directory <code class="docutils literal notranslate"><span class="pre">$CTSMROOT/tools/ncl_scripts</span></code> and in a few other locations there are scripts that use NCAR Command Language (NCL). Unlike the FORTRAN tools, you will need to get a copy of NCL in order to use them. You also won’t have to build an executable in order to use them, hence no Makefile is provided. NCL is provided for free download as either binaries or source code from: <a class="reference external" href="http://www.ncl.ucar.edu/">http://www.ncl.ucar.edu/</a>. The NCL web-site also contains documentation on NCL and it’s use. These scripts are stand-alone and at most use environment variables to control how to use them. In some cases there are perl scripts with command line arguments that call the NCL scripts to control what they do.</p>
+<p><strong>gen_domain</strong> and <strong>cprnc</strong> run with command line arguments. The detailed sections below will give you more information on the command line arguments specific to each tool. Also running the tool without any arguments will give you a general synopsis on how to run the tool.</p>
 </div>
 </div>
 

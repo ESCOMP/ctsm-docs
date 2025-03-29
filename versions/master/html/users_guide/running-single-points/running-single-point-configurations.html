@@ -39,8 +39,8 @@
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="ctsm CTSM master documentation" href="../../index.html"/>
         <link rel="up" title="1.6. Running Single Point Regional Cases" href="index.html"/>
-        <link rel="next" title="1.7. Troubleshooting" href="../trouble-shooting/index.html"/>
-        <link rel="prev" title="1.6.2. Running a single point using global data - PTS_MODE" href="running-pts_mode-configurations.html"/> 
+        <link rel="next" title="1.6.4. Running a single point using global data - PTS_MODE" href="running-pts_mode-configurations.html"/>
+        <link rel="prev" title="1.6.2. Running a single point using global data" href="running-single-point-subset-data.html"/> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -115,13 +115,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../running-special-cases/index.html">1.5. Running Special Cases</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">1.6. Running Single Point Regional Cases</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="single-point-and-regional-grid-configurations.html">1.6.1. Single and Regional Grid Configurations</a></li>
-<li class="toctree-l3"><a class="reference internal" href="running-pts_mode-configurations.html">1.6.2. Running a single point using global data - PTS_MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="running-single-point-subset-data.html">1.6.2. Running a single point using global data</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">1.6.3. Running Single Point Configurations</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#single-point-runs-with-global-climate-forcings">1.6.3.1. Single-point runs with global climate forcings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#supported-single-point-runs-for-sites-with-their-own-atmospheric-forcing">1.6.3.2. Supported single-point runs for sites with their own atmospheric forcing</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#creating-your-own-single-point-dataset">1.6.3.3. Creating your own single-point dataset</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="running-pts_mode-configurations.html">1.6.4. Running a single point using global data - PTS_MODE</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../trouble-shooting/index.html">1.7. Troubleshooting</a></li>
@@ -200,7 +201,7 @@
             
   <div class="section" id="running-single-point-configurations">
 <span id="running-single-point-datasets"></span><h1><span class="section-number">1.6.3. </span>Running Single Point Configurations<a class="headerlink" href="#running-single-point-configurations" title="Permalink to this headline">¶</a></h1>
-<p>In addition to <code class="docutils literal notranslate"><span class="pre">PTS_MODE</span></code> (Sect. <a class="reference internal" href="running-pts_mode-configurations.html#pts-mode"><span class="std std-numref">1.6.2</span></a>), CLM supports running using single-point or regional datasets that are customized to a particular region. CLM supports a a small number of out-of-the-box single-point and regional datasets. However, users can create their own dataset.</p>
+<p>In addition to running with the outputs of <code class="docutils literal notranslate"><span class="pre">subset_data</span></code> (Sect. <a class="reference internal" href="running-single-point-subset-data.html#single-point-subset-data"><span class="std std-numref">1.6.2</span></a>), CLM supports running using single-point or regional datasets that are customized to a particular region. CLM supports a a small number of out-of-the-box single-point and regional datasets. However, users can create their own dataset.</p>
 <p>To get the list of supported dataset resolutions do this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt; cd $CTSMROOT/doc
 &gt; ../bld/build-namelist -res list
@@ -225,7 +226,7 @@
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Just like <code class="docutils literal notranslate"><span class="pre">PTS_MODE</span></code> (Sect. <a class="reference internal" href="running-pts_mode-configurations.html#pts-mode"><span class="std std-numref">1.6.2</span></a>), by default these setups sometimes run with <code class="docutils literal notranslate"><span class="pre">MPILIB=mpi-serial</span></code> (in the <code class="docutils literal notranslate"><span class="pre">env_build.xml</span></code> file) turned on, which allows you to run the model interactively. On some machines this mode is NOT supported and you may need to change it to FALSE before you are able to build.</p>
+<p>Just like running with the outputs from <code class="docutils literal notranslate"><span class="pre">subset_data</span></code> (Sect. <a class="reference internal" href="running-single-point-subset-data.html#single-point-subset-data"><span class="std std-numref">1.6.2</span></a>), by default these setups sometimes run with <code class="docutils literal notranslate"><span class="pre">MPILIB=mpi-serial</span></code> (in the <code class="docutils literal notranslate"><span class="pre">env_build.xml</span></code> file) turned on, which allows you to run the model interactively. On some machines this mode is NOT supported and you may need to change it to FALSE before you are able to build.</p>
 </div>
 <div class="section" id="single-point-runs-with-global-climate-forcings">
 <span id="single-point-global-climate"></span><h2><span class="section-number">1.6.3.1. </span>Single-point runs with global climate forcings<a class="headerlink" href="#single-point-runs-with-global-climate-forcings" title="Permalink to this headline">¶</a></h2>
@@ -410,10 +411,10 @@ $MYCSMDATA/lnd/clm2/surfdata_map/surfdata_${GRIDNAME}_simyr1850.nc
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../trouble-shooting/index.html" class="btn btn-neutral float-right" title="1.7. Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="running-pts_mode-configurations.html" class="btn btn-neutral float-right" title="1.6.4. Running a single point using global data - PTS_MODE" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="running-pts_mode-configurations.html" class="btn btn-neutral" title="1.6.2. Running a single point using global data - PTS_MODE" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="running-single-point-subset-data.html" class="btn btn-neutral" title="1.6.2. Running a single point using global data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
