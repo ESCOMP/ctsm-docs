@@ -38,7 +38,7 @@
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="ctsm CTSM master documentation" href="../../index.html"/>
-        <link rel="up" title="1.6. Running Single Point Regional Cases" href="index.html"/>
+        <link rel="up" title="1.6. Running Single Point and Regional Cases" href="index.html"/>
         <link rel="next" title="1.6.3. Running Single Point Configurations" href="running-single-point-configurations.html"/>
         <link rel="prev" title="1.6.1. Single and Regional Grid Configurations" href="single-point-and-regional-grid-configurations.html"/> 
 
@@ -113,7 +113,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../using-clm-tools/index.html">1.3. Using CLM tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../adding-new-resolutions/index.html">1.4. Adding New Resolutions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../running-special-cases/index.html">1.5. Running Special Cases</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">1.6. Running Single Point Regional Cases</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">1.6. Running Single Point and Regional Cases</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="single-point-and-regional-grid-configurations.html">1.6.1. Single and Regional Grid Configurations</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">1.6.2. Running a single point using global data</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#subset-the-data">1.6.2.1. Subset the data</a></li>
@@ -177,7 +177,7 @@
         
           <li><a href="../index.html"><span class="section-number">1. </span>CTSM1 User’s Guide</a> &raquo;</li>
         
-          <li><a href="index.html"><span class="section-number">1.6. </span>Running Single Point Regional Cases</a> &raquo;</li>
+          <li><a href="index.html"><span class="section-number">1.6. </span>Running Single Point and Regional Cases</a> &raquo;</li>
         
       <li><span class="section-number">1.6.2. </span>Running a single point using global data</li>
     
@@ -207,7 +207,7 @@
 <p>Note that you will need to have a python environment set up that includes the packages <code class="docutils literal notranslate"><span class="pre">scipy</span></code>, <code class="docutils literal notranslate"><span class="pre">xarray</span></code>, and <code class="docutils literal notranslate"><span class="pre">numpy</span></code>. If you have conda or miniconda installed, you can create a conda environment for this and other CTSM python tools using the script <code class="docutils literal notranslate"><span class="pre">py_env_create</span></code> at the top level of your CTSM checkout. See <a class="reference internal" href="../using-clm-tools/using-ctsm-pylib.html#using-ctsm-pylib"><span class="std std-ref">Installing the CTSM Python environment</span></a> for more information.</p>
 <p>To subset surface data and climate forcings (DATM) for a single point, use the command:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>tools/site_and_regional/subset_data point <span class="se">\</span>
-   --lat <span class="nv">$my_lat</span> --lon <span class="nv">$my_lon</span> --site <span class="nv">$my_site_name</span> <span class="se">\</span>
+   --lat <span class="nv">$my_lat</span> --lon <span class="nv">$my_lon</span> --lon-type <span class="nv">$my_lon_type</span> --site <span class="nv">$my_site_name</span> <span class="se">\</span>
    --create-surface --create-datm <span class="se">\</span>
    --datm-syr <span class="nv">$my_start_year</span> --datm-eyr <span class="nv">$my_end_year</span> <span class="se">\</span>
    --create-user-mods --outdir <span class="nv">$my_output_dir</span>
@@ -215,14 +215,18 @@
 </div>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">$my_lat</span></code>: latitude of point, <em>must be between -90 and 90 degrees</em>. E.g., Boulder, CO, USA: 40.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">$my_lon</span></code>: longitude of point, <em>must be between 0 and 360 degrees</em>. E.g., Boulder, CO, USA: 55.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$my_lon</span></code>: longitude of point. <em>Must be between -180 and 360 degrees.</em> E.g., Boulder, CO, USA: 255 or -105.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$my_lon_type</span></code>: 180 if your longitude is in the [-180, 180] format (i.e., centered at the Prime/0th Meridian); 360 if it’s in the [0, 360] format (i.e., centered at the 180th Meridian). Note that <code class="docutils literal notranslate"><span class="pre">--lon-type</span> <span class="pre">$my_lon_type</span></code> is not necessary if your longitude is unambiguous—i.e., it’s only needed if your longitude is in the range [0, 180].</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">$my_site_name</span></code>: name of site, <em>used for file naming</em></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">$my_start_year</span></code>: start year for DATM data to subset, <em>default between 1901 and 2014</em></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">$my_end_year</span></code>: end year for DATM data to subset, <em>default between 1901 and 2014; the default CRUJRA2024 DATM data ends in 2023, while the old default GSWP3 ends in 2015; see note below about switching the default DATM data</em></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">$my_output_dir</span></code>: output directory to place the subset data and user_mods directory. This should be something specific to <em>just</em> your data for <code class="docutils literal notranslate"><span class="pre">$my_site_name</span></code>.</p></li>
 </ul>
 <p>You can also have the script subset land-use data. See the help (<code class="docutils literal notranslate"><span class="pre">tools/site_and_regional/subset_data</span> <span class="pre">--help</span></code>) for all argument options.</p>
-<p><strong>Note that this script defaults to subsetting specific surface, domain, and land-use files and the CRUJRA2024 DATM data, and can currently only be run as-is on Derecho. If you’re not on Derecho, use the ``–inputdata-dir`` to specify where the top level of your CESM input data is. Also, to subset GSWP3 instead of CRUJRA2024 DATM data, you currently need to hardwire datm_type = “datm_gswp3” (instead of the default “datm_crujra”) in python/ctsm/subset_data.py.</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This script defaults to subsetting specific surface, domain, and land-use files and the CRUJRA2024 DATM data, and can currently only be run as-is on Derecho. If you’re not on Derecho, use <code class="docutils literal notranslate"><span class="pre">--inputdata-dir</span></code> to specify where the top level of your CESM input data is. Also, to subset GSWP3 instead of CRUJRA2024 DATM data, you currently need to hardwire <code class="docutils literal notranslate"><span class="pre">datm_type</span> <span class="pre">=</span> <span class="pre">&quot;datm_gswp3&quot;</span></code> (instead of the default <code class="docutils literal notranslate"><span class="pre">&quot;datm_crujra&quot;</span></code>) in <code class="docutils literal notranslate"><span class="pre">python/ctsm/subset_data.py</span></code>.</p>
+</div>
 <p>The <code class="docutils literal notranslate"><span class="pre">--create-user-mods</span></code> command tells the script to set up a user mods directory in your specified <code class="docutils literal notranslate"><span class="pre">$my_output_dir</span></code> and to specify the required <code class="docutils literal notranslate"><span class="pre">PTS_LAT</span></code> and <code class="docutils literal notranslate"><span class="pre">PTS_LON</span></code> settings. You can then use this user mods directory to set up your CTSM case, as described below.</p>
 </div>
 <div class="section" id="create-the-case">
