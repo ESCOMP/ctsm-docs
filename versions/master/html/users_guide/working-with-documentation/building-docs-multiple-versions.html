@@ -6,8 +6,8 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1.10.2. Building multiple versions of the documentation &mdash; ctsm CTSM master documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+  <title>1.10.4. Building multiple versions of the documentation &mdash; ctsm CTSM master documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=a16e412b" />
 
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="1.10.3. Caveats for working with Markdown" href="caveats-for-working-with-markdown.html" />
-    <link rel="prev" title="1.10.1. Introduction to working with the CTSM documentation" href="docs-intro-and-recommended.html" /> 
+    <link rel="next" title="1.10.5. Tips for working with Markdown" href="tips-for-working-with-markdown.html" />
+    <link rel="prev" title="1.10.3. Initial setup: Windows" href="building-docs-prereqs-windows.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -55,10 +55,16 @@
 <li class="toctree-l2"><a class="reference internal" href="../testing/index.html">1.8. Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../using-mesh-maker/index.html">1.9. Using mesh_maker</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">1.10. Working with CTSM Documentation</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="docs-intro-and-recommended.html">1.10.1. Introduction to working with the CTSM documentation</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">1.10.2. Building multiple versions of the documentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="caveats-for-working-with-markdown.html">1.10.3. Caveats for working with Markdown</a></li>
-<li class="toctree-l3"><a class="reference internal" href="building-docs-original-wiki.html">1.10.4. ⚠️ Original docs documentation from the GitHub Wiki</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docs-intro-and-recommended.html">1.10.1. Working with the CTSM documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="building-docs-prereqs-mac.html">1.10.2. Initial setup: Mac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="building-docs-prereqs-windows.html">1.10.3. Initial setup: Windows</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.10.4. Building multiple versions of the documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-this-works">1.10.4.1. How this works</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tips-for-working-with-markdown.html">1.10.5. Tips for working with Markdown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips-for-working-with-rst.html">1.10.6. Tips for working with reStructuredText</a></li>
+<li class="toctree-l3"><a class="reference internal" href="building-docs-original-wiki.html">1.10.7. ⚠️ Original docs documentation from the GitHub Wiki</a></li>
 </ul>
 </li>
 </ul>
@@ -83,9 +89,9 @@
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html"><span class="section-number">1. </span>CTSM1 User’s Guide</a></li>
           <li class="breadcrumb-item"><a href="index.html"><span class="section-number">1.10. </span>Working with CTSM Documentation</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">1.10.2. </span>Building multiple versions of the documentation</li>
+      <li class="breadcrumb-item active"><span class="section-number">1.10.4. </span>Building multiple versions of the documentation</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/users_guide/working-with-documentation/building-docs-multiple-versions.md.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/users_guide/working-with-documentation/building-docs-multiple-versions.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -94,24 +100,46 @@
            <div itemprop="articleBody">
              
   <section id="building-multiple-versions-of-the-documentation">
-<span id="building-docs-multiple-versions"></span><h1><span class="section-number">1.10.2. </span>Building multiple versions of the documentation<a class="headerlink" href="#building-multiple-versions-of-the-documentation" title="Link to this heading"></a></h1>
-<p>There is a menu in the lower left of the webpage that lets readers switch between different versions of the documentation. Populating this menu involves a few steps.</p>
-<p>First, look at the <code class="docutils literal notranslate"><span class="pre">version_list</span></code> line in <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code>. Edit that list as needed so it contains the name of each version you want.</p>
-<p>Next, you will need to build the documentation once for each version. To build a version called <code class="docutils literal notranslate"><span class="pre">latest</span></code>, you would first check out the corresponding version of the docs, then do:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>doc
-./build_docs<span class="w"> </span>-r<span class="w"> </span><span class="nv">$HOME</span>/path/to/build-dir<span class="w"> </span>-d<span class="w"> </span>-v<span class="w"> </span>latest
+<span id="building-docs-multiple-versions"></span><h1><span class="section-number">1.10.4. </span>Building multiple versions of the documentation<a class="headerlink" href="#building-multiple-versions-of-the-documentation" title="Link to this heading"></a></h1>
+<p>There is a menu in the lower left of the webpage that lets readers switch between different versions of the documentation. To build a website with this menu properly set up—so that all our versions appear and all the links work—you need to use <code class="docutils literal notranslate"><span class="pre">docs/build_docs_to_publish</span></code> instead of <code class="docutils literal notranslate"><span class="pre">docs/build_docs</span></code>.</p>
+<p>If you’d like to try, this will generate a local site for you in <code class="docutils literal notranslate"><span class="pre">_publish/</span></code> and then open it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./build_docs_to_publish -r _build -d --site-root &quot;$PWD/_publish&quot; ${containercli}
+open _publish/index.html
 </pre></div>
 </div>
-<p>This will build the documentation in <code class="docutils literal notranslate"><span class="pre">$HOME/path/to/build-dir/versions/latest</span></code>. Open <code class="docutils literal notranslate"><span class="pre">$HOME/path/to/build-dir/versions/latest/html/index.html</span></code> to see the result.</p>
-<p>You can also leave off the <code class="docutils literal notranslate"><span class="pre">-v</span> <span class="pre">latest</span></code>, in which case the current Git branch name will be used as the version name. Note, though, that in this case you will need to manually create the <code class="docutils literal notranslate"><span class="pre">$HOME/path/to/build-dir/versions/branch-name/</span></code> directory if it doesn’t already exist.</p>
+<section id="how-this-works">
+<h2><span class="section-number">1.10.4.1. </span>How this works<a class="headerlink" href="#how-this-works" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">build_docs_to_publish</span></code> loops through the <code class="docutils literal notranslate"><span class="pre">VERSION_LIST</span></code> variable in <code class="docutils literal notranslate"><span class="pre">doc/version_list.py</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Branch name, tag, or commit SHA whose version of certain files we want to preserve</span>
+<span class="n">LATEST_REF</span> <span class="o">=</span> <span class="n">get_git_head_or_branch</span><span class="p">()</span>
+
+<span class="c1"># List of version definitions</span>
+<span class="n">VERSION_LIST</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">DocsVersion</span><span class="p">(</span>
+        <span class="n">short_name</span><span class="o">=</span><span class="s2">&quot;latest&quot;</span><span class="p">,</span>
+        <span class="n">display_name</span><span class="o">=</span><span class="s2">&quot;Latest development code&quot;</span><span class="p">,</span>
+        <span class="n">landing_version</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">ref</span><span class="o">=</span><span class="n">LATEST_REF</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">DocsVersion</span><span class="p">(</span>
+        <span class="n">short_name</span><span class="o">=</span><span class="s2">&quot;release-clm5.0&quot;</span><span class="p">,</span>
+        <span class="n">display_name</span><span class="o">=</span><span class="s2">&quot;CLM5.0&quot;</span><span class="p">,</span>
+        <span class="n">ref</span><span class="o">=</span><span class="s2">&quot;release-clm5.0&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>For each member of <cite>VERSION_LIST</cite>, <code class="docutils literal notranslate"><span class="pre">build_docs_to_publish</span></code> checks out its <cite>ref</cite>, then builds the documentation in a build directory. (<cite>LATEST_REF</cite> is set because some files, folders, and submodules are important for how the build works and need to stay the same for each build.) Once the build is complete, <code class="docutils literal notranslate"><span class="pre">build_docs_to_publish</span></code> should reset your local repo copy (CTSM clone) to how it was before you called <code class="docutils literal notranslate"><span class="pre">build_docs_to_publish</span></code>.</p>
+<p>Next, <code class="docutils literal notranslate"><span class="pre">build_docs_to_publish</span></code> moves the HTML files from the build directory to the publish directory. The publish directory has a structure that matches the paths in the version dropdown menu’s links. If a member of <code class="docutils literal notranslate"><span class="pre">VERSION_LIST</span></code> has <code class="docutils literal notranslate"><span class="pre">landing_version=True</span></code>, its HTML will be at the top level. That makes it simple for people to find the default version of the docs at <a class="reference external" href="https://escomp.github.io/CTSM">https://escomp.github.io/CTSM</a>, rather than having to drill down further into something like <code class="docutils literal notranslate"><span class="pre">https://escomp.github.io/CTSM/versions/latest</span></code>.</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="docs-intro-and-recommended.html" class="btn btn-neutral float-left" title="1.10.1. Introduction to working with the CTSM documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="caveats-for-working-with-markdown.html" class="btn btn-neutral float-right" title="1.10.3. Caveats for working with Markdown" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="building-docs-prereqs-windows.html" class="btn btn-neutral float-left" title="1.10.3. Initial setup: Windows" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tips-for-working-with-markdown.html" class="btn btn-neutral float-right" title="1.10.5. Tips for working with Markdown" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -135,7 +163,7 @@
   </div>
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
-    Version: master
+    Version: Latest development code
     <span class="fa fa-caret-down"></span>
   </span>
   <div class="rst-other-versions">
@@ -144,9 +172,9 @@
     <dl>
       <dt>Versions</dt>
       
-        <dd><a href="../../../../versions/master/html/index.html">master</a></dd>
+        <dd><a href="https://escomp.github.io/ctsm-docs//index.html">Latest development code</a></dd>
       
-        <dd><a href="../../../../versions/release-clm5.0/html/index.html">release-clm5.0</a></dd>
+        <dd><a href="https://escomp.github.io/ctsm-docs/release-clm5.0/index.html">CLM5.0</a></dd>
       
     </dl>
     
