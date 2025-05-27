@@ -6,8 +6,8 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1.10.1. Introduction to working with the CTSM documentation &mdash; ctsm CTSM master documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+  <title>1.10.1. Working with the CTSM documentation &mdash; ctsm CTSM master documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=a16e412b" />
 
@@ -20,7 +20,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="1.10.2. Caveats for working with Markdown" href="caveats-for-working-with-markdown.html" />
+    <link rel="next" title="1.10.2. Initial setup: Mac" href="building-docs-prereqs-mac.html" />
     <link rel="prev" title="1.10. Working with CTSM Documentation" href="index.html" /> 
 </head>
 
@@ -55,14 +55,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../testing/index.html">1.8. Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../using-mesh-maker/index.html">1.9. Using mesh_maker</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">1.10. Working with CTSM Documentation</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">1.10.1. Introduction to working with the CTSM documentation</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#documentation-source-files">1.10.1.1. Documentation source files</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#editing-the-documentation">1.10.1.2. Editing the documentation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.10.1. Working with the CTSM documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#one-time-setup">1.10.1.1. One-time setup</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">1.10.1.2. Editing the documentation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#building-the-documentation-recommended-method">1.10.1.3. Building the documentation (recommended method)</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="caveats-for-working-with-markdown.html">1.10.2. Caveats for working with Markdown</a></li>
-<li class="toctree-l3"><a class="reference internal" href="building-docs-original-wiki.html">1.10.3. Original docs documentation from the GitHub Wiki</a></li>
+<li class="toctree-l3"><a class="reference internal" href="building-docs-prereqs-mac.html">1.10.2. Initial setup: Mac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="building-docs-prereqs-windows.html">1.10.3. Initial setup: Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="building-docs-multiple-versions.html">1.10.4. Building multiple versions of the documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips-for-working-with-markdown.html">1.10.5. Tips for working with Markdown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips-for-working-with-rst.html">1.10.6. Tips for working with reStructuredText</a></li>
+<li class="toctree-l3"><a class="reference internal" href="building-docs-original-wiki.html">1.10.7. ⚠️ Original docs documentation from the GitHub Wiki</a></li>
 </ul>
 </li>
 </ul>
@@ -87,7 +91,7 @@
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html"><span class="section-number">1. </span>CTSM1 User’s Guide</a></li>
           <li class="breadcrumb-item"><a href="index.html"><span class="section-number">1.10. </span>Working with CTSM Documentation</a></li>
-      <li class="breadcrumb-item active"><span class="section-number">1.10.1. </span>Introduction to working with the CTSM documentation</li>
+      <li class="breadcrumb-item active"><span class="section-number">1.10.1. </span>Working with the CTSM documentation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/users_guide/working-with-documentation/docs-intro-and-recommended.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -97,39 +101,40 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="introduction-to-working-with-the-ctsm-documentation">
-<h1><span class="section-number">1.10.1. </span>Introduction to working with the CTSM documentation<a class="headerlink" href="#introduction-to-working-with-the-ctsm-documentation" title="Link to this heading"></a></h1>
-<section id="documentation-source-files">
-<h2><span class="section-number">1.10.1.1. </span>Documentation source files<a class="headerlink" href="#documentation-source-files" title="Link to this heading"></a></h2>
-<p>The CTSM documentation is built from files in the <code class="docutils literal notranslate"><span class="pre">doc/source/tech_note/</span></code> and <code class="docutils literal notranslate"><span class="pre">doc/source/users_guide/</span></code> directories. These files are written in a mixture of what are called “markup languages.” You may already be familiar—for better or for worse—with the LaTeX markup language. Fortunately, our documentation is simpler than that. It was originally written entirely in <a class="reference external" href="http://www.sphinx-doc.org/en/stable/rest.html">reStructuredText</a>, and it still mostly is, as you can tell by the predominance of .rst files. However, it’s also possible to write Markdown documents (.md), which is nice because it’s a much simpler and more widespread format (although see <a class="reference internal" href="caveats-for-working-with-markdown.html#caveats-for-working-with-markdown"><span class="std std-ref">Caveats for working with Markdown</span></a>). If you’ve formatted text on GitHub, for instance, you’ve used Markdown.</p>
+  <section id="working-with-the-ctsm-documentation">
+<span id="docs-intro-and-recommended"></span><h1><span class="section-number">1.10.1. </span>Working with the CTSM documentation<a class="headerlink" href="#working-with-the-ctsm-documentation" title="Link to this heading"></a></h1>
+<section id="one-time-setup">
+<span id="editing-the-documentation"></span><h2><span class="section-number">1.10.1.1. </span>One-time setup<a class="headerlink" href="#one-time-setup" title="Link to this heading"></a></h2>
+<p>In addition to a CTSM checkout in which to work, you will need to have some software installed in order to build the documentation:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="building-docs-prereqs-mac.html#building-docs-prereqs-mac"><span class="std std-ref">Initial setup: Mac</span></a></p></li>
+<li><p><a class="reference internal" href="building-docs-prereqs-windows.html#building-docs-prereqs-windows"><span class="std std-ref">Initial setup: Windows</span></a></p></li>
+</ul>
 </section>
-<section id="editing-the-documentation">
-<span id="id1"></span><h2><span class="section-number">1.10.1.2. </span>Editing the documentation<a class="headerlink" href="#editing-the-documentation" title="Link to this heading"></a></h2>
+<section id="id1">
+<h2><span class="section-number">1.10.1.2. </span>Editing the documentation<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>The CTSM documentation is built from files in the <code class="docutils literal notranslate"><span class="pre">doc/source/tech_note/</span></code> and <code class="docutils literal notranslate"><span class="pre">doc/source/users_guide/</span></code> directories. These files are written in a mixture of what are called “markup languages.” You may already be familiar—for better or for worse—with the LaTeX markup language. Fortunately, our documentation is simpler than that. It was originally written entirely in <a class="reference external" href="http://www.sphinx-doc.org/en/stable/rest.html">reStructuredText</a>, and it still mostly is, as you can tell by the predominance of .rst files. However, it’s also possible to write Markdown documents (.md), which is nice because it’s a much simpler and more widespread format (although see <a class="reference internal" href="tips-for-working-with-markdown.html#tips-for-working-with-markdown"><span class="std std-ref">Tips for working with Markdown</span></a>). If you’ve formatted text on GitHub, for instance, you’ve used Markdown.</p>
 <p>Editing the documentation is as simple as opening the source file for the page you want to edit, then changing text. Make sure to use either reStructuredText or Markdown syntax, depending on the file’s extension (.rst or .md, respectively).</p>
 <p>If you’re confident in your changes, or you’re <em>not</em> confident in your ability to preview and test the documentation (see <a class="reference internal" href="#building-the-documentation-recommended-method"><span class="std std-ref">Building the documentation (recommended method)</span></a> below), all you need to do is commit your changes and submit a pull request to the <a class="reference external" href="https://github.com/ESCOMP/CTSM">CTSM GitHub repo</a>. Automated testing will check the updated documentation for any errors, and a CTSM software engineer will review your PR. If everything looks good, they will merge it into the codebase and update the website.</p>
 </section>
 <section id="building-the-documentation-recommended-method">
 <span id="id2"></span><h2><span class="section-number">1.10.1.3. </span>Building the documentation (recommended method)<a class="headerlink" href="#building-the-documentation-recommended-method" title="Link to this heading"></a></h2>
-<p>We strongly suggest building the documentation on your personal computer before submitting a pull request, so that you can preview what your changes will look like. The simplest way to do this is using the <code class="docutils literal notranslate"><span class="pre">doc-builder</span></code> tool in conjunction with a “containerized” version of some required software.</p>
-<section id="required-software">
-<h3><span class="section-number">1.10.1.3.1. </span>Required software<a class="headerlink" href="#required-software" title="Link to this heading"></a></h3>
-<p>You will need <a class="reference external" href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Git</a>, <a class="reference external" href="https://git-lfs.com/">Git LFS</a>, and <a class="reference external" href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a> installed on your machine. In addition, you will need a decently modern installation of Python available from the command line as <code class="docutils literal notranslate"><span class="pre">python3</span></code>. We suggest using Python 3.13.2 (available in the <code class="docutils literal notranslate"><span class="pre">ctsm_pylib</span></code> conda environment; see <a class="reference internal" href="../using-clm-tools/using-ctsm-pylib.html#using-ctsm-pylib"><span class="std std-ref">Installing the CTSM Python environment</span></a>) as this is what we test with the most. However, versions 3.7 or later should work. You can do <code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">--version</span></code> on the command line to check your version.</p>
-</section>
+<p>We strongly suggest building the documentation on your personal computer before submitting a pull request, so that you can preview what your changes will look like. The recommended way to do this is using the <code class="docutils literal notranslate"><span class="pre">doc-builder</span></code> tool in conjunction with a “containerized” version of some required software.</p>
 <section id="directories">
-<h3><span class="section-number">1.10.1.3.2. </span>Directories<a class="headerlink" href="#directories" title="Link to this heading"></a></h3>
-<p>You will need a place to build the documentation. It’s fine if that doesn’t exist; the build tool will make it for you. Alternatively, you can clone the <a class="reference external" href="https://github.com/ESCOMP/ctsm-docs">ctsm-docs</a> repository and build there. The only restriction is that, at least for the recommended method described here, <strong>your build directory must be somewhere in your user home directory</strong>, which we represent as <code class="docutils literal notranslate"><span class="pre">$HOME</span></code>. The instructions here assume you want to do your build in <code class="docutils literal notranslate"><span class="pre">$HOME/path/to/build-dir/</span></code>.</p>
+<h3><span class="section-number">1.10.1.3.1. </span>Directories<a class="headerlink" href="#directories" title="Link to this heading"></a></h3>
+<p>You will need a place to build the documentation. It’s fine if that doesn’t exist; the build tool will make it for you. The only restriction is that, at least for the recommended method described here, <strong>your build directory must be somewhere in your user home directory</strong>, which we represent as <code class="docutils literal notranslate"><span class="pre">$HOME</span></code>. The instructions here assume you want to do your build in <code class="docutils literal notranslate"><span class="pre">$HOME/path/to/build-dir/</span></code>.</p>
 <p>Your CTSM clone, from which you’re building the documentation, also needs to be somewhere in your user home directory.</p>
 </section>
-<section id="building">
-<h3><span class="section-number">1.10.1.3.3. </span>Building<a class="headerlink" href="#building" title="Link to this heading"></a></h3>
-<p>Ensure that Docker Desktop is running. Then all you need to do is</p>
+<section id="building-a-preview">
+<h3><span class="section-number">1.10.1.3.2. </span>Building a preview<a class="headerlink" href="#building-a-preview" title="Link to this heading"></a></h3>
+<p>All you need to do is</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>doc
-./build_docs<span class="w"> </span>-b<span class="w"> </span><span class="nv">$HOME</span>/path/to/build-dir/versions/master<span class="w"> </span>-d
+./build_docs<span class="w"> </span>-b<span class="w"> </span><span class="nv">$HOME</span>/path/to/build-dir<span class="w"> </span>-c<span class="w"> </span>-d
 </pre></div>
 </div>
 <p>(Do <code class="docutils literal notranslate"><span class="pre">./build_docs</span> <span class="pre">--help</span></code> for more information and options.)</p>
-<p>You can then open the documentation in a web browser by browsing to <code class="docutils literal notranslate"><span class="pre">$HOME/path/to/build-dir/versions/master/html/tech_note/</span></code> and opening <code class="docutils literal notranslate"><span class="pre">index.html</span></code>.</p>
-<p>More complicated instructions and alternative methods for building the documentation can be found in <a class="reference internal" href="building-docs-original-wiki.html#overview-of-the-recommended-build-method-and-alternative-methods"><span class="std std-ref">Overview of the recommended build method and alternative methods</span></a>.</p>
+<p>You can then open the documentation in a web browser by browsing to <code class="docutils literal notranslate"><span class="pre">$HOME/path/to/build-dir/html/</span></code> and opening <code class="docutils literal notranslate"><span class="pre">index.html</span></code>.</p>
+<p>Note that there is a menu in the lower left of the webpage that lets readers switch between different versions of the documentation. The links to versions in this menu will not work when using the build command given above. If you wish to preview this version switching functionality, or you’re building the docs in the process of actually updating the website, see <a class="reference internal" href="building-docs-multiple-versions.html#building-docs-multiple-versions"><span class="std std-ref">Building multiple versions of the documentation</span></a>.</p>
 </section>
 </section>
 </section>
@@ -139,7 +144,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="1.10. Working with CTSM Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="caveats-for-working-with-markdown.html" class="btn btn-neutral float-right" title="1.10.2. Caveats for working with Markdown" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="building-docs-prereqs-mac.html" class="btn btn-neutral float-right" title="1.10.2. Initial setup: Mac" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -161,44 +166,27 @@
       </div>
     </section>
   </div>
-  
-
-  <script type="text/javascript">
-    let baseUriRegex = /(.*\/cime)\/.*/g;
-    let parsedUri = baseUriRegex.exec(document.baseURI);
-
-    if (parsedUri != null && parsedUri.length == 2) {
-      let baseUri = parsedUri[1];
-
-      $.get(`${baseUri}/versions/versions.json`, function(data) {
-        let versionElement = $("#versions");
-
-        Object.keys(data).forEach(function(key) {
-          let value = data[key];
-
-          let item = `<dd><a href="${baseUri}/versions/${key}/html/">${value}</a></dd>`
-
-          versionElement.append(item);
-        });
-      });
-    }
-  </script>
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
-    <span class="rst-current-version" data-toggle="rst-current-version">
-      <span class="fa fa-book"> Read the Docs</span>
-      v: master
-      <span class="fa fa-caret-down"></span>
-    </span>
-    <div class="rst-other-versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    Version: Latest development code
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    
+    
+    <dl>
+      <dt>Versions</dt>
       
-      <dl id="versions">
-        <dt>Versions</dt>
-      </dl>
+        <dd><a href="https://escomp.github.io/ctsm-docs//index.html">Latest development code</a></dd>
       
+        <dd><a href="https://escomp.github.io/ctsm-docs/release-clm5.0/index.html">CLM5.0</a></dd>
       
-    </div>
+    </dl>
+    
+    <br>
+    </dl>
   </div>
-<script>
+</div><script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
